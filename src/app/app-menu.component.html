@@ -1,0 +1,136 @@
+<nav class="nav navbar-expand-sm" *ngIf="isAuthenticated | async" style="position: fixed;width: 100%; top: 0;">
+    <div class="nav__controls">
+        <div class="nav__logo">
+            <svg class="logo__clearly" aria-labelledby="title-5f16fc16c78e4" xmlns="http://www.w3.org/2000/svg"
+                width="250" height="56" viewBox="0 0 455 96">
+                <title id="title-5f16fc16c78e4">Clearly Inventory</title>
+                <defs>
+                    <linearGradient id="svg-id-1a" x1=".5" y1="1" x2=".5" gradientUnits="objectBoundingBox">
+                        <stop offset="0" stop-color="#2eb7e9"></stop>
+                        <stop offset=".072" stop-color="#23ade2"></stop>
+                        <stop offset=".191" stop-color="#19a4dc"></stop>
+                        <stop offset=".333" stop-color="#16a2db"></stop>
+                        <stop offset=".402" stop-color="#159ad6"></stop>
+                        <stop offset=".56" stop-color="#1490cf"></stop>
+                        <stop offset=".745" stop-color="#148dcd"></stop>
+                    </linearGradient>
+                </defs>
+                <g data-name="Group 121">
+                    <g data-name="Group 120">
+                        <path data-name="Union 5"
+                            d="M669.713 93a10.42 10.42 0 003.586-1.417 9.482 9.482 0 003.426-3.315 2.181 2.181 0 00.435-1.2 3.014 3.014 0 00-.381-1.359l-9.734-24.31h9.189l3.974 13.051c.435 1.579.979 3.537 1.3 4.95h.167c.378-1.413.813-3.428 1.2-4.95l3.259-13.051H695l-6.2 17.512c-3.809 10.548-6.362 14.789-9.354 17.455a15.254 15.254 0 01-8 3.646zm-220.721 1.362a11.453 11.453 0 003.915-1.848 11.7 11.7 0 003.646-4.188 2.691 2.691 0 00.433-1.2 2.838 2.838 0 00-.381-1.306l-9.68-24.309h7.344l4.784 14.195c.544 1.631 1.087 3.644 1.469 5.166h.162c.435-1.522.924-3.479 1.416-5.221l4.133-14.14h7.178l-6.634 18.057c-3.646 9.9-6.093 14.3-9.247 17.023a13.465 13.465 0 01-7.016 3.425zm179.714-4.455a2.044 2.044 0 01-.881-2.029c-7.986-4-6.494-13.1-5.687-16.268l21.281 5.441c-.818 3.173-3.874 11.866-12.8 11.546a2.045 2.045 0 01-1.749 1.354zm-21.652-3.649c-1.524-1.576-2.284-4.132-2.284-7.886V67.5h-3.536v-6.09h3.536v-5l8.1-2.231v7.235h5.93V67.5h-5.928v9.626c0 3.209.76 4.678 3.262 4.678a10.508 10.508 0 002.446-.218l.058 6.256a15.994 15.994 0 01-5.385.759 8.618 8.618 0 01-6.199-2.342zM544.557 75c0-6.747 4.186-14.2 13.434-14.2 8.591 0 11.856 6.691 11.856 13.271a19.619 19.619 0 01-.273 3.262h-17.131c.273 3.426 3.642 5.058 7.5 5.058a23.413 23.413 0 007.343-1.088l1.085 5.6a26.224 26.224 0 01-9.624 1.684c-9.024.013-14.19-5.265-14.19-13.587zm7.833-3.319h9.787c0-2.012-.867-5.385-4.677-5.385-3.48.004-4.893 3.158-5.111 5.388zm-161.052 9.032c0-6.691 5.929-10.062 15.718-10.009v-.436c0-1.739-.706-4.621-5.384-4.621a14.022 14.022 0 00-7.124 1.958l-1.306-4.351a19.066 19.066 0 019.571-2.339c8.486 0 10.932 5.385 10.932 11.149v9.574a42.619 42.619 0 00.381 6.362h-6.037l-.434-2.939h-.164a9.835 9.835 0 01-7.831 3.539c-5.33 0-8.322-3.864-8.322-7.887zm6.636-.713a3.511 3.511 0 003.807 3.807A5.417 5.417 0 00407 80.168a4.8 4.8 0 00.219-1.471v-3.643c-.217 0-.434-.008-.65-.008-4.486 0-8.595 1.118-8.595 4.954zM364.8 75.165c0-7.344 4.46-14.251 12.945-14.251 8.647 0 11.42 7.07 11.42 12.891a16.529 16.529 0 01-.217 2.826h-17.73c.162 4.786 3.915 6.854 8.157 6.854a19.926 19.926 0 007.343-1.2l.978 4.623a24.826 24.826 0 01-9.246 1.684c-8.595.008-13.65-5.327-13.65-13.427zm6.418-3.209h11.638c.055-2.446-1.034-6.473-5.493-6.473-4.137 0-5.877 3.754-6.149 6.473zM321.772 70.1c0-12.071 8.376-19.356 19.58-19.356a21.076 21.076 0 018.919 1.629l-1.471 5.336a17.8 17.8 0 00-7.179-1.417c-7.451 0-12.836 4.677-12.836 13.486C328.788 77.831 333.52 83 341.57 83a18.774 18.774 0 007.287-1.359l1.087 5.275a23.006 23.006 0 01-9.463 1.684c-11.638 0-18.709-7.346-18.709-18.5zM649.751 88V70.162c0-3.917-.108-6.475-.219-8.756h7.126l.272 4.893h.217a7.813 7.813 0 017.179-5.494 8.455 8.455 0 011.737.109v7.834a8.145 8.145 0 00-2.229-.274c-3.044 0-5.113 1.629-5.654 4.187a9.693 9.693 0 00-.163 1.851V88zm-59.343 0V73.259c0-3.424-1.2-5.763-4.188-5.763a4.412 4.412 0 00-4.187 3.1 5.826 5.826 0 00-.326 2.065V88h-8.269V69.889c0-3.317-.109-6.145-.214-8.483h7.176l.379 3.642h.167a9.729 9.729 0 018.209-4.243c5.441 0 9.52 3.591 9.52 11.425V88zm-64.126 0L516.6 61.406h8.974l3.591 12.346a60.675 60.675 0 011.523 6.468h.161c.435-2.173.87-4.185 1.469-6.468l3.429-12.346h8.7L534.548 88zm-19.364 0V73.259c0-3.424-1.2-5.763-4.19-5.763a4.409 4.409 0 00-4.186 3.1 5.822 5.822 0 00-.329 2.065V88h-8.265V69.889c0-3.317-.111-6.145-.217-8.483h7.179l.378 3.642h.165a9.744 9.744 0 018.213-4.243c5.438 0 9.518 3.591 9.518 11.425V88zm-31 0V51.346h8.323V88zm-38.453 0V49.387h6.745V88zm-18 0V70.053c0-3.59-.056-6.145-.219-8.539h5.819l.218 5.057h.217a7.9 7.9 0 017.233-5.657 6.957 6.957 0 011.578.165v6.31a9.087 9.087 0 00-1.958-.221 5.9 5.9 0 00-5.982 5.062 11.476 11.476 0 00-.216 2.065V88zm-65.6 0V49.387h6.745V88zm-81.371-.1s-11.411-.159-11.817-.22c-21.692-1.148-20.668-23.128-20.668-23.128s2.678 4.7 2.972 1.284c-2.5-12.725 5.689-24.82 10.993-28.8 4.359-3.271 5.617-4.158 4.663-6.924-1.674-4.873-15.069 7.61-15.069 7.61-2.436-24.355 19.941-25.267 19.941-25.267 9.284-.154 14.459 7.129 12.541 15.587.951 1.7 2.2-2.248 2.494-3.128 3.254 6.661-6.078 14.512-13.024 19.5 4.338-2.306 10.871-5.1 14.874-3.6 0 0 5.529 3.291 9.518-7.558.783-2.133 5.051-12.139 7.151-10.724.941.634 4.443 4.022 4.178 5.877a12.587 12.587 0 0111.481 6.115 55.776 55.776 0 013.52 5.758c.963 1.9 2.6 3.279.837 4.959-1.741 1.659-3.989 1.488-6.182 1.851a6.7 6.7 0 011 1.091c-1.241.9-4.656.764-6.292.608a35.539 35.539 0 00-4.972 1.956l-.1.612c-.04 1.695 4.43 4.008 5.948 4.186s3.133-.919 4.441-1.489a7.14 7.14 0 014.285-.625 18.2 18.2 0 014.942 2.289c-.1.207 3.119 5.806-1.3 5.721-4.657-2.961-8.8-1.988-13.328.683-4 2.357-8.113 4.135-12.931 1.547-2.7-1.449-3.749-1.917-6.331-3.327l-.059.254s10.033 10.346-1.781 23.209c7.883-2.283 11.435 2.124 12.89 4.092zm349.753-17.86a7.014 7.014 0 012.336-8.615s4.436-2.468 8.187-.708c2.992 1.4-.373-4.113-.373-4.113l2.4-.787 2.673 6.1 1.85.47a8.592 8.592 0 016.842 4.554 7 7 0 01-2.089 8.676z"
+                            fill="url(#svg-id-1a)" transform="translate(-240 -8)"></path>
+                    </g>
+                    <path data-name="Rectangle 137" fill="none" d="M0 0h455v96H0z"></path>
+                </g>
+            </svg>
+
+        </div>
+
+        <div id="js-navigation" class="nav__options">
+            <ul class="nav__menu" *ngIf="isAuthenticated | async">
+
+                <li class="nav__menu-item" *ngIf="_haveTenantId$ | async">
+
+                    <a routerLink="/CurrentInventory" class="nav__menu-link"><span
+                            style="font-weight: bold;">{{currentTenantName$|async}}</span> Inventory</a>
+
+                </li>
+                <!-- <li class="nav__menu-item" *ngIf="_haveTenantId$ | async"><a routerLink="/home" class="nav__menu-link">
+                        <div class="icons icons--size02 icons--horziontal">
+                        </div>Home
+                    </a></li> -->
+                <li class="nav__menu-item" *ngIf="_haveTenantId$ | async">
+                    <a class="nav__menu-link">Libraries</a>
+                    <ul class="nav__submenu nav__submenu--1" id="submenu">
+                        <li class="nav__menu-item"><a routerLink="/item" class=" nav__menu-link">Item-Library</a></li>
+                        <li class="nav__menu-item"><a routerLink="/location" class="nav__menu-link">Location-Library</a>
+                        </li>
+                        <li class="nav__menu-item"><a routerLink="/uom" class="nav__menu-link">UOM-Library</a></li>
+                        <li class="nav__menu-item"><a routerLink="/status" class="nav__menu-link">Status-Library</a>
+                        </li>
+                    </ul>
+                </li>
+                <ng-container *ngIf="_haveTenantId$ | async">
+                    <li class="nav__menu-item">
+                        <a class="nav__menu-link" *ngIf="_isTenantOwner$|async">Admin</a>
+                        <a class="nav__menu-link" *ngIf="!(_isTenantOwner$ | async)">Custom Fields</a>
+                        <ul class="nav__submenu nav__submenu--1">
+                            <li class="nav__menu-item" *ngIf="_isTenantOwner$|async"><a routerLink="/user"
+                                    class="nav__menu-link">Manage User</a>
+                            </li>
+                            <li class="nav__menu-item" *ngIf="_isTenantOwner$|async"><a routerLink="/event"
+                                    class="nav__menu-link">Event</a>
+                            </li>
+                            <li class="nav__menu-item">
+                                <a routerLink="/AttributeField" class="nav__menu-link">Attribute Field</a>
+                            </li>
+                            <li class="nav__menu-item">
+                                <a routerLink="/CustomField" class="nav__menu-link">Custom Field</a>
+                            </li>
+                            <!-- 
+                            <li class="nav__menu-item"><a routerLink="/StateField" class="nav__menu-link">State
+                                    Field</a>
+                            </li>
+                            <li class="nav__menu-item"><a routerLink="/CircumstanceField"
+                                    class="nav__menu-link">Circumstance
+                                    Field</a>
+                            </li> -->
+
+                        </ul>
+                    </li>
+                </ng-container>
+
+
+                <li class="nav__menu-item" *ngIf="_haveTenantId$ | async"><a routerLink="#"
+                        class="nav__menu-link">Tutorials</a>
+                </li>
+            </ul>
+        </div>
+
+        <div>
+            <a class="button button--medium" routerLink="/register" style="margin-right: 10px;"
+                *ngIf="!(isAuthenticated | async)">Register</a>
+            <a class="button button--medium" (click)="login()" *ngIf="!(isAuthenticated | async)"
+                style="margin-right: 20px;">Login</a>
+        </div>
+        <!-- <div class="nav__profile" *ngIf="isAuthenticated | async">
+            <div class="nav__profile-wrap">
+                <img class="nav__profile-image" src="https://via.placeholder.com/80/283237/128ece/?text=Profile"
+                    alt="Profile">
+            </div>
+            <span class="nav__profile-name">Hello John</span>
+        </div> -->
+
+        <div *ngIf="isAuthenticated | async"
+            class="card icons icons--horziontal  icons--group icons--group--from-right">
+            <button type="button" (click)="ProfileDropDown()" class="icons__item icons__item--theme02"
+                [ngClass]="{'is-active':showProfileDD}">
+                <div class="icons_icon"><img class="nav__profile-image" src="../assets/img/profile.jpg" alt="Profile">
+                </div>
+                <span style="font-size: 16px;font-weight: bold;" class="icons__label" *ngIf="isAuthenticated | async"
+                    id="email">Hello {{email}}</span>
+                <div class="icons__submenu icons__submenu--from-right">
+                    <ul class="icons__submenu-list">
+                        <li class="icons__submenu-item"><a routerLink="/profile" class="icons__submenu-link">Profile</a>
+                        </li>
+                        <li class="icons__submenu-item"><a routerLink="/home" class="icons__submenu-link">Manage
+                                Tenants</a>
+                        </li>
+
+                        <hr />
+                        <li class="icons__submenu-item"><a class="icons__submenu-link" (click)="logout()">Log
+                                Out</a></li>
+
+
+                    </ul>
+
+                </div>
+            </button>
+        </div>
+
+
+    </div>
+</nav>
+
+<app-register *ngIf="!(isAuthenticated | async)"></app-register>

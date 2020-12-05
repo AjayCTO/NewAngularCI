@@ -1,0 +1,347 @@
+/* scss/Iconography/_ColorOptions.scss */
+.icons {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+.icons--group {
+  position: relative;
+}
+.icons--group--from-right {
+  justify-content: flex-end;
+}
+.icons__item {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-color: $light-blue;
+  color: $light-blue;
+  display: flex;
+  flex-direction: column;
+  margin-right: 2rem;
+  padding: 0;
+  position: relative;
+  .icons--horziontal & {
+    flex-direction: row;
+    margin-right: 0.20rem;
+  }
+.icons__item[active]{
+  cursor: pointer;
+}
+  button.icons__item[disabled] {
+    cursor: not-allowed;
+  }
+  .icons--group & {
+    position: static;
+  }
+  .table__button-group--is-active & {
+    opacity: 0;
+    visibility: hidden;
+  }
+  &:last-child {
+    margin-right: 0;
+  }
+}
+.icons__item--clone {
+  cursor: default;
+}
+.icons__item--is-active {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  left: 0 !important;
+  opacity: 1;
+  padding: 0.625rem 1.25rem;
+  position: absolute;
+  top: 0 !important;
+  transition-duration: 100ms;
+  transition-property: left, top;
+  transition-timing-function: ease-in-out;
+  visibility: visible;
+}
+.icons__item--divider {
+  flex-wrap: wrap;
+  &::before {
+    background-color: $iron;
+    content: "";
+    display: block;
+    height: 100%;
+    margin-right: 2rem;
+    width: 2px;
+  }
+}
+.icons__item--theme02 {
+  border-color: $caribbean-green;
+  color: $caribbean-green;
+}
+.icons__item--theme03 {
+  border-color: $rose;
+  color: $rose;
+}
+.icons__item--theme04 {
+  border-color: $royal-blue;
+  color: $royal-blue;
+}
+.icons__item--theme05 {
+  border-color: $lavender;
+  color: $lavender;
+}
+.icons__item--theme06 {
+  border-color: $razzle-dazzle-rose;
+  color: $razzle-dazzle-rose;
+}
+.icons__item--theme07 {
+  border-color: $yellow-orange;
+  color: $yellow-orange;
+}
+.icons__item--theme08 {
+  border-color: $saffron;
+  color: $saffron;
+}
+.icons__item--theme09 {
+  border-color: $cold-gray;
+  color: $cold-gray;
+}
+.icons__item--contains-text {
+  background-color: $white;
+  border-radius: 0.75rem;
+  border-style: solid;
+  border-width: 1px;
+  margin-right: 1rem;
+  padding: 0.25rem 0.5rem;
+  transition-duration: 150ms;
+  transition-property: box-shadow;
+  transition-timing-function: ease;
+  &:focus {
+    box-shadow: 0 2px 4px $black--20;
+  }
+  &:active {
+    box-shadow: 0 2px 4px $black--20;
+  }
+}
+.icons__text {
+  font-size: 12px;
+  line-height: 1.2;
+}
+.icons__name {
+  color: $dark;
+  font-weight: 400;
+}
+.icons__value {
+  color: $cold-gray-hover;
+  margin-right: 0.5rem;
+}
+
+.icons__icon {
+  align-items: center;
+  background-color: transparent;
+  border-radius: 50%;
+  display: flex;
+  height: 3rem;
+  justify-content: center;
+  transition-duration: 150ms;
+  transition-property: background, box-shadow;
+  transition-timing-function: ease;
+  width: 3rem;
+  .icons__item--is-active > & {
+    margin-bottom: 0;
+    margin-right: 0.75rem;
+  }
+  .icons__item:hover > & {
+    background-color: $white;
+    .form--search & {
+      background-color: transparent;
+    }
+    .table__row--action & {
+      background-color: $black-squeeze;
+    }
+  }
+  .icons__item--divider > & {
+    margin-right: 2rem;
+  }
+  .is-active > &,
+  .icons__item:focus > & {
+    background-color: $white;
+    box-shadow: 0 2px 4px $black--20;
+    .form--search & {
+      background-color: transparent;
+      box-shadow: none;
+    }
+  }
+  .icons__item.is-active > &,
+  .icons__item:activev & {
+    background-color: $clearly-blue !important;
+    box-shadow: 0 2px 4px $black--20;
+    color: $white--80;
+    .form--search & {
+      background-color: transparent;
+      box-shadow: none;
+      color: inherit;
+    }
+  }
+  .icons__item--theme02.is-active > &,
+  .icons__item--theme02:active > & {
+    background-color: $green !important;
+  }
+  .icons__item--theme03.is-active > &,
+  .icons__item--theme03:active > & {
+    background-color: $mahogany !important;
+  }
+  .icons__item--theme04.is-active > &,
+  .icons__item--theme04:active > & {
+    background-color: $governor-bay !important;
+  }
+  .icons__item--theme05.is-active > &,
+  .icons__item--theme05:active > & {
+    background-color: $medium-red-violet !important;
+  }
+  .icons__item--theme06.is-active > &,
+  .icons__item--theme06:active > & {
+    background-color: $cerise !important;
+  }
+  .icons__item--theme07.is-active > &,
+  .icons__item--theme07:active > & {
+    background-color: $dixie !important;
+  }
+  .icons__item--theme08.is-active > &,
+  .icons__item--theme08:active > & {
+    background-color: $gold-tips !important;
+  }
+  .icons__item--theme09.is-active > &,
+  .icons__item--theme09:active > & {
+    background-color: $text-gray !important;
+  }
+  .icons__item--outline > & {
+    background-color: $white;
+    border: 1px solid $clearly-blue;
+    color: $cold-gray-hover;
+  }
+  .icons__item--outline.icons__item--theme02 > & {
+    border: 1px solid $green;
+  }
+  .icons__item--outline.icons__item--theme03 > & {
+    border: 1px solid $mahogany;
+  }
+  .icons__item--outline.icons__item--theme04 > & {
+    border: 1px solid $governor-bay;
+  }
+  .icons__item--outline.icons__item--theme05 > & {
+    border: 1px solid $medium-red-violet;
+  }
+  .icons__item--outline.icons__item--theme06 > & {
+    border: 1px solid $cerise;
+  }
+  .icons__item--outline.icons__item--theme07 > & {
+    border: 1px solid $dixie;
+  }
+  .icons__item--outline.icons__item--theme08 > & {
+    border: 1px solid $gold-tips;
+  }
+  .icons__item--outline.icons__item--theme09 > & {
+    border: 1px solid $text-gray;
+  }
+  .icons__item--outline.is-active > &,
+  .icons__item--outline:active > &,
+  .icons__item--outline:hover > & {
+    background-color: white !important;
+    color: $light-blue;
+  }
+  .icons__item--outline.icons__item--theme02.is-active > &,
+  .icons__item--outline.icons__item--theme02:active > &,
+  .icons__item--outline.icons__item--theme02:hover > & {
+    color: $caribbean-green;
+  }
+  .icons__item--outline.icons__item--theme03.is-active > &,
+  .icons__item--outline.icons__item--theme03:active > &,
+  .icons__item--outline.icons__item--theme03:hover > & {
+    color: $rose;
+  }
+  .icons__item--outline.icons__item--theme04.is-active > &,
+  .icons__item--outline.icons__item--theme04:active > &,
+  .icons__item--outline.icons__item--theme04:hover > & {
+    color: $royal-blue;
+  }
+  .icons__item--outline.icons__item--theme05.is-active > &,
+  .icons__item--outline.icons__item--theme05:active > &,
+  .icons__item--outline.icons__item--theme05:hover > & {
+    color: $lavender;
+  }
+  .icons__item--outline.icons__item--theme06.is-active > &,
+  .icons__item--outline.icons__item--theme06:active > &,
+  .icons__item--outline.icons__item--theme06:hover > & {
+    color: $razzle-dazzle-rose;
+  }
+  .icons__item--outline.icons__item--theme07.is-active > &,
+  .icons__item--outline.icons__item--theme07:active > &,
+  .icons__item--outline.icons__item--theme07:hover > & {
+    color: $yellow-orange;
+  }
+  .icons__item--outline.icons__item--theme08.is-active > &,
+  .icons__item--outline.icons__item--theme08:active > &,
+  .icons__item--outline.icons__item--theme08:hover > & {
+    color: $saffron;
+  }
+  .icons__item--outline.icons__item--theme09.is-active > &,
+  .icons__item--outline.icons__item--theme09:active > &,
+  .icons__item--outline.icons__item--theme09:hover > & {
+    color: $cold-gray;
+  }
+  .icons__item--contains-text > & {
+    background-color: transparent;
+    border: 0;
+    color: $cold-gray-hover;
+  }
+  .icons__item--contains-text:active > &,
+  .icons__item--contains-text:focus > &,
+  .icons__item--contains-text:hover > & {
+    background-color: transparent;
+    box-shadow: none;
+    color: $dark;
+  }
+  .icons--size01 & {
+    height: 1rem;
+    width: 1rem;
+  }
+  .icons--size02 & {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+  .icons--size03 & {
+    height: 2rem;
+    width: 2rem;
+  }
+  .icon,
+  .icon-simple {
+    height: 1.5rem;
+    width: 1.5rem;
+    .icons--size01 & {
+      height: 0.5rem;
+      width: 0.5rem;
+    }
+    .icons--size02 &,
+    .icons--size03 & {
+      height: 1rem;
+      width: 1rem;
+    }
+  }
+}
+.icons__label {
+  color: $cold-gray;
+  display: block;
+  font-size: 10px;
+  line-height: 1.2;
+  padding-top: 0.25rem;
+  white-space: nowrap;
+  .icons--horziontal & {
+    padding-left: 0.25rem;
+    padding-top: 0;
+  }
+  .icons__item--divider & {
+    margin-right: 2rem;
+  }
+  .icons__item--is-active & {
+    color: $dark;
+    font-size: 32px;
+    font-weight: 300;
+  }
+}

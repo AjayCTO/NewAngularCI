@@ -1,0 +1,95 @@
+<div class="auth-wrapper" *ngIf="!(isAuthenticated | async)">
+    <div class="left-section">
+        <div class="content-wrapper">
+            <img src="/assets/img/logo1.png" alt="">
+            <div class="info-title">Question/Support</div>
+            <div class="info-body">For all questions regarding access and platform queries</div>
+            <div class="info-body">Email: <a href="mailto:support@clearlyinventory.com">support@clearlyinventory.com</a>
+            </div>
+        </div>
+    </div>
+    <div class="shape"></div>
+    <div class="right-section">
+        <div class="logo1"><img src="/assets/img/clearlyInventoryLogoHeader_189x58.png" alt=""></div>
+        <h3 class="page-title margin-bottom-small text-center">Sign Up</h3>
+        <div class="auth-card">
+            <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <div class="form__section">
+                    <div class="form__col-wrap">
+                        <div class="form__col form__col--two"
+                            [ngClass]="{ 'form__col--error': submitted && f.company.errors}">
+                            <label class="form__label" for="company">Company Name <span
+                                    class="form__required">*</span></label>
+                            <input class="form__input" type="text" id="company" name="companyFormcontrol"
+                                formControlName="company">
+                            <ng-container *ngIf="submitted && f.company.errors"> <span *ngIf="f.company.errors.required"
+                                    class="form__error-message">This field is
+                                    required</span></ng-container>
+                        </div>
+                        <div class="form__col form__col--third"
+                            [ngClass]="{ 'form__col--error': submitted && f.firstName.errors}">
+                            <label class="form__label" for="firstName">First Name <span
+                                    class="form__required">*</span></label>
+                            <input class="form__input" type="text" id="firstName" name="firstNameFormcontrol"
+                                formControlName="firstName" required>
+                            <ng-container *ngIf="submitted && f.firstName.errors"> <span
+                                    *ngIf="f.firstName.errors.required" class="form__error-message">This field is
+                                    required</span></ng-container>
+                        </div>
+                        <div class="form__col form__col--third"
+                            [ngClass]="{ 'form__col--error': submitted && f.lastName.errors}">
+                            <label class="form__label" for="lastName">Last Name <span
+                                    class="form__required">*</span></label>
+                            <input class="form__input" type="text" id="lastName" name="lastNameFormcontrol"
+                                formControlName="lastName">
+                            <ng-container *ngIf="submitted && f.lastName.errors"> <span
+                                    *ngIf="f.lastName.errors.required" class="form__error-message">This field is
+                                    required</span></ng-container>
+                        </div>
+                        <div class="form__col form__col--two"
+                            [ngClass]="{ 'form__col--error': submitted && f.email.errors}">
+                            <label class="form__label" for="emailFormcontrol">Email or Username <span
+                                    class="form__required">*</span></label>
+                            <input class="form__input" type="email" autocomplete="off" id="emailFormcontrol"
+                                name="emailFormcontrol" formControlName="email">
+                            <ng-container *ngIf="submitted && f.email.errors">
+                                <span *ngIf="f.email.errors.required" class="form__error-message">This field is
+                                    required</span>
+                                <span *ngIf="f.email.errors.email" class="form__error-message">Email must be a valid
+                                    email address</span>
+                            </ng-container>
+                        </div>
+
+                        <div class="form__col form__col--two"
+                            [ngClass]="{ 'form__col--error': submitted && f.password.errors}">
+                            <label class="form__label" for="password">Password <span
+                                    class="form__required">*</span></label>
+                            <input class="form__input" type="password" id="password" name="passwordFormcontrol"
+                                formControlName="password">
+                            <ng-container *ngIf="submitted && f.password.errors"> <span
+                                    *ngIf="f.password.errors.required" class="form__error-message">This field is
+                                    required</span></ng-container>
+                        </div>
+                        <div class="form__col form__col--two"
+                            [ngClass]="{ 'form__col--error': submitted && f.phone.errors}">
+                            <label class="form__label" for="phone">Phone Number <span
+                                    class="form__required">*</span></label>
+                            <input class="form__input" type="text" id="phone" name="phoneFormcontrol"
+                                formControlName="phone">
+                            <ng-container *ngIf="submitted && f.phone.errors"> <span *ngIf="f.phone.errors.required"
+                                    class="form__error-message">This field is
+                                    required</span></ng-container>
+                        </div>
+                        <button type="submit" class="button button--medium">Sign Up</button>
+                    </div>
+                </div>
+            </form>
+            <div class="card--footer">
+                <h4>Already have an account?</h4>
+                <h3><a (click)="login()" *ngIf="!(isAuthenticated | async)" style="margin-right: 20px;">Login</a></h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ngx-spinner></ngx-spinner>

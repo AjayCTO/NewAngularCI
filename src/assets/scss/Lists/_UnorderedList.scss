@@ -1,0 +1,27 @@
+/* scss/Lists/_UnorderedList.scss */
+ul.list {
+  padding-left: 1em;
+  li {
+    list-style: none;
+    margin-bottom: 1.25rem;
+    &::before {
+      background-color: $clearly-blue;
+      content: '';
+      display: inline-block;
+      height: 2px;
+      margin-right: 10px;
+      vertical-align: middle;
+      width: 20px;
+    }
+    ul {
+      li {
+        &:first-child {
+          margin-top: 1.25rem;
+        }
+        &::before {
+          background-color: $cold-gray;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,114 @@
+/* scss/MainNavigation/_Header.scss */
+.nav {
+  background-color: $white;
+  box-shadow: 0 3px 7px -2px $black--16;
+  position: relative;
+  z-index: 9;
+}
+.nav__controls {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 3rem;
+}
+.nav__logo-link {
+  display: block;
+  height: 2.5rem;
+  width: 7.5rem;
+}
+.nav__logo-image {
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  width: 100%;
+}
+.nav__profile {
+  align-items: center;
+  display: flex;
+  margin-left: auto;
+  padding-right: .5rem;
+}
+.nav__profile-wrap {
+  display: block;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  width: 2.5rem;
+}
+.nav__profile-image {
+  border-radius: 50%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  width: 100%;
+}
+.nav__profile-name {
+  margin-left: .75rem;
+}
+.nav__menu {
+  display: flex;
+  justify-content: space-between;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+}
+.nav__menu-item {
+  display: block;
+  list-style: none;
+  position: relative;
+}
+.nav__menu-link {
+  color: $dark;
+  display: block;
+  padding: 1.313rem 2.375rem;
+  .nav__menu-item:hover & {
+    color: $clearly-blue;
+  }
+}
+.nav__submenu {
+  background: $white;
+  box-shadow: 0 .125rem .125rem rgba(40, 50, 55, .2);
+  display: none;
+  margin: 0;
+  padding: .5rem 0;
+  position: absolute;
+  width: 14rem;
+  .nav__menu-item:hover > & {
+    display: block;
+    left: 2rem;
+    top: 100%;
+  }
+  .nav__submenu-item:hover > & {
+    display: block;
+    left: 100%;
+    top: 0;
+  }
+}
+.nav__submenu-item {
+  list-style: none;
+  position: relative;
+}
+.nav__submenu-link {
+  color: $dark;
+  display: block;
+  padding: .688rem .75rem .688rem 2rem;
+  position: relative;
+  .nav__submenu-item--parent > & {
+    background-image: svg-url('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48"><path fill="none" d="M0 0h48v48H0z"/><path d="M31.9 19a8 8 0 00-3-6.3h-.2L17.3 3.8l-4.9 6.3 5.2 4 12.6 9.7a7.6 7.6 0 001.7-4.8z" fill="#{$text-gray}"/><path d="M35.3 30.4l-18 13.8-4.9-6.3 16.4-12.6a6.7 6.7 0 001.4-1.5 7.6 7.6 0 001.7-4.8 8 8 0 00-3-6.3l6.4 5a8 8 0 010 12.7z" fill="#{$text-gray}"/></svg>');
+    background-position: calc(100% - .75rem) 14px;
+    background-repeat: no-repeat;
+    background-size: auto .625rem;
+  }
+  .nav__submenu-item:hover > & {
+    background-color: $black-squeeze;
+  }
+}
+.nav__submenu-button {
+  background-color: transparent;
+  border: 0;
+  color: $clearly-blue;
+  cursor: pointer;
+  display: block;
+  font-size: 12px;
+  padding: .688rem .75rem .688rem 2rem;
+  position: relative;
+}

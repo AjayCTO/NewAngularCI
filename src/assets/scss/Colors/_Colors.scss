@@ -1,0 +1,124 @@
+.colors {
+  align-items: center;
+  display: flex;
+}
+.color {
+  margin-right: 1rem;
+  div {
+    height: 100px;
+    width: 100px;
+  }
+  strong {
+    display: block;
+    margin-top: .5rem;
+  }
+  p {
+    margin: 0;
+  }
+  .colors--hovered &,
+  .colors--secondary & {
+    div {
+      height: 50px;
+    }
+    p {
+      margin: .5rem 0;
+    }
+  }
+}
+
+/* Primary and Hover Colors */
+.clearly-blue {
+  background-color: $clearly-blue;
+}
+.clearly-blue-hover {
+  background-color: $clearly-blue-hover;
+}
+.light-blue {
+  background-color: $light-blue;
+}
+.light-blue-hover {
+  background-color: $light-blue-hover;
+}
+.soft-green {
+  background-color: $soft-green;
+}
+.soft-green-hover {
+  background-color: $soft-green-hover;
+}
+.caution-red {
+  background-color: $caution-red;
+}
+.caution-red-hover {
+  background-color: $caution-red-hover;
+}
+.cold-gray {
+  background-color: $cold-gray;
+}
+.cold-gray-hover {
+  background-color: $cold-gray-hover;
+}
+.dark {
+  background-color: $dark;
+}
+.dark-hover {
+  background-color: $dark-hover;
+}
+.bright-orange {
+  background-color: $bright-orange;
+}
+.bright-orange-hover {
+  background-color: $bright-orange-hover;
+}
+.text-gray {
+  background-color: $text-gray;
+}
+.text-gray-hover {
+  background-color: $text-gray-hover;
+}
+.table-header-gray {
+  background-color: $table-header-gray;
+}
+
+/* Secondary Colors */
+.governor-bay {
+  background-color: $governor-bay;
+}
+.royal-blue {
+  background-color: $royal-blue;
+}
+.medium-red-violet {
+  background-color: $medium-red-violet;
+}
+.lavender {
+  background-color: $lavender;
+}
+.cerise {
+  background-color: $cerise;
+}
+.razzle-dazzle-rose {
+  background-color: $razzle-dazzle-rose;
+}
+.dixie {
+  background-color: $dixie;
+}
+.yellow-orange {
+  background-color: $yellow-orange;
+}
+.gold-tips {
+  background-color: $gold-tips;
+}
+.saffron {
+  background-color: $saffron;
+}
+.green {
+  background-color: $green;
+}
+.caribbean-green {
+  background-color: $caribbean-green;
+}
+.mahogany {
+  background-color: $mahogany;
+}
+.rose {
+  background-color: $rose;
+}

@@ -1,0 +1,97 @@
+/* scss/Modal/_General.scss */
+.modal {
+  background-color: $dark--70;
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 9;
+}
+.modal__wrap {
+  background-color: $white;
+  border-radius: 22px;
+  box-shadow: 0 0 10px $cold-gray;
+  max-height: calc(100% - 6rem);
+  margin: 3rem auto;
+  overflow: hidden;
+  position: relative;
+  width: 850px;
+}
+.modal__wrap--inner {
+  filter: drop-shadow(0 .59px 1.18px rgba(40, 50, 55, .2));
+  height: auto;
+  margin: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 410px;
+  z-index: 12;
+}
+.modal__content {
+  height: 100%;
+  overflow: auto;
+  position: relative;
+  scrollbar-color: $clearly-blue $white;
+  scrollbar-width: thin;
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: $white;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $clearly-blue;
+    border-radius: 10px;
+  }
+}
+.modal__close {
+  background-image: svg-url('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path fill="#{$cold-gray}" d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"/><path fill="#{$cold-gray}" d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z"/></svg>');
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: 1.125rem 1.125rem;
+  box-shadow: -.375rem 0 .625rem .125rem $hit-gray--10;
+  cursor: pointer;
+  height: 100px;
+  position: absolute;
+  right: 0;
+  text-indent: -9999rem;
+  top: 0;
+  width: 100px;
+  z-index: 999999;
+}
+.invModal__head {
+  align-items: center;
+  background-color: $black-squeeze;
+  display: flex;
+  height: 100px;
+  padding-left: 3.75rem;
+}
+.invModal__title {
+  color: $dark;
+  margin-bottom: 0;
+}
+.invModal__control {
+  align-items: center;
+  background-color: transparent;
+  border: 0;
+  color: $clearly-blue;
+  cursor: pointer;
+  display: flex;
+  font-size: 12px;
+  padding: .6rem 1rem 0;
+  position: relative;
+}
+.invModal__body {
+  padding: 2rem 3.75rem;
+  .modal__wrap--inner & {
+    border: solid $black-squeeze;
+    border-width: 0 .75rem .75rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+.invModal__footer {
+    padding: 0 4.75rem;
+}

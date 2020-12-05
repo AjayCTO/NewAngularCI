@@ -1,0 +1,384 @@
+<ng-container *ngIf="IsDynamicEventOpen!=undefined&&item!=undefined&&CustomFields!=undefined&&DynamicEvent!=undefined">
+    <div class="action action--add" [ngClass]="{'action--is-active': IsDynamicEventOpen}">
+        <button *ngIf="IsDynamicEventOpen"
+            class="icons__item icons__item--theme02 icons__item--clone icons__item--is-active"
+            style="top: 0px; left: 275px;">
+
+            <ng-container *ngIf="DynamicEvent.eventIcon==1">
+
+                <div class="icons__item" [style.color]="DynamicEvent.eventColor">
+                    <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
+                            aria-labelledby="title-5fc9e2b76f25d" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="24" height="24">
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                            <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                        </svg></div>
+
+                </div>
+
+            </ng-container>
+            <ng-container *ngIf="DynamicEvent.eventIcon==2">
+
+                <div class="icons__item" [style.color]="DynamicEvent.eventColor">
+                    <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--remove"
+                            aria-labelledby="title-5fc9e2b76f271" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="24" height="24">
+                            <path fill="none" d="M0 0h48v48H0z"></path>
+                            <path fill="currentColor" d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z">
+                            </path>
+                            <path fill="currentColor" d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z">
+                            </path>
+                        </svg></div>
+
+                </div>
+
+            </ng-container>
+            <ng-container *ngIf="item.eventIcon==3">
+
+                <div class="icons__item" [style.color]="item.eventColor">
+                    <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--move"
+                            aria-labelledby="title-5fc9e2b76f27f" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="24" height="24">
+                            <path fill="currentColor" d="M23.1 14l-2 2h-5.7l2-2-2-2-6.5-6.5 2.9-2.8L23.1 14z">
+                            </path>
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path fill="currentColor" d="M2 12h17v4H2z"></path>
+                        </svg></div>
+
+                </div>
+
+            </ng-container>
+            <ng-container *ngIf="DynamicEvent.eventIcon==4">
+
+                <div class="icons__item" [style.color]="DynamicEvent.eventColor">
+                    <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--adjust"
+                            aria-labelledby="title-5fc9e2b76f29c" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="24" height="24">
+                            <path fill="none" d="M24 0v24H0V0z"></path>
+                            <path d="M0 24h24V0H0z" fill="none"></path>
+                            <path fill="currentColor"
+                                d="M3 18h18v4H3zm2.968-6.351l8.485-8.486 2.829 2.829-8.485 8.485zm13.428-7.801l-1.414 1.414-2.828-2.828 1.414-1.414z">
+                            </path>
+                            <path fill="currentColor" d="M5.3 15.1l.7-3.5 2.8 2.8-3.5.7z">
+                            </path>
+                        </svg></div>
+
+                </div>
+
+
+            </ng-container>
+            <ng-container *ngIf="DynamicEvent.eventIcon==5">
+
+
+                <div class="icons__item" [style.color]="DynamicEvent.eventColor">
+                    <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--status"
+                            aria-labelledby="title-5fc9e2b76f2ba" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="24" height="24">
+                            <path fill="none" d="M24 0v24H0V0z"></path>
+                            <path d="M0 24h24V0H0z" fill="none"></path>
+                            <path fill="currentColor"
+                                d="M10 2h4v4h-4zm.5 12h3v3h-3zm2.5-2h-2l-1-6h4l-1 6zM2 19h20v3H2z">
+                            </path>
+                            <path fill="currentColor" d="M22 2v20h-3V2zM5 2v20H2V2z">
+                            </path>
+                        </svg></div>
+
+                </div>
+
+
+            </ng-container>
+            <ng-container *ngIf="DynamicEvent.eventIcon==8">
+
+                <div class="icons__item" [style.color]="DynamicEvent.eventColor">
+                    <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--convert"
+                            aria-labelledby="title-5fc9e2b76f463" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="24" height="24">
+                            <path fill="none" d="M24 0v24H0V0z"></path>
+                            <circle cx="12" cy="18.5" r="4" fill="currentColor">
+                            </circle>
+                            <circle cx="21" cy="5.2" r="2.7" fill="currentColor">
+                            </circle>
+                            <circle cx="3" cy="5.2" r="2.7" fill="currentColor">
+                            </circle>
+                            <circle cx="12" cy="9.2" r="2.7" fill="currentColor">
+                            </circle>
+                        </svg></div>
+
+                </div>
+
+
+            </ng-container>
+            <ng-container *ngIf="DynamicEvent.eventIcon==7">
+
+                <div class="icons__item" [style.color]="DynamicEvent.eventColor">
+                    <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--move-change"
+                            aria-labelledby="title-5fc9e2b76f2d3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="24" height="24">
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path fill="currentColor" d="M23.1 10l-2 2h-5.7l2-2-2-2-4.3-4.4L13.9.8l9.2 9.2z">
+                            </path>
+                            <path fill="currentColor" d="M2 8h17v4H2zm0 6h9v10H2zm11 7h9v3h-9z">
+                            </path>
+                            <path fill="currentColor" d="M19 14h3v10h-3z"></path>
+                            <path fill="currentColor" d="M13 14h9v3h-9z"></path>
+                        </svg></div>
+
+                </div>
+
+            </ng-container>
+
+            <span class="icons__label">{{DynamicEvent.eventName}}</span>
+        </button>
+        <form class="action__wrap form" #f="ngForm">
+            <div class="form__section">
+                <h2 class="form__section-title">{{DynamicEvent.eventName}} this QTY...</h2>
+                <div class="form__col-wrap">
+                    <div class="form__col form__col--third">
+                        <label class="form__label" for="quantity_add">Quantity<span
+                                class="form__required">*</span></label>
+                        <input class="form__input" type="number" id="quantity_add"
+                            [(ngModel)]="InventoryTransactionObj.transactionQty" required name="quantity_add">
+                    </div>
+
+                </div>
+            </div>
+            <ng-container *ngIf="DynamicEvent.islocationRequired">
+                <div class="form__section">
+                    <h2 class="form__section-title">To this Location ...</h2>
+                    <div class="form__col-wrap">
+                        <div class="form__col form__col--third">
+                            <label class="" for="location_move">Location<span class="form__required">*</span></label>
+                            <ng-autocomplete [data]="data" [searchKeyword]="Locationkeyword"
+                                (selected)='selectLocationEvent($event)' id="location_move" name="location_move"
+                                (inputChanged)='getLocation($event)' [debounceTime]="600" [itemTemplate]="itemTemplate"
+                                [notFoundTemplate]="notFoundTemplate" disableCloseOnSelect="true"
+                                [isLoading]="isLoadingResult" (inputCleared)="searchCleared()">
+                            </ng-autocomplete>
+
+                            <ng-template #itemTemplate let-item>
+                                <a [innerHTML]="item.locationName"></a>
+
+                            </ng-template>
+
+                            <ng-template #notFoundTemplate let-notFound>
+                                <a [innerHTML]="notFound"></a>
+                            </ng-template>
+                        </div>
+
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="DynamicEvent.isUOMRequired">
+                <div class="form__section">
+                    <h2 class="form__section-title">Into this QTY of this UOM...</h2>
+                    <div class="form__col-wrap">
+                        <div class="form__col form__col--third">
+                            <label class="form__label" for="location_convert">New Qty<span
+                                    class="form__required">*</span></label>
+                            <input class="form__input" type="number" id="location_convert"
+                                [(ngModel)]="TransactionTargetObj.ToConvertedQuantity" name="location_convert" required>
+                        </div>
+                        <div class="form__col form__col--third">
+                            <label class="form__label" for="Uom_convert">New UOM <span
+                                    class="form__required">*</span></label>
+                            <select class="form__input form__select" id="Uom_convert" name="Uom_convert"
+                                [(ngModel)]="TransactionTargetObj.ToUomId" required>
+                                <option value=""></option>
+                                <option *ngFor="let option of UomList" [value]="option.uomId">{{option.uomName}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form__col form__col--third">
+
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <div class="form__section">
+                <h2 class="form__section-title">Under these Custom Field
+                    <button type="button" class="invModal__control" (click)="AddCustomModal()">Add New Custom
+                        Field</button>
+                </h2>
+                <app-add-custom-field *ngIf="AddCustomForm"></app-add-custom-field>
+
+
+                <div class="form__col-wrap">
+                    <div class="form__col form__col--third">
+                        <label class="form__label" for="event-date_add_{{item.inventoryId}}">Event
+                            Date<span class="form__required">*</span></label>
+                        <input type="date" mwlFlatpickr [ngModel]="today | date:'yyyy-MM-dd'"
+                            class="form__input flatpickr" id="event-date_add_{{item.inventoryId}}"
+                            name="event-date_add_{{item.inventoryId}}" data-flatpickr-mode="single">
+                    </div>
+
+
+                    <ng-container *ngFor="let field of CustomFields">
+                        <div class="form__col form__col--third"
+                            [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''"
+                            *ngIf="field.customFieldIncludeOnDynamicEvent">
+
+                            <label class="form__label" *ngIf="field.dataType!='True/False'"
+                                for="Circustance_{{field.columnId}}"
+                                [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>'4' ? 'prefixLabel3':'']">{{field.columnLabel}}<span
+                                    *ngIf="field.customFieldIsRequired" class="form__required">*</span></label>
+                            <span class="form__group-outer-label"
+                                *ngIf="field.dataType=='True/False'">{{
+                                                        (field.columnLabel.length>5)? (field.columnLabel | slice:0:5)+'...':(field.columnLabel)}}
+                                :</span>
+                            <ng-container *ngIf="field.dataType=='Text'">
+
+                                <ng-container *ngIf="field.customFieldSpecialType=='Autocomplete'">
+                                    <ng-autocomplete [data]="ComboValueDropdown(field.comboBoxValue)"
+                                        [searchKeyword]="keyword" (selected)='selectEvent($event)' [debounceTime]="600"
+                                        [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                                    </ng-autocomplete>
+                                    <ng-template #itemTemplate let-item>
+                                        <a [innerHTML]="item"></a>
+                                    </ng-template>
+                                </ng-container>
+
+                                <ng-container *ngIf="field.customFieldSpecialType=='Dropdown'">
+
+                                    <!-- <select class="form__input form__select" id="Circustance_{{field.columnId}}"
+                                    name="Circustance_{{field.columnId}}" [(ngModel)]="field.columnValue" required>
+                                    <option value=""></option>
+                                    <option *ngFor="let opt of ComboValueDropdown(field.comboBoxValue)" [value]="opt">
+                                        {{opt}}
+                                    </option>
+                                </select> -->
+
+
+                                    <select class="floating-select" id="Circustance_{{field.columnId}}"
+                                        name="Circustance_{{field.columnId}}" [(ngModel)]="field.columnValue"
+                                        required="required">
+                                        <option value=""></option>
+                                        <option *ngFor="let opt of ComboValueDropdown(field.comboBoxValue)"
+                                            [value]="opt">
+                                            {{opt}}
+                                        </option>
+                                    </select>
+
+                                </ng-container>
+
+                                <ng-container *ngIf="field.customFieldSpecialType=='OpenField'">
+                                    <ng-container *ngIf="field.customFieldSuffix||field.customFieldPrefix"
+                                        class="input-group">
+                                        <span *ngIf="field.customFieldPrefix" class="input-group-addon text Prefix"
+                                            [popper]="popper13Content" [popperTrigger]="'hover'"
+                                            [popperPlacement]="'bottom'">{{(field.customFieldPrefix.length>3)? (field.customFieldPrefix |
+                                                slice:0:3)+'...':(field.customFieldPrefix)}}</span>
+                                        <popper-content #popper13Content>
+                                            <p class="popperTitle"><b>{{field.customFieldPrefix}}</b></p>
+                                        </popper-content>
+                                        <input type="text" [required]="field.customFieldIsRequired"
+                                            id="Circustance_{{field.columnId}}"
+                                            [ngClass]="[field.customFieldPrefix.length=='1' ? 'Addon':''||field.customFieldPrefix.length=='2'?'Addon1':''||field.customFieldPrefix.length=='3'?'Addon2':''||field.customFieldPrefix.length>'4'?'Addon3':'']"
+                                            name="Circustance_{{field.columnId}}" [(ngModel)]="field.columnValue"
+                                            class="form__input">
+                                        <span *ngIf="field.customFieldSuffix"
+                                            class="input-group-addon text Suffix">{{field.customFieldSuffix}}</span>
+                                    </ng-container>
+                                    <ng-container *ngIf="!field.customFieldSuffix&&!field.customFieldPrefix">
+                                        <input type="text" maxlength="{{field.customFieldTextMaxLength}}"
+                                            [required]="field.customFieldIsRequired" id="Circustance_{{field.columnId}}"
+                                            name="Circustance_{{field.columnId}}" [(ngModel)]="field.columnValue"
+                                            class="form__input">
+                                    </ng-container>
+
+                                </ng-container>
+
+                                <ng-container *ngIf="field.customFieldSpecialType==''">
+
+                                    <input type="text" [required]="field.customFieldIsRequired"
+                                        id="Circustance_{{field.columnId}}" name="Circustance_{{field.columnId}}"
+                                        [(ngModel)]="field.columnValue" class="form__input">
+
+                                </ng-container>
+
+                            </ng-container>
+                            <ng-container *ngIf="field.dataType=='Number'">
+
+                                <ng-container *ngIf="field.customFieldSpecialType=='Number'">
+                                    <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
+                                        id="Circustance_{{field.columnId}}" name="Circustance_{{field.columnId}}"
+                                        [(ngModel)]="field.columnValue" class="form__input">
+                                </ng-container>
+                                <ng-container *ngIf="field.customFieldSpecialType=='Currency'" class="input-group">
+                                    <span class="input-group-addon text">$</span>
+                                    <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
+                                        id="Circustance_{{field.columnId}}" name="Circustance_{{field.columnId}}"
+                                        [(ngModel)]="field.columnValue" class="form__input">
+                                </ng-container>
+
+                                <ng-container *ngIf="field.customFieldSpecialType==''">
+                                    <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
+                                        id="Circustance_{{field.columnId}}" name="Circustance_{{field.columnId}}"
+                                        [(ngModel)]="field.columnValue" class="form__input">
+                                </ng-container>
+
+
+
+                            </ng-container>
+                            <ng-container *ngIf="field.dataType=='Date/Time'">
+                                <ng-container
+                                    *ngIf="field.customFieldSpecialType=='Date'||field.customFieldSpecialType==''">
+                                    <input type="date" [required]="field.customFieldIsRequired"
+                                        id="Circustance_{{field.columnId}}" name="Circustance_{{field.columnId}}"
+                                        [(ngModel)]="field.columnValue" data-flatpickr-mode="single"
+                                        class="form__input flatpickr">
+                                </ng-container>
+                                <ng-container *ngIf="field.customFieldSpecialType=='Date & Time'">
+                                    <input type="date" [required]="field.customFieldIsRequired"
+                                        id="Circustance_{{field.columnId}}" name="Circustance_{{field.columnId}}"
+                                        [(ngModel)]="field.columnValue" data-flatpickr-mode="single"
+                                        class="form__input flatpickr">
+                                </ng-container>
+                                <ng-container *ngIf="field.customFieldSpecialType=='Time'">
+                                    <input type="date" [required]="field.customFieldIsRequired"
+                                        id="Circustance_{{field.columnId}}" name="Circustance_{{field.columnId}}"
+                                        [(ngModel)]="field.columnValue" data-flatpickr-mode="single"
+                                        class="form__input flatpickr">
+                                </ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="field.dataType=='True/False'">
+                                <div class="form__group form__group--radio">
+                                    <input id="Circustance_{{field.columnId}}_1" [(ngModel)]="field.columnValue"
+                                        class="form__radio" type="radio" value="{{field.customFieldFalseLabel}}"
+                                        name="radio200_{{field.columnId}}">
+                                    <label class="form__group-label"
+                                        for="Circustance_{{field.columnId}}_1">{{field.customFieldFalseLabel}}</label>
+                                </div>
+                                <div class="form__group form__group--radio">
+                                    <input [(ngModel)]="field.columnValue" value="{{field.customFieldTrueLabel}}"
+                                        id="Circustance_{{field.columnId}}_2" class="form__radio" type="radio"
+                                        name="radio200_{{field.columnId}}">
+                                    <label class="form__group-label"
+                                        for="Circustance_{{field.columnId}}_2">{{field.customFieldTrueLabel}}</label>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                    <div class=" form__col form__col--third">
+                    </div>
+                    <div class="form__col form__col--third">
+                    </div>
+                </div>
+
+            </div>
+            <div class="button-group">
+                <button type="submit" [disabled]="!f.form.valid" class="button button--medium"
+                    (click)="AddEventSubmit()" href=" #">Save</button>
+                <button type="button" class="button button--medium button--text-only js-trigger"
+                    (click)="EventAction(item)" data-trigger=".table__button-group .icons__item.is-active">Cancel
+                </button></div>
+        </form>
+        <button class="action__close js-trigger icons--size02"
+            data-trigger=".table__button-group .icons__item.is-active" type="button">
+            Back to Event Menu
+        </button>
+
+    </div>
+</ng-container>
+<ngx-spinner></ngx-spinner>

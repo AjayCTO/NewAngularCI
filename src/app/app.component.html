@@ -1,0 +1,14 @@
+<div class="atoms-main">
+    <app-menu></app-menu>
+    <div style="margin-bottom: 50px; margin-top: 4rem;">
+        <router-outlet></router-outlet>
+    </div>
+
+    <ul>
+        <li *ngFor="let shopping of shoppingItems | async">
+            {{ shopping.name }}
+        </li>
+    </ul>
+    <app-footer [currentTenantId]="currentTenantId$|async" *ngIf="isAuthenticated | async">
+    </app-footer>
+</div>

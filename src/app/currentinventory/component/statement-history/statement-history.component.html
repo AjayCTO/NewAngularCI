@@ -1,0 +1,207 @@
+<ng-container *ngIf="StatementHistory!=undefined&&item!=undefined&&CustomFields!=undefined&&
+    InventoryTransactionObj!=undefined">
+    <div class="action action--move" [ngClass]="{'action--is-active': StatementHistory}">
+        <button *ngIf="StatementHistory"
+            class="icons__item icons__item--theme01 icons__item--clone icons__item--is-active"
+            style="background: #ffffff;width: 100%!important;">
+            <div class="icons__icon"><svg class="icon icon--theme01 icon--menu" aria-labelledby="title-5fc88a569608b"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+                    <path fill="none" d="M0 0h48v48H0z"></path>
+                    <circle cx="8" cy="24" r="6" fill="currentColor" class="icon__color--primary"></circle>
+                    <circle cx="8" cy="10" r="4" fill="currentColor" class="icon__color--secondary"></circle>
+                    <circle cx="8" cy="38" r="4" fill="currentColor" class="icon__color--secondary"></circle>
+                    <rect x="16.4" y="6" width="31" height="8" rx="4" fill="currentColor"
+                        class="icon__color--secondary">
+                    </rect>
+                    <rect x="16.4" y="34" width="31" height="8" rx="4" fill="currentColor"
+                        class="icon__color--secondary">
+                    </rect>
+                    <rect x="16.4" y="18" width="31" height="12" rx="6" fill="currentColor"
+                        class="icon__color--primary">
+                    </rect>
+                </svg></div>
+            <span class="icons__label">Statement History</span>
+        </button>
+        <form class="action__wrap history--form">
+            <div class="form_section" *ngFor="let item of statementHistory">
+                <div class="form__col-wrap">
+                    <div class="form__col form__col--one">
+                        <div class="TransactionIcon">
+                            <div class="icons__item--theme11">
+                                <ng-container *ngIf="item.actionIcon==1">
+
+                                    <div class="icons__item" [style.color]="item.actionColor">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--add"
+                                                aria-labelledby="title-5fc9e2b76f25d" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                                                <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                                            </svg></div>
+
+                                    </div>
+
+                                </ng-container>
+                                <ng-container *ngIf="item.actionIcon==2">
+
+                                    <div class="icons__item" [style.color]="item.actionColor">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                                aria-labelledby="title-5fc9e2b76f271" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor"
+                                                    d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z">
+                                                </path>
+                                                <path fill="currentColor"
+                                                    d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z">
+                                                </path>
+                                            </svg></div>
+
+                                    </div>
+
+                                </ng-container>
+                                <ng-container *ngIf="item.actionIcon==3">
+
+                                    <div class="icons__item" [style.color]="item.actionColor">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--move"
+                                                aria-labelledby="title-5fc9e2b76f27f" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="currentColor"
+                                                    d="M23.1 14l-2 2h-5.7l2-2-2-2-6.5-6.5 2.9-2.8L23.1 14z">
+                                                </path>
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor" d="M2 12h17v4H2z"></path>
+                                            </svg></div>
+
+                                    </div>
+
+                                </ng-container>
+                                <ng-container *ngIf="item.actionIcon==4">
+
+                                    <div class="icons__item" [style.color]="item.actionColor">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--adjust"
+                                                aria-labelledby="title-5fc9e2b76f29c" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M24 0v24H0V0z"></path>
+                                                <path d="M0 24h24V0H0z" fill="none"></path>
+                                                <path fill="currentColor"
+                                                    d="M3 18h18v4H3zm2.968-6.351l8.485-8.486 2.829 2.829-8.485 8.485zm13.428-7.801l-1.414 1.414-2.828-2.828 1.414-1.414z">
+                                                </path>
+                                                <path fill="currentColor" d="M5.3 15.1l.7-3.5 2.8 2.8-3.5.7z">
+                                                </path>
+                                            </svg></div>
+
+                                    </div>
+
+
+                                </ng-container>
+                                <ng-container *ngIf="item.actionIcon==5">
+
+
+                                    <div class="icons__item" [style.color]="item.actionColor">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--status"
+                                                aria-labelledby="title-5fc9e2b76f2ba" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M24 0v24H0V0z"></path>
+                                                <path d="M0 24h24V0H0z" fill="none"></path>
+                                                <path fill="currentColor"
+                                                    d="M10 2h4v4h-4zm.5 12h3v3h-3zm2.5-2h-2l-1-6h4l-1 6zM2 19h20v3H2z">
+                                                </path>
+                                                <path fill="currentColor" d="M22 2v20h-3V2zM5 2v20H2V2z">
+                                                </path>
+                                            </svg></div>
+
+                                    </div>
+
+
+                                </ng-container>
+                                <ng-container *ngIf="item.actionIcon==8">
+
+                                    <div class="icons__item" [style.color]="item.actionColor">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--convert"
+                                                aria-labelledby="title-5fc9e2b76f463" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M24 0v24H0V0z"></path>
+                                                <circle cx="12" cy="18.5" r="4" fill="currentColor">
+                                                </circle>
+                                                <circle cx="21" cy="5.2" r="2.7" fill="currentColor">
+                                                </circle>
+                                                <circle cx="3" cy="5.2" r="2.7" fill="currentColor">
+                                                </circle>
+                                                <circle cx="12" cy="9.2" r="2.7" fill="currentColor">
+                                                </circle>
+                                            </svg></div>
+
+                                    </div>
+
+
+                                </ng-container>
+                                <ng-container *ngIf="item.actionIcon==7">
+
+                                    <div class="icons__item" [style.color]="item.actionColor">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--move-change"
+                                                aria-labelledby="title-5fc9e2b76f2d3" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor"
+                                                    d="M23.1 10l-2 2h-5.7l2-2-2-2-4.3-4.4L13.9.8l9.2 9.2z">
+                                                </path>
+                                                <path fill="currentColor" d="M2 8h17v4H2zm0 6h9v10H2zm11 7h9v3h-9z">
+                                                </path>
+                                                <path fill="currentColor" d="M19 14h3v10h-3z"></path>
+                                                <path fill="currentColor" d="M13 14h9v3h-9z"></path>
+                                            </svg></div>
+
+                                    </div>
+
+                                </ng-container>
+                                <ng-container *ngIf="item.actionIcon==6">
+                                    <div class="icons__item" [style.color]="item.actionColor">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--change"
+                                                aria-labelledby="title-5fc9e2b76f2c6" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20" width="20" height="20">
+                                                <path fill="currentColor" d="M0 0h9v20H0zm17 0h3v20h-3z">
+                                                </path>
+                                                <path fill="currentColor" d="M20 17v3h-9v-3zm0-17v3h-9V0z">
+                                                </path>
+                                            </svg></div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form__col form__col--nine">
+                        <h3 [style.color]="item.actionColor"><b>{{item.action}}</b> <span
+                                *ngIf="item.qty_IN_or_OUT!=null"> -
+                                {{item.qty_IN_or_OUT}}</span>
+                            &nbsp;
+
+                        </h3>
+                        <div style="display: flex;">
+                            <h5>{{item.transactionDate|date}}</h5>
+                            <h5>Updated Quantity: {{item.transactionQtyChange}}</h5>
+                            <h5>Running Quantity: {{item.transactionQuantity}}</h5>
+                        </div>
+                        <div style="display: flex;">
+                            <ng-container *ngFor="let itemcustomfield of item.customFields">
+                                <h6 *ngIf="itemcustomfield.columnValue!=''">
+                                    <strong><b>{{itemcustomfield.columnLabel}}</b>
+                                    </strong> : {{itemcustomfield.columnValue}}
+                                </h6>
+
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-container>

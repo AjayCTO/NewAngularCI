@@ -1,0 +1,104 @@
+// -------------------------------------
+//   Font Family
+// -------------------------------------
+
+$OpenSans: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+// -------------------------------------
+//   Color
+// -------------------------------------
+//
+// - http://chir.ag/projects/name-that-color/
+//
+// -------------------------------------
+
+/* Primary */
+$clearly-blue:        #128ece;
+$clearly-blue-hover:  #41a5d8;
+$light-blue:          #2eb7e9;
+$light-blue-hover:    #58c5ed;
+$soft-green:          #2de29d;
+$soft-green-hover:    #57e8b1;
+$caution-red:         #ff554d;
+$caution-red-hover:   #ff7771;
+$cold-gray:           #96a0aa;
+$cold-gray-hover:     #abb3bb;
+$dark:                #283237;
+$dark-hover:          #535b5f;
+$bright-orange:       #ffa050;
+$bright-orange-hover: #ffb373;
+$text-gray:           #686f73;
+$text-gray-hover:     #868c8f;
+$table-header-gray:   #d2dbe2;
+$white:               #ffffff;
+
+/* Secondary Colors */
+$governor-bay:        #3031a9;
+$royal-blue:          #4251db;
+$medium-red-violet:   #ac32ab;
+$lavender:            #d943dd;
+$cerise:              #e22f91;
+$razzle-dazzle-rose:  #ff45bd;
+$dixie:               #e59617;
+$yellow-orange:       #ffb533;
+$gold-tips:           #ddb819;
+$saffron:             #f9d332;
+$green:               #23ad75;
+$caribbean-green:     #2de29d;
+$mahogany:            #cc4040;
+$rose:                #ff554d;
+$gray-chateau:        #a9adaf;
+$black-squeeze:       #f0f5fa;
+$hit-gray:            #abb3bb;
+
+$black:               #000;
+$black--16:           rgba($black, .16);
+$black--20:           rgba($black, .2);
+$black--40:           rgba($black, .4);
+$cornflower:          #a0d2eb;
+$dark--70:            rgba($dark, .7);
+$hit-gray--10:        rgba($hit-gray, .1);
+$iron:                #d4d6d7;
+$white--80:           rgba($white, .8);
+
+// -------------------------------------
+//   Breakpoint
+// -------------------------------------
+//
+// - EXAMPLE:
+// - @include mq(480px) { ... }
+//
+// - NOTE:
+// - 782px is a magic number used by WordPress in media queries
+//
+// -------------------------------------
+
+$mq-portrait: '(orientation : portrait)';
+$mq-landscape: '(orientation : landscape)';
+$mq-ratio: '(min-aspect-ratio: 7/4)';
+
+@mixin mq($point) {
+  @if $point == 480px {
+    @media (min-width: 30em) { @content ; }
+  } @else if $point == 640px {
+    @media (min-width: 40em) { @content ; }
+  } @else if $point == 782px {
+    @media (min-width: 48.875em) { @content ; }
+  } @else if $point == 800px {
+    @media (min-width: 50em) { @content ; }
+  } @else if $point == 960px {
+    @media (min-width: 60em) { @content ; }
+  } @else if $point == 1120px {
+    @media (min-width: 70em) { @content ; }
+  } @else if $point == 1280px {
+    @media (min-width: 80em) { @content ; }
+  } @else if $point == 1440px {
+    @media (min-width: 90em) { @content ; }
+  } @else if $point == 1600px {
+    @media (min-width: 100em) { @content ; }
+  }
+}
+
+// -------------------------------------
+//   DON'T START VARIABLES WITH NUMBERS
+// -------------------------------------

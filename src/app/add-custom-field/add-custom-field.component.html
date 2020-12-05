@@ -1,0 +1,123 @@
+<!-- 
+<div id="innerModalCircumstance" role="dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"
+    tabindex="-1" hidden="">
+    <div class="invModal__head">
+        <h2 class="invModal__title">Add New Custom Field</h2>
+        <span class="invModal__control">
+            <div class="tooltip" title="Add New Attribute"><svg
+                    class="icon-simple icon-simple--theme01 icon-simple--info" aria-labelledby="title-5f8fce8eb7064"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12">
+                    <g data-name="Group 748" fill="currentColor">
+                        <path data-name="Path 435"
+                            d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                        </path>
+                        <path data-name="Path 436"
+                            d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                        </path>
+                    </g>
+                </svg></div>
+        </span>
+    </div>
+    <div class="invModal__body">
+        <form class="form" #om1="ngForm">
+            <div class="form__section">
+                <div class="form__col-wrap">
+                    <div class="form__col">
+                        <label class="form__label" for="Circustamce_filled-name">Filled Name<span
+                                class="form__required">*</span></label>
+                        <input class="form__input" type="text" [(ngModel)]="curcumstanceFields.columnLabel"
+                            id="Circustamce_filled-name" name="Circustamce_filled-name" required="required">
+                        <div class="tooltip" title="Add new field name"><svg
+                                class="icon-simple icon-simple--theme01 icon-simple--info"
+                                aria-labelledby="title-5f8fce8eb7070" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 12 12" width="12" height="12">
+                                <g data-name="Group 748" fill="currentColor">
+                                    <path data-name="Path 435"
+                                        d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                    </path>
+                                    <path data-name="Path 436"
+                                        d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                    </path>
+                                </g>
+                            </svg></div>
+                    </div>
+                    <div class="form__col">
+                        <label class="form__label" for="Circumstance_data-type">Data Type<span
+                                class="form__required">*</span></label>
+
+                        <select class="floating-select" [(ngModel)]="selectedDatatype" id="Circumstance_data-type"
+                            name="Circumstance_data-type" required="required">
+                            <option value=""></option>
+                            <option *ngFor="let opt of datatype" [value]="opt">
+                                {{opt}}
+                            </option>
+                        </select>
+                        <br>
+                        <ng-container *ngIf="selectedDatatype=='OpenField'">
+                            <div class="form__col-wrap">
+                                <div class="form__col form__col--half">
+                                    <label class="form__label" for="Prefix1">Prefix Value</label>
+                                    <input type="text" id="Prefix1" name="Prefix1"
+                                        [(ngModel)]="curcumstanceFields.customFieldPrefix" class="form__input">
+                                </div>
+                                <div class="form__col form__col--half"> <label class="form__label"
+                                        for="customFieldSuffix1">Suffix
+                                        Value</label>
+                                    <input type="text" id="customFieldSuffix1" name="customFieldSuffix1"
+                                        [(ngModel)]="curcumstanceFields.customFieldSuffix" class="form__input">
+                                </div>
+                                <div class="form__col form__col--half"> <label class="form__label"
+                                        for="cfdBaseValue1">Base
+                                        Value</label>
+                                    <input type="number" id="cfdBaseValue1" name="cfdBaseValue1"
+                                        [(ngModel)]="curcumstanceFields.customFieldBaseValue" class="form__input">
+                                </div>
+                                <div class="form__col form__col--half"> <label class="form__label"
+                                        for="cfdIncrementBy1">Increment
+                                        By</label>
+                                    <input type="number" id="cfdIncrementBy1" name="cfdIncrementBy1"
+                                        [(ngModel)]="curcumstanceFields.customFieldIncrementBy" class="form__input">
+                                </div>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="selectedDatatype=='Dropdown'">
+
+                            <div class="form__col">
+                                <label class="form__label" for="typeName2">Enter or Copy Dropdown Values in the
+                                    Field Below<span class="form__required">*</span></label>
+                                <textarea rows="10" style="height: 80px;" [(ngModel)]="curcumstanceFields.comboBoxValue"
+                                    id="typeName2" name="typeName2" class="drpdown form__input ng-valid ng-dirty"
+                                    required="required"></textarea>
+                            </div>
+
+                        </ng-container>
+
+                        <ng-container *ngIf="selectedDatatype=='Autocomplete'">
+
+                            <div class="form__col">
+                                <label class="form__label" for="typeName2">Enter or Copy Autocomplete Values in the
+                                    Field Below<span class="form__required">*</span></label>
+                                <textarea rows="10" style="height: 80px;" [(ngModel)]="curcumstanceFields.comboBoxValue"
+                                    id="typeName2" name="typeName2" class="drpdown form__input ng-valid ng-dirty"
+                                    required="required"></textarea>
+                            </div>
+
+                        </ng-container>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="button" (click)="AddNewCircumstance()" [disabled]="!om1.form.valid"
+                    class="button button--medium" href="#">Save</button>
+                <button type="button" #AddCircumstanceClose class="button button--medium button--text-only"
+                    data-close="#innerModalCircumstance">Cancel
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div> -->

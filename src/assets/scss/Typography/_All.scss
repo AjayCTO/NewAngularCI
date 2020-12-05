@@ -1,0 +1,58 @@
+/* scss/Typography/_All.scss */
+h1,
+h2,
+h3,
+h4 {
+  color: $clearly-blue;
+  font-weight: 300;
+  line-height: 1.2;
+  margin: 0 0 .5rem;
+}
+h1 {
+  font-size: 32px;
+  margin-top: 0;
+}
+h2 {
+  font-size: 24px;
+}
+h3 {
+  font-size: 20px;
+}
+h4 {
+  font-size: 16px;
+}
+a {
+  color: $clearly-blue;
+  text-decoration: none;
+  transition-duration: 300ms;
+  transition-property: background-color, color;
+  transition-timing-function: ease;
+}
+label {
+  color: $dark;
+  font-size: 10px;
+}
+.field__resting {
+  color: $text-gray;
+}
+.field__active {
+  color: $dark;
+}
+.card__label {
+  color: $cold-gray-hover;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.card__dropdown {
+  color: $dark;
+  font-size: 14px;
+}
+.command__element {
+  color: $text-gray;
+  font-size: 12px;
+}
+.command__isolated {
+  color: $clearly-blue;
+  font-size: 12px;
+}

@@ -1,0 +1,39 @@
+.action {
+  max-height: 0;
+  overflow: hidden;
+  transition-duration: 100ms;
+  transition-property: max-height;
+  transition-timing-function: linear;
+  &.action--is-active {
+    max-height: 1000px;
+  }
+}
+.action__wrap {
+  margin-left: 0;
+  padding: 3rem 1.25rem 1.25rem;
+}
+.action__close {
+  align-items: center;
+  background-color: transparent;
+  border: 0;
+  color: $clearly-blue;
+  cursor: pointer;
+  display: flex;
+  font-size: 12px;
+  opacity: 0;
+  padding: 0;
+  position: absolute;
+  right: 1.25rem;
+  top: 1.25rem;
+  transition-duration: 100ms;
+  transition-property: opacity, visibility;
+  transition-timing-function: linear;
+  visibility: hidden;
+  .icons__item {
+    margin-left: 2rem;
+  }
+  .action-is-active & {
+    opacity: 1;
+    visibility: visible;
+  }
+}

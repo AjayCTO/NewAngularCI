@@ -1,0 +1,148 @@
+// -------------------------------------
+//   mixin: detect-breakpoint
+// -------------------------------------
+//
+// - set the breakpoints as a font-family and pseudo element
+// - JS can read the current active breakpoint from CSS
+// - add more as needed
+// - far more reliable than reading window size with JS
+// - use with getActiveBreakPoint() in theme.js
+// - https://www.lullabot.com/articles/importing-css-breakpoints-into-javascript
+//
+// - EXAMPLE:
+// - @include detect-breakpoint();
+// - @include detect-breakpoint('min-width: 30em', '480px-wide');
+//
+// -------------------------------------
+
+@mixin detect-breakpoint($break-point: 'no-breakpoint', $text-for-js: 'no-breakpoint') {
+  @if $break-point == 'no-breakpoint' {
+    head {
+      font-family: $text-for-js;
+    }
+    body {
+      &:after {
+        content: $text-for-js;
+        display: none;
+      }
+    }
+  } @else {
+    @media (#{$break-point}) {
+      head {
+        font-family: $text-for-js;
+      }
+      body {
+        &:after {
+          content: $text-for-js;
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+// -------------------------------------
+//   mixin: clearfix()
+// -------------------------------------
+//
+// - clear a float element
+// - add to parent wrapper element
+//
+// - EXAMPLE:
+// - @include clearfix;
+//
+// -------------------------------------
+
+@mixin clearfix {
+  &:before,
+  &:after {
+    content: ' '; // 1
+    display: table; // 2
+    // Fixes Opera/contenteditable bug:
+    // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+    line-height: 0;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+
+// -------------------------------------
+//   mixin: visuallyhidden()
+// -------------------------------------
+//
+// - hide element text visually
+// - maintains accessibility for screen readers
+// - focusable modifier allows for element focus
+// - sizes down to 1px in box model
+//
+// -------------------------------------
+
+@mixin visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+@mixin visuallyhidden--focusable {
+  @include visuallyhidden;
+  &:active,
+  &:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+  }
+}
+
+
+
+// -------------------------------------
+//   mixin: ir()
+// -------------------------------------
+//
+// - text image replacement
+// - maintains accessibility for screen readers
+// - focusable modifier allows for element focus
+// - size as needed in box model
+//
+// -------------------------------------
+
+@mixin ir {
+  background-color: transparent;
+  border: 0;
+  overflow: hidden;
+  &:before {
+    content: '';
+    display: block;
+    height: 150%;
+    width: 0;
+  }
+}
+
+
+
+// -------------------------------------
+//   mixin: ie-demons()
+// -------------------------------------
+//
+// - inject repeated background transparent 1px gif
+// - hack for legacy IE
+// - fixes the most insane issues, such as links not being clickable
+// - elements that need extra help rendering z-index and other nonsense correctly
+// - https://gist.github.com/while0pass/661069
+// - http://stackoverflow.com/questions/9126105/blank-image-encoded-as-data-uri
+// - http://stackoverflow.com/questions/6914822/absolute-positioned-anchor-tag-with-no-text-not-clickable-in-ie
+//
+// -------------------------------------
+
+@mixin ie-demons {
+  background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
+}

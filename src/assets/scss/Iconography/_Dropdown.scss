@@ -1,0 +1,70 @@
+/* scss/Iconography/_Dropdown.scss */
+.icons__submenu {
+  background-color: $white;
+  box-shadow: 0 0 .625rem $cold-gray;
+  left: 0;
+  list-style-type: none;
+  margin: 0;
+  max-height: 0;
+  min-width: 200px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  top: calc(100% + .25rem);
+  transition-duration: 150ms;
+  transition-property: max-height, padding;
+  transition-timing-function: ease;
+  z-index: 11;
+  .is-active & {
+    max-height: 1000px;
+    overflow: visible;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+  }
+}
+.icon__submenu-title {
+  color: $gray-chateau;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: tracking(80);
+  line-height: 1.2;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  text-align: left;
+  text-transform: uppercase;
+}
+.icons__submenu-list {
+  margin: 0;
+  padding: 0;
+}
+.icons__submenu--from-right {
+  left: auto;
+  right: 0;
+}
+.icons__submenu-item {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  list-style: none;
+  margin: 0;
+  padding: .5rem 1rem;
+  text-align: left;
+  transition-duration: 300ms;
+  white-space: nowrap;
+  &:hover {
+    background-color: $black-squeeze;
+  }
+}
+.icons__submenu-item--contains-input {
+  border-bottom: 1px solid $iron;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  padding-top: 0;
+  &:hover {
+    background-color: transparent;
+  }
+}
+.icons__submenu-link {
+  color: $text-gray;
+}

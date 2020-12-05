@@ -1,0 +1,197 @@
+/* scss/Tables/_Tables.scss */
+.table {
+  overflow-x: auto;
+  overflow-y: visible;
+  padding-bottom: 1rem;
+  width: 100%;
+}
+.table__table {
+  border-collapse: collapse;
+  font-size: 16px;
+  line-height: 1.4375;
+  width: 100%;
+}
+.table__section {
+  display: table-row-group;
+}
+.table__section--head {
+  display: table-header-group;
+}
+.table__heading {
+  border: 0;
+  color: $dark;
+  font-weight: 400;
+  text-align: left;
+  vertical-align: bottom;
+  white-space: nowrap;
+  &:last-child {
+    border-right: 0;
+  }
+  .table__row--foot & {
+    background-color: #fff;
+    text-align: right;
+    vertical-align: top;
+  }
+}
+.table__heading--blank {
+  background-color: #fff;
+}
+.table__heading-title {
+  font-size: 12px;
+  outline-right: 1px solid transparent;
+  padding: 0.25rem 1.5rem;
+}
+.table__heading-options {
+  background-color: $table-header-gray;
+  font-size: 0;
+  outline-right: 1px solid $white;
+  padding: 0.1875rem 1.5rem;
+  position: relative;
+  .table__heading:first-child & {
+    border-top-left-radius: 0.5rem;
+  }
+  .table__heading:last-child & {
+    border-top-right-radius: 0.5rem;
+  }
+  &::after {
+    bottom: 0;
+    content: "";
+    height: 1px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    .table__heading--has-attribute & {
+      background-color: $light-blue;
+    }
+    .table__heading--has-circumstance & {
+      background-color: $saffron;
+    }
+    .table__heading--has-state & {
+      background-color: $razzle-dazzle-rose;
+    }
+  }
+}
+.table__row {
+  page-break-inside: avoid;
+}
+.table__row--is-active {
+  background-color: $white;
+  box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60, 64, 67, 0.3),
+    0 1px 3px 1px rgba(60, 64, 67, 0.15);
+}
+.table__row--body {
+  background-color: $hit-gray--10;
+  transition-duration: 300ms;
+  transition-property: background, box-shadow;
+  transition-timing-function: ease;
+  &:nth-child(even) {
+    // background-color: #f00;
+  }
+  &:hover {
+    background-color: $white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+}
+.table__cell {
+  border-bottom: 1px solid $black-squeeze;
+  padding: 1.75rem 1.5rem;
+  text-align: left;
+  vertical-align: middle;
+  &:last-child {
+    border-right: 0;
+  }
+  .table__row--foot & {
+    text-align: right;
+  }
+  .table__row--action & {
+    padding: 0;
+  }
+  .event-menu-is-active .table__row--is-active & {
+    border-left-color: $clearly-blue;
+  }
+  .action-is-active .table__row--is-active & {
+    // border-left-color: $move-change-sc;
+  }
+}
+.table__nobr {
+  display: flex;
+  justify-content: space-between;
+}
+.table__heading--center,
+.table__cell--center {
+  text-align: center;
+}
+.table__heading--right,
+.table__cell--right {
+  text-align: right;
+}
+.table__cell--nowrap {
+  white-space: nowrap;
+}
+.table__cell--product-subtotal {
+  white-space: nowrap;
+}
+.table__cell--product-name {
+  width: 100%;
+}
+.table__action {
+  max-height: 0;
+  max-width: calc(100vw - 8rem);
+  overflow: hidden;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  position: relative;
+  transition-duration: 100ms;
+  transition-property: max-height;
+  transition-timing-function: linear;
+  .event-menu-is-active & {
+    height: 64px;
+    max-height: 64px;
+  }
+  .action-is-active & {
+    height: auto;
+    max-height: 1000px;
+  }
+  // .table__row--is-active & {
+  //   max-height: 500px;
+  // }
+}
+.table__open {
+  backface-visibility: hidden;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+  transform: rotate(90deg);
+  transition-duration: 100ms;
+  transition-property: transform;
+  transition-timing-function: ease;
+  .table__row--is-active & {
+    transform: rotate(0deg);
+  }
+}
+.table__close {
+  align-items: center;
+  background-color: transparent;
+  border: 0;
+  color: $clearly-blue;
+  cursor: pointer;
+  display: flex;
+  font-size: 12px;
+  opacity: 1;
+  padding: 0;
+  position: absolute;
+  right: 1.25rem;
+  top: 1.25rem;
+  transition-duration: 100ms;
+  transition-property: opacity, visibility;
+  transition-timing-function: linear;
+  visibility: visible;
+  .icons__item {
+    margin-left: 2rem;
+  }
+  .action-is-active & {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

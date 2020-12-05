@@ -1,0 +1,43 @@
+<div class="actions">
+    <div class="actions__title">
+        <h2> Item Name </h2>
+    </div>
+</div>
+
+<section class="main">
+    <div class="edit--card">
+        <div class="edit--card-header"></div>
+        <div>
+            <ul class="nav_menu">
+                <li class="nav_menu-item">
+                    <button type="button" class="nav_button" (click)="Details()"
+                        [ngClass]="!SettingsOpen&&!RestockOpen&&!UsersOpen&&!ValuesOpen?'Active':''">Details</button>
+                </li>
+                <li class="nav_menu-item">
+                    <button type="button" class="nav_button" (click)="Settings()"
+                        [ngClass]="SettingsOpen?'Active':''">Settings</button>
+                </li>
+                <li class="nav_menu-item">
+                    <button type="button" class="nav_button" (click)="Restock()"
+                        [ngClass]="RestockOpen?'Active':''">Restock</button>
+                </li>
+                <li class="nav_menu-item">
+                    <button type="button" class="nav_button" (click)="Users()"
+                        [ngClass]="UsersOpen?'Active':''">Users</button>
+                </li>
+                <li class="nav_menu-item">
+                    <button type="button" class="nav_button" (click)="Values()"
+                        [ngClass]="ValuesOpen?'Active':''">$Values</button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="edit-input-card">
+            <app-details *ngIf="!SettingsOpen&&!RestockOpen&&!UsersOpen&&!ValuesOpen"></app-details>
+            <app-settings *ngIf="SettingsOpen"></app-settings>
+            <app-restock *ngIf="RestockOpen"></app-restock>
+            <app-users *ngIf="UsersOpen"></app-users>
+            <app-values *ngIf="ValuesOpen"></app-values>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,38 @@
+@import '_Custom';
+@import '_Simple';
+@import '_ColorOptions';
+@import '_Dropdown';
+.icon__color--primary {
+  color: $clearly-blue;
+  .icons__item--theme02 > .icons__icon & {
+    color: $green;
+  }
+  .icons__item--theme03 > .icons__icon & {
+    color: $mahogany;
+  }
+  .icons__item--theme04 > .icons__icon & {
+    color: $governor-bay;
+  }
+  .icons__item--theme05 > .icons__icon & {
+    color: $medium-red-violet;
+  }
+  .icons__item--theme06 > .icons__icon & {
+    color: $cerise;
+  }
+  .icons__item--theme07 > .icons__icon & {
+    color: $dixie;
+  }
+  .icons__item--theme08 > .icons__icon & {
+    color: $gold-tips;
+  }
+  .icons__item--theme09 > .icons__icon & {
+    color: $text-gray;
+  }
+  .icons__item.is-active > &,
+  .icons__item:active > & {
+    color: $white;
+    .form--search & {
+      color: inherit;
+    }
+  }
+}

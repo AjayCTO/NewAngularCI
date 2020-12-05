@@ -1,0 +1,34 @@
+<div class="modal">
+    <div class="libraryModal">
+        <div class="libraryModal__head">
+            <h1 class="libraryModal__title">Add New Status</h1>
+        </div>
+        <div class="libraryModal__body">
+
+            <form class="form" [formGroup]="statusForm" (ngSubmit)="onSubmit()">
+                <div class="form__section">
+                    <div class="form__col-wrap">
+                        <div class="form__col form__col--two">
+                            <label class="form__label" for="statusValueFormcontrol">Status Name<span
+                                    class="form__required">*</span></label>
+                            <input class="form__input" type="text" id="statusValueFormcontrol"
+                                formControlName="statusValue" name="statusValueFormcontrol">
+                            <!-- <ng-container *ngIf="submitted && f.statusValue.errors"> <span
+                                    *ngIf="f.statusValue.errors.required" class="form__error-message">This field is
+                                    required</span></ng-container> -->
+
+                        </div>
+                    </div>
+                    <div class="form__col-wrap">
+                        <div class="button-group">
+                            <button type="submit" class="button button--medium">Add</button>
+                            <button type="button" (click)="close()"
+                                class="button button--medium button--text-only">Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

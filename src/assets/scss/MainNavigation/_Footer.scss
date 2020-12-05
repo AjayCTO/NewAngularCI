@@ -1,0 +1,29 @@
+/* scss/MainNavigation/_Footer.scss */
+.footer {
+  border-bottom: 1px solid $table-header-gray;
+  padding: 1rem 3rem;
+}
+.footer__wrap {
+  display: flex;
+}
+.footer__col {
+  color: $dark-hover;
+  display: flex;
+  font-size: 12px;
+  justify-content: center;
+  width: calc(100% / 3);
+  &:first-child {
+    flex-direction: column;
+    span {
+      margin-bottom: 5px;
+    }
+  }
+}
+.footer__logo {
+  margin: 0 auto;
+  width: 200px;
+}
+.footer__statements {
+  color: $text-gray;
+  margin-right: .25rem;
+}

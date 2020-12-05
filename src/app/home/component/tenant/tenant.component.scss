@@ -1,0 +1,34 @@
+.card1
+{
+    background: #fff;
+    width: 350px;
+    padding: 10px;
+    text-align: justify;
+    text-decoration: none;
+    line-height: 32px;
+    box-sizing: content-box;
+    margin:10px;
+}
+.card1:hover{
+    -webkit-box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+-moz-box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+}
+.manageButton
+{
+    padding: 60px 0px 0px 10px;
+      cursor: pointer;
+}
+ .card-header1 {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+   
+}
+
+.form__col--second {
+    width: 420px !important;
+}
+#btn1 {
+    width: 100%;
+    text-align: right;
+}

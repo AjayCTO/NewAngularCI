@@ -1,0 +1,30 @@
+/* scss/Lists/_OrderedList.scss */
+ol.list {
+  counter-reset: number;
+  padding-left: 1em;
+  li {
+    list-style: none;
+    margin-bottom: 1.25rem;
+    &::before {
+      color: $clearly-blue;
+      content: counter(number, decimal-leading-zero);
+      counter-increment: number;
+      display: inline-block;
+      margin-bottom: 4px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+    ol {
+      counter-reset: letter;
+      li {
+        &:first-child {
+          margin-top: 1.25rem;
+        }
+        &::before {
+          content: counter(letter, upper-alpha);
+          counter-increment: letter;
+        }
+      }
+    }
+  }
+}

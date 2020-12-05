@@ -1,0 +1,20 @@
+/* scss/Tables/_SimplePagination.scss */
+
+.pagination {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  span {
+    font-size: 14px;
+    margin: 0 0.5rem;
+    &:last-child {
+      color: $hit-gray;
+    }
+  }
+  svg {
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+  }
+}

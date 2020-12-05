@@ -1,0 +1,40 @@
+
+.form__col-group {
+  display: flex;
+}
+.form__one {
+  display: flex;
+}
+.form__third {
+  margin-top: 22px;
+}
+
+h1 {
+  color: #128ece;
+}
+.button-group {
+  justify-content: left;
+}
+.card1 {
+  position: relative;
+  padding: 2rem 8rem;
+}
+.card {
+  padding: 1rem 3rem;
+}
+a {
+  font-weight: 400;
+  font-size: 1.25rem;
+  // color: rgb(126, 126, 126);
+  text-decoration: none;
+}
+a:hover {
+  color: #128ece;
+}
+.active {
+  background-color: #ff8100;
+  height: 35px;
+  width: 4px;
+  position: absolute;
+  right: 0;
+}

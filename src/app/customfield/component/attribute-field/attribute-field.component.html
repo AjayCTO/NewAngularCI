@@ -1,0 +1,1088 @@
+<ng-container *ngIf="NotPermitted">
+    <section class="main">
+        <h2><b>You are Not Permitted for Attribute Fields</b></h2>
+        <div>
+            <button class="button button--medium button--theme02 js-modal" type="button" routerLink="/CurrentInventory"
+                data-modal="#InventorytestModal">
+                Go to Inventory
+            </button>
+        </div>
+    </section>
+</ng-container>
+
+<app-delete-confirmation2 *ngIf="deleteCustom" (deleteCustom)="deleteField()" (hideClose)="deleteValue($event)">
+</app-delete-confirmation2>
+<ng-container *ngIf="!NotPermitted">
+    <div class="actions">
+        <div class="actions__title">
+            <h2> Attribute Field </h2>
+
+        </div>
+        <div class="actions__wrap">
+            <div class="icons__item">
+                <div class="icons__icon"><svg class="icon icon--theme01 icon--download"
+                        aria-labelledby="title-5f7c9ac573e4a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                        width="48" height="48">
+                        <path
+                            d="M42.2 37.8A5.8 5.8 0 0038 36H10a6 6 0 00-6 6 5.6 5.6 0 001.8 4.2A5.6 5.6 0 0010 48h28a6 6 0 006-6 5.6 5.6 0 00-1.8-4.2zM38 45a3 3 0 113-3 2.9 2.9 0 01-3 3z"
+                            fill="currentColor" class="icon__color--primary"></path>
+                        <path d="M0 48h48V0H0z" fill="none"></path>
+                        <path d="M29 23.9a8 8 0 006.3-3h.1l8.8-11.6-6.3-4.9-4 5.2-9.7 12.6a7.6 7.6 0 004.8 1.7z"
+                            fill="currentColor" class="icon__color--secondary"></path>
+                        <path
+                            d="M17.6 27.3L3.8 9.3l6.3-4.9 12.6 16.4a6.7 6.7 0 001.5 1.4 7.6 7.6 0 004.8 1.7 8 8 0 006.3-3l-5 6.4a8 8 0 01-12.7 0z"
+                            fill="currentColor" class="icon__color--primary"></path>
+                    </svg></div>
+                <span class="icons__label">Download</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="taskbar">
+        <div class="taskbar__col">
+            <button class="button button--large button--theme02" (click)="showForms()">
+                <svg class="icon-simple icon-simple--theme01 icon-simple--add" aria-labelledby="title-5f86742813ab3"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                    <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                    <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                </svg> &nbsp;Add New Attribute
+            </button>
+        </div>
+    </div>
+    <section class="main">
+
+        <div class="pagination">
+            <div class="icons icons--size02 icons--horziontal">
+                <a href="#" class="icons__item icons__item--theme09">
+                    <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--first"
+                            aria-labelledby="title-5f8080f1a0466" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="24" height="24">
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path fill="currentColor" d="M2 3h4v18H2zm6 7.6v2.8l11.4 8.7 2.4-3.2-9-6.9 9-6.9-2.4-3.2z">
+                            </path>
+                        </svg></div>
+                </a>
+                <a class="icons__item icons__item--theme09">
+                    <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--previous"
+                            aria-labelledby="title-5f8080f1a0482" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="24" height="24">
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path d="M2.2 12l13.2 10.1 2.4-3.2-9-6.9 9-6.9-2.4-3.2z" fill="currentColor"></path>
+                        </svg></div>
+                </a>
+            </div>
+            <span class="footer__statements">Statements 1-50</span>
+            <div class="icons icons--size02 icons--horziontal">
+                <a class="icons__item icons__item--theme09">
+                    <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--next"
+                            aria-labelledby="title-5f8080f1a0490" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="24" height="24">
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path d="M8.6 1.9L6.2 5.1l9 6.9-9 6.9 2.4 3.2L21.8 12z" fill="currentColor"></path>
+                        </svg></div>
+                </a>
+                <a class="icons__item icons__item--theme09">
+                    <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--last"
+                            aria-labelledby="title-5f8080f1a049c" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="24" height="24">
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path fill="currentColor"
+                                d="M18 3h4v18h-4zM4.6 1.9L2.2 5.1l9 6.9-9 6.9 2.4 3.2L16 13.4v-2.8z">
+                            </path>
+                        </svg></div>
+                </a>
+            </div>
+            <span class="footer__total">of 1,800</span>
+        </div>
+
+
+        <div class="table">
+            <table class="table__table tabulator">
+                <thead class="table__section table__section--head">
+                    <tr class="table__row table__row--head">
+
+                        <th scope="col" class="table__heading">
+                            <div class="table__heading-title">Attribute Name</div>
+                            <div class="table__heading-options">
+                                <div class="icons icons--horziontal icons--size02">
+                                    <button class="icons__item" type="button">
+                                        <div class="icons__icon"><svg class="icon icon--theme01 icon--filter"
+                                                aria-labelledby="title-5f83f48269fe1" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 48 48" width="48" height="48">
+                                                <path fill="none" d="M0 0h48v48H0z"></path>
+                                                <path
+                                                    d="M40 13.7a5.6 5.6 0 01-1.7 4 5.5 5.5 0 01-4 1.6 5.8 5.8 0 01-4-1.7 5.4 5.4 0 00-4-1.6h-8.6a3.9 3.9 0 00-3.7 2.5 3.8 3.8 0 00.8 4.3l-4.5-4.5A7.9 7.9 0 018 12.7 4.7 4.7 0 0112.7 8h21.6a5.7 5.7 0 013.6 1.3.8.8 0 01.4.4 5.3 5.3 0 011.7 4z"
+                                                    fill="currentColor" class="icon__color--primary"></path>
+                                                <path
+                                                    d="M28 28v12h-8V29.7a4 4 0 00-1.2-2.9l-4-4a3.8 3.8 0 01-.8-4.3 3.9 3.9 0 013.7-2.5h1.6l3.3 3.2 3.1 3.2A7.9 7.9 0 0128 28z"
+                                                    fill="currentColor" class="icon__color--secondary"></path>
+                                            </svg></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="table__heading">
+                            <div class="table__heading-title">Date Type</div>
+                            <div class="table__heading-options">
+                                <div class="icons icons--horziontal icons--size02">
+                                    <button class="icons__item" type="button">
+                                        <div class="icons__icon"><svg class="icon icon--theme01 icon--filter"
+                                                aria-labelledby="title-5f83f48269fe1" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 48 48" width="48" height="48">
+                                                <path fill="none" d="M0 0h48v48H0z"></path>
+                                                <path
+                                                    d="M40 13.7a5.6 5.6 0 01-1.7 4 5.5 5.5 0 01-4 1.6 5.8 5.8 0 01-4-1.7 5.4 5.4 0 00-4-1.6h-8.6a3.9 3.9 0 00-3.7 2.5 3.8 3.8 0 00.8 4.3l-4.5-4.5A7.9 7.9 0 018 12.7 4.7 4.7 0 0112.7 8h21.6a5.7 5.7 0 013.6 1.3.8.8 0 01.4.4 5.3 5.3 0 011.7 4z"
+                                                    fill="currentColor" class="icon__color--primary"></path>
+                                                <path
+                                                    d="M28 28v12h-8V29.7a4 4 0 00-1.2-2.9l-4-4a3.8 3.8 0 01-.8-4.3 3.9 3.9 0 013.7-2.5h1.6l3.3 3.2 3.1 3.2A7.9 7.9 0 0128 28z"
+                                                    fill="currentColor" class="icon__color--secondary"></path>
+                                            </svg></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="table__heading">
+                            <div class="table__heading-title">Required</div>
+                            <div class="table__heading-options">
+                                <div class="icons icons--horziontal icons--size02">
+                                    <button class="icons__item" type="button">
+                                        <div class="icons__icon"><svg class="icon icon--theme01 icon--filter"
+                                                aria-labelledby="title-5f83f48269fe1" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 48 48" width="48" height="48">
+                                                <path fill="none" d="M0 0h48v48H0z"></path>
+                                                <path
+                                                    d="M40 13.7a5.6 5.6 0 01-1.7 4 5.5 5.5 0 01-4 1.6 5.8 5.8 0 01-4-1.7 5.4 5.4 0 00-4-1.6h-8.6a3.9 3.9 0 00-3.7 2.5 3.8 3.8 0 00.8 4.3l-4.5-4.5A7.9 7.9 0 018 12.7 4.7 4.7 0 0112.7 8h21.6a5.7 5.7 0 013.6 1.3.8.8 0 01.4.4 5.3 5.3 0 011.7 4z"
+                                                    fill="currentColor" class="icon__color--primary"></path>
+                                                <path
+                                                    d="M28 28v12h-8V29.7a4 4 0 00-1.2-2.9l-4-4a3.8 3.8 0 01-.8-4.3 3.9 3.9 0 013.7-2.5h1.6l3.3 3.2 3.1 3.2A7.9 7.9 0 0128 28z"
+                                                    fill="currentColor" class="icon__color--secondary"></path>
+                                            </svg></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="table__heading">
+                            <div class="table__heading-title">Information</div>
+                            <div class="table__heading-options">
+                                <div class="icons icons--horziontal icons--size02">
+                                    <button class="icons__item" type="button">
+                                        <div class="icons__icon"><svg class="icon icon--theme01 icon--filter"
+                                                aria-labelledby="title-5f83f48269fe1" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 48 48" width="48" height="48">
+                                                <path fill="none" d="M0 0h48v48H0z"></path>
+                                                <path
+                                                    d="M40 13.7a5.6 5.6 0 01-1.7 4 5.5 5.5 0 01-4 1.6 5.8 5.8 0 01-4-1.7 5.4 5.4 0 00-4-1.6h-8.6a3.9 3.9 0 00-3.7 2.5 3.8 3.8 0 00.8 4.3l-4.5-4.5A7.9 7.9 0 018 12.7 4.7 4.7 0 0112.7 8h21.6a5.7 5.7 0 013.6 1.3.8.8 0 01.4.4 5.3 5.3 0 011.7 4z"
+                                                    fill="currentColor" class="icon__color--primary"></path>
+                                                <path
+                                                    d="M28 28v12h-8V29.7a4 4 0 00-1.2-2.9l-4-4a3.8 3.8 0 01-.8-4.3 3.9 3.9 0 013.7-2.5h1.6l3.3 3.2 3.1 3.2A7.9 7.9 0 0128 28z"
+                                                    fill="currentColor" class="icon__color--secondary"></path>
+                                            </svg></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="table__heading">
+                            <div class="table__heading-title">AdvanceOption</div>
+                            <div class="table__heading-options">
+                                <div class="icons icons--horziontal icons--size02">
+                                    <button class="icons__item" type="button">
+                                        <div class="icons__icon"><svg class="icon icon--theme01 icon--filter"
+                                                aria-labelledby="title-5f83f48269fe1" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 48 48" width="48" height="48">
+                                                <path fill="none" d="M0 0h48v48H0z"></path>
+                                                <path
+                                                    d="M40 13.7a5.6 5.6 0 01-1.7 4 5.5 5.5 0 01-4 1.6 5.8 5.8 0 01-4-1.7 5.4 5.4 0 00-4-1.6h-8.6a3.9 3.9 0 00-3.7 2.5 3.8 3.8 0 00.8 4.3l-4.5-4.5A7.9 7.9 0 018 12.7 4.7 4.7 0 0112.7 8h21.6a5.7 5.7 0 013.6 1.3.8.8 0 01.4.4 5.3 5.3 0 011.7 4z"
+                                                    fill="currentColor" class="icon__color--primary"></path>
+                                                <path
+                                                    d="M28 28v12h-8V29.7a4 4 0 00-1.2-2.9l-4-4a3.8 3.8 0 01-.8-4.3 3.9 3.9 0 013.7-2.5h1.6l3.3 3.2 3.1 3.2A7.9 7.9 0 0128 28z"
+                                                    fill="currentColor" class="icon__color--secondary"></path>
+                                            </svg></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="table__heading">
+                            <div class="table__heading-title">Action</div>
+                            <div class="table__heading-options">
+                                <div class="icons icons--horziontal icons--size02">
+                                    <button class="icons__item" type="button">
+                                        <div class="icons__icon">&nbsp;</div>
+                                    </button>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="table__section table__section--body" *ngIf="showForm">
+                    <tr class="table__row" id="add">
+                        <td class="table__cell" data-title="Column Title">
+                            <form class="form">
+                                <div class="form__section">
+                                    <div class="form__col-wrap">
+                                        <div class="form__col">
+                                            <label class="form__label" for="columnLabel">Name <span
+                                                    class="form__required">*</span></label>
+                                            <input class="form__input" type="text" id="columnLabel" name="columnLabel"
+                                                [(ngModel)]="attributeFields.columnLabel" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                        <td class="table__cell" data-title="Column Title">
+                            <form class="form">
+                                <div class="form__section">
+                                    <div class="form__col-wrap">
+                                        <div class="form__col">
+                                            <label class="form__label form_label" for="Datatype"> Data Type <span
+                                                    class="form__required">*</span></label>
+                                            <select class="floating-select" id="Datatype" name="Datatype"
+                                                [(ngModel)]="attributeFields.dataType" required>
+                                                <!-- <option value=""> - Select -</option> -->
+                                                <option *ngFor="let option of types">{{option}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                        <td class="table__cell " data-title="Column Title"
+                            style="padding-left: 1.75rem;padding-top: 0;">
+                            <form class="form">
+                                <div class="form__section">
+                                    <div class="form__col-wrap">
+                                        <div class="form__col form__col--group">
+                                            <div class="form__group form__group--checkbox">
+                                                <input class="form__checkbox" type="checkbox"
+                                                    id="customFieldIsRequired1" name="customFieldIsRequired"
+                                                    [(ngModel)]="attributeFields.customFieldIsRequired">
+                                                <label class="form__group-label" for="customFieldIsRequired1"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                        <td class="table__cell" data-title="Column Title">
+                            <form class="form">
+                                <div class="form__section">
+                                    <div class="form__col-wrap">
+                                        <div class="form__col">
+                                            <label class="form__label" for="textarea">Information</label>
+                                            <textarea class="form__input form__input--textarea" type="textarea"
+                                                id="customFieldInformation1" name="customFieldInformation"
+                                                [(ngModel)]="attributeFields.customFieldInformation"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                        <td class="table__cell" data-title="Column Title" style="padding-top: 0;">
+                            <button [disabled]="attributeFields.columnLabel==''|| attributeFields.dataType==''"
+                                class="button button--medium  js-modal" (click)="AdvanceOption()"
+                                data-modal="#AdvanceOptionModal">Advance
+                                Option</button>
+                        </td>
+                        <td class="table__cell" data-title="Column Title" style="padding-top: 0;">
+                            <div class="icons icons--size02">
+                                <button class="icons__item icons__item--theme02"
+                                    [disabled]="attributeFields.columnLabel==''|| attributeFields.dataType==''"
+                                    type="button" (click)="onSubmit()">
+                                    <div class="icons__item">
+                                        <div class="icons__icon"><svg class="icon icon--theme05 icon--selected"
+                                                aria-labelledby="title-5f880d5b17609" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 48 48" width="48" height="48">
+                                                <path
+                                                    d="M46.6 12.7l-16.9 17a8.1 8.1 0 01-11.4 0L12.7 24A8 8 0 0024 24L41 7z"
+                                                    fill="currentColor" class="icon__color--primary"></path>
+                                                <path d="M24 24a8 8 0 01-11.3 0l-2.8-2.8 5.6-5.7z" fill="currentColor"
+                                                    class="icon__color--secondary"></path>
+                                            </svg></div>
+                                        <span class="icons__label">Save</span>
+                                    </div>
+                                </button>
+                                <button class="icons__item icons__item--theme03" (click)="HideForm()" type="button">
+                                    <div class="icons__item">
+                                        <div class="icons__icon"><svg class="icon icon--theme06 icon--remove"
+                                                aria-labelledby="title-5f880d5b173dc" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 48 48" width="48" height="48">
+                                                <path fill="none" d="M0 0h48v48H0z"></path>
+                                                <path
+                                                    d="M12.7 18.3L4.2 9.9l5.7-5.7L24 18.3a7.9 7.9 0 0011.3 0 15.9 15.9 0 01-22.6 0z"
+                                                    fill="currentColor" class="icon__color--primary"></path>
+                                                <path class="icon__color--secondary"
+                                                    d="M24 18.3L38.1 4.2l5.7 5.7-8.5 8.4a7.9 7.9 0 01-11.3 0z"
+                                                    fill="currentColor"></path>
+                                                <path class="icon__color--primary"
+                                                    d="M35.3 28.9l8.5 8.5-5.7 5.6L24 28.9a8 8 0 00-11.3 0 15.9 15.9 0 0122.6 0z"
+                                                    fill="currentColor"></path>
+                                                <path class="icon__color--secondary"
+                                                    d="M24 28.9L9.9 43l-5.7-5.6 8.5-8.5a8 8 0 0111.3 0z"
+                                                    fill="currentColor"></path>
+                                            </svg></div>
+                                        <span class="icons__label">Cancel</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody class="table__section table__section--body">
+                    <ng-container *ngFor="let item of CustomFields">
+                        <tr class="table__row table__row--body"
+                            [ngClass]="{'table__row--is-active':item.isActive==true}">
+
+
+                            <td class="table__cell" data-title="Column Title">
+                                {{item.columnLabel}}
+                            </td>
+                            <td class="table__cell" data-title="Column Title">
+                                {{item.dataType}}<span *ngIf="item.customFieldSpecialType!=''">,
+                                    {{item.customFieldSpecialType}}</span>
+                            </td>
+                            <td class="table__cell" data-title="Column Title">
+                                {{item.customFieldIsRequired}}
+
+
+
+                            </td>
+
+                            <td class="table__cell" data-title="Column Title">
+                                {{item.customFieldInformation}}
+                            </td>
+                            <td></td>
+                            <td class="table__cell" data-title="Column Title">
+                                <div class="icons icons--size02">
+                                    <button class="icons__item icons__item--theme07" (click)="openmenu(item)"
+                                        type="button">
+                                        <div class="icons__icon"><svg class="icon icon--theme01 icon--adjust"
+                                                aria-labelledby="title-5f83f4826a17f" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 48 48" width="48" height="48">
+                                                <path fill="currentColor" class="icon__color--primary"
+                                                    d="M6 36h36v8H6z">
+                                                </path>
+                                                <path
+                                                    d="M12 23.2a8 8 0 00-2.1 7.7 7.9 7.9 0 007.7-2 8.1 8.1 0 002.1-7.8 8 8 0 00-7.7 2.1z"
+                                                    fill="currentColor" class="icon__color--secondary"></path>
+                                                <path d="M17.6 17.6L12 23.2l5.6 5.7a8 8 0 010-11.3z" fill="currentColor"
+                                                    class="icon__color--secondary">
+                                                </path>
+                                                <path
+                                                    d="M28.9 6.2L17.6 17.6a8 8 0 000 11.3l17-17zm5.075-3.486l4.242 4.243a1 1 0 010 1.414l-2.121 2.122-5.657-5.657 2.122-2.122a1 1 0 011.414 0z"
+                                                    fill="currentColor" class="icon__color--primary"></path>
+                                                <path fill="none" d="M48 0v48H0V0z"></path>
+                                                <path d="M0 48h48V0H0z" fill="none"></path>
+                                            </svg></div>
+                                        <span class="icons__label">Edit</span>
+                                    </button>
+                                    <button class="icons__item icons__item--theme03" (click)="DeleteConfirm(item)">
+                                        <div class="icons__icon">
+                                            <svg class="icon icon--theme01 icon-simple--trash"
+                                                aria-labelledby="title-5f84133e656c0" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor"
+                                                    d="M18.3 18l-.4 3H6.1l-.4-3h12.6zM4.541 2.927l15.863 2.088-.391 2.975L4.15 5.9z"
+                                                    class="icon__color--primary">
+                                                </path>
+                                                <path fill="currentColor"
+                                                    d="M10.734 1.738l3.96.52-.26 1.98-3.96-.52zM16.3 10h3l-1 8-.4 3h-3l.4-3 1-8zM9.1 21h-3l-.4-3-1.1-8h3.1l1 8 .4 3z">
+                                                </path>
+                                            </svg></div>
+                                        <span class="icons__label">Remove</span>
+
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="table__row table__row--action"
+                            [ngClass]="{'table__row--is-active':item.isActive==true}">
+                            <td class="table__cell">
+                                <div class="table__action" [ngClass]="{'exapandmenurow':item.isActive}">
+                                    <div class="table__button-group icons icons--size02">
+                                        <div class="action action--move-change"
+                                            [ngClass]="{'exapandmenurow':item.isActive}">
+
+
+                                            <div class="form__col-wrap mt-15">
+                                                <div class="form__col">
+                                                    <label class="form__label" for="columnLabel{{item.columnId}}">Name
+                                                        <span class="form__required">*</span></label>
+                                                    <input name="columnLabel{{item.columnId}}"
+                                                        [(ngModel)]="attributeFields.columnLabel" class="form__input"
+                                                        type="text" id="columnLabel{{item.columnId}}">
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="table__cell">
+                                <div class="table__action" [ngClass]="{'exapandmenurow':item.isActive}">
+                                    <div class="table__button-group icons icons--size02">
+                                        <div class="action action--move-change"
+                                            [ngClass]="{'exapandmenurow':item.isActive}">
+
+
+                                            <div class="form__col-wrap mt-15">
+                                                <div class="form__col">
+                                                    <label class="form__label" for="DateType{{item.columnId}}">Data Type
+                                                        <span class="form__required">*</span></label>
+                                                    <select class="form__input" id="DateType{{item.columnId}}"
+                                                        [(ngModel)]="attributeFields.dataType" disabled="true"
+                                                        name="DateType{{item.columnId}}" required="required">
+                                                        <option *ngFor="let product of types"> {{product}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="table__cell" data-title="Column Title">
+
+                                <div class="table__action" [ngClass]="{'exapandmenurow':item.isActive}">
+                                    <div class="table__button-group icons icons--size02">
+                                        <div class="action action--move-change"
+                                            [ngClass]="{'exapandmenurow':item.isActive}">
+
+
+                                            <div class="form__col-wrap mt-15">
+                                                <div class="form__col form__col--group">
+                                                    <div class="form__group form__group--checkbox">
+                                                        <input id="checkbox1" class="form__checkbox" type="checkbox"
+                                                            [(ngModel)]="attributeFields.customFieldIsRequired"
+                                                            name="checkbox[]">
+                                                        <label class="form__group-label" for="checkbox1"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="table__cell">
+                                <div class="table__action" [ngClass]="{'exapandmenurow':item.isActive}">
+                                    <div class="table__button-group icons icons--size02">
+                                        <div class="action action--move-change"
+                                            [ngClass]="{'exapandmenurow':item.isActive}">
+
+
+                                            <div class="form__col-wrap mt-15">
+                                                <div class="form__col">
+                                                    <label class="form__label" for="textarea">Information </label>
+                                                    <textarea class="form__input form__input--textarea" type="textarea"
+                                                        id="customFieldInformation" name="customFieldInformation"
+                                                        [(ngModel)]="attributeFields.customFieldInformation"></textarea>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+
+                            <td class="table__cell" data-title="Column Title">
+
+                                <div class="table__action" [ngClass]="{'exapandmenurow':item.isActive}">
+                                    <div class="table__button-group icons icons--size02">
+                                        <div class="action action--move-change"
+                                            [ngClass]="{'exapandmenurow':item.isActive}">
+
+                                            <button class="button button--medium  js-modal" type="button"
+                                                [disabled]="attributeFields.columnLabel==''|| attributeFields.dataType==''"
+                                                data-modal="#AdvanceOptionModal">Advance Option</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </td>
+
+                            <td class="table__cell">
+                                <div class="table__action" [ngClass]="{'exapandmenurow':item.isActive}">
+                                    <div class="table__button-group icons icons--size02">
+                                        <div class="action action--move-change"
+                                            [ngClass]="{'exapandmenurow':item.isActive}">
+
+                                            <div class="icons icons--size02">
+                                                <button class="icons__item icons__item--theme02" type="button"
+                                                    [disabled]="attributeFields.columnLabel==''|| attributeFields.dataType==''"
+                                                    (click)="onSubmit()" data-action="" data-parent=".table__row"
+                                                    data-parent-class="table__row--is-active"
+                                                    data-html-class="event-menu-is-active">
+                                                    <div class="icons__item">
+                                                        <div class="icons__icon"><svg
+                                                                class="icon icon--theme02 icon--selected"
+                                                                aria-labelledby="title-5f880d5b17609"
+                                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                                                                width="48" height="48">
+                                                                <path
+                                                                    d="M46.6 12.7l-16.9 17a8.1 8.1 0 01-11.4 0L12.7 24A8 8 0 0024 24L41 7z"
+                                                                    fill="currentColor" class="icon__color--primary">
+                                                                </path>
+                                                                <path d="M24 24a8 8 0 01-11.3 0l-2.8-2.8 5.6-5.7z"
+                                                                    fill="currentColor" class="icon__color--secondary">
+                                                                </path>
+                                                            </svg></div>
+                                                        <span class="icons__label">Update</span>
+                                                    </div>
+                                                </button>
+                                                <button class="icons__item icons__item--theme03"
+                                                    (click)=" closemenu(item) " type="button">
+                                                    <div class="icons__item">
+                                                        <div class="icons__icon"><svg
+                                                                class="icon icon--theme01 icon--remove"
+                                                                aria-labelledby="title-5f880d5b173dc"
+                                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                                                                width="48" height="48">
+                                                                <path fill="none" d="M0 0h48v48H0z"></path>
+                                                                <path
+                                                                    d="M12.7 18.3L4.2 9.9l5.7-5.7L24 18.3a7.9 7.9 0 0011.3 0 15.9 15.9 0 01-22.6 0z"
+                                                                    fill="currentColor" class="icon__color--primary">
+                                                                </path>
+                                                                <path class="icon__color--secondary"
+                                                                    d="M24 18.3L38.1 4.2l5.7 5.7-8.5 8.4a7.9 7.9 0 01-11.3 0z"
+                                                                    fill="currentColor"></path>
+                                                                <path class="icon__color--primary"
+                                                                    d="M35.3 28.9l8.5 8.5-5.7 5.6L24 28.9a8 8 0 00-11.3 0 15.9 15.9 0 0122.6 0z"
+                                                                    fill="currentColor"></path>
+                                                                <path class="icon__color--secondary"
+                                                                    d="M24 28.9L9.9 43l-5.7-5.6 8.5-8.5a8 8 0 0111.3 0z"
+                                                                    fill="currentColor"></path>
+                                                            </svg></div>
+                                                        <span class="icons__label">Cancel</span>
+                                                    </div>
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
+
+
+
+                </tbody>
+            </table>
+
+        </div>
+
+        <!-- for text -->
+
+
+    </section>
+
+</ng-container>
+<ngx-spinner></ngx-spinner>
+<div id="AdvanceOptionModal" class="invModal" role="dialog" aria-labelledby="dialog-title"
+    aria-describedby="dialog-description" tabindex="-1" hidden="">
+    <div class="invModal__head">
+        <h2 class="invModal__title">AdvanceOption for {{attributeFields.columnLabel}}</h2>
+        <span class="invModal__control">
+            <div class="tooltip" title="Example text here"><svg
+                    class="icon-simple icon-simple--theme01 icon-simple--info" aria-labelledby="title-5f8fdf94d81f2"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12">
+                    <g data-name="Group 748" fill="currentColor">
+                        <path data-name="Path 435"
+                            d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                        </path>
+                        <path data-name="Path 436"
+                            d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                        </path>
+                    </g>
+                </svg></div>
+        </span>
+    </div>
+    <div class="invModal__body">
+        <form class="form">
+            <div *ngIf="attributeFields.dataType=='Text'">
+                <div class="form__section">
+                    <div class="form__col-wrap">
+                        <div class="form__col form__col--half">
+                            <label class="form__label form_label" for="SpecialTypeField">Input type</label>
+                            <select (ngModelChange)='onOptionsSelected($event)' class="form__input"
+                                id="SpecialTypeField" name="SpecialTypeField"
+                                [(ngModel)]="attributeFields.customFieldSpecialType">
+                                <option *ngFor="let product of Inputtypes" [value]="product">
+                                    {{product}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="attributeFields.customFieldSpecialType=='Dropdown'">
+                    <div class="form__col form__col--half">
+                        <label class="form__label" for="typeName1">Enter or Copy Dropdown Values in the
+                            Field Below</label>
+                        <textarea rows="4" [(ngModel)]="attributeFields.comboBoxValue" id="typeName1" name="typeName1"
+                            (change)="ComboBoxChangeDropDown(attributeFields.comboBoxValue)" cols="20"
+                            class="drpdown form__input ng-valid ng-dirty"></textarea>
+                    </div>
+                    <div class="form__col form__col--half">
+                        <label class="form__label form_label" for="TypePreviewName">Preview Dropdown List</label>
+                        <select id="TypePreviewName" name="TypePreviewName" class="form__input">
+                            <option *ngFor="let product of PreviewtypesDropDown" [value]="product">
+                                {{product}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div *ngIf="attributeFields.customFieldSpecialType=='Autocomplete'">
+                    <div class="form__col form__col--half">
+                        <label class="form__label" for="typeName2">Enter or Copy Autocomplete Values in the
+                            Field Below</label>
+                        <textarea rows="4" [(ngModel)]="attributeFields.comboBoxValue" name="typeName2" id="typeName2"
+                            (change)="ComboBoxChangeAutocomlete(attributeFields.comboBoxValue)" cols="60"
+                            class="drpdown form__input ng-valid ng-dirty"></textarea>
+
+
+
+                    </div>
+                    <div class="form__col form__col--half">
+                        <label class="" for="nameAutocomplete">Preview Autocomplete</label>
+
+                        <ng-autocomplete [data]="PreviewtypesAutocomplete" [searchKeyword]=""
+                            (selected)='selectEvent($event)' isLoading [debounceTime]="600"
+                            [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
+
+                        <ng-template #itemTemplate let-item>
+                            <a [innerHTML]="item"></a>
+                        </ng-template>
+                        <ng-template #notFoundTemplate let-notFound>
+                            <a [innerHTML]="notFound"></a>
+                        </ng-template>
+
+                    </div>
+                </div>
+                <div *ngIf="attributeFields.customFieldSpecialType=='OpenField'">
+                    <div class="form__col form__col--half">
+                        <label class="form__label" for="customFieldTextMaxLength">Maximum Number of
+                            Characters</label>
+                        <input
+                            [disabled]="attributeFields.customFieldPrefix!=''|| attributeFields.customFieldSuffix!=''"
+                            type="number" id="customFieldTextMaxLength" name="customFieldTextMaxLength"
+                            id="customFieldTextMaxLength" [(ngModel)]="attributeFields.customFieldTextMaxLength"
+                            class="form__input">
+                    </div> <br>
+                    <div class="form__col form__col--half">
+                        <label class="form__label" for="customFieldDefaultValue">Default Value</label>
+                        <input
+                            [disabled]="attributeFields.customFieldPrefix!=''|| attributeFields.customFieldSuffix!=''"
+                            type="text" id="customFieldDefaultValue" name="customFieldDefaultValue"
+                            [(ngModel)]="attributeFields.customFieldDefaultValue" class="form__input">
+                    </div><br>
+                    <div class="form__col form__col--half">
+                        <label class="form__label" for="Prefix">Prefix Value</label>
+                        <input type="text" id="Prefix" name="Prefix" [(ngModel)]="attributeFields.customFieldPrefix"
+                            class="form__input">
+                    </div><br>
+                    <div class="form__col form__col--half"> <label class="form__label" for="customFieldSuffix">Suffix
+                            Value</label>
+                        <input type="text" id="customFieldSuffix" name="customFieldSuffix"
+                            [(ngModel)]="attributeFields.customFieldSuffix" class="form__input">
+                    </div><br>
+                    <div class="form__col form__col--half"> <label class="form__label" for="cfdBaseValue">Base
+                            Value</label>
+                        <input type="number" id="cfdBaseValue" name="cfdBaseValue"
+                            [(ngModel)]="attributeFields.customFieldBaseValue" class="form__input">
+                    </div><br>
+                    <div class="form__col form__col--half"> <label class="form__label" for="cfdIncrementBy">Increment
+                            By</label>
+                        <input type="number" id="cfdIncrementBy" name="cfdIncrementBy"
+                            [(ngModel)]="attributeFields.customFieldIncrementBy" class="form__input">
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="attributeFields.dataType=='Number'">
+
+                <div class="form__section">
+                    <div class="form__col-wrap">
+                        <div class="form__col form__col--half">
+
+                            <label class="form__label form_label" for="NumberSpecialField">Input type</label>
+                            <select (ngModelChange)='onOptionsSelected($event)' id="NumberSpecialField"
+                                name="NumberSpecialField" class="form__input"
+                                [(ngModel)]="attributeFields.customFieldSpecialType">
+                                <option *ngFor="let product of InputtypeNumber" [value]="product">{{product}}
+                                </option>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="attributeFields.customFieldSpecialType=='Number'">
+
+                    <div class="form__col form__col--half">
+                        <label class="form__label" for="NumbercustomFieldNumberMin">Minimum Value</label>
+                        <input type="number" id="customFieldTextMaxLength" name="customFieldNumberMin"
+                            [(ngModel)]="attributeFields.customFieldNumberMin" class="form__input">
+                    </div>
+                    <div class="form__col form__col--half">
+                        <label class="form__label" for="customFieldNumberMax">Maximum Value </label>
+                        <input type="number" id="customFieldTextMaxLength" name="customFieldNumberMax"
+                            [(ngModel)]="attributeFields.customFieldNumberMax" class="form__input">
+                    </div>
+                    <div class="form__col form__col--half">
+                        <label class="form__label" for="customFieldDefaultValue">Default Value </label>
+                        <input type="text" id="customFieldTextMaxLength" name="customFieldDefaultValue"
+                            [(ngModel)]="attributeFields.customFieldDefaultValue" class="form__input">
+                    </div>
+                    <div class="form__col form__col--half">
+                        <label class="form__label" for="customFieldNumberDecimalPlaces">Decimal Places </label>
+                        <input type="number" id="customFieldTextMaxLength" name="customFieldNumberDecimalPlaces"
+                            [(ngModel)]="attributeFields.customFieldNumberDecimalPlaces" class="form__input">
+                    </div>
+
+                </div>
+                <div *ngIf="attributeFields.customFieldSpecialType=='Currency'">
+                    <div class="form__col form__col--half">
+                        <label class="form__label" for="customFieldDefaultValue">Default Value </label>
+                        <input type="text" id="customFieldDefaultValue" name="customFieldDefaultValue"
+                            [(ngModel)]="attributeFields.customFieldDefaultValue" class="form__input">
+                    </div>
+                </div>
+            </div>
+
+
+            <div *ngIf="attributeFields.dataType=='Date/Time'">
+
+                <div class="form__col form__col--half">
+                    <label class="form__label form_label" for="DateSpecialField">Input type</label>
+                    <select name="DateSpecialField" (ngModelChange)='onOptionsSelected($event)' id="DateSpecialField"
+                        class="form__input" [(ngModel)]="attributeFields.customFieldSpecialType">
+                        <option *ngFor="let product of InputtypeDate" [value]="product">{{product}}</option>
+                    </select>
+                </div>
+
+                <div *ngIf="attributeFields.customFieldSpecialType=='Date'">
+
+                    <div class="form__col-wrap">
+                        <div class="form__col form__col--group">
+                            <div class="form__group form__group--radio">
+                                <input id="radio1" (click)="showoffsetdatefields('false')" class="form__radio"
+                                    type="radio" [checked]="attributeFields.offsetDateFields=='false'"
+                                    name="inlineRadioOptionsDate">
+                                <label class="form__group-label" for="radio1">Current Date</label>
+                            </div>
+                            <div class="form__group form__group--radio">
+                                <input (click)="showoffsetdatefields('true')" id="radio2"
+                                    [checked]="attributeFields.offsetDateFields=='true'" class="form__radio"
+                                    type="radio" name="inlineRadioOptionsDate">
+                                <label class="form__group-label" for="radio2">Offset Date</label>
+                            </div>
+                            <div class="form__group form__group--radio">
+                                <input (click)="showoffsetdatefields('none')"
+                                    [checked]="attributeFields.offsetDateFields=='none'" id="radio3" class="form__radio"
+                                    type="radio" name="inlineRadioOptionsDate">
+                                <label class="form__group-label" for="radio3">None</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="attributeFields.offsetDateFields=='true'">
+
+                        <div class="form__col-wrap">
+
+                            <div class="form__col form__col--third">
+                                <label class="form__label form_label" for="Dateplusminus">Plus/Minus</label>
+                                <select class="form-control form__input" id="Dateplusminus" name="Dateplusminus"
+                                    [(ngModel)]="attributeFields.dateDefaultPlusMinus">
+                                    <option value=""></option>
+                                    <option value="+">Plus(+)</option>
+                                    <option value="-">Minus(-)</option>
+                                </select>
+
+                            </div>
+                            <div class="form__col form__col--third">
+                                <label class="form__label" for="dateDefaultNumber"> Value </label>
+                                <input type="number" id="dateDefaultNumber" class="form-control form__input"
+                                    name="dateDefaultNumber" [(ngModel)]="attributeFields.dateDefaultNumber">
+
+                            </div>
+
+                            <div class="form__col form__col--third">
+                                <label class="form__label form_label" for="df">Days/Months</label>
+
+                                <select class="form__input" id="df" name="df"
+                                    [(ngModel)]="attributeFields.dateDefaulInterval">
+                                    <option value=""></option>
+                                    <option value="day">Days</option>
+                                    <option value="months">Months</option>
+                                </select>
+
+                            </div>
+                            <div class="form__col" style="font-size: 13px;">
+                                To use the 'Offset Date' option, you'll need to enter a value for all of the above
+                                fields (Plus/Minus, Value and Days/Months).
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div *ngIf="attributeFields.customFieldSpecialType=='Date & Time'">
+
+                    <h3> Default </h3>
+
+                    <div class="form__col-wrap">
+                        <div class="form__col form__col--group">
+                            <div class="form__group form__group--radio">
+                                <input id="radio1" (click)="showoffsetdatefields('false')" class="form__radio"
+                                    type="radio" [checked]="attributeFields.offsetDateFields=='false'"
+                                    name="inlineRadioOptionsDateTimeandDate">
+                                <label class="form__group-label" for="radio1">Current Date</label>
+                            </div>
+                            <div class="form__group form__group--radio">
+                                <input (click)="showoffsetdatefields('true')" id="radio2"
+                                    [checked]="attributeFields.offsetDateFields=='true'" class="form__radio"
+                                    type="radio" name="inlineRadioOptionsDateTimeandDate">
+                                <label class="form__group-label" for="radio2">Offset Date</label>
+                            </div>
+                            <div class="form__group form__group--radio">
+                                <input (click)="showoffsetdatefields('none')"
+                                    [checked]="attributeFields.offsetDateFields=='none'" id="radio3" class="form__radio"
+                                    type="radio" name="inlineRadioOptionsDateTimeandDate">
+                                <label class="form__group-label" for="radio3">None</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div *ngIf="attributeFields.offsetDateFields=='true'">
+
+                        <div class="form__col-wrap">
+
+                            <div class="form__col form__col--third">
+                                <label class="form__label form_label" for="Dateplusminus">Plus/Minus</label>
+                                <select class="form-control form__input" id="Dateplusminus" name="Dateplusminus"
+                                    [(ngModel)]="attributeFields.dateDefaultPlusMinus">
+                                    <option value=""></option>
+                                    <option value="+">Plus(+)</option>
+                                    <option value="-">Minus(-)</option>
+                                </select>
+
+                            </div>
+                            <div class="form__col form__col--third">
+                                <label class="form__label" for="dateDefaultNumber"> Value </label>
+                                <input type="number" id="dateDefaultNumber" class="form-control form__input"
+                                    name="dateDefaultNumber" [(ngModel)]="attributeFields.dateDefaultNumber">
+
+                            </div>
+
+                            <div class="form__col form__col--third">
+                                <label class="form__label form_label" for="df">Days/Months</label>
+
+                                <select class="form__input" id="df" name="df"
+                                    [(ngModel)]="attributeFields.dateDefaulInterval">
+                                    <option value=""></option>
+                                    <option value="day">Days</option>
+                                    <option value="months">Months</option>
+                                </select>
+
+                            </div>
+                            <div class="form__col" style="font-size: 13px;">
+                                To use the 'Offset Date' option, you'll need to enter a value for all of the above
+                                fields (Plus/Minus, Value and Days/Months).
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form__col-wrap">
+                        <div class="form__col form__col--group">
+                            <div class="form__group form__group--radio">
+                                <input id="mydefaultdateandtimetime45" (click)="showoffsettimefields('false')"
+                                    class="form__radio" type="radio"
+                                    [checked]="attributeFields.offsetTimeFields=='false'"
+                                    [disabled]="attributeFields.offsetDateFields=='none'"
+                                    name="inlineRadioOptionsDateTimeandTime">
+                                <label class="form__group-label" for="mydefaultdateandtimetime45">Current
+                                    Time</label>
+                            </div>
+                            <div class="form__group form__group--radio">
+                                <input (click)="showoffsettimefields('true')" id="radio223"
+                                    [checked]="attributeFields.offsetTimeFields=='true'" class="form__radio"
+                                    [disabled]="attributeFields.offsetDateFields=='none'" type="radio"
+                                    name="inlineRadioOptionsDateTimeandTime">
+                                <label class="form__group-label" for="radio223"> Offset Time</label>
+                            </div>
+                            <div class="form__group form__group--radio">
+                                <input (click)="showoffsettimefields('none')"
+                                    [checked]="attributeFields.offsetTimeFields=='none'" id="radio333"
+                                    [disabled]="attributeFields.offsetDateFields=='none'" class="form__radio"
+                                    type="radio" name="inlineRadioOptionsDateTimeandTime">
+                                <label class="form__group-label" for="radio333">None</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div *ngIf="attributeFields.offsetTimeFields=='true'">
+
+                        <div class="form__col-wrap">
+
+                            <div class="form__col form__col--third">
+
+                                <label class="form__label form_label" for="datetimePlusMinus">Plus/Minus</label>
+
+                                <select class="form-control form__input" id="datetimePlusMinus" name="datetimePlusMinus"
+                                    [(ngModel)]="attributeFields.timeDefaultPlusMinus">
+                                    <option value=""></option>
+                                    <option value="+">Plus(+)</option>
+                                    <option value="-">Minus(-)</option>
+                                </select>
+
+                            </div>
+                            <div class="form__col form__col--third">
+                                <label class="form__label" for="datetimeNumberofhour">Number of hours</label>
+                                <input type="number" id="datetimeNumberofhour" name="datetimeNumberofhour"
+                                    class="onlytypenumber form__input" [(ngModel)]="attributeFields.timeNumberOfHours">
+                            </div>
+
+                            <div class="form__col form__col--third">
+                                <label class="form__label" for="datetimeNumberofminute">Number of minutes</label>
+                                <input type="number" id="datetimeNumberofminute" name="datetimeNumberofminute"
+                                    class="onlytypenumber form__input"
+                                    [(ngModel)]="attributeFields.timeNumberOFMinutes">
+                            </div>
+                            <div class="form__col" style="font-size:13px">
+                                To use the 'Offset Time' option, you'll need to enter a value for all of the above
+                                fields (Plus/Minus,Number of hours and Number of minutes).
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div *ngIf="attributeFields.customFieldSpecialType=='Time'">
+
+                    <div class="form__col-wrap">
+                        <div class="form__col form__col--group">
+                            <div class="form__group form__group--radio">
+                                <input id="mydefaultdateandtimetime45" (click)="showoffsettimefields('false')"
+                                    class="form__radio" type="radio"
+                                    [checked]="attributeFields.offsetTimeFields=='false'" name="inlineRadioOptionsTime">
+                                <label class="form__group-label" for="mydefaultdateandtimetime45">Current
+                                    Time</label>
+                            </div>
+                            <div class="form__group form__group--radio">
+                                <input (click)="showoffsettimefields('true')" id="radio223"
+                                    [checked]="attributeFields.offsetTimeFields=='true'" class="form__radio"
+                                    type="radio" name="inlineRadioOptionsTime">
+                                <label class="form__group-label" for="radio223"> Offset Time</label>
+                            </div>
+                            <div class="form__group form__group--radio">
+                                <input (click)="showoffsettimefields('none')"
+                                    [checked]="attributeFields.offsetTimeFields=='none'" id="radio333"
+                                    class="form__radio" type="radio" name="inlineRadioOptionsTime">
+                                <label class="form__group-label" for="radio333">None</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div *ngIf="attributeFields.offsetTimeFields=='true'">
+                        <div class="form__col-wrap">
+
+                            <div class="form__col form__col--third">
+
+                                <label class="form__label form_label" for="datetimePlusMinus">Plus/Minus</label>
+
+                                <select class="form-control form__input" id="datetimePlusMinus" name="datetimePlusMinus"
+                                    [(ngModel)]="attributeFields.timeDefaultPlusMinus">
+                                    <option value=""></option>
+                                    <option value="+">Plus(+)</option>
+                                    <option value="-">Minus(-)</option>
+                                </select>
+
+                            </div>
+                            <div class="form__col form__col--third">
+                                <label class="form__label" for="datetimeNumberofhour">Number of hours</label>
+                                <input type="number" id="datetimeNumberofhour" name="datetimeNumberofhour"
+                                    class="onlytypenumber form__input" [(ngModel)]="attributeFields.timeNumberOfHours">
+                            </div>
+
+                            <div class="form__col form__col--third">
+                                <label class="form__label" for="datetimeNumberofminute">Number of minutes</label>
+                                <input type="number" id="datetimeNumberofminute" name="datetimeNumberofminute"
+                                    class="onlytypenumber form__input"
+                                    [(ngModel)]="attributeFields.timeNumberOFMinutes">
+                            </div>
+
+                            <div class="form__col" style="font-size:13px">
+                                To use the 'Offset Time' option, you'll need to enter a value for all of the above
+                                fields (Plus/Minus,Number of hours and Number of minutes).
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+
+                </div>
+
+            </div>
+
+            <div *ngIf="attributeFields.dataType=='True/False'">
+                <div class="form__section">
+                    <div class="form__col-wrap">
+                        <div class="form__col form__col--half">
+                            <label class="form__label form_label" for="typeNameCheckbox">Input type</label>
+                            <select (ngModelChange)='onOptionsSelected($event)' name="typeNameCheckbox"
+                                id="typeNameCheckbox" class="form__input"
+                                [(ngModel)]="attributeFields.customFieldSpecialType">
+                                <option *ngFor="let product of InputtypeBool" [value]="product">{{product}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="attributeFields.customFieldSpecialType=='CheckBox'">
+
+                    <div class="form__col form__col--half">
+                        <label class="form__label" for="customFieldTrueLabel">True Label</label>
+                        <input type="text" id="customFieldTrueLabel" name="customFieldTrueLabel"
+                            [(ngModel)]="attributeFields.customFieldTrueLabel" class="form__input">
+                    </div>
+                    <div class="form__col form__col--half">
+                        <label class="form__label" for="customFieldFalseLabel">False Label</label>
+                        <input type="text" id="customFieldFalseLabel" name="customFieldFalseLabel"
+                            [(ngModel)]="attributeFields.customFieldFalseLabel" class="form__input">
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+    <div class="invModal__footer">
+
+        <div class="button-group">
+            <button type="button" [disabled]="CheckIsDisabled()" class="button button--medium"
+                (click)="onSubmit()">Save</button>
+            <button type="button" id="closeModal" class="button button--medium button--text-only"
+                data-close="#AdvanceOptionModal">Cancel
+            </button>
+        </div>
+    </div>
+</div>

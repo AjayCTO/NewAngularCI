@@ -1,0 +1,69 @@
+
+
+.ExpandedRowMenu{
+    height: auto;
+    max-height: fit-content;
+    margin-bottom: 10px;
+}
+
+.ExpandedRowWithForm{
+    height: auto;
+    max-height: 1000px;
+}
+
+
+
+
+// .form__copy-value{
+//  top: 70%!important;
+// }
+
+// .form__section{
+//  margin-bottom: 0.5rem;
+// }   
+
+  .invModal__body {
+    height: 60vh;
+    overflow: auto;
+    padding: 1rem 3.75rem;
+}
+.invModal__footer {
+    padding: 0 4.75rem;
+}
+.button-group {
+  justify-content: left;
+}
+
+.card2 {
+    background-color: #ffffff;
+    height: 200px;
+    width: 400px;
+    text-align: center;
+    padding-top: 40px;
+    box-shadow: 0 5px 28px rgba(0,0,0,.22), 0 25px 55px rgba(0,0,0,.21);
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: 1;
+}
+.addBtn {
+    margin: 3rem auto;
+}
+.js-modal {
+    border-radius: 2rem;
+}
+
+.form__col-group {
+    align-items: center;
+    display: flex;
+    margin-bottom: 8px;
+    position: relative;
+    width: auto;
+}
+
+.form__group-label {
+    &::before {
+      border: .063rem solid rgb(168, 168, 168);
+    }
+  }

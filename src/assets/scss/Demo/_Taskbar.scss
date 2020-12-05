@@ -1,0 +1,77 @@
+.taskbar {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 3rem 1rem;
+  .form--search {
+    margin: 0;
+    width: auto;
+  }
+  .icons__label {
+    margin-right: 12px;
+  }
+}
+.taskbar__col {
+  display: flex;
+  //justify-content: center;
+  justify-content: flex-start;
+  padding: 1rem 0;
+  width: 100%;
+  .button {
+    white-space: nowrap;
+  }
+}
+.taskbar__sort {
+  border-left: 2px solid #d3dbe2;
+  margin-left: auto;
+  padding-left: 2rem;
+  position: relative;
+}
+.taskbar__filter,
+.taskbar__sort {
+  width: calc(50% - 2rem);
+  .icons {
+    &:last-child {
+      margin-left: 1rem;
+    }
+  }
+}
+.taskbar__note {
+  bottom: -1rem;
+  color: $cold-gray;
+  font-size: 10px;
+  padding-left: .8rem;
+  position: absolute;
+}
+.taskbar__order {
+  color: $cold-gray;
+  font-size: 10px;
+  padding-right: .4rem;
+}
+
+@include mq(1440px) {
+  .taskbar {
+    align-items: flex-end;
+    flex-direction: row;
+    padding: 1rem 10rem 1rem 3rem;
+  }
+  .taskbar__col {
+    width: auto;
+    &:last-child {
+      width: 100%;
+    }
+  }
+  .taskbar__filter,
+  .taskbar__sort {
+    width: auto;
+  }
+  .taskbar__sort {
+    margin-left: auto;
+  }
+}
+
+@include mq(1600px) {
+  .taskbar {
+    padding-right: 20rem;
+  }
+}

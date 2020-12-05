@@ -1,0 +1,22 @@
+<div>
+    <div class="modal">
+        <div id="DeleteConfirm">
+            <div class="Modal__head">
+                <h1 class="invModal__title">Delete Field ?</h1>
+            </div>
+            <div class="Modal__body">
+                <p class="invModal__title">Click "OK" to delete this field. THIS WILL DELETE ALL OF
+                    THE DATA ASSOCIATED
+                    WITH THIS FIELD, and It cannot be undone.</p>
+            </div>
+            <div class="Modal__footer">
+                <div class="button-group">
+                    <button type="submit" class="button button--medium" (click)="Confirm()"
+                        id="confirmBtn">Confirm</button>
+                    <button type="button" (click)="close()" class="button button--medium button--text-only">Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

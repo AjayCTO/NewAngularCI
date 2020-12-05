@@ -1,0 +1,13 @@
+.form__col-group {
+    align-items: center;
+    display: flex;
+    margin-bottom: 8px;
+    position: relative;
+    width: auto;
+}
+
+.form__group-label {
+    &::before {
+      border: .063rem solid rgb(168, 168, 168);
+    }
+  }

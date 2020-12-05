@@ -1,0 +1,47 @@
+<div class="modal">
+    <div class="libraryModal">
+        <div class="libraryModal__head">
+            <h1 class="libraryModal__title">Add New Location</h1>
+        </div>
+        <div class="libraryModal__body">
+
+            <form class="form" [formGroup]="locationForm" (ngSubmit)="onSubmit()">
+                <div class="form__section">
+                    <div class="form__col-wrap">
+                        <div class="form__col form__col--two">
+                            <label class="form__label" for="locationNameFormcontrol">Location Name<span
+                                    class="form__required">*</span></label>
+                            <input class="form__input" formControlName="locationName" type="text"
+                                id="locationNameFormcontrol" name="locationNameFormcontrol">
+                            <!-- <ng-container *ngIf="submitted && f.locationName.errors"> <span
+                                    *ngIf="f.locationName.errors.required" class="form__error-message">This field is
+                                    required</span></ng-container> -->
+                        </div>
+                    </div>
+                    <div class="form__col-wrap">
+                        <div class="form__col form__col--two">
+                            <label class="form__label" for="descriptionFormcontrol">Description</label>
+                            <input class="form__input" type="text" id="descriptionFormcontrol"
+                                name="descriptionFormcontrol" formControlName="description">
+                        </div>
+                    </div>
+                    <div class="form__col-wrap">
+                        <div class="form__col form__col--two">
+                            <label class="form__label" for="locationZoneFormcontrol">Location Group</label>
+                            <input class="form__input" type="text" id="locationZoneFormcontrol"
+                                name="locationZoneFormcontrol" formControlName="locationZone">
+                        </div>
+                    </div>
+                    <div class="form__col-wrap">
+                        <div class="button-group">
+                            <button type="submit" class="button button--medium">Add</button>
+                            <button type="button" (click)="close()"
+                                class="button button--medium button--text-only">Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

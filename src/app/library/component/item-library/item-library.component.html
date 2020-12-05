@@ -1,0 +1,1461 @@
+<ng-container *ngIf="!NotPermitted">
+
+    <div class="actions">
+        <div class="actions__title">
+            <h2> Item Library </h2>
+
+        </div>
+        <div class="actions__wrap">
+            <div class="icons__item">
+                <div class="icons__icon"><svg class="icon icon--theme01 icon--download"
+                        aria-labelledby="title-5f7c9ac573e4a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                        width="48" height="48">
+                        <path
+                            d="M42.2 37.8A5.8 5.8 0 0038 36H10a6 6 0 00-6 6 5.6 5.6 0 001.8 4.2A5.6 5.6 0 0010 48h28a6 6 0 006-6 5.6 5.6 0 00-1.8-4.2zM38 45a3 3 0 113-3 2.9 2.9 0 01-3 3z"
+                            fill="currentColor" class="icon__color--primary"></path>
+                        <path d="M0 48h48V0H0z" fill="none"></path>
+                        <path d="M29 23.9a8 8 0 006.3-3h.1l8.8-11.6-6.3-4.9-4 5.2-9.7 12.6a7.6 7.6 0 004.8 1.7z"
+                            fill="currentColor" class="icon__color--secondary"></path>
+                        <path
+                            d="M17.6 27.3L3.8 9.3l6.3-4.9 12.6 16.4a6.7 6.7 0 001.5 1.4 7.6 7.6 0 004.8 1.7 8 8 0 006.3-3l-5 6.4a8 8 0 01-12.7 0z"
+                            fill="currentColor" class="icon__color--primary"></path>
+                    </svg></div>
+                <span class="icons__label">Download</span>
+            </div>
+            <div class="icons__item">
+                <div class="icons__icon"><svg class="icon icon--theme01 icon--upload"
+                        aria-labelledby="title-5f7c9b3feaee9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                        width="48" height="48">
+                        <path d="M12.2 36.6a5 5 0 01-5-5.1v-5h5zm23.6 0a5 5 0 005-5.1v-5h-5z" fill="currentColor"
+                            class="icon__color--secondary"></path>
+                        <path d="M40.8 36.6v-5.1a5 5 0 01-5 5.1H12.2a5 5 0 01-5-5.1v5.1a5 5 0 005 5h23.6a5 5 0 005-5z"
+                            fill="currentColor" class="icon__color--primary"></path>
+                        <path fill="currentColor" class="icon__color--secondary" d="M21.6 9.2h5.1v20.16h-5.1z"></path>
+                        <path d="M0 48h48V0H0z" fill="none"></path>
+                        <path
+                            d="M20.9 9.8a5.1 5.1 0 00-4 1.9.1.1 0 01-.1.1l-4 5.1 4 3.1 2.5-3.3 4.6-5.9a4.7 4.7 0 00-3-1z"
+                            fill="currentColor" class="icon__color--secondary"></path>
+                        <path
+                            d="M28 7.6l7.3 9.3-4 3.1-6.5-8.3-.9-.9a4.7 4.7 0 00-3-1 5.1 5.1 0 00-4 1.9L20 7.6a5.1 5.1 0 018 0z"
+                            fill="currentColor" class="icon__color--primary"></path>
+                    </svg></div>
+                <span class="icons__label">Upload</span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="taskbar">
+        <div class="taskbar__col">
+            <button type="button" data-modal="#AddItemtestModal"
+                class="button button--medium button--icon button--theme02 js-modal">
+                <svg class="icon-simple icon-simple--theme01 icon-simple--add" aria-labelledby="title-5f86742813ab3"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                    <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                    <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                </svg> &nbsp; Add New Item
+            </button>
+            <form class="form form--search">
+                <div class="form__section">
+                    <div class="form__col-wrap">
+                        <div class="form__col">
+                            <label for="search" class="form__label form__label--hidden">Search</label>
+                            <input class="form__input form__input--search" [(ngModel)]="searchFilterText" type="search"
+                                (change)="SearchFilter()" id="search" name="search" autocomplete="off"
+                                placeholder="Search">
+                            <button type="button" (click)="RemoveSearchFilter()"
+                                class="form__clear form__icon icons__item icons__item--theme03 js-clear"
+                                data-field-to-clear="#search">
+                                <div class="icons__icon"><svg class="icon icon--theme01 icon--remove"
+                                        aria-labelledby="title-5f7cca8a45299" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 48 48" width="48" height="48">
+                                        <path fill="none" d="M0 0h48v48H0z"></path>
+                                        <path
+                                            d="M12.7 18.3L4.2 9.9l5.7-5.7L24 18.3a7.9 7.9 0 0011.3 0 15.9 15.9 0 01-22.6 0z"
+                                            fill="currentColor" class="icon__color--primary"></path>
+                                        <path class="icon__color--secondary"
+                                            d="M24 18.3L38.1 4.2l5.7 5.7-8.5 8.4a7.9 7.9 0 01-11.3 0z"
+                                            fill="currentColor">
+                                        </path>
+                                        <path class="icon__color--primary"
+                                            d="M35.3 28.9l8.5 8.5-5.7 5.6L24 28.9a8 8 0 00-11.3 0 15.9 15.9 0 0122.6 0z"
+                                            fill="currentColor"></path>
+                                        <path class="icon__color--secondary"
+                                            d="M24 28.9L9.9 43l-5.7-5.6 8.5-8.5a8 8 0 0111.3 0z" fill="currentColor">
+                                        </path>
+                                    </svg></div>
+                            </button>
+                            <button type="button" (click)="SearchFilter()" class="form__submit form__icon icons__item">
+                                <div class="icons__icon"><svg class="icon icon--theme01 icon--search"
+                                        aria-labelledby="title-5f7cca8a452b7" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 48 48" width="48" height="48">
+                                        <path fill="none" d="M0 0h48v48H0z"></path>
+                                        <path
+                                            d="M31.9 27.7l9.9 9.9a3.1 3.1 0 010 4.2 3 3 0 01-4.3 0L27.4 31.7a6 6 0 00-4.6-1.7 8.3 8.3 0 004.8-2.3 3 3 0 014.3 0z"
+                                            fill="currentColor" class="icon__color--secondary"></path>
+                                        <path
+                                            d="M27.7 9.2a14 14 0 018.1 10.9 2.9 2.9 0 01-3.3 3.3 3 3 0 01-2.6-2.6 7.8 7.8 0 00-3.6-5.5 8 8 0 00-8.4-.2 8.1 8.1 0 00-1.6 12.6 7.9 7.9 0 006.3 2.3h.2a6 6 0 014.6 1.7l2.1 2.1-.6.4a14.5 14.5 0 01-11.7 1A14.1 14.1 0 0114.7 10a14.2 14.2 0 0113-.8z"
+                                            fill="currentColor" class="icon__color--primary"></path>
+                                    </svg></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="taskbar__col">
+            <div class="taskbar__filter">
+                <div class="icons icons--horziontal">
+                    <div class="icons__item icons__item--theme07">
+                        <div class="icons__icon"><svg class="icon icon--filter" aria-labelledby="title-5f7ccaeabc0a7"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+                                <path fill="none" d="M0 0h48v48H0z"></path>
+                                <path
+                                    d="M40 13.7a5.6 5.6 0 01-1.7 4 5.5 5.5 0 01-4 1.6 5.8 5.8 0 01-4-1.7 5.4 5.4 0 00-4-1.6h-8.6a3.9 3.9 0 00-3.7 2.5 3.8 3.8 0 00.8 4.3l-4.5-4.5A7.9 7.9 0 018 12.7 4.7 4.7 0 0112.7 8h21.6a5.7 5.7 0 013.6 1.3.8.8 0 01.4.4 5.3 5.3 0 011.7 4z"
+                                    fill="currentColor" class="icon__color--primary"></path>
+                                <path
+                                    d="M28 28v12h-8V29.7a4 4 0 00-1.2-2.9l-4-4a3.8 3.8 0 01-.8-4.3 3.9 3.9 0 013.7-2.5h1.6l3.3 3.2 3.1 3.2A7.9 7.9 0 0128 28z"
+                                    fill="currentColor" class="icon__color--secondary"></path>
+                            </svg></div>
+
+                        <span class="icons__label">ACTIVE FILTERS</span>
+
+                        <svg aria-labelledby="title-5f7dd3f9c4a21" xmlns="http://www.w3.org/2000/svg" width="8.081"
+                            height="11.544" viewBox="0 0 8.081 11.544">
+                            <g data-name="Group 3641">
+                                <path data-name="Path 1713"
+                                    d="M6.926 4.617V2.886a2.886 2.886 0 10-5.771 0v1.731A1.242 1.242 0 00.001 5.772v4.617a1.241 1.241 0 001.154 1.155h5.771a1.241 1.241 0 001.155-1.155V5.772a1.242 1.242 0 00-1.155-1.155zm-1.153 0H2.309V2.886a1.732 1.732 0 113.464 0z"
+                                    fill="#abb3bb"></path>
+                            </g>
+                        </svg>
+
+                    </div>
+                    <div class="icons__icon">
+                        <a (click)="ClearAllFilter()" class="command__isolated"> Clear All </a>
+                    </div>
+                </div>
+                <div class="card icons icons--horziontal icons--size01">
+
+
+                    <button type="button" *ngFor="let filter of FilterArray"
+                        class="icons__item icons__item--contains-text icons__item--theme07">
+                        <div class="icons__text"><strong class="icons__name">{{filter.displayName}}:</strong>
+                            <span *ngIf="filter.filterOperator=='bw'"><img
+                                    src="../../../../assets/img/filter/BeginsWith.gif"></span>
+                            <span *ngIf="filter.filterOperator=='cn'"><img
+                                    src="../../../../assets/img/filter/Contains.gif"></span>
+                            <span *ngIf="filter.filterOperator=='nc'"><img
+                                    src="../../../../assets/img/filter/DoesNotContain.gif"></span>
+                            <span *ngIf="filter.filterOperator=='eq'||filter.filterOperator=='num-eq'"><img
+                                    src="../../../../assets/img/filter/EqualTo.gif"></span>
+                            <span *ngIf="filter.filterOperator=='ne'||filter.filterOperator=='num-ne'"><img
+                                    src="../../../../assets/img/filter/NotEqualTo.gif"></span>
+                            <span *ngIf="filter.filterOperator=='num-gte'"><img
+                                    src="../../../../assets/img/filter/GreaterThanOrEqualTo.gif"></span>
+                            <span *ngIf="filter.filterOperator=='num-lte'"><img
+                                    src="../../../../assets/img/filter/LessThanOrEqualTo.gif"></span>
+                            <span *ngIf="filter.filterOperator=='Empty'"><img
+                                    src="../../../../assets/img/filter/IsNull.gif"></span>
+                            <span class="icons__value">{{filter.searchValue}}</span></div>
+                        <div class="icons__icon" (click)="RemoveFilter(filter)"><svg
+                                class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                aria-labelledby="title-5f7cbab264ccf" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                <path fill="currentColor" d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                                <path fill="currentColor" d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z">
+                                </path>
+                            </svg></div>
+                    </button>
+
+
+                    <button type="button" id="filterButton"
+                        class="icons__item icons__item--outline icons__item--theme07 js-toggle">
+                        <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
+                                aria-labelledby="title-5f7cd7ce12c29" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                                <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                            </svg></div>
+                        <span class="icons__label">Add Filter</span>
+
+                        <div id="" class="icons__submenu icons__submenu--from-left" style="width:260px">
+                            <ul class="icons__submenu-list">
+                                <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                    <div class="form__col">
+                                        <label class="form__label form__label--hidden" for="dropdown">Dropdown</label>
+                                        <select class="form__input form__select"
+                                            (ngModelChange)='onOptionsSelected($event)'
+                                            [(ngModel)]="dataColumnFilter.columnName" id="list-dropdown"
+                                            name="list-dropdown1">
+                                            <option value="">Choose Column</option>
+                                            <option *ngFor="let opt of tabulatorColumn" [value]="opt.field">
+                                                {{opt.title}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                    *ngIf="ColumnDataType=='string'">
+                                    <div class="form__col">
+                                        <label class="form__label form__label--hidden"
+                                            for="list-dropdown1">Dropdown</label>
+                                        <select class="form__input form__select"
+                                            [(ngModel)]="dataColumnFilter.filterOperator" id="list-dropdown1"
+                                            name="list-dropdown1">
+                                            <option value="">Choose Filter</option>
+                                            <option value="cn">Contains</option>
+                                            <option value="nc">Does NOT Contain</option>
+                                            <option value="eq">Equals</option>
+                                            <option value="ne">Does NOT Equal</option>
+                                            <option value="bw">Begins With</option>
+                                            <option value="Empty">Is Empty</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                    *ngIf="ColumnDataType=='stringUom'">
+                                    <div class="form__col">
+                                        <label class="form__label form__label--hidden"
+                                            for="list-dropdown3">Dropdown</label>
+                                        <select class="form__input form__select"
+                                            [(ngModel)]="dataColumnFilter.filterOperator" id="list-dropdown3"
+                                            name="list-dropdown1">
+                                            <option value="">Choose Filter</option>
+                                            <option value="eq">Equals</option>
+                                            <option value="nc">Does NOT Contain</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                    *ngIf="ColumnDataType=='stringStatus'">
+                                    <div class="form__col">
+                                        <label class="form__label form__label--hidden"
+                                            for="list-dropdown4">Dropdown</label>
+                                        <select class="form__input form__select"
+                                            [(ngModel)]="dataColumnFilter.filterOperator" id="list-dropdown4"
+                                            name="list-dropdown1">
+                                            <option value="">Choose Filter</option>
+                                            <option value="eq">Equals</option>
+                                            <option value="nc">Does NOT Contain</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                    *ngIf="ColumnDataType=='number'">
+                                    <div class="form__col">
+                                        <label class="form__label form__label--hidden"
+                                            for="list-dropdown2">Dropdown</label>
+                                        <select class="form__input form__select"
+                                            [(ngModel)]="dataColumnFilter.filterOperator" id="list-dropdown2"
+                                            name="list-dropdown2">
+                                            <option value="">Choose Filter</option>
+                                            <option value="num-eq">Equals</option>
+                                            <option value="num-ne">Does NOT Equal</option>
+                                            <option value="num-gte">Greater Than OR Equals</option>
+                                            <option value="num-lte">Less Than OR Equals</option>
+                                            <option value="Empty">Is Null (Empty)</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                    *ngIf="ColumnDataType!=undefined&&ColumnDataType!='stringStatus'&&ColumnDataType!='stringUom'">
+                                    <div class="form__col">
+                                        <label class="form__label" for="value1">Value</label>
+                                        <input class="form__input" [(ngModel)]="dataColumnFilter.searchValue"
+                                            type="text" id="value1" name="value1">
+                                    </div>
+                                </li>
+                                <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                    *ngIf="ColumnDataType!=undefined&&ColumnDataType=='stringStatus'">
+                                    <div class="form__col">
+                                        <label class="form__label form__label--hidden"
+                                            for="list-dropdown5">Value</label>
+                                        <select class="form__input form__select"
+                                            [(ngModel)]="dataColumnFilter.searchValue" id="list-dropdown5"
+                                            name="list-dropdown5">
+                                            <option value="">Choose Filter</option>
+                                            <option *ngFor="let opt of statusList" [value]="opt.statusValue">
+                                                {{opt.statusValue}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                    *ngIf="ColumnDataType!=undefined&&ColumnDataType=='stringUom'">
+                                    <div class="form__col">
+                                        <label class="form__label form__label--hidden"
+                                            for="list-dropdown6">Value</label>
+                                        <select class="form__input form__select"
+                                            [(ngModel)]="dataColumnFilter.searchValue" id="list-dropdown6"
+                                            name="list-dropdown5">
+                                            <option value="">Choose Filter</option>
+                                            <option *ngFor="let opt of uomList" [value]="opt.uomName">
+                                                {{opt.uomName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </li>
+
+
+                            </ul>
+                            <div class="button-group" *ngIf="ColumnDataType!=undefined">
+                                <a class="button button--small button--text-only" (click)="CloseFilter()">Cancel</a>
+                                <a class="button button--small" (click)="ApplyFilter()">Apply</a>
+                            </div>
+                        </div>
+                    </button>
+                    <button type="button" (click)="SearchFilter()" class="form__submit form__icon icons__item">
+                        <div class="icons__icon"><svg class="icon icon--theme01 icon--search"
+                                aria-labelledby="title-5f7cca8a452b7" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 48 48" width="48" height="48">
+                                <path fill="none" d="M0 0h48v48H0z"></path>
+                                <path
+                                    d="M31.9 27.7l9.9 9.9a3.1 3.1 0 010 4.2 3 3 0 01-4.3 0L27.4 31.7a6 6 0 00-4.6-1.7 8.3 8.3 0 004.8-2.3 3 3 0 014.3 0z"
+                                    fill="currentColor" class="icon__color--secondary"></path>
+                                <path
+                                    d="M27.7 9.2a14 14 0 018.1 10.9 2.9 2.9 0 01-3.3 3.3 3 3 0 01-2.6-2.6 7.8 7.8 0 00-3.6-5.5 8 8 0 00-8.4-.2 8.1 8.1 0 00-1.6 12.6 7.9 7.9 0 006.3 2.3h.2a6 6 0 014.6 1.7l2.1 2.1-.6.4a14.5 14.5 0 01-11.7 1A14.1 14.1 0 0114.7 10a14.2 14.2 0 0113-.8z"
+                                    fill="currentColor" class="icon__color--primary"></path>
+                            </svg></div>
+                    </button>
+                </div>
+            </div>
+            <div class="taskbar__sort">
+                <div class="icons icons--horziontal">
+                    <div class="icons__item">
+                        <div class="icons__icon"><svg class="icon icon--theme01 icon--active-sorts"
+                                aria-labelledby="title-5f7de0fd9d2ad" xmlns="http://www.w3.org/2000/svg" width="30"
+                                height="30" viewBox="0 0 30 30">
+                                <g data-name="Group 3671">
+                                    <g data-name="Group 3668">
+                                        <path data-name="Path 1727"
+                                            d="M20.825 24.278l3.887-3.887a2.916 2.916 0 01-4.692-.807 2.842 2.842 0 01-.282-1.253V4.892h-3.887v17.326a2.914 2.914 0 004.974 2.06z"
+                                            fill="currentColor" class="icon__color--primary"></path>
+                                        <path data-name="Path 1728"
+                                            d="M24.712 20.391l1.992-1.992-2.75-2.75-3.935 3.935a2.916 2.916 0 004.692.807z"
+                                            fill="currentColor" class="icon__color--secondary"></path>
+                                    </g>
+                                    <g data-name="Group 3669">
+                                        <path data-name="Path 1729"
+                                            d="M8.046 5.737L4.159 9.624a2.917 2.917 0 014.694.807 2.869 2.869 0 01.281 1.253v13.439h3.887V7.797a2.915 2.915 0 00-4.975-2.06z"
+                                            fill="currentColor" class="icon__color--primary"></path>
+                                        <path data-name="Path 1730"
+                                            d="M4.159 9.624l-1.992 1.992 2.751 2.75 3.936-3.935a2.917 2.917 0 00-4.694-.807z"
+                                            fill="currentColor" class="icon__color--secondary"></path>
+                                    </g>
+                                    <g data-name="Group 3670">
+                                        <path data-name="Path 1731" d="M0 30h30V0H0z" fill="none"></path>
+                                    </g>
+                                </g>
+                            </svg></div>
+                        <span class="icons__label">ACTIVE SORTS</span>
+                        <a class="command__isolated">Clear All</a>
+                    </div>
+                </div>
+                <div class="card icons icons--horziontal icons--size01">
+                    <div class="taskbar__order">
+                        <em>1</em>
+                    </div>
+                    <button type="button" class="icons__item icons__item--contains-text">
+                        <div class="icons__text"><strong class="icons__name">Date Modified:</strong> <span
+                                class="icons__value">Descending</span></div>
+                        <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                aria-labelledby="title-5f7cbab264ccf" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                <path fill="currentColor" d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                                <path fill="currentColor" d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z">
+                                </path>
+                            </svg></div>
+                    </button>
+                    <button type="button" class="icons__item icons__item--outline js-toggle">
+                        <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
+                                aria-labelledby="title-5f7cd7ce12c36" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                                <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                            </svg></div>
+                        <span class="icons__label">Add Sort</span>
+
+                        <div class="icons__submenu icons__submenu--from-left">
+                            <ul class="icons__submenu-list">
+                                <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                    <div class="form__col">
+                                        <label class="form__label form__label--hidden" for="dropdown">Dropdown</label>
+                                        <select class="form__input form__select" id="list-dropdown"
+                                            name="list-dropdown">
+                                            <option value="">Choose Column</option>
+                                            <option *ngFor="let opt of tabulatorColumn" [value]="opt.field">
+                                                {{opt.title}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                    <div class="form__col">
+                                        <label class="form__label form__label--hidden" for="dropdown">Dropdown</label>
+                                        <select class="form__input form__select" id="list-dropdown"
+                                            name="list-dropdown">
+                                            <option value="">Choose Filter</option>
+                                            <option value="asc">Asceding</option>
+                                            <option value="desc">Descending</option>
+
+                                        </select>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="button-group">
+                                <a class="button button--small button--text-only" href="#">Cancel</a>
+                                <a class="button button--small" href="#">Apply</a>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+                <div class="taskbar__note">
+                    <em>Position 1 (drag sorts to change priority)</em>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="main">
+
+        <div class="pagination">
+            <div class="icons icons--size02 icons--horziontal">
+                <a class="icons__item icons__item--theme09" (click)="gotoFirstPage()">
+                    <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--first"
+                            aria-labelledby="title-5f8080f1a0466" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="24" height="24">
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path fill="currentColor" d="M2 3h4v18H2zm6 7.6v2.8l11.4 8.7 2.4-3.2-9-6.9 9-6.9-2.4-3.2z">
+                            </path>
+                        </svg></div>
+                </a>
+                <a class="icons__item icons__item--theme09" (click)="gotoBack()">
+                    <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--previous"
+                            aria-labelledby="title-5f8080f1a0482" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="24" height="24">
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path d="M2.2 12l13.2 10.1 2.4-3.2-9-6.9 9-6.9-2.4-3.2z" fill="currentColor"></path>
+                        </svg></div>
+                </a>
+            </div>
+            <span class="footer__statements">Statements
+                {{pageIndex*pageSize}}-{{(pageIndex+1)*(pageSize>length?length:pageSize)}}</span>
+            <div class="icons icons--size02 icons--horziontal">
+                <a class="icons__item icons__item--theme09" (click)="gotoNext()">
+                    <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--next"
+                            aria-labelledby="title-5f8080f1a0490" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="24" height="24">
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path d="M8.6 1.9L6.2 5.1l9 6.9-9 6.9 2.4 3.2L21.8 12z" fill="currentColor"></path>
+                        </svg></div>
+                </a>
+                <a class="icons__item icons__item--theme09" (click)="gotoLastPage()">
+                    <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--last"
+                            aria-labelledby="title-5f8080f1a049c" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="24" height="24">
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path fill="currentColor"
+                                d="M18 3h4v18h-4zM4.6 1.9L2.2 5.1l9 6.9-9 6.9 2.4 3.2L16 13.4v-2.8z">
+                            </path>
+                        </svg></div>
+                </a>
+            </div>
+            <span class="footer__total">of {{length}}</span>
+        </div>
+
+        <div class="table">
+            <table class="table__table">
+                <thead class="table__section table__section--head">
+                    <tr class="table__row table__row--head">
+                        <th scope="col" class="table__heading">
+                            <div class="table__heading-title" [style.width.px]="170">Action</div>
+                            <div class="table__heading-options">
+                                <div class="icons icons--horziontal icons--size02">
+                                    <button class="icons__item" type="button">
+                                        <div class="icons__icon">&nbsp;</div>
+                                    </button>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="table__heading" *ngFor="let itemHeader of tabulatorColumn">
+                            <div class="table__heading-title" [style.width.px]="itemHeader.width">{{itemHeader.title}}
+                            </div>
+                            <div class="table__heading-options">
+                                <div class="icons icons--horziontal icons--size02">
+                                    <button class="icons__item  js-toggle" type="button"
+                                        (click)='onOptionsSelected2($event)' id="filterButton3_{{itemHeader.field}}">
+                                        <div class="icons__icon"><svg class="icon icon--theme01 icon--filter"
+                                                aria-labelledby="title-5f83f48269fe1" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 48 48" width="48" height="48">
+                                                <path fill="none" d="M0 0h48v48H0z"></path>
+                                                <path
+                                                    d="M40 13.7a5.6 5.6 0 01-1.7 4 5.5 5.5 0 01-4 1.6 5.8 5.8 0 01-4-1.7 5.4 5.4 0 00-4-1.6h-8.6a3.9 3.9 0 00-3.7 2.5 3.8 3.8 0 00.8 4.3l-4.5-4.5A7.9 7.9 0 018 12.7 4.7 4.7 0 0112.7 8h21.6a5.7 5.7 0 013.6 1.3.8.8 0 01.4.4 5.3 5.3 0 011.7 4z"
+                                                    fill="currentColor" class="icon__color--primary"></path>
+                                                <path
+                                                    d="M28 28v12h-8V29.7a4 4 0 00-1.2-2.9l-4-4a3.8 3.8 0 01-.8-4.3 3.9 3.9 0 013.7-2.5h1.6l3.3 3.2 3.1 3.2A7.9 7.9 0 0128 28z"
+                                                    fill="currentColor" class="icon__color--secondary"></path>
+                                            </svg></div>
+                                        <div class="icons__submenu icons__submenu--from-left" style="min-width: 280px;">
+                                            <ul class="icons__submenu-list">
+                                                <ng-container *ngIf="itemHeader.datatype=='string'">
+                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                        <div class="form__col">
+                                                            <label class="form__label form__label--hidden"
+                                                                for="list-dropdown_{{itemHeader.field}}">Dropdown</label>
+                                                            <select class="form__input form__select"
+                                                                [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                id="list-dropdown_{{itemHeader.field}}"
+                                                                name="list-dropdown_{{itemHeader.field}}">
+                                                                <option value="">Choose Filter</option>
+                                                                <option value="cn">Contains</option>
+                                                                <option value="nc">Does NOT Contain</option>
+                                                                <option value="eq">Equals</option>
+                                                                <option value="ne">Does NOT Equal</option>
+                                                                <option value="bw">Begins With</option>
+                                                                <option value="Empty">Is Empty</option>
+                                                            </select>
+                                                        </div>
+                                                    </li>
+                                                </ng-container>
+                                                <ng-container *ngIf="itemHeader.datatype=='stringUom'">
+                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                        <div class="form__col">
+                                                            <label class="form__label form__label--hidden"
+                                                                for="list-dropdownuom{{itemHeader.field}}">Dropdown</label>
+                                                            <select class="form__input form__select"
+                                                                [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                id="list-dropdown{{itemHeader.field}}"
+                                                                name="list-dropdownuom{{itemHeader.field}}">
+                                                                <option value="">Choose Filter</option>
+                                                                <option value="eq">Equals</option>
+                                                                <option value="nc">Does NOT Contain</option>
+                                                            </select>
+                                                        </div>
+                                                    </li>
+                                                </ng-container>
+                                                <ng-container *ngIf="itemHeader.datatype=='stringStatus'">
+                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                        <div class="form__col">
+                                                            <label class="form__label form__label--hidden"
+                                                                for="list-dropdownstatus{{itemHeader.field}}">Dropdown</label>
+                                                            <select class="form__input form__select"
+                                                                [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                id="list-dropdownstatus{{itemHeader.field}}"
+                                                                name="list-dropdownstatus{{itemHeader.field}}">
+                                                                <option value="">Choose Filter</option>
+                                                                <option value="eq">Equals</option>
+                                                                <option value="nc">Does NOT Contain</option>
+                                                            </select>
+                                                        </div>
+                                                    </li>
+                                                </ng-container>
+
+                                                <ng-container *ngIf="itemHeader.datatype=='number'">
+                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                        <div class="form__col">
+                                                            <label class="form__label form__label--hidden"
+                                                                for="list-dropdown{{itemHeader.field}}">Dropdown</label>
+                                                            <select class="form__input form__select"
+                                                                [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                id="list-dropdown{{itemHeader.field}}"
+                                                                name="list-dropdown{{itemHeader.field}}">
+                                                                <option value="">Choose Filter</option>
+                                                                <option value="num-eq">Equals</option>
+                                                                <option value="num-ne">Does NOT Equal</option>
+                                                                <option value="num-gte">Greater Than OR Equals</option>
+                                                                <option value="num-lte">Less Than OR Equals</option>
+                                                                <option value="Empty">Is Null (Empty)</option>
+                                                            </select>
+                                                        </div>
+                                                    </li>
+                                                </ng-container>
+                                                <ng-container
+                                                    *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype!='stringStatus'&&itemHeader.datatype!='stringUom'">
+                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                        <div class="form__col">
+                                                            <label class="form__label"
+                                                                for="value12{{itemHeader.field}}">Value</label>
+                                                            <input class="form__input"
+                                                                [(ngModel)]="dataColumnFilter.searchValue" type="text"
+                                                                id="value12{{itemHeader.field}}"
+                                                                name="value12{{itemHeader.field}}">
+                                                        </div>
+                                                    </li>
+                                                </ng-container>
+
+                                                <ng-container
+                                                    *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='stringStatus'">
+                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                        <div class="form__col">
+                                                            <label class="form__label form__label--hidden"
+                                                                for="list-dropdown51{{itemHeader.field}}">Value</label>
+                                                            <select class="form__input form__select"
+                                                                [(ngModel)]="dataColumnFilter.searchValue"
+                                                                id="list-dropdown51{{itemHeader.field}}"
+                                                                name="list-dropdown51{{itemHeader.field}}">
+                                                                <option value="">Choose Filter</option>
+                                                                <option *ngFor="let opt of statusList"
+                                                                    [value]="opt.statusValue">
+                                                                    {{opt.statusValue}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </li>
+                                                </ng-container>
+                                                <ng-container
+                                                    *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='stringUom'">
+
+                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                        <div class="form__col">
+                                                            <label class="form__label form__label--hidden"
+                                                                for="list-dropdown61{{itemHeader.field}}">Value</label>
+                                                            <select class="form__input form__select"
+                                                                [(ngModel)]="dataColumnFilter.searchValue"
+                                                                id="list-dropdown61{{itemHeader.field}}"
+                                                                name="list-dropdown61{{itemHeader.field}}">
+                                                                <option value="">Choose Filter</option>
+                                                                <option *ngFor="let opt of uomList"
+                                                                    [value]="opt.uomName">
+                                                                    {{opt.uomName}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </li>
+                                                </ng-container>
+                                                <ng-container *ngIf="itemHeader.datatype!=undefined">
+                                                    <div class="button-group">
+                                                        <button class="button button--small button--text-only"
+                                                            (click)="CloseFilter2(itemHeader.field)">Cancel</button>
+                                                        <button type="submit" class="button button--small"
+                                                            (click)="ApplyFilter2(itemHeader.field)">Apply</button>
+                                                    </div>
+                                                </ng-container>
+                                            </ul>
+
+                                        </div>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </th>
+
+
+                    </tr>
+                </thead>
+
+                <tbody class="table__section table__section--body">
+                    <ng-container *ngIf="loadingRecords">
+                        <div class="loaderCard">
+                            <div class="loader"></div>
+                            <h3>Please Wait...</h3>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngFor="let item of PartDataBind">
+                        <tr class="table__row table__row--body"
+                            [ngClass]="{'table__row--is-active':item.isActive==true}">
+                            <td class="table__cell" data-title="Column Title">
+                                <div class="icons icons--size02">
+                                    <button class="icons__item icons__item--theme07" type="button"
+                                        routerLink="/EditItem">
+                                        <div class="icons__icon"><svg class="icon icon--theme01 icon--adjust"
+                                                aria-labelledby="title-5f83f4826a17f" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 48 48" width="48" height="48">
+                                                <path fill="currentColor" class="icon__color--primary"
+                                                    d="M6 36h36v8H6z">
+                                                </path>
+                                                <path
+                                                    d="M12 23.2a8 8 0 00-2.1 7.7 7.9 7.9 0 007.7-2 8.1 8.1 0 002.1-7.8 8 8 0 00-7.7 2.1z"
+                                                    fill="currentColor" class="icon__color--secondary"></path>
+                                                <path d="M17.6 17.6L12 23.2l5.6 5.7a8 8 0 010-11.3z" fill="currentColor"
+                                                    class="icon__color--secondary">
+                                                </path>
+                                                <path
+                                                    d="M28.9 6.2L17.6 17.6a8 8 0 000 11.3l17-17zm5.075-3.486l4.242 4.243a1 1 0 010 1.414l-2.121 2.122-5.657-5.657 2.122-2.122a1 1 0 011.414 0z"
+                                                    fill="currentColor" class="icon__color--primary"></path>
+                                                <path fill="none" d="M48 0v48H0V0z"></path>
+                                                <path d="M0 48h48V0H0z" fill="none"></path>
+                                            </svg></div>
+                                        <span class="icons__label">Edit</span>
+                                    </button>
+                                    <button class="icons__item icons__item--theme03" (click)="DeleteConfirm(item)">
+                                        <div class="icons__icon">
+                                            <svg class="icon icon--theme01 icon-simple--trash"
+                                                aria-labelledby="title-5f84133e656c0" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor"
+                                                    d="M18.3 18l-.4 3H6.1l-.4-3h12.6zM4.541 2.927l15.863 2.088-.391 2.975L4.15 5.9z"
+                                                    class="icon__color--primary">
+                                                </path>
+                                                <path fill="currentColor"
+                                                    d="M10.734 1.738l3.96.52-.26 1.98-3.96-.52zM16.3 10h3l-1 8-.4 3h-3l.4-3 1-8zM9.1 21h-3l-.4-3-1.1-8h3.1l1 8 .4 3z">
+                                                </path>
+                                            </svg></div>
+                                        <span class="icons__label">Remove</span>
+                                    </button>
+                                </div>
+                            </td>
+                            <td class="table__cell" data-title="Column Title"
+                                *ngFor="let itemHeader of tabulatorColumn">
+                                {{item[itemHeader.field]}}
+                            </td>
+                        </tr>
+
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+
+
+    </section>
+</ng-container>
+
+<div id="AddItemtestModal" class="invModal" role="dialog" aria-labelledby="dialog-title"
+    aria-describedby="dialog-description" tabindex="-1" hidden="">
+    <div class="invModal__head">
+        <h1 class="invModal__title">Create New Item</h1>
+    </div>
+    <div class="invModal__body">
+        <form class="form" #b="ngForm" [formGroup]="partformControl" (ngSubmit)="onSubmit()">
+            <div class="form__section">
+                <h2 class="form__section-title">
+                    Add New Item
+                </h2>
+                <div class="form__col-wrap">
+                    <div class="form__col form__col--third form__col--has-copy"
+                        [ngClass]="{ 'form__col--error': submitted && f.partName.errors}">
+                        <label class="form__label" for="partNameFormControl">Item Name<span
+                                class="form__required">*</span></label>
+                        <input class="form__input" type="text" id="partNameFormControl" name="partNameFormControl"
+                            formControlName="partName">
+                        <ng-container *ngIf="submitted && f.partName.errors"> <span *ngIf="f.partName.errors.required"
+                                class="form__error-message">This field is
+                                required</span></ng-container>
+                    </div>
+                    <div class="form__col form__col--two-third">
+                        <label class="form__label" for="partDescriptionFormControl">Item Description</label>
+                        <input class="form__input" type="text" id="partDescriptionFormControl"
+                            name="partDescriptionFormControl" formControlName="partDescription">
+                    </div>
+                </div>
+            </div>
+            <div class="form__section">
+                <h2 class="form__section-title">Item Settings
+                    <button type="button" data-modal="#AddUOMinnerModal" class="invModal__control js-modal">Add New
+                        UOM</button>
+                    <button type="button" data-modal="#AddLocationinnerModal" class="invModal__control js-modal">Add New
+                        Location</button>
+                </h2>
+                <div class="form__col-wrap">
+                    <div class="form__col form__col--half"
+                        [ngClass]="{'form__col--error': submitted && f.uomId.errors}">
+                        <!-- <label class="form__label" for="UomFormControl">Default UOM<span
+                                class="form__required">*</span></label>
+                        <select class="form__input  form__select" id="UomFormControl" name="UomFormControl"
+                            formControlName="uomId" (click)="changeProject($event)" required>
+                            <option value=""></option>
+                            <option *ngFor="let value of uomList" value="{{value.uomId}}">{{value.uomName}}</option>
+                        </select> -->
+
+                        <select class="floating-select" id="UomFormControl" name="UomFormControl"
+                            formControlName="uomId" (click)="changeProject($event)" required="required">
+                            <option value=""></option>
+                            <option *ngFor="let value of uomList" value="{{value.uomId}}">{{value.uomName}}</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <label class="form__label form_label">Default UOM</label>
+
+                        <ng-container *ngIf="submitted && f.uomId.errors"> <span *ngIf="f.uomId.errors.required"
+                                class="form__error-message">This field is
+                                required</span></ng-container>
+                    </div>
+                    <div class="form__col form__col--half"
+                        [ngClass]="{ 'form__col--error': submitted && f.locationId.errors}">
+                        <!-- <label class="form__label" for="locationFormControl">Default Location<span
+                                class="form__required">*</span></label>
+                        <select class="form__input  form__select" id="locationFormControl" formControlName="locationId"
+                            name="locationFormControl" (click)="changeProject($event)" required>
+                            <option value=""></option>
+                            <option *ngFor="let option of locationsList" value="{{option.locationId}}">
+                                {{option.locationName}}</option>
+                        </select> -->
+
+                        <select class="floating-select" id="locationFormControl" formControlName="locationId"
+                            name="locationFormControl" (click)="changeProject($event)" required="required">
+                            <option value=""></option>
+                            <option *ngFor="let option of locationsList" value="{{option.locationId}}">
+                                {{option.locationName}}</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <label class="form__label form_label">Default Location</label>
+
+                        <ng-container *ngIf="submitted && f.locationId.errors"> <span
+                                *ngIf="f.locationId.errors.required" class="form__error-message">This field is
+                                required</span></ng-container>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form__section">
+                <h2 class="form__section-title">Restock Levels</h2>
+                <div class="form__col-wrap">
+                    <div class="form__col form__col--half">
+                        <label class="form__label" for="lowQtyThresholdFormControl">Low Qty Threshold</label>
+                        <input class="form__input" type="number" id="lowQtyThresholdFormControl"
+                            name="lowQtyThresholdFormControl" formControlName="lowQtyThreshold">
+                    </div>
+                    <div class="form__col  form__col--half">
+                        <label class="form__label" for="highQtyThresholdFormControl">High Qty Threshold</label>
+                        <input class="form__input" type="number" id="highQtyThresholdFormControl"
+                            name="highQtyThresholdFormControl" formControlName="highQtyThreshold">
+                    </div>
+                </div>
+            </div>
+            <div class="form__section" *ngIf="AttributeFields!=undefined&&AttributeFields.length>0">
+                <h2 class="form__section-title">
+                    Attributes <button type="button" data-modal="#innerModal" class="invModal__control js-modal">Add New
+                        Attribute</button>
+                </h2>
+                <div class="form__col-wrap">
+                    <ng-container *ngFor="let field of AttributeFields">
+                        <div class="form__col form__col--third"
+                            [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''">
+                            <label class="form__label" for="Attribute_{{field.columnId}}"
+                                *ngIf="field.customFieldSpecialType!='Dropdown'&&field.dataType!='True/False'"
+                                [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>'4' ? 'prefixLabel3':'']">{{field.columnLabel}}<span
+                                    *ngIf="field.customFieldIsRequired" class="form__required">*</span></label>
+                            <span class="form__group-outer-label" *ngIf="field.dataType=='True/False'">{{(field.columnLabel.length>6)? (field.columnLabel |
+                                        slice:0:6)+'...':(field.columnLabel)}} :</span>
+                            <ng-container *ngIf="field.dataType=='Text'">
+
+                                <ng-container *ngIf="field.customFieldSpecialType=='Autocomplete'">
+                                    <ng-autocomplete [data]="ComboValueDropdown(field.comboBoxValue)" [searchKeyword]=""
+                                        [debounceTime]="600" formControlName="{{field.columnId}}"
+                                        [itemTemplate]="itemTemplate" id="Attribute_{{field.columnId}}"
+                                        name="Attribute_{{field.columnId}}" [notFoundTemplate]="notFoundTemplate">
+                                    </ng-autocomplete>
+                                    <ng-template #itemTemplate let-item>
+                                        <a [innerHTML]="item"></a>
+                                    </ng-template>
+                                </ng-container>
+
+                                <ng-container *ngIf="field.customFieldSpecialType=='Dropdown'">
+
+                                    <!-- <select class="form__input form__select" id="Attribute_{{field.columnId}}"
+                                        name="Attribute_{{field.columnId}}" formControlName="{{field.columnId}}">
+                                        <option value=""></option>
+                                        <option *ngFor="let opt of ComboValueDropdown(field.comboBoxValue)"
+                                            value="{{opt}}">
+                                            {{opt}}
+                                        </option>
+                                    </select> -->
+
+                                    <select class="floating-select" id="Attribute_{{field.columnId}}"
+                                        name="Attribute_{{field.columnId}}" formControlName="{{field.columnId}}"
+                                        value="">
+                                        <option value=""></option>
+                                        <option *ngFor="let opt of ComboValueDropdown(field.comboBoxValue)"
+                                            value="{{opt}}">
+                                            {{opt}}
+                                        </option>
+                                    </select>
+                                    <span class="highlight"></span>
+                                    <label class="form__label form_label"
+                                        *ngIf="field.customFieldSpecialType=='Dropdown'">{{field.columnLabel}}<span
+                                            *ngIf="field.customFieldIsRequired" class="form__required">*</span></label>
+                                    <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
+                                        [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
+                                            class="icon-simple icon-simple--theme01 icon-simple--info"
+                                            aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 12 12" width="12" height="12">
+                                            <g data-name="Group 748" fill="currentColor">
+                                                <path data-name="Path 435"
+                                                    d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                </path>
+                                                <path data-name="Path 436"
+                                                    d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                </path>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <popper-content #popper24Content>
+                                        <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                        <span>{{field.customFieldInformation}}</span>
+                                    </popper-content>
+                                </ng-container>
+
+                                <ng-container *ngIf="field.customFieldSpecialType=='OpenField'">
+                                    <ng-container *ngIf="field.customFieldSuffix||field.customFieldPrefix"
+                                        class="input-group">
+                                        <span *ngIf="field.customFieldPrefix" class="input-group-addon text Prefix">{{(field.customFieldPrefix.length>3)? (field.customFieldPrefix |
+                                                slice:0:3)+'...':(field.customFieldPrefix)}}</span>
+                                        <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
+                                            id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
+                                            formControlName="{{field.columnId}}"
+                                            [ngClass]="[field.customFieldPrefix.length=='1' ? 'Addon':''||field.customFieldPrefix.length=='2'?'Addon1':''||field.customFieldPrefix.length=='3'?'Addon2':''||field.customFieldPrefix.length>'4'?'Addon3':'']"
+                                            class="form__input">
+                                        <span *ngIf="field.customFieldSuffix"
+                                            class="input-group-addon text Suffix">{{field.customFieldSuffix}}</span>
+                                        <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
+                                            [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''">
+                                            <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 12 12" width="12" height="12">
+                                                <g data-name="Group 748" fill="currentColor">
+                                                    <path data-name="Path 435"
+                                                        d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                    </path>
+                                                    <path data-name="Path 436"
+                                                        d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                    </path>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        <popper-content #popper24Content>
+                                            <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                            <span>{{field.customFieldInformation}}</span>
+                                        </popper-content>
+                                    </ng-container>
+                                    <ng-container *ngIf="!field.customFieldSuffix&&!field.customFieldPrefix">
+                                        <input type="{{field.dataType}}" maxlength="{{field.customFieldTextMaxLength}}"
+                                            [required]="field.customFieldIsRequired" id="Attribute_{{field.columnId}}"
+                                            name="Attribute_{{field.columnId}}" formControlName="{{field.columnId}}"
+                                            class="form__input">
+                                        <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
+                                            [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''">
+                                            <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 12 12" width="12" height="12">
+                                                <g data-name="Group 748" fill="currentColor">
+                                                    <path data-name="Path 435"
+                                                        d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                    </path>
+                                                    <path data-name="Path 436"
+                                                        d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                    </path>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        <popper-content #popper24Content>
+                                            <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                            <span>{{field.customFieldInformation}}</span>
+                                        </popper-content>
+                                    </ng-container>
+
+                                </ng-container>
+
+                                <ng-container *ngIf="field.customFieldSpecialType==''">
+
+                                    <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
+                                        id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
+                                        formControlName="{{field.columnId}}" class="form__input">
+                                    <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
+                                        [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
+                                            class="icon-simple icon-simple--theme01 icon-simple--info"
+                                            aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 12 12" width="12" height="12">
+                                            <g data-name="Group 748" fill="currentColor">
+                                                <path data-name="Path 435"
+                                                    d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                </path>
+                                                <path data-name="Path 436"
+                                                    d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                </path>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <popper-content #popper24Content>
+                                        <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                        <span>{{field.customFieldInformation}}</span>
+                                    </popper-content>
+                                </ng-container>
+
+                            </ng-container>
+                            <ng-container *ngIf="field.dataType=='Number'">
+
+                                <ng-container *ngIf="field.customFieldSpecialType=='Number'">
+                                    <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
+                                        id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
+                                        formControlName="{{field.columnId}}" class="form__input">
+                                    <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
+                                        [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
+                                            class="icon-simple icon-simple--theme01 icon-simple--info"
+                                            aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 12 12" width="12" height="12">
+                                            <g data-name="Group 748" fill="currentColor">
+                                                <path data-name="Path 435"
+                                                    d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                </path>
+                                                <path data-name="Path 436"
+                                                    d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                </path>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <popper-content #popper24Content>
+                                        <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                        <span>{{field.customFieldInformation}}</span>
+                                    </popper-content>
+                                </ng-container>
+                                <ng-container *ngIf="field.customFieldSpecialType=='Currency'" class="input-group">
+                                    <span class="input-group-addon text ">$</span>
+                                    <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
+                                        id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
+                                        formControlName="{{field.columnId}}" class="form__input Addon">
+                                    <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
+                                        [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
+                                            class="icon-simple icon-simple--theme01 icon-simple--info"
+                                            aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 12 12" width="12" height="12">
+                                            <g data-name="Group 748" fill="currentColor">
+                                                <path data-name="Path 435"
+                                                    d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                </path>
+                                                <path data-name="Path 436"
+                                                    d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                </path>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <popper-content #popper24Content>
+                                        <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                        <span>{{field.customFieldInformation}}</span>
+                                    </popper-content>
+                                </ng-container>
+
+                                <ng-container *ngIf="field.customFieldSpecialType==''">
+                                    <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
+                                        id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
+                                        formControlName="{{field.columnId}}" class="form__input">
+                                    <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
+                                        [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
+                                            class="icon-simple icon-simple--theme01 icon-simple--info"
+                                            aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 12 12" width="12" height="12">
+                                            <g data-name="Group 748" fill="currentColor">
+                                                <path data-name="Path 435"
+                                                    d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                </path>
+                                                <path data-name="Path 436"
+                                                    d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                </path>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <popper-content #popper24Content>
+                                        <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                        <span>{{field.customFieldInformation}}</span>
+                                    </popper-content>
+                                </ng-container>
+
+
+
+                            </ng-container>
+                            <div *ngIf="field.dataType=='Date/Time'">
+                                <ng-container
+                                    *ngIf="field.customFieldSpecialType=='Date'||field.customFieldSpecialType==''">
+                                    <input type="date" [required]="field.customFieldIsRequired"
+                                        id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
+                                        formControlName="{{field.columnId}}" data-flatpickr-mode="single"
+                                        class="form__input flatpickr">
+                                    <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
+                                        [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
+                                            class="icon-simple icon-simple--theme01 icon-simple--info"
+                                            aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 12 12" width="12" height="12">
+                                            <g data-name="Group 748" fill="currentColor">
+                                                <path data-name="Path 435"
+                                                    d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                </path>
+                                                <path data-name="Path 436"
+                                                    d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                </path>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <popper-content #popper24Content>
+                                        <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                        <span>{{field.customFieldInformation}}</span>
+                                    </popper-content>
+                                </ng-container>
+                                <ng-container *ngIf="field.customFieldSpecialType=='Date & Time'">
+                                    <input type="date" [required]="field.customFieldIsRequired"
+                                        id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
+                                        formControlName="{{field.columnId}}" data-flatpickr-mode="single"
+                                        class="form__input flatpickr">
+                                    <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
+                                        [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
+                                            class="icon-simple icon-simple--theme01 icon-simple--info"
+                                            aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 12 12" width="12" height="12">
+                                            <g data-name="Group 748" fill="currentColor">
+                                                <path data-name="Path 435"
+                                                    d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                </path>
+                                                <path data-name="Path 436"
+                                                    d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                </path>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <popper-content #popper24Content>
+                                        <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                        <span>{{field.customFieldInformation}}</span>
+                                    </popper-content>
+                                </ng-container>
+                                <ng-container *ngIf="field.customFieldSpecialType=='Time'">
+                                    <input type="date" [required]="field.customFieldIsRequired"
+                                        id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
+                                        formControlName="{{field.columnId}}ddd" data-flatpickr-mode="single"
+                                        class="form__input flatpickr">
+                                    <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
+                                        [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
+                                            class="icon-simple icon-simple--theme01 icon-simple--info"
+                                            aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 12 12" width="12" height="12">
+                                            <g data-name="Group 748" fill="currentColor">
+                                                <path data-name="Path 435"
+                                                    d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                </path>
+                                                <path data-name="Path 436"
+                                                    d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                </path>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <popper-content #popper24Content>
+                                        <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                        <span>{{field.customFieldInformation}}</span>
+                                    </popper-content>
+                                </ng-container>
+                            </div>
+                            <div *ngIf="field.dataType=='True/False'">
+
+                                <!-- <input [required]="field.customFieldIsRequired" id="Attribute_{{field.columnId}}"
+                                        type="checkbox"> -->
+
+                                <div class="form__group form__group--radio">
+                                    <input id="Attribute_{{field.columnId}}_1" [(ngModel)]="field.columnValue"
+                                        class="form__radio" type="radio" value="{{field.customFieldFalseLabel}}"
+                                        name="radio200">
+                                    <label class="form__group-label" for="Attribute_{{field.columnId}}_1">{{(field.customFieldFalseLabel.length>5)? (field.customFieldFalseLabel |
+                                            slice:0:5)+'...':(field.customFieldFalseLabel)}}</label>
+                                </div>
+                                <div class="form__group form__group--radio">
+                                    <input [(ngModel)]="field.columnValue" value="{{field.customFieldTrueLabel}}"
+                                        id="Attribute_{{field.columnId}}_2" class="form__radio" type="radio"
+                                        name="radio200">
+                                    <label class="form__group-label" for="Attribute_{{field.columnId}}_2">{{(field.customFieldTrueLabel.length>5)? (field.customFieldTrueLabel |
+                                            slice:0:5)+'...':(field.customFieldTrueLabel)}}</label>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </ng-container>
+                    <div class="form__col form__col--third">
+                    </div>
+                    <div class="form__col form__col--third">
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div class="button-group">
+                <button type="submit" [disabled]="!b.form.valid" class="button button--medium">Save</button>
+                <button type="button" class="button button--medium button--text-only" (click)="onReset()" id="Closebtn"
+                    data-close="#AddItemtestModal">Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+</div>
+<div id="innerModal" role="dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description" tabindex="-1"
+    hidden="">
+    <div class="invModal__head">
+        <h2 class="invModal__title">Add New Attribute</h2>
+        <span class="invModal__control">
+            <div class="tooltip" title="Example text here"><svg
+                    class="icon-simple icon-simple--theme01 icon-simple--info" aria-labelledby="title-5f8fce8eb7064"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12">
+                    <g data-name="Group 748" fill="currentColor">
+                        <path data-name="Path 435"
+                            d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                        </path>
+                        <path data-name="Path 436"
+                            d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                        </path>
+                    </g>
+                </svg></div>
+        </span>
+    </div>
+    <div class="invModal__body">
+        <form class="form" #om="ngForm">
+            <div class="form__section">
+                <div class="form__col-wrap">
+                    <div class="form__col">
+                        <label class="form__label" for="filled-name">Attribute Name<span
+                                class="form__required">*</span></label>
+                        <input class="form__input" type="text" [(ngModel)]="attributeFields.columnLabel"
+                            id="filled-name" name="filled-name" required="required">
+                        <div class="tooltip" title="Example text here"><svg
+                                class="icon-simple icon-simple--theme01 icon-simple--info"
+                                aria-labelledby="title-5f8fce8eb7070" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 12 12" width="12" height="12">
+                                <g data-name="Group 748" fill="currentColor">
+                                    <path data-name="Path 435"
+                                        d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                    </path>
+                                    <path data-name="Path 436"
+                                        d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                    </path>
+                                </g>
+                            </svg></div>
+                    </div>
+                    <div class="form__col">
+                        <!-- <label class="form__label" for="Attribute_data-type">Data Type<span
+                                class="form__required">*</span></label> -->
+
+                        <select class="floating-select" [(ngModel)]="selectedDatatype" id="Attribute_data-type"
+                            name="Attribute_data-type" required="required">
+                            <option value=""></option>
+                            <option *ngFor="let opt of datatype" [value]="opt">
+                                {{opt}}
+                            </option>
+                        </select>
+                        <span class="highlight"></span>
+                        <label class="form_label">Data Type<span class="form__required">*</span></label>
+                        <br>
+                        <ng-container *ngIf="selectedDatatype=='OpenField'">
+                            <div class="form__col-wrap">
+                                <div class="form__col form__col--half">
+                                    <label class="form__label" for="Prefix">Prefix Value</label>
+                                    <input type="text" id="Prefix" name="Prefix"
+                                        [(ngModel)]="attributeFields.customFieldPrefix" class="form__input">
+                                </div>
+                                <div class="form__col form__col--half"> <label class="form__label"
+                                        for="customFieldSuffix">Suffix
+                                        Value</label>
+                                    <input type="text" id="customFieldSuffix" name="customFieldSuffix"
+                                        [(ngModel)]="attributeFields.customFieldSuffix" class="form__input">
+                                </div>
+                                <div class="form__col form__col--half"> <label class="form__label"
+                                        for="cfdBaseValue">Base
+                                        Value</label>
+                                    <input type="number" id="cfdBaseValue" name="cfdBaseValue"
+                                        [(ngModel)]="attributeFields.customFieldBaseValue" class="form__input">
+                                </div>
+                                <div class="form__col form__col--half"> <label class="form__label"
+                                        for="cfdIncrementBy">Increment
+                                        By</label>
+                                    <input type="number" id="cfdIncrementBy" name="cfdIncrementBy"
+                                        [(ngModel)]="attributeFields.customFieldIncrementBy" class="form__input">
+                                </div>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="selectedDatatype=='Dropdown'">
+
+                            <div class="form__col">
+                                <label class="form__label" for="typeName1">Enter or Copy Dropdown Values in the
+                                    Field Below<span class="form__required">*</span></label>
+                                <textarea rows="10" [(ngModel)]="attributeFields.comboBoxValue" id="typeName1"
+                                    name="typeName1" class="drpdown form__input ng-valid ng-dirty"
+                                    required="required"></textarea>
+                            </div>
+
+                        </ng-container>
+
+                        <ng-container *ngIf="selectedDatatype=='Autocomplete'">
+
+                            <div class="form__col">
+                                <label class="form__label" for="typeName1">Enter or Copy Autocomplete Values in the
+                                    Field Below<span class="form__required">*</span></label>
+                                <textarea rows="10" [(ngModel)]="attributeFields.comboBoxValue" id="typeName1"
+                                    name="typeName1" class="drpdown form__input ng-valid ng-dirty"
+                                    required="required"></textarea>
+                            </div>
+
+                        </ng-container>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="button" (click)="AddNewAttribute(om)" [disabled]="!om.form.valid"
+                    class="button button--medium">Save</button>
+                <button type="button" #AddAttributeClose class="button button--medium button--text-only"
+                    data-close="#innerModal" (click)="Close(om)">Cancel
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<div id="AddUOMinnerModal" role="dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"
+    tabindex="-1" hidden="">
+    <div class="invModal__head">
+        <h2 class="invModal__title">Add New UOM</h2>
+        <span class="invModal__control">
+            <div class="tooltip" title="Example text here"><svg
+                    class="icon-simple icon-simple--theme01 icon-simple--info" aria-labelledby="title-5f8fce8eb7064"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12">
+                    <g data-name="Group 748" fill="currentColor">
+                        <path data-name="Path 435"
+                            d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                        </path>
+                        <path data-name="Path 436"
+                            d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                        </path>
+                    </g>
+                </svg></div>
+        </span>
+    </div>
+    <div class="invModal__body">
+        <form class="form" [formGroup]="uomForm" #t="ngForm">
+            <div class="form__section">
+                <div class="form__col-wrap">
+                    <div class="form__col">
+                        <label class="form__label" for="UOM-filled-name">UOM Name<span
+                                class="form__required">*</span></label>
+                        <input class="form__input" type="text" id="UOM-filled-name" name="UOM-filled-name"
+                            formControlName="uomName">
+                        <div class="tooltip" title="Example text here"><svg
+                                class="icon-simple icon-simple--theme01 icon-simple--info"
+                                aria-labelledby="title-5f8fce8eb7070" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 12 12" width="12" height="12">
+                                <g data-name="Group 748" fill="currentColor">
+                                    <path data-name="Path 435"
+                                        d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                    </path>
+                                    <path data-name="Path 436"
+                                        d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                    </path>
+                                </g>
+                            </svg></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="button" (click)="AddNewUOM(t)" [disabled]="!t.form.valid"
+                    class="button button--medium">Save</button>
+                <button type="button" #AddUOMClose class="button button--medium button--text-only"
+                    data-close="#AddUOMinnerModal" (click)="Close(t)">Cancel
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div id="AddLocationinnerModal" role="dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"
+    tabindex="-1" hidden="">
+    <div class="invModal__head">
+        <h2 class="invModal__title">Add New Location</h2>
+        <span class="invModal__control">
+            <div class="tooltip" title="Example text here"><svg
+                    class="icon-simple icon-simple--theme01 icon-simple--info" aria-labelledby="title-5f8fce8eb7064"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12">
+                    <g data-name="Group 748" fill="currentColor">
+                        <path data-name="Path 435"
+                            d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                        </path>
+                        <path data-name="Path 436"
+                            d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                        </path>
+                    </g>
+                </svg></div>
+        </span>
+    </div>
+    <div class="invModal__body">
+        <form class="form" [formGroup]="locationForm" #r="ngForm">
+            <div class="form__section">
+                <div class="form__col-wrap">
+                    <div class="form__col form__col--two">
+                        <label class="form__label" for="locationNameFormcontrol">Location Name<span
+                                class="form__required">*</span></label>
+                        <input class="form__input" formControlName="locationName" type="text"
+                            id="locationNameFormcontrol" name="locationNameFormcontrol">
+                    </div>
+                </div>
+                <div class="form__col-wrap">
+                    <div class="form__col form__col--two">
+                        <label class="form__label" for="descriptionFormcontrol">Description</label>
+                        <input class="form__input" type="text" id="descriptionFormcontrol" name="descriptionFormcontrol"
+                            formControlName="description">
+                    </div>
+                </div>
+                <div class="form__col-wrap">
+                    <div class="form__col form__col--two">
+                        <label class="form__label" for="locationZoneFormcontrol">Location Group</label>
+                        <input class="form__input" type="text" id="locationZoneFormcontrol"
+                            name="locationZoneFormcontrol" formControlName="locationZone">
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="button" (click)="AddNewLocation(r)" [disabled]="!r.form.valid"
+                    class="button button--medium">Save</button>
+                <button type="button" #AddLocationClose class="button button--medium button--text-only"
+                    data-close="#AddLocationinnerModal" (click)="Close(r)">Cancel
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div *ngIf="DeleteConfirmPopup">
+    <div class="modal">
+        <div id="DeleteConfirm">
+            <div class="Modal__head">
+                <h1 class="invModal__title">Delete Item ?</h1>
+            </div>
+            <div class="Modal__body">
+                <p class="invModal__title">Click "OK" to delete this field. THIS WILL DELETE ALL OF
+                    THE DATA ASSOCIATED
+                    WITH THIS FIELD, and It cannot be undone.</p>
+            </div>
+            <div class="Modal__footer">
+                <div class="button-group">
+                    <button type="submit" class="button button--medium" id="confirmBtn"
+                        (click)="deleteItem(selectedPartItem.partId)">Confirm</button>
+                    <button type="button" class="button button--medium button--text-only" (click)="ClosePopup()">Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-container *ngIf="NotPermitted">
+    <section class="main">
+        <h2><b>You are Not Permitted for Item Library</b></h2>
+        <div>
+            <button class="button button--medium button--theme02 js-modal" type="button" routerLink="/CurrentInventory"
+                data-modal="#InventorytestModal">
+                Go to Inventory
+            </button>
+        </div>
+    </section>
+</ng-container>
+
+
+<ngx-spinner></ngx-spinner>

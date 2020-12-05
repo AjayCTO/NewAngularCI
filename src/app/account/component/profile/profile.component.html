@@ -1,0 +1,151 @@
+<div class="actions">
+    <div class="actions__title">
+
+        <h1> User Profile </h1>
+
+    </div>
+</div>
+
+<div style="display: flex;">
+    <div style="width: 30%;border-right: 1px solid rgb(218, 218, 218);">
+        <div class="card1">
+            <ul class="icons__submenu-list">
+                <li class="icons__submenu-item">
+                    <a class="icons__submenu-link" (click)="ManageProfile()">
+                        <svg class="icon icon--theme01 icon--menu" aria-labelledby="title-5fabc1ec35f65"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
+                            <path fill="none" d="M0 0h48v48H0z"></path>
+                            <circle cx="8" cy="24" r="6" fill="currentColor" class="icon__color--primary">
+                            </circle>
+                            <circle cx="8" cy="10" r="4" fill="currentColor" class="icon__color--secondary">
+                            </circle>
+                            <circle cx="8" cy="38" r="4" fill="currentColor" class="icon__color--secondary">
+                            </circle>
+                            <rect x="16.4" y="6" width="31" height="8" rx="4" fill="currentColor"
+                                class="icon__color--secondary"></rect>
+                            <rect x="16.4" y="34" width="31" height="8" rx="4" fill="currentColor"
+                                class="icon__color--secondary"></rect>
+                            <rect x="16.4" y="18" width="31" height="12" rx="6" fill="currentColor"
+                                class="icon__color--primary"></rect>
+                        </svg> Manage Profile
+                    </a>
+                    <div *ngIf="!ShowProfileManage" class="active"></div>
+                </li>
+                <li class="icons__submenu-item">
+                    <a class="icons__submenu-link" (click)="ChangePassword()">
+                        <svg class="icon icon--theme01 icon--show" aria-labelledby="title-5fabc967c1127"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
+                            <path fill="none" d="M0 0h48v48H0z"></path>
+                            <path
+                                d="M44.9 27.8a23.4 23.4 0 01-2.9 4.1 25.8 25.8 0 01-5.4 4.5A10 10 0 0040.1 24l-.2-.5c-.1 0-.1-.1-.1-.2l-.5-.7A17.9 17.9 0 0025.1 14H24A17.9 17.9 0 007.9 24a10 10 0 013.5-12.4l.6-.4.6-.3A23.3 23.3 0 0124 8a23.8 23.8 0 0118 8.1 23.4 23.4 0 012.9 4.1 7.9 7.9 0 010 7.6z"
+                                fill="currentColor" class="icon__color--secondary"></path>
+                            <path
+                                d="M36.6 36.4l-.6.4-.6.3A23.3 23.3 0 0124 40a23.9 23.9 0 01-18-8.2 24.1 24.1 0 01-2.9-4 7.9 7.9 0 010-7.6A23.4 23.4 0 016 16.1a25.8 25.8 0 015.4-4.5A10 10 0 007.9 24H8l.3.6.4.6A18.1 18.1 0 0022.9 34H24a18 18 0 0016.1-10 10 10 0 01-3.5 12.4z"
+                                fill="currentColor" class="icon__color--primary"></path>
+                            <circle cx="24" cy="24" r="7" fill="currentColor" class="icon__color--primary"></circle>
+                        </svg> Change Password
+                    </a>
+                    <div *ngIf="ShowProfileManage" class="active"></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div style="width: 60%;">
+        <div class="card">
+            <div class="form__one">
+                <img src="/assets/img/profile4.png" width="140">
+                <div class="form__third">
+                    <h2>{{FirstName}} {{LastName}}</h2>
+                    <h4>{{Email}}</h4>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!ShowProfileManage">
+            <form class="form" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                <div class="form__section">
+                    <div class="form__col-wrap">
+                        <div class="form__col form__col--half"
+                            [ngClass]="{ 'form__col--error': submitted && f.firstName.errors}">
+                            <label class="form__label" for="FirstName">First Name</label>
+                            <input class="form__input" type="text" id="FirstName" name="FirstName"
+                                formControlName="firstName">
+                            <ng-container *ngIf="submitted && f.firstName.errors"> <span
+                                    *ngIf="f.firstName.errors.required" class="form__error-message">This field is
+                                    required</span></ng-container>
+                        </div>
+
+                        <div class="form__col form__col--half"
+                            [ngClass]="{ 'form__col--error': submitted && f.lastName.errors}">
+                            <label class="form__label" for="LastName">Last Name</label>
+                            <input class="form__input" type="text" id="LastName" name="LastName"
+                                formControlName="lastName">
+                            <ng-container *ngIf="submitted && f.lastName.errors"> <span
+                                    *ngIf="f.lastName.errors.required" class="form__error-message">This field is
+                                    required</span></ng-container>
+                        </div>
+                    </div>
+                    <div class="form__col-wrap">
+                        <div class="form__col form__col--half"
+                            [ngClass]="{ 'form__col--error': submitted && f.company.errors}">
+                            <label class="form__label" for="Company">Company</label>
+                            <input class="form__input" type="text" id="Company" name="Company"
+                                formControlName="company">
+                            <ng-container *ngIf="submitted && f.company.errors"> <span *ngIf="f.company.errors.required"
+                                    class="form__error-message">This field is
+                                    required</span></ng-container>
+                        </div>
+
+                        <div class="form__col form__col--half"
+                            [ngClass]="{ 'form__col--error': submitted && f.phone.errors}">
+                            <label class="form__label" for="Phone">Phone</label>
+                            <input class="form__input" type="text" id="Phone" name="Phone" formControlName="phone">
+                            <ng-container *ngIf="submitted && f.phone.errors"> <span *ngIf="f.phone.errors.required"
+                                    class="form__error-message">This field is
+                                    required</span></ng-container>
+                        </div>
+                    </div>
+                    <div class="form__col-wrap">
+                        <div class="button-group">
+                            <button type="submit" class="button button--medium">Update
+                                Profile</button>
+                            <button type="button" class="button button--medium button--text-only"
+                                (click)="closeProfile()">Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card" *ngIf="ShowProfileManage">
+            <form class="form" #f="ngForm">
+                <div class="form__section">
+                    <div class="form__col-wrap">
+                        <div class="form__col form__col--half">
+                            <label class="form__label" for="CurrentPassword">Current Password</label>
+                            <input class="form__input" type="password" [(ngModel)]="ChangePasswordModel.OldPassword"
+                                name="CurrentPassword" id="CurrentPassword">
+                        </div>
+                    </div>
+                    <div class="form__col-wrap">
+                        <div class="form__col form__col--half">
+                            <label class="form__label" for="NewPassword">New Password</label>
+                            <input class="form__input" type="password" [(ngModel)]="ChangePasswordModel.NewPassword"
+                                name="NewPassword" id="NewPassword">
+                        </div>
+                    </div>
+                    <div class="form__col-wrap">
+                        <div class="button-group">
+                            <button type="submit" class="button button--medium" [disabled]="!f.form.valid"
+                                (click)="Changepassword()">Change
+                                Password</button>
+                            <button type="button" class="button button--medium button--text-only"
+                                (click)="closeProfile()">Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<ngx-spinner></ngx-spinner>
