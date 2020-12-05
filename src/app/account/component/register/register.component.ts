@@ -73,6 +73,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
   onSubmit() {
 
+    this.spinner.show();
     this.submitted = true;
     if (this.registerForm.invalid) {
       this.toastr.warning("Form is Invalid.")
@@ -88,8 +89,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
         result => {
           if (result) {
             this.success = true;
-            this.spinner.show();
-            this.toastr.success("Your account have been Successfully create.and Redirect To login");
+            // this.spinner.show();
+            // this.toastr.success("Your account have been Successfully create.and Redirect To login");
             setTimeout(() => {
               this.login();
             }, 2000);

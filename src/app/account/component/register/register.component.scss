@@ -149,3 +149,23 @@ div .right {
      text-decoration: none;
      cursor: pointer;
  }
+ .register--success{
+    background: #08ad08;
+    color: #ffffff;
+    /* position: absolute; */
+    margin: 0 auto;
+    width: 500px;
+    padding: 25px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    border-radius: 10px;
+    box-shadow: 2px 2px 18px #707070;
+    text-align: center;
+    p {
+        margin: 0 !important;
+        font-weight: bold;
+        font-size: 20px;
+    }
+ }
