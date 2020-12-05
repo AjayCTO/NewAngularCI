@@ -1,7 +1,6 @@
-
 <div id="AddEventModal" role="dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description" tabindex="-1"
     hidden="">
-  
+
     <div class="invModal__head">
         <h2 class="invModal__title">Event Configure</h2>
         <span class="invModal__control">
@@ -12,7 +11,7 @@
         <form class="form" #f="ngForm" (ngSubmit)="onSubmit()">
             <div class="form__section">
                 <h2 class="form__section-title">
-                    Event Settings  
+                    Event Settings
                 </h2>
                 <div class="form__col form__col--half">
                     <label class="form__label" for="Add_Event-Name">Event Name<span
@@ -367,12 +366,11 @@
                         </div>
                     </div>
                 </ng-container>
-                
-                <ng-container >
+
+                <ng-container>
                     <h2 class="form__section-title">
-                        Custom Fields  <button type="button" data-modal="#innerModalCustomfield"
-                        class="invModal__control js-modal">Add New
-                        Custom fields</button> <span>
+                        Custom Fields
+                        <span>
                             <div class="form__group form__group--checkbox">
 
                                 <input id="Add_MasterSelectCheckbox" [(ngModel)]="masterSelected"
@@ -383,6 +381,9 @@
                                 </label>
                             </div>
                         </span>
+                        <button type="button" data-modal="#innerModalCustomfield" class="invModal__control js-modal">Add
+                            New
+                            Custom fields</button>
                     </h2>
                     <div class="form__col-wrap" *ngIf="CustomFields!=undefined&&CustomFields.length>0">
                         <!-- <div class="form__group form__group--checkbox form__col--full">
@@ -417,8 +418,8 @@
             <div class="button-group">
                 <button type="button" (click)="onSubmit()" [disabled]="!f.form.valid" class="button button--medium"
                     href="#">Save</button>
-                <button type="button" (click)="clearform(f)" #AddEventClose class="button button--medium button--text-only"
-                    data-close="#AddEventModal">Cancel
+                <button type="button" (click)="clearform(f)" #AddEventClose
+                    class="button button--medium button--text-only" data-close="#AddEventModal">Cancel
                 </button>
             </div>
 
