@@ -624,14 +624,15 @@ justify-content: left !important;
   text-align: center;
   line-height: 44px;
   background: #f0f3f9;
-  margin-top: 8px;
+  margin-top: 4px;
+  margin-left: auto;
 }
 
 .form__col--one {
-  width: calc((100% / 25) - 0.625rem);
+  width: calc((100% / 22) - 0.625rem);
 }
 .form__col--nine {
-  width: calc((100% /1.03) - 0.625rem);
+  width: calc((100% /1.05) - 0.625rem);
   h3,h5,h6 {
     margin: 0 !important;
     margin-right: 10px !important;
@@ -687,4 +688,10 @@ justify-content: left !important;
 max-width: 680px;
 position: relative;
 width: 100%;
+}
+
+.history--form {
+  overflow-x: auto;
+    max-height: 318px;
+    min-height: 130px;
 }

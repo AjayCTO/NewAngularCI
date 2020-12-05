@@ -6,11 +6,12 @@
   transition-timing-function: linear;
   &.action--is-active {
     max-height: 1000px;
+    margin-top: 21px;
   }
 }
 .action__wrap {
   margin-left: 0;
-  padding: 3rem 1.25rem 1.25rem;
+  padding: 2rem 1.25rem 1.25rem;
 }
 .action__close {
   align-items: center;

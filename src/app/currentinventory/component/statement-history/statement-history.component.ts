@@ -25,6 +25,7 @@ export class StatementHistoryComponent implements OnInit {
   public today: Date;
   public statementHistory: any;
   public transaction_History: any;
+  loadingRecords = false;
   constructor(private currentinventoryService: CurrentinventoryService, private authService: AuthService, private spinner: NgxSpinnerService,) { }
 
   ngOnInit(): void {
@@ -37,6 +38,7 @@ export class StatementHistoryComponent implements OnInit {
   }
   StatementServices() {
     debugger;
+    this.loadingRecords = true;
     this.currentinventoryService.GetStatementHistory(this.selectedTenantId, this.authService.accessToken, this.InventoryTransactionObj.inventoryId)
       .pipe(finalize(() => {
         this.spinner.hide();
@@ -44,6 +46,7 @@ export class StatementHistoryComponent implements OnInit {
       .subscribe(
         result => {
           debugger;
+          this.loadingRecords = false;
           this.statementHistory = result.entity.transaction_History;
 
           this.statementHistory.forEach(MainArray => {

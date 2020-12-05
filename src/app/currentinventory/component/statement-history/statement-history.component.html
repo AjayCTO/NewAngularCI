@@ -22,6 +22,12 @@
                 </svg></div>
             <span class="icons__label">Statement History</span>
         </button>
+        <ng-container *ngIf="loadingRecords">
+            <div class="loaderCard">
+                <div class="loader"></div>
+                <h3>Please Wait...</h3>
+            </div>
+        </ng-container>
         <form class="action__wrap history--form">
             <div class="form_section" *ngFor="let item of statementHistory">
                 <div class="form__col-wrap">
