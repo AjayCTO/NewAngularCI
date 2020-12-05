@@ -412,7 +412,7 @@
             <div class="button-group">
                 <button type="button" (click)="onSubmit()" [disabled]="!f.form.valid" class="button button--medium"
                     href="#">Save</button>
-                <button type="button" #AddEventClose class="button button--medium button--text-only"
+                <button type="button" (click)="clearform(f)" #AddEventClose class="button button--medium button--text-only"
                     data-close="#AddEventModal">Cancel
                 </button>
             </div>

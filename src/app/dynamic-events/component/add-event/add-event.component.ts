@@ -172,4 +172,8 @@ export class AddEventComponent implements OnInit {
     debugger;
     this.SelectedIcon = type;
   }
+  // Clear form 
+  clearform(form){
+    form.reset();
+  }
 }
