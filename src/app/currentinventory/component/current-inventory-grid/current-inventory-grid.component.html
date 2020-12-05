@@ -331,20 +331,6 @@
                 </div>
             </div>
             <div class="card icons icons--horziontal icons--size01">
-                <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
-                    <button class="btn btn-outline-primary mr-2" id="dropdownManual" ngbDropdownAnchor
-                        (focus)="myDrop.open()">Toggle
-                        dropdown</button>
-                    <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                        <button ngbDropdownItem>Action - 1</button>
-                        <button ngbDropdownItem>Another Action</button>
-                        <button ngbDropdownItem>Something else is here</button>
-                    </div>
-                </div>
-                <button class="btn btn-outline-success mr-2" (click)="$event.stopPropagation(); myDrop.open();">Open
-                    from
-                    outside</button>
-
                 <button type="button" *ngFor="let filter of FilterArray"
                     class="icons__item icons__item--contains-text icons__item--theme07">
                     <div class="icons__text"><strong class="icons__name">{{filter.displayName}}:</strong>
