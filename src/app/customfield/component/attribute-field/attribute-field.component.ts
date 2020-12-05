@@ -249,10 +249,16 @@ export class AttributeFieldsComponent implements OnInit {
 
 
   onSubmit() {
+    
 
     if (this.attributeFields.customFieldSpecialType == "Autocomplete" || this.attributeFields.customFieldSpecialType == "Dropdown") {
       this.attributeFields.comboBoxValue = this.cfdcomboValuesString;
     }
+   if (this.attributeFields.customFieldBaseValue==null|| this.attributeFields.customFieldIncrementBy==null)
+   {
+     this.attributeFields.customFieldBaseValue=0;
+     this.attributeFields.customFieldIncrementBy=0;
+   }
     this.attributeFields.customFieldType = "AttributeField";
     this.spinner.show();
     this.customfieldservice.AddAttributeFields(this.attributeFields, this.selectedTenantId, this.authService.accessToken)
