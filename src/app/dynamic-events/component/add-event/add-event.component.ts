@@ -12,6 +12,7 @@ import { AuthService } from '../../../core/auth.service';
 import { finalize } from 'rxjs/operators'
 import { DynamicEvents } from '../../models/event-models';
 import { CustomFieldService } from '../../../customfield/service/custom-field.service';
+import { CustomFields } from '../../../customfield/models/customfieldmodel';
 @Component({
   selector: 'app-add-event',
   templateUrl: './add-event.component.html',
@@ -21,6 +22,7 @@ export class AddEventComponent implements OnInit {
   @Input() selectedTenantId
   @Output() RefreshEventList = new EventEmitter();
   @ViewChild('AddEventClose', { static: true }) AddEventClose: ElementRef<HTMLElement>;
+  @ViewChild('AddCustomFieldClose', { static: true }) AddCustomFieldClose: ElementRef<HTMLElement>;
   color;
   public SelectedIcon = "1";
   public eventformControl: FormGroup;
@@ -35,6 +37,45 @@ export class AddEventComponent implements OnInit {
   public checklistObj = {
     id: 0, columnName: '', columnLabel: '', isSelected: false
   }
+
+  // customfield add
+  public datatype: any = ['OpenField', 'Dropdown', 'Autocomplete', 'Number', 'Currency', 'Date', 'Date & Time', 'Time', 'True/False']
+  public selectedDatatype: string;
+  public cfdcomboValuesString: string;
+  
+  customField: CustomFields = {
+    columnId: 0,
+    columnName: '',
+    columnLabel: '',
+    customFieldType: '',
+    dataType: '',
+    columnValue: '',
+    comboBoxValue: '',
+    customFieldIsRequired: false,
+    customFieldInformation: '',
+    customFieldPrefix: '',
+    customFieldSuffix: '',
+    customFieldIsIncremental: false,
+    customFieldBaseValue: 0,
+    customFieldIncrementBy: 0,
+    customFieldTextMaxLength: 0,
+    customFieldDefaultValue: '',
+    customFieldNumberMin: 0,
+    customFieldNumberMax: 0,
+    customFieldNumberDecimalPlaces: 0,
+    customFieldTrueLabel: '',
+    customFieldFalseLabel: '',
+    customFieldSpecialType: '',
+    dateDefaultPlusMinus: '',
+    dateDefaultNumber: null,
+    dateDefaulInterval: '',
+    timeDefaultPlusMinus: '',
+    timeNumberOfHours: null,
+    timeNumberOFMinutes: null,
+    offsetDateFields: '',
+    offsetTimeFields: '',
+  }
+
   eventForm: DynamicEvents = {
     id: 0,
     eventName: '',
@@ -176,4 +217,54 @@ export class AddEventComponent implements OnInit {
   clearform(form){
     form.reset();
   }
+ 
+   // custom fields new add
+   AddNewCustomfield() {
+    this.spinner.show();
+    debugger;
+    if (this.customField.customFieldSpecialType == "Autocomplete" || this.customField.customFieldSpecialType == "Dropdown") {
+      this.CustomFields.comboBoxValue = this.cfdcomboValuesString;
+    }
+    if (this.selectedDatatype == "Autocomplete" || this.selectedDatatype == "Dropdown" || this.selectedDatatype == "OpenField") {
+      this.customField.dataType = "Text";
+    }
+    if (this.selectedDatatype == "Number" || this.selectedDatatype == "Currency") {
+      this.customField.dataType = "Number";
+    }
+    if (this.selectedDatatype == "Date" || this.selectedDatatype == "Date & Time" || this.selectedDatatype == "Time") {
+      this.customField.dataType = "Date/Time";
+    }
+    if (this.selectedDatatype == "True/False") {
+      this.customField.dataType = "True/False";
+    }
+    this.customField.customFieldSpecialType = this.selectedDatatype;
+    this.customfieldservice.AddCustomFields(this.customField, this.selectedTenantId, this.authService.accessToken)
+      .pipe(finalize(() => {
+        this.spinner.hide();
+      }))
+      .subscribe(
+        result => {
+          if (result) {
+            debugger;
+
+            if (result.entity == true) {
+              this.toastr.success("Your customField is Successfully Add.");
+              let el: HTMLElement = this.AddCustomFieldClose.nativeElement;
+              el.click();
+              // form.reset();
+              // this.GetAttributeFields();
+              this.GetCustomFields();
+              setTimeout(function () {
+                inputClear();
+                inputFocus();
+                datePicker();
+              }, 500)
+            }
+            else {
+              this.toastr.warning(result.message);
+            }
+          }
+        });
+  }
+
 }
