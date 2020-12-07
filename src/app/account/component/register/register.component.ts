@@ -73,12 +73,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
   onSubmit() {
 
-    this.spinner.show();
+
     this.submitted = true;
     if (this.registerForm.invalid) {
       this.toastr.warning("Form is Invalid.")
       return;
     }
+    this.spinner.show();
     this.userRegistration = this.registerForm.value;
     this.registerForm.markAllAsTouched();
     this.account.register(this.registerForm.value)
