@@ -94,7 +94,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
             // this.toastr.success("Your account have been Successfully create.and Redirect To login");
             setTimeout(() => {
               this.login();
-            }, 2000);
+            }, 5000);
 
           }
         },
