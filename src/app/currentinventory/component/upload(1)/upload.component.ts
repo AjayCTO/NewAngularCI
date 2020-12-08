@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-upload',
@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UploadComponent implements OnInit {
 
+
+  @Output() hideClose = new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  Close() {
+    this.hideClose.emit(false);
+  }
 }

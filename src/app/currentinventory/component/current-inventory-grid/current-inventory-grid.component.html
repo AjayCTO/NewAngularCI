@@ -2626,7 +2626,7 @@
     </div>
 </div>
 
-<app-upload *ngIf="UploadActivityOpen"></app-upload>
+<app-upload *ngIf="UploadActivityOpen" (hideClose)="getValue($event)"></app-upload>
 
 <!-- <app-upload-activity (RefreshInventory)="RefreshCurrentInventory()"></app-upload-activity> -->
 

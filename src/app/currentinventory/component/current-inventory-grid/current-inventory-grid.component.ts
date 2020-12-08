@@ -1556,6 +1556,10 @@ export class CurrentInventoryGridComponent implements OnInit {
     this.selectedItem = item;
   }
   ShowUploadActivity() {
-    debugger; this.UploadActivityOpen = true;
+    debugger;
+    this.UploadActivityOpen = true;
+  }
+  getValue(value: boolean) {
+    this.UploadActivityOpen = false;
   }
 }
