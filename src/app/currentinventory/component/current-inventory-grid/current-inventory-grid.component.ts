@@ -130,6 +130,9 @@ export class CurrentInventoryGridComponent implements OnInit {
   //State History
   StatementHistoryOpen = false;
 
+  //Upload Activity
+  UploadActivityOpen: boolean;
+
 
   customField: CustomFields = {
     columnId: 0,
@@ -788,8 +791,8 @@ export class CurrentInventoryGridComponent implements OnInit {
 
 
   GetCurrentInventory() {
-    this.CheckboxShow = false;
     this.loadingRecords = true;
+    this.CheckboxShow = false;
     let sortCol = "PartName";
     let sortDir = "asc";
 
@@ -1551,5 +1554,8 @@ export class CurrentInventoryGridComponent implements OnInit {
     });
     item.StatementHistoryOpen = !item.StatementHistoryOpen;
     this.selectedItem = item;
+  }
+  ShowUploadActivity() {
+    debugger; this.UploadActivityOpen = true;
   }
 }

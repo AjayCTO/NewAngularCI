@@ -1,4 +1,4 @@
-<div class="actions">
+<div class="actions" *ngIf="!UploadActivityOpen">
     <div class="actions__title">
         <h2><span id="activeinventoryname"><strong>{{selectedTenant.name}} </strong></span> Inventory </h2>
         <div class="icons icons--size02 icons--horziontal">
@@ -26,7 +26,7 @@
             </ng-container>
             <ng-container *ngIf="Tenants!=undefined && Tenants.length==1">
                 <button style="height:40px ;width:40px" type="button" data-modal="#innerModal2332"
-                class=" js-modal button button--small  button--theme02 button--text-only">
+                    class=" js-modal button button--small  button--theme02 button--text-only">
                     <svg class="icon icon--theme01 icon--add" aria-labelledby="title-5f83f10fae696"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="18">
                         <path fill="none" d="M0 0h48v48H0z"></path>
@@ -39,7 +39,7 @@
                         </path>
                         <path d="M28 20h20v8H36a8 8 0 01-8-8z" fill="currentColor" class="icon__color--secondary">
                         </path>
-                    </svg> 
+                    </svg>
                 </button>
             </ng-container>
         </div>
@@ -64,8 +64,8 @@
             <span class="icons__label">Download</span>
         </div>
         <div class="icons__item">
-            <div class="icons__icon"><svg class="icon icon--theme01 icon--upload js-modal" type="button"
-                    data-modal="#UploadActivity" aria-labelledby="title-5f7c9b3feaee9"
+            <div class="icons__icon" (click)="ShowUploadActivity()"><svg class="icon icon--theme01 icon--upload"
+                    type="button" data-modal="#UploadActivity" aria-labelledby="title-5f7c9b3feaee9"
                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
                     <path d="M12.2 36.6a5 5 0 01-5-5.1v-5h5zm23.6 0a5 5 0 005-5.1v-5h-5z" fill="currentColor"
                         class="icon__color--secondary"></path>
@@ -133,7 +133,7 @@
 </div>
 
 
-<div class="taskbar">
+<div class="taskbar" *ngIf="!UploadActivityOpen">
     <div class="taskbar__col">
         <ng-container *ngFor="let event of EventList">
             <ng-container *ngIf="event.withNewRecord">
@@ -590,7 +590,7 @@
 </div>
 
 
-<section class="main">
+<section class="main" *ngIf="!UploadActivityOpen">
     <div class="pagination" *ngIf="InventoryDataBind.length!=0">
         <div class="icons icons--size02 icons--horziontal">
             <a class="icons__item icons__item--theme09" (click)="gotoFirstPage()">
@@ -2626,7 +2626,9 @@
     </div>
 </div>
 
-<app-upload-activity (RefreshInventory)="RefreshCurrentInventory()"></app-upload-activity>
+<app-upload *ngIf="UploadActivityOpen"></app-upload>
+
+<!-- <app-upload-activity (RefreshInventory)="RefreshCurrentInventory()"></app-upload-activity> -->
 
 
 <ngx-spinner></ngx-spinner>
