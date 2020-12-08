@@ -52,8 +52,21 @@
     </div>
     <div style="width: 60%;">
         <div class="card">
-            <div class="form__one">
-                <img src="/assets/img/profile4.png" width="140">
+            <div class="form__one" style="position: relative;;">
+                <img src="{{Phone}}" width="140">
+                <input #UploadProfile type="file" hidden accept="image/*" (change)="selectFiles($event)" />
+                <span (click)="triggerFalseClick()" style="position:absolute;top: 74px;left: 105px;">
+                    <svg class="icon-simple icon-simple--theme01 icon-simple--adjust"
+                        aria-labelledby="title-5fcf5668ec6f8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        width="24" height="24">
+                        <path fill="none" d="M24 0v24H0V0z"></path>
+                        <path d="M0 24h24V0H0z" fill="none"></path>
+                        <path fill="currentColor"
+                            d="M3 18h18v4H3zm2.968-6.351l8.485-8.486 2.829 2.829-8.485 8.485zm13.428-7.801l-1.414 1.414-2.828-2.828 1.414-1.414z">
+                        </path>
+                        <path fill="currentColor" d="M5.3 15.1l.7-3.5 2.8 2.8-3.5.7z"></path>
+                    </svg>
+                </span>
                 <div class="form__third">
                     <h2>{{FirstName}} {{LastName}}</h2>
                     <h4>{{Email}}</h4>
