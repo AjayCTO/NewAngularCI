@@ -45,12 +45,20 @@ export class LibraryService extends BaseService {
   }
 
 
-  upload(file: File, TenantId: number, token: string): Observable<HttpEvent<any>> {
+
+
+
+  upload(files: FileList, TenantId: number, token: string): Observable<HttpEvent<any>> {
     debugger;
     const
       formData: FormData = new FormData();
 
-    formData.append('file', file);
+    for (let i = 0; i < files.length; i++) {
+      formData.append('file', files[i], files[i].name);
+
+    }
+
+    // formData.append('file', file);
 
     const req = new HttpRequest('POST', `${this.configService.resourceApiURI}/api/ManageUploads/UploadImages?TenantId=` + TenantId, formData, {
       reportProgress: true,
@@ -63,6 +71,25 @@ export class LibraryService extends BaseService {
 
     return this.http.request(req);
   }
+
+  // upload(file: File, TenantId: number, token: string): Observable<HttpEvent<any>> {
+  //   debugger;
+  //   const
+  //     formData: FormData = new FormData();
+
+  //   formData.append('file', file);
+
+  //   const req = new HttpRequest('POST', `${this.configService.resourceApiURI}/api/ManageUploads/UploadImages?TenantId=` + TenantId, formData, {
+  //     reportProgress: true,
+  //     responseType: 'json',
+  //     headers: new HttpHeaders({
+  //       'Authorization': "bearer " + token
+  //     })
+
+  //   });
+
+  //   return this.http.request(req);
+  // }
 
   getFiles(): Observable<any> {
     return this.http.get(`${this.configService.resourceApiURI}/files`);
