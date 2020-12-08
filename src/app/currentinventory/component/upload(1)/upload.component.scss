@@ -1,0 +1,64 @@
+.form__one {
+    width: 12%;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.form__two {
+    width: 71%;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    h4 {
+        color: #000 !important;
+    }
+    p {
+        margin: 0 !important;
+        font-size: 13px;
+    }
+}
+.form__three {
+    width: 17%;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    h4 {
+        color: #000 !important;
+    }
+    p {
+        font-size: 12px;
+    }
+}
+
+.upload--activity-icon {
+    padding: 40px 0px;
+    text-align: center;
+}
+.Event_Icon {
+    border: 1px solid #069;
+    border-radius: 100%;
+    width: 70px;
+    height: 70px;
+    text-align: center;
+    line-height: 64px;
+    cursor: pointer;
+    background: #069;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.upload--card {
+    margin-bottom: 20px;
+    padding: 20px 0px;
+    .form__section {
+        margin-bottom: 2px !important;
+    }
+}
+.upload--card:hover {
+    background: #fff;
+    box-shadow: 2px 2px 14px #b1b1b1;
+    border-radius: 7px;
+}

@@ -21,9 +21,14 @@ import { NgxPopperModule } from 'ngx-popper';
 import { DynamicEventComponent } from './component/dynamic-event/dynamic-event.component';
 import { StatementHistoryComponent } from './component/statement-history/statement-history.component';
 import { EventListComponent } from './component/current-inventory-grid/event-list/event-list.component';
+import { UploadComponent } from './component/upload(1)/upload.component'
 
 @NgModule({
-  declarations: [CurrentInventoryGridComponent, ArrangeColumnComponent, AddEventComponent, RemoveEventComponent, MoveEventComponent, ChangeEventComponent, UpdateEventComponent, ConvertEventComponent, MoveAndChangeEventComponent, UploadActivityComponent, AdjustEventComponent, DynamicEventComponent, StatementHistoryComponent, EventListComponent],
+  declarations: [CurrentInventoryGridComponent, UploadComponent, ArrangeColumnComponent,
+    AddEventComponent, RemoveEventComponent, MoveEventComponent, ChangeEventComponent,
+    UpdateEventComponent, ConvertEventComponent, MoveAndChangeEventComponent,
+    UploadActivityComponent, AdjustEventComponent, DynamicEventComponent,
+    StatementHistoryComponent, EventListComponent],
   imports: [
     CommonModule, FormsModule, NgxPopperModule, ReactiveFormsModule, NgxSpinnerModule, AutocompleteLibModule, ProgressBarModule,
     RouterModule.forChild([
