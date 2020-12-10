@@ -19,6 +19,7 @@ import dropdown from '../../../../assets/js/lib/_dropdown';
 import { ToastrService } from 'ngx-toastr';
 import { Form, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AttributeFields } from '../../../customfield/models/customfieldmodel';
+import { Router, Routes } from '@angular/router';
 
 @Component({
   selector: 'app-item-library',
@@ -35,6 +36,7 @@ export class ItemLibraryComponent implements OnInit {
   partformControl: FormGroup;
   public selectedTenantId: number;
   public error: string;
+  public selecteditem:any=[];
   public busy: boolean;
   public DeleteConfirmPopup: boolean;
   public myInventoryField: Observable<any>;
@@ -45,12 +47,13 @@ export class ItemLibraryComponent implements OnInit {
   public showForm: boolean;
   public NotPermitted: boolean = false;
   public selectedPartItem: any;
+
   selectedUOm;
   public uomList: any[];
   public locationsList: any[];
   selectedLocation;
   public EditMode: boolean;
-  AttributeFields: any;
+  public AttributeFields: any;
   CircumstanceFields: any;
   allItems: any;
   StateFields: any;
@@ -95,6 +98,7 @@ export class ItemLibraryComponent implements OnInit {
     stateFields: [],
   }
   public FilterArray: DataColumnFilter[] = [];
+  public edititem:boolean;
   public dataColumnFilter: DataColumnFilter = {
     columnName: "",
     displayName: "",
@@ -150,7 +154,7 @@ export class ItemLibraryComponent implements OnInit {
   PreviewtypesDropDown: any = [];
   PreviewtypesAutocomplete: any = [];
 
-  constructor(private formBuilder: FormBuilder, private toastr: ToastrService, private cdr: ChangeDetectorRef, private libraryService: LibraryService, private authService: AuthService,
+  constructor(private router: Router,private formBuilder: FormBuilder, private toastr: ToastrService, private cdr: ChangeDetectorRef, private libraryService: LibraryService, private authService: AuthService,
     private spinner: NgxSpinnerService, private commanService: CommanSharedService,
     private customfieldservice: CustomFieldService) { }
 
@@ -802,6 +806,17 @@ export class ItemLibraryComponent implements OnInit {
   Close(form) {
     form.reset();
   }
+// 
+edit(item)
+{
+  debugger;
+  this.edititem=true;
+// this.PartDataBind=false;
+  this.selecteditem=item;
+  // localStorage.setItem('selectitem',JSON.stringify(this.selecteditem));
+ 
+ 
 
+}
 }
 

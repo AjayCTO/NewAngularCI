@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import inputFocus from '../../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../../assets/js/lib/_inputClear';
 import dropdown from '../../../../../assets/js/lib/_dropdown';
@@ -9,16 +9,21 @@ import dropdown from '../../../../../assets/js/lib/_dropdown';
   styleUrls: ['./edit-item.component.scss']
 })
 export class EditItemComponent implements OnInit {
-
+@Input() item:any;
+@Input() AttributeFields:any;
   DetailsOpen = false;
   SettingsOpen = false;
   RestockOpen = false;
   UsersOpen = false;
   ValuesOpen = false;
-
+public selectedItem
+public attributefields;
   constructor() { }
 
   ngOnInit(): void {
+  
+    this.selectedItem = this.item;
+    this.attributefields=this.AttributeFields;
     this.ApplyJsFunction();
   }
   ApplyJsFunction() {
