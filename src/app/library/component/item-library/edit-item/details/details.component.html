@@ -34,7 +34,7 @@
 
                         <ng-container *ngIf="field.customFieldSpecialType=='Autocomplete'">
                             <ng-autocomplete [data]="ComboValueDropdown(field.comboBoxValue)" [searchKeyword]=""
-                                [debounceTime]="600" formControlName="{{field.columnId}}"
+                                [debounceTime]="600" 
                                 [itemTemplate]="itemTemplate" id="Attribute_{{field.columnId}}"
                                 name="Attribute_{{field.columnId}}" [notFoundTemplate]="notFoundTemplate">
                             </ng-autocomplete>
@@ -55,7 +55,7 @@
                             </select> -->
 
                             <select class="floating-select" id="Attribute_{{field.columnId}}"
-                                name="Attribute_{{field.columnId}}" formControlName="{{field.columnId}}"
+                                name="Attribute_{{field.columnId}}" 
                                 value="">
                                 <option value=""></option>
                                 <option *ngFor="let opt of ComboValueDropdown(field.comboBoxValue)"
@@ -95,7 +95,7 @@
                                         slice:0:3)+'...':(field.customFieldPrefix)}}</span>
                                 <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
                                     id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
-                                    formControlName="{{field.columnId}}"
+                                   
                                     [ngClass]="[field.customFieldPrefix.length=='1' ? 'Addon':''||field.customFieldPrefix.length=='2'?'Addon1':''||field.customFieldPrefix.length=='3'?'Addon2':''||field.customFieldPrefix.length>'4'?'Addon3':'']"
                                     class="form__input">
                                 <span *ngIf="field.customFieldSuffix"
@@ -123,7 +123,7 @@
                             <ng-container *ngIf="!field.customFieldSuffix&&!field.customFieldPrefix">
                                 <input type="{{field.dataType}}" maxlength="{{field.customFieldTextMaxLength}}"
                                     [required]="field.customFieldIsRequired" id="Attribute_{{field.columnId}}"
-                                    name="Attribute_{{field.columnId}}" formControlName="{{field.columnId}}"
+                                    name="Attribute_{{field.columnId}}" 
                                     class="form__input">
                                 <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
                                     [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''">
@@ -255,7 +255,7 @@
 
 
                     </ng-container>
-                    <div *ngIf="field.dataType=='Date/Time'">
+                    <ng-container *ngIf="field.dataType=='Date/Time'">
                         <ng-container
                             *ngIf="field.customFieldSpecialType=='Date'||field.customFieldSpecialType==''">
                             <input type="text" [required]="field.customFieldIsRequired"
@@ -332,8 +332,8 @@
                                 <span>{{field.customFieldInformation}}</span>
                             </popper-content>
                         </ng-container>
-                    </div>
-                    <div *ngIf="field.dataType=='True/False'">
+                    </ng-container>
+                    <ng-container *ngIf="field.dataType=='True/False'">
 
                         <!-- <input [required]="field.customFieldIsRequired" id="Attribute_{{field.columnId}}"
                                 type="checkbox"> -->
@@ -354,7 +354,7 @@
                         </div>
 
 
-                    </div>
+                    </ng-container>
                 </div> &nbsp;
                    
                 </ng-container> 
