@@ -378,15 +378,17 @@
                         <ul class="icons__submenu-list">
                             <li class="icons__submenu-item icons__submenu-item--contains-input">
                                 <div class="form__col">
-                                    <label class="form__label form__label--hidden" for="dropdown">Dropdown</label>
-                                    <select class="form__input form__select" (ngModelChange)='onOptionsSelected($event)'
+
+                                    <select class="floating-select" (ngModelChange)='onOptionsSelected($event)'
                                         [(ngModel)]="dataColumnFilter.columnName" id="list-dropdown1"
-                                        name="list-dropdown1">
+                                        name="list-dropdown1" value="">
                                         <option value="">Choose Column</option>
                                         <option *ngFor="let opt of tabulatorColumn" [value]="opt.field">
                                             {{opt.title}}
                                         </option>
                                     </select>
+                                    <span class="highlight"></span>
+                                    <label class="form__label form_label form__label--hidden">Dropdown</label>
                                 </div>
                             </li>
                             <li class="icons__submenu-item icons__submenu-item--contains-input"
@@ -554,24 +556,25 @@
                         <ul class="icons__submenu-list">
                             <li class="icons__submenu-item icons__submenu-item--contains-input">
                                 <div class="form__col">
-                                    <label class="form__label form__label--hidden" for="dropdown">Dropdown</label>
-                                    <select class="form__input form__select" id="list-dropdown" name="list-dropdown">
+                                    <select class="floating-select" id="list-dropdown" name="list-dropdown" value="">
                                         <option value="">Choose Column</option>
                                         <option *ngFor="let opt of tabulatorColumn" [value]="opt.field">
                                             {{opt.title}}
                                         </option>
                                     </select>
+                                    <span class="highlight"></span>
+                                    <label class="form__label form_label form__label--hidden">Dropdown</label>
                                 </div>
                             </li>
                             <li class="icons__submenu-item icons__submenu-item--contains-input">
                                 <div class="form__col">
-                                    <label class="form__label form__label--hidden" for="dropdown">Dropdown</label>
-                                    <select class="form__input form__select" id="list-dropdown" name="list-dropdown">
+                                    <select class="floating-select" id="list-dropdown" name="list-dropdown">
                                         <option value="">Choose Filter</option>
                                         <option value="asc">Asceding</option>
                                         <option value="desc">Descending</option>
-
                                     </select>
+                                    <span class="highlight"></span>
+                                    <label class="form__label form_label form__label--hidden">Dropdown</label>
                                 </div>
                             </li>
                         </ul>
@@ -692,9 +695,7 @@
                                             <ng-container *ngIf="itemHeader.datatype=='string'">
                                                 <li class="icons__submenu-item icons__submenu-item--contains-input">
                                                     <div class="form__col">
-                                                        <label class="form__label form__label--hidden"
-                                                            for="list-dropdown_{{itemHeader.field}}">Dropdown</label>
-                                                        <select class="form__input form__select"
+                                                        <select class="floating-select"
                                                             [(ngModel)]="dataColumnFilter.filterOperator"
                                                             id="list-dropdown_{{itemHeader.field}}"
                                                             name="list-dropdown_{{itemHeader.field}}">
@@ -706,15 +707,16 @@
                                                             <option value="bw">Begins With</option>
                                                             <option value="Empty">Is Empty</option>
                                                         </select>
+                                                        <span class="highlight"></span>
+                                                        <label
+                                                            class="form__label form_label form__label--hidden">Dropdown</label>
                                                     </div>
                                                 </li>
                                             </ng-container>
                                             <ng-container *ngIf="itemHeader.datatype=='stringUom'">
                                                 <li class="icons__submenu-item icons__submenu-item--contains-input">
                                                     <div class="form__col">
-                                                        <label class="form__label form__label--hidden"
-                                                            for="list-dropdownuom{{itemHeader.field}}">Dropdown</label>
-                                                        <select class="form__input form__select"
+                                                        <select class="floating-select"
                                                             [(ngModel)]="dataColumnFilter.filterOperator"
                                                             id="list-dropdown{{itemHeader.field}}"
                                                             name="list-dropdownuom{{itemHeader.field}}">
@@ -722,6 +724,9 @@
                                                             <option value="eq">Equals</option>
                                                             <option value="nc">Does NOT Contain</option>
                                                         </select>
+                                                        <span class="highlight"></span>
+                                                        <label
+                                                            class="form__label form_label form__label--hidden">Dropdown</label>
                                                     </div>
                                                 </li>
                                             </ng-container>
@@ -730,7 +735,7 @@
                                                     <div class="form__col">
                                                         <label class="form__label form__label--hidden"
                                                             for="list-dropdownstatus{{itemHeader.field}}">Dropdown</label>
-                                                        <select class="form__input form__select"
+                                                        <select class="floating-select"
                                                             [(ngModel)]="dataColumnFilter.filterOperator"
                                                             id="list-dropdownstatus{{itemHeader.field}}"
                                                             name="list-dropdownstatus{{itemHeader.field}}">
@@ -747,7 +752,7 @@
                                                     <div class="form__col">
                                                         <label class="form__label form__label--hidden"
                                                             for="list-dropdown{{itemHeader.field}}">Dropdown</label>
-                                                        <select class="form__input form__select"
+                                                        <select class="floating-select"
                                                             [(ngModel)]="dataColumnFilter.filterOperator"
                                                             id="list-dropdown{{itemHeader.field}}"
                                                             name="list-dropdown{{itemHeader.field}}">
@@ -781,7 +786,7 @@
                                                     <div class="form__col">
                                                         <label class="form__label form__label--hidden"
                                                             for="list-dropdown51{{itemHeader.field}}">Value</label>
-                                                        <select class="form__input form__select"
+                                                        <select class="floating-select"
                                                             [(ngModel)]="dataColumnFilter.searchValue"
                                                             id="list-dropdown51{{itemHeader.field}}"
                                                             name="list-dropdown51{{itemHeader.field}}">
@@ -801,7 +806,7 @@
                                                     <div class="form__col">
                                                         <label class="form__label form__label--hidden"
                                                             for="list-dropdown61{{itemHeader.field}}">Value</label>
-                                                        <select class="form__input form__select"
+                                                        <select class="floating-select"
                                                             [(ngModel)]="dataColumnFilter.searchValue"
                                                             id="list-dropdown61{{itemHeader.field}}"
                                                             name="list-dropdown61{{itemHeader.field}}">

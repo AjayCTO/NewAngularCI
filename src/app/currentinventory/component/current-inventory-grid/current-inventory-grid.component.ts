@@ -78,7 +78,7 @@ export class CurrentInventoryGridComponent implements OnInit {
   public dataColumnFilter: DataColumnFilter = {
     columnName: "",
     displayName: "",
-    filterOperator: "cn",
+    filterOperator: "",
     searchValue: "",
     type: ""
   }
@@ -790,6 +790,7 @@ export class CurrentInventoryGridComponent implements OnInit {
 
 
   GetCurrentInventory() {
+    debugger;
     this.loadingRecords = true;
     this.CheckboxShow = false;
     let sortCol = "PartName";
@@ -974,7 +975,7 @@ export class CurrentInventoryGridComponent implements OnInit {
     this.dataColumnFilter = {
       columnName: "",
       displayName: "",
-      filterOperator: "cn",
+      filterOperator: "",
       searchValue: "",
       type: ""
     }
@@ -1016,7 +1017,7 @@ export class CurrentInventoryGridComponent implements OnInit {
     this.dataColumnFilter = {
       columnName: "",
       displayName: "",
-      filterOperator: "cn",
+      filterOperator: "",
       searchValue: "",
       type: ""
     }
