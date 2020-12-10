@@ -53,7 +53,14 @@
     <div style="width: 60%;">
         <div class="card">
             <div class="form__one" style="position: relative;">
-                <img src="{{Photo}}" width="140" height="140">
+                <ng-container *ngIf="Photo==''">
+                    <img src="../../../../assets/img/download.png" width="140" height="140">
+
+                </ng-container>
+                <ng-container *ngIf="Photo!=''">
+                    <img src="{{Photo}}" width="140" height="140">
+                </ng-container>
+
                 <input #UploadProfile type="file" hidden accept="image/*" (change)="selectFiles($event)" />
                 <span (click)="triggerFalseClick()" style="position:absolute;top: 116px; left: 142px">
                     <svg class="icon-simple icon-simple--theme01 icon-simple--adjust"

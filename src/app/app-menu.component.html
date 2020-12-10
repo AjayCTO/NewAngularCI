@@ -106,7 +106,14 @@
             class="card icons icons--horziontal  icons--group icons--group--from-right">
             <button type="button" (click)="ProfileDropDown()" class="icons__item icons__item--theme02"
                 [ngClass]="{'is-active':showProfileDD}">
-                <div class="icons_icon"><img class="nav__profile-image" src="{{photo}}" alt="Profile">
+                <div class="icons_icon">
+                    <ng-container *ngIf="Photo==''">
+                        <img class="nav__profile-image" src="../../../../assets/img/download.png">
+
+                    </ng-container>
+                    <ng-container *ngIf="Photo!=''">
+                        <img class="nav__profile-image" alt="Profile" src="{{photo}}">
+                    </ng-container>
                 </div>
                 <span style="font-size: 16px;font-weight: bold;" class="icons__label" *ngIf="isAuthenticated | async"
                     id="email">Hello {{email}}</span>
