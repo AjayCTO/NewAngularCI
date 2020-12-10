@@ -51,6 +51,11 @@ export class AppMenuComponent {
       : '-';
   }
 
+  get photo() {
+    return this.authService.identityClaims
+      ? this.authService.identityClaims['Photo']
+      : '-';
+  }
 
 
 

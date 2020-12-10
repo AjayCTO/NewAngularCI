@@ -119,9 +119,9 @@ export class DetailsComponent implements OnInit {
       err => {
 
       });
-    // for (let i = 0; i < this.selectedFiles.length; i++) {
-    //   this.upload(i, this.selectedFiles[i]);
-    // }
+    for (let i = 0; i < this.selectedFiles.length; i++) {
+      this.upload(i, this.selectedFiles[i]);
+    }
   }
 
   upload(idx, file) {

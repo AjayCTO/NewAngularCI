@@ -85,6 +85,7 @@ export class ProfileComponent implements OnInit {
     this.profileForm.controls['company'].setValue(this.Profile.company);
     this.profileForm.controls['phone'].setValue(this.Profile.phone);
     this.profileForm.controls['email'].setValue(this.Email);
+    this.profileForm.controls['photo'].setValue(this.Photo);
     this.ApplyJsFunction();
   }
 
@@ -192,6 +193,7 @@ export class ProfileComponent implements OnInit {
 
   selectFiles(event) {
     debugger;
+    this.spinner.show();
     const files = event.target.files;
     let isImage = true;
 
@@ -206,24 +208,32 @@ export class ProfileComponent implements OnInit {
 
     }
     this.selectedFiles = event.target.files;
-    for (let i = 0; i < this.selectedFiles.length; i++) {
-      this.upload(i, this.selectedFiles[i]);
-    }
+
+    this.upload(0, this.selectedFiles[0]);
+
   }
   upload(idx, file) {
     this.progressInfos[idx] = { value: 0, fileName: file.name };
 
     this.accountService.uploadprofile(file, this.authService.accessToken).subscribe(
       event => {
+        debugger;
         if (event.type === HttpEventType.UploadProgress) {
           this.progressInfos[idx].percentage = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
-
+          this.authService.getUserClaims();
+          this.spinner.hide();
+          this.toastr.success("Profile has been updated", "Profile");
+          this.ApplyJsFunction();
         }
+
+
       },
       err => {
+        this.spinner.hide();
         this.progressInfos[idx].percentage = 0;
-        this.message = 'Could not upload the file:' + file.name;
+        this.toastr.warning("Could not upload the file:" + file.name);
+        // this.message = 'Could not upload the file:' + file.name;
       });
   }
 }
