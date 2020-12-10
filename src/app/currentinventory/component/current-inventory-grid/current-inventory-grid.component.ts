@@ -677,7 +677,6 @@ export class CurrentInventoryGridComponent implements OnInit {
     this.selectedItem = item;
     item.isDynamicEventOpen = !item.isDynamicEventOpen;
 
-
   }
 
 

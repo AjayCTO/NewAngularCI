@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { LibraryService } from '../../../../service/library.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { AuthService } from '../../../../../core/auth.service';
+import modal from '../../../../../../assets/js/lib/_modal';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
@@ -19,7 +20,10 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+
+    modal();
   }
+
   selectFiles(event) {
     this.progressInfos = [];
 
@@ -46,10 +50,15 @@ export class DetailsComponent implements OnInit {
 
   uploadFiles() {
     this.message = '';
+    this.libraryService.upload(this.selectedFiles, this.selectedTenantId, this.authService.accessToken).subscribe(
+      event => {
+      },
+      err => {
 
-    for (let i = 0; i < this.selectedFiles.length; i++) {
-      this.upload(i, this.selectedFiles[i]);
-    }
+      });
+    // for (let i = 0; i < this.selectedFiles.length; i++) {
+    //   this.upload(i, this.selectedFiles[i]);
+    // }
   }
 
   upload(idx, file) {

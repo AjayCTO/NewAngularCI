@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { from } from 'rxjs';
 import { Observable } from 'rxjs';
@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import inputClear from '../../../../assets/js/lib/_inputClear';
 import inputFocus from '../../../../assets/js/lib/_inputFocus';
 import { Router, ActivatedRoute } from '@angular/router';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 const emailPattern = '[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,63}';
 
 @Component({
@@ -18,8 +19,10 @@ const emailPattern = '[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,63}';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
-
+  @ViewChild('UploadProfile') UploadProfile: ElementRef<HTMLElement>;
+  selectedFiles: FileList;
+  progressInfos = [];
+  message = '';
   busy: boolean;
   NonMembers: any;
   ProfileData: any;
@@ -27,7 +30,7 @@ export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
   public ShowProfileManage: boolean;
   Profile = {
-    userName: '', firstName: '', lastName: '', company: '', phone: '', email: ''
+    userName: '', firstName: '', lastName: '', company: '', phone: '', email: '', photo: ''
   }
   ChangePasswordModel = {
     OldPassword: '',
@@ -40,6 +43,7 @@ export class ProfileComponent implements OnInit {
 
 
   ngOnInit(): void {
+    debugger;
     this.authService.getUserClaims();
     this.authService.setTenantIdNotHave();
     this.profileForm = this.formBuilder.group({
@@ -47,6 +51,7 @@ export class ProfileComponent implements OnInit {
       lastName: ['', Validators.required],
       company: ['', Validators.required],
       phone: [null, Validators.required],
+      photo: [null],
       email: [null, Validators.compose([Validators.required, Validators.email, Validators.pattern(emailPattern)])]
     });
 
@@ -57,6 +62,7 @@ export class ProfileComponent implements OnInit {
     this.profileForm.controls['company'].setValue(this.Company);
     this.profileForm.controls['phone'].setValue(this.Phone);
     this.profileForm.controls['email'].setValue(this.Email);
+    this.profileForm.controls['photo'].setValue(this.Photo);
     this.ApplyJsFunction();
   }
 
@@ -68,7 +74,10 @@ export class ProfileComponent implements OnInit {
   }
   get f() { return this.profileForm.controls; }
 
-
+  triggerFalseClick() {
+    let el: HTMLElement = this.UploadProfile.nativeElement;
+    el.click();
+  }
   UpdateProfileData() {
     this.authService.getUserClaims();
     this.profileForm.controls['firstName'].setValue(this.Profile.firstName);
@@ -165,6 +174,11 @@ export class ProfileComponent implements OnInit {
       ? this.authService.identityClaims['Company']
       : '-';
   }
+  get Photo() {
+    return this.authService.identityClaims
+      ? this.authService.identityClaims['Photo']
+      : '-';
+  }
 
   ManageProfile() {
     this.ShowProfileManage = false;
@@ -174,5 +188,42 @@ export class ProfileComponent implements OnInit {
   ChangePassword() {
     this.ShowProfileManage = true;
     this.ApplyJsFunction();
+  }
+
+  selectFiles(event) {
+    debugger;
+    const files = event.target.files;
+    let isImage = true;
+
+    for (let i = 0; i < files.length; i++) {
+      if (files.item(i).type.match('image.*')) {
+        continue;
+      } else {
+        isImage = false;
+        alert('invalid format!');
+        break;
+      }
+
+    }
+    this.selectedFiles = event.target.files;
+    for (let i = 0; i < this.selectedFiles.length; i++) {
+      this.upload(i, this.selectedFiles[i]);
+    }
+  }
+  upload(idx, file) {
+    this.progressInfos[idx] = { value: 0, fileName: file.name };
+
+    this.accountService.uploadprofile(file, this.authService.accessToken).subscribe(
+      event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progressInfos[idx].percentage = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+
+        }
+      },
+      err => {
+        this.progressInfos[idx].percentage = 0;
+        this.message = 'Could not upload the file:' + file.name;
+      });
   }
 }
