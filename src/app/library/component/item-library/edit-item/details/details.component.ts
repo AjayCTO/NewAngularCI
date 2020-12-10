@@ -14,6 +14,7 @@ export class DetailsComponent implements OnInit {
   progressInfos = [];
   message = '';
   selectedTenantId
+  public showProgressBar: boolean;
 
   fileInfos: Observable<any>;
   constructor(private libraryService: LibraryService, private authService: AuthService) { }
@@ -77,4 +78,5 @@ export class DetailsComponent implements OnInit {
         this.message = 'Could not upload the file:' + file.name;
       });
   }
+  Close() { }
 }
