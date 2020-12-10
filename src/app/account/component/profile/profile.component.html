@@ -53,19 +53,21 @@
     <div style="width: 60%;">
         <div class="card">
             <div class="form__one" style="position: relative;">
-                <ng-container *ngIf="Photo==''">
-                    <img src="../../../../assets/img/download.png" width="140" height="140">
+                <div class="ProfileImage">
+                    <ng-container *ngIf="Photo==''">
+                        <img src="../../../../assets/img/download.png" width="140" height="140">
 
-                </ng-container>
-                <ng-container *ngIf="Photo!=''">
-                    <img src="{{Photo}}" width="140" height="140">
-                </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="Photo!=''">
+                        <img src="{{Photo}}" width="140" height="140">
+                    </ng-container>
 
+                </div>
                 <input #UploadProfile type="file" hidden accept="image/*" (change)="selectFiles($event)" />
-                <span (click)="triggerFalseClick()" style="position:absolute;top: 116px; left: 142px">
+                <span (click)="triggerFalseClick()" class="profileUpdate">
                     <svg class="icon-simple icon-simple--theme01 icon-simple--adjust"
                         aria-labelledby="title-5fcf5668ec6f8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                        width="24" height="24">
+                        width="16" height="16">
                         <path fill="none" d="M24 0v24H0V0z"></path>
                         <path d="M0 24h24V0H0z" fill="none"></path>
                         <path fill="currentColor"
