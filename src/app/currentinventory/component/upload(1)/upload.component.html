@@ -9,33 +9,198 @@
         <div class="form__col form__col--full">
             <div class="card">
                 <div class="card-body">
-                    <!-- <h3>What Type of Events would you like to Upload? </h3> -->
-                    <div class="upload--card">
+                    <h3 style="margin-left: 30px;">What Type of Events would you like to
+                        Upload?
+                    </h3>
+
+                    <div class="upload--card" *ngFor="let event of EventList">
                         <div class="form__section">
                             <div class="form__col-wrap">
                                 <div class="form__one">
                                     <div class="upload--activity-icon">
-                                        <div class="Event_Icon">
+                                        <div class="Event_Icon"
+                                            [ngClass]="[event.eventIcon==1?'green':''||event.eventIcon==2?'red':''||event.eventIcon==3?'darkblue':''||event.eventIcon==4?'orange':''||event.eventIcon==5?'yellow':''||event.eventIcon==6?'purple':''||event.eventIcon==7?'pink':''||event.eventIcon==8?'gray':'']">
+
                                             <div class="icons__item--theme11">
-                                                <svg class="icon icon--theme01 icon--add"
-                                                    aria-labelledby="title-5fc489b8acf9c"
-                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="36"
-                                                    height="36">
-                                                    <path fill="none" d="M0 0h48v48H0z"></path>
-                                                    <path d="M28 36v12h-8V28a8 8 0 00-8-8 16 16 0 0116 16z"
-                                                        fill="currentColor" class="icon__color--secondary"></path>
-                                                    <path d="M20 28H0v-8h12a8 8 0 018 8z" fill="currentColor"
-                                                        class="icon__color--secondary">
-                                                    </path>
-                                                    <path d="M20 12V0h8v20a8 8 0 008 8 16 16 0 01-16-16z"
-                                                        fill="currentColor" class="icon__color--secondary"></path>
-                                                    <path d="M28 20h20v8H36a8 8 0 01-8-8z" fill="currentColor"
-                                                        class="icon__color--secondary">
-                                                    </path>
-                                                </svg>
+                                                <ng-container *ngIf="event.eventIcon==1">
+                                                    <svg class="icon icon--theme01 icon--add"
+                                                        aria-labelledby="title-5f83f4826a13d"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                                                        width="36" height="36">
+                                                        <path fill="none" d="M0 0h48v48H0z"></path>
+                                                        <path d="M28 36v12h-8V28a8 8 0 00-8-8 16 16 0 0116 16z"
+                                                            fill="currentColor" class="icon__color--secondary">
+                                                        </path>
+                                                        <path d="M20 28H0v-8h12a8 8 0 018 8z" fill="currentColor"
+                                                            class="icon__color--secondary">
+                                                        </path>
+                                                        <path d="M20 12V0h8v20a8 8 0 008 8 16 16 0 01-16-16z"
+                                                            fill="currentColor" class="icon__color--secondary">
+                                                        </path>
+                                                        <path d="M28 20h20v8H36a8 8 0 01-8-8z" fill="currentColor"
+                                                            class="icon__color--secondary">
+                                                        </path>
+                                                    </svg>
+                                                </ng-container>
+                                                <ng-container *ngIf="event.eventIcon==2">
+                                                    <svg class="icon icon--theme01 icon--remove"
+                                                        aria-labelledby="title-5f83f4826a14d"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                                                        width="36" height="36">
+                                                        <path fill="none" d="M0 0h48v48H0z"></path>
+                                                        <path
+                                                            d="M12.7 18.3L4.2 9.9l5.7-5.7L24 18.3a7.9 7.9 0 0011.3 0 15.9 15.9 0 01-22.6 0z"
+                                                            fill="currentColor" class="icon__color--secondary"></path>
+                                                        <path class="icon__color--secondary"
+                                                            d="M24 18.3L38.1 4.2l5.7 5.7-8.5 8.4a7.9 7.9 0 01-11.3 0z"
+                                                            fill="currentColor"></path>
+                                                        <path class="icon__color--secondary"
+                                                            d="M35.3 28.9l8.5 8.5-5.7 5.6L24 28.9a8 8 0 00-11.3 0 15.9 15.9 0 0122.6 0z"
+                                                            fill="currentColor"></path>
+                                                        <path class="icon__color--secondary"
+                                                            d="M24 28.9L9.9 43l-5.7-5.6 8.5-8.5a8 8 0 0111.3 0z"
+                                                            fill="currentColor">
+                                                        </path>
+                                                    </svg>
+                                                </ng-container>
+                                                <ng-container *ngIf="event.eventIcon==3">
+                                                    <svg class="icon icon--theme01 icon--move"
+                                                        aria-labelledby="title-5f83f4826a15a"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                                                        width="36" height="36">
+                                                        <path d="M48 48V0H0v48z" fill="none"></path>
+                                                        <path
+                                                            d="M43.9 21.8l-8-8a6 6 0 011.3 6.5 5.7 5.7 0 01-3 3.1 5.1 5.1 0 01-2.5.6H4v8h35.7a6 6 0 004.2-10.2z"
+                                                            fill="currentColor" class="icon__color--secondary"></path>
+                                                        <path
+                                                            d="M35.9 13.8l-8.4-8.4-5.6 5.6 12.3 12.4a5.7 5.7 0 003-3.1 6 6 0 00-1.3-6.5z"
+                                                            fill="currentColor" class="icon__color--secondary">
+                                                        </path>
+                                                    </svg>
+                                                </ng-container>
+                                                <ng-container *ngIf="event.eventIcon==4">
+                                                    <svg class="icon icon--theme01 icon--adjust"
+                                                        aria-labelledby="title-5f83f4826a17f"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                                                        width="36" height="36">
+                                                        <path fill="currentColor" class="icon__color--secondary"
+                                                            d="M6 36h36v8H6z">
+                                                        </path>
+                                                        <path
+                                                            d="M12 23.2a8 8 0 00-2.1 7.7 7.9 7.9 0 007.7-2 8.1 8.1 0 002.1-7.8 8 8 0 00-7.7 2.1z"
+                                                            fill="currentColor" class="icon__color--secondary">
+                                                        </path>
+                                                        <path d="M17.6 17.6L12 23.2l5.6 5.7a8 8 0 010-11.3z"
+                                                            fill="currentColor" class="icon__color--secondary">
+                                                        </path>
+                                                        <path
+                                                            d="M28.9 6.2L17.6 17.6a8 8 0 000 11.3l17-17zm5.075-3.486l4.242 4.243a1 1 0 010 1.414l-2.121 2.122-5.657-5.657 2.122-2.122a1 1 0 011.414 0z"
+                                                            fill="currentColor" class="icon__color--secondary"></path>
+                                                        <path fill="none" d="M48 0v48H0V0z"></path>
+                                                        <path d="M0 48h48V0H0z" fill="none"></path>
+                                                    </svg>
+                                                </ng-container>
+                                                <ng-container *ngIf="event.eventIcon==5">
+                                                    <svg class="icon icon--theme01 icon--status"
+                                                        aria-labelledby="title-5f83f4826a18c"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                                                        width="36" height="36">
+                                                        <path fill="none" d="M48 0v48H0V0z"></path>
+                                                        <path d="M48 0H0v48h48z" fill="none"></path>
+                                                        <rect x="21" y="28" width="6" height="6" rx="1.5"
+                                                            transform="rotate(-180 24 31)" fill="currentColor"
+                                                            class="icon__color--secondary"></rect>
+                                                        <path
+                                                            d="M28 6v6.7a22.8 22.8 0 01-.2 2.6L26.3 24a2.3 2.3 0 01-2.3 2 2.3 2.3 0 01-2.3-2l-1.5-8.7a22.8 22.8 0 01-.2-2.6V6a2 2 0 012-2h4a2 2 0 012 2z"
+                                                            fill="currentColor" class="icon__color--secondary">
+                                                        </path>
+                                                        <path
+                                                            d="M10 38V4H4v34a6 6 0 006 6h6a6 6 0 01-6-6zM38 4h6v28a6 6 0 01-6 6z"
+                                                            fill="currentColor" class="icon__color--secondary"></path>
+                                                        <path d="M44 32v6a6 6 0 01-6 6H16a6 6 0 01-6-6h28a6 6 0 006-6z"
+                                                            fill="currentColor" class="icon__color--secondary">
+                                                        </path>
+                                                    </svg>
+                                                </ng-container>
+                                                <ng-container *ngIf="event.eventIcon==6">
+                                                    <svg class="icon icon--theme01 icon--change"
+                                                        aria-labelledby="title-5f83f4826a166"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                                                        width="36" height="36">
+                                                        <path fill="none" d="M48 0v48H0V0z"></path>
+                                                        <path d="M0 48h48V0H0z" fill="none"></path>
+                                                        <path d="M22 18V4H10a6 6 0 00-6 6v28a6 6 0 006 6h12V30l6-6z"
+                                                            fill="currentColor" class="icon__color--secondary">
+                                                        </path>
+                                                        <path d="M38 38a6 6 0 01-6 6h-6v-6zm0-28a6 6 0 00-6-6h-6v6z"
+                                                            fill="currentColor" class="icon__color--secondary">
+                                                        </path>
+                                                        <path
+                                                            d="M38 4h-6a6 6 0 016 6v28a6 6 0 01-6 6h6a6 6 0 006-6V10a6 6 0 00-6-6z"
+                                                            fill="currentColor" class="icon__color--secondary"></path>
+                                                    </svg>
+                                                </ng-container>
+                                                <ng-container *ngIf="event.eventIcon==7">
+                                                    <svg class="icon icon--theme01 icon--move-change"
+                                                        aria-labelledby="title-5f83f4826a172"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                                                        width="36" height="36">
+                                                        <path fill="none" d="M0 0h48v48H0z"></path>
+                                                        <path d="M7 28h15v20H7a3 3 0 01-3-3V31a3 3 0 013-3z"
+                                                            fill="currentColor" class="icon__color--secondary">
+                                                        </path>
+                                                        <path d="M38 42a6 6 0 01-6 6h-6v-6zm0-8H26v-6h6a6 6 0 016 6z"
+                                                            fill="currentColor" class="icon__color--secondary">
+                                                        </path>
+                                                        <path
+                                                            d="M38 28h-6a6 6 0 016 6v8a6 6 0 01-6 6h6a6 6 0 006-6v-8a6 6 0 00-6-6zm3.9-14.2l-8-8a6 6 0 011.3 6.5 5.7 5.7 0 01-3 3.1 5.1 5.1 0 01-2.5.6H4v8h33.7a6 6 0 004.2-10.2z"
+                                                            fill="currentColor" class="icon__color--secondary"></path>
+                                                        <path
+                                                            d="M33.9 5.8l-4.1-4.2-5.7 5.7 8.1 8.1a5.7 5.7 0 003-3.1 6 6 0 00-1.3-6.5z"
+                                                            fill="currentColor" class="icon__color--secondary">
+                                                        </path>
+                                                    </svg>
+                                                </ng-container>
+                                                <ng-container *ngIf="event.eventIcon==8">
+                                                    <svg class="icon icon--theme01 icon--convert"
+                                                        aria-labelledby="title-5f83f4826a199"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                                                        width="36" height="36">
+                                                        <path fill="none" d="M48 0v48H0V0z"></path>
+                                                        <circle cx="24" cy="36.1" r="7.4" fill="currentColor"
+                                                            class="icon__color--secondary">
+                                                        </circle>
+                                                        <circle cx="40.6" cy="11.4" r="4.9" fill="currentColor"
+                                                            class="icon__color--secondary">
+                                                        </circle>
+                                                        <circle cx="7.4" cy="11.4" r="4.9" fill="currentColor"
+                                                            class="icon__color--secondary">
+                                                        </circle>
+                                                        <circle cx="24" cy="18.8" r="4.9" fill="currentColor"
+                                                            class="icon__color--secondary">
+                                                        </circle>
+                                                    </svg>
+                                                </ng-container>
+                                                <!-- <ng-container *ngIf="event.eventIcon==9">
+                                                    <svg class="icon icon--theme01 icon--change"
+                                                        aria-labelledby="title-5f83f4826a166"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                                                        width="36" height="36">
+                                                        <path fill="none" d="M48 0v48H0V0z"></path>
+                                                        <path d="M0 48h48V0H0z" fill="none"></path>
+                                                        <path d="M22 18V4H10a6 6 0 00-6 6v28a6 6 0 006 6h12V30l6-6z"
+                                                            fill="currentColor" class="icon__color--secondary"></path>
+                                                        <path d="M38 38a6 6 0 01-6 6h-6v-6zm0-28a6 6 0 00-6-6h-6v6z"
+                                                            fill="currentColor" class="icon__color--secondary">
+                                                        </path>
+                                                        <path
+                                                            d="M38 4h-6a6 6 0 016 6v28a6 6 0 01-6 6h6a6 6 0 006-6V10a6 6 0 00-6-6z"
+                                                            fill="currentColor" class="icon__color--secondary"></path>
+                                                    </svg>
+                                                </ng-container> -->
                                             </div>
                                         </div>
-                                        <h3> Add Activity </h3>
+                                        <h3> {{event.eventName}} </h3>
                                     </div>
                                 </div>
                                 <div class="form__two">
@@ -73,7 +238,7 @@
                                                     height="48">
                                                     <path
                                                         d="M42.2 37.8A5.8 5.8 0 0038 36H10a6 6 0 00-6 6 5.6 5.6 0 001.8 4.2A5.6 5.6 0 0010 48h28a6 6 0 006-6 5.6 5.6 0 00-1.8-4.2zM38 45a3 3 0 113-3 2.9 2.9 0 01-3 3z"
-                                                        fill="currentColor" class="icon__color--primary"></path>
+                                                        fill="currentColor" class="icon__color--secondary"></path>
                                                     <path d="M0 48h48V0H0z" fill="none"></path>
                                                     <path
                                                         d="M29 23.9a8 8 0 006.3-3h.1l8.8-11.6-6.3-4.9-4 5.2-9.7 12.6a7.6 7.6 0 004.8 1.7z"
@@ -81,7 +246,7 @@
                                                     </path>
                                                     <path
                                                         d="M17.6 27.3L3.8 9.3l6.3-4.9 12.6 16.4a6.7 6.7 0 001.5 1.4 7.6 7.6 0 004.8 1.7 8 8 0 006.3-3l-5 6.4a8 8 0 01-12.7 0z"
-                                                        fill="currentColor" class="icon__color--primary"></path>
+                                                        fill="currentColor" class="icon__color--secondary"></path>
                                                 </svg></div>
                                         </div>
                                         <a href="#" style="color: dodgerblue;font-size: 16px;">
@@ -97,16 +262,17 @@
                                         <button type="button" class="button button--medium">Next
                                         </button>
                                         <button type="button" class="button button--medium button--text-only"
-                                            (click)="Close()" id="Closebtn">Close
+                                            data-close="#locationModal" id="Closebtn">Close
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 </section>
+<br>
+<br>

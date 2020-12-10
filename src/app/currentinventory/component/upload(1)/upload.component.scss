@@ -38,16 +38,15 @@
     text-align: center;
 }
 .Event_Icon {
-    border: 1px solid #069;
     border-radius: 100%;
     width: 70px;
     height: 70px;
     text-align: center;
     line-height: 64px;
     cursor: pointer;
-    background: #069;
     margin: 0 auto;
     margin-bottom: 10px;
+
 }
 
 .upload--card {
@@ -61,4 +60,29 @@
     background: #fff;
     box-shadow: 2px 2px 14px #b1b1b1;
     border-radius: 7px;
+}
+
+.green {
+    background: #2de29d;
+}
+.red {
+    background: #ff554d;
+}
+.darkblue {
+    background: #4257db;
+}
+.orange {
+    background: #ffb533;
+}
+.yellow {
+    background: #f9d332;
+}
+.purple {
+    background: #d943dd;
+}
+.pink {
+    background: #ff45bd;
+}
+.gray {
+    background: #96a0aa;
 }
