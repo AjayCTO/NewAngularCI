@@ -86,3 +86,32 @@
 .gray {
     background: #96a0aa;
 }
+
+.icons_submenu-list {
+    display: flex;
+    padding: 0;
+    height: 100%;
+}
+.Upload-Tabs {
+    padding-left: 3rem !important;
+    background: white;
+    box-shadow: 0 3px 7px -2px rgba(0, 0, 0, 0.16);
+    // padding: 17px;
+    height: 56px;
+}
+.icons_submenu-item {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    text-align: left;
+    transition-duration: 300ms;
+    white-space: nowrap;
+    a {
+        text-decoration: none;
+    }
+}
+
