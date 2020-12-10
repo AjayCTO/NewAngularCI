@@ -33,11 +33,12 @@
         </div>
 
         <div class="edit-input-card">
-            <app-details *ngIf="!SettingsOpen&&!RestockOpen&&!UsersOpen&&!ValuesOpen"></app-details>
+            <app-details *ngIf="!SettingsOpen&&!RestockOpen&&!UsersOpen&&!ValuesOpen" [item]="selectedItem" [attributefields]="AttributeFields"></app-details>
             <app-settings *ngIf="SettingsOpen"></app-settings>
             <app-restock *ngIf="RestockOpen"></app-restock>
             <app-users *ngIf="UsersOpen"></app-users>
             <app-values *ngIf="ValuesOpen"></app-values>
         </div>
     </div>
+    
 </section>

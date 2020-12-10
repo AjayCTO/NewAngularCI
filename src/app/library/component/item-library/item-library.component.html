@@ -1,4 +1,5 @@
-<ng-container *ngIf="!NotPermitted">
+
+<ng-container *ngIf="!NotPermitted && !edititem">
 
     <div class="actions">
         <div class="actions__title">
@@ -661,7 +662,7 @@
                             <td class="table__cell" data-title="Column Title">
                                 <div class="icons icons--size02">
                                     <button class="icons__item icons__item--theme07" type="button"
-                                        routerLink="/EditItem">
+                                        (click)="edit(item)">
                                         <div class="icons__icon"><svg class="icon icon--theme01 icon--adjust"
                                                 aria-labelledby="title-5f83f4826a17f" xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 48 48" width="48" height="48">
@@ -682,6 +683,7 @@
                                             </svg></div>
                                         <span class="icons__label">Edit</span>
                                     </button>
+                                  
                                     <button class="icons__item icons__item--theme03" (click)="DeleteConfirm(item)">
                                         <div class="icons__icon">
                                             <svg class="icon icon--theme01 icon-simple--trash"
@@ -714,7 +716,11 @@
 
     </section>
 </ng-container>
-
+<ng-container *ngIf="edititem">
+    <app-edit-item [item]="selecteditem" [AttributeFields]="AttributeFields">
+       
+    </app-edit-item>
+</ng-container>
 <div id="AddItemtestModal" class="invModal" role="dialog" aria-labelledby="dialog-title"
     aria-describedby="dialog-description" tabindex="-1" hidden="">
     <div class="invModal__head">
@@ -823,7 +829,7 @@
                 </h2>
                 <div class="form__col-wrap">
                     <ng-container *ngFor="let field of AttributeFields">
-                        <div class="form__col form__col--third"
+                        <div class="form__col form__col--third" 
                             [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''">
                             <label class="form__label" for="Attribute_{{field.columnId}}"
                                 *ngIf="field.customFieldSpecialType!='Dropdown'&&field.dataType!='True/False'"

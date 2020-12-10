@@ -1,3 +1,4 @@
+
 <div class="form__col-wrap">
     <div class="form__col form__col--half">
         <form class="form">
@@ -5,33 +6,366 @@
                 <h2 class="form__section-title">General Information</h2>
                 <div class="form__col-wrap">
                     <div class="form__col form__col--third">
-                        <label class="form__label" for="one">Item Name</label>
-                        <input class="form__input" type="text" id="one" name="one">
+                        <label class="form__label form_label" for="one">Item Name</label>
+                        <input class="form__input" type="text" id="one"  name="one"  value="{{selecteditem.partName}}">
                     </div>
                     <div class="form__col form__col--two-third">
-                        <label class="form__label" for="two">Item Description</label>
-                        <input class="form__input" type="text" id="two" name="two">
+                        <label class="form__label form_label" for="two">Item Description</label>
+                        <input class="form__input" type="text" id="two" name="two"  value="{{selecteditem.partDescription}}">
                     </div>
                 </div>
-                <h2 class="form__section-title">Attributes</h2>
-                <div class="form__col-wrap">
-                    <div class="form__col form__col--third">
-                        <label class="form__label" for="four">Item Date</label>
-                        <input class="form__input" type="text" id="four" name="four">
-                    </div>
-                    <div class="form__col form__col--third">
+                <h2 class="form__section-title">Attributes</h2> 
+            
+                   
+                   <!-- <div class="form__col form__col--third">
                         <label class="form__label" for="five">Item Description</label>
                         <input class="form__input" type="text" id="five" name="five">
-                    </div>
+                    </div>  -->
+                 <ng-container *ngFor="let field of attributefields">
+                    <div class="form__col form__col--third"  style="display: inline-block;"
+                    [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''">
+                    <label class="form__label" for="Attribute_{{field.columnId}}"
+                        *ngIf="field.customFieldSpecialType!='Dropdown'&&field.dataType!='True/False'"
+                        [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>'4' ? 'prefixLabel3':'']">{{field.columnLabel}}<span
+                            *ngIf="field.customFieldIsRequired" class="form__required">*</span></label>
+                    <span class="form__group-outer-label" *ngIf="field.dataType=='True/False'">{{(field.columnLabel.length>6)? (field.columnLabel |
+                                slice:0:6)+'...':(field.columnLabel)}} :</span>
+                    <ng-container *ngIf="field.dataType=='Text'">
 
-                    <div class="form__col form__col--third"></div>
-                </div>
+                        <ng-container *ngIf="field.customFieldSpecialType=='Autocomplete'">
+                            <ng-autocomplete [data]="ComboValueDropdown(field.comboBoxValue)" [searchKeyword]=""
+                                [debounceTime]="600" formControlName="{{field.columnId}}"
+                                [itemTemplate]="itemTemplate" id="Attribute_{{field.columnId}}"
+                                name="Attribute_{{field.columnId}}" [notFoundTemplate]="notFoundTemplate">
+                            </ng-autocomplete>
+                            <ng-template #itemTemplate let-item>
+                                <a [innerHTML]="item"></a>
+                            </ng-template>
+                        </ng-container>
+
+                        <ng-container *ngIf="field.customFieldSpecialType=='Dropdown'">
+
+                            <!-- <select class="form__input form__select" id="Attribute_{{field.columnId}}"
+                                name="Attribute_{{field.columnId}}" formControlName="{{field.columnId}}">
+                                <option value=""></option>
+                                <option *ngFor="let opt of ComboValueDropdown(field.comboBoxValue)"
+                                    value="{{opt}}">
+                                    {{opt}}
+                                </option>
+                            </select> -->
+
+                            <select class="floating-select" id="Attribute_{{field.columnId}}"
+                                name="Attribute_{{field.columnId}}" formControlName="{{field.columnId}}"
+                                value="">
+                                <option value=""></option>
+                                <option *ngFor="let opt of ComboValueDropdown(field.comboBoxValue)"
+                                    value="{{opt}}">
+                                    {{opt}}
+                                </option>
+                            </select>
+                            <span class="highlight"></span>
+                            <label class="form__label form_label"
+                                *ngIf="field.customFieldSpecialType=='Dropdown'">{{field.columnLabel}}<span
+                                    *ngIf="field.customFieldIsRequired" class="form__required">*</span></label>
+                            <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
+                                [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
+                                    class="icon-simple icon-simple--theme01 icon-simple--info"
+                                    aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 12 12" width="12" height="12">
+                                    <g data-name="Group 748" fill="currentColor">
+                                        <path data-name="Path 435"
+                                            d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                        </path>
+                                        <path data-name="Path 436"
+                                            d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                        </path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <popper-content #popper24Content>
+                                <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                <span>{{field.customFieldInformation}}</span>
+                            </popper-content>
+                        </ng-container>
+
+                        <ng-container *ngIf="field.customFieldSpecialType=='OpenField'">
+                            <ng-container *ngIf="field.customFieldSuffix||field.customFieldPrefix"
+                                class="input-group">
+                                <span *ngIf="field.customFieldPrefix" class="input-group-addon text Prefix">{{(field.customFieldPrefix.length>3)? (field.customFieldPrefix |
+                                        slice:0:3)+'...':(field.customFieldPrefix)}}</span>
+                                <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
+                                    id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
+                                    formControlName="{{field.columnId}}"
+                                    [ngClass]="[field.customFieldPrefix.length=='1' ? 'Addon':''||field.customFieldPrefix.length=='2'?'Addon1':''||field.customFieldPrefix.length=='3'?'Addon2':''||field.customFieldPrefix.length>'4'?'Addon3':'']"
+                                    class="form__input">
+                                <span *ngIf="field.customFieldSuffix"
+                                    class="input-group-addon text Suffix">{{field.customFieldSuffix}}</span>
+                                <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
+                                    [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''">
+                                    <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                        aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 12 12" width="12" height="12">
+                                        <g data-name="Group 748" fill="currentColor">
+                                            <path data-name="Path 435"
+                                                d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                            </path>
+                                            <path data-name="Path 436"
+                                                d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                            </path>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <popper-content #popper24Content>
+                                    <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                    <span>{{field.customFieldInformation}}</span>
+                                </popper-content>
+                            </ng-container>
+                            <ng-container *ngIf="!field.customFieldSuffix&&!field.customFieldPrefix">
+                                <input type="{{field.dataType}}" maxlength="{{field.customFieldTextMaxLength}}"
+                                    [required]="field.customFieldIsRequired" id="Attribute_{{field.columnId}}"
+                                    name="Attribute_{{field.columnId}}" formControlName="{{field.columnId}}"
+                                    class="form__input">
+                                <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
+                                    [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''">
+                                    <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                        aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 12 12" width="12" height="12">
+                                        <g data-name="Group 748" fill="currentColor">
+                                            <path data-name="Path 435"
+                                                d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                            </path>
+                                            <path data-name="Path 436"
+                                                d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                            </path>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <popper-content #popper24Content>
+                                    <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                    <span>{{field.customFieldInformation}}</span>
+                                </popper-content>
+                            </ng-container>
+
+                        </ng-container>
+
+                        <ng-container *ngIf="field.customFieldSpecialType==''">
+
+                            <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
+                                id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
+                                formControlName="{{field.columnId}}" class="form__input">
+                            <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
+                                [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
+                                    class="icon-simple icon-simple--theme01 icon-simple--info"
+                                    aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 12 12" width="12" height="12">
+                                    <g data-name="Group 748" fill="currentColor">
+                                        <path data-name="Path 435"
+                                            d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                        </path>
+                                        <path data-name="Path 436"
+                                            d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                        </path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <popper-content #popper24Content>
+                                <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                <span>{{field.customFieldInformation}}</span>
+                            </popper-content>
+                        </ng-container>
+
+                    </ng-container>
+                    <ng-container *ngIf="field.dataType=='Number'">
+
+                        <ng-container *ngIf="field.customFieldSpecialType=='Number'">
+                            <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
+                                id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
+                                formControlName="{{field.columnId}}" class="form__input">
+                            <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
+                                [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
+                                    class="icon-simple icon-simple--theme01 icon-simple--info"
+                                    aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 12 12" width="12" height="12">
+                                    <g data-name="Group 748" fill="currentColor">
+                                        <path data-name="Path 435"
+                                            d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                        </path>
+                                        <path data-name="Path 436"
+                                            d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                        </path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <popper-content #popper24Content>
+                                <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                <span>{{field.customFieldInformation}}</span>
+                            </popper-content>
+                        </ng-container>
+                        <ng-container *ngIf="field.customFieldSpecialType=='Currency'" class="input-group">
+                            <span class="input-group-addon text ">$</span>
+                            <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
+                                id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
+                                formControlName="{{field.columnId}}" class="form__input Addon">
+                            <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
+                                [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
+                                    class="icon-simple icon-simple--theme01 icon-simple--info"
+                                    aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 12 12" width="12" height="12">
+                                    <g data-name="Group 748" fill="currentColor">
+                                        <path data-name="Path 435"
+                                            d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                        </path>
+                                        <path data-name="Path 436"
+                                            d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                        </path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <popper-content #popper24Content>
+                                <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                <span>{{field.customFieldInformation}}</span>
+                            </popper-content>
+                        </ng-container>
+
+                        <ng-container *ngIf="field.customFieldSpecialType==''">
+                            <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
+                                id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
+                                formControlName="{{field.columnId}}" class="form__input">
+                            <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
+                                [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
+                                    class="icon-simple icon-simple--theme01 icon-simple--info"
+                                    aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 12 12" width="12" height="12">
+                                    <g data-name="Group 748" fill="currentColor">
+                                        <path data-name="Path 435"
+                                            d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                        </path>
+                                        <path data-name="Path 436"
+                                            d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                        </path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <popper-content #popper24Content>
+                                <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                <span>{{field.customFieldInformation}}</span>
+                            </popper-content>
+                        </ng-container>
+
+
+
+                    </ng-container>
+                    <div *ngIf="field.dataType=='Date/Time'">
+                        <ng-container
+                            *ngIf="field.customFieldSpecialType=='Date'||field.customFieldSpecialType==''">
+                            <input type="text" [required]="field.customFieldIsRequired"
+                                id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
+                                formControlName="{{field.columnId}}" data-flatpickr-mode="single"
+                                class="form__input flatpickr">
+                            <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
+                                [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
+                                    class="icon-simple icon-simple--theme01 icon-simple--info"
+                                    aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 12 12" width="12" height="12">
+                                    <g data-name="Group 748" fill="currentColor">
+                                        <path data-name="Path 435"
+                                            d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                        </path>
+                                        <path data-name="Path 436"
+                                            d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                        </path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <popper-content #popper24Content>
+                                <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                <span>{{field.customFieldInformation}}</span>
+                            </popper-content>
+                        </ng-container>
+                        <ng-container *ngIf="field.customFieldSpecialType=='Date & Time'">
+                            <input type="date" [required]="field.customFieldIsRequired"
+                                id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
+                                formControlName="{{field.columnId}}" data-flatpickr-mode="single"
+                                class="form__input  flatpickr">
+                            <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
+                                [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
+                                    class="icon-simple icon-simple--theme01 icon-simple--info"
+                                    aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 12 12" width="12" height="12">
+                                    <g data-name="Group 748" fill="currentColor">
+                                        <path data-name="Path 435"
+                                            d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                        </path>
+                                        <path data-name="Path 436"
+                                            d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                        </path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <popper-content #popper24Content>
+                                <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                <span>{{field.customFieldInformation}}</span>
+                            </popper-content>
+                        </ng-container>
+                        <ng-container *ngIf="field.customFieldSpecialType=='Time'">
+                            <input type="date" [required]="field.customFieldIsRequired"
+                                id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
+                                formControlName="{{field.columnId}}ddd" data-flatpickr-mode="single"
+                                class="form__input flatpickr">
+                            <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
+                                [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
+                                    class="icon-simple icon-simple--theme01 icon-simple--info"
+                                    aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 12 12" width="12" height="12">
+                                    <g data-name="Group 748" fill="currentColor">
+                                        <path data-name="Path 435"
+                                            d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                        </path>
+                                        <path data-name="Path 436"
+                                            d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                        </path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <popper-content #popper24Content>
+                                <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                <span>{{field.customFieldInformation}}</span>
+                            </popper-content>
+                        </ng-container>
+                    </div>
+                    <div *ngIf="field.dataType=='True/False'">
+
+                        <!-- <input [required]="field.customFieldIsRequired" id="Attribute_{{field.columnId}}"
+                                type="checkbox"> -->
+
+                        <div class="form__group form__group--radio">
+                            <input id="Attribute_{{field.columnId}}_1" [(ngModel)]="field.columnValue"
+                                class="form__radio" type="radio" value="{{field.customFieldFalseLabel}}"
+                                name="radio200">
+                            <label class="form__group-label" for="Attribute_{{field.columnId}}_1">{{(field.customFieldFalseLabel.length>5)? (field.customFieldFalseLabel |
+                                    slice:0:5)+'...':(field.customFieldFalseLabel)}}</label>
+                        </div>
+                        <div class="form__group form__group--radio">
+                            <input [(ngModel)]="field.columnValue" value="{{field.customFieldTrueLabel}}"
+                                id="Attribute_{{field.columnId}}_2" class="form__radio" type="radio"
+                                name="radio200">
+                            <label class="form__group-label" for="Attribute_{{field.columnId}}_2">{{(field.customFieldTrueLabel.length>5)? (field.customFieldTrueLabel |
+                                    slice:0:5)+'...':(field.customFieldTrueLabel)}}</label>
+                        </div>
+
+
+                    </div>
+                </div> &nbsp;
+                   
+                </ng-container> 
+                <div class="form__col form__col--third"></div>
+                
             </div>
             <div class="button-group">
-                <button type="submit" class="button button--medium" href="#">
+                <button type="submit" (click)="edit()" class="button button--medium" href="#">
                     Save
                 </button>
-                <button type="submit" class="button button--medium button--text-only" href="#">
+                <button type="submit" (click)="closeEditItem()" class="button button--medium button--text-only" href="#">
                     Cancel
                 </button>
             </div>
@@ -59,7 +393,46 @@
 
                         </div>
                         <div class="invModal__body">
-                            <div *ngIf="!showProgressBar" class="actions__wrap">
+                            <p><small>Please select an Image from your computer.</small></p>
+                            <div class="actions__wrap">
+
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <span class="fileinput-filename"></span>
+                                    <a href="#" class="close fileinput-exists" data-dismiss="fileinput">
+                                        <span><svg class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                                aria-labelledby="title-5fd06591f1e46" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor"
+                                                    d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                                                <path fill="currentColor"
+                                                    d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z"></path>
+                                            </svg></span>
+                                    </a>
+                                    <br>
+                                    <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
+                                    <span class="fileinput-new">Select file</span>
+                                    <span class="fileinput-exists">change</span>
+                                    <input type="hidden">
+                                    <input type="hidden" value name="fileToUpload">
+                                    <input type="file" id="fileToUpload" name class="imageUploadChoose">
+
+                                </div>
+                                <input type="hidden" id="itemMaster" name="itemMaster" value="5820943">
+                                <input type="hidden" id="uploadItemId" name="uploadItemId" value="5820943">
+                            </div>
+                            <!-- 
+                            <div *ngIf="showProgressBar" style="width:100%">
+                                <ul>
+                                    <li *ngFor="let item of messages">
+                                        {{item}}
+                                    </li>
+                                </ul>
+                                <progress-bar [progress]="ResultProgress" [disable-percentage]="false">
+                                </progress-bar>
+                            </div> -->
+                        </div>
+                        <!-- <div *ngIf="!showProgressBar" class="actions__wrap">
                                 <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
 
                             </div>
@@ -71,37 +444,38 @@
                                 </ul>
                                 <progress-bar [progress]="ResultProgress" [disable-percentage]="false">
                                 </progress-bar>
-                            </div>
-
-                            <div class="button-group">
-                                <div class="icons__item">
-                                    <button class="button button--small button--theme02" [disabled]="!selectedFiles"
-                                        type="button" (click)="uploadFiles()">
-                                        <svg class="icon-simple icon-simple--theme01 icon-simple--upload"
-                                            aria-labelledby="title-5f92b954262cc" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 15.7 18.6" width="24" height="24">
-                                            <path d="M.8 7l1.5 1.5 4.2-3.8v9.2H9V4.7l4.1 3.8 1.6-1.6L7.8 0z"
-                                                fill="currentColor" class="icon__color--secondary">
-                                            </path>
-                                            <path fill="currentColor" d="M15.2 16.2v2.5H.43v-2.5z"></path>
-                                            <path fill="currentColor" d="M13.2 13.3h2.5v5.3h-2.5zM0 13.3h2.5v5.3H0z">
-                                            </path>
-                                        </svg> Upload
-                                    </button>
-
-                                </div>
-
-                                <button type="button" id="closeUploadModel"
-                                    class="button button--medium button--text-only" data-close="#UploadActivity"
-                                    (click)="Close()">Cancel
+                            </div> -->
+                        <br>
+                        <hr>
+                        <br>
+                        <div class="button-group">
+                            <div class="icons__item">
+                                <button class="button button--small button--theme02" [disabled]="!selectedFiles"
+                                    type="button" (click)="uploadFiles()">
+                                    <svg class="icon-simple icon-simple--theme01 icon-simple--upload"
+                                        aria-labelledby="title-5f92b954262cc" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 15.7 18.6" width="24" height="24">
+                                        <path d="M.8 7l1.5 1.5 4.2-3.8v9.2H9V4.7l4.1 3.8 1.6-1.6L7.8 0z"
+                                            fill="currentColor" class="icon__color--secondary">
+                                        </path>
+                                        <path fill="currentColor" d="M15.2 16.2v2.5H.43v-2.5z"></path>
+                                        <path fill="currentColor" d="M13.2 13.3h2.5v5.3h-2.5zM0 13.3h2.5v5.3H0z">
+                                        </path>
+                                    </svg> Upload
                                 </button>
+
                             </div>
+
+                            <button type="button" id="closeUploadModel" class="button button--medium button--text-only"
+                                data-close="#UploadActivity">Cancel
+                            </button>
                         </div>
+
                     </div>
 
 
 
-                    <div *ngFor="let progressInfo of progressInfos" class="mb-2">
+                    <!-- <div *ngFor="let progressInfo of progressInfos" class="mb-2">
                         <span>{{ progressInfo.fileName }}</span>
                         <div class="progress">
                             <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
@@ -112,7 +486,7 @@
                         </div>
                     </div>
 
-                    <div class="alert alert-light" role="alert">{{ message }}</div>
+                    <div class="alert alert-light" role="alert">{{ message }}</div> -->
 
                     <!-- <div class="card">
                         <div class="card-header">List of Images</div>
@@ -209,3 +583,9 @@
         </div>
     </div>
 </div>
+
+<!-- <ng-container *ngIf="edititem">
+<app-item-library>
+
+</app-item-library>
+</ng-container> -->

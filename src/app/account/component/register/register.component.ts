@@ -20,14 +20,17 @@ const emailPattern = '[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,63}';
 })
 
 export class RegisterComponent implements OnInit, OnDestroy {
-
-
+  isTextFieldType: boolean;
+ public password;
   isAuthenticated: Observable<boolean>;
-
+  show = false;
   submitted = false;
   registerForm: FormGroup;
+  public showPassword:boolean
+  public toggle:any;
   success: boolean;
   error: string;
+  
   userRegistration: UserRegistration = { firstName: '', lastName: '', company: '', phone: '', email: '', password: '' };
 
 
@@ -45,6 +48,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     if (this.isAuthenticated)
       this.router.navigateByUrl('/home');
     document.body.classList.add('stopscroll');
+    this.toggle='password';
+    // this.password='password';
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -60,8 +65,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   ApplyJsFunction() {
     setTimeout(function () {
+      
+      
       inputFocus();
-      inputClear();
 
     }, 1000)
   }
@@ -70,6 +76,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   login() {
     this.authService.login();
+    
   }
   onSubmit() {
 
@@ -104,4 +111,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
           }
         });
   }
+showPasswords()
+{
+  this.showPassword=!this.showPassword;
+  this.ApplyJsFunction();
+}
 }
