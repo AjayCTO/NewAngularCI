@@ -29,6 +29,7 @@ export class CustomFieldsComponent implements OnInit {
   public selectedId: number;
   deleteCustom = false;
   public addCustom: boolean;
+  loadingRecords = false;
   EditMode: boolean = false;
   InputtypeNumber: any = ['Number', 'Currency']
   InputtypeDate: any = ['Date', 'Date & Time', 'Time']
@@ -94,6 +95,7 @@ export class CustomFieldsComponent implements OnInit {
 
 
   GetCustomFields() {
+    this.loadingRecords = true;
     this.customfieldservice.GetCustomFields(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
@@ -104,6 +106,7 @@ export class CustomFieldsComponent implements OnInit {
         }
         else {
           if (result.entity != null) {
+            this.loadingRecords = false;
             this.CustomFields = result.entity;
           }
         }
