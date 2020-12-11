@@ -32,6 +32,7 @@ export class EventListComponent implements OnInit {
   public CustomFields: any;
   public checklist: any;
   public checkedList: any;
+  loadingRecords = false;
   public masterSelected: boolean;
   public checklistObj = {
     id: 0, columnName: '', columnLabel: '', isSelected: false
@@ -54,8 +55,10 @@ export class EventListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     this.masterSelected = false;
     this.NotPermitted = false;
+    this.spinner.show();
     this.store.pipe(select(selectSelectedTenantId)).
       subscribe(eventId => {
         if (eventId) {
@@ -63,7 +66,7 @@ export class EventListComponent implements OnInit {
           this.selectedTenantId = eventId;
         }
       });
-
+      
     modal();
     this.GetCustomFields()
     this.GetEvents();
@@ -72,6 +75,7 @@ export class EventListComponent implements OnInit {
 
   GetEvents() {
     debugger;
+    this.loadingRecords = true;
     this.eventService.GetEvents(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
@@ -80,9 +84,12 @@ export class EventListComponent implements OnInit {
         if (result.code == 403) {
           this.NotPermitted = true;
         }
+        
         else {
+          
           if (result.entity != null) {
             debugger;
+            this.loadingRecords = false;
             this.EventList = result.entity;
 
             // this.EventList.forEach(element => {

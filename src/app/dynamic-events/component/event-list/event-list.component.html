@@ -138,6 +138,19 @@
                     </tr>
                 </thead>
                 <tbody class="table__section table__section--body">
+                    <ng-container *ngIf="loadingRecords">
+                        <div class="loaderCard">
+                            <div class="loader"></div>
+                            <h3>Please Wait...</h3>
+                        </div>
+                       
+                    </ng-container>
+                    <ng-container *ngIf="EventList.length==0">
+                        <div class="loaderCard">
+                            <img src="/assets/img/nodata-found.png">
+                            <h2>No Data Found</h2>
+                        </div>
+                    </ng-container>
                     <ng-container *ngFor="let item of EventList">
                         <tr class="table__row table__row--body"
                             [ngClass]="{'table__row--is-active':item.isActive==true}">
@@ -1131,10 +1144,11 @@
 
     </section>
     <app-add-event [selectedTenantId]="selectedTenantId" (RefreshEventList)="GetEvents()"></app-add-event>
-
+    
 
 
 </ng-container>
+<ngx-spinner></ngx-spinner>
 <div *ngIf="DeleteConfirmPopup">
     <div class="modal">
         <div id="DeleteConfirm">

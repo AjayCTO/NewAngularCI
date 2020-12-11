@@ -26,6 +26,7 @@ export class AttributeFieldsComponent implements OnInit {
   error: string;
   CustomFields: any;
   columnName: any;
+  loadingRecords = false;
   public addAttribute: boolean;
   EditMode: boolean = false;
   InputtypeNumber: any = ['Number', 'Currency']
@@ -94,6 +95,7 @@ export class AttributeFieldsComponent implements OnInit {
 
 
   GetAttributeFields() {
+    this.loadingRecords = true;
     this.customfieldservice.GetAttributeFields(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
@@ -104,6 +106,7 @@ export class AttributeFieldsComponent implements OnInit {
         }
         else {
           if (result.entity != null) {
+            this.loadingRecords = false;
             this.CustomFields = result.entity;
           }
         }
