@@ -342,20 +342,19 @@ export class LibraryService extends BaseService {
   }
 
 
-// get image
+  // get image
 
-GetTenantImages(TenantId: number, pageSize: number, pageIndex: number,token: string)
-{
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': "bearer " + token
-    })
-  };
-  return this.http.get<IApiResponse>(this.configService.resourceApiURI + '/api/Library/GetTenantImages?TenantId=' + TenantId+'&pageSize='+pageSize+'&pageIndex='+pageIndex, httpOptions)
-  .pipe(catchError(this.handleError));
+  GetTenantImages(TenantId: number, pageSize: number, pageIndex: number, search: string, token: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "bearer " + token
+      })
+    };
+    return this.http.get<IApiResponse>(this.configService.resourceApiURI + '/api/Library/GetTenantImages?TenantId=' + TenantId + '&pageSize=' + pageSize + '&pageIndex=' + pageIndex + '&searchText=' + search, httpOptions)
+      .pipe(catchError(this.handleError));
 
-}
+  }
 
 
 
