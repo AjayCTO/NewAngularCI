@@ -5,7 +5,7 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { AuthService } from '../../../../../core/auth.service';
 
 import modal from '../../../../../../assets/js/lib/_modal';
-
+import { ToastrService } from 'ngx-toastr';
 import { CustomFieldService } from '../../../../../customfield/service/custom-field.service'
 import { finalize } from 'rxjs/operators';
 import { CircumstanceFields, StateFields, AttributeFields, CustomFields } from '../../../../../customfield/models/customfieldmodel';
@@ -23,7 +23,7 @@ export class DetailsComponent implements OnInit {
   @ViewChild('UploadImage') UploadImage: ElementRef<HTMLElement>;
   @Input() item;
   @Input() attributefields;
-  selectedFiles: FileList;
+  selectedFiles: any;
   progressInfos = [];
   message = '';
 
@@ -72,7 +72,7 @@ export class DetailsComponent implements OnInit {
     offsetDateFields: '',
     offsetTimeFields: '',
   }
-  constructor(private libraryService: LibraryService, private authService: AuthService, private customfieldservice: CustomFieldService, private spinner: NgxSpinnerService) { }
+  constructor(private libraryService: LibraryService, private toastr: ToastrService, private authService: AuthService, private customfieldservice: CustomFieldService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     debugger;
@@ -96,11 +96,11 @@ export class DetailsComponent implements OnInit {
     let isImage = true;
 
     for (let i = 0; i < files.length; i++) {
-      if (files.item(i).type.match('image.*')) {
+      if (files.item(i).type.match('image/jpg') || files.item(i).type.match('image/jpeg') || files.item(i).type.match('image/png')) {
         continue;
       } else {
         isImage = false;
-        alert('invalid format!');
+        this.toastr.warning('invalid format!');
         break;
       }
     }
@@ -130,7 +130,19 @@ export class DetailsComponent implements OnInit {
     let el: HTMLElement = this.UploadImage.nativeElement;
     el.click();
   }
-  RemoveImageName() {
+  RemoveImageName(item) {
+    debugger;
+
+
+
+    for (var i = this.selectedFiles.length - 1; i > -1; i--) {
+
+
+      if (this.selectedFiles[i].name == item.name) {
+        if (this.selectedFiles[i].name.indexOf(name) >= 0)
+    
+      }
+    }
 
   }
   upload(idx, file) {
