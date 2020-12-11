@@ -133,6 +133,10 @@ input.Addon3 {
     background-color: #8ad3f8;
     cursor: not-allowed;
 }
+button.button--theme02[disabled] {
+  background-color: #8af8b8 !important;
+  cursor: not-allowed;
+}
 
 input[disabled],select[disabled]{
   cursor: not-allowed;

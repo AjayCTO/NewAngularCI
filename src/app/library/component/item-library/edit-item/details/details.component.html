@@ -393,33 +393,49 @@
 
                         </div>
                         <div class="invModal__body">
-                            <p><small>Please select an Image from your computer.</small></p>
-                            <div class="actions__wrap">
-
-                                <div class="fileinput fileinput-new" data-provides="fileinput">
-                                    <span class="fileinput-filename"></span>
-                                    <a href="#" class="close fileinput-exists" data-dismiss="fileinput">
-                                        <span><svg class="icon-simple icon-simple--theme01 icon-simple--remove"
-                                                aria-labelledby="title-5fd06591f1e46" xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 24 24" width="24" height="24">
-                                                <path fill="none" d="M0 0h24v24H0z"></path>
-                                                <path fill="currentColor"
-                                                    d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
-                                                <path fill="currentColor"
-                                                    d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z"></path>
-                                            </svg></span>
-                                    </a>
-                                    <br>
-                                    <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
-                                    <span class="fileinput-new">Select file</span>
+                            <h3>Please select an Image from your computer.</h3>
+                            <div class="form__section">
+                                <div class="form__col-wrap">
+                                    <div class="card icons icons--horziontal icons--size01">
+                                        <button type="button" *ngFor="let item of selectedFiles"
+                                            class="icons__item icons__item--contains-text icons__item--theme07">
+                                            <div class="icons__text" style="display: flex;">
+                                                <strong class="icons__name">{{item.name}}</strong>
+                                                &nbsp;&nbsp;
+                                                <div class="icons__icon" (click)="RemoveImageName()">
+                                                    <svg class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                                        aria-labelledby="title-5f7cbab264ccf"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                        width="24" height="24">
+                                                        <path fill="none" d="M0 0h24v24H0z"></path>
+                                                        <path fill="currentColor"
+                                                            d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                                                        <path fill="currentColor"
+                                                            d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z">
+                                                        </path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </button>&nbsp;
+                                    </div>
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <span class="fileinput-filename"></span>
+                                        <br>
+                                        <input #UploadImage hidden type="file" accept="image/*" multiple
+                                            (change)="selectFiles($event)" />
+                                        <!-- <span class="fileinput-new">Select file</span>
                                     <span class="fileinput-exists">change</span>
-                                    <input type="hidden">
-                                    <input type="hidden" value name="fileToUpload">
-                                    <input type="file" id="fileToUpload" name class="imageUploadChoose">
-
+                                    <input type="hidden"> -->
+                                        <input type="hidden" value name="fileToUpload">
+                                    </div>
                                 </div>
-                                <input type="hidden" id="itemMaster" name="itemMaster" value="5820943">
-                                <input type="hidden" id="uploadItemId" name="uploadItemId" value="5820943">
+                            </div>
+                            <div class="form__section">
+                                <div class="form__col-wrap">
+                                    <button (click)="triggerFalseClick()" type="button"
+                                        class="button button--medium">Select
+                                        File</button>
+                                </div>
                             </div>
                             <!-- 
                             <div *ngIf="showProgressBar" style="width:100%">
@@ -445,30 +461,36 @@
                                 <progress-bar [progress]="ResultProgress" [disable-percentage]="false">
                                 </progress-bar>
                             </div> -->
-                        <br>
-                        <hr>
-                        <br>
-                        <div class="button-group">
-                            <div class="icons__item">
+
+                        <div class="invModal__footer">
+                            <!-- <div class="button-group">
                                 <button class="button button--small button--theme02" [disabled]="!selectedFiles"
                                     type="button" (click)="uploadFiles()">
-                                    <svg class="icon-simple icon-simple--theme01 icon-simple--upload"
-                                        aria-labelledby="title-5f92b954262cc" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 15.7 18.6" width="24" height="24">
-                                        <path d="M.8 7l1.5 1.5 4.2-3.8v9.2H9V4.7l4.1 3.8 1.6-1.6L7.8 0z"
-                                            fill="currentColor" class="icon__color--secondary">
-                                        </path>
-                                        <path fill="currentColor" d="M15.2 16.2v2.5H.43v-2.5z"></path>
-                                        <path fill="currentColor" d="M13.2 13.3h2.5v5.3h-2.5zM0 13.3h2.5v5.3H0z">
-                                        </path>
-                                    </svg> Upload
+                                    <div class="icons__item">
+                                        <svg class="icon-simple icon-simple--theme01 icon-simple--upload"
+                                            aria-labelledby="title-5f92b954262cc" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 48 48" width="48" height="48">
+                                            <path d="M.8 7l1.5 1.5 4.2-3.8v9.2H9V4.7l4.1 3.8 1.6-1.6L7.8 0z"
+                                                fill="currentColor" class="icon__color--secondary">
+                                            </path>
+                                            <path fill="currentColor" d="M15.2 16.2v2.5H.43v-2.5z"></path>
+                                            <path fill="currentColor" d="M13.2 13.3h2.5v5.3h-2.5zM0 13.3h2.5v5.3H0z">
+                                            </path>
+                                        </svg> Upload
+                                    </div>
                                 </button>
-
+                                <button type="button" id="closeUploadModel"
+                                    class="button button--medium button--text-only" data-close="#UploadActivity">Cancel
+                                </button>
+                                
+                            </div> -->
+                            <div class="button-group">
+                                <button [disabled]="!selectedFiles" type="button" (click)="uploadFiles()"
+                                    class="button button--medium button--theme02">Upload</button>
+                                <button type="button" class="button button--medium button--text-only"
+                                    data-close="#UploadActivity">Cancel
+                                </button>
                             </div>
-
-                            <button type="button" id="closeUploadModel" class="button button--medium button--text-only"
-                                data-close="#UploadActivity">Cancel
-                            </button>
                         </div>
 
                     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LibraryService } from '../../../../service/library.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
@@ -20,8 +20,9 @@ import datePicker from '../../../../../../assets/js/lib/_datePicker';
   styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent implements OnInit {
+  @ViewChild('UploadImage') UploadImage: ElementRef<HTMLElement>;
   @Input() item;
- @Input() attributefields;
+  @Input() attributefields;
   selectedFiles: FileList;
   progressInfos = [];
   message = '';
@@ -29,16 +30,16 @@ export class DetailsComponent implements OnInit {
   // selectedTenantId
   public showProgressBar: boolean;
 
- 
+
 
 
   fileInfos: Observable<any>;
   // public AttributeFields:any;
   public busy: boolean;
-  public CustomFields:any;
+  public CustomFields: any;
   public selectedTenantId: number;
-  public edititem:boolean;
-  public selecteditem:any=[];
+  public edititem: boolean;
+  public selecteditem: any = [];
   attributeFields: AttributeFields = {
     columnId: 0,
     columnName: '',
@@ -71,11 +72,11 @@ export class DetailsComponent implements OnInit {
     offsetDateFields: '',
     offsetTimeFields: '',
   }
-  constructor(private libraryService: LibraryService, private authService: AuthService ,private customfieldservice: CustomFieldService,private spinner: NgxSpinnerService) { }
+  constructor(private libraryService: LibraryService, private authService: AuthService, private customfieldservice: CustomFieldService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     debugger;
-    this.selecteditem=this.item;
+    this.selecteditem = this.item;
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
 
     modal();
@@ -88,6 +89,7 @@ export class DetailsComponent implements OnInit {
   }
 
   selectFiles(event) {
+    debugger
     this.progressInfos = [];
 
     const files = event.target.files;
@@ -112,6 +114,7 @@ export class DetailsComponent implements OnInit {
   }
 
   uploadFiles() {
+    debugger
     this.message = '';
     this.libraryService.upload(this.selectedFiles, this.selectedTenantId, this.authService.accessToken).subscribe(
       event => {
@@ -123,7 +126,13 @@ export class DetailsComponent implements OnInit {
       this.upload(i, this.selectedFiles[i]);
     }
   }
+  triggerFalseClick() {
+    let el: HTMLElement = this.UploadImage.nativeElement;
+    el.click();
+  }
+  RemoveImageName() {
 
+  }
   upload(idx, file) {
     this.progressInfos[idx] = { value: 0, fileName: file.name };
 
@@ -143,64 +152,60 @@ export class DetailsComponent implements OnInit {
 
   Close() { }
 
-   //Attribute FIELDS
-//  GetAttributeFields() {
-//   debugger; 
- 
-//  this.customfieldservice.GetAttributeFields(this.selectedTenantId, this.authService.accessToken)
-//    .pipe(finalize(() => {
-//      this.busy = false;
-//      this.spinner.hide();
-//    })).subscribe(result => {
-//      this.AttributeFields = [];
-//      debugger;
-//      if (result.code == 200) {
-//        this.AttributeFields = result.entity;
-//      }
-//    })
-// }
-Attributevalue()
-{
-  debugger;
-  this.attributefields.forEach(element => {
-    element.columnValue = "";
-  });
+  //Attribute FIELDS
+  //  GetAttributeFields() {
+  //   debugger; 
 
-  for (let i = 0; i < this.item.attributeFields.length; i++) {
-    for (let j = 0; j < this.attributefields.length; j++) {
-      if (this.item.attributeFields[i].columnName == this.attributefields[j].columnName)
-      {       
+  //  this.customfieldservice.GetAttributeFields(this.selectedTenantId, this.authService.accessToken)
+  //    .pipe(finalize(() => {
+  //      this.busy = false;
+  //      this.spinner.hide();
+  //    })).subscribe(result => {
+  //      this.AttributeFields = [];
+  //      debugger;
+  //      if (result.code == 200) {
+  //        this.AttributeFields = result.entity;
+  //      }
+  //    })
+  // }
+  Attributevalue() {
+    debugger;
+    this.attributefields.forEach(element => {
+      element.columnValue = "";
+    });
+
+    for (let i = 0; i < this.item.attributeFields.length; i++) {
+      for (let j = 0; j < this.attributefields.length; j++) {
+        if (this.item.attributeFields[i].columnName == this.attributefields[j].columnName) {
           this.attributefields[j].columnValue = this.item.attributeFields[i].columnValue;
         }
-      
-     
+
+
+      }
     }
+
   }
+  closeEditItem() {
+    window.location.reload();
+    this.edititem = true;
 
-}
-closeEditItem()
- {
-   window.location.reload();
-   this.edititem=true;
-
- }
- ComboValueDropdown(Value) {
-
-  let items = [];
-  if (Value != null) {
-    items = Value.split('\n');
   }
-  return items;
-}
-edit()
-{
-        
-}
-ApplyJsFunction() {
-  setTimeout(function () {
-  inputFocus();
-  datePicker();
-  }, 1000)
-}
+  ComboValueDropdown(Value) {
+
+    let items = [];
+    if (Value != null) {
+      items = Value.split('\n');
+    }
+    return items;
+  }
+  edit() {
+
+  }
+  ApplyJsFunction() {
+    setTimeout(function () {
+      inputFocus();
+      datePicker();
+    }, 1000)
+  }
 
 }
