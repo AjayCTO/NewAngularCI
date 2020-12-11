@@ -7,10 +7,11 @@ import { EventService } from './service/event.service';
 import { AddEventComponent } from './component/add-event/add-event.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { NgxSpinnerModule } from "ngx-spinner";
 @NgModule({
   declarations: [EventListComponent, AddEventComponent],
   imports: [
-    CommonModule,
+    CommonModule, NgxSpinnerModule,
     FormsModule, ReactiveFormsModule, ColorPickerModule,
     RouterModule.forChild([
       { path: 'event', component: EventListComponent, canActivate: [AuthGuard] },
