@@ -288,7 +288,24 @@ export class LibraryService extends BaseService {
     return this.http.get<IApiResponse>(this.configService.resourceApiURI + '/api/Library/getPart?TenantId=' + TenantId, httpOptions).pipe(catchError(this.handleError));
 
   }
+  // Edit Part
+  EditPart(TenantId: number, PartId, data: any, token: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "bearer " + token
+      })
+    };
+    return this.http.put(this.configService.resourceApiURI + '/api/Library/EditPart?TenantId=' + TenantId + '&UOMId=' + PartId, data, httpOptions).pipe(map((response: {
+      message: string;
+      code: number;
+      entity: boolean;
+    }) => {
+      return response;
+    }
+    ));
 
+  }
   AddEditPart(TenantId: number, data: any, token: string) {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -325,7 +342,20 @@ export class LibraryService extends BaseService {
   }
 
 
-  //GetAllParts
+// get image
+
+GetTenantImages(TenantId: number, pageSize: number, pageIndex: number,token: string)
+{
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': "bearer " + token
+    })
+  };
+  return this.http.get<IApiResponse>(this.configService.resourceApiURI + '/api/Library/GetTenantImages?TenantId=' + TenantId+'&pageSize='+pageSize+'&pageIndex='+pageIndex, httpOptions)
+  .pipe(catchError(this.handleError));
+
+}
 
 
 
