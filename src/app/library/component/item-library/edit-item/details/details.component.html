@@ -465,7 +465,7 @@
                         <div class="form__col-wrap">
                             <div class="form__col">
                                 <label for="search" class="form__label form__label--hidden">Search</label>
-                                <input class="form__input form__input--search" type="search" id="search" name="search"
+                                <input class="form__input form__input--search" [(ngModel)]="searchFilterText" type="search" id="search" name="search"
                                     autocomplete="off" placeholder="Search">
                                 <button type="button"
                                     class="form__clear form__icon icons__item icons__item--theme03 js-clear"

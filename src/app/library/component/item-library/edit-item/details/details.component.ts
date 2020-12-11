@@ -29,6 +29,8 @@ export class DetailsComponent implements OnInit {
   progressInfos = [];
   message = '';
   public imagePath;
+  allItems: any;
+  public NotPermitted: boolean = false;
   images = [];
   myForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -36,7 +38,9 @@ export class DetailsComponent implements OnInit {
     fileSource: new FormControl('', [Validators.required])
   });
   imgURL: any;
- 
+  searchFilterText: string;
+  pageSize = 10;
+  pageIndex = 0;
   // selectedTenantId
   public showProgressBar: boolean;
 
@@ -180,6 +184,7 @@ export class DetailsComponent implements OnInit {
   AssignImage() {
     debugger;
     this.AssignImageOpen = true;
+   this.GetAllImage();
   }
   Close() {
     this.AssignImageOpen = false;
@@ -240,5 +245,25 @@ export class DetailsComponent implements OnInit {
       datePicker();
     }, 1000)
   }
+
+// get image
+GetAllImage()
+{
+  debugger;
+  this.libraryService.GetTenantImages( this.selectedTenantId,  this.pageIndex + 1, this.pageSize,this.searchFilterText,this.authService.accessToken)  
+  .pipe(finalize(() => {
+
+    //this.spinner.hide();
+  })).subscribe(result => {
+    if (result.code == 403) {
+      this.NotPermitted = true;
+      alert("hii");
+    }
+    alert("hello");
+    this.allItems = [];
+
+        this.allItems = result.entity.parts;
+  })
+}
 
 }
