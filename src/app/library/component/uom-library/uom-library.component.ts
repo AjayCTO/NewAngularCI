@@ -22,6 +22,7 @@ export class UOMLibraryComponent implements OnInit {
   public EditUOMMode: boolean;
   public showForm: boolean;
   public selectedId: number;
+  loadingRecords = false;
   UOMlist: any;
   public NotPermitted: boolean = false;
   error: string;
@@ -72,6 +73,7 @@ export class UOMLibraryComponent implements OnInit {
     debugger;
     this.addUom = false;
     this.istableloaded = false;
+    this.loadingRecords = true;
     this.libraryService.GetUOM(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
@@ -83,6 +85,7 @@ export class UOMLibraryComponent implements OnInit {
         }
         else {
           if (result.entity != null) {
+            this.loadingRecords = false;
             this.UOMlist = result.entity;
           }
         }
