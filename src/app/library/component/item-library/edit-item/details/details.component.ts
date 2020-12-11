@@ -23,7 +23,8 @@ export class DetailsComponent implements OnInit {
   @ViewChild('UploadImage') UploadImage: ElementRef<HTMLElement>;
   @Input() item;
   @Input() attributefields;
-  selectedFiles: any;
+  selectedFiles: File[] = [];
+  listOfFiles: any[] = [];
   progressInfos = [];
   message = '';
 
@@ -97,6 +98,10 @@ export class DetailsComponent implements OnInit {
 
     for (let i = 0; i < files.length; i++) {
       if (files.item(i).type.match('image/jpg') || files.item(i).type.match('image/jpeg') || files.item(i).type.match('image/png')) {
+        var selectedFile = event.target.files[i];
+        this.selectedFiles.push(selectedFile);
+        this.listOfFiles.push(selectedFile.name);
+
         continue;
       } else {
         isImage = false;
@@ -105,12 +110,12 @@ export class DetailsComponent implements OnInit {
       }
     }
 
-    if (isImage) {
-      this.selectedFiles = event.target.files;
-    } else {
-      this.selectedFiles = undefined;
-      event.srcElement.percentage = null;
-    }
+    // if (isImage) {
+    //   this.selectedFiles = event.target.files;
+    // } else {
+    //   this.selectedFiles = undefined;
+    //   event.srcElement.percentage = null;
+    // }
   }
 
   uploadFiles() {
@@ -122,27 +127,18 @@ export class DetailsComponent implements OnInit {
       err => {
 
       });
-    for (let i = 0; i < this.selectedFiles.length; i++) {
-      this.upload(i, this.selectedFiles[i]);
-    }
+
   }
   triggerFalseClick() {
     let el: HTMLElement = this.UploadImage.nativeElement;
     el.click();
   }
-  RemoveImageName(item) {
+  RemoveImageName(index) {
     debugger;
 
-
-
-    for (var i = this.selectedFiles.length - 1; i > -1; i--) {
-
-
-      if (this.selectedFiles[i].name == item.name) {
-        if (this.selectedFiles[i].name.indexOf(name) >= 0) { }
-      }
-    }
-
+    this.listOfFiles.splice(index, 1);
+    // delete file from FileList
+    this.selectedFiles.splice(index, 1);
   }
   upload(idx, file) {
     this.progressInfos[idx] = { value: 0, fileName: file.name };

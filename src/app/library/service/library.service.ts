@@ -48,7 +48,7 @@ export class LibraryService extends BaseService {
 
 
 
-  upload(files: FileList, TenantId: number, token: string): Observable<HttpEvent<any>> {
+  upload(files: File[], TenantId: number, token: string): Observable<HttpEvent<any>> {
     debugger;
     const
       formData: FormData = new FormData();

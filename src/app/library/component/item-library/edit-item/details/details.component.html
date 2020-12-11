@@ -431,12 +431,12 @@
                             <div class="form__section">
                                 <div class="form__col-wrap">
                                     <div class="card icons icons--horziontal icons--size01">
-                                        <button type="button" *ngFor="let item of selectedFiles"
+                                        <button type="button" *ngFor="let item of listOfFiles;let index = index"
                                             class="icons__item icons__item--contains-text icons__item--theme07">
                                             <div class="icons__text" style="display: flex;">
-                                                <strong class="icons__name">{{item.name}}</strong>
+                                                <strong class="icons__name">{{item}}</strong>
                                                 &nbsp;&nbsp;
-                                                <div class="icons__icon" (click)="RemoveImageName(item)">
+                                                <div class="icons__icon" (click)="RemoveImageName(index)">
                                                     <svg class="icon-simple icon-simple--theme01 icon-simple--remove"
                                                         aria-labelledby="title-5f7cbab264ccf"
                                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
