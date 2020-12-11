@@ -139,8 +139,7 @@ export class DetailsComponent implements OnInit {
 
 
       if (this.selectedFiles[i].name == item.name) {
-        if (this.selectedFiles[i].name.indexOf(name) >= 0)
-    
+        if (this.selectedFiles[i].name.indexOf(name) >= 0) { }
       }
     }
 
