@@ -23,6 +23,7 @@ export class StatusLibraryComponent implements OnInit {
   busy: boolean;
   public selectedId: number;
   deleteStatus2 = false
+  loadingRecords = false;
   public NotPermitted: boolean = false;
   public EditStatusMode: boolean;
   public showForm: boolean;
@@ -59,6 +60,7 @@ export class StatusLibraryComponent implements OnInit {
     debugger;
     this.addStatus = false;
     this.istableloaded = false;
+    this.loadingRecords = true;
     this.libraryService.GetStatus(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
@@ -69,6 +71,7 @@ export class StatusLibraryComponent implements OnInit {
         }
         else {
           if (result.entity != null) {
+            this.loadingRecords = false;
             this.Statuslist = result.entity;
           }
         }
