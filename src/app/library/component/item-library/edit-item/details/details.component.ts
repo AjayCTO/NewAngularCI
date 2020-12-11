@@ -31,7 +31,7 @@ export class DetailsComponent implements OnInit {
   // selectedTenantId
   public showProgressBar: boolean;
 
-
+  public AssignImageOpen: boolean;
 
 
   fileInfos: Observable<any>;
@@ -156,8 +156,13 @@ export class DetailsComponent implements OnInit {
         this.message = 'Could not upload the file:' + file.name;
       });
   }
-
-  Close() { }
+  AssignImage() {
+    debugger;
+    this.AssignImageOpen = true;
+  }
+  Close() {
+    this.AssignImageOpen = false;
+  }
 
   //Attribute FIELDS
   //  GetAttributeFields() {

@@ -16,4 +16,21 @@
 }
 .UploadImageCard {
     box-shadow: 0 0 7px #d6d6d6;
+    min-height: 210px;
+    .card-header {
+        padding: 10px;
+        text-align: center;
+    }
+    .card-body {
+        padding: 20px;
+    }
+}
+.AssignImgPage {
+    padding: 12px;
+    align-items: center;
+    background-color: #f0f5fa;
+    display: flex;
+    padding: 14px;
+    padding-top: 0 !important;
+    margin-bottom: 1rem;
 }
