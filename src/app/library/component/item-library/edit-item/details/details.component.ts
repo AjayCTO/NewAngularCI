@@ -13,7 +13,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import inputFocus from '../../../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../../../assets/js/lib/_inputClear';
 import datePicker from '../../../../../../assets/js/lib/_datePicker';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-details',
@@ -29,7 +29,7 @@ export class DetailsComponent implements OnInit {
   progressInfos = [];
   message = '';
   public imagePath;
-  allItems: any;
+  allImages: any;
   public NotPermitted: boolean = false;
   images = [];
   myForm = new FormGroup({
@@ -38,7 +38,7 @@ export class DetailsComponent implements OnInit {
     fileSource: new FormControl('', [Validators.required])
   });
   imgURL: any;
-  searchFilterText: string;
+  public searchFilterText: string = "";
   pageSize = 10;
   pageIndex = 0;
   // selectedTenantId
@@ -98,6 +98,7 @@ export class DetailsComponent implements OnInit {
     this.Attributevalue();
     // this.selecteditem= JSON.parse(localStorage.getItem('selectitem'));
     this.attributefields
+
     this.ApplyJsFunction();
 
   }
@@ -113,7 +114,19 @@ export class DetailsComponent implements OnInit {
       if (files.item(i).type.match('image/jpg') || files.item(i).type.match('image/jpeg') || files.item(i).type.match('image/png')) {
         var selectedFile = event.target.files[i];
         this.selectedFiles.push(selectedFile);
-        this.listOfFiles.push(selectedFile.name);
+        // this.listOfFiles.push(selectedFile.name);
+        var reader = new FileReader();
+
+        reader.onload = (event: any) => {
+
+          this.listOfFiles.push(event.target.result);
+
+          this.myForm.patchValue({
+            fileSource: this.listOfFiles
+          });
+        }
+
+        reader.readAsDataURL(event.target.files[i]);
 
         continue;
       } else {
@@ -123,27 +136,28 @@ export class DetailsComponent implements OnInit {
       }
     }
 
-    if (event.target.files && event.target.files[0]) {
-      var filesAmount = event.target.files.length;
-      for (let i = 0; i < filesAmount; i++) {
-              var reader = new FileReader();
- 
-              reader.onload = (event:any) => {
-                console.log(event.target.result);
-                 this.images.push(event.target.result); 
- 
-                 this.myForm.patchValue({
-                    fileSource: this.images
-                 });
-              }
+    // if (event.target.files && event.target.files[0]) {
+    //   var filesAmount = event.target.files.length;
+    //   for (let i = 0; i < filesAmount; i++) {
+    //     var reader = new FileReader();
 
-              reader.readAsDataURL(event.target.files[i]);
-      }
-  }
+    //     reader.onload = (event: any) => {
+
+    //       this.images.push(event.target.result);
+
+    //       this.myForm.patchValue({
+    //         fileSource: this.images
+    //       });
+    //     }
+
+    //     reader.readAsDataURL(event.target.files[i]);
+    //   }
+    // }
   }
 
   uploadFiles() {
     debugger
+    this.spinner.show();
     this.message = '';
     this.libraryService.upload(this.selectedFiles, this.selectedTenantId, this.authService.accessToken).subscribe(
       event => {
@@ -163,28 +177,14 @@ export class DetailsComponent implements OnInit {
     this.listOfFiles.splice(index, 1);
     // delete file from FileList
     this.selectedFiles.splice(index, 1);
-    
-  }
-  upload(idx, file) {
-    this.progressInfos[idx] = { value: 0, fileName: file.name };
+    this.images.splice(index, 1);
 
-    this.libraryService.upload(file, this.selectedTenantId, this.authService.accessToken).subscribe(
-      event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          this.progressInfos[idx].percentage = Math.round(100 * event.loaded / event.total);
-        } else if (event instanceof HttpResponse) {
-          this.fileInfos = this.libraryService.getFiles();
-        }
-      },
-      err => {
-        this.progressInfos[idx].percentage = 0;
-        this.message = 'Could not upload the file:' + file.name;
-      });
   }
+
   AssignImage() {
     debugger;
     this.AssignImageOpen = true;
-   this.GetAllImage();
+    this.GetAllImage();
   }
   Close() {
     this.AssignImageOpen = false;
@@ -246,24 +246,24 @@ export class DetailsComponent implements OnInit {
     }, 1000)
   }
 
-// get image
-GetAllImage()
-{
-  debugger;
-  this.libraryService.GetTenantImages( this.selectedTenantId,  this.pageIndex + 1, this.pageSize,this.searchFilterText,this.authService.accessToken)  
-  .pipe(finalize(() => {
+  // get image
+  GetAllImage() {
+    debugger;
+    this.libraryService.GetTenantImages(this.selectedTenantId, this.pageIndex, this.pageSize, this.searchFilterText, this.authService.accessToken)
+      .pipe(finalize(() => {
 
-    //this.spinner.hide();
-  })).subscribe(result => {
-    if (result.code == 403) {
-      this.NotPermitted = true;
-      alert("hii");
-    }
-    alert("hello");
-    this.allItems = [];
+        //this.spinner.hide();
+      })).subscribe(result => {
+        if (result.code == 403) {
+          this.NotPermitted = true;
 
-        this.allItems = result.entity.parts;
-  })
-}
+        }
+        debugger;
+
+        this.allImages = [];
+        console.log(result.entity);
+        this.allImages = result.entity.images;
+      })
+  }
 
 }
