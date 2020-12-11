@@ -375,16 +375,46 @@
         <div>
             <div class="form__section">
                 <input type="hidden" id="Master" name="Master" value="5820943">
-                <p><b style="font-size: 1.25rem;">Images</b>
+                <h5><b style="font-size: 1.25rem;">Images</b>
                     You can assign an image by using the option
-                    below. Drag images to change display order.</p>
+                    below. Drag images to change display order.</h5>
             </div>
-
+            <div class="form__section">
+                <div class="form__col-wrap">
+                    <div class="form__col form__col--third" style="padding: 0 14px;">
+                        <div class="UploadImageCard js-modal" data-modal="#UploadActivity">
+                            <div class="add--image">
+                                <div class="Add_Icon">
+                                    <div class="icons__item--theme11">
+                                        <svg class="icon icon--theme01 icon--add" aria-labelledby="title-5fc489b8acf9c"
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="16"
+                                            height="16">
+                                            <path fill="none" d="M0 0h48v48H0z"></path>
+                                            <path d="M28 36v12h-8V28a8 8 0 00-8-8 16 16 0 0116 16z" fill="currentColor"
+                                                class="icon__color--secondary"></path>
+                                            <path d="M20 28H0v-8h12a8 8 0 018 8z" fill="currentColor"
+                                                class="icon__color--secondary">
+                                            </path>
+                                            <path d="M20 12V0h8v20a8 8 0 008 8 16 16 0 01-16-16z" fill="currentColor"
+                                                class="icon__color--secondary"></path>
+                                            <path d="M28 20h20v8H36a8 8 0 01-8-8z" fill="currentColor"
+                                                class="icon__color--secondary">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <h5> Upload an Image </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="form__section">
                 <div class="button-group">
                     <button type="button" class="button button--medium" id="image">Assign From
                         Gallery</button>
-                    <button type="button" data-modal="#UploadActivity" class="button button--medium js-modal">Upload an
+                    <button type="button" data-modal="#UploadActivity" class="button button--medium js-modal">Upload
+                        an
                         Image</button>
                     <div id="UploadActivity" class="invModal" role="dialog" aria-labelledby="dialog-title"
                         aria-describedby="dialog-description" tabindex="-1" hidden="">
@@ -409,7 +439,8 @@
                                                         width="24" height="24">
                                                         <path fill="none" d="M0 0h24v24H0z"></path>
                                                         <path fill="currentColor"
-                                                            d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                                                            d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z">
+                                                        </path>
                                                         <path fill="currentColor"
                                                             d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z">
                                                         </path>
@@ -604,9 +635,8 @@
             </div>
         </div>
     </div>
-</div>
 
-<!-- <ng-container *ngIf="edititem">
+    <!-- <ng-container *ngIf="edititem">
 <app-item-library>
 
 </app-item-library>
