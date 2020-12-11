@@ -220,7 +220,13 @@
                 </thead>
 
                 <tbody class="table__section table__section--body">
-
+                    <ng-container *ngIf="loadingRecords">
+                        <div class="loaderCard">
+                            <div class="loader"></div>
+                            <h3>Please Wait...</h3>
+                        </div>
+                       
+                    </ng-container>
 
                     <ng-container *ngFor="let item of locations">
 

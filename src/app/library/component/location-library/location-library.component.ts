@@ -31,6 +31,7 @@ export class LocationLibraryComponent implements OnInit {
   public selectedId: number;
   public isActive: boolean;
   public EditMode: boolean;
+  loadingRecords = false;
   public NotPermitted: boolean = false;
   locationForm: FormGroup;
   editlocationForm: FormGroup;
@@ -77,6 +78,8 @@ export class LocationLibraryComponent implements OnInit {
     debugger;
     this.addLocation = false;
     this.istableloaded = false;
+    
+    this.loadingRecords = true;
     this.libraryService.GetLocation(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
@@ -87,6 +90,7 @@ export class LocationLibraryComponent implements OnInit {
         }
         else {
           if (result.entity != null) {
+            this.loadingRecords = false;
             this.locations = result.entity;
           }
         }
