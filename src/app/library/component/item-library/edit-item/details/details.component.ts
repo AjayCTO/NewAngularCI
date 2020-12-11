@@ -13,6 +13,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import inputFocus from '../../../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../../../assets/js/lib/_inputClear';
 import datePicker from '../../../../../../assets/js/lib/_datePicker';
+import { FormGroup, FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-details',
@@ -27,7 +28,15 @@ export class DetailsComponent implements OnInit {
   listOfFiles: any[] = [];
   progressInfos = [];
   message = '';
-
+  public imagePath;
+  images = [];
+  myForm = new FormGroup({
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    file: new FormControl('', [Validators.required]),
+    fileSource: new FormControl('', [Validators.required])
+  });
+  imgURL: any;
+ 
   // selectedTenantId
   public showProgressBar: boolean;
 
@@ -110,12 +119,23 @@ export class DetailsComponent implements OnInit {
       }
     }
 
-    // if (isImage) {
-    //   this.selectedFiles = event.target.files;
-    // } else {
-    //   this.selectedFiles = undefined;
-    //   event.srcElement.percentage = null;
-    // }
+    if (event.target.files && event.target.files[0]) {
+      var filesAmount = event.target.files.length;
+      for (let i = 0; i < filesAmount; i++) {
+              var reader = new FileReader();
+ 
+              reader.onload = (event:any) => {
+                console.log(event.target.result);
+                 this.images.push(event.target.result); 
+ 
+                 this.myForm.patchValue({
+                    fileSource: this.images
+                 });
+              }
+
+              reader.readAsDataURL(event.target.files[i]);
+      }
+  }
   }
 
   uploadFiles() {
@@ -139,6 +159,7 @@ export class DetailsComponent implements OnInit {
     this.listOfFiles.splice(index, 1);
     // delete file from FileList
     this.selectedFiles.splice(index, 1);
+    
   }
   upload(idx, file) {
     this.progressInfos[idx] = { value: 0, fileName: file.name };

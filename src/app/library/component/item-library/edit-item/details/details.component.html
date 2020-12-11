@@ -574,6 +574,7 @@
                                         <br>
                                         <input #UploadImage hidden type="file" accept="image/*" multiple
                                             (change)="selectFiles($event)" />
+                                            <img *ngFor='let imgURL of images' [src]="imgURL" height="200" >
                                         <!-- <span class="fileinput-new">Select file</span>
                                     <span class="fileinput-exists">change</span>
                                     <input type="hidden"> -->
