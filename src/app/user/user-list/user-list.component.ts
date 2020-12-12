@@ -27,6 +27,7 @@ export class UserListComponent implements OnInit {
   success: boolean;
   error: string;
   busy: boolean;
+  public showPassword:boolean
   AllMemberUser: any;
   CurrentTenantUsers: any;
   loadingRecords = false;
@@ -301,5 +302,10 @@ export class UserListComponent implements OnInit {
           }
         })
   }
+  showPasswords()
+{
+  this.showPassword=!this.showPassword;
+  this.ApplyJsFunction();
+}
 
 }
