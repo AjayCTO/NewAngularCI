@@ -549,15 +549,18 @@
                                 <div class="form__col-wrap">
                                     <div class="card icons icons--horziontal icons--size01">
                                         <button type="button" *ngFor="let item of listOfFiles;let index = index"
-                                            class="icons__item icons__item--contains-text icons__item--theme07">
-                                            <div class="icons__text" style="display: flex;">
-                                                <strong class="icons__name"> <img [src]="item"> </strong>
+                                            class="icons__item icons__item--contains-text icons__item--theme07"
+                                            style="height: 45px;border-radius: 100px;">
+                                            <div class="icons__text" style="display: flex;align-items: center;">
+                                                <strong class="icons__name"> <img style="width: 30px !important;"
+                                                        [src]="item">
+                                                </strong>
                                                 &nbsp;&nbsp;
-                                                <div class="icons__icon" (click)="RemoveImageName(index)">
+                                                <div class="" (click)="RemoveImageName(index)">
                                                     <svg class="icon-simple icon-simple--theme01 icon-simple--remove"
                                                         aria-labelledby="title-5f7cbab264ccf"
                                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                        width="24" height="24">
+                                                        width="18" height="18">
                                                         <path fill="none" d="M0 0h24v24H0z"></path>
                                                         <path fill="currentColor"
                                                             d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z">
@@ -568,7 +571,7 @@
                                                     </svg>
                                                 </div>
                                             </div>
-                                        </button>&nbsp;
+                                        </button>&nbsp;&nbsp;&nbsp;
                                     </div>
                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                         <span class="fileinput-filename"></span>
