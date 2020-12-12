@@ -529,14 +529,21 @@
             </div>
             <div class="form__section">
                 <div class="button-group">
-                    <button type="button" class="button button--medium" (click)="AssignImage()" id="image">Assign From
+                    <button type="button" class="button button--medium" *ngIf="!AssignImageOpen"
+                        (click)="AssignImagefromGallery()" id="image">Assign From
                         Gallery</button>
+                    <button type="button" class="button button--medium" *ngIf="AssignImageOpen" id="image2">Assign
+                        Image</button>
                     <button type="button" class="button button--medium button--text-only" *ngIf="AssignImageOpen"
                         (click)="Close()">Cancel
                     </button>
-                    <button type="button" class="button button--medium js-modal" data-modal="#UploadActivity">Upload
+                    <button type="button" class="button button--medium js-modal" *ngIf="!AssignImageOpen"
+                        data-modal="#UploadActivity">Upload
                         an
                         Image</button>
+
+
+
                     <div id="UploadActivity" class="invModal" role="dialog" aria-labelledby="dialog-title"
                         aria-describedby="dialog-description" tabindex="-1" hidden="">
                         <div class="invModal__head">

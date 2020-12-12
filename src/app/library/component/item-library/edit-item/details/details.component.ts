@@ -181,7 +181,7 @@ export class DetailsComponent implements OnInit {
 
   }
 
-  AssignImage() {
+  AssignImagefromGallery() {
     debugger;
     this.AssignImageOpen = true;
     this.GetAllImage();
