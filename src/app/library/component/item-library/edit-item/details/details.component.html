@@ -436,7 +436,7 @@
                                     </svg></div>
                             </a>
                         </div>
-                        <span class="footer__statements">Statements 1-50</span>
+                        <span class="footer__statements">Statements  {{pageIndex*pageSize}}-{{(pageIndex+1)*(pageSize>length?length:pageSize)}}</span>
                         <div class="icons icons--size01 icons--horziontal">
                             <a class="icons__item icons__item--theme09">
                                 <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--next"
@@ -457,7 +457,7 @@
                                     </svg></div>
                             </a>
                         </div>
-                        <span class="footer__total">of 1,800</span>
+                        <span class="footer__total">of {{length}}</span>
                     </div>
                 </div>
                 <form class="form form--search" style="margin: 0;">
@@ -466,7 +466,7 @@
                             <div class="form__col">
                                 <label for="search" class="form__label form__label--hidden">Search</label>
                                 <input class="form__input form__input--search" [(ngModel)]="searchFilterText"
-                                    type="search" id="search" name="search" autocomplete="off" placeholder="Search">
+                                    type="search" id="search" name="search" (change)=" GetAllImage()" autocomplete="off" placeholder="Search">
                                 <button type="button"
                                     class="form__clear form__icon icons__item icons__item--theme03 js-clear"
                                     data-field-to-clear="#search">
@@ -508,7 +508,7 @@
                     </div>
                 </form>
                 <br>
-                <ng-container *ngFor="let item of allImages">
+                <ng-container >
                     <div class="form__col-wrap">
                         <div class="form__col form__col--third" style="padding: 0 14px;">
                             <div class="UploadImageCard">
@@ -520,6 +520,7 @@
                                 </div>
                                 <div class="card-body">
                                     <img src="/assets/img/download.png">
+                                    <p>hii</p>
                                 </div>
                             </div>
                         </div>
