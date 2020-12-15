@@ -26,19 +26,25 @@
 
                         <div class="form__col form__col--third"
                             [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''">
-                            <label class="form__label" for="Attribute_{{field.columnId}}"
-                                *ngIf="field.customFieldSpecialType!='Dropdown'&&field.dataType!='True/False'"
+                            <label class="form__label " for="Attribute_{{field.columnId}}"
+                                *ngIf="field.customFieldSpecialType!='Dropdown'&&field.dataType!='True/False'&&field.customFieldSpecialType!='Autocomplete'"
                                 [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>'4' ? 'prefixLabel3':'']">{{field.columnLabel}}<span
                                     *ngIf="field.customFieldIsRequired" class="form__required">*</span></label>
-                            <span class="form__group-outer-label" *ngIf="field.dataType=='True/False'">{{(field.columnLabel.length>6)? (field.columnLabel |
+
+                            <span class="form__group-outer-label"
+                                *ngIf="field.dataType=='True/False'">{{(field.columnLabel.length>6)? (field.columnLabel
+                                |
                                 slice:0:6)+'...':(field.columnLabel)}} :</span>
+                            <label class="form__label form_label" *ngIf="field.customFieldSpecialType=='Autocomplete'">
+                                {{field.columnLabel}}
+                            </label>
                             <ng-container *ngIf="field.dataType=='Text'">
 
                                 <ng-container *ngIf="field.customFieldSpecialType=='Autocomplete'">
                                     <ng-autocomplete [data]="ComboValueDropdown(field.comboBoxValue)" [searchKeyword]=""
                                         [debounceTime]="600" [itemTemplate]="itemTemplate"
-                                        id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
-                                        [notFoundTemplate]="notFoundTemplate">
+                                        [(ngModel)]="field.columnValue" id="Attribute_{{field.columnId}}"
+                                        name="Attribute_{{field.columnId}}" [notFoundTemplate]="notFoundTemplate">
                                     </ng-autocomplete>
                                     <ng-template #itemTemplate let-item>
                                         <a [innerHTML]="item"></a>
@@ -58,7 +64,7 @@
 
                                     <select class="floating-select" id="Attribute_{{field.columnId}}"
                                         name="Attribute_{{field.columnId}}" value="">
-                                        <option value=""></option>
+                                        <option selected>{{field.columnValue}}</option>
                                         <option *ngFor="let opt of ComboValueDropdown(field.comboBoxValue)"
                                             value="{{opt}}">
                                             {{opt}}
@@ -92,10 +98,13 @@
                                 <ng-container *ngIf="field.customFieldSpecialType=='OpenField'">
                                     <ng-container *ngIf="field.customFieldSuffix||field.customFieldPrefix"
                                         class="input-group">
-                                        <span *ngIf="field.customFieldPrefix" class="input-group-addon text Prefix">{{(field.customFieldPrefix.length>3)? (field.customFieldPrefix |
-                                        slice:0:3)+'...':(field.customFieldPrefix)}}</span>
+                                        <span *ngIf="field.customFieldPrefix"
+                                            class="input-group-addon text Prefix">{{(field.customFieldPrefix.length>3)?
+                                            (field.customFieldPrefix |
+                                            slice:0:3)+'...':(field.customFieldPrefix)}}</span>
                                         <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
                                             id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
+                                            value="{{field.columnValue}}"
                                             [ngClass]="[field.customFieldPrefix.length=='1' ? 'Addon':''||field.customFieldPrefix.length=='2'?'Addon1':''||field.customFieldPrefix.length=='3'?'Addon2':''||field.customFieldPrefix.length>'4'?'Addon3':'']"
                                             class="form__input">
                                         <span *ngIf="field.customFieldSuffix"
@@ -151,7 +160,8 @@
 
                                     <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
                                         id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
-                                        formControlName="{{field.columnId}}" class="form__input">
+                                        value="{{field.columnValue}}" formControlName="{{field.columnId}}"
+                                        class="form__input">
                                     <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
                                         [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
                                             class="icon-simple icon-simple--theme01 icon-simple--info"
@@ -179,7 +189,8 @@
                                 <ng-container *ngIf="field.customFieldSpecialType=='Number'">
                                     <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
                                         id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
-                                        formControlName="{{field.columnId}}" class="form__input">
+                                        value="{{field.columnValue}}" formControlName="{{field.columnId}}"
+                                        class="form__input">
                                     <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
                                         [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
                                             class="icon-simple icon-simple--theme01 icon-simple--info"
@@ -204,7 +215,8 @@
                                     <span class="input-group-addon text ">$</span>
                                     <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
                                         id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
-                                        formControlName="{{field.columnId}}" class="form__input Addon">
+                                        value="{{field.columnValue}}" formControlName="{{field.columnId}}"
+                                        class="form__input Addon">
                                     <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
                                         [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
                                             class="icon-simple icon-simple--theme01 icon-simple--info"
@@ -341,15 +353,19 @@
                                     <input id="Attribute_{{field.columnId}}_1" [(ngModel)]="field.columnValue"
                                         class="form__radio" type="radio" value="{{field.customFieldFalseLabel}}"
                                         name="radio200">
-                                    <label class="form__group-label" for="Attribute_{{field.columnId}}_1">{{(field.customFieldFalseLabel.length>5)? (field.customFieldFalseLabel |
-                                    slice:0:5)+'...':(field.customFieldFalseLabel)}}</label>
+                                    <label class="form__group-label"
+                                        for="Attribute_{{field.columnId}}_1">{{(field.customFieldFalseLabel.length>5)?
+                                        (field.customFieldFalseLabel |
+                                        slice:0:5)+'...':(field.customFieldFalseLabel)}}</label>
                                 </div>
                                 <div class="form__group form__group--radio">
                                     <input [(ngModel)]="field.columnValue" value="{{field.customFieldTrueLabel}}"
                                         id="Attribute_{{field.columnId}}_2" class="form__radio" type="radio"
                                         name="radio200">
-                                    <label class="form__group-label" for="Attribute_{{field.columnId}}_2">{{(field.customFieldTrueLabel.length>5)? (field.customFieldTrueLabel |
-                                    slice:0:5)+'...':(field.customFieldTrueLabel)}}</label>
+                                    <label class="form__group-label"
+                                        for="Attribute_{{field.columnId}}_2">{{(field.customFieldTrueLabel.length>5)?
+                                        (field.customFieldTrueLabel |
+                                        slice:0:5)+'...':(field.customFieldTrueLabel)}}</label>
                                 </div>
 
 
@@ -381,7 +397,7 @@
             </div>
             <div class="form__section">
                 <div class="form__col-wrap">
-                    <div class="form__col form__col--third" style="padding: 0 14px;">
+                    <div class="form__col form__col--second" style="padding: 0 14px;">
                         <div class="UploadImageCard js-modal" data-modal="#UploadActivity">
                             <div class="add--image">
                                 <div class="Add_Icon">
@@ -407,15 +423,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form__col form__col--third" style="padding: 0 14px;"></div>
-                    <div class="form__col form__col--third" style="padding: 0 14px;"></div>
+                    <div class="form__col form__col--second" style="padding: 0 14px;"></div>
+                    <div class="form__col form__col--second" style="padding: 0 14px;"></div>
                 </div>
             </div>
             <div class="form__section" *ngIf="AssignImageOpen">
                 <div class="AssignImgPage">
                     <div class="pagination">
                         <div class="icons icons--size01 icons--horziontal">
-                            <a href="#" class="icons__item icons__item--theme09">
+                            <a (click)="gotoFirstPage()" class="icons__item icons__item--theme09">
                                 <div class="icons__icon"><svg
                                         class="icon-simple icon-simple--theme01 icon-simple--first"
                                         aria-labelledby="title-5fd3434a6bd1c" xmlns="http://www.w3.org/2000/svg"
@@ -425,7 +441,7 @@
                                             d="M2 3h4v18H2zm6 7.6v2.8l11.4 8.7 2.4-3.2-9-6.9 9-6.9-2.4-3.2z"></path>
                                     </svg></div>
                             </a>
-                            <a class="icons__item icons__item--theme09">
+                            <a class="icons__item icons__item--theme09" (click)="gotoBack()">
                                 <div class="icons__icon"><svg
                                         class="icon-simple icon-simple--theme01 icon-simple--previous"
                                         aria-labelledby="title-5fd3434a6bd55" xmlns="http://www.w3.org/2000/svg"
@@ -436,9 +452,10 @@
                                     </svg></div>
                             </a>
                         </div>
-                        <span class="footer__statements">Statements  {{pageIndex*pageSize}}-{{(pageIndex+1)*(pageSize>length?length:pageSize)}}</span>
+                        <span class="footer__statements">Statements
+                            {{pageIndex*pageSize}}-{{(pageIndex+1)*(pageSize>length?length:pageSize)}}</span>
                         <div class="icons icons--size01 icons--horziontal">
-                            <a class="icons__item icons__item--theme09">
+                            <a class="icons__item icons__item--theme09" (click)="gotoNext()">
                                 <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--next"
                                         aria-labelledby="title-5fd3434a6bd64" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24" width="24" height="24">
@@ -447,7 +464,7 @@
                                         </path>
                                     </svg></div>
                             </a>
-                            <a class="icons__item icons__item--theme09">
+                            <a class="icons__item icons__item--theme09" (click)="gotoLastPage()">
                                 <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--last"
                                         aria-labelledby="title-5fd3434a6bd71" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24" width="24" height="24">
@@ -466,10 +483,11 @@
                             <div class="form__col">
                                 <label for="search" class="form__label form__label--hidden">Search</label>
                                 <input class="form__input form__input--search" [(ngModel)]="searchFilterText"
-                                    type="search" id="search" name="search" (change)=" GetAllImage()" autocomplete="off" placeholder="Search">
+                                    type="search" id="search" name="search" (change)=" GetAllImage()" autocomplete="off"
+                                    placeholder="Search">
                                 <button type="button"
                                     class="form__clear form__icon icons__item icons__item--theme03 js-clear"
-                                    data-field-to-clear="#search">
+                                    data-field-to-clear="#search" (click)="RemoveSearchFilter()">
                                     <div class="icons__icon"><svg class="icon icon--theme01 icon--remove"
                                             aria-labelledby="title-5f7cca8a45299" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 48 48" width="48" height="48">
@@ -508,23 +526,28 @@
                     </div>
                 </form>
                 <br>
-                <ng-container >
+                <ng-container>
                     <div class="form__col-wrap">
-                        <div class="form__col form__col--third" style="padding: 0 14px;">
+                        <div class="form__col form__col--second" *ngFor="let item of allImages"
+                            style="padding: 0 14px;">
                             <div class="UploadImageCard">
                                 <div class="card-header">
                                     <div class="form__group form__group--checkbox">
-                                        <input id="checkbox2" class="form__checkbox" type="checkbox" name="checkbox[]">
-                                        <label class="form__group-label" for="checkbox2"></label>
+                                        <input id="checkbox2_{{item.imageId}}" class="form__checkbox" type="checkbox"
+                                            name="checkbox2_{{item.imageId}}">
+                                        <label class="form__group-label" for="checkbox2_{{item.imageId}}"></label>
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     <img src="/assets/img/download.png">
-                                    <p>hii</p>
+                                </div>
+                                <div class="card-footer">
+                                    <p>{{item.imageOrginalName}}</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="form__col form__col--third" style="padding: 0 14px;"></div>
+                        <div class="form__col form__col--second" style="padding: 0 14px;"></div>
+                        <div class="form__col form__col--second" style="padding: 0 14px;"></div>
                     </div>
                 </ng-container>
             </div>
@@ -562,6 +585,11 @@
                                             <div class="icons__text" style="display: flex;align-items: center;">
                                                 <strong class="icons__name"> <img style="width: 30px !important;"
                                                         [src]="item">
+                                                </strong>
+                                                &nbsp;&nbsp;
+                                                <strong class="icons__name" *ngFor="let selectFile of selectedFiles"
+                                                    style="font-size: 16px;">
+                                                    {{selectFile.name}}
                                                 </strong>
                                                 &nbsp;&nbsp;
                                                 <div class="" (click)="RemoveImageName(index)">
@@ -701,7 +729,8 @@
         </div>
     </div>
 
-    <!-- <ng-container *ngIf="edititem">
+</div>
+<!-- <ng-container *ngIf="edititem">
 <app-item-library>
 
 </app-item-library>

@@ -41,6 +41,8 @@ export class DetailsComponent implements OnInit {
   public searchFilterText: string = "";
   pageSize = 10;
   pageIndex = 0;
+  length = 100;
+  lastPageIndex = 0;
   // selectedTenantId
   public showProgressBar: boolean;
 
@@ -189,6 +191,12 @@ export class DetailsComponent implements OnInit {
   Close() {
     this.AssignImageOpen = false;
   }
+  RemoveSearchFilter() {
+    debugger;
+
+    this.searchFilterText = ""
+    this.GetAllImage();
+  }
 
   //Attribute FIELDS
   //  GetAttributeFields() {
@@ -216,12 +224,17 @@ export class DetailsComponent implements OnInit {
       for (let j = 0; j < this.attributefields.length; j++) {
         if (this.item.attributeFields[i].columnName == this.attributefields[j].columnName) {
           this.attributefields[j].columnValue = this.item.attributeFields[i].columnValue;
+          if (this.attributefields.customFieldSpecialType == 'OpenField') {
+            if (this.attributefields.customFieldPrefix != null) {
+              this.attributefields.columnValue.splice("", this.attributefields.customFieldPrefix);
+            }
+          }
         }
 
 
       }
     }
-
+    // this.ApplyJsFunction();
   }
   closeEditItem() {
     window.location.reload();
@@ -241,15 +254,16 @@ export class DetailsComponent implements OnInit {
   }
   ApplyJsFunction() {
     setTimeout(function () {
+      inputClear();
       inputFocus();
       datePicker();
-    }, 1000)
+    }, 100)
   }
 
   // get image
   GetAllImage() {
     debugger;
-    this.libraryService.GetTenantImages(this.selectedTenantId, this.pageIndex, this.pageSize, this.searchFilterText, this.authService.accessToken)
+    this.libraryService.GetTenantImages(this.selectedTenantId, this.pageSize, this.pageIndex, this.searchFilterText, this.authService.accessToken)
       .pipe(finalize(() => {
 
         //this.spinner.hide();
@@ -265,5 +279,33 @@ export class DetailsComponent implements OnInit {
         this.allImages = result.entity.images;
       })
   }
+  gotoNext() {
+    debugger
+    this.lastPageIndex = this.length / this.pageSize;
+    this.lastPageIndex = parseInt(this.lastPageIndex.toString())
+    if (this.pageIndex != this.lastPageIndex) {
+      this.pageIndex++;
+      this.GetAllImage();
+      this.ApplyJsFunction();
+    }
+  }
+  gotoFirstPage() {
+    this.pageIndex = 0;
+    this.GetAllImage();
+    this.ApplyJsFunction();
+  }
+  gotoBack() {
+    if (this.pageIndex > 0) {
+      this.pageIndex = this.pageIndex - 1;
+      this.GetAllImage();
+      this.ApplyJsFunction();
+    }
+  }
+  gotoLastPage() {
 
+    this.pageIndex = this.length / this.pageSize;
+    this.pageIndex = parseInt(this.pageIndex.toString())
+    this.GetAllImage();
+    this.ApplyJsFunction();
+  }
 }

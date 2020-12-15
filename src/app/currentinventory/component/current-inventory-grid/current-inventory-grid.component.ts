@@ -1562,4 +1562,17 @@ export class CurrentInventoryGridComponent implements OnInit {
   getValue(value: boolean) {
     this.UploadActivityOpen = false;
   }
+
+  showDropDown = false;
+
+  toggleDropDown() {
+    debugger
+    this.showDropDown = !this.showDropDown;
+    console.log('clicked');
+  }
+  closeDropDown() {
+    debugger
+    this.showDropDown = false;
+    console.log('clicked outside');
+  }
 }

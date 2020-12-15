@@ -4,13 +4,14 @@
             <h2 class="form__section-title">Restock Levels</h2>
             <div class="form__col-wrap">
                 <div class="form__col form__col--third">
-                    <label class="form__label" for="six">Low Qty Threshold(ea.)</label>
-                    <input class="form__input" type="text" id="six" name="six">
+                    <label class="form__label form_label" for="six">Low Qty Threshold(ea.)</label>
+                    <input class="form__input" type="text" id="six" name="six" value="{{item.lowQtyThreshold}}">
                 </div>
                 <div class="form__col form__col--third">
-                    <label class="form__label" for="seven">High Qty Threshold (ea.)<span
+                    <label class="form__label form_label" for="seven">High Qty Threshold (ea.)<span
                             class="form__required">*</span></label>
-                    <input class="form__input" type="text" id="seven" name="seven" required>
+                    <input class="form__input" type="text" id="seven" name="seven" required
+                        value="{{item.highQtyThreshold}}">
                 </div>
                 <div class="form__col form__col--third"></div>
             </div>
@@ -37,12 +38,11 @@
                     <input class="form__input" type="text" id="seven" name="seven" required>
                 </div>
                 <div class="form__col form__col--third">
-                    <label class="form__label" for="dropdown">Location</label>
+                    <label class="form__label form_label" for="dropdown">Location</label>
                     <select class="form__input form__select" id="dropdown" name="dropdown">
                         <option value=""></option>
-                        <option value="option1">-Select-</option>
-                        <option value="option2">asynchronous Data Streams</option>
-                        <option value="option3">Inventory</option>
+                        <option *ngFor="let locationitem of location">{{locationitem.locationName}}</option>
+
                     </select>
                 </div>
                 <div class="form__col form__col--third"></div>

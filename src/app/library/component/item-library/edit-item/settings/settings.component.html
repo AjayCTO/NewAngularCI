@@ -4,15 +4,14 @@
             <h2 class="form__section-title">Item Settings</h2>
             <div class="form__col-wrap">
                 <div class="form__col form__col--third">
-                    <label class="form__label" for="dropdown">Default UOM</label>
+                    <label class="form__label form_label" for="dropdown">Default UOM</label>
                     <select class="form__input form__select" id="dropdown" name="dropdown">
-                        <option value=""></option>
-                        <option value="option1">-Select-</option>
-                        <option value="option2"> Data Streams</option>
-                        <option value="option3">Inventory</option>
+                        <option selected>{{selectedItem.uomName}}</option>
+
+                        <option *ngFor="let uom of uomLists">{{uom.uomName}}</option>
                     </select>
                 </div>
-                <div class="form__col form__col--third">
+                <!-- <div class="form__col form__col--third">
                     <label class="form__label" for="dropdown1">Default Status</label>
                     <select class="form__input form__select" id="dropdown1" name="dropdown">
                         <option value=""></option>
@@ -20,14 +19,12 @@
                         <option value="option2"> Data Streams</option>
                         <option value="option3">Inventory</option>
                     </select>
-                </div>
+                </div> -->
                 <div class="form__col form__col--third">
-                    <label class="form__label" for="dropdown2">Default Location</label>
+                    <label class="form__label form_label" for="dropdown2">Default Location</label>
                     <select class="form__input form__select" id="dropdown2" name="dropdown">
-                        <option value=""></option>
-                        <option value="option1">-Select-</option>
-                        <option value="option2"> Data Streams</option>
-                        <option value="option3">Inventory</option>
+                        <option selected>{{selectedItem.locationName}}</option>
+                        <option *ngFor="let location of locationsList">{{location.locationName}}</option>
                     </select>
                 </div>
                 <div class="form__col form__col--third"></div>
@@ -41,30 +38,32 @@
     </form>
 </div>
 <div class="form__col-wrap">
-    <form class="setting--form">
+    <form class="setting--form" [formGroup]="tableinfo">
         <div class="form__section">
             <h2 class="form__section-title">Unit of Measure for Calculating Restock Triggers</h2>
             <div class="form__col-wrap">
                 <div class="form__col form__col--third">
                     <label class="form__label" for="six">Quantity</label>
-                    <input class="form__input" type="text" id="six" name="six">
+                    <input class="form__input" formControlName="Quantity" type="text" id="six" name="six">
                 </div>
                 <div class="form__col form__col--third">
                     <label class="form__label" for="seven">Equals How many (ea.)? <span
                             class="form__required"></span></label>
-                    <input class="form__input" type="text" id="seven" name="seven" required>
+                    <input class="form__input" type="text" id="seven" formControlName="HowManyQuantity" name="seven"
+                        required>
                 </div>
                 <div class="form__col form__col--third">
-                    <label class="form__label" for="dropdown3">UOM</label>
-                    <select class="form__input form__select" id="dropdown3" name="dropdown">
+                    <label class="form__label form_label" for="dropdown3">UOM</label>
+                    <select class="form__input form__select" formControlName="DefaultUOM" id="dropdown3"
+                        name="dropdown">
                         <option value=""></option>
-                        <option value="option1">-Select-</option>
+                        <option *ngFor="let uom of uomLists">{{uom.uomName}}</option>
                     </select>
                 </div>
                 <div class="form__col form__col--third"></div>
             </div>
             <div class="button-group">
-                <button type="submit" class="button button--medium" href="#">
+                <button type="button" (click)="showintable()" class="button button--medium" href="#">
                     Save
                 </button>
             </div>
@@ -199,43 +198,42 @@
                 </tr>
             </thead>
 
-            <tbody class="table__section table__section--body">
+            <tbody class="table__section table__section--body" *ngIf="showtable">
                 <tr class="table__row table__row--body">
                     <td class="table__cell" data-title="Column Title">
-                        1
+                        {{table.Quantity}}
                     </td>
                     <td class="table__cell" data-title="Column Title">
-                        ea.
+                        {{table.DefaultUOM}}
                     </td>
                     <td class="table__cell" data-title="Column Title">
                         =
                     </td>
                     <td class="table__cell" data-title="Column Title">
-
-                        1
+                        {{table.HowManyQuantity}}
                     </td>
                     <td class="table__cell" data-title="Column Title">
-                        ea.
+                        {{table.DefaultUOM}}
                     </td>
                     <td class="table__cell" data-title="Column Title">
                         <div class="icons__item">
-                            <div class="icons__icon">
-                                <svg class="icon icon--theme01 icon--trash" aria-labelledby="title-5fc8d391a4a5b"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
-                                    <path fill="none" d="M0 0h48v48H0z"></path>
-                                    <path
-                                        d="M23.5 42h-6a6 6 0 01-6-5.2V36L9.3 20h6l1.4 10.1.8 5.9v.7a5.9 5.9 0 006 5.3z"
-                                        fill="currentColor" class="icon__color--primary"></path>
-                                    <rect x="8.5" y="7.9" width="32" height="6" rx="1.5"
-                                        transform="rotate(7.5 24.448 10.656)" fill="currentColor"
-                                        class="icon__color--primary"></rect>
-                                    <path
-                                        d="M22.488 3.663l5.949.784a1 1 0 01.86 1.122l-.391 2.974-7.932-1.044.392-2.975a1 1 0 011.122-.86zM30.5 36v.7a5.9 5.9 0 01-6 5.3h-1a5.9 5.9 0 01-5.9-5.2V36z"
-                                        fill="currentColor" class="icon__color--secondary"></path>
-                                    <path
-                                        d="M38.7 20l-2.1 16v.8a6 6 0 01-6 5.2h-6a5.9 5.9 0 005.9-5.2V36l.8-5.9L32.7 20z"
-                                        fill="currentColor" class="icon__color--primary"></path>
-                                </svg></div>
+                            <button class="icons__item icons__item--theme03" (click)="DeleteConfirm(item)">
+                                <div class="icons__icon">
+                                    <svg class="icon icon--theme01 icon-simple--trash"
+                                        aria-labelledby="title-5f84133e656c0" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24" width="24" height="24">
+                                        <path fill="none" d="M0 0h24v24H0z"></path>
+                                        <path fill="currentColor"
+                                            d="M18.3 18l-.4 3H6.1l-.4-3h12.6zM4.541 2.927l15.863 2.088-.391 2.975L4.15 5.9z"
+                                            class="icon__color--primary">
+                                        </path>
+                                        <path fill="currentColor"
+                                            d="M10.734 1.738l3.96.52-.26 1.98-3.96-.52zM16.3 10h3l-1 8-.4 3h-3l.4-3 1-8zM9.1 21h-3l-.4-3-1.1-8h3.1l1 8 .4 3z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <span class="icons__label">Remove</span>
+                            </button>
                             <span class="icons__label"></span>
                         </div>
                     </td>

@@ -24,6 +24,10 @@
     .card-body {
         padding: 20px;
     }
+    .card-footer {
+        padding: 10px;
+        font-size: 22px;
+    }
 }
 .AssignImgPage {
     padding: 12px;
@@ -40,4 +44,9 @@
     padding-left: 2rem;
     padding-right: 1.5rem;
     width: 17rem;
+}
+.form__col--half {
+    width: calc((100% / 2) - .625rem);
+    float: left;
+    margin-left: -80px;
 }

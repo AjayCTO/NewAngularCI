@@ -3,7 +3,7 @@
         <h2><span id="activeinventoryname"><strong>{{selectedTenant.name}} </strong></span> Inventory </h2>
         <div class="icons icons--size02 icons--horziontal">
             <ng-container *ngIf="Tenants!=undefined && Tenants.length>1">
-                <button type="button" class="icons__item icons__item--outline js-toggle icons__item--theme09"
+                <!-- <button type="button" class="icons__item icons__item--outline js-toggle icons__item--theme09"
                     aria-expanded="true">
                     <div class="icons__icon"><svg class="icon icon--theme09 icon--arrow-down"
                             aria-labelledby="title-5f7c9b3febeff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
@@ -21,6 +21,24 @@
                         <li class="icons__submenu-item" *ngFor="let item of Tenants"><a class="icons__submenu-link"
                                 (click)="SelectedTenant(item)">{{item.name}}</a></li>
 
+                    </ul>
+                </button> -->
+                <button type="button" class="icons__item icons__item--outline  icons__item--theme09"
+                    (click)="toggleDropDown()" (blur)="closeDropDown()">
+                    <div class="icons__icon"><svg class="icon icon--theme09 icon--arrow-down"
+                            aria-labelledby="title-5f7c9b3febeff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                            width="12" height="12">
+                            <path fill="none" d="M0 0h12v12H0z"></path>
+                            <path
+                                d="M7.26 7.27a2 2 0 001.57-.77l2.2-2.87-1.57-1.25-1 1.29L6 6.84a1.93 1.93 0 001.26.43z"
+                                fill="currentColor"></path>
+                            <path
+                                d="M4.41 8.12L.94 3.6l1.59-1.21 3.14 4.09a1.8 1.8 0 00.33.36 2 2 0 001.22.43 2 2 0 001.61-.77L7.59 8.12a2 2 0 01-2.81.37 2.16 2.16 0 01-.37-.37z"
+                                fill="currentColor"></path>
+                        </svg></div>
+                    <ul *ngIf="showDropDown" class="toggleDropDown">
+                        <li class="icons__submenu-item" *ngFor="let item of Tenants"><a class="icons__submenu-link"
+                                (click)="SelectedTenant(item)">{{item.name}}</a></li>
                     </ul>
                 </button>
             </ng-container>
@@ -350,7 +368,8 @@
                                 src="../../../../assets/img/filter/LessThanOrEqualTo.gif"></span>
                         <span *ngIf="filter.filterOperator=='Empty'"><img
                                 src="../../../../assets/img/filter/IsNull.gif"></span>
-                        <span class="icons__value">{{filter.searchValue}}</span></div>
+                        <span class="icons__value">{{filter.searchValue}}</span>
+                    </div>
                     <div class="icons__icon" (click)="RemoveFilter(filter)"><svg
                             class="icon-simple icon-simple--theme01 icon-simple--remove"
                             aria-labelledby="title-5f7cbab264ccf" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -1282,7 +1301,8 @@
                                     *ngIf="field.customFieldIsRequired" class="form__required">*</span></label>
 
                             <span class="form__group-outer-label" *ngIf="field.dataType=='True/False'"
-                                [popper]="popper12Content" [popperTrigger]="'hover'" [popperPlacement]="'bottom'">{{(field.columnLabel.length>6)? (field.columnLabel |
+                                [popper]="popper12Content" [popperTrigger]="'hover'"
+                                [popperPlacement]="'bottom'">{{(field.columnLabel.length>6)? (field.columnLabel |
                                 slice:0:6)+'...':(field.columnLabel)}}
                                 :</span>
                             <popper-content #popper12Content>
@@ -1343,8 +1363,9 @@
                                         class="input-group">
                                         <span *ngIf="field.customFieldPrefix" class="input-group-addon text Prefix"
                                             [popper]="popper13Content" [popperTrigger]="'hover'"
-                                            [popperPlacement]="'bottom'">{{(field.customFieldPrefix.length>3)? (field.customFieldPrefix |
-                                                slice:0:3)+'...':(field.customFieldPrefix)}}</span>
+                                            [popperPlacement]="'bottom'">{{(field.customFieldPrefix.length>3)?
+                                            (field.customFieldPrefix |
+                                            slice:0:3)+'...':(field.customFieldPrefix)}}</span>
                                         <popper-content #popper13Content>
                                             <p class="popperTitle"><b>{{field.customFieldPrefix}}</b></p>
                                         </popper-content>
@@ -1782,9 +1803,9 @@
                                 for="dynamic_Circustance_{{field.columnId}}"
                                 [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>'4' ? 'prefixLabel3':'']">{{field.columnLabel}}<span
                                     *ngIf="field.customFieldIsRequired" class="form__required">*</span></label>
-                            <span class="form__group-outer-label"
-                                *ngIf="field.dataType=='True/False'">{{
-                                (field.columnLabel.length>6)? (field.columnLabel | slice:0:6)+'...':(field.columnLabel)}}
+                            <span class="form__group-outer-label" *ngIf="field.dataType=='True/False'">{{
+                                (field.columnLabel.length>6)? (field.columnLabel |
+                                slice:0:6)+'...':(field.columnLabel)}}
                                 :</span>
 
                             <ng-container *ngIf="field.dataType=='Text'">
@@ -1836,8 +1857,9 @@
                                         class="input-group">
                                         <span *ngIf="field.customFieldPrefix" class="input-group-addon text Prefix"
                                             [popper]="popper13Content" [popperTrigger]="'hover'"
-                                            [popperPlacement]="'bottom'">{{(field.customFieldPrefix.length>3)? (field.customFieldPrefix |
-                                                                                        slice:0:3)+'...':(field.customFieldPrefix)}}</span>
+                                            [popperPlacement]="'bottom'">{{(field.customFieldPrefix.length>3)?
+                                            (field.customFieldPrefix |
+                                            slice:0:3)+'...':(field.customFieldPrefix)}}</span>
                                         <popper-content #popper13Content>
                                             <p class="popperTitle"><b>{{field.customFieldPrefix}}</b></p>
                                         </popper-content>

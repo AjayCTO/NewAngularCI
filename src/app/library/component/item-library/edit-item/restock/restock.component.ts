@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import inputFocus from '../../../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../../../assets/js/lib/_inputClear';
 import dropdown from '../../../../../../assets/js/lib/_dropdown';
@@ -8,17 +8,20 @@ import dropdown from '../../../../../../assets/js/lib/_dropdown';
   styleUrls: ['./restock.component.scss']
 })
 export class RestockComponent implements OnInit {
-
+  @Input() item: any;
+  @Input() locationsList: any;
+  public location: any;
   constructor() { }
 
   ngOnInit(): void {
-    this.ApplyJsFunction();
-  }
-  ApplyJsFunction() {
+    this.location = this.locationsList;
+    // this.ApplyJsFunction();
     setTimeout(function () {
       inputClear();
       inputFocus();
-      dropdown();
-    }, 2000)
+
+    }, 200)
+
   }
+
 }

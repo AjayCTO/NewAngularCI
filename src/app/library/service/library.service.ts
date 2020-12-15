@@ -48,7 +48,7 @@ export class LibraryService extends BaseService {
 
 
 
-  upload(files: File[], TenantId: number, token: string): Observable<HttpEvent<any>> {
+  upload(files: File[], TenantId: number, token: string) {
     debugger;
     const
       formData: FormData = new FormData();
@@ -57,19 +57,33 @@ export class LibraryService extends BaseService {
       formData.append('files', files[i], files[i].name);
 
     }
-
-    // formData.append('file', file);
-
-    const req = new HttpRequest('POST', `${this.configService.resourceApiURI}/api/ManageUploads/UploadImages?TenantId=` + TenantId, formData, {
-      reportProgress: true,
-      responseType: 'json',
+    const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': "bearer " + token
       })
+    };
 
-    });
+    return this.http.post(this.configService.resourceApiURI + '/api/Library/EditLocation?TenantId=' + TenantId, formData, httpOptions).pipe(map((response: {
+      message: string;
+      code: number;
+      entity: boolean;
+    }) => {
+      return response;
+    }
+    ));
 
-    return this.http.request(req);
+    // formData.append('file', file);
+
+    // const req = new HttpRequest('POST', `${this.configService.resourceApiURI}/api/ManageUploads/UploadImages?TenantId=` + TenantId, formData, {
+    //   reportProgress: true,
+    //   responseType: 'json',
+    //   headers: new HttpHeaders({
+    //     'Authorization': "bearer " + token
+    //   })
+
+    // });
+
+    // return this.http.request(req);
   }
 
   // upload(file: File, TenantId: number, token: string): Observable<HttpEvent<any>> {
@@ -345,6 +359,7 @@ export class LibraryService extends BaseService {
   // get image
 
   GetTenantImages(TenantId: number, pageSize: number, pageIndex: number, search: string, token: string) {
+    debugger;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

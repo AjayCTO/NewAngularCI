@@ -29,6 +29,7 @@ import { eventsStoreReducers, metaReducers } from './store';
 import { NgxPopperModule } from 'ngx-popper';
 import { DynamicEventsModule } from './dynamic-events/dynamic-events.module';
 // import { AddCustomFieldComponent } from './add-custom-field/add-custom-field.component';
+import { ClickOutsideModule } from 'ng-click-outside';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +44,7 @@ import { DynamicEventsModule } from './dynamic-events/dynamic-events.module';
     BrowserModule, NgxPopperModule.forRoot(),
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    LibraryModule,
+    LibraryModule, ClickOutsideModule,
     HomeModule,
     NgxSpinnerModule,
     DynamicEventsModule,

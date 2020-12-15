@@ -1,4 +1,3 @@
-
 <ng-container *ngIf="!NotPermitted && !edititem">
 
     <div class="actions">
@@ -158,7 +157,8 @@
                                     src="../../../../assets/img/filter/LessThanOrEqualTo.gif"></span>
                             <span *ngIf="filter.filterOperator=='Empty'"><img
                                     src="../../../../assets/img/filter/IsNull.gif"></span>
-                            <span class="icons__value">{{filter.searchValue}}</span></div>
+                            <span class="icons__value">{{filter.searchValue}}</span>
+                        </div>
                         <div class="icons__icon" (click)="RemoveFilter(filter)"><svg
                                 class="icon-simple icon-simple--theme01 icon-simple--remove"
                                 aria-labelledby="title-5f7cbab264ccf" xmlns="http://www.w3.org/2000/svg"
@@ -661,8 +661,7 @@
                             [ngClass]="{'table__row--is-active':item.isActive==true}">
                             <td class="table__cell" data-title="Column Title">
                                 <div class="icons icons--size02">
-                                    <button class="icons__item icons__item--theme07" type="button"
-                                        (click)="edit(item)">
+                                    <button class="icons__item icons__item--theme07" type="button" (click)="edit(item)">
                                         <div class="icons__icon"><svg class="icon icon--theme01 icon--adjust"
                                                 aria-labelledby="title-5f83f4826a17f" xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 48 48" width="48" height="48">
@@ -683,7 +682,7 @@
                                             </svg></div>
                                         <span class="icons__label">Edit</span>
                                     </button>
-                                  
+
                                     <button class="icons__item icons__item--theme03" (click)="DeleteConfirm(item)">
                                         <div class="icons__icon">
                                             <svg class="icon icon--theme01 icon-simple--trash"
@@ -697,7 +696,8 @@
                                                 <path fill="currentColor"
                                                     d="M10.734 1.738l3.96.52-.26 1.98-3.96-.52zM16.3 10h3l-1 8-.4 3h-3l.4-3 1-8zM9.1 21h-3l-.4-3-1.1-8h3.1l1 8 .4 3z">
                                                 </path>
-                                            </svg></div>
+                                            </svg>
+                                        </div>
                                         <span class="icons__label">Remove</span>
                                     </button>
                                 </div>
@@ -717,8 +717,9 @@
     </section>
 </ng-container>
 <ng-container *ngIf="edititem">
-    <app-edit-item [item]="selecteditem" [AttributeFields]="AttributeFields">
-       
+    <app-edit-item [item]="selecteditem" [AttributeFields]="AttributeFields" [uomList]="uomList"
+        [locationsList]="locationsList">
+
     </app-edit-item>
 </ng-container>
 <div id="AddItemtestModal" class="invModal" role="dialog" aria-labelledby="dialog-title"
@@ -829,14 +830,16 @@
                 </h2>
                 <div class="form__col-wrap">
                     <ng-container *ngFor="let field of AttributeFields">
-                        <div class="form__col form__col--third" 
+                        <div class="form__col form__col--third"
                             [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''">
                             <label class="form__label" for="Attribute_{{field.columnId}}"
                                 *ngIf="field.customFieldSpecialType!='Dropdown'&&field.dataType!='True/False'"
                                 [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>'4' ? 'prefixLabel3':'']">{{field.columnLabel}}<span
                                     *ngIf="field.customFieldIsRequired" class="form__required">*</span></label>
-                            <span class="form__group-outer-label" *ngIf="field.dataType=='True/False'">{{(field.columnLabel.length>6)? (field.columnLabel |
-                                        slice:0:6)+'...':(field.columnLabel)}} :</span>
+                            <span class="form__group-outer-label"
+                                *ngIf="field.dataType=='True/False'">{{(field.columnLabel.length>6)? (field.columnLabel
+                                |
+                                slice:0:6)+'...':(field.columnLabel)}} :</span>
                             <ng-container *ngIf="field.dataType=='Text'">
 
                                 <ng-container *ngIf="field.customFieldSpecialType=='Autocomplete'">
@@ -898,8 +901,10 @@
                                 <ng-container *ngIf="field.customFieldSpecialType=='OpenField'">
                                     <ng-container *ngIf="field.customFieldSuffix||field.customFieldPrefix"
                                         class="input-group">
-                                        <span *ngIf="field.customFieldPrefix" class="input-group-addon text Prefix">{{(field.customFieldPrefix.length>3)? (field.customFieldPrefix |
-                                                slice:0:3)+'...':(field.customFieldPrefix)}}</span>
+                                        <span *ngIf="field.customFieldPrefix"
+                                            class="input-group-addon text Prefix">{{(field.customFieldPrefix.length>3)?
+                                            (field.customFieldPrefix |
+                                            slice:0:3)+'...':(field.customFieldPrefix)}}</span>
                                         <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
                                             id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
                                             formControlName="{{field.columnId}}"
@@ -1149,15 +1154,19 @@
                                     <input id="Attribute_{{field.columnId}}_1" [(ngModel)]="field.columnValue"
                                         class="form__radio" type="radio" value="{{field.customFieldFalseLabel}}"
                                         name="radio200">
-                                    <label class="form__group-label" for="Attribute_{{field.columnId}}_1">{{(field.customFieldFalseLabel.length>5)? (field.customFieldFalseLabel |
-                                            slice:0:5)+'...':(field.customFieldFalseLabel)}}</label>
+                                    <label class="form__group-label"
+                                        for="Attribute_{{field.columnId}}_1">{{(field.customFieldFalseLabel.length>5)?
+                                        (field.customFieldFalseLabel |
+                                        slice:0:5)+'...':(field.customFieldFalseLabel)}}</label>
                                 </div>
                                 <div class="form__group form__group--radio">
                                     <input [(ngModel)]="field.columnValue" value="{{field.customFieldTrueLabel}}"
                                         id="Attribute_{{field.columnId}}_2" class="form__radio" type="radio"
                                         name="radio200">
-                                    <label class="form__group-label" for="Attribute_{{field.columnId}}_2">{{(field.customFieldTrueLabel.length>5)? (field.customFieldTrueLabel |
-                                            slice:0:5)+'...':(field.customFieldTrueLabel)}}</label>
+                                    <label class="form__group-label"
+                                        for="Attribute_{{field.columnId}}_2">{{(field.customFieldTrueLabel.length>5)?
+                                        (field.customFieldTrueLabel |
+                                        slice:0:5)+'...':(field.customFieldTrueLabel)}}</label>
                                 </div>
 
 

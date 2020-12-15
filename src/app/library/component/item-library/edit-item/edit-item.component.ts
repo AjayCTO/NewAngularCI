@@ -9,21 +9,23 @@ import dropdown from '../../../../../assets/js/lib/_dropdown';
   styleUrls: ['./edit-item.component.scss']
 })
 export class EditItemComponent implements OnInit {
-@Input() item:any;
-@Input() AttributeFields:any;
+  @Input() item: any;
+  @Input() AttributeFields: any;
+  @Input() locationsList: any;
+  @Input() uomList: any;
   DetailsOpen = false;
   SettingsOpen = false;
   RestockOpen = false;
   UsersOpen = false;
   ValuesOpen = false;
-public selectedItem
-public attributefields;
+  public selectedItem
+  public attributefields;
   constructor() { }
 
   ngOnInit(): void {
-  
+
     this.selectedItem = this.item;
-    this.attributefields=this.AttributeFields;
+    this.attributefields = this.AttributeFields;
     this.ApplyJsFunction();
   }
   ApplyJsFunction() {

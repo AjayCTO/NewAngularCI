@@ -30,6 +30,7 @@
     "file-saver": "^2.0.2",
     "flatpickr": "^4.6.6",
     "jquery": "^3.5.1",
+    "ng-click-outside": "^7.0.1",
     "ngrx-store-localstorage": "^10.1.1",
     "ngx-color-picker": "^10.1.0",
     "ngx-popper": "^7.0.0",

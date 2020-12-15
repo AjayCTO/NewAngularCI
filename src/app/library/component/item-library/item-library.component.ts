@@ -36,7 +36,7 @@ export class ItemLibraryComponent implements OnInit {
   partformControl: FormGroup;
   public selectedTenantId: number;
   public error: string;
-  public selecteditem:any=[];
+  public selecteditem: any = [];
   public busy: boolean;
   public DeleteConfirmPopup: boolean;
   public myInventoryField: Observable<any>;
@@ -98,7 +98,7 @@ export class ItemLibraryComponent implements OnInit {
     stateFields: [],
   }
   public FilterArray: DataColumnFilter[] = [];
-  public edititem:boolean;
+  public edititem: boolean;
   public dataColumnFilter: DataColumnFilter = {
     columnName: "",
     displayName: "",
@@ -154,7 +154,7 @@ export class ItemLibraryComponent implements OnInit {
   PreviewtypesDropDown: any = [];
   PreviewtypesAutocomplete: any = [];
 
-  constructor(private router: Router,private formBuilder: FormBuilder, private toastr: ToastrService, private cdr: ChangeDetectorRef, private libraryService: LibraryService, private authService: AuthService,
+  constructor(private router: Router, private formBuilder: FormBuilder, private toastr: ToastrService, private cdr: ChangeDetectorRef, private libraryService: LibraryService, private authService: AuthService,
     private spinner: NgxSpinnerService, private commanService: CommanSharedService,
     private customfieldservice: CustomFieldService) { }
 
@@ -806,17 +806,25 @@ export class ItemLibraryComponent implements OnInit {
   Close(form) {
     form.reset();
   }
-// 
-edit(item)
-{
-  debugger;
-  this.edititem=true;
-// this.PartDataBind=false;
-  this.selecteditem=item;
-  // localStorage.setItem('selectitem',JSON.stringify(this.selecteditem));
- 
- 
+  // 
+  edit(item) {
+    debugger;
+    this.edititem = true;
+    // this.PartDataBind=false;
+    this.selecteditem = item;
+    // localStorage.setItem('selectitem',JSON.stringify(this.selecteditem));
 
-}
+
+  }
+  showDropDown = false;
+
+  toggleDropDown() {
+    this.showDropDown = !this.showDropDown;
+    console.log('clicked');
+  }
+  closeDropDown() {
+    this.showDropDown = false;
+    console.log('clicked outside');
+  }
 }
 
