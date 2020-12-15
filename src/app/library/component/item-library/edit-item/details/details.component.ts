@@ -14,6 +14,7 @@ import inputFocus from '../../../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../../../assets/js/lib/_inputClear';
 import datePicker from '../../../../../../assets/js/lib/_datePicker';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Item } from 'src/app/currentinventory/models/admin.models';
 
 @Component({
   selector: 'app-details',
@@ -28,7 +29,9 @@ export class DetailsComponent implements OnInit {
   listOfFiles: any[] = [];
   progressInfos = [];
   message = '';
+  public partId: number;
   public imagePath;
+  error: string;
   allImages: any;
   public NotPermitted: boolean = false;
   images = [];
@@ -138,23 +141,6 @@ export class DetailsComponent implements OnInit {
       }
     }
 
-    // if (event.target.files && event.target.files[0]) {
-    //   var filesAmount = event.target.files.length;
-    //   for (let i = 0; i < filesAmount; i++) {
-    //     var reader = new FileReader();
-
-    //     reader.onload = (event: any) => {
-
-    //       this.images.push(event.target.result);
-
-    //       this.myForm.patchValue({
-    //         fileSource: this.images
-    //       });
-    //     }
-
-    //     reader.readAsDataURL(event.target.files[i]);
-    //   }
-    // }
   }
 
   uploadFiles() {
@@ -197,23 +183,18 @@ export class DetailsComponent implements OnInit {
     this.searchFilterText = ""
     this.GetAllImage();
   }
+  splitthevalue(item) {
+    debugger;
+    for (var i = 0; i < item.length; i++) {
+      if (item[i].customFieldSpecialType === 'OpenField') {
+        if (item[i].customFieldPrefix != null) {
+          item[i].columnValue.split(item.customFieldPrefix.Value, item.customFieldPrefix.Value.length);
+          this.attributefields = item;
+        }
+      }
+    }
+  }
 
-  //Attribute FIELDS
-  //  GetAttributeFields() {
-  //   debugger; 
-
-  //  this.customfieldservice.GetAttributeFields(this.selectedTenantId, this.authService.accessToken)
-  //    .pipe(finalize(() => {
-  //      this.busy = false;
-  //      this.spinner.hide();
-  //    })).subscribe(result => {
-  //      this.AttributeFields = [];
-  //      debugger;
-  //      if (result.code == 200) {
-  //        this.AttributeFields = result.entity;
-  //      }
-  //    })
-  // }
   Attributevalue() {
     debugger;
     this.attributefields.forEach(element => {
@@ -223,23 +204,18 @@ export class DetailsComponent implements OnInit {
     for (let i = 0; i < this.item.attributeFields.length; i++) {
       for (let j = 0; j < this.attributefields.length; j++) {
         if (this.item.attributeFields[i].columnName == this.attributefields[j].columnName) {
+
           this.attributefields[j].columnValue = this.item.attributeFields[i].columnValue;
-          if (this.attributefields.customFieldSpecialType == 'OpenField') {
-            if (this.attributefields.customFieldPrefix != null) {
-              this.attributefields.columnValue.splice("", this.attributefields.customFieldPrefix);
-            }
-          }
+
         }
-
-
       }
     }
+    this.splitthevalue(this.attributefields);
     // this.ApplyJsFunction();
   }
   closeEditItem() {
     window.location.reload();
     this.edititem = true;
-
   }
   ComboValueDropdown(Value) {
 
@@ -250,14 +226,43 @@ export class DetailsComponent implements OnInit {
     return items;
   }
   edit() {
+    debugger;
+    this.selecteditem.attributeFields = this.attributefields;
+    this.partId = this.item.partId
+    this.libraryService.EditPart(this.selectedTenantId, this.partId, this.selecteditem, this.authService.accessToken)
+      .pipe(finalize(() => {
 
+        this.spinner.hide();
+      }))
+      .subscribe(
+        result => {
+          if (result) {
+
+            if (result.entity == true) {
+              this.toastr.success("Your item is Successfully update.");
+              // this.GetLocation();
+
+            }
+            else {
+              this.toastr.warning(result.message);
+            }
+
+          }
+        },
+        error => {
+          debugger;
+          this.error = error.error.message;
+          this.spinner.hide();
+        });
   }
+
+
   ApplyJsFunction() {
     setTimeout(function () {
       inputClear();
       inputFocus();
       datePicker();
-    }, 100)
+    }, 10)
   }
 
   // get image
@@ -276,7 +281,9 @@ export class DetailsComponent implements OnInit {
 
         this.allImages = [];
         console.log(result.entity);
+        this.length = result.entity.totalItems;
         this.allImages = result.entity.images;
+
       })
   }
   gotoNext() {
