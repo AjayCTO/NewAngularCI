@@ -21,7 +21,7 @@
                             <label class="form__label" for="company">Company Name <span
                                     class="form__required">*</span></label>
                             <input class="form__input" type="text" id="company" name="companyFormcontrol"
-                                formControlName="company">
+                                pattern="^[a-zA-Z0-9&]*${1,}" maxlength="50" formControlName="company">
                             <ng-container *ngIf="submitted && f.company.errors"> <span *ngIf="f.company.errors.required"
                                     class="form__error-message">This field is
                                     required</span></ng-container>
@@ -31,7 +31,7 @@
                             <label class="form__label" for="firstName">First Name <span
                                     class="form__required">*</span></label>
                             <input class="form__input" type="text" id="firstName" name="firstNameFormcontrol"
-                                formControlName="firstName" required>
+                                pattern="[a-zA-Z]{1,}" maxlength="30" formControlName="firstName" required>
                             <ng-container *ngIf="submitted && f.firstName.errors"> <span
                                     *ngIf="f.firstName.errors.required" class="form__error-message">This field is
                                     required</span></ng-container>
@@ -41,7 +41,7 @@
                             <label class="form__label" for="lastName">Last Name <span
                                     class="form__required">*</span></label>
                             <input class="form__input" type="text" id="lastName" name="lastNameFormcontrol"
-                                formControlName="lastName">
+                                pattern="[a-zA-Z]{1,}" maxlength="30" formControlName="lastName">
                             <ng-container *ngIf="submitted && f.lastName.errors"> <span
                                     *ngIf="f.lastName.errors.required" class="form__error-message">This field is
                                     required</span></ng-container>
@@ -66,9 +66,13 @@
                             <label class="form__label form_label" for="password1">Password <span
                                     class="form__required">*</span></label>
                             <input *ngIf="!showPassword" class="form__input fa fa-eye" type="password" id="password1"
-                                name="passwordFormcontrol" formControlName="password">
+                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[0-9]{1,})(?=.*[A-Z]).{8,}" name="passwordFormcontrol"
+                                formControlName="password"
+                                title="atleat one no. and one capitalletter and minimum 8 character required">
                             <input *ngIf="showPassword" class="form__input fa fa-eye" type="text" id="password"
-                                name="passwordFormcontrol" formControlName="password">
+                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" name="passwordFormcontrol"
+                                formControlName="password">
+
                             <i *ngIf="!showPassword" class="fa fa-eye" id="togglePassword"
                                 (click)="showPasswords()"><svg
                                     class="icon-simple icon-simple--theme01 icon-simple--show"
@@ -103,7 +107,7 @@
                             <label class="form__label" for="phone">Phone Number <span
                                     class="form__required">*</span></label>
                             <input class="form__input" type="text" id="phone" name="phoneFormcontrol"
-                                formControlName="phone" pattern="^\+(?:[0-9]●?){6,14}[0-9]" maxlength="13">
+                                formControlName="phone" pattern="^\+(?:[0-9]●?){6,14}[0-9]" maxlength="15">
                             <ng-container *ngIf="submitted && f.phone.errors"> <span *ngIf="f.phone.errors.required"
                                     class="form__error-message">This field is
                                     required</span></ng-container>

@@ -399,7 +399,7 @@
                         [ngClass]="{ 'form__col--error': submitted && f.company.errors}">
                         <label class="form__label" for="company">Company Name <span
                                 class="form__required">*</span></label>
-                        <input class="form__input" type="text" pattern="[a-zA-Z]{1,}" id="company"
+                        <input class="form__input" type="text" pattern="^[a-zA-Z0-9&]*${1,}" id="company"
                             name="companyFormcontrol" maxlength="50" formControlName="company">
                         <ng-container *ngIf="submitted && f.company.errors"> <span *ngIf="f.company.errors.required"
                                 class="form__error-message">This field is
@@ -420,7 +420,7 @@
                         <label class="form__label" for="lastName">Last Name <span
                                 class="form__required">*</span></label>
                         <input class="form__input" type="text" id="lastName" name="lastNameFormcontrol"
-                            formControlName="lastName" maxlength="30">
+                            pattern="[a-zA-Z]{1,}" maxlength="30" formControlName="lastName">
                         <ng-container *ngIf="submitted && f.lastName.errors"> <span *ngIf="f.lastName.errors.required"
                                 class="form__error-message">This field is
                                 required</span></ng-container>
