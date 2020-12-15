@@ -101,10 +101,9 @@ export class DetailsComponent implements OnInit {
     modal();
 
     this.Attributevalue();
-    // this.selecteditem= JSON.parse(localStorage.getItem('selectitem'));
-    this.attributefields
 
-    this.ApplyJsFunction();
+
+    // this.ApplyJsFunction();
 
   }
 
@@ -147,7 +146,7 @@ export class DetailsComponent implements OnInit {
     debugger
     this.spinner.show();
     this.message = '';
-    this.libraryService.upload(this.selectedFiles, this.selectedTenantId, this.authService.accessToken).subscribe(
+    this.libraryService.upload(this.selectedFiles, this.item.partId, this.selectedTenantId, this.authService.accessToken).subscribe(
       event => {
       },
       err => {
@@ -211,6 +210,11 @@ export class DetailsComponent implements OnInit {
       }
     }
     this.splitthevalue(this.attributefields);
+    setTimeout(function () {
+
+      inputFocus();
+
+    }, 500)
     // this.ApplyJsFunction();
   }
   closeEditItem() {
@@ -262,7 +266,7 @@ export class DetailsComponent implements OnInit {
       inputClear();
       inputFocus();
       datePicker();
-    }, 10)
+    }, 500)
   }
 
   // get image
@@ -281,7 +285,7 @@ export class DetailsComponent implements OnInit {
 
         this.allImages = [];
         console.log(result.entity);
-        this.length = result.entity.totalItems;
+        this.length = result.entity.images.length;
         this.allImages = result.entity.images;
 
       })

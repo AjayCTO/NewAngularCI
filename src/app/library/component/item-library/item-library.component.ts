@@ -386,13 +386,7 @@ export class ItemLibraryComponent implements OnInit {
 
       element.columnValue = this.partformControl.value[element.columnId];
       if (element.customFieldPrefix != "" || element.customFieldSuffix != "") {
-
-        if (element.customFieldPrefix != "") {
-          element.columnValue = element.customFieldPrefix + " " + element.columnValue;
-        }
-        if (element.customFieldSuffix != "") {
-          element.columnValue = element.columnValue + " " + element.customFieldSuffix;
-        }
+        element.columnValue = element.columnValue
       }
     });
 

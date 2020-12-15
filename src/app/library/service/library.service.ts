@@ -48,7 +48,7 @@ export class LibraryService extends BaseService {
 
 
 
-  upload(files: File[], TenantId: number, token: string) {
+  upload(files: File[], partId: number, TenantId: number, token: string) {
     debugger;
     const
       formData: FormData = new FormData();
@@ -63,7 +63,7 @@ export class LibraryService extends BaseService {
       })
     };
 
-    return this.http.post(this.configService.resourceApiURI + '/api/Library/EditLocation?TenantId=' + TenantId, formData, httpOptions).pipe(map((response: {
+    return this.http.post(this.configService.resourceApiURI + '/api/Library/EditLocation?TenantId=' + TenantId + '&PartId=' + partId, formData, httpOptions).pipe(map((response: {
       message: string;
       code: number;
       entity: boolean;
@@ -311,7 +311,7 @@ export class LibraryService extends BaseService {
         'Authorization': "bearer " + token
       })
     };
-    return this.http.put(this.configService.resourceApiURI + '/api/Library/EditPart?TenantId=' + TenantId + '&UOMId=' + PartId, data, httpOptions).pipe(map((response: {
+    return this.http.put(this.configService.resourceApiURI + '/api/Library/EditPart?TenantId=' + TenantId + '&PartId=' + PartId, data, httpOptions).pipe(map((response: {
       message: string;
       code: number;
       entity: boolean;

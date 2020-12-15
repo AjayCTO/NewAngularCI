@@ -85,7 +85,7 @@
                             </div>
                         </th>
                         <th scope="col" class="table__heading">
-                            <div class="table__heading-title">UOM & Location</div>
+                            <div class="table__heading-title">Transaction</div>
                             <div class="table__heading-options">
                                 <div class="icons icons--horziontal icons--size02">
                                     <button class="icons__item" type="button">
@@ -143,7 +143,7 @@
                             <div class="loader"></div>
                             <h3>Please Wait...</h3>
                         </div>
-                       
+
                     </ng-container>
                     <ng-container *ngIf="EventList.length==0">
                         <div class="loaderCard">
@@ -338,7 +338,7 @@
                                 {{item.eventQuantityAction}}
                             </td>
                             <td class="table__cell" data-title="Column Title">
-                                <svg *ngIf="!item.islocationRequired"
+                                <svg *ngIf="!item.withExistRecord"
                                     class="icon-simple icon-simple--theme01 icon-simple--remove"
                                     aria-labelledby="title-5f8431eeeb97f" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24" width="12" height="12">
@@ -348,7 +348,7 @@
                                     <path fill="currentColor" d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z">
                                     </path>
                                 </svg>
-                                <svg *ngIf="item.islocationRequired"
+                                <svg *ngIf="item.withExistRecord"
                                     class="icon-simple icon-simple--theme01 icon-simple--selected"
                                     aria-labelledby="title-5f8431eeeba09" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24" width="15" height="15">
@@ -359,8 +359,8 @@
                                     <path fill="currentColor" d="M9.18 14.883L20.492 3.569l2.829 2.829L12.008 17.71z">
                                     </path>
                                 </svg>
-                                Update Location
-                                <svg *ngIf="!item.isUOMRequired"
+                                Transaction With Existing Record
+                                <svg *ngIf="!item.withNewRecord"
                                     class="icon-simple icon-simple--theme01 icon-simple--remove"
                                     aria-labelledby="title-5f8431eeeb97f" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24" width="12" height="12">
@@ -370,7 +370,7 @@
                                     <path fill="currentColor" d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z">
                                     </path>
                                 </svg>
-                                <svg *ngIf="item.isUOMRequired"
+                                <svg *ngIf="item.withNewRecord"
                                     class="icon-simple icon-simple--theme01 icon-simple--selected"
                                     aria-labelledby="title-5f8431eeeba09" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24" width="15" height="15">
@@ -381,11 +381,16 @@
                                     <path fill="currentColor" d="M9.18 14.883L20.492 3.569l2.829 2.829L12.008 17.71z">
                                     </path>
                                 </svg>
-                                Update UOM
+                                Transaction With New Record
                             </td>
-                            <td>
 
-
+                            <td class="table__cell" data-title="Column Title">
+                                <ng-container *ngFor="let check of checklist">
+                                    <ng-container>
+                                        {{check.columnLabel}}
+                                        &nbsp;&nbsp;&nbsp;
+                                    </ng-container>
+                                </ng-container>
                             </td>
 
                             <td class="table__cell" data-title="Column Title">
@@ -425,7 +430,8 @@
                                                 <path fill="currentColor"
                                                     d="M10.734 1.738l3.96.52-.26 1.98-3.96-.52zM16.3 10h3l-1 8-.4 3h-3l.4-3 1-8zM9.1 21h-3l-.4-3-1.1-8h3.1l1 8 .4 3z">
                                                 </path>
-                                            </svg></div>
+                                            </svg>
+                                        </div>
                                         <span class="icons__label">Remove</span>
 
                                     </button>
@@ -1120,7 +1126,8 @@
                                                     class="button button--medium button--text-only js-trigger"
                                                     (click)="CloseMenu(item)"
                                                     data-trigger=".table__button-group .icons__item.is-active">Cancel
-                                                </button></div>
+                                                </button>
+                                            </div>
                                         </form>
 
                                     </div>
@@ -1144,7 +1151,7 @@
 
     </section>
     <app-add-event [selectedTenantId]="selectedTenantId" (RefreshEventList)="GetEvents()"></app-add-event>
-    
+
 
 
 </ng-container>

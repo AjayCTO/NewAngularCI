@@ -33,7 +33,7 @@ export class EditItemComponent implements OnInit {
       inputClear();
       inputFocus();
       dropdown();
-    }, 2000)
+    }, 200)
   }
   Details() {
     this.DetailsOpen = true;
@@ -41,6 +41,7 @@ export class EditItemComponent implements OnInit {
     this.RestockOpen = false;
     this.UsersOpen = false;
     this.ValuesOpen = false;
+    this.ApplyJsFunction();
   }
   Settings() {
     this.SettingsOpen = true;

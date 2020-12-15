@@ -55,7 +55,7 @@ export class EventListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
     this.masterSelected = false;
     this.NotPermitted = false;
     this.spinner.show();
@@ -66,7 +66,7 @@ export class EventListComponent implements OnInit {
           this.selectedTenantId = eventId;
         }
       });
-      
+
     modal();
     this.GetCustomFields()
     this.GetEvents();
@@ -84,9 +84,9 @@ export class EventListComponent implements OnInit {
         if (result.code == 403) {
           this.NotPermitted = true;
         }
-        
+
         else {
-          
+
           if (result.entity != null) {
             debugger;
             this.loadingRecords = false;
@@ -192,6 +192,7 @@ export class EventListComponent implements OnInit {
                 isUOMRequired: false,
                 circumstanceColumnRequired: []
               };
+
             }
             else {
               this.toastr.warning(result.message);

@@ -35,12 +35,14 @@
                             <span class="form__group-outer-label" *ngIf="field.dataType=='True/False'">{{(field.columnLabel.length>6)? (field.columnLabel
                                 |
                                 slice:0:6)+'...':(field.columnLabel)}} :</span>
-                            <label class="form__label form_label" *ngIf="field.customFieldSpecialType=='Autocomplete'">
-                                {{field.columnLabel}}
-                            </label>
+
                             <ng-container *ngIf="field.dataType=='Text'">
 
                                 <ng-container *ngIf="field.customFieldSpecialType=='Autocomplete'">
+                                    <label class="form__label form_label"
+                                        *ngIf="field.customFieldSpecialType=='Autocomplete'">
+                                        {{field.columnLabel}}
+                                    </label>
                                     <ng-autocomplete [data]="ComboValueDropdown(field.comboBoxValue)" [searchKeyword]=""
                                         [debounceTime]="600" [itemTemplate]="itemTemplate"
                                         [(ngModel)]="field.columnValue" id="Attribute_{{field.columnId}}"
