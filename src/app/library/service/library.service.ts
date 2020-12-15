@@ -304,6 +304,7 @@ export class LibraryService extends BaseService {
   }
   // Edit Part
   EditPart(TenantId: number, PartId, data: any, token: string) {
+    debugger;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

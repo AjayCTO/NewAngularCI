@@ -6,12 +6,13 @@
                 <div class="form__col-wrap">
                     <div class="form__col form__col--third">
                         <label class="form__label form_label" for="one">Item Name</label>
-                        <input class="form__input" type="text" id="one" name="one" value="{{selecteditem.partName}}">
+                        <input class="form__input" type="text" id="one" [(ngModel)]="selecteditem.partName" name="one"
+                            value="{{selecteditem.partName}}">
                     </div>
                     <div class="form__col form__col--two-third">
                         <label class="form__label form_label" for="two">Item Description</label>
-                        <input class="form__input" type="text" id="two" name="two"
-                            value="{{selecteditem.partDescription}}">
+                        <input class="form__input" type="text" [(ngModel)]="selecteditem.partDescription" id="two"
+                            name="two" value="{{selecteditem.partDescription}}">
                     </div>
                 </div>
                 <h2 class="form__section-title">Attributes</h2>
@@ -31,8 +32,7 @@
                                 [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>'4' ? 'prefixLabel3':'']">{{field.columnLabel}}<span
                                     *ngIf="field.customFieldIsRequired" class="form__required">*</span></label>
 
-                            <span class="form__group-outer-label"
-                                *ngIf="field.dataType=='True/False'">{{(field.columnLabel.length>6)? (field.columnLabel
+                            <span class="form__group-outer-label" *ngIf="field.dataType=='True/False'">{{(field.columnLabel.length>6)? (field.columnLabel
                                 |
                                 slice:0:6)+'...':(field.columnLabel)}} :</span>
                             <label class="form__label form_label" *ngIf="field.customFieldSpecialType=='Autocomplete'">
@@ -63,8 +63,8 @@
                             </select> -->
 
                                     <select class="floating-select" id="Attribute_{{field.columnId}}"
-                                        name="Attribute_{{field.columnId}}" value="">
-                                        <option selected>{{field.columnValue}}</option>
+                                        [(ngModel)]="field.columnValue" name="Attribute_{{field.columnId}}" value="">
+                                        <!-- <option selected>{{field.columnValue}}</option> -->
                                         <option *ngFor="let opt of ComboValueDropdown(field.comboBoxValue)"
                                             value="{{opt}}">
                                             {{opt}}
@@ -98,16 +98,16 @@
                                 <ng-container *ngIf="field.customFieldSpecialType=='OpenField'">
                                     <ng-container *ngIf="field.customFieldSuffix||field.customFieldPrefix"
                                         class="input-group">
-                                        <span *ngIf="field.customFieldPrefix"
+                                        <span *ngIf="field.customFieldPrefix" [(ngModel)]="field.customFieldPrefix"
                                             class="input-group-addon text Prefix">{{(field.customFieldPrefix.length>3)?
                                             (field.customFieldPrefix |
                                             slice:0:3)+'...':(field.customFieldPrefix)}}</span>
                                         <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
                                             id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
-                                            value="{{field.columnValue}}"
+                                            [(ngModel)]="field.columnValue"
                                             [ngClass]="[field.customFieldPrefix.length=='1' ? 'Addon':''||field.customFieldPrefix.length=='2'?'Addon1':''||field.customFieldPrefix.length=='3'?'Addon2':''||field.customFieldPrefix.length>'4'?'Addon3':'']"
                                             class="form__input">
-                                        <span *ngIf="field.customFieldSuffix"
+                                        <span *ngIf="field.customFieldSuffix" [(ngModel)]="field.customFieldSuffix"
                                             class="input-group-addon text Suffix">{{field.customFieldSuffix}}</span>
                                         <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
                                             [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''">
@@ -353,8 +353,7 @@
                                     <input id="Attribute_{{field.columnId}}_1" [(ngModel)]="field.columnValue"
                                         class="form__radio" type="radio" value="{{field.customFieldFalseLabel}}"
                                         name="radio200">
-                                    <label class="form__group-label"
-                                        for="Attribute_{{field.columnId}}_1">{{(field.customFieldFalseLabel.length>5)?
+                                    <label class="form__group-label" for="Attribute_{{field.columnId}}_1">{{(field.customFieldFalseLabel.length>5)?
                                         (field.customFieldFalseLabel |
                                         slice:0:5)+'...':(field.customFieldFalseLabel)}}</label>
                                 </div>
@@ -362,8 +361,7 @@
                                     <input [(ngModel)]="field.columnValue" value="{{field.customFieldTrueLabel}}"
                                         id="Attribute_{{field.columnId}}_2" class="form__radio" type="radio"
                                         name="radio200">
-                                    <label class="form__group-label"
-                                        for="Attribute_{{field.columnId}}_2">{{(field.customFieldTrueLabel.length>5)?
+                                    <label class="form__group-label" for="Attribute_{{field.columnId}}_2">{{(field.customFieldTrueLabel.length>5)?
                                         (field.customFieldTrueLabel |
                                         slice:0:5)+'...':(field.customFieldTrueLabel)}}</label>
                                 </div>
