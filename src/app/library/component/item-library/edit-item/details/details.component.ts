@@ -143,17 +143,30 @@ export class DetailsComponent implements OnInit {
   }
 
   uploadFiles() {
-    debugger
     this.spinner.show();
     this.message = '';
     this.libraryService.upload(this.selectedFiles, this.item.partId, this.selectedTenantId, this.authService.accessToken).subscribe(
       event => {
+        debugger;
+        if (event.entity == true) {
+          document.getElementById("uploadModelClose").click();
+          this.toastr.success("Files has been Uploaded", "SuccessFully");
+        }
+        else {
+          this.toastr.warning("Could not upload the files");
+        }
+        this.spinner.hide();
+        this.ApplyJsFunction();
       },
       err => {
-
+        this.toastr.warning("Could not upload the files");
       });
 
   }
+
+
+
+
   triggerFalseClick() {
     let el: HTMLElement = this.UploadImage.nativeElement;
     el.click();

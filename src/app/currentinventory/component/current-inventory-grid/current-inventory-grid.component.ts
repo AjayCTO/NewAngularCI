@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, ViewEncapsulation, SimpleChanges, TemplateRef, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnChanges, ViewEncapsulation, SimpleChanges, TemplateRef, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { from, Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from '../../../core/auth.service';
@@ -22,12 +22,13 @@ import trigger from '../../../../assets/js/lib/_trigger';
 import dropdown from '../../../../assets/js/lib/_dropdown';
 import { Router } from '@angular/router';
 import { each } from 'jquery';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EventService } from '../../../dynamic-events/service/event.service';
 import { CircumstanceFields, StateFields, AttributeFields, CustomFields } from '../../../customfield/models/customfieldmodel';
 import { SetSelectedTenant, SetSelectedTenantId } from '../../../store/actions/tenant.action';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../../shared/appState';
+import { Item } from 'src/app/currentinventory/models/admin.models';
 @Component({
   selector: 'app-current-inventory-grid',
   templateUrl: './current-inventory-grid.component.html',
@@ -42,6 +43,8 @@ export class CurrentInventoryGridComponent implements OnInit {
   @ViewChild('AddLocationClose', { static: true }) AddLocationClose: ElementRef<HTMLElement>;
   @ViewChild('closeInventoryModal', { static: true }) closeInventoryModal: ElementRef<HTMLElement>;
   @ViewChild('AddCustomFieldClose', { static: true }) AddCustomFieldClose: ElementRef<HTMLElement>;
+  @ViewChild('UploadImage') UploadImage: ElementRef<HTMLElement>;
+  @Input() item;
   public today: Date;
   public error: string;
   public busy: boolean;
@@ -57,8 +60,18 @@ export class CurrentInventoryGridComponent implements OnInit {
   public showForms: boolean = false;
   public ColumnDataType: string;
   public isSearchFilterActive: boolean = false;
+  progressInfos = [];
+  selectedFiles: File[] = [];
+  listOfFiles: any[] = [];
+  message = '';
+  images = [];
+  myForm = new FormGroup({
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    file: new FormControl('', [Validators.required]),
+    fileSource: new FormControl('', [Validators.required])
 
-
+  });
+  imgURL: any;
   // UOM MEASURE , LOCATION & STATUS OBJECT
   public selectedLocation;
   public selectedUOm;
@@ -1492,5 +1505,65 @@ export class CurrentInventoryGridComponent implements OnInit {
     debugger
     this.showDropDown = false;
     console.log('clicked outside');
+  }
+  selectFiles(event) {
+    debugger
+    this.progressInfos = [];
+
+    const files = event.target.files;
+    let isImage = true;
+
+    for (let i = 0; i < files.length; i++) {
+      if (files.item(i).type.match('image/jpg') || files.item(i).type.match('image/jpeg') || files.item(i).type.match('image/png')) {
+        var selectedFile = event.target.files[i];
+        this.selectedFiles.push(selectedFile);
+        // this.listOfFiles.push(selectedFile.name);
+        var reader = new FileReader();
+
+
+        reader.onload = (event: any) => {
+
+          this.listOfFiles.push(event.target.result);
+
+          this.myForm.patchValue({
+            fileSource: this.listOfFiles
+          });
+        }
+
+        reader.readAsDataURL(event.target.files[i]);
+
+        continue;
+      } else {
+        isImage = false;
+        this.toastr.warning('invalid format!');
+        break;
+      }
+    }
+
+  }
+  uploadFiles() {
+    debugger
+    this.spinner.show();
+    this.message = '';
+    this.libraryService.upload(this.selectedFiles, this.item.partId, this.selectedTenantId, this.authService.accessToken).subscribe(
+      event => {
+      },
+      err => {
+
+      });
+
+  }
+  triggerFalseClick() {
+    let el: HTMLElement = this.UploadImage.nativeElement;
+    el.click();
+  }
+  RemoveImageName(index) {
+    debugger;
+
+    this.listOfFiles.splice(index, 1);
+    // delete file from FileList
+    this.selectedFiles.splice(index, 1);
+    this.images.splice(index, 1);
+
   }
 }

@@ -23,9 +23,10 @@ import { SettingsComponent } from './component/item-library/edit-item/settings/s
 import { RestockComponent } from './component/item-library/edit-item/restock/restock.component';
 import { DetailsComponent } from './component/item-library/edit-item/details/details.component';
 import { EditItemComponent } from './component/item-library/edit-item/edit-item.component';
+import { ImageLibraryComponent } from './component/image-library/image-library.component';
 @NgModule({
   declarations: [LocationLibraryComponent, UOMLibraryComponent, StatusLibraryComponent,
-    ItemLibraryComponent, AddLocationComponent, AddStatusComponent, AddUomComponent, DeleteConfirmationComponent, EditItemComponent, DetailsComponent, RestockComponent, UsersComponent, ValuesComponent, SettingsComponent],
+    ItemLibraryComponent, AddLocationComponent, AddStatusComponent, AddUomComponent, DeleteConfirmationComponent, EditItemComponent, DetailsComponent, RestockComponent, UsersComponent, ValuesComponent, SettingsComponent, ImageLibraryComponent],
   imports: [
     CommonModule,
     NgxSpinnerModule, FormsModule, NgxPopperModule, ReactiveFormsModule, AutocompleteLibModule,
@@ -38,7 +39,7 @@ import { EditItemComponent } from './component/item-library/edit-item/edit-item.
       { path: 'status', component: StatusLibraryComponent, canActivate: [AuthGuard] },
       { path: 'item', component: ItemLibraryComponent, canActivate: [AuthGuard] },
       { path: 'EditItem', component: EditItemComponent, canActivate: [AuthGuard] },
-
+      { path: 'ImageLibrary', component: ImageLibraryComponent }
     ]),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

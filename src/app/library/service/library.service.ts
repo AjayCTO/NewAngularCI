@@ -63,7 +63,7 @@ export class LibraryService extends BaseService {
       })
     };
 
-    return this.http.post(this.configService.resourceApiURI + '/api/Library/EditLocation?TenantId=' + TenantId + '&PartId=' + partId, formData, httpOptions).pipe(map((response: {
+    return this.http.post(this.configService.resourceApiURI + '/api/ManageUploads/UploadImages?TenantId=' + TenantId + '&PartId=' + partId, formData, httpOptions).pipe(map((response: {
       message: string;
       code: number;
       entity: boolean;
