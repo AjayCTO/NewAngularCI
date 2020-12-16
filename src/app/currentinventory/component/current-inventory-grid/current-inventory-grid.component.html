@@ -264,13 +264,13 @@
                 <h2>Cart</h2>
             </span>
             <div class="badge" [hidden]="isSelectedCount=='0'">
-                <p [(ngModel)]="isSelectedCount">{{isSelectedCount}}</p>
+                <p>{{isSelectedCount}}</p>
             </div>
-            <ul class="icons__submenu icons__submenu--from-left">
+            <!-- <ul class="icons__submenu icons__submenu--from-left">
                 <li class="icons__submenu-item">
                     <a class="icons__submenu-link" routerLink="/ArrangeColumn">Arrange Your Column</a>
                 </li>
-            </ul>
+            </ul> -->
         </button>
         <form class="form form--search">
             <div class="form__section">
@@ -857,7 +857,7 @@
             </thead>
 
             <tbody class="table__section table__section--body">
-                <ng-container *ngIf="loadingRecords">
+                <ng-container *ngIf="loadingRecords&&!IsInventoryLoaded">
                     <div class="loaderCard">
                         <div class="loader"></div>
                         <h3>Please Wait...</h3>

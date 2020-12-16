@@ -133,6 +133,8 @@ export class CurrentInventoryGridComponent implements OnInit {
   //Upload Activity
   UploadActivityOpen: boolean;
 
+  //Loading
+  public loadingRecords: boolean = false;
 
   customField: CustomFields = {
     columnId: 0,
@@ -306,6 +308,9 @@ export class CurrentInventoryGridComponent implements OnInit {
 
 
   ngOnInit() {
+
+
+
     this.uomForm = this.formBuilder.group({
       uomName: ['', Validators.required],
     });
@@ -325,6 +330,7 @@ export class CurrentInventoryGridComponent implements OnInit {
     this.selectedTenant = JSON.parse(TenantObj);
     this.spinner.show();
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+    debugger;
     this.GetTenants();
     this.GetAttributeFields();
     this.GetCustomFields();
@@ -333,8 +339,9 @@ export class CurrentInventoryGridComponent implements OnInit {
     this.getLocationList();
     this.getUOMList();
     this.getStatus();
-    this.GetMyInventoryColumn();
     this.GetEvents();
+    this.GetMyInventoryColumn();
+
     modal();
     this.ApplyJsFunction();
 
@@ -347,7 +354,7 @@ export class CurrentInventoryGridComponent implements OnInit {
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageIndex = 0;
-  loadingRecords = false;
+
   // MatPaginator Output
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -608,6 +615,7 @@ export class CurrentInventoryGridComponent implements OnInit {
       this.spinner.hide();
     })).subscribe(result => {
       //Tabulator Column
+      debugger;
       this.tabulatorColumn.push({ title: "Item Name", field: "partName", type: "", datatype: "string", width: "170" });
       this.tabulatorColumn.push({ title: "Description", field: "partDescription", type: "", datatype: "string", width: "450" });
       this.tabulatorColumn.push({ title: "Qty", field: "quantity", type: "", datatype: "number", width: "170" });
@@ -680,86 +688,7 @@ export class CurrentInventoryGridComponent implements OnInit {
   }
 
 
-  // EventAction(item, eventAction) {
-  //   this.InventoryTransactionObj = item;
-  //   this.InventoryTransactionObj.transactionActionId = eventAction;
 
-  //   this.CircumstanceFields.forEach(element => {
-  //     element.columnValue = "";
-  //   });
-
-  //   for (let i = 0; i < item.circumstanceFields.length; i++) {
-  //     for (let j = 0; j < this.CircumstanceFields.length; j++) {
-  //       if (item.circumstanceFields[i].columnName == this.CircumstanceFields[j].columnName) {
-  //         this.CircumstanceFields[j].columnValue = item.circumstanceFields[i].columnValue;
-  //       }
-
-  //     }
-
-  //   }
-
-  //   switch (eventAction) {
-  //     case 1: {
-  //       item.isAddOpen = !item.isAddOpen;
-  //       this.selectedItem = item;
-  //       break;
-  //     }
-  //     case 2: {
-  //       item.isRemoveOpen = !item.isRemoveOpen;
-  //       this.selectedItem = item;
-  //       break;
-  //     }
-  //     case 3: {
-  //       item.isMoveOpen = !item.isMoveOpen;
-  //       this.selectedItem = item;
-  //       break;
-  //     }
-  //     case 4: {
-  //       item.isConvertOpen = !item.isConvertOpen;
-  //       this.selectedItem = item;
-  //       break;
-  //     }
-  //     case 5: {
-  //       item.isUpdateOpen = !item.isUpdateOpen;
-  //       this.selectedItem = item;
-  //       break;
-  //     }
-  //     case 6: {
-
-  //       for (let i = 0; i < item.stateFields.length; i++) {
-  //         for (let j = 0; j < this.StateFields.length; j++) {
-  //           if (item.stateFields[i].columnName == this.StateFields[j].columnName) {
-  //             this.StateFields[j].columnValue = item.stateFields[i].columnValue;
-  //           }
-
-  //         }
-  //       }
-  //       item.isChangeOpen = !item.isChangeOpen;
-  //       this.selectedItem = item;
-  //       break;
-  //     }
-  //     case 7: {
-
-  //       for (let i = 0; i < item.stateFields.length; i++) {
-  //         for (let j = 0; j < this.StateFields.length; j++) {
-  //           if (item.stateFields[i].columnName == this.StateFields[j].columnName) {
-  //             this.StateFields[j].columnValue = item.stateFields[i].columnValue;
-  //           }
-
-  //         }
-  //       }
-  //       item.isMoveAndChangeOpen = !item.isMoveAndChangeOpen;
-  //       this.selectedItem = item;
-  //       break;
-  //     }
-  //     case 8: {
-  //       item.isAdjustOpen = !item.isAdjustOpen;
-  //       this.selectedItem = item;
-  //       break;
-  //     }
-  //   }
-
-  // }
 
   AddTenant() {
     this.homeService.AddTenant(this.authService.accessToken, this.TenantObject)
@@ -790,7 +719,6 @@ export class CurrentInventoryGridComponent implements OnInit {
 
 
   GetCurrentInventory() {
-    debugger;
     this.loadingRecords = true;
     this.CheckboxShow = false;
     let sortCol = "PartName";
@@ -798,48 +726,38 @@ export class CurrentInventoryGridComponent implements OnInit {
 
     this.currentinventoryService.GetCurrentInventory(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, this.pageSize, sortCol, sortDir, this.searchFilterText, this.FilterArray)
       .pipe(finalize(() => {
-
-        //this.spinner.hide();
       })).subscribe(result => {
 
         this.InventoryDataBind = [];
         this.allInventoryItems = [];
-
         this.allInventoryItems = result.entity.items;
         this.length = result.entity.totalItems;
-
         for (let i = 0; i < this.allInventoryItems.length; i++) {
           let map = new Map<string, any>();
           for (let j = 0; j < this.tabulatorColumn.length; j++) {
-
             let keys = Object.keys(this.allInventoryItems[i])
             for (let key = 0; key < keys.length; key++) {
-
               if (keys[key] == this.tabulatorColumn[j].field) {
-
                 map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i][keys[key]])
               }
               else {
                 map.set(keys[key], this.allInventoryItems[i][keys[key]])
               }
             }
-
             for (let k = 0; k < this.allInventoryItems[i].allFields.length; k++) {
-
               if (this.allInventoryItems[i].allFields[k].columnName == this.tabulatorColumn[j].field) {
                 map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].allFields[k].columnValue)
               }
             }
             map.set("isSelected", false);
           }
-
           let jsonObject = {};
           map.forEach((value, key) => {
             jsonObject[key] = value
           });
-
           this.InventoryDataBind.push(jsonObject);
         }
+
         this.loadingRecords = false;
         this.IsInventoryLoaded = true;
         this.CheckboxShow = true;
@@ -885,7 +803,7 @@ export class CurrentInventoryGridComponent implements OnInit {
         this.busy = false;
         this.spinner.hide();
       })).subscribe(result => {
-
+        debugger;
         if (result.entity != null) {
           debugger;
           this.EventList = result.entity;
