@@ -932,8 +932,9 @@
                         </td>
                         <td class="table__cell" data-title="Column Title">
                             <div class="card" id="image_card">
-                                <ng-container *ngFor="let image of item.images">
-                                    <img src="https://clearly2020storage.blob.core.windows.net:443/images/{{image.imageFriendlyName}}"
+                                <ng-container *ngFor="let image of item.images; first as isFirst">
+                                    <img *ngIf="isFirst"
+                                        src="https://clearly2020storage.blob.core.windows.net:443/images/{{image.imageFriendlyName}}"
                                         width="50" id="Image_small">
                                 </ng-container>
 

@@ -1,0 +1,60 @@
+.Add_Icon {
+    border: 1px solid #2de29d;
+    border-radius: 100%;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    background: #2de29d;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+.add--image {
+    text-align: center;
+    padding: 48px;
+}
+.UploadImageCard {
+    box-shadow: 0 0 7px #d6d6d6;
+    min-height: 300px;
+}
+    .card-header {
+        padding: 10px;
+        text-align: center;
+    }
+    .card-body {
+        padding: 30px;
+        text-align: -webkit-center;
+        img {
+            height: 300px !important;
+        }
+    }
+    .card-footer {
+        padding: 14px 30px;
+        font-size: 16px;
+    }
+
+.AssignImgPage {
+    padding: 12px;
+    align-items: center;
+    background-color: #f0f5fa;
+    display: flex;
+    padding: 14px;
+    padding-top: 0 !important;
+    margin-bottom: 1rem;
+}
+.form__input--search {
+    border-radius: 1.5rem;
+    height: 3rem;
+    padding-left: 2rem;
+    padding-right: 1.5rem;
+    width: 17rem;
+}
+.form__col--half {
+    width: calc((70% / 2) - .625rem);
+    float: left;
+    margin-left: -80px;
+}
+.button--medium.button--icon {
+    cursor: pointer;
+}
