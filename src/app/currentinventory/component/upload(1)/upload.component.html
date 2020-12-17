@@ -38,9 +38,8 @@
                             <div class="form__col-wrap">
                                 <div class="form__one">
                                     <div class="upload--activity-icon">
-                                        <div class="Event_Icon"
-                                            [ngClass]="[event.eventIcon==1?'green':''||event.eventIcon==2?'red':''||event.eventIcon==3?'darkblue':''||event.eventIcon==4?'orange':''||event.eventIcon==5?'yellow':''||event.eventIcon==6?'purple':''||event.eventIcon==7?'pink':''||event.eventIcon==8?'gray':'']">
-
+                                        <div class="Event_Icon" [style.background-color]="event.eventColor"
+                                            [ngClass]="event.eventColor==''?'blue':''">
                                             <div class="icons__item--theme11">
                                                 <ng-container *ngIf="event.eventIcon==1">
                                                     <svg class="icon icon--theme01 icon--add"
