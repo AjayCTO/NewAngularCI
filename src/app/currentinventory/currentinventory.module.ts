@@ -23,18 +23,21 @@ import { StatementHistoryComponent } from './component/statement-history/stateme
 import { EventListComponent } from './component/current-inventory-grid/event-list/event-list.component';
 import { UploadComponent } from './component/upload(1)/upload.component'
 import { NgImageSliderModule } from 'ng-image-slider';
+import { InventoryReportComponent } from './component/reports/inventory-report/inventory-report.component';
+import { CreatReportComponent } from './component/reports/inventory-report/creat-report/creat-report.component'
 
 @NgModule({
   declarations: [CurrentInventoryGridComponent, UploadComponent, ArrangeColumnComponent,
     AddEventComponent, RemoveEventComponent, MoveEventComponent, ChangeEventComponent,
     UpdateEventComponent, ConvertEventComponent, MoveAndChangeEventComponent,
     UploadActivityComponent, AdjustEventComponent, DynamicEventComponent,
-    StatementHistoryComponent, EventListComponent],
+    StatementHistoryComponent, EventListComponent, InventoryReportComponent, CreatReportComponent],
   imports: [
     CommonModule, FormsModule, NgxPopperModule, ReactiveFormsModule, NgxSpinnerModule, AutocompleteLibModule, ProgressBarModule, NgImageSliderModule,
     RouterModule.forChild([
       { path: 'CurrentInventory', component: CurrentInventoryGridComponent, canActivate: [AuthGuard], runGuardsAndResolvers: "paramsChange" },
-      { path: 'ArrangeColumn', component: ArrangeColumnComponent, canActivate: [AuthGuard] }
+      { path: 'ArrangeColumn', component: ArrangeColumnComponent, canActivate: [AuthGuard] },
+      { path: 'Reports', component: InventoryReportComponent, canActivate: [AuthGuard] }
     ]),
 
   ],

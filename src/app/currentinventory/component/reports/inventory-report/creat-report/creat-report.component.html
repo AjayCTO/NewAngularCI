@@ -1,0 +1,303 @@
+<section class="main">
+    <div class="edit--card">
+        <form class="form" style="margin: 0;">
+            <div class="form__section">
+                <h2 class="form__section-title">General Settings</h2>
+                <div class="form__col-wrap">
+                    <div class="form__col form__col--third">
+                        <label class="form__label" for="one">Report Title</label>
+                        <input class="form__input" type="text" id="one" name="one">
+                    </div>
+                    <div class="form__col form__col--two-third">
+                        <label class="form__label" for="two">Subtitle</label>
+                        <input class="form__input" type="text" id="two" name="two">
+                    </div>
+                    <div class="form__col form__col--one-two">
+                        <label class="form__label" for="third">Report Description</label>
+                        <input class="form__input" type="text" id="third" name="third">
+                    </div>
+                </div>
+            </div>
+            <div class="form__section">
+                <h2 class="form__section-title">Filters</h2>
+                <div class="form__col-wrap">
+                    <h3>No Filter are Active</h3>
+                </div>
+            </div>
+            <div class="form__section">
+                <h2 class="form__section-title">User Permissions</h2>
+                <div class="form__col-wrap">
+                    <div class="form__col form__col--group">
+                        <div class="form__group form__group--radio">
+                            <input id="radio1" class="form__radio" type="radio" checked="checked" name="radio">
+                            <label class="form__group-label" for="radio1">Available to All Users</label>
+                        </div>
+                        <div class="form__group form__group--radio">
+                            <input id="radio2" class="form__radio" type="radio" name="radio">
+                            <label class="form__group-label" for="radio2">Available to Selected User</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form class="form" style="margin: 0;max-width: 100%;">
+            <div class="form__section">
+                <h2 class="form__section-title">Choose Columns, Filters and Sort orders
+                    <button type="button" class="invModal__control" (click)="showAdvanced()">Advanced</button>
+                    <button type="submit" class="button button--medium" style="margin-left: auto;">Reset
+                        Shorting</button>
+                </h2>
+                <div class="table">
+                    <table class="table__table">
+                        <thead *ngIf="OpenAdvanced" class="table__section table__section--head">
+                            <tr class="table__row table__row--head">
+                                <th scope="col" class="table__heading">
+                                    <div class="table__heading-options">
+                                        <div class="form__col-wrap">
+                                            <div class="form__col form__col--group">
+                                                <div class="form__group form__group--checkbox">
+                                                    <label class="form__group-label" for="checkbox1">Allow text
+                                                        wrapping?</label>
+                                                    <input id="checkbox1" class="form__checkbox" type="checkbox"
+                                                        name="checkbox1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th scope="col" class="table__heading">
+                                    <div class="table__heading-options">
+                                        <div class="form__col-wrap">
+                                            <div class="form__col form__col--group">
+                                                <div class="form__group form__group--checkbox">
+                                                    <label class="form__group-label" for="checkbox2">Use double-row
+                                                        layout?</label>
+                                                    <input id="checkbox2" class="form__checkbox" type="checkbox"
+                                                        name="checkbox2">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th scope="col" class="table__heading">
+                                    <div class="table__heading-options">
+                                        <div class="form__col-wrap">
+                                            <div class="form__col form__col--group"></div>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th scope="col" class="table__heading">
+                                    <div class="table__heading-options">
+                                        <div class="form__col-wrap">
+                                            <div class="form__col form__col--group"></div>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th scope="col" class="table__heading">
+                                    <div class="table__heading-options">
+                                        <div class="form__col-wrap">
+                                            <div class="form__col form__col--group">
+                                                <div class="icons__item" (click)="CloseAdvanced()">
+                                                    <div class="icons__icon"><svg
+                                                            class="icon icon--theme01 icon--remove"
+                                                            aria-labelledby="title-5fdc9cf214d47"
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                                                            width="20" height="20">
+                                                            <path fill="none" d="M0 0h48v48H0z"></path>
+                                                            <path
+                                                                d="M12.7 18.3L4.2 9.9l5.7-5.7L24 18.3a7.9 7.9 0 0011.3 0 15.9 15.9 0 01-22.6 0z"
+                                                                fill="currentColor" class="icon__color--primary"></path>
+                                                            <path class="icon__color--secondary"
+                                                                d="M24 18.3L38.1 4.2l5.7 5.7-8.5 8.4a7.9 7.9 0 01-11.3 0z"
+                                                                fill="currentColor"></path>
+                                                            <path class="icon__color--primary"
+                                                                d="M35.3 28.9l8.5 8.5-5.7 5.6L24 28.9a8 8 0 00-11.3 0 15.9 15.9 0 0122.6 0z"
+                                                                fill="currentColor"></path>
+                                                            <path class="icon__color--secondary"
+                                                                d="M24 28.9L9.9 43l-5.7-5.6 8.5-8.5a8 8 0 0111.3 0z"
+                                                                fill="currentColor"></path>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <thead class="table__section table__section--head">
+                            <tr class="table__row table__row--head">
+                                <th scope="col" class="table__heading">
+                                    <div class="table__heading-title">Column Name</div>
+                                    <div class="table__heading-options">
+                                        <a class="table__heading-link">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="16"
+                                                height="16">
+                                                <g id="Layer_2" data-name="Layer 2">
+                                                    <g id="Layer_1-2" data-name="Layer 1">
+                                                        <rect width="48" height="48" fill="none"></rect>
+                                                        <path
+                                                            d="M40,13.7a5.6,5.6,0,0,1-1.7,4,5.5,5.5,0,0,1-4,1.6,5.8,5.8,0,0,1-4-1.7,5.4,5.4,0,0,0-4-1.6H17.7A3.9,3.9,0,0,0,14,18.5a3.8,3.8,0,0,0,.8,4.3h0l-4.5-4.5A7.9,7.9,0,0,1,8,12.7H8A4.7,4.7,0,0,1,12.7,8H34.3a5.7,5.7,0,0,1,3.6,1.3.8.8,0,0,1,.4.4A5.3,5.3,0,0,1,40,13.7Z"
+                                                            fill="#686f73"></path>
+                                                        <path
+                                                            d="M28,28V40H20V29.7a4,4,0,0,0-1.2-2.9l-4-4h0a3.8,3.8,0,0,1-.8-4.3A3.9,3.9,0,0,1,17.7,16h1.6l3.3,3.2,3.1,3.2A7.9,7.9,0,0,1,28,28Z"
+                                                            fill="#96a0aa"></path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </th>
+                                <th scope="col" class="table__heading">
+                                    <div class="table__heading-title">Filter By</div>
+                                    <div class="table__heading-options">
+                                        <a class="table__heading-link">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="16"
+                                                height="16">
+                                                <g id="Layer_2" data-name="Layer 2">
+                                                    <g id="Layer_1-2" data-name="Layer 1">
+                                                        <rect width="48" height="48" fill="none"></rect>
+                                                        <path
+                                                            d="M40,13.7a5.6,5.6,0,0,1-1.7,4,5.5,5.5,0,0,1-4,1.6,5.8,5.8,0,0,1-4-1.7,5.4,5.4,0,0,0-4-1.6H17.7A3.9,3.9,0,0,0,14,18.5a3.8,3.8,0,0,0,.8,4.3h0l-4.5-4.5A7.9,7.9,0,0,1,8,12.7H8A4.7,4.7,0,0,1,12.7,8H34.3a5.7,5.7,0,0,1,3.6,1.3.8.8,0,0,1,.4.4A5.3,5.3,0,0,1,40,13.7Z"
+                                                            fill="#686f73"></path>
+                                                        <path
+                                                            d="M28,28V40H20V29.7a4,4,0,0,0-1.2-2.9l-4-4h0a3.8,3.8,0,0,1-.8-4.3A3.9,3.9,0,0,1,17.7,16h1.6l3.3,3.2,3.1,3.2A7.9,7.9,0,0,1,28,28Z"
+                                                            fill="#96a0aa"></path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </th>
+                                <th scope="col" class="table__heading">
+                                    <div class="table__heading-title">Short Order</div>
+                                    <div class="table__heading-options">
+                                        <a class="table__heading-link">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="16"
+                                                height="16">
+                                                <g id="Layer_2" data-name="Layer 2">
+                                                    <g id="Layer_1-2" data-name="Layer 1">
+                                                        <rect width="48" height="48" fill="none"></rect>
+                                                        <path
+                                                            d="M40,13.7a5.6,5.6,0,0,1-1.7,4,5.5,5.5,0,0,1-4,1.6,5.8,5.8,0,0,1-4-1.7,5.4,5.4,0,0,0-4-1.6H17.7A3.9,3.9,0,0,0,14,18.5a3.8,3.8,0,0,0,.8,4.3h0l-4.5-4.5A7.9,7.9,0,0,1,8,12.7H8A4.7,4.7,0,0,1,12.7,8H34.3a5.7,5.7,0,0,1,3.6,1.3.8.8,0,0,1,.4.4A5.3,5.3,0,0,1,40,13.7Z"
+                                                            fill="#686f73"></path>
+                                                        <path
+                                                            d="M28,28V40H20V29.7a4,4,0,0,0-1.2-2.9l-4-4h0a3.8,3.8,0,0,1-.8-4.3A3.9,3.9,0,0,1,17.7,16h1.6l3.3,3.2,3.1,3.2A7.9,7.9,0,0,1,28,28Z"
+                                                            fill="#96a0aa"></path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </th>
+                                <th scope="col" class="table__heading">
+                                    <div class="table__heading-title">Short Type</div>
+                                    <div class="table__heading-options">
+                                        <a class="table__heading-link">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="16"
+                                                height="16">
+                                                <g id="Layer_2" data-name="Layer 2">
+                                                    <g id="Layer_1-2" data-name="Layer 1">
+                                                        <rect width="48" height="48" fill="none"></rect>
+                                                        <path
+                                                            d="M40,13.7a5.6,5.6,0,0,1-1.7,4,5.5,5.5,0,0,1-4,1.6,5.8,5.8,0,0,1-4-1.7,5.4,5.4,0,0,0-4-1.6H17.7A3.9,3.9,0,0,0,14,18.5a3.8,3.8,0,0,0,.8,4.3h0l-4.5-4.5A7.9,7.9,0,0,1,8,12.7H8A4.7,4.7,0,0,1,12.7,8H34.3a5.7,5.7,0,0,1,3.6,1.3.8.8,0,0,1,.4.4A5.3,5.3,0,0,1,40,13.7Z"
+                                                            fill="#686f73"></path>
+                                                        <path
+                                                            d="M28,28V40H20V29.7a4,4,0,0,0-1.2-2.9l-4-4h0a3.8,3.8,0,0,1-.8-4.3A3.9,3.9,0,0,1,17.7,16h1.6l3.3,3.2,3.1,3.2A7.9,7.9,0,0,1,28,28Z"
+                                                            fill="#96a0aa"></path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </th>
+                                <th scope="col" class="table__heading">
+                                    <div class="table__heading-title">Close</div>
+                                    <div class="table__heading-options">
+                                        <a class="table__heading-link">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="16"
+                                                height="16">
+                                                <g id="Layer_2" data-name="Layer 2">
+                                                    <g id="Layer_1-2" data-name="Layer 1">
+                                                        <rect width="48" height="48" fill="none"></rect>
+                                                        <path
+                                                            d="M40,13.7a5.6,5.6,0,0,1-1.7,4,5.5,5.5,0,0,1-4,1.6,5.8,5.8,0,0,1-4-1.7,5.4,5.4,0,0,0-4-1.6H17.7A3.9,3.9,0,0,0,14,18.5a3.8,3.8,0,0,0,.8,4.3h0l-4.5-4.5A7.9,7.9,0,0,1,8,12.7H8A4.7,4.7,0,0,1,12.7,8H34.3a5.7,5.7,0,0,1,3.6,1.3.8.8,0,0,1,.4.4A5.3,5.3,0,0,1,40,13.7Z"
+                                                            fill="#686f73"></path>
+                                                        <path
+                                                            d="M28,28V40H20V29.7a4,4,0,0,0-1.2-2.9l-4-4h0a3.8,3.8,0,0,1-.8-4.3A3.9,3.9,0,0,1,17.7,16h1.6l3.3,3.2,3.1,3.2A7.9,7.9,0,0,1,28,28Z"
+                                                            fill="#96a0aa"></path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="table__section table__section--body">
+                            <tr class="table__row table__row--body">
+                                <td class="table__cell" data-title="Column Title">
+                                    <div class="form__col">
+                                        <select class="floating-select" id="list-dropdown1" name="list-dropdown1"
+                                            value="">
+                                            <option value="">Choose Column</option>
+                                            <option>One</option>
+                                            <option>Two</option>
+                                            <option>Three</option>
+                                            <option>Four</option>
+                                        </select>
+                                        <span class="highlight"></span>
+                                        <label class="form__label form_label form__label--hidden">Dropdown</label>
+                                    </div>
+                                </td>
+                                <td class="table__cell" data-title="Column Title">
+                                    <div class="form__col">
+                                        <div class="form__col form__col--full">
+                                            <label class="form__label" for="12">One Third</label>
+                                            <input class="form__input" type="text" id="12" name="12">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="table__cell" data-title="Column Title">
+                                    Data
+                                </td>
+                                <td class="table__cell" data-title="Column Title">
+                                    Data
+                                </td>
+                                <td class="table__cell" data-title="Column Title">
+                                    <!-- <div class="icons__item">
+                                        <div class="icons__icon"><svg class="icon icon--theme01 icon--remove"
+                                                aria-labelledby="title-5fdc960b960e8" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 48 48" width="48" height="48">
+                                                <path fill="none" d="M0 0h48v48H0z"></path>
+                                                <path
+                                                    d="M12.7 18.3L4.2 9.9l5.7-5.7L24 18.3a7.9 7.9 0 0011.3 0 15.9 15.9 0 01-22.6 0z"
+                                                    fill="currentColor" class="icon__color--primary"></path>
+                                                <path class="icon__color--secondary"
+                                                    d="M24 18.3L38.1 4.2l5.7 5.7-8.5 8.4a7.9 7.9 0 01-11.3 0z"
+                                                    fill="currentColor"></path>
+                                                <path class="icon__color--primary"
+                                                    d="M35.3 28.9l8.5 8.5-5.7 5.6L24 28.9a8 8 0 00-11.3 0 15.9 15.9 0 0122.6 0z"
+                                                    fill="currentColor"></path>
+                                                <path class="icon__color--secondary"
+                                                    d="M24 28.9L9.9 43l-5.7-5.6 8.5-8.5a8 8 0 0111.3 0z"
+                                                    fill="currentColor"></path>
+                                            </svg></div>
+                                        <span class="icons__label">Remove</span>
+                                    </div> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <button type="submit" class="button button--medium">Add Column</button>
+                </div>
+            </div>
+        </form>
+        <div class="button-group">
+            <button type="submit" class="button button--medium">Save Report</button>
+            <button type="button" class="button button--medium button--text-only" (click)="Close()">Cancel
+            </button>
+        </div>
+    </div>
+</section>
