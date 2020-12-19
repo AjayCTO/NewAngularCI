@@ -930,7 +930,9 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="table__cell" data-title="Column Title">
+                        <td class="table__cell  icons  js-modal" data-modal="#UploadActivity" data-title="Column Title"
+                            (click)="previewImage(item)">
+                            <!-- <ng-container *ngIf="item.images"></ng-container> -->
                             <div class="card" id="image_card">
                                 <ng-container *ngFor="let image of item.images; first as isFirst">
                                     <img *ngIf="isFirst"
@@ -939,100 +941,9 @@
                                 </ng-container>
 
                             </div>
-                            <!-- <div class="icons  js-modal" data-modal="#UploadActivity">
-                                <div class="icons__item">
-                                    <div class="icons__icon"><svg class="icon icon--theme01 icon--add"
-                                            aria-labelledby="title-5fd9936f0d814" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 48 48" width="48" height="48">
-                                            <path fill="none" d="M0 0h48v48H0z"></path>
-                                            <path d="M28 36v12h-8V28a8 8 0 00-8-8 16 16 0 0116 16z" fill="currentColor"
-                                                class="icon__color--primary"></path>
-                                            <path d="M20 28H0v-8h12a8 8 0 018 8z" fill="currentColor"
-                                                class="icon__color--secondary"></path>
-                                            <path d="M20 12V0h8v20a8 8 0 008 8 16 16 0 01-16-16z" fill="currentColor"
-                                                class="icon__color--primary">
-                                            </path>
-                                            <path d="M28 20h20v8H36a8 8 0 01-8-8z" fill="currentColor"
-                                                class="icon__color--secondary"></path>
-                                        </svg></div>
-                                    <span class="icons__label">Upload Image</span>
-                                </div>
-                            </div> -->
+
                         </td>
-                        <div id="UploadActivity" class="invModal" role="dialog" aria-labelledby="dialog-title"
-                            aria-describedby="dialog-description" tabindex="-1" hidden="">
-                            <div class="invModal__head">
-                                <h1 class="invModal__title">Upload an Image</h1>
 
-                            </div>
-                            <div class="invModal__body">
-                                <h3>Please select an Image from your computer.</h3>
-                                <div class="form__section">
-                                    <div class="form__col-wrap">
-                                        <div class="card icons icons--horziontal icons--size01">
-                                            <button type="button" *ngFor="let item of listOfFiles;let index = index"
-                                                class="icons__item icons__item--contains-text icons__item--theme07"
-                                                style="height: 45px;border-radius: 100px;">
-                                                <div class="icons__text" style="display: flex;align-items: center;">
-                                                    <strong class="icons__name"> <img style="width: 30px !important;"
-                                                            [src]="item">
-                                                    </strong>
-                                                    &nbsp;&nbsp;
-                                                    <strong class="icons__name" *ngFor="let selectFile of selectedFiles"
-                                                        style="font-size: 16px;">
-                                                        {{selectFile.name}}
-                                                    </strong>
-                                                    &nbsp;&nbsp;
-                                                    <div class="" (click)="RemoveImageName(index)">
-                                                        <svg class="icon-simple icon-simple--theme01 icon-simple--remove"
-                                                            aria-labelledby="title-5f7cbab264ccf"
-                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                            width="18" height="18">
-                                                            <path fill="none" d="M0 0h24v24H0z"></path>
-                                                            <path fill="currentColor"
-                                                                d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z">
-                                                            </path>
-                                                            <path fill="currentColor"
-                                                                d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z">
-                                                            </path>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                            </button>&nbsp;&nbsp;&nbsp;
-                                        </div>
-                                        <div class="fileinput fileinput-new" data-provides="fileinput">
-                                            <span class="fileinput-filename"></span>
-                                            <br>
-                                            <input #UploadImage hidden type="file" accept="image/*" multiple
-                                                (change)="selectFiles($event)" />
-                                            <img *ngFor='let imgURL of images' [src]="imgURL" height="200">
-                                            <input type="hidden" value name="fileToUpload">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form__section">
-                                    <div class="form__col-wrap">
-                                        <button (click)="triggerFalseClick()" type="button"
-                                            class="button button--medium">Select
-                                            File</button>
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                            <div class="invModal__footer">
-
-                                <div class="button-group">
-                                    <button [disabled]="!selectedFiles" type="button" (click)="uploadFiles()"
-                                        class="button button--medium button--theme02">Upload</button>
-                                    <button type="button" class="button button--medium button--text-only"
-                                        data-close="#UploadActivity">Cancel
-                                    </button>
-                                </div>
-                            </div>
-
-                        </div>
 
                         <td class="table__cell" data-title="Column Title" *ngFor="let itemHeader of tabulatorColumn">
                             {{item[itemHeader.field]}}
@@ -2782,6 +2693,87 @@
 <app-upload *ngIf="UploadActivityOpen" (hideClose)="getValue($event)"></app-upload>
 
 <!-- <app-upload-activity (RefreshInventory)="RefreshCurrentInventory()"></app-upload-activity> -->
+<div id="UploadActivity" class="invModal" role="dialog" aria-labelledby="dialog-title"
+    aria-describedby="dialog-description" tabindex="-1" hidden="">
+    <div class="invModal__head">
+        <h1 class="invModal__title">an Image</h1>
 
+    </div>
+    <div class="invModal__body">
+        <div>
+            <h1 class="invModal__title">Images</h1>
+            <ng-image-slider [images]="imageObject" [imageSize]="{width: '25%', height: 300}" slideImage="1" #nav>
+            </ng-image-slider>
+        </div>
+
+        <div class="form__section">
+            <h1 class="invModal__title"> Select Images</h1><br />
+            <div class="form__col-wrap">
+                <div class="card icons icons--horziontal icons--size01"
+                    *ngFor="let item of listOfFiles;let index = index">
+                    <button type="button" class="icons__item icons__item--contains-text icons__item--theme07"
+                        style="height: 45px;border-radius: 100px;">
+                        <div class="icons__text" style="display: flex;align-items: center;">
+                            <strong class="icons__name"> <img style="width: 30px !important;" [src]="item">
+                            </strong>
+                            &nbsp;&nbsp;
+                            <strong class="icons__name" *ngFor="let selectFile of selectedFiles"
+                                style="font-size: 16px;">
+                                {{selectFile.name}}
+                            </strong>
+                            &nbsp;&nbsp;
+                            <div class="" (click)="RemoveImageName(index)">
+                                <svg class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                    aria-labelledby="title-5f7cbab264ccf" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24" width="18" height="18">
+                                    <path fill="none" d="M0 0h24v24H0z"></path>
+                                    <path fill="currentColor" d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z">
+                                    </path>
+                                    <path fill="currentColor" d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                    </button><br />
+
+                </div>
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                    <span class="fileinput-filename"></span>
+                    <br>
+
+                    <input #UploadImage hidden type="file" accept="image/*" multiple (change)="selectFiles($event)" />
+                    <img *ngFor='let imgURL of images' [src]="imgURL" height="200">
+                    <input type="hidden" value name="fileToUpload">
+                </div>
+            </div>
+        </div>
+        <div class="form__section">
+            <div class="form__col-wrap">
+                <button (click)="triggerFalseClick()" type="button" class="button button--medium">Add new
+                    Images</button>
+            </div>
+        </div>
+
+        <!-- <ng-container *ngFor="let image of previewItem.images">
+
+            <img src="https://clearly2020storage.blob.core.windows.net:443/images/{{image.imageFriendlyName}}"
+                width="50" id="Image_small">
+
+        </ng-container> -->
+    </div>
+
+
+    <div class="invModal__footer">
+
+        <div class="button-group">
+            <button [disabled]="!selectedFiles" type="button" (click)="uploadFiles()"
+                class="button button--medium button--theme02">Upload</button>
+            <button type="button" class="button button--medium button--text-only" (click)="cancel()" #uploadActivity
+                data-close="#UploadActivity">Cancel
+            </button>
+        </div>
+    </div>
+
+</div>
 
 <ngx-spinner></ngx-spinner>

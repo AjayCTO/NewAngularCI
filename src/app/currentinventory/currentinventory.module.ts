@@ -22,6 +22,7 @@ import { DynamicEventComponent } from './component/dynamic-event/dynamic-event.c
 import { StatementHistoryComponent } from './component/statement-history/statement-history.component';
 import { EventListComponent } from './component/current-inventory-grid/event-list/event-list.component';
 import { UploadComponent } from './component/upload(1)/upload.component'
+import { NgImageSliderModule } from 'ng-image-slider';
 
 @NgModule({
   declarations: [CurrentInventoryGridComponent, UploadComponent, ArrangeColumnComponent,
@@ -30,7 +31,7 @@ import { UploadComponent } from './component/upload(1)/upload.component'
     UploadActivityComponent, AdjustEventComponent, DynamicEventComponent,
     StatementHistoryComponent, EventListComponent],
   imports: [
-    CommonModule, FormsModule, NgxPopperModule, ReactiveFormsModule, NgxSpinnerModule, AutocompleteLibModule, ProgressBarModule,
+    CommonModule, FormsModule, NgxPopperModule, ReactiveFormsModule, NgxSpinnerModule, AutocompleteLibModule, ProgressBarModule, NgImageSliderModule,
     RouterModule.forChild([
       { path: 'CurrentInventory', component: CurrentInventoryGridComponent, canActivate: [AuthGuard], runGuardsAndResolvers: "paramsChange" },
       { path: 'ArrangeColumn', component: ArrangeColumnComponent, canActivate: [AuthGuard] }

@@ -2,7 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { LibraryService } from '../../service/library.service';
 import { AuthService } from '../../../core/auth.service';
 import { finalize } from 'rxjs/operators';
-import { Item } from 'src/app/currentinventory/models/admin.models';
+import { ItemLibraryComponent } from '../../component/item-library/item-library.component'
+import { InventoryTransactionViewModel } from '../../models/library-model';
 import inputFocus from '../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../assets/js/lib/_inputClear';
 
@@ -17,7 +18,7 @@ export class ImageLibraryComponent implements OnInit {
   listOfFiles: any[] = [];
   progressInfos = [];
   message = '';
-
+  imagesId: any = [];
   allImages: any;
   public selectedTenantId: number;
   public NotPermitted: boolean = false;
@@ -30,7 +31,30 @@ export class ImageLibraryComponent implements OnInit {
   length = 100;
   lastPageIndex = 0;
   public AssignImageOpen: boolean;
-  constructor(private libraryService: LibraryService, private authService: AuthService,) { }
+  InventoryTransactionObj: InventoryTransactionViewModel = {
+    partId: 0,
+    tenantId: 0,
+    uomId: 0,
+    locationId: 0,
+    costPerUnit: 0,
+    partName: "",
+    partDescription: "",
+    quantity: 1,
+    uomName: "",
+    locationName: "",
+    transactionQty: 1,
+    transactionCostPerUnit: 0,
+    transactionQtyChange: 0,
+    avgCostPerUnit: 0,
+    transactionActionId: 0,
+    inventoryId: 0,
+    statusValue: "",
+    attributeFields: [],
+    circumstanceFields: [],
+    stateFields: [],
+
+  }
+  constructor(private libraryService: LibraryService, private authService: AuthService) { }
 
   ngOnInit(): void {
     debugger;
@@ -90,6 +114,10 @@ export class ImageLibraryComponent implements OnInit {
 
 
   }
+  selectid(id) {
+    debugger;
+    this.imagesId = id;
+  }
   RemoveSearchFilter() {
     debugger;
 
@@ -113,6 +141,26 @@ export class ImageLibraryComponent implements OnInit {
         console.log(result.entity);
         this.length = result.entity.images.length;
         this.allImages = result.entity.images;
+
+      })
+  }
+  AssignImages() {
+    debugger;
+    this.libraryService.AllocateDeallocateImages(this.selectedTenantId, this.InventoryTransactionObj.partId, this.imagesId, this.authService.accessToken)
+      .pipe(finalize(() => {
+
+        //this.spinner.hide();
+      })).subscribe(result => {
+        if (result.code == 403) {
+          this.NotPermitted = true;
+
+        }
+        debugger;
+
+        // this.allImages = [];
+        // console.log(result.entity);
+        // this.length = result.entity.images.length;
+        // this.allImages = result.entity.images;
 
       })
   }

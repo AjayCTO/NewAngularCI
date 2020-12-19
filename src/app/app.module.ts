@@ -15,6 +15,7 @@ import { HomeModule } from './home/home.module';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+
 import 'flatpickr/dist/flatpickr.css';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { FormsModule } from '@angular/forms';
@@ -55,6 +56,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
     FormsModule,
     SharedModule,
     UserModule,
+
     StoreModule.forRoot({}, {}),
     StoreModule.forRoot(eventsStoreReducers, { metaReducers }),
     FlatpickrModule.forRoot(),

@@ -43,7 +43,9 @@ export class CurrentInventoryGridComponent implements OnInit {
   @ViewChild('AddLocationClose', { static: true }) AddLocationClose: ElementRef<HTMLElement>;
   @ViewChild('closeInventoryModal', { static: true }) closeInventoryModal: ElementRef<HTMLElement>;
   @ViewChild('AddCustomFieldClose', { static: true }) AddCustomFieldClose: ElementRef<HTMLElement>;
+  @ViewChild('uploadActivity', { static: true }) uploadActivity: ElementRef<HTMLElement>;
   @ViewChild('UploadImage') UploadImage: ElementRef<HTMLElement>;
+
   @Input() item;
   public today: Date;
   public error: string;
@@ -65,6 +67,7 @@ export class CurrentInventoryGridComponent implements OnInit {
   listOfFiles: any[] = [];
   message = '';
   images = [];
+  imageObject: any = [];
   myForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     file: new FormControl('', [Validators.required]),
@@ -81,6 +84,7 @@ export class CurrentInventoryGridComponent implements OnInit {
   public selectedStatus: "";
   public showInventoryModel: boolean;
   public ChangeStateFields: ChangeStateFields[] = [];
+  public previewItem: any = {};
   TenantObject: any = { tenantId: 0, name: "", tenantColor: "", accountId: 0, createdBy: "Self" }
   public ChangeStateField: ChangeStateFields = {
     columnName: "",
@@ -1545,11 +1549,26 @@ export class CurrentInventoryGridComponent implements OnInit {
     debugger
     this.spinner.show();
     this.message = '';
-    this.libraryService.upload(this.selectedFiles, this.item.partId, this.selectedTenantId, this.authService.accessToken).subscribe(
+    this.libraryService.upload(this.selectedFiles, this.previewItem.partId, this.selectedTenantId, this.authService.accessToken).subscribe(
       event => {
+        debugger;
+        if (event.entity == true) {
+          // document.getElementById("uploadModelClose").click();
+          this.toastr.success("Files has been Uploaded", "SuccessFully");
+          let el: HTMLElement = this.uploadActivity.nativeElement;
+          el.click();
+
+        }
+        else {
+          this.toastr.warning("Could not upload the files");
+        }
+        this.spinner.hide();
+        this.selectedFiles = [];
+        this.listOfFiles = [];
+        this.ApplyJsFunction();
       },
       err => {
-
+        this.toastr.warning("Could not upload the files");
       });
 
   }
@@ -1564,6 +1583,30 @@ export class CurrentInventoryGridComponent implements OnInit {
     // delete file from FileList
     this.selectedFiles.splice(index, 1);
     this.images.splice(index, 1);
+
+  }
+
+  // preview image
+  previewImage(currentItemToShow) {
+    debugger;
+    this.previewItem = currentItemToShow;
+    this.imageObject = [];
+    this.previewItem.images.forEach(element => {
+      this.imageObject.push({
+        image: 'https://clearly2020storage.blob.core.windows.net:443/images/' + element.imageFriendlyName,
+        thumbImage: 'https://clearly2020storage.blob.core.windows.net:443/images/' + element.imageFriendlyName,
+        alt: 'alt of image',
+        title: 'title of image'
+      });
+    });
+
+    this.cdr.detectChanges();
+  }
+  cancel() {
+    this.selectedFiles = [];
+    this.listOfFiles = [];
+    this.previewItem = [];
+    this.imageObject = [];
 
   }
 }

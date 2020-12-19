@@ -79,24 +79,7 @@ export class ItemLibraryComponent implements OnInit {
   };
   keys: string[] = [];
   Value: String[] = [];
-  CurrentInventoryObj: CurrentInventory = {
-    partId: 0,
-    partName: "",
-    partDescription: "",
-    quantity: 0,
-    costPerUnit: 0,
-    uomId: 0,
-    uomName: "",
-    inventoryId: 0,
-    locationId: 0,
-    locationName: "",
-    statusId: 0,
-    statusValue: "",
-    actionId: 0,
-    attributeFields: [],
-    circumstanceFields: [],
-    stateFields: [],
-  }
+
   public FilterArray: DataColumnFilter[] = [];
   public edititem: boolean;
   public dataColumnFilter: DataColumnFilter = {
