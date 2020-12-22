@@ -41,6 +41,35 @@
                         </div>Home
                     </a></li> -->
                 <li class="nav__menu-item" *ngIf="_haveTenantId$ | async">
+                    <a class="nav__menu-link">Reports</a>
+                    <ul class="nav__submenu nav__submenu--1" id="submenu">
+
+                        <li class="nav__submenu-item nav__submenu--1-item nav__submenu-item--parent"><a href="#"
+                                class="nav__submenu-link">CurrentInventory</a>
+                            <ul class="nav__submenu nav__submenu--2">
+                                <li class="nav__submenu-item nav__submenu--2-item nav__submenu-item--parent"><a
+                                        routerLink="/report" class="nav__submenu-link">InventoryReports</a>
+                                    <ul class="nav__submenu nav__submenu--3">
+                                        <li class="nav__submenu-item nav__submenu--3-item nav__submenu-item--parent"><a
+                                                href="#" class="nav__submenu-link">Level 4-A-1</a>
+
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                <li class="nav__submenu-item nav__submenu--2-item"><a href="#"
+                                        class="nav__submenu-link">Level 3-A-2</a></li>
+                                <li class="nav__submenu-item nav__submenu--2-item"><a href="#"
+                                        class="nav__submenu-link">Level 3-A-3</a></li>
+                                <li class="nav__submenu-item nav__submenu--2-item"><button type="button"
+                                        class="nav__submenu-button">Create
+                                        Item</button></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="nav__menu-item" *ngIf="_haveTenantId$ | async">
                     <a class="nav__menu-link">Libraries</a>
                     <ul class="nav__submenu nav__submenu--1" id="submenu">
                         <li class="nav__menu-item"><a routerLink="/item" class=" nav__menu-link">Item-Library</a></li>

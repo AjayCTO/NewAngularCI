@@ -1,0 +1,5 @@
+<button (click)="CreateReport()" *ngIf="!creatReportOpen" type="button">Create Report</button>
+<ng-container>
+    <app-create-report *ngIf="creatReportOpen" (hideClose)="getValue($event)">
+    </app-create-report>
+</ng-container>

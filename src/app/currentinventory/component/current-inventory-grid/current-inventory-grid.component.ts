@@ -50,6 +50,7 @@ export class CurrentInventoryGridComponent implements OnInit {
   public today: Date;
   public error: string;
   public busy: boolean;
+  public a: any
   public isSelectedCount: any;
   public CheckboxShow = false;
   public selectedTenantId: number;
@@ -60,6 +61,7 @@ export class CurrentInventoryGridComponent implements OnInit {
   public IsActive: boolean;
   public selectedItem: any;
   public showForms: boolean = false;
+  public name: any;
   public ColumnDataType: string;
   public isSearchFilterActive: boolean = false;
   progressInfos = [];
@@ -325,7 +327,7 @@ export class CurrentInventoryGridComponent implements OnInit {
 
 
   ngOnInit() {
-
+    debugger;
 
 
     this.uomForm = this.formBuilder.group({
@@ -346,6 +348,7 @@ export class CurrentInventoryGridComponent implements OnInit {
     let TenantObj = localStorage.getItem('Tenant');
     this.selectedTenant = JSON.parse(TenantObj);
     this.spinner.show();
+    this.a = this.item;
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     debugger;
     this.GetTenants();
@@ -1591,12 +1594,13 @@ export class CurrentInventoryGridComponent implements OnInit {
     debugger;
     this.previewItem = currentItemToShow;
     this.imageObject = [];
+    this.name = currentItemToShow.partName;
     this.previewItem.images.forEach(element => {
       this.imageObject.push({
         image: 'https://clearly2020storage.blob.core.windows.net:443/images/' + element.imageFriendlyName,
         thumbImage: 'https://clearly2020storage.blob.core.windows.net:443/images/' + element.imageFriendlyName,
         alt: 'alt of image',
-        title: 'title of image'
+        title: element.imageFriendlyName
       });
     });
 

@@ -932,7 +932,25 @@
                         </td>
                         <td class="table__cell  icons  js-modal" data-modal="#UploadActivity" data-title="Column Title"
                             (click)="previewImage(item)">
-                            <!-- <ng-container *ngIf="item.images"></ng-container> -->
+                            <ng-container *ngIf="item.images.length==0"> <button style="height:40px ;width:40px"
+                                    type="button" data-modal="#UploadActivity"
+                                    class=" js-modal button button--small  button--theme02 button--text-only">
+                                    <svg class="icon icon--theme01 icon--add" aria-labelledby="title-5f83f10fae696"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="18">
+                                        <path fill="none" d="M0 0h48v48H0z"></path>
+                                        <path d="M28 36v12h-8V28a8 8 0 00-8-8 16 16 0 0116 16z" fill="currentColor"
+                                            class="icon__color--primary">
+                                        </path>
+                                        <path d="M20 28H0v-8h12a8 8 0 018 8z" fill="currentColor"
+                                            class="icon__color--secondary"></path>
+                                        <path d="M20 12V0h8v20a8 8 0 008 8 16 16 0 01-16-16z" fill="currentColor"
+                                            class="icon__color--primary">
+                                        </path>
+                                        <path d="M28 20h20v8H36a8 8 0 01-8-8z" fill="currentColor"
+                                            class="icon__color--secondary">
+                                        </path>
+                                    </svg>
+                                </button></ng-container>
                             <div class="card" id="image_card">
                                 <ng-container *ngFor="let image of item.images; first as isFirst">
                                     <img *ngIf="isFirst"
@@ -2696,31 +2714,32 @@
 <div id="UploadActivity" class="invModal" role="dialog" aria-labelledby="dialog-title"
     aria-describedby="dialog-description" tabindex="-1" hidden="">
     <div class="invModal__head">
-        <h1 class="invModal__title">an Image</h1>
+        <h1 class="invModal__title">{{name}}</h1>
 
     </div>
     <div class="invModal__body">
         <div>
             <h1 class="invModal__title">Images</h1>
-            <ng-image-slider [images]="imageObject" [imageSize]="{width: '25%', height: 300}" slideImage="1" #nav>
+            <ng-image-slider [images]="imageObject" [imageSize]="{width: '25%', height: 300}" #nav>
             </ng-image-slider>
         </div>
 
         <div class="form__section">
-            <h1 class="invModal__title"> Select Images</h1><br />
+            <h1 class="invModal__title"> Add new
+                Images</h1><br />
             <div class="form__col-wrap">
-                <div class="card icons icons--horziontal icons--size01"
-                    *ngFor="let item of listOfFiles;let index = index">
-                    <button type="button" class="icons__item icons__item--contains-text icons__item--theme07"
-                        style="height: 45px;border-radius: 100px;">
+                <div class="card icons icons--horziontal icons--size01">
+                    <button type="button" *ngFor="let item of listOfFiles;let index = index"
+                        class="icons__item icons__item--contains-text icons__item--theme07"
+                        style="height:55px;border-radius: 120px;">
                         <div class="icons__text" style="display: flex;align-items: center;">
                             <strong class="icons__name"> <img style="width: 30px !important;" [src]="item">
                             </strong>
                             &nbsp;&nbsp;
-                            <strong class="icons__name" *ngFor="let selectFile of selectedFiles"
-                                style="font-size: 16px;">
-                                {{selectFile.name}}
-                            </strong>
+                            <!-- <strong class="icons__name" *ngFor="let selectFile of selectedFiles"
+                                                                    style="font-size: 16px;">
+                                                                    {{selectFile.name}}
+                                                                </strong> -->
                             &nbsp;&nbsp;
                             <div class="" (click)="RemoveImageName(index)">
                                 <svg class="icon-simple icon-simple--theme01 icon-simple--remove"
@@ -2734,8 +2753,7 @@
                                 </svg>
                             </div>
                         </div>
-                    </button><br />
-
+                    </button>&nbsp;&nbsp;&nbsp;
                 </div>
                 <div class="fileinput fileinput-new" data-provides="fileinput">
                     <span class="fileinput-filename"></span>
@@ -2749,8 +2767,7 @@
         </div>
         <div class="form__section">
             <div class="form__col-wrap">
-                <button (click)="triggerFalseClick()" type="button" class="button button--medium">Add new
-                    Images</button>
+                <button (click)="triggerFalseClick()" type="button" class="button button--medium">Select files</button>
             </div>
         </div>
 
@@ -2766,9 +2783,10 @@
     <div class="invModal__footer">
 
         <div class="button-group">
-            <button [disabled]="!selectedFiles" type="button" (click)="uploadFiles()"
+            <button [ngClass]="listOfFiles.length==0?'hidden':''" type="button" (click)="uploadFiles()"
                 class="button button--medium button--theme02">Upload</button>
-            <button type="button" class="button button--medium button--text-only" (click)="cancel()" #uploadActivity
+            <button [ngClass]="listOfFiles.length==0?'hidden':''" type="button"
+                class="button button--medium button--text-only" (click)="cancel()" #uploadActivity
                 data-close="#UploadActivity">Cancel
             </button>
         </div>

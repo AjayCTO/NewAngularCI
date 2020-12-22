@@ -39,7 +39,7 @@ import { ImageLibraryComponent } from './component/image-library/image-library.c
       { path: 'status', component: StatusLibraryComponent, canActivate: [AuthGuard] },
       { path: 'item', component: ItemLibraryComponent, canActivate: [AuthGuard] },
       { path: 'EditItem', component: EditItemComponent, canActivate: [AuthGuard] },
-      { path: 'ImageLibrary', component: ImageLibraryComponent }
+      { path: 'ImageLibrary', component: ImageLibraryComponent, canActivate: [AuthGuard] }
     ]),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

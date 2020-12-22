@@ -42,7 +42,7 @@ export class DetailsComponent implements OnInit {
   });
   imgURL: any;
   public searchFilterText: string = "";
-  pageSize = 10;
+  pageSize = 8;
   pageIndex = 0;
   length = 100;
   lastPageIndex = 0;
@@ -51,7 +51,8 @@ export class DetailsComponent implements OnInit {
 
   public AssignImageOpen: boolean;
 
-
+  public ImageIds = [];
+  public AssignImageIds = [];
   fileInfos: Observable<any>;
   // public AttributeFields:any;
   public busy: boolean;
@@ -164,7 +165,25 @@ export class DetailsComponent implements OnInit {
 
   }
 
+  CheckImageSelect(imageId) {
+    let Index = this.ImageIds.indexOf(imageId);
+    if (Index == -1) {
+      this.ImageIds.push(imageId)
+    }
+    else {
+      this.ImageIds.splice(Index, 1);
+    }
 
+  }
+  checkForAssign(imageId) {
+    let Index = this.AssignImageIds.indexOf(imageId);
+    if (Index == -1) {
+      this.AssignImageIds.push(imageId)
+    }
+    else {
+      this.AssignImageIds.splice(Index, 1);
+    }
+  }
 
 
   triggerFalseClick() {
@@ -172,7 +191,6 @@ export class DetailsComponent implements OnInit {
     el.click();
   }
   RemoveImageName(index) {
-    debugger;
 
     this.listOfFiles.splice(index, 1);
     // delete file from FileList
@@ -184,6 +202,7 @@ export class DetailsComponent implements OnInit {
   AssignImagefromGallery() {
     debugger;
     this.AssignImageOpen = true;
+    modal();
     this.GetAllImage();
   }
   Close() {
@@ -205,6 +224,35 @@ export class DetailsComponent implements OnInit {
         }
       }
     }
+  }
+
+
+  deallocationImages() {
+    debugger;
+    this.libraryService.AllocateDeallocateImages(this.selectedTenantId, this.item.partId, this.ImageIds, false, this.authService.accessToken).pipe(finalize(() => {
+
+      this.spinner.hide();
+    }))
+      .subscribe(result => {
+        if (result.code == 200) {
+          this.toastr.success(result.message);
+          this.GetAllImage();
+        }
+      })
+  }
+
+  allocationImages() {
+    debugger;
+    this.libraryService.AllocateDeallocateImages(this.selectedTenantId, this.item.partId, this.AssignImageIds, true, this.authService.accessToken).pipe(finalize(() => {
+
+      this.spinner.hide();
+    }))
+      .subscribe(result => {
+        if (result.code == 200) {
+          this.toastr.success(result.message);
+          this.GetAllImage();
+        }
+      })
   }
 
   Attributevalue() {
@@ -298,7 +346,8 @@ export class DetailsComponent implements OnInit {
 
         this.allImages = [];
         console.log(result.entity);
-        this.length = result.entity.images.length;
+        this.length = result.entity.totalImages;
+
         this.allImages = result.entity.images;
 
       })
@@ -331,5 +380,20 @@ export class DetailsComponent implements OnInit {
     this.pageIndex = parseInt(this.pageIndex.toString())
     this.GetAllImage();
     this.ApplyJsFunction();
+  }
+  OpenUploadActivity = false;
+  ShowUploadActivity() {
+    this.OpenUploadActivity = true;
+  }
+  cancel() {
+    this.selectedFiles = [];
+    this.listOfFiles = [];
+    // this.previewItem = [];
+    // this.imageObject = [];
+
+  }
+  uploadimg() {
+    this.selectedFiles = [];
+    this.listOfFiles = [];
   }
 }

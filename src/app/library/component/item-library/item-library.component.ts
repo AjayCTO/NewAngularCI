@@ -133,6 +133,7 @@ export class ItemLibraryComponent implements OnInit {
   public datatype: any = ['OpenField', 'Dropdown', 'Autocomplete', 'Number', 'Currency', 'Date', 'Date & Time', 'Time', 'True/False']
   public selectedDatatype: string;
   public cfdcomboValuesString: string;
+  public item: any;
   public CfdcomboValuesDropDown: string;
   PreviewtypesDropDown: any = [];
   PreviewtypesAutocomplete: any = [];
@@ -536,7 +537,7 @@ export class ItemLibraryComponent implements OnInit {
             this.tabulatorColumn.push({ title: element.columnLabel, field: element.columnName, type: element.customeFieldType, datatype: "string", width: "170" });
           }
         });
-
+        this.item = result.entity;
         this.GetParts();
         this.ApplyJsFunction();
 

@@ -397,32 +397,62 @@
                 <h5><b style="font-size: 1.25rem;">Images</b>
                     You can assign an image by using the option
                     below. Drag images to change display order.</h5>
+                <button type="button" class="button button--medium" (click)="deallocationImages()"
+                    *ngIf="ImageIds.length!=0">De Assign
+                    Image</button>
             </div>
             <div class="form__section">
                 <div class="form__col-wrap">
-                    <div class="form__col form__col--second" style="padding: 0 14px;">
-                        <div class="UploadImageCard js-modal" data-modal="#UploadActivity">
-                            <div class="add--image">
-                                <div class="Add_Icon">
-                                    <div class="icons__item--theme11">
-                                        <svg class="icon icon--theme01 icon--add" aria-labelledby="title-5fc489b8acf9c"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="16"
-                                            height="16">
-                                            <path fill="none" d="M0 0h48v48H0z"></path>
-                                            <path d="M28 36v12h-8V28a8 8 0 00-8-8 16 16 0 0116 16z" fill="currentColor"
-                                                class="icon__color--secondary"></path>
-                                            <path d="M20 28H0v-8h12a8 8 0 018 8z" fill="currentColor"
-                                                class="icon__color--secondary">
-                                            </path>
-                                            <path d="M20 12V0h8v20a8 8 0 008 8 16 16 0 01-16-16z" fill="currentColor"
-                                                class="icon__color--secondary"></path>
-                                            <path d="M28 20h20v8H36a8 8 0 01-8-8z" fill="currentColor"
-                                                class="icon__color--secondary">
-                                            </path>
-                                        </svg>
+                    <ng-container *ngIf="selecteditem.image!=undefined&&selecteditem.image.length==0">
+
+
+                        <div class="form__col form__col--second" style="padding: 0 14px;">
+                            <div class="UploadImageCard js-modal" data-modal="#UploadActivity">
+                                <div class="add--image">
+                                    <div class="Add_Icon">
+                                        <div class="icons__item--theme11">
+                                            <svg class="icon icon--theme01 icon--add"
+                                                aria-labelledby="title-5fc489b8acf9c" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 48 48" width="16" height="16">
+                                                <path fill="none" d="M0 0h48v48H0z"></path>
+                                                <path d="M28 36v12h-8V28a8 8 0 00-8-8 16 16 0 0116 16z"
+                                                    fill="currentColor" class="icon__color--secondary"></path>
+                                                <path d="M20 28H0v-8h12a8 8 0 018 8z" fill="currentColor"
+                                                    class="icon__color--secondary">
+                                                </path>
+                                                <path d="M20 12V0h8v20a8 8 0 008 8 16 16 0 01-16-16z"
+                                                    fill="currentColor" class="icon__color--secondary"></path>
+                                                <path d="M28 20h20v8H36a8 8 0 01-8-8z" fill="currentColor"
+                                                    class="icon__color--secondary">
+                                                </path>
+                                            </svg>
+                                        </div>
                                     </div>
+                                    <h5> Upload an Image </h5>
                                 </div>
-                                <h5> Upload an Image </h5>
+
+
+                                selecteditem.image
+
+                            </div>
+                        </div>
+                    </ng-container>
+                    <div class="form__col form__col--second" *ngFor="let item of selecteditem.images"
+                        style="padding: 0 14px;">
+                        <div class="UploadImageCard">
+                            <div class="card-header">
+                                <div class="form__group form__group--checkbox">
+                                    <input id="checkbox2_{{item.imageId}}" (click)="CheckImageSelect(item.imageId)"
+                                        class="form__checkbox" type="checkbox" name="checkbox2_{{item.imageId}}">
+                                    <label class="form__group-label" for="checkbox2_{{item.imageId}}"></label>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <img
+                                    src="https://clearly2020storage.blob.core.windows.net:443/images/{{item.imageFriendlyName}}">
+                            </div>
+                            <div class="card-footer">
+                                <p>{{item.imageOrginalName}}</p>
                             </div>
                         </div>
                     </div>
@@ -432,7 +462,15 @@
             </div>
             <div class="form__section" *ngIf="AssignImageOpen">
                 <div class="AssignImgPage">
-                    <div class="pagination">
+                    <div style="margin-top: 1rem;">
+                        <button type="button" class="button button--medium" (click)="allocationImages()"
+                            [disabled]="AssignImageIds.length==0" id="image2">Assign
+                            Image</button>
+                        <button type="button" class="button button--medium button--text-only" *ngIf="AssignImageOpen"
+                            (click)="Close()">Cancel
+                        </button>
+                    </div>
+                    <div class="pagination" style="margin-left: auto;">
                         <div class="icons icons--size01 icons--horziontal">
                             <a (click)="gotoFirstPage()" class="icons__item icons__item--theme09">
                                 <div class="icons__icon"><svg
@@ -524,6 +562,7 @@
                                                 fill="currentColor" class="icon__color--primary"></path>
                                         </svg></div>
                                 </button>
+
                             </div>
                         </div>
                     </div>
@@ -536,13 +575,14 @@
                             <div class="UploadImageCard">
                                 <div class="card-header">
                                     <div class="form__group form__group--checkbox">
-                                        <input id="checkbox2_{{item.imageId}}" class="form__checkbox" type="checkbox"
-                                            name="checkbox2_{{item.imageId}}">
+                                        <input id="checkbox2_{{item.imageId}}" (click)="checkForAssign(item.imageId)"
+                                            class="form__checkbox" type="checkbox" name="checkbox2_{{item.imageId}}">
                                         <label class="form__group-label" for="checkbox2_{{item.imageId}}"></label>
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <img src="/assets/img/download.png">
+                                    <img
+                                        src="https://clearly2020storage.blob.core.windows.net:443/images/{{item.imageFriendlyName}}">
                                 </div>
                                 <div class="card-footer">
                                     <p>{{item.imageOrginalName}}</p>
@@ -559,12 +599,9 @@
                     <button type="button" class="button button--medium" *ngIf="!AssignImageOpen"
                         (click)="AssignImagefromGallery()" id="image">Assign From
                         Gallery</button>
-                    <button type="button" class="button button--medium" *ngIf="AssignImageOpen" id="image2">Assign
-                        Image</button>
-                    <button type="button" class="button button--medium button--text-only" *ngIf="AssignImageOpen"
-                        (click)="Close()">Cancel
-                    </button>
-                    <button type="button" class="button button--medium js-modal" *ngIf="!AssignImageOpen"
+
+                    <button type="button" class="button button--medium js-modal"
+                        [ngClass]="AssignImageOpen==true?'hidden':''" (click)="uploadimg()"
                         data-modal="#UploadActivity">Upload
                         an
                         Image</button>
@@ -590,10 +627,10 @@
                                                         [src]="item">
                                                 </strong>
                                                 &nbsp;&nbsp;
-                                                <strong class="icons__name" *ngFor="let selectFile of selectedFiles"
+                                                <!-- <strong class="icons__name" *ngFor="let selectFile of selectedFiles"
                                                     style="font-size: 16px;">
                                                     {{selectFile.name}}
-                                                </strong>
+                                                </strong> -->
                                                 &nbsp;&nbsp;
                                                 <div class="" (click)="RemoveImageName(index)">
                                                     <svg class="icon-simple icon-simple--theme01 icon-simple--remove"
@@ -636,10 +673,12 @@
                         <div class="invModal__footer">
 
                             <div class="button-group">
-                                <button [disabled]="!selectedFiles" type="button" (click)="uploadFiles()"
+                                <button [ngClass]="listOfFiles.length==0?'hidden':''" type="button"
+                                    (click)="uploadFiles()"
                                     class="button button--medium button--theme02">Upload</button>
-                                <button type="button" id="uploadModelClose"
-                                    class="button button--medium button--text-only" data-close="#UploadActivity">Cancel
+                                <button [ngClass]="listOfFiles.length==0?'hidden':''" type="button" (click)="cancel()"
+                                    id="uploadModelClose" class="button button--medium button--text-only"
+                                    data-close="#UploadActivity">Cancel
                                 </button>
                             </div>
                         </div>

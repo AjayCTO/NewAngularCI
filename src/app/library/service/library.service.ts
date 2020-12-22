@@ -373,7 +373,7 @@ export class LibraryService extends BaseService {
   }
 
   //allocateanddeallocateimages
-  AllocateDeallocateImages(TenantId: number, PartId: number, ImageIds: number, token: string) {
+  AllocateDeallocateImages(TenantId: number, PartId: number, ImageIds: any, isAssign: boolean, token: string) {
     debugger;
     const httpOptions = {
       headers: new HttpHeaders({
@@ -381,7 +381,7 @@ export class LibraryService extends BaseService {
         'Authorization': "bearer " + token
       })
     };
-    return this.http.post(this.configService.resourceApiURI + '/api/Library/AllocateDeallocateImages?TenantId=' + TenantId + '&PartId=' + PartId + '&ImageIds=' + ImageIds, httpOptions).pipe(map((response: {
+    return this.http.post(this.configService.resourceApiURI + '/api/Library/AllocateDeallocateImages?TenantId=' + TenantId + '&PartId=' + PartId + '&isAllocate=' + isAssign, ImageIds, httpOptions).pipe(map((response: {
       message: string;
       code: number;
       entity: boolean;

@@ -1,18 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { LibraryService } from '../../service/library.service';
 import { AuthService } from '../../../core/auth.service';
 import { finalize } from 'rxjs/operators';
 import { ItemLibraryComponent } from '../../component/item-library/item-library.component'
 import { InventoryTransactionViewModel } from '../../models/library-model';
+import { CommanSharedService } from '../../../shared/service/comman-shared.service';
+import { CurrentInventory } from '../../../currentinventory/models/admin.models';
 import inputFocus from '../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../assets/js/lib/_inputClear';
-
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import modal from '../../../../assets/js/lib/_modal'
 @Component({
   selector: 'app-image-library',
   templateUrl: './image-library.component.html',
   styleUrls: ['./image-library.component.scss']
 })
 export class ImageLibraryComponent implements OnInit {
+  @ViewChild('UploadImage') UploadImage: ElementRef<HTMLElement>
   @Input() item;
   selectedFiles: File[] = [];
   listOfFiles: any[] = [];
@@ -20,8 +25,14 @@ export class ImageLibraryComponent implements OnInit {
   message = '';
   imagesId: any = [];
   allImages: any;
+  keys: string[] = [];
+  Value: String[] = [];
+  images = [];
+  public data: any;
   public selectedTenantId: number;
+  public IsItemHave: boolean = false;
   public NotPermitted: boolean = false;
+  public selectitem: boolean = false;
   public edititem: boolean;
   public selecteditem: any = [];
   imgURL: any;
@@ -31,6 +42,7 @@ export class ImageLibraryComponent implements OnInit {
   length = 100;
   lastPageIndex = 0;
   public AssignImageOpen: boolean;
+  keyword = 'partName';
   InventoryTransactionObj: InventoryTransactionViewModel = {
     partId: 0,
     tenantId: 0,
@@ -54,14 +66,33 @@ export class ImageLibraryComponent implements OnInit {
     stateFields: [],
 
   }
-  constructor(private libraryService: LibraryService, private authService: AuthService) { }
+  public partid: number;
+  public partName: any;
+  public partNames: any;
+  public isLoadingResult: boolean = false;
+  constructor(private libraryService: LibraryService, private authService: AuthService, private toastr: ToastrService, private commanService: CommanSharedService, private spinner: NgxSpinnerService) { }
+
 
   ngOnInit(): void {
     debugger;
+    // this.spinner.show();
     this.selecteditem = this.item;
+    this.partid = 0;
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+    this.spinner.show();
+    modal();
     this.GetAllImage();
+    setTimeout(function () {
+
+      inputFocus();
+
+    }, 500)
+
   }
+
+  // get part() {
+  //   item
+  // }
   selectFiles(event) {
     debugger
     this.progressInfos = [];
@@ -100,7 +131,39 @@ export class ImageLibraryComponent implements OnInit {
 
     }, 500)
   }
+  getServerResponse(event) {
+    debugger;
+    this.ItemAutocompleteChange();
+    this.partName = event;
+    this.isLoadingResult = true;
+    this.commanService.GetItemWithTerm(event, this.selectedTenantId, this.authService.accessToken,)
+      .subscribe(response => {
+        this.data = response.entity;
+        this.isLoadingResult = false;
+      });
 
+  }
+  ItemAutocompleteChange() {
+    // this.CurrentInventoryObj.partId = 0;
+    this.IsItemHave = false;
+  }
+  selectEvent(item) {
+    debugger;
+    this.selectitem = true;
+    let itemJsonobject: any[];
+    itemJsonobject = JSON.parse(item.attributeFieldsJsonSettings);
+    this.keys = Object.keys(itemJsonobject);
+    this.Value = Object.values(itemJsonobject);
+    this.partid = item.partId;
+    this.partNames = item.partName;
+
+    // this.CurrentInventoryObj.partDescription = this.selecteditem.partDescription;
+    // this.selectedUOm = item.uomId;
+    // this.selectedLocation = item.locationId;
+    // this.selectedStatus = item.statusValue;
+
+
+  }
   AssignImagefromGallery() {
     debugger;
     this.AssignImageOpen = true;
@@ -112,11 +175,24 @@ export class ImageLibraryComponent implements OnInit {
 
   triggerFalseClick() {
 
-
+    let el: HTMLElement = this.UploadImage.nativeElement;
+    el.click();
   }
-  selectid(id) {
+  // selectid(id) {
+  //   debugger;
+  //   this.imagesId = id;
+  // }
+
+  CheckImageSelect(imageId) {
     debugger;
-    this.imagesId = id;
+    let Index = this.imagesId.indexOf(imageId);
+    if (Index == -1) {
+      this.imagesId.push(imageId)
+    }
+    else {
+      this.imagesId.splice(Index, 1);
+    }
+
   }
   RemoveSearchFilter() {
     debugger;
@@ -126,17 +202,18 @@ export class ImageLibraryComponent implements OnInit {
   }
   GetAllImage() {
     debugger;
+
     this.libraryService.GetTenantImages(this.selectedTenantId, this.pageSize, this.pageIndex, this.searchFilterText, this.authService.accessToken)
       .pipe(finalize(() => {
 
-        //this.spinner.hide();
+        this.spinner.hide();
       })).subscribe(result => {
         if (result.code == 403) {
           this.NotPermitted = true;
 
         }
         debugger;
-
+        // this.spinner.hide();
         this.allImages = [];
         console.log(result.entity);
         this.length = result.entity.images.length;
@@ -146,16 +223,26 @@ export class ImageLibraryComponent implements OnInit {
   }
   AssignImages() {
     debugger;
-    this.libraryService.AllocateDeallocateImages(this.selectedTenantId, this.InventoryTransactionObj.partId, this.imagesId, this.authService.accessToken)
+    this.spinner.show();
+    this.libraryService.AllocateDeallocateImages(this.selectedTenantId, this.partid, this.imagesId, true, this.authService.accessToken)
       .pipe(finalize(() => {
 
-        //this.spinner.hide();
+        this.spinner.hide();
       })).subscribe(result => {
         if (result.code == 403) {
           this.NotPermitted = true;
 
         }
+        if (result.code == 200) {
+          this.toastr.success(result.message);
+          this.GetAllImage()
+        }
+        else {
+          this.toastr.warning("you cant Assign image");
+        }
         debugger;
+        this.imagesId = [];
+        // this.toastr.success(result.message);
 
         // this.allImages = [];
         // console.log(result.entity);
@@ -178,6 +265,46 @@ export class ImageLibraryComponent implements OnInit {
   gotoLastPage() {
     this.GetAllImage();
   }
+  uploadFiles() {
+    debugger;
+    this.spinner.show();
+    this.message = '';
+    this.libraryService.upload(this.selectedFiles, this.partid, this.selectedTenantId, this.authService.accessToken).subscribe(
+      event => {
+        debugger;
+        if (event.entity == true) {
+
+          document.getElementById("uploadModelClose").click();
+          this.toastr.success("Files has been Uploaded", "SuccessFully");
+          this.GetAllImage()
+        }
+        else {
+          this.toastr.warning("Could not upload the files");
+        }
+        this.spinner.hide();
+        this.ApplyJsFunction();
+      },
+      err => {
+        this.toastr.warning("Could not upload the files");
+      });
+
+  }
+  RemoveImageName(index) {
+
+    this.listOfFiles.splice(index, 1);
+    // delete file from FileList
+    this.selectedFiles.splice(index, 1);
+    this.images.splice(index, 1);
+
+  }
+  cancel() {
+    this.selectedFiles = [];
+    this.listOfFiles = [];
+    // this.previewItem = [];
+    // this.imageObject = [];
+
+  }
+
 }
 
 
