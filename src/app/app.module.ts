@@ -31,7 +31,6 @@ import { NgxPopperModule } from 'ngx-popper';
 import { DynamicEventsModule } from './dynamic-events/dynamic-events.module';
 // import { AddCustomFieldComponent } from './add-custom-field/add-custom-field.component';
 import { ClickOutsideModule } from 'ng-click-outside';
-import { NgImageSliderModule } from 'ng-image-slider';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +46,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     LibraryModule, ClickOutsideModule,
-    HomeModule, NgImageSliderModule,
+    HomeModule,
     NgxSpinnerModule,
     DynamicEventsModule,
     AccountModule,
