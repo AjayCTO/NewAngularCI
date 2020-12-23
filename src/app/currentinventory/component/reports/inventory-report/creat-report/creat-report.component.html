@@ -43,7 +43,7 @@
         <form class="form" style="margin: 0;max-width: 100%;">
             <div class="form__section">
                 <h2 class="form__section-title">Choose Columns, Filters and Sort orders
-                    <button type="button" class="invModal__control" (click)="showAdvanced()">Advanced</button>
+                    <button type="button" class="invModal__control">Advanced</button>
                     <button type="submit" class="button button--medium" style="margin-left: auto;">Reset
                         Shorting</button>
                 </h2>
@@ -252,21 +252,110 @@
                                 </td>
                                 <td class="table__cell" data-title="Column Title">
                                     <div class="form__col">
-                                        <div class="form__col form__col--full">
+                                        <!-- <div>
+                                            <button type="button" id="filterButton"
+                                                class="icons__item icons__item--outline icons__item--theme07 js-toggle">
+                                                <div class="icons__icon"
+                                                    style="height: 2rem;width: 2rem;border-radius: 0;"><svg
+                                                        class="icon-simple icon-simple--theme01 icon-simple--add"
+                                                        aria-labelledby="title-5f7cd7ce12c29"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                        width="12" height="12">
+                                                        <path fill="none" d="M0 0h24v24H0z"></path>
+                                                        <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                                                        <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                                                    </svg></div>
+                                                <span class="icons__label"></span>
+
+                                                <div class="icons__submenu icons__submenu--from-left"
+                                                    style="width:260px">
+                                                    <ul class="icons__submenu-list">
+                                                        <li
+                                                            class="icons__submenu-item icons__submenu-item--contains-input">
+                                                            <div class="form__col">
+                                                                <label class="form__label form__label--hidden"
+                                                                    for="list-dropdown2">Dropdown</label>
+                                                                <select class="form__input form__select"
+                                                                    id="list-dropdown2" name="list-dropdown2">
+                                                                    <option value="">Choose Filter</option>
+                                                                    <option value="num-eq">Equals</option>
+                                                                    <option value="num-ne">Does NOT Equal</option>
+                                                                    <option value="num-gte">Greater Than OR Equals
+                                                                    </option>
+                                                                    <option value="num-lte">Less Than OR Equals
+                                                                    </option>
+                                                                    <option value="Empty">Is Null (Empty)</option>
+                                                                </select>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </button>
+                                        </div> -->
+                                        <div class="form__col form__col--full" style="display: flex;">
+
                                             <label class="form__label" for="12">One Third</label>
                                             <input class="form__input" type="text" id="12" name="12">
                                         </div>
                                     </div>
                                 </td>
                                 <td class="table__cell" data-title="Column Title">
-                                    Data
+                                    <div class="form__col">
+                                        <select class="floating-select" id="list-dropdown1" name="list-dropdown1"
+                                            value="">
+                                            <option value=""></option>
+                                            <option>One</option>
+                                            <option>Two</option>
+                                            <option>Three</option>
+                                            <option>Four</option>
+                                        </select>
+                                        <span class="highlight"></span>
+                                        <label class="form__label form_label form__label--hidden">Dropdown</label>
+                                    </div>
                                 </td>
                                 <td class="table__cell" data-title="Column Title">
-                                    Data
+                                    <div class="form__col">
+                                        <select class="floating-select" id="list-dropdown1" name="list-dropdown1"
+                                            value="">
+                                            <option value=""></option>
+                                            <option>Ascending</option>
+                                            <option>Descending</option>
+                                        </select>
+                                        <span class="highlight"></span>
+                                        <label class="form__label form_label form__label--hidden">Dropdown</label>
+                                    </div>
                                 </td>
-                                <td class="table__cell" data-title="Column Title">
+                                <td class="table__cell" data-title="Column Title" style="padding-top: 0;">
+                                    <div class="icons icons--size02">
+                                        <button class="icons__item icons__item--theme02" type="button">
+                                            <div class="icons__item">
+                                                <div class="icons__icon">
+                                                    <svg class="icon icon--theme01 icon--remove"
+                                                        aria-labelledby="title-5fdc960b960e8"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                                                        width="48" height="48">
+                                                        <path fill="none" d="M0 0h48v48H0z"></path>
+                                                        <path
+                                                            d="M12.7 18.3L4.2 9.9l5.7-5.7L24 18.3a7.9 7.9 0 0011.3 0 15.9 15.9 0 01-22.6 0z"
+                                                            fill="currentColor" class="icon__color--primary"></path>
+                                                        <path class="icon__color--secondary"
+                                                            d="M24 18.3L38.1 4.2l5.7 5.7-8.5 8.4a7.9 7.9 0 01-11.3 0z"
+                                                            fill="currentColor"></path>
+                                                        <path class="icon__color--primary"
+                                                            d="M35.3 28.9l8.5 8.5-5.7 5.6L24 28.9a8 8 0 00-11.3 0 15.9 15.9 0 0122.6 0z"
+                                                            fill="currentColor"></path>
+                                                        <path class="icon__color--secondary"
+                                                            d="M24 28.9L9.9 43l-5.7-5.6 8.5-8.5a8 8 0 0111.3 0z"
+                                                            fill="currentColor"></path>
+                                                    </svg>
+                                                </div>
+                                                <span class="icons__label">Cancel</span>
+                                            </div>
+                                        </button>
+                                    </div>
                                     <!-- <div class="icons__item">
-                                        <div class="icons__icon"><svg class="icon icon--theme01 icon--remove"
+                                        <div class="icons__icon">
+                                            <svg class="icon icon--theme01 icon--remove"
                                                 aria-labelledby="title-5fdc960b960e8" xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 48 48" width="48" height="48">
                                                 <path fill="none" d="M0 0h48v48H0z"></path>
@@ -282,7 +371,8 @@
                                                 <path class="icon__color--secondary"
                                                     d="M24 28.9L9.9 43l-5.7-5.6 8.5-8.5a8 8 0 0111.3 0z"
                                                     fill="currentColor"></path>
-                                            </svg></div>
+                                            </svg>
+                                        </div>
                                         <span class="icons__label">Remove</span>
                                     </div> -->
                                 </td>

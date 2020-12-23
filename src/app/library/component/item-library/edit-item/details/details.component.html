@@ -163,8 +163,7 @@
 
                                     <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
                                         id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
-                                        value="{{field.columnValue}}" formControlName="{{field.columnId}}"
-                                        class="form__input">
+                                        [(ngModel)]="field.columnValue" class="form__input">
                                     <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
                                         [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
                                             class="icon-simple icon-simple--theme01 icon-simple--info"

@@ -1,5 +1,1457 @@
-<button (click)="CreateReport()" *ngIf="!creatReportOpen" type="button">Create Report</button>
+<!-- <button (click)="CreateReport()" *ngIf="!creatReportOpen" type="button">Create Report</button>
 <ng-container>
     <app-create-report *ngIf="creatReportOpen" (hideClose)="getValue($event)">
     </app-create-report>
-</ng-container>
+</ng-container> -->
+<div class="actions">
+    <div class="actions__title">
+
+        <h2> <strong>Current Inventory </strong></h2>
+
+        <div style="margin-top: 60px;margin-left: -200px;">
+            <p>This report shows where everything is right now.
+            </p>
+        </div>
+    </div>
+
+
+    <div class="actions__wrap">
+        <div class="icons__item">
+            <div class="icons__icon"><svg class="icon icon--theme01 icon--download"
+                    aria-labelledby="title-5f7c9ac573e4a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                    width="48" height="48">
+                    <path
+                        d="M42.2 37.8A5.8 5.8 0 0038 36H10a6 6 0 00-6 6 5.6 5.6 0 001.8 4.2A5.6 5.6 0 0010 48h28a6 6 0 006-6 5.6 5.6 0 00-1.8-4.2zM38 45a3 3 0 113-3 2.9 2.9 0 01-3 3z"
+                        fill="currentColor" class="icon__color--primary"></path>
+                    <path d="M0 48h48V0H0z" fill="none"></path>
+                    <path d="M29 23.9a8 8 0 006.3-3h.1l8.8-11.6-6.3-4.9-4 5.2-9.7 12.6a7.6 7.6 0 004.8 1.7z"
+                        fill="currentColor" class="icon__color--secondary"></path>
+                    <path
+                        d="M17.6 27.3L3.8 9.3l6.3-4.9 12.6 16.4a6.7 6.7 0 001.5 1.4 7.6 7.6 0 004.8 1.7 8 8 0 006.3-3l-5 6.4a8 8 0 01-12.7 0z"
+                        fill="currentColor" class="icon__color--primary"></path>
+                </svg></div>
+            <span class="icons__label">Download</span>
+        </div>
+
+
+        <div class="icons__item">
+            <button type="button" class="icons__item  js-toggle icons__item--theme01" aria-expanded="true">
+                <div class="icons__icon"><svg class="icon icon--theme01 icon--menu"
+                        aria-labelledby="title-5f7c9b3feaf73" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                        width="48" height="48">
+                        <path fill="none" d="M0 0h48v48H0z"></path>
+                        <circle cx="8" cy="24" r="6" fill="currentColor" class="icon__color--primary"></circle>
+                        <circle cx="8" cy="10" r="4" fill="currentColor" class="icon__color--secondary"></circle>
+                        <circle cx="8" cy="38" r="4" fill="currentColor" class="icon__color--secondary"></circle>
+                        <rect x="16.4" y="6" width="31" height="8" rx="4" fill="currentColor"
+                            class="icon__color--secondary">
+                        </rect>
+                        <rect x="16.4" y="34" width="31" height="8" rx="4" fill="currentColor"
+                            class="icon__color--secondary">
+                        </rect>
+                        <rect x="16.4" y="18" width="31" height="12" rx="6" fill="currentColor"
+                            class="icon__color--primary">
+                        </rect>
+                    </svg></div>
+                <span class="icons__label">More</span>
+                <ul class="icons__submenu icons__submenu--from-right">
+
+                    <li class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent"><a
+                            class="icons__submenu-link">Statement Per
+                            page</a>
+
+                    </li>
+                    <li class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent"><a
+                            class="icons__submenu-link">Set Column
+                            width</a>
+
+                    </li>
+                    <li class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent"><a
+                            class="icons__submenu-link">Hide Filters</a>
+
+                    </li>
+                    <li class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent"><a
+                            class="icons__submenu-link">Hide
+                            Filters</a>
+
+                    </li>
+
+                    <li class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent"><a
+                            class="icons__submenu-link">Clear All
+                            Filter</a>
+
+                    </li>
+
+                </ul>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="taskbar">
+    <div class="taskbar__col">
+        <form class="form form--search" style="margin-left:5px;width: 330px; display: inline-flex;">
+            <div class="form__section">
+                <div class="form__col-wrap">
+                    <div class="form__col">
+                        <label for="search" class="form__label form__label--hidden">Search</label>
+                        <input class="form__input form__input--search" type="search" id="search" name="search"
+                            autocomplete="off" placeholder="Search">
+                        <button type="button" class="form__clear form__icon icons__item icons__item--theme03 js-clear"
+                            data-field-to-clear="#search">
+                            <div class="icons__icon"><svg class="icon icon--theme01 icon--remove"
+                                    aria-labelledby="title-5f7cca8a45299" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 48 48" width="48" height="48">
+                                    <path fill="none" d="M0 0h48v48H0z"></path>
+                                    <path
+                                        d="M12.7 18.3L4.2 9.9l5.7-5.7L24 18.3a7.9 7.9 0 0011.3 0 15.9 15.9 0 01-22.6 0z"
+                                        fill="currentColor" class="icon__color--primary"></path>
+                                    <path class="icon__color--secondary"
+                                        d="M24 18.3L38.1 4.2l5.7 5.7-8.5 8.4a7.9 7.9 0 01-11.3 0z" fill="currentColor">
+                                    </path>
+                                    <path class="icon__color--primary"
+                                        d="M35.3 28.9l8.5 8.5-5.7 5.6L24 28.9a8 8 0 00-11.3 0 15.9 15.9 0 0122.6 0z"
+                                        fill="currentColor"></path>
+                                    <path class="icon__color--secondary"
+                                        d="M24 28.9L9.9 43l-5.7-5.6 8.5-8.5a8 8 0 0111.3 0z" fill="currentColor">
+                                    </path>
+                                </svg></div>
+                        </button>
+                        <button type="button" class="form__submit form__icon icons__item">
+                            <div class="icons__icon"><svg class="icon icon--theme01 icon--search"
+                                    aria-labelledby="title-5f7cca8a452b7" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 48 48" width="48" height="48">
+                                    <path fill="none" d="M0 0h48v48H0z"></path>
+                                    <path
+                                        d="M31.9 27.7l9.9 9.9a3.1 3.1 0 010 4.2 3 3 0 01-4.3 0L27.4 31.7a6 6 0 00-4.6-1.7 8.3 8.3 0 004.8-2.3 3 3 0 014.3 0z"
+                                        fill="currentColor" class="icon__color--secondary"></path>
+                                    <path
+                                        d="M27.7 9.2a14 14 0 018.1 10.9 2.9 2.9 0 01-3.3 3.3 3 3 0 01-2.6-2.6 7.8 7.8 0 00-3.6-5.5 8 8 0 00-8.4-.2 8.1 8.1 0 00-1.6 12.6 7.9 7.9 0 006.3 2.3h.2a6 6 0 014.6 1.7l2.1 2.1-.6.4a14.5 14.5 0 01-11.7 1A14.1 14.1 0 0114.7 10a14.2 14.2 0 0113-.8z"
+                                        fill="currentColor" class="icon__color--primary"></path>
+                                </svg></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </form> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" class="button button--large button--outline js-modal">
+            Copy This Report
+        </button>
+        <button type="button" class="button button--large button--icon button--theme02 js-modal"
+            routerLink="/createreport">
+            <svg class="icon-simple icon-simple--theme01 icon-simple--add" aria-labelledby="title-5f86742813ab3"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="13" height="13">
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+            </svg> &nbsp;Create Report
+        </button>
+    </div>
+    <div class="taskbar__col">
+        <div class="taskbar__filter">
+            <div class="icons icons--horziontal">
+                <div class="icons__item icons__item--theme07">
+                    <div class="icons__icon"><svg class="icon icon--filter" aria-labelledby="title-5f7ccaeabc0a7"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+                            <path fill="none" d="M0 0h48v48H0z"></path>
+                            <path
+                                d="M40 13.7a5.6 5.6 0 01-1.7 4 5.5 5.5 0 01-4 1.6 5.8 5.8 0 01-4-1.7 5.4 5.4 0 00-4-1.6h-8.6a3.9 3.9 0 00-3.7 2.5 3.8 3.8 0 00.8 4.3l-4.5-4.5A7.9 7.9 0 018 12.7 4.7 4.7 0 0112.7 8h21.6a5.7 5.7 0 013.6 1.3.8.8 0 01.4.4 5.3 5.3 0 011.7 4z"
+                                fill="currentColor" class="icon__color--primary"></path>
+                            <path
+                                d="M28 28v12h-8V29.7a4 4 0 00-1.2-2.9l-4-4a3.8 3.8 0 01-.8-4.3 3.9 3.9 0 013.7-2.5h1.6l3.3 3.2 3.1 3.2A7.9 7.9 0 0128 28z"
+                                fill="currentColor" class="icon__color--secondary"></path>
+                        </svg></div>
+
+                    <span class="icons__label">ACTIVE FILTERS</span>
+
+                    <svg aria-labelledby="title-5f7dd3f9c4a21" xmlns="http://www.w3.org/2000/svg" width="8.081"
+                        height="11.544" viewBox="0 0 8.081 11.544">
+                        <g data-name="Group 3641">
+                            <path data-name="Path 1713"
+                                d="M6.926 4.617V2.886a2.886 2.886 0 10-5.771 0v1.731A1.242 1.242 0 00.001 5.772v4.617a1.241 1.241 0 001.154 1.155h5.771a1.241 1.241 0 001.155-1.155V5.772a1.242 1.242 0 00-1.155-1.155zm-1.153 0H2.309V2.886a1.732 1.732 0 113.464 0z"
+                                fill="#abb3bb"></path>
+                        </g>
+                    </svg>
+
+                </div>
+                <div class="icons__icon">
+                    <a class="command__isolated"> Clear All </a>
+                </div>
+            </div>
+            <div class="card icons icons--horziontal icons--size01">
+                <!-- <button type="button" class="icons__item icons__item--contains-text icons__item--theme07"> -->
+                <!-- <div class="icons__text"><strong class="icons__name">Name</strong> -->
+                <!-- <span><img src="../../../../assets/img/filter/BeginsWith.gif"></span>
+                        <span><img src="../../../../assets/img/filter/Contains.gif"></span>
+                        <span><img src="../../../../assets/img/filter/DoesNotContain.gif"></span>
+                        <span><img src="../../../../assets/img/filter/EqualTo.gif"></span>
+                        <span><img src="../../../../assets/img/filter/NotEqualTo.gif"></span>
+                        <span><img src="../../../../assets/img/filter/GreaterThanOrEqualTo.gif"></span>
+                        <span><img src="../../../../assets/img/filter/LessThanOrEqualTo.gif"></span>
+                        <span><img src="../../../../assets/img/filter/IsNull.gif"></span>
+                        <span class="icons__value">value</span> -->
+                <!-- </div> -->
+                <!-- <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--remove"
+                            aria-labelledby="title-5f7cbab264ccf" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="24" height="24">
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path fill="currentColor" d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                            <path fill="currentColor" d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z">
+                            </path>
+                        </svg></div> -->
+                <!-- </button> -->
+
+
+                <button type="button" id="filterButton"
+                    class="icons__item icons__item--outline icons__item--theme07 js-toggle">
+                    <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
+                            aria-labelledby="title-5f7cd7ce12c29" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="24" height="24">
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                            <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                        </svg></div>
+                    <span class="icons__label">Add Filter</span>
+
+                    <!-- <div class="icons__submenu icons__submenu--from-left" style="width:260px">
+                        <ul class="icons__submenu-list">
+                            <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                <div class="form__col">
+
+                                    <select class="floating-select" (ngModelChange)='onOptionsSelected($event)'
+                                        [(ngModel)]="dataColumnFilter.columnName" id="list-dropdown1"
+                                        name="list-dropdown1" value="">
+                                        <option value="">Choose Column</option>
+                                        <option *ngFor="let opt of tabulatorColumn" [value]="opt.field">
+                                            {{opt.title}}
+                                        </option>
+                                    </select>
+                                    <span class="highlight"></span>
+                                    <label class="form__label form_label form__label--hidden">Dropdown</label>
+                                </div>
+                            </li>
+                            <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                *ngIf="ColumnDataType=='string'">
+                                <div class="form__col">
+                                    <label class="form__label form__label--hidden" for="list-dropdown1">Dropdown</label>
+                                    <select class="form__input form__select"
+                                        [(ngModel)]="dataColumnFilter.filterOperator" id="list-dropdown1"
+                                        name="list-dropdown1">
+                                        <option value="">Choose Filter</option>
+                                        <option value="cn">Contains</option>
+                                        <option value="nc">Does NOT Contain</option>
+                                        <option value="eq">Equals</option>
+                                        <option value="ne">Does NOT Equal</option>
+                                        <option value="bw">Begins With</option>
+                                        <option value="Empty">Is Empty</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                *ngIf="ColumnDataType=='stringUom'">
+                                <div class="form__col">
+                                    <label class="form__label form__label--hidden" for="list-dropdown3">Dropdown</label>
+                                    <select class="form__input form__select"
+                                        [(ngModel)]="dataColumnFilter.filterOperator" id="list-dropdown3"
+                                        name="list-dropdown1">
+                                        <option value="">Choose Filter</option>
+                                        <option value="eq">Equals</option>
+                                        <option value="nc">Does NOT Contain</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                *ngIf="ColumnDataType=='stringStatus'">
+                                <div class="form__col">
+                                    <label class="form__label form__label--hidden" for="list-dropdown4">Dropdown</label>
+                                    <select class="form__input form__select"
+                                        [(ngModel)]="dataColumnFilter.filterOperator" id="list-dropdown4"
+                                        name="list-dropdown1">
+                                        <option value="">Choose Filter</option>
+                                        <option value="eq">Equals</option>
+                                        <option value="nc">Does NOT Contain</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                *ngIf="ColumnDataType=='number'">
+                                <div class="form__col">
+                                    <label class="form__label form__label--hidden" for="list-dropdown2">Dropdown</label>
+                                    <select class="form__input form__select"
+                                        [(ngModel)]="dataColumnFilter.filterOperator" id="list-dropdown2"
+                                        name="list-dropdown2">
+                                        <option value="">Choose Filter</option>
+                                        <option value="num-eq">Equals</option>
+                                        <option value="num-ne">Does NOT Equal</option>
+                                        <option value="num-gte">Greater Than OR Equals</option>
+                                        <option value="num-lte">Less Than OR Equals</option>
+                                        <option value="Empty">Is Null (Empty)</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                *ngIf="ColumnDataType!=undefined&&ColumnDataType!='stringStatus'&&ColumnDataType!='stringUom'">
+                                <div class="form__col">
+                                    <label class="form__label" for="value1">Value</label>
+                                    <input class="form__input" [(ngModel)]="dataColumnFilter.searchValue" type="text"
+                                        id="value1" name="value1">
+                                </div>
+                            </li>
+                            <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                *ngIf="ColumnDataType!=undefined&&ColumnDataType=='stringStatus'">
+                                <div class="form__col">
+                                    <label class="form__label form__label--hidden" for="list-dropdown5">Value</label>
+                                    <select class="form__input form__select" [(ngModel)]="dataColumnFilter.searchValue"
+                                        id="list-dropdown5" name="list-dropdown5">
+                                        <option value="">Choose Filter</option>
+                                        <option *ngFor="let opt of statusList" [value]="opt.statusValue">
+                                            {{opt.statusValue}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                *ngIf="ColumnDataType!=undefined&&ColumnDataType=='stringUom'">
+                                <div class="form__col">
+                                    <label class="form__label form__label--hidden" for="list-dropdown6">Value</label>
+                                    <select class="form__input form__select" [(ngModel)]="dataColumnFilter.searchValue"
+                                        id="list-dropdown6" name="list-dropdown5">
+                                        <option value="">Choose Filter</option>
+                                        <option *ngFor="let opt of uomList" [value]="opt.uomName">
+                                            {{opt.uomName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                        <div class="button-group" *ngIf="ColumnDataType!=undefined">
+                            <a class="button button--small button--text-only" (click)="CloseFilter()">Cancel</a>
+                            <a class="button button--small" (click)="ApplyFilter()">Apply</a>
+                        </div>
+                    </div> -->
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<section class="main">
+
+
+
+
+    <!-- <li class="nav__menu-item" style="display: inline-flex; z-index: 3;">
+        <a class=" nav__menu-link">More</a>
+        <ul class="nav__submenu nav__submenu--1" id="submenu">
+
+            <li class="nav__submenu-item nav__submenu--1-item nav__submenu-item--parent"><a
+                    class="nav__submenu-link">Statement Per page</a>
+                <ul class="nav__submenu nav__submenu--2">
+                    <li class="nav__submenu-item "><a class="nav__submenu-link">25</a>
+
+                    </li>
+                    <li class="nav__submenu-item "><a class="nav__submenu-link">50</a>
+
+                    </li>
+
+
+                </ul>
+            </li>
+            <li class="nav__submenu-item nav__submenu--1-item "><a class="nav__submenu-link">Set Column width</a>
+
+            </li>
+            <li class="nav__submenu-item nav__submenu--1-item "><a class="nav__submenu-link">Hide Filters</a>
+
+            </li>
+            <li class="nav__submenu-item nav__submenu--1-item "><a class="nav__submenu-link">Clear All Filter</a>
+
+            </li>
+        </ul>
+    </li> -->
+
+
+    <!-- <button type="button" class="button button--large js-modal">
+        Set column Widths
+    </button> -->
+
+    <!-- <li class="nav__menu-item" style="display: inline-flex; z-index: 3;">
+        <a class=" nav__menu-link">Download Reports</a>
+        <ul class="nav__submenu nav__submenu--1" id="submenu">
+
+            <li class="nav__submenu-item nav__submenu--1-item"><a class="nav__submenu-link">Download As pdf</a>
+
+            </li>
+            <li class="nav__submenu-item nav__submenu--1-item "><a class="nav__submenu-link">Download As xls</a>
+
+            </li>
+             <li class="nav__submenu-item nav__submenu--1-item "><a class="nav__submenu-link">Hide Filters</a>
+
+                </li>
+                <li class="nav__submenu-item nav__submenu--1-item "><a class="nav__submenu-link">Clear All Filter</a>
+
+                </li> 
+    </ul>
+    </li> -->
+
+
+    <div class="pagination">
+        <div class="icons icons--size02 icons--horziontal">
+            <a class="icons__item icons__item--theme09" (click)="gotoFirstPage()">
+                <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--first"
+                        aria-labelledby="title-5f8080f1a0466" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z"></path>
+                        <path fill="currentColor" d="M2 3h4v18H2zm6 7.6v2.8l11.4 8.7 2.4-3.2-9-6.9 9-6.9-2.4-3.2z">
+                        </path>
+                    </svg></div>
+            </a>
+            <a class="icons__item icons__item--theme09" (click)="gotoBack()">
+                <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--previous"
+                        aria-labelledby="title-5f8080f1a0482" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z"></path>
+                        <path d="M2.2 12l13.2 10.1 2.4-3.2-9-6.9 9-6.9-2.4-3.2z" fill="currentColor"></path>
+                    </svg></div>
+            </a>
+        </div>
+        <span class="footer__statements">Statements
+            {{pageIndex*pageSize}}-{{(pageIndex+1)*(pageSize>length?length:pageSize)}}</span>
+        <div class="icons icons--size02 icons--horziontal">
+            <a class="icons__item icons__item--theme09" (click)="gotoNext()">
+                <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--next"
+                        aria-labelledby="title-5f8080f1a0490" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z"></path>
+                        <path d="M8.6 1.9L6.2 5.1l9 6.9-9 6.9 2.4 3.2L21.8 12z" fill="currentColor"></path>
+                    </svg></div>
+            </a>
+            <a class="icons__item icons__item--theme09" (click)="gotoLastPage()">
+                <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--last"
+                        aria-labelledby="title-5f8080f1a049c" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z"></path>
+                        <path fill="currentColor" d="M18 3h4v18h-4zM4.6 1.9L2.2 5.1l9 6.9-9 6.9 2.4 3.2L16 13.4v-2.8z">
+                        </path>
+                    </svg></div>
+            </a>
+        </div>
+        <span class="footer__total">of {{length}}</span>
+    </div>
+    <div class="table">
+        <table class="table__table">
+
+            <thead class="table__section table__section--head">
+                <tr class="table__row table__row--head">
+                    <th scope="col" class="table__heading">
+                        <div class="table__heading-title">Quantity</div>
+                        <div class="table__heading-options">
+                            <div class="icons icons--horziontal icons--size02">
+                                <button type=" button" class="icons__item  js-toggle">
+                                    <div class="icons__icon">
+                                        <svg class="icon icon--theme01 icon--filter"
+                                            aria-labelledby="title-5f83f48269fe1" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 48 48" width="48" height="48">
+                                            <path fill="none" d="M0 0h48v48H0z"></path>
+                                            <path
+                                                d="M40 13.7a5.6 5.6 0 01-1.7 4 5.5 5.5 0 01-4 1.6 5.8 5.8 0 01-4-1.7 5.4 5.4 0 00-4-1.6h-8.6a3.9 3.9 0 00-3.7 2.5 3.8 3.8 0 00.8 4.3l-4.5-4.5A7.9 7.9 0 018 12.7 4.7 4.7 0 0112.7 8h21.6a5.7 5.7 0 013.6 1.3.8.8 0 01.4.4 5.3 5.3 0 011.7 4z"
+                                                fill="currentColor" class="icon__color--primary"></path>
+                                            <path
+                                                d="M28 28v12h-8V29.7a4 4 0 00-1.2-2.9l-4-4a3.8 3.8 0 01-.8-4.3 3.9 3.9 0 013.7-2.5h1.6l3.3 3.2 3.1 3.2A7.9 7.9 0 0128 28z"
+                                                fill="currentColor" class="icon__color--secondary"></path>
+                                        </svg>
+                                    </div>
+                                    <!-- <div class="icons__submenu icons__submenu--from-left" style="min-width: 280px;">
+                                        <ul class="icons__submenu-list">
+                                            <ng-container *ngIf="itemHeader.datatype=='string'">
+                                                <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                    <div class="form__col">
+                                                        <select class="floating-select"
+                                                            [(ngModel)]="dataColumnFilter.filterOperator"
+                                                            id="list-dropdown_{{itemHeader.field}}"
+                                                            name="list-dropdown_{{itemHeader.field}}">
+                                                            <option value="">Choose Filter</option>
+                                                            <option value="cn">Contains</option>
+                                                            <option value="nc">Does NOT Contain</option>
+                                                            <option value="eq">Equals</option>
+                                                            <option value="ne">Does NOT Equal</option>
+                                                            <option value="bw">Begins With</option>
+                                                            <option value="Empty">Is Empty</option>
+                                                        </select>
+                                                        <span class="highlight"></span>
+                                                        <label
+                                                            class="form__label form_label form__label--hidden">Dropdown</label>
+                                                    </div>
+                                                </li>
+                                            </ng-container>
+                                            <ng-container *ngIf="itemHeader.datatype=='stringUom'">
+                                                <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                    <div class="form__col">
+                                                        <select class="floating-select"
+                                                            [(ngModel)]="dataColumnFilter.filterOperator"
+                                                            id="list-dropdown{{itemHeader.field}}"
+                                                            name="list-dropdownuom{{itemHeader.field}}">
+                                                            <option value="">Choose Filter</option>
+                                                            <option value="eq">Equals</option>
+                                                            <option value="nc">Does NOT Contain</option>
+                                                        </select>
+                                                        <span class="highlight"></span>
+                                                        <label
+                                                            class="form__label form_label form__label--hidden">Dropdown</label>
+                                                    </div>
+                                                </li>
+                                            </ng-container>
+                                            <ng-container *ngIf="itemHeader.datatype=='stringStatus'">
+                                                <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                    <div class="form__col">
+                                                        <label class="form__label form__label--hidden"
+                                                            for="list-dropdownstatus{{itemHeader.field}}">Dropdown</label>
+                                                        <select class="floating-select"
+                                                            [(ngModel)]="dataColumnFilter.filterOperator"
+                                                            id="list-dropdownstatus{{itemHeader.field}}"
+                                                            name="list-dropdownstatus{{itemHeader.field}}">
+                                                            <option value="">Choose Filter</option>
+                                                            <option value="eq">Equals</option>
+                                                            <option value="nc">Does NOT Contain</option>
+                                                        </select>
+                                                    </div>
+                                                </li>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="itemHeader.datatype=='number'">
+                                                <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                    <div class="form__col">
+                                                        <label class="form__label form__label--hidden"
+                                                            for="list-dropdown{{itemHeader.field}}">Dropdown</label>
+                                                        <select class="floating-select"
+                                                            [(ngModel)]="dataColumnFilter.filterOperator"
+                                                            id="list-dropdown{{itemHeader.field}}"
+                                                            name="list-dropdown{{itemHeader.field}}">
+                                                            <option value="">Choose Filter</option>
+                                                            <option value="num-eq">Equals</option>
+                                                            <option value="num-ne">Does NOT Equal</option>
+                                                            <option value="num-gte">Greater Than OR Equals</option>
+                                                            <option value="num-lte">Less Than OR Equals</option>
+                                                            <option value="Empty">Is Null (Empty)</option>
+                                                        </select>
+                                                    </div>
+                                                </li>
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype!='stringStatus'&&itemHeader.datatype!='stringUom'">
+                                                <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                    <div class="form__col">
+                                                        <label class="form__label"
+                                                            for="value12{{itemHeader.field}}">Value</label>
+                                                        <input class="form__input"
+                                                            [(ngModel)]="dataColumnFilter.searchValue" type="text"
+                                                            id="value12{{itemHeader.field}}"
+                                                            name="value12{{itemHeader.field}}">
+                                                    </div>
+                                                </li>
+                                            </ng-container>
+
+                                            <ng-container
+                                                *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='stringStatus'">
+                                                <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                    <div class="form__col">
+                                                        <label class="form__label form__label--hidden"
+                                                            for="list-dropdown51{{itemHeader.field}}">Value</label>
+                                                        <select class="floating-select"
+                                                            [(ngModel)]="dataColumnFilter.searchValue"
+                                                            id="list-dropdown51{{itemHeader.field}}"
+                                                            name="list-dropdown51{{itemHeader.field}}">
+                                                            <option value="">Choose Filter</option>
+                                                            <option *ngFor="let opt of statusList"
+                                                                [value]="opt.statusValue">
+                                                                {{opt.statusValue}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </li>
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='stringUom'">
+
+                                                <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                    <div class="form__col">
+                                                        <label class="form__label form__label--hidden"
+                                                            for="list-dropdown61{{itemHeader.field}}">Value</label>
+                                                        <select class="floating-select"
+                                                            [(ngModel)]="dataColumnFilter.searchValue"
+                                                            id="list-dropdown61{{itemHeader.field}}"
+                                                            name="list-dropdown61{{itemHeader.field}}">
+                                                            <option value="">Choose Filter</option>
+                                                            <option *ngFor="let opt of uomList" [value]="opt.uomName">
+                                                                {{opt.uomName}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </li>
+                                            </ng-container>
+                                        </ul>
+                                        <ng-container *ngIf="itemHeader.datatype!=undefined">
+                                            <div class="button-group">
+                                                <button class="button button--small button--text-only"
+                                                    (click)="CloseFilter2(itemHeader.field)">Cancel</button>
+                                                <button type="submit" class="button button--small"
+                                                    (click)="ApplyFilter2(itemHeader.field)">Apply</button>
+                                            </div>
+                                        </ng-container>
+                                    </div> -->
+                                </button>
+                            </div>
+                        </div>
+                    </th>
+                    <th scope="col" class="table__heading">
+                        <div class="table__heading-title">UOM</div>
+                        <div class="table__heading-options">
+                            <div class="icons icons--horziontal icons--size02">
+                                <button type=" button" class="icons__item  js-toggle">
+                                    <div class="icons__icon">
+                                        <svg class="icon icon--theme01 icon--filter"
+                                            aria-labelledby="title-5f83f48269fe1" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 48 48" width="48" height="48">
+                                            <path fill="none" d="M0 0h48v48H0z"></path>
+                                            <path
+                                                d="M40 13.7a5.6 5.6 0 01-1.7 4 5.5 5.5 0 01-4 1.6 5.8 5.8 0 01-4-1.7 5.4 5.4 0 00-4-1.6h-8.6a3.9 3.9 0 00-3.7 2.5 3.8 3.8 0 00.8 4.3l-4.5-4.5A7.9 7.9 0 018 12.7 4.7 4.7 0 0112.7 8h21.6a5.7 5.7 0 013.6 1.3.8.8 0 01.4.4 5.3 5.3 0 011.7 4z"
+                                                fill="currentColor" class="icon__color--primary"></path>
+                                            <path
+                                                d="M28 28v12h-8V29.7a4 4 0 00-1.2-2.9l-4-4a3.8 3.8 0 01-.8-4.3 3.9 3.9 0 013.7-2.5h1.6l3.3 3.2 3.1 3.2A7.9 7.9 0 0128 28z"
+                                                fill="currentColor" class="icon__color--secondary"></path>
+                                        </svg>
+                                    </div>
+                                    <!-- <div class="icons__submenu icons__submenu--from-left" style="min-width: 280px;">
+                                                                <ul class="icons__submenu-list">
+                                                                    <ng-container *ngIf="itemHeader.datatype=='string'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                                    id="list-dropdown_{{itemHeader.field}}"
+                                                                                    name="list-dropdown_{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option value="cn">Contains</option>
+                                                                                    <option value="nc">Does NOT Contain</option>
+                                                                                    <option value="eq">Equals</option>
+                                                                                    <option value="ne">Does NOT Equal</option>
+                                                                                    <option value="bw">Begins With</option>
+                                                                                    <option value="Empty">Is Empty</option>
+                                                                                </select>
+                                                                                <span class="highlight"></span>
+                                                                                <label
+                                                                                    class="form__label form_label form__label--hidden">Dropdown</label>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                    <ng-container *ngIf="itemHeader.datatype=='stringUom'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                                    id="list-dropdown{{itemHeader.field}}"
+                                                                                    name="list-dropdownuom{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option value="eq">Equals</option>
+                                                                                    <option value="nc">Does NOT Contain</option>
+                                                                                </select>
+                                                                                <span class="highlight"></span>
+                                                                                <label
+                                                                                    class="form__label form_label form__label--hidden">Dropdown</label>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                    <ng-container *ngIf="itemHeader.datatype=='stringStatus'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <label class="form__label form__label--hidden"
+                                                                                    for="list-dropdownstatus{{itemHeader.field}}">Dropdown</label>
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                                    id="list-dropdownstatus{{itemHeader.field}}"
+                                                                                    name="list-dropdownstatus{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option value="eq">Equals</option>
+                                                                                    <option value="nc">Does NOT Contain</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                        
+                                                                    <ng-container *ngIf="itemHeader.datatype=='number'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <label class="form__label form__label--hidden"
+                                                                                    for="list-dropdown{{itemHeader.field}}">Dropdown</label>
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                                    id="list-dropdown{{itemHeader.field}}"
+                                                                                    name="list-dropdown{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option value="num-eq">Equals</option>
+                                                                                    <option value="num-ne">Does NOT Equal</option>
+                                                                                    <option value="num-gte">Greater Than OR Equals</option>
+                                                                                    <option value="num-lte">Less Than OR Equals</option>
+                                                                                    <option value="Empty">Is Null (Empty)</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                    <ng-container
+                                                                        *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype!='stringStatus'&&itemHeader.datatype!='stringUom'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <label class="form__label"
+                                                                                    for="value12{{itemHeader.field}}">Value</label>
+                                                                                <input class="form__input"
+                                                                                    [(ngModel)]="dataColumnFilter.searchValue" type="text"
+                                                                                    id="value12{{itemHeader.field}}"
+                                                                                    name="value12{{itemHeader.field}}">
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                        
+                                                                    <ng-container
+                                                                        *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='stringStatus'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <label class="form__label form__label--hidden"
+                                                                                    for="list-dropdown51{{itemHeader.field}}">Value</label>
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.searchValue"
+                                                                                    id="list-dropdown51{{itemHeader.field}}"
+                                                                                    name="list-dropdown51{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option *ngFor="let opt of statusList"
+                                                                                        [value]="opt.statusValue">
+                                                                                        {{opt.statusValue}}
+                                                                                    </option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                    <ng-container
+                                                                        *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='stringUom'">
+                        
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <label class="form__label form__label--hidden"
+                                                                                    for="list-dropdown61{{itemHeader.field}}">Value</label>
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.searchValue"
+                                                                                    id="list-dropdown61{{itemHeader.field}}"
+                                                                                    name="list-dropdown61{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option *ngFor="let opt of uomList" [value]="opt.uomName">
+                                                                                        {{opt.uomName}}
+                                                                                    </option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                </ul>
+                                                                <ng-container *ngIf="itemHeader.datatype!=undefined">
+                                                                    <div class="button-group">
+                                                                        <button class="button button--small button--text-only"
+                                                                            (click)="CloseFilter2(itemHeader.field)">Cancel</button>
+                                                                        <button type="submit" class="button button--small"
+                                                                            (click)="ApplyFilter2(itemHeader.field)">Apply</button>
+                                                                    </div>
+                                                                </ng-container>
+                                                            </div> -->
+                                </button>
+                            </div>
+                        </div>
+                    </th>
+                    <th scope="col" class="table__heading">
+                        <div class="table__heading-title">Item Name</div>
+                        <div class="table__heading-options">
+                            <div class="icons icons--horziontal icons--size02">
+                                <button type=" button" class="icons__item  js-toggle">
+                                    <div class="icons__icon">
+                                        <svg class="icon icon--theme01 icon--filter"
+                                            aria-labelledby="title-5f83f48269fe1" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 48 48" width="48" height="48">
+                                            <path fill="none" d="M0 0h48v48H0z"></path>
+                                            <path
+                                                d="M40 13.7a5.6 5.6 0 01-1.7 4 5.5 5.5 0 01-4 1.6 5.8 5.8 0 01-4-1.7 5.4 5.4 0 00-4-1.6h-8.6a3.9 3.9 0 00-3.7 2.5 3.8 3.8 0 00.8 4.3l-4.5-4.5A7.9 7.9 0 018 12.7 4.7 4.7 0 0112.7 8h21.6a5.7 5.7 0 013.6 1.3.8.8 0 01.4.4 5.3 5.3 0 011.7 4z"
+                                                fill="currentColor" class="icon__color--primary"></path>
+                                            <path
+                                                d="M28 28v12h-8V29.7a4 4 0 00-1.2-2.9l-4-4a3.8 3.8 0 01-.8-4.3 3.9 3.9 0 013.7-2.5h1.6l3.3 3.2 3.1 3.2A7.9 7.9 0 0128 28z"
+                                                fill="currentColor" class="icon__color--secondary"></path>
+                                        </svg>
+                                    </div>
+                                    <!-- <div class="icons__submenu icons__submenu--from-left" style="min-width: 280px;">
+                                                                <ul class="icons__submenu-list">
+                                                                    <ng-container *ngIf="itemHeader.datatype=='string'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                                    id="list-dropdown_{{itemHeader.field}}"
+                                                                                    name="list-dropdown_{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option value="cn">Contains</option>
+                                                                                    <option value="nc">Does NOT Contain</option>
+                                                                                    <option value="eq">Equals</option>
+                                                                                    <option value="ne">Does NOT Equal</option>
+                                                                                    <option value="bw">Begins With</option>
+                                                                                    <option value="Empty">Is Empty</option>
+                                                                                </select>
+                                                                                <span class="highlight"></span>
+                                                                                <label
+                                                                                    class="form__label form_label form__label--hidden">Dropdown</label>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                    <ng-container *ngIf="itemHeader.datatype=='stringUom'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                                    id="list-dropdown{{itemHeader.field}}"
+                                                                                    name="list-dropdownuom{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option value="eq">Equals</option>
+                                                                                    <option value="nc">Does NOT Contain</option>
+                                                                                </select>
+                                                                                <span class="highlight"></span>
+                                                                                <label
+                                                                                    class="form__label form_label form__label--hidden">Dropdown</label>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                    <ng-container *ngIf="itemHeader.datatype=='stringStatus'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <label class="form__label form__label--hidden"
+                                                                                    for="list-dropdownstatus{{itemHeader.field}}">Dropdown</label>
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                                    id="list-dropdownstatus{{itemHeader.field}}"
+                                                                                    name="list-dropdownstatus{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option value="eq">Equals</option>
+                                                                                    <option value="nc">Does NOT Contain</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                        
+                                                                    <ng-container *ngIf="itemHeader.datatype=='number'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <label class="form__label form__label--hidden"
+                                                                                    for="list-dropdown{{itemHeader.field}}">Dropdown</label>
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                                    id="list-dropdown{{itemHeader.field}}"
+                                                                                    name="list-dropdown{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option value="num-eq">Equals</option>
+                                                                                    <option value="num-ne">Does NOT Equal</option>
+                                                                                    <option value="num-gte">Greater Than OR Equals</option>
+                                                                                    <option value="num-lte">Less Than OR Equals</option>
+                                                                                    <option value="Empty">Is Null (Empty)</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                    <ng-container
+                                                                        *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype!='stringStatus'&&itemHeader.datatype!='stringUom'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <label class="form__label"
+                                                                                    for="value12{{itemHeader.field}}">Value</label>
+                                                                                <input class="form__input"
+                                                                                    [(ngModel)]="dataColumnFilter.searchValue" type="text"
+                                                                                    id="value12{{itemHeader.field}}"
+                                                                                    name="value12{{itemHeader.field}}">
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                        
+                                                                    <ng-container
+                                                                        *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='stringStatus'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <label class="form__label form__label--hidden"
+                                                                                    for="list-dropdown51{{itemHeader.field}}">Value</label>
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.searchValue"
+                                                                                    id="list-dropdown51{{itemHeader.field}}"
+                                                                                    name="list-dropdown51{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option *ngFor="let opt of statusList"
+                                                                                        [value]="opt.statusValue">
+                                                                                        {{opt.statusValue}}
+                                                                                    </option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                    <ng-container
+                                                                        *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='stringUom'">
+                        
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <label class="form__label form__label--hidden"
+                                                                                    for="list-dropdown61{{itemHeader.field}}">Value</label>
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.searchValue"
+                                                                                    id="list-dropdown61{{itemHeader.field}}"
+                                                                                    name="list-dropdown61{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option *ngFor="let opt of uomList" [value]="opt.uomName">
+                                                                                        {{opt.uomName}}
+                                                                                    </option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                </ul>
+                                                                <ng-container *ngIf="itemHeader.datatype!=undefined">
+                                                                    <div class="button-group">
+                                                                        <button class="button button--small button--text-only"
+                                                                            (click)="CloseFilter2(itemHeader.field)">Cancel</button>
+                                                                        <button type="submit" class="button button--small"
+                                                                            (click)="ApplyFilter2(itemHeader.field)">Apply</button>
+                                                                    </div>
+                                                                </ng-container>
+                                                            </div> -->
+                                </button>
+                            </div>
+                        </div>
+                    </th>
+                    <th scope="col" class="table__heading">
+                        <div class="table__heading-title">Item Description</div>
+                        <div class="table__heading-options">
+                            <div class="icons icons--horziontal icons--size02">
+                                <button type=" button" class="icons__item  js-toggle">
+                                    <div class="icons__icon">
+                                        <svg class="icon icon--theme01 icon--filter"
+                                            aria-labelledby="title-5f83f48269fe1" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 48 48" width="48" height="48">
+                                            <path fill="none" d="M0 0h48v48H0z"></path>
+                                            <path
+                                                d="M40 13.7a5.6 5.6 0 01-1.7 4 5.5 5.5 0 01-4 1.6 5.8 5.8 0 01-4-1.7 5.4 5.4 0 00-4-1.6h-8.6a3.9 3.9 0 00-3.7 2.5 3.8 3.8 0 00.8 4.3l-4.5-4.5A7.9 7.9 0 018 12.7 4.7 4.7 0 0112.7 8h21.6a5.7 5.7 0 013.6 1.3.8.8 0 01.4.4 5.3 5.3 0 011.7 4z"
+                                                fill="currentColor" class="icon__color--primary"></path>
+                                            <path
+                                                d="M28 28v12h-8V29.7a4 4 0 00-1.2-2.9l-4-4a3.8 3.8 0 01-.8-4.3 3.9 3.9 0 013.7-2.5h1.6l3.3 3.2 3.1 3.2A7.9 7.9 0 0128 28z"
+                                                fill="currentColor" class="icon__color--secondary"></path>
+                                        </svg>
+                                    </div>
+                                    <!-- <div class="icons__submenu icons__submenu--from-left" style="min-width: 280px;">
+                                                                <ul class="icons__submenu-list">
+                                                                    <ng-container *ngIf="itemHeader.datatype=='string'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                                    id="list-dropdown_{{itemHeader.field}}"
+                                                                                    name="list-dropdown_{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option value="cn">Contains</option>
+                                                                                    <option value="nc">Does NOT Contain</option>
+                                                                                    <option value="eq">Equals</option>
+                                                                                    <option value="ne">Does NOT Equal</option>
+                                                                                    <option value="bw">Begins With</option>
+                                                                                    <option value="Empty">Is Empty</option>
+                                                                                </select>
+                                                                                <span class="highlight"></span>
+                                                                                <label
+                                                                                    class="form__label form_label form__label--hidden">Dropdown</label>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                    <ng-container *ngIf="itemHeader.datatype=='stringUom'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                                    id="list-dropdown{{itemHeader.field}}"
+                                                                                    name="list-dropdownuom{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option value="eq">Equals</option>
+                                                                                    <option value="nc">Does NOT Contain</option>
+                                                                                </select>
+                                                                                <span class="highlight"></span>
+                                                                                <label
+                                                                                    class="form__label form_label form__label--hidden">Dropdown</label>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                    <ng-container *ngIf="itemHeader.datatype=='stringStatus'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <label class="form__label form__label--hidden"
+                                                                                    for="list-dropdownstatus{{itemHeader.field}}">Dropdown</label>
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                                    id="list-dropdownstatus{{itemHeader.field}}"
+                                                                                    name="list-dropdownstatus{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option value="eq">Equals</option>
+                                                                                    <option value="nc">Does NOT Contain</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                        
+                                                                    <ng-container *ngIf="itemHeader.datatype=='number'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <label class="form__label form__label--hidden"
+                                                                                    for="list-dropdown{{itemHeader.field}}">Dropdown</label>
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                                    id="list-dropdown{{itemHeader.field}}"
+                                                                                    name="list-dropdown{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option value="num-eq">Equals</option>
+                                                                                    <option value="num-ne">Does NOT Equal</option>
+                                                                                    <option value="num-gte">Greater Than OR Equals</option>
+                                                                                    <option value="num-lte">Less Than OR Equals</option>
+                                                                                    <option value="Empty">Is Null (Empty)</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                    <ng-container
+                                                                        *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype!='stringStatus'&&itemHeader.datatype!='stringUom'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <label class="form__label"
+                                                                                    for="value12{{itemHeader.field}}">Value</label>
+                                                                                <input class="form__input"
+                                                                                    [(ngModel)]="dataColumnFilter.searchValue" type="text"
+                                                                                    id="value12{{itemHeader.field}}"
+                                                                                    name="value12{{itemHeader.field}}">
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                        
+                                                                    <ng-container
+                                                                        *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='stringStatus'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <label class="form__label form__label--hidden"
+                                                                                    for="list-dropdown51{{itemHeader.field}}">Value</label>
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.searchValue"
+                                                                                    id="list-dropdown51{{itemHeader.field}}"
+                                                                                    name="list-dropdown51{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option *ngFor="let opt of statusList"
+                                                                                        [value]="opt.statusValue">
+                                                                                        {{opt.statusValue}}
+                                                                                    </option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                    <ng-container
+                                                                        *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='stringUom'">
+                        
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <label class="form__label form__label--hidden"
+                                                                                    for="list-dropdown61{{itemHeader.field}}">Value</label>
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.searchValue"
+                                                                                    id="list-dropdown61{{itemHeader.field}}"
+                                                                                    name="list-dropdown61{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option *ngFor="let opt of uomList" [value]="opt.uomName">
+                                                                                        {{opt.uomName}}
+                                                                                    </option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                </ul>
+                                                                <ng-container *ngIf="itemHeader.datatype!=undefined">
+                                                                    <div class="button-group">
+                                                                        <button class="button button--small button--text-only"
+                                                                            (click)="CloseFilter2(itemHeader.field)">Cancel</button>
+                                                                        <button type="submit" class="button button--small"
+                                                                            (click)="ApplyFilter2(itemHeader.field)">Apply</button>
+                                                                    </div>
+                                                                </ng-container>
+                                                            </div> -->
+                                </button>
+                            </div>
+                        </div>
+                    </th>
+                    <th scope="col" class="table__heading">
+                        <div class="table__heading-title">Location </div>
+                        <div class="table__heading-options">
+                            <div class="icons icons--horziontal icons--size02">
+                                <button type=" button" class="icons__item  js-toggle">
+                                    <div class="icons__icon">
+                                        <svg class="icon icon--theme01 icon--filter"
+                                            aria-labelledby="title-5f83f48269fe1" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 48 48" width="48" height="48">
+                                            <path fill="none" d="M0 0h48v48H0z"></path>
+                                            <path
+                                                d="M40 13.7a5.6 5.6 0 01-1.7 4 5.5 5.5 0 01-4 1.6 5.8 5.8 0 01-4-1.7 5.4 5.4 0 00-4-1.6h-8.6a3.9 3.9 0 00-3.7 2.5 3.8 3.8 0 00.8 4.3l-4.5-4.5A7.9 7.9 0 018 12.7 4.7 4.7 0 0112.7 8h21.6a5.7 5.7 0 013.6 1.3.8.8 0 01.4.4 5.3 5.3 0 011.7 4z"
+                                                fill="currentColor" class="icon__color--primary"></path>
+                                            <path
+                                                d="M28 28v12h-8V29.7a4 4 0 00-1.2-2.9l-4-4a3.8 3.8 0 01-.8-4.3 3.9 3.9 0 013.7-2.5h1.6l3.3 3.2 3.1 3.2A7.9 7.9 0 0128 28z"
+                                                fill="currentColor" class="icon__color--secondary"></path>
+                                        </svg>
+                                    </div>
+                                    <!-- <div class="icons__submenu icons__submenu--from-left" style="min-width: 280px;">
+                                                                <ul class="icons__submenu-list">
+                                                                    <ng-container *ngIf="itemHeader.datatype=='string'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                                    id="list-dropdown_{{itemHeader.field}}"
+                                                                                    name="list-dropdown_{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option value="cn">Contains</option>
+                                                                                    <option value="nc">Does NOT Contain</option>
+                                                                                    <option value="eq">Equals</option>
+                                                                                    <option value="ne">Does NOT Equal</option>
+                                                                                    <option value="bw">Begins With</option>
+                                                                                    <option value="Empty">Is Empty</option>
+                                                                                </select>
+                                                                                <span class="highlight"></span>
+                                                                                <label
+                                                                                    class="form__label form_label form__label--hidden">Dropdown</label>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                    <ng-container *ngIf="itemHeader.datatype=='stringUom'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                                    id="list-dropdown{{itemHeader.field}}"
+                                                                                    name="list-dropdownuom{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option value="eq">Equals</option>
+                                                                                    <option value="nc">Does NOT Contain</option>
+                                                                                </select>
+                                                                                <span class="highlight"></span>
+                                                                                <label
+                                                                                    class="form__label form_label form__label--hidden">Dropdown</label>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                    <ng-container *ngIf="itemHeader.datatype=='stringStatus'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <label class="form__label form__label--hidden"
+                                                                                    for="list-dropdownstatus{{itemHeader.field}}">Dropdown</label>
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                                    id="list-dropdownstatus{{itemHeader.field}}"
+                                                                                    name="list-dropdownstatus{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option value="eq">Equals</option>
+                                                                                    <option value="nc">Does NOT Contain</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                        
+                                                                    <ng-container *ngIf="itemHeader.datatype=='number'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <label class="form__label form__label--hidden"
+                                                                                    for="list-dropdown{{itemHeader.field}}">Dropdown</label>
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                                    id="list-dropdown{{itemHeader.field}}"
+                                                                                    name="list-dropdown{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option value="num-eq">Equals</option>
+                                                                                    <option value="num-ne">Does NOT Equal</option>
+                                                                                    <option value="num-gte">Greater Than OR Equals</option>
+                                                                                    <option value="num-lte">Less Than OR Equals</option>
+                                                                                    <option value="Empty">Is Null (Empty)</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                    <ng-container
+                                                                        *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype!='stringStatus'&&itemHeader.datatype!='stringUom'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <label class="form__label"
+                                                                                    for="value12{{itemHeader.field}}">Value</label>
+                                                                                <input class="form__input"
+                                                                                    [(ngModel)]="dataColumnFilter.searchValue" type="text"
+                                                                                    id="value12{{itemHeader.field}}"
+                                                                                    name="value12{{itemHeader.field}}">
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                        
+                                                                    <ng-container
+                                                                        *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='stringStatus'">
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <label class="form__label form__label--hidden"
+                                                                                    for="list-dropdown51{{itemHeader.field}}">Value</label>
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.searchValue"
+                                                                                    id="list-dropdown51{{itemHeader.field}}"
+                                                                                    name="list-dropdown51{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option *ngFor="let opt of statusList"
+                                                                                        [value]="opt.statusValue">
+                                                                                        {{opt.statusValue}}
+                                                                                    </option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                    <ng-container
+                                                                        *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='stringUom'">
+                        
+                                                                        <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                            <div class="form__col">
+                                                                                <label class="form__label form__label--hidden"
+                                                                                    for="list-dropdown61{{itemHeader.field}}">Value</label>
+                                                                                <select class="floating-select"
+                                                                                    [(ngModel)]="dataColumnFilter.searchValue"
+                                                                                    id="list-dropdown61{{itemHeader.field}}"
+                                                                                    name="list-dropdown61{{itemHeader.field}}">
+                                                                                    <option value="">Choose Filter</option>
+                                                                                    <option *ngFor="let opt of uomList" [value]="opt.uomName">
+                                                                                        {{opt.uomName}}
+                                                                                    </option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                </ul>
+                                                                <ng-container *ngIf="itemHeader.datatype!=undefined">
+                                                                    <div class="button-group">
+                                                                        <button class="button button--small button--text-only"
+                                                                            (click)="CloseFilter2(itemHeader.field)">Cancel</button>
+                                                                        <button type="submit" class="button button--small"
+                                                                            (click)="ApplyFilter2(itemHeader.field)">Apply</button>
+                                                                    </div>
+                                                                </ng-container>
+                                                            </div> -->
+                                </button>
+                            </div>
+                        </div>
+                    </th>
+                    <th scope="col" class="table__heading">
+                        <div class="table__heading-title">Stauts </div>
+                        <div class="table__heading-options">
+                            <div class="icons icons--horziontal icons--size02">
+                                <button type=" button" class="icons__item  js-toggle">
+                                    <div class="icons__icon">
+                                        <svg class="icon icon--theme01 icon--filter"
+                                            aria-labelledby="title-5f83f48269fe1" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 48 48" width="48" height="48">
+                                            <path fill="none" d="M0 0h48v48H0z"></path>
+                                            <path
+                                                d="M40 13.7a5.6 5.6 0 01-1.7 4 5.5 5.5 0 01-4 1.6 5.8 5.8 0 01-4-1.7 5.4 5.4 0 00-4-1.6h-8.6a3.9 3.9 0 00-3.7 2.5 3.8 3.8 0 00.8 4.3l-4.5-4.5A7.9 7.9 0 018 12.7 4.7 4.7 0 0112.7 8h21.6a5.7 5.7 0 013.6 1.3.8.8 0 01.4.4 5.3 5.3 0 011.7 4z"
+                                                fill="currentColor" class="icon__color--primary"></path>
+                                            <path
+                                                d="M28 28v12h-8V29.7a4 4 0 00-1.2-2.9l-4-4a3.8 3.8 0 01-.8-4.3 3.9 3.9 0 013.7-2.5h1.6l3.3 3.2 3.1 3.2A7.9 7.9 0 0128 28z"
+                                                fill="currentColor" class="icon__color--secondary"></path>
+                                        </svg>
+                                    </div>
+                                    <!-- <div class="icons__submenu icons__submenu--from-left" style="min-width: 280px;">
+                                                            <ul class="icons__submenu-list">
+                                                                <ng-container *ngIf="itemHeader.datatype=='string'">
+                                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                        <div class="form__col">
+                                                                            <select class="floating-select"
+                                                                                [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                                id="list-dropdown_{{itemHeader.field}}"
+                                                                                name="list-dropdown_{{itemHeader.field}}">
+                                                                                <option value="">Choose Filter</option>
+                                                                                <option value="cn">Contains</option>
+                                                                                <option value="nc">Does NOT Contain</option>
+                                                                                <option value="eq">Equals</option>
+                                                                                <option value="ne">Does NOT Equal</option>
+                                                                                <option value="bw">Begins With</option>
+                                                                                <option value="Empty">Is Empty</option>
+                                                                            </select>
+                                                                            <span class="highlight"></span>
+                                                                            <label
+                                                                                class="form__label form_label form__label--hidden">Dropdown</label>
+                                                                        </div>
+                                                                    </li>
+                                                                </ng-container>
+                                                                <ng-container *ngIf="itemHeader.datatype=='stringUom'">
+                                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                        <div class="form__col">
+                                                                            <select class="floating-select"
+                                                                                [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                                id="list-dropdown{{itemHeader.field}}"
+                                                                                name="list-dropdownuom{{itemHeader.field}}">
+                                                                                <option value="">Choose Filter</option>
+                                                                                <option value="eq">Equals</option>
+                                                                                <option value="nc">Does NOT Contain</option>
+                                                                            </select>
+                                                                            <span class="highlight"></span>
+                                                                            <label
+                                                                                class="form__label form_label form__label--hidden">Dropdown</label>
+                                                                        </div>
+                                                                    </li>
+                                                                </ng-container>
+                                                                <ng-container *ngIf="itemHeader.datatype=='stringStatus'">
+                                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                        <div class="form__col">
+                                                                            <label class="form__label form__label--hidden"
+                                                                                for="list-dropdownstatus{{itemHeader.field}}">Dropdown</label>
+                                                                            <select class="floating-select"
+                                                                                [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                                id="list-dropdownstatus{{itemHeader.field}}"
+                                                                                name="list-dropdownstatus{{itemHeader.field}}">
+                                                                                <option value="">Choose Filter</option>
+                                                                                <option value="eq">Equals</option>
+                                                                                <option value="nc">Does NOT Contain</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </li>
+                                                                </ng-container>
+                    
+                                                                <ng-container *ngIf="itemHeader.datatype=='number'">
+                                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                        <div class="form__col">
+                                                                            <label class="form__label form__label--hidden"
+                                                                                for="list-dropdown{{itemHeader.field}}">Dropdown</label>
+                                                                            <select class="floating-select"
+                                                                                [(ngModel)]="dataColumnFilter.filterOperator"
+                                                                                id="list-dropdown{{itemHeader.field}}"
+                                                                                name="list-dropdown{{itemHeader.field}}">
+                                                                                <option value="">Choose Filter</option>
+                                                                                <option value="num-eq">Equals</option>
+                                                                                <option value="num-ne">Does NOT Equal</option>
+                                                                                <option value="num-gte">Greater Than OR Equals</option>
+                                                                                <option value="num-lte">Less Than OR Equals</option>
+                                                                                <option value="Empty">Is Null (Empty)</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </li>
+                                                                </ng-container>
+                                                                <ng-container
+                                                                    *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype!='stringStatus'&&itemHeader.datatype!='stringUom'">
+                                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                        <div class="form__col">
+                                                                            <label class="form__label"
+                                                                                for="value12{{itemHeader.field}}">Value</label>
+                                                                            <input class="form__input"
+                                                                                [(ngModel)]="dataColumnFilter.searchValue" type="text"
+                                                                                id="value12{{itemHeader.field}}"
+                                                                                name="value12{{itemHeader.field}}">
+                                                                        </div>
+                                                                    </li>
+                                                                </ng-container>
+                    
+                                                                <ng-container
+                                                                    *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='stringStatus'">
+                                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                        <div class="form__col">
+                                                                            <label class="form__label form__label--hidden"
+                                                                                for="list-dropdown51{{itemHeader.field}}">Value</label>
+                                                                            <select class="floating-select"
+                                                                                [(ngModel)]="dataColumnFilter.searchValue"
+                                                                                id="list-dropdown51{{itemHeader.field}}"
+                                                                                name="list-dropdown51{{itemHeader.field}}">
+                                                                                <option value="">Choose Filter</option>
+                                                                                <option *ngFor="let opt of statusList"
+                                                                                    [value]="opt.statusValue">
+                                                                                    {{opt.statusValue}}
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </li>
+                                                                </ng-container>
+                                                                <ng-container
+                                                                    *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='stringUom'">
+                    
+                                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                        <div class="form__col">
+                                                                            <label class="form__label form__label--hidden"
+                                                                                for="list-dropdown61{{itemHeader.field}}">Value</label>
+                                                                            <select class="floating-select"
+                                                                                [(ngModel)]="dataColumnFilter.searchValue"
+                                                                                id="list-dropdown61{{itemHeader.field}}"
+                                                                                name="list-dropdown61{{itemHeader.field}}">
+                                                                                <option value="">Choose Filter</option>
+                                                                                <option *ngFor="let opt of uomList" [value]="opt.uomName">
+                                                                                    {{opt.uomName}}
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </li>
+                                                                </ng-container>
+                                                            </ul>
+                                                            <ng-container *ngIf="itemHeader.datatype!=undefined">
+                                                                <div class="button-group">
+                                                                    <button class="button button--small button--text-only"
+                                                                        (click)="CloseFilter2(itemHeader.field)">Cancel</button>
+                                                                    <button type="submit" class="button button--small"
+                                                                        (click)="ApplyFilter2(itemHeader.field)">Apply</button>
+                                                                </div>
+                                                            </ng-container>
+                                                        </div> -->
+                                </button>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody class="table__section table__section--body">
+                <tr class="table__row table__row--body" *ngFor="let item of tabeldata">
+                    <td class="table__cell" data-title="Column Title">
+                        <div class="form__col">
+
+                            {{item.Quantity}}
+                        </div>
+                    </td>
+                    <td class="table__cell" data-title="Column Title">
+                        <div class="form__col">
+
+                            <div class="form__col form__col--full" style="display: flex;">
+
+                                {{item.UOM}}
+                            </div>
+                        </div>
+                    </td>
+                    <td class="table__cell" data-title="Column Title">
+                        <div class="form__col">
+                            {{item.ItemName}}
+                        </div>
+                    </td>
+                    <td class="table__cell" data-title="Column Title">
+                        {{item.ItemDescription}}
+                    </td>
+                    <td class="table__cell" data-title="Column Title" style="padding-top: 0;">
+                        <div class="icons icons--size02">
+                            {{item.Location}}
+                        </div>
+
+                    </td>
+                    <td class="table__cell" data-title="Column Title" style="padding-top: 0;">
+                        <div class="icons icons--size02">
+                            {{item.Status}}
+                        </div>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+</section>

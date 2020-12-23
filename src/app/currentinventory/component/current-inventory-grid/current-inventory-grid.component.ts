@@ -36,11 +36,9 @@ import { Item } from 'src/app/currentinventory/models/admin.models';
 })
 export class CurrentInventoryGridComponent implements OnInit {
   @ViewChild('AddUOMClose', { static: true }) AddUOMClose: ElementRef<HTMLElement>;
-  @ViewChild('AddStatusClose', { static: true }) AddStatusClose: ElementRef<HTMLElement>;
   @ViewChild('AddCircumstanceClose', { static: true }) AddCircumstanceClose: ElementRef<HTMLElement>;
   @ViewChild('AddStatesClose', { static: true }) AddStatesClose: ElementRef<HTMLElement>;
   @ViewChild('AddAttributeClose', { static: true }) AddAttributeClose: ElementRef<HTMLElement>;
-  @ViewChild('AddLocationClose', { static: true }) AddLocationClose: ElementRef<HTMLElement>;
   @ViewChild('closeInventoryModal', { static: true }) closeInventoryModal: ElementRef<HTMLElement>;
   @ViewChild('AddCustomFieldClose', { static: true }) AddCustomFieldClose: ElementRef<HTMLElement>;
   @ViewChild('uploadActivity', { static: true }) uploadActivity: ElementRef<HTMLElement>;
@@ -61,7 +59,6 @@ export class CurrentInventoryGridComponent implements OnInit {
   public IsActive: boolean;
   public selectedItem: any;
   public showForms: boolean = false;
-  public name: any;
   public ColumnDataType: string;
   public isSearchFilterActive: boolean = false;
   progressInfos = [];
@@ -101,6 +98,7 @@ export class CurrentInventoryGridComponent implements OnInit {
     searchValue: "",
     type: ""
   }
+  public name: any;
   //Tabulator 
   public tab = document.createElement('div');
   public Inventorytable: any;
@@ -139,8 +137,7 @@ export class CurrentInventoryGridComponent implements OnInit {
 
   //ADD NEW UOM AND STATUS AND LOCATION
   public uomForm: FormGroup;
-  public statusForm: FormGroup;
-  public locationForm: FormGroup;
+
 
   //Group Event Activity Checkbox
   public masterSelected: boolean;
@@ -333,14 +330,7 @@ export class CurrentInventoryGridComponent implements OnInit {
     this.uomForm = this.formBuilder.group({
       uomName: ['', Validators.required],
     });
-    this.statusForm = this.formBuilder.group({
-      statusValue: ['', Validators.required],
-    });
-    this.locationForm = this.formBuilder.group({
-      locationName: ['', Validators.required],
-      description: ['', null],
-      locationZone: ['', null],
-    })
+
     this.isSelectedCount = 0;
     this.searchFilterText = "";
     this.IsInventoryLoaded = false;
@@ -1162,34 +1152,6 @@ export class CurrentInventoryGridComponent implements OnInit {
         });
   }
 
-  AddNewStatus() {
-    if (this.statusForm.invalid) {
-      return;
-    }
-    this.spinner.show();
-    this.statusForm.value;
-    this.libraryService.AddStatus(this.selectedTenantId, this.statusForm.value, this.authService.accessToken)
-      .pipe(finalize(() => {
-        this.spinner.hide();
-      }))
-      .subscribe(
-        result => {
-          if (result) {
-            debugger;
-
-            if (result.entity == true) {
-              this.toastr.success("Your status is Successfully add.");
-              let el: HTMLElement = this.AddStatusClose.nativeElement;
-              el.click();
-              this.getStatus();
-            }
-            else {
-              this.toastr.warning(result.message);
-            }
-          }
-        });
-  }
-
   // custom fields new add
   AddNewCustomfield() {
     this.spinner.show();
@@ -1241,49 +1203,6 @@ export class CurrentInventoryGridComponent implements OnInit {
 
 
 
-  //add new State
-  // AddNewStates() {
-  //   this.spinner.show();
-  //   debugger;
-  //   if (this.stateFields.customFieldSpecialType == "Autocomplete" || this.stateFields.customFieldSpecialType == "Dropdown") {
-  //     this.stateFields.comboBoxValue = this.cfdcomboValuesString;
-  //   }
-  //   if (this.selectedDatatype == "Autocomplete" || this.selectedDatatype == "Dropdown" || this.selectedDatatype == "OpenField") {
-  //     this.stateFields.dataType = "Text";
-  //   }
-  //   if (this.selectedDatatype == "Number" || this.selectedDatatype == "Currency") {
-  //     this.stateFields.dataType = "Number";
-  //   }
-  //   if (this.selectedDatatype == "Date" || this.selectedDatatype == "Date & Time" || this.selectedDatatype == "Time") {
-  //     this.stateFields.dataType = "Date/Time";
-  //   }
-  //   if (this.selectedDatatype == "True/False") {
-  //     this.stateFields.dataType = "True/False";
-  //   }
-  //   this.stateFields.customFieldSpecialType = this.selectedDatatype;
-  //   this.customfieldservice.AddStateFields(this.stateFields, this.selectedTenantId, this.authService.accessToken)
-  //     .pipe(finalize(() => {
-  //       this.spinner.hide();
-  //     }))
-  //     .subscribe(
-  //       result => {
-  //         if (result) {
-  //           debugger;
-
-  //           if (result.entity == true) {
-  //             this.toastr.success("Your Statefield is Successfully Add.");
-  //             let el: HTMLElement = this.AddStatesClose.nativeElement;
-  //             el.click();
-  //             this.GetStateFields();
-
-
-  //           }
-  //           else {
-  //             this.toastr.warning(result.message);
-  //           }
-  //         }
-  //       });
-  // }
 
   //New Attribute Fields 
   AddNewAttribute(form) {
@@ -1435,43 +1354,13 @@ export class CurrentInventoryGridComponent implements OnInit {
     }
   }
 
-  AddNewLocation() {
-    debugger;
-    if (this.locationForm.invalid) {
-      return;
-    }
-    this.spinner.show();
-    this.locationForm.value;
-    this.libraryService.AddLocation(this.selectedTenantId, this.locationForm.value, this.authService.accessToken)
-      .pipe(finalize(() => {
-        this.spinner.hide();
-      }))
-      .subscribe(
-        result => {
-          if (result) {
-            debugger;
 
-            if (result.entity == true) {
-              this.toastr.success("Your Location is Successfully add.");
-              this.locationForm.reset();
-              let el: HTMLElement = this.AddLocationClose.nativeElement;
-              el.click();
-              this.getLocationList();
-            }
-            else {
-              this.toastr.warning(result.message);
-            }
-          }
-        });
-  }
 
   closeaddlocation(form) {
     form.reset();
   }
   closeinvmodal() {
 
-    let el: HTMLElement = this.AddLocationClose.nativeElement;
-    el.click();
 
     let el1: HTMLElement = this.AddCustomFieldClose.nativeElement;
     el1.click();
@@ -1479,9 +1368,7 @@ export class CurrentInventoryGridComponent implements OnInit {
     let el2: HTMLElement = this.AddAttributeClose.nativeElement;
     el2.click();
     let el3: HTMLElement = this.AddUOMClose.nativeElement;
-    el3.click();
-    let el4: HTMLElement = this.AddStatusClose.nativeElement;
-    el4.click();
+
     // console.log('click');
   }
   StatementHistory(item) {
@@ -1593,8 +1480,8 @@ export class CurrentInventoryGridComponent implements OnInit {
   previewImage(currentItemToShow) {
     debugger;
     this.previewItem = currentItemToShow;
+    this.name = currentItemToShow.partName
     this.imageObject = [];
-    this.name = currentItemToShow.partName;
     this.previewItem.images.forEach(element => {
       this.imageObject.push({
         image: 'https://clearly2020storage.blob.core.windows.net:443/images/' + element.imageFriendlyName,
