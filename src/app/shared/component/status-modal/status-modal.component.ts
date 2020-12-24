@@ -53,4 +53,7 @@ export class StatusModalComponent implements OnInit {
           }
         });
   }
+  closeStatus(form) {
+    form.reset();
+  }
 }

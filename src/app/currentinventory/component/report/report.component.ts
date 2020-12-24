@@ -14,15 +14,17 @@ export class ReportComponent implements OnInit {
   lastPageIndex = 0;
   pageSize = 10;
   length = 100;
-  public TabulatorColumn: any;
+  public tabulatorColumn1: any = [{ 'title': 'Quantity', 'datatype': 'number' }, { 'title': 'UOM', 'datatype': 'stringUom' }, { 'title': 'Item Name', 'datatype': 'string' }, { 'title': 'Item Description', 'datatype': 'string' }, { 'title': 'Location', 'datatype': 'string' }, { 'title': 'Status', 'datatype': 'stringStatus' },];
   public tabulatorValue: any;
+  public ColumnDataType: string;
   constructor() { }
 
   ngOnInit(): void {
     debugger;
-    this.TabulatorColumn = JSON.parse(localStorage.getItem("tabelColumn"));
-    this.tabulatorValue = JSON.parse(localStorage.getItem("tabelValue"));
-    focus();
+    // this.tabulatorColumn1 = JSON.parse(localStorage.getItem("tabelColumn"));
+    // this.tabulatorValue = JSON.parse(localStorage.getItem("tabelValue"));
+    inputFocus();
+    this.onOptionsSelected('Quantity');
     toggle();
   }
   CreateReport() {
@@ -61,6 +63,22 @@ export class ReportComponent implements OnInit {
       // this.GetCurrentInventory();
       // this.ApplyJsFunction();
     }
+  }
+  onOptionsSelected(event) {
+    debugger;
+    this.tabulatorColumn1.forEach(element => {
+
+      if (element.field == event) {
+
+        this.ColumnDataType = element.datatype;
+      }
+    });
+
+    setTimeout(function () {
+
+      inputFocus();
+    }, 500);
+
   }
 
 }

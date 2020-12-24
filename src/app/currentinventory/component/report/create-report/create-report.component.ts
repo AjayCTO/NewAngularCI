@@ -68,6 +68,9 @@ export class CreateReportComponent implements OnInit {
   hide() {
     $('#f').hide();
   }
+  hide1() {
+    $('#g').hide();
+  }
   user1() {
     this.availuser = false;
   }

@@ -57,4 +57,7 @@ export class UomModalComponent implements OnInit {
           }
         });
   }
+  closeUom(form) {
+    form.reset();
+  }
 }

@@ -18,7 +18,7 @@
         </span>
     </div>
     <div class="invModal__body">
-        <form class="form" [formGroup]="statusForm">
+        <form class="form" #form="ngForm" [formGroup]="statusForm">
             <div class="form__section">
                 <div class="form__col-wrap">
                     <div class="form__col">
@@ -46,8 +46,8 @@
 
             <div class="button-group">
                 <button type="submit" (click)="AddNewStatus()" class="button button--medium">Save</button>
-                <button type="button" #AddStatusClose class="button button--medium button--text-only"
-                    data-close="#AddStatusinnerModal">Cancel
+                <button type="button" #AddStatusClose (click)="closeStatus(form)"
+                    class="button button--medium button--text-only" data-close="#AddStatusinnerModal">Cancel
                 </button>
             </div>
 

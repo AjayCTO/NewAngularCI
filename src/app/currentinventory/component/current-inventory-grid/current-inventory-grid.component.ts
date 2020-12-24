@@ -4,7 +4,6 @@ import { finalize } from 'rxjs/operators';
 import { AuthService } from '../../../core/auth.service';
 import { CurrentInventory, InventoryTransactionViewModel, TransactionTarget, ChangeStateFields, Tenant, DataColumnFilter } from '../../models/admin.models';
 import { CustomFieldService } from '../../../customfield/service/custom-field.service'
-// import { currentinventoryService } from '../service/admin.service';
 import { LibraryService } from '../../../library/service/library.service';
 import { CurrentinventoryService } from '../../service/currentinventory.service'
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -151,79 +150,6 @@ export class CurrentInventoryGridComponent implements OnInit {
 
   //Loading
   public loadingRecords: boolean = false;
-
-  customField: CustomFields = {
-    columnId: 0,
-    columnName: '',
-    columnLabel: '',
-    customFieldType: '',
-    dataType: '',
-    columnValue: '',
-    comboBoxValue: '',
-    customFieldIsRequired: false,
-    customFieldInformation: '',
-    customFieldPrefix: '',
-    customFieldSuffix: '',
-    customFieldIsIncremental: false,
-    customFieldBaseValue: 0,
-    customFieldIncrementBy: 0,
-    customFieldTextMaxLength: 0,
-    customFieldDefaultValue: '',
-    customFieldNumberMin: 0,
-    customFieldNumberMax: 0,
-    customFieldNumberDecimalPlaces: 0,
-    customFieldTrueLabel: '',
-    customFieldFalseLabel: '',
-    customFieldSpecialType: '',
-    dateDefaultPlusMinus: '',
-    dateDefaultNumber: null,
-    dateDefaulInterval: '',
-    timeDefaultPlusMinus: '',
-    timeNumberOfHours: null,
-    timeNumberOFMinutes: null,
-    offsetDateFields: '',
-    offsetTimeFields: '',
-  }
-
-
-
-
-
-  attributeFields: AttributeFields = {
-    columnId: 0,
-    columnName: '',
-    columnLabel: '',
-    customFieldType: '',
-    dataType: '',
-    columnValue: '',
-    comboBoxValue: '',
-    customFieldIsRequired: false,
-    customFieldInformation: '',
-    customFieldPrefix: '',
-    customFieldSuffix: '',
-    customFieldIsIncremental: false,
-    customFieldBaseValue: 0,
-    customFieldIncrementBy: 0,
-    customFieldTextMaxLength: 0,
-    customFieldDefaultValue: '',
-    customFieldNumberMin: 0,
-    customFieldNumberMax: 0,
-    customFieldNumberDecimalPlaces: 0,
-    customFieldTrueLabel: '',
-    customFieldFalseLabel: '',
-    customFieldSpecialType: '',
-    dateDefaultPlusMinus: '',
-    dateDefaultNumber: null,
-    dateDefaulInterval: '',
-    timeDefaultPlusMinus: '',
-    timeNumberOfHours: null,
-    timeNumberOFMinutes: null,
-    offsetDateFields: '',
-    offsetTimeFields: '',
-  }
-
-
-
 
   constructor(private authService: AuthService, protected store: Store<AppState>, private formBuilder: FormBuilder, private eventService: EventService, private router: Router, private homeService: HomeService, private cdr: ChangeDetectorRef, private commanService: CommanSharedService, private customfieldservice: CustomFieldService, private toastr: ToastrService, private libraryService: LibraryService, private currentinventoryService: CurrentinventoryService, private spinner: NgxSpinnerService,) {
 
@@ -490,10 +416,6 @@ export class CurrentInventoryGridComponent implements OnInit {
     item.StatementHistoryOpen = false;
   }
 
-  // closeEventForm(item: any) {
-  //   this.EventAction(item, item.EventAction);
-  // }
-
   closeDynamicEvent(item) {
     item.isDynamicEventOpen = false;
   }
@@ -624,7 +546,6 @@ export class CurrentInventoryGridComponent implements OnInit {
       this.busy = false;
       this.spinner.hide();
     })).subscribe(result => {
-      //Tabulator Column
       debugger;
       this.tabulatorColumn.push({ title: "Item Name", field: "partName", type: "", datatype: "string", width: "170" });
       this.tabulatorColumn.push({ title: "Description", field: "partDescription", type: "", datatype: "string", width: "450" });
@@ -644,6 +565,7 @@ export class CurrentInventoryGridComponent implements OnInit {
       else {
 
       }
+      localStorage.setItem('tabelColumn', JSON.stringify(this.tabulatorColumn));
       this.ApplyDropDown();
       this.GetCurrentInventory();
     })
@@ -970,11 +892,13 @@ export class CurrentInventoryGridComponent implements OnInit {
         this.AttributeFields = [];
         if (result.code == 200) {
           this.AttributeFields = result.entity;
+          this.ApplyJsFunction();
         }
       })
   }
 
   GetCustomFields() {
+    debugger;
     this.customfieldservice.GetCustomFields(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
@@ -983,35 +907,10 @@ export class CurrentInventoryGridComponent implements OnInit {
         this.CustomFields = [];
         if (result.code == 200) {
           this.CustomFields = result.entity;
+          this.ApplyJsFunction();
         }
       })
   }
-
-  // GetCurcumstanceFields() {
-  //   this.customfieldservice.GetCurcumstanceFields(this.selectedTenantId, this.authService.accessToken)
-  //     .pipe(finalize(() => {
-  //       this.busy = false;
-  //       this.spinner.hide();
-  //     })).subscribe(result => {
-  //       this.CircumstanceFields = [];
-  //       if (result.code == 200) {
-  //         this.CircumstanceFields = result.entity;
-  //       }
-  //     })
-  // }
-  // GetStateFields() {
-  //   this.customfieldservice.GetStateFields(this.selectedTenantId, this.authService.accessToken)
-  //     .pipe(finalize(() => {
-  //       this.busy = false;
-  //       this.spinner.hide();
-  //     })).subscribe(result => {
-  //       this.StateFields = [];
-  //       if (result.code == 200) {
-  //         this.StateFields = result.entity;
-  //       }
-  //     });
-
-  // }
 
   getServerResponse(event) {
     this.ItemAutocompleteChange();
@@ -1125,107 +1024,12 @@ export class CurrentInventoryGridComponent implements OnInit {
 
 
 
-  // custom fields new add
-  AddNewCustomfield() {
-    this.spinner.show();
-    debugger;
-    if (this.customField.customFieldSpecialType == "Autocomplete" || this.customField.customFieldSpecialType == "Dropdown") {
-      this.attributeFields.comboBoxValue = this.cfdcomboValuesString;
-    }
-    if (this.selectedDatatype == "Autocomplete" || this.selectedDatatype == "Dropdown" || this.selectedDatatype == "OpenField") {
-      this.customField.dataType = "Text";
-    }
-    if (this.selectedDatatype == "Number" || this.selectedDatatype == "Currency") {
-      this.customField.dataType = "Number";
-    }
-    if (this.selectedDatatype == "Date" || this.selectedDatatype == "Date & Time" || this.selectedDatatype == "Time") {
-      this.customField.dataType = "Date/Time";
-    }
-    if (this.selectedDatatype == "True/False") {
-      this.customField.dataType = "True/False";
-    }
-    this.customField.customFieldSpecialType = this.selectedDatatype;
-    this.customfieldservice.AddCustomFields(this.customField, this.selectedTenantId, this.authService.accessToken)
-      .pipe(finalize(() => {
-        this.spinner.hide();
-      }))
-      .subscribe(
-        result => {
-          if (result) {
-            debugger;
-
-            if (result.entity == true) {
-              this.toastr.success("Your customField is Successfully Add.");
-              let el: HTMLElement = this.AddCustomFieldClose.nativeElement;
-              el.click();
-              // form.reset();
-              // this.GetAttributeFields();
-              this.GetCustomFields();
-              setTimeout(function () {
-                inputClear();
-                inputFocus();
-                datePicker();
-              }, 500)
-            }
-            else {
-              this.toastr.warning(result.message);
-            }
-          }
-        });
-  }
 
 
 
 
-  //New Attribute Fields 
-  AddNewAttribute(form) {
-    this.spinner.show();
-    debugger;
-    if (this.attributeFields.customFieldSpecialType == "Autocomplete" || this.attributeFields.customFieldSpecialType == "Dropdown") {
-      this.attributeFields.comboBoxValue = this.cfdcomboValuesString;
-    }
-    if (this.selectedDatatype == "Autocomplete" || this.selectedDatatype == "Dropdown" || this.selectedDatatype == "OpenField") {
-      this.attributeFields.dataType = "Text";
-    }
-    if (this.selectedDatatype == "Number" || this.selectedDatatype == "Currency") {
-      this.attributeFields.dataType = "Number";
-    }
-    if (this.selectedDatatype == "Date" || this.selectedDatatype == "Date & Time" || this.selectedDatatype == "Time") {
-      this.attributeFields.dataType = "Date/Time";
-    }
-    if (this.selectedDatatype == "True/False") {
-      this.attributeFields.dataType = "True/False";
-    }
-    this.attributeFields.customFieldSpecialType = this.selectedDatatype;
-    this.customfieldservice.AddAttributeFields(this.attributeFields, this.selectedTenantId, this.authService.accessToken)
-      .pipe(finalize(() => {
-        this.spinner.hide();
-      }))
-      .subscribe(
-        result => {
-          if (result) {
-            debugger;
 
-            if (result.entity == true) {
-              this.toastr.success("Your Attribute is Successfully Add.");
-              let el: HTMLElement = this.AddAttributeClose.nativeElement;
-              el.click();
-              form.reset();
-              this.GetAttributeFields();
-              setTimeout(function () {
-                inputClear();
-                inputFocus();
-                datePicker();
-              }, 500)
 
-            }
-            else {
-              this.toastr.warning(result.message);
-            }
-          }
-        });
-
-  }
   //add new circumtance
   // AddNewCircumstance() {
   //   this.spinner.show();
@@ -1300,9 +1104,7 @@ export class CurrentInventoryGridComponent implements OnInit {
     }
     this.checkedList = JSON.stringify(this.checkedList);
   }
-  Close1(form) {
-    form.reset();
-  }
+
 
 
   SelectedCount(item) {
@@ -1334,13 +1136,30 @@ export class CurrentInventoryGridComponent implements OnInit {
   }
   closeinvmodal() {
 
+    this.CurrentInventoryObj = {
+      partId: 0,
+      partName: "",
+      partDescription: "",
+      quantity: 0,
+      costPerUnit: 0,
+      uomId: 0,
+      uomName: "",
+      inventoryId: 0,
+      locationId: 0,
+      locationName: "",
+      statusValue: "",
+      attributeFields: [],
+      circumstanceFields: [],
+      stateFields: [],
+      customFields: [],
+      eventConfiguartion: null
+    }
+    // let el1: HTMLElement = this.AddCustomFieldClose.nativeElement;
+    // el1.click();
 
-    let el1: HTMLElement = this.AddCustomFieldClose.nativeElement;
-    el1.click();
-
-    let el2: HTMLElement = this.AddAttributeClose.nativeElement;
-    el2.click();
-    let el3: HTMLElement = this.AddUOMClose.nativeElement;
+    // let el2: HTMLElement = this.AddAttributeClose.nativeElement;
+    // el2.click();
+    // let el3: HTMLElement = this.AddUOMClose.nativeElement;
 
     // console.log('click');
   }

@@ -1,8 +1,3 @@
-<!-- <button (click)="CreateReport()" *ngIf="!creatReportOpen" type="button">Create Report</button>
-<ng-container>
-    <app-create-report *ngIf="creatReportOpen" (hideClose)="getValue($event)">
-    </app-create-report>
-</ng-container> -->
 <div class="actions">
     <div class="actions__title">
 
@@ -13,27 +8,36 @@
             </p>
         </div>
     </div>
-
-
     <div class="actions__wrap">
         <div class="icons__item">
-            <div class="icons__icon"><svg class="icon icon--theme01 icon--download"
-                    aria-labelledby="title-5f7c9ac573e4a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
-                    width="48" height="48">
-                    <path
-                        d="M42.2 37.8A5.8 5.8 0 0038 36H10a6 6 0 00-6 6 5.6 5.6 0 001.8 4.2A5.6 5.6 0 0010 48h28a6 6 0 006-6 5.6 5.6 0 00-1.8-4.2zM38 45a3 3 0 113-3 2.9 2.9 0 01-3 3z"
-                        fill="currentColor" class="icon__color--primary"></path>
-                    <path d="M0 48h48V0H0z" fill="none"></path>
-                    <path d="M29 23.9a8 8 0 006.3-3h.1l8.8-11.6-6.3-4.9-4 5.2-9.7 12.6a7.6 7.6 0 004.8 1.7z"
-                        fill="currentColor" class="icon__color--secondary"></path>
-                    <path
-                        d="M17.6 27.3L3.8 9.3l6.3-4.9 12.6 16.4a6.7 6.7 0 001.5 1.4 7.6 7.6 0 004.8 1.7 8 8 0 006.3-3l-5 6.4a8 8 0 01-12.7 0z"
-                        fill="currentColor" class="icon__color--primary"></path>
-                </svg></div>
-            <span class="icons__label">Download</span>
+            <button type="button" class="icons__item  js-toggle icons__item--theme01" aria-expanded="true">
+                <div class="icons__icon"><svg class="icon icon--theme01 icon--download"
+                        aria-labelledby="title-5f7c9ac573e4a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                        width="48" height="48">
+                        <path
+                            d="M42.2 37.8A5.8 5.8 0 0038 36H10a6 6 0 00-6 6 5.6 5.6 0 001.8 4.2A5.6 5.6 0 0010 48h28a6 6 0 006-6 5.6 5.6 0 00-1.8-4.2zM38 45a3 3 0 113-3 2.9 2.9 0 01-3 3z"
+                            fill="currentColor" class="icon__color--primary"></path>
+                        <path d="M0 48h48V0H0z" fill="none"></path>
+                        <path d="M29 23.9a8 8 0 006.3-3h.1l8.8-11.6-6.3-4.9-4 5.2-9.7 12.6a7.6 7.6 0 004.8 1.7z"
+                            fill="currentColor" class="icon__color--secondary"></path>
+                        <path
+                            d="M17.6 27.3L3.8 9.3l6.3-4.9 12.6 16.4a6.7 6.7 0 001.5 1.4 7.6 7.6 0 004.8 1.7 8 8 0 006.3-3l-5 6.4a8 8 0 01-12.7 0z"
+                            fill="currentColor" class="icon__color--primary"></path>
+                    </svg></div>
+                <span class="icons__label">Download</span>
+                <ul class="icons__submenu icons__submenu--from-left">
+
+                    <li class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent"><a
+                            class="icons__submenu-link">Download as pdf </a>
+
+                    </li>
+                    <li class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent"><a
+                            class="icons__submenu-link">Download as xls</a>
+
+                    </li>
+                </ul>
+            </button>
         </div>
-
-
         <div class="icons__item">
             <button type="button" class="icons__item  js-toggle icons__item--theme01" aria-expanded="true">
                 <div class="icons__icon"><svg class="icon icon--theme01 icon--menu"
@@ -139,7 +143,7 @@
             Copy This Report
         </button>
         <button type="button" class="button button--large button--icon button--theme02 js-modal"
-            routerLink="/createreport">
+            routerLink="/crateReport">
             <svg class="icon-simple icon-simple--theme01 icon-simple--add" aria-labelledby="title-5f86742813ab3"
                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="13" height="13">
                 <path fill="none" d="M0 0h24v24H0z"></path>
@@ -213,6 +217,98 @@
                             <path fill="currentColor" d="M14 0v24h-4V0z"></path>
                         </svg></div>
                     <span class="icons__label">Add Filter</span>
+                    <ul class="icons__submenu icons__submenu--from-left">
+                        <li class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent"
+                            style="min-width: 280px;">
+                            <select class="floating-select" (ngModelChange)='onOptionsSelected($event)' value="">
+                                <option value="">Choose column</option>
+                                <option *ngFor="let item of tabulatorColumn1" [value]="item.title">{{item.title}}
+                                </option>
+                            </select>
+
+                        </li>
+                        <hr>
+
+                        <li class="icons__submenu-item icons__submenu-item--contains-input"
+                            *ngIf="ColumnDataType=='string'">
+                            <div class="form__col">
+                                <label class="form__label form__label--hidden" for="list-dropdown1">Dropdown</label>
+                                <select class="form__input form__select" id="list-dropdown1" name="list-dropdown1">
+                                    <option value="">Choose Filter</option>
+                                    <option value="cn">Contains</option>
+                                    <option value="nc">Does NOT Contain</option>
+                                    <option value="eq">Equals</option>
+                                    <option value="ne">Does NOT Equal</option>
+                                    <option value="bw">Begins With</option>
+                                    <option value="Empty">Is Empty</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="icons__submenu-item icons__submenu-item--contains-input"
+                            *ngIf="ColumnDataType=='stringUom'">
+                            <div class="form__col">
+                                <label class="form__label form__label--hidden" for="list-dropdown3">Dropdown</label>
+                                <select class="form__input form__select" id="list-dropdown3" name="list-dropdown1">
+                                    <option value="">Choose Filter</option>
+                                    <option value="eq">Equals</option>
+                                    <option value="nc">Does NOT Contain</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="icons__submenu-item icons__submenu-item--contains-input"
+                            *ngIf="ColumnDataType=='stringStatus'">
+                            <div class="form__col">
+                                <label class="form__label form__label--hidden" for="list-dropdown4">Dropdown</label>
+                                <select class="form__input form__select" id="list-dropdown4" name="list-dropdown1">
+                                    <option value="">Choose Filter</option>
+                                    <option value="eq">Equals</option>
+                                    <option value="nc">Does NOT Contain</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="icons__submenu-item icons__submenu-item--contains-input"
+                            *ngIf="ColumnDataType=='number'">
+                            <div class="form__col">
+                                <label class="form__label form__label--hidden" for="list-dropdown2">Dropdown</label>
+                                <select class="form__input form__select" id=" list-dropdown2" name="list-dropdown2">
+                                    <option value="">Choose Filter</option>
+                                    <option value="num-eq">Equals</option>
+                                    <option value="num-ne">Does NOT Equal</option>
+                                    <option value="num-gte">Greater Than OR Equals</option>
+                                    <option value="num-lte">Less Than OR Equals</option>
+                                    <option value="Empty">Is Null (Empty)</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="icons__submenu-item icons__submenu-item--contains-input"
+                            *ngIf="ColumnDataType!=undefined&&ColumnDataType!='stringStatus'&&ColumnDataType!='stringUom'">
+                            <div class="form__col">
+                                <label class="form__label" for="value1">Value</label>
+                                <input class="form__input" [(ngModel)]="dataColumnFilter.searchValue" type="text"
+                                    id="value1" name="value1">
+                            </div>
+                        </li>
+                        <!-- <li class="icons__submenu-item icons__submenu-item--contains-input"
+                            *ngIf="ColumnDataType!=undefined&&ColumnDataType=='stringStatus'">
+                            <div class="form__col">
+                                <label class="form__label form__label--hidden" for="list-dropdown5">Value</label>
+                                <select class="form__input form__select" [(ngModel)]="dataColumnFilter.searchValue"
+                                    id="list-dropdown5" name="list-dropdown5">
+                                    <option value="">Choose Filter</option>
+                                    <option *ngFor="let opt of statusList" [value]="opt.statusValue">
+                                        {{opt.statusValue}}
+                                    </option>
+                                </select>
+                            </div>
+                        </li> -->
+                        <hr>
+                        <li class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent">
+                            <div class="button-group">
+                                <button class="button button--small button--text-only">Cancel</button>
+                                <button type="submit" class="button button--small">Apply</button>
+                            </div>
+                        </li>
+                    </ul>
 
                     <!-- <div class="icons__submenu icons__submenu--from-left" style="width:260px">
                         <ul class="icons__submenu-list">
@@ -342,9 +438,6 @@
 
 <section class="main">
 
-
-
-
     <!-- <li class="nav__menu-item" style="display: inline-flex; z-index: 3;">
         <a class=" nav__menu-link">More</a>
         <ul class="nav__submenu nav__submenu--1" id="submenu">
@@ -373,7 +466,6 @@
             </li>
         </ul>
     </li> -->
-
 
     <!-- <button type="button" class="button button--large js-modal">
         Set column Widths
@@ -465,6 +557,38 @@
                                                 fill="currentColor" class="icon__color--secondary"></path>
                                         </svg>
                                     </div>
+                                    <ul class="icons__submenu icons__submenu--from-left">
+
+                                        <li class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent"
+                                            style="min-width: 280px;">
+                                            <select class="floating-select">
+                                                <option value="">Choose Filter</option>
+                                                <option value="cn">Contains</option>
+                                                <option value="nc">Does NOT Contain</option>
+                                                <option value="eq">Equals</option>
+                                                <option value="ne">Does NOT Equal</option>
+                                                <option value="bw">Begins With</option>
+                                                <option value="Empty">Is Empty</option>
+                                            </select>
+
+                                        </li>
+                                        <hr>
+                                        <li
+                                            class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent">
+
+
+                                            <input class="form__input" type="text" id="value">
+
+                                        </li>
+                                        <hr>
+                                        <li
+                                            class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent">
+                                            <div class="button-group">
+                                                <button class="button button--small button--text-only">Cancel</button>
+                                                <button type="submit" class="button button--small">Apply</button>
+                                            </div>
+                                        </li>
+                                    </ul>
                                     <!-- <div class="icons__submenu icons__submenu--from-left" style="min-width: 280px;">
                                         <ul class="icons__submenu-list">
                                             <ng-container *ngIf="itemHeader.datatype=='string'">
@@ -625,6 +749,38 @@
                                                 fill="currentColor" class="icon__color--secondary"></path>
                                         </svg>
                                     </div>
+                                    <ul class="icons__submenu icons__submenu--from-left">
+
+                                        <li class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent"
+                                            style="min-width: 280px;">
+                                            <select class="floating-select">
+                                                <option value="">Choose Filter</option>
+                                                <option value="cn">Contains</option>
+                                                <option value="nc">Does NOT Contain</option>
+                                                <option value="eq">Equals</option>
+                                                <option value="ne">Does NOT Equal</option>
+                                                <option value="bw">Begins With</option>
+                                                <option value="Empty">Is Empty</option>
+                                            </select>
+
+                                        </li>
+                                        <hr>
+                                        <li
+                                            class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent">
+
+
+                                            <input class="form__input" type="text" id="value">
+
+                                        </li>
+                                        <hr>
+                                        <li
+                                            class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent">
+                                            <div class="button-group">
+                                                <button class="button button--small button--text-only">Cancel</button>
+                                                <button type="submit" class="button button--small">Apply</button>
+                                            </div>
+                                        </li>
+                                    </ul>
                                     <!-- <div class="icons__submenu icons__submenu--from-left" style="min-width: 280px;">
                                                                 <ul class="icons__submenu-list">
                                                                     <ng-container *ngIf="itemHeader.datatype=='string'">
@@ -785,6 +941,38 @@
                                                 fill="currentColor" class="icon__color--secondary"></path>
                                         </svg>
                                     </div>
+                                    <ul class="icons__submenu icons__submenu--from-left">
+
+                                        <li class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent"
+                                            style="min-width: 280px;">
+                                            <select class="floating-select">
+                                                <option value="">Choose Filter</option>
+                                                <option value="cn">Contains</option>
+                                                <option value="nc">Does NOT Contain</option>
+                                                <option value="eq">Equals</option>
+                                                <option value="ne">Does NOT Equal</option>
+                                                <option value="bw">Begins With</option>
+                                                <option value="Empty">Is Empty</option>
+                                            </select>
+
+                                        </li>
+                                        <hr>
+                                        <li
+                                            class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent">
+
+
+                                            <input class="form__input" type="text" id="value">
+
+                                        </li>
+                                        <hr>
+                                        <li
+                                            class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent">
+                                            <div class="button-group">
+                                                <button class="button button--small button--text-only">Cancel</button>
+                                                <button type="submit" class="button button--small">Apply</button>
+                                            </div>
+                                        </li>
+                                    </ul>
                                     <!-- <div class="icons__submenu icons__submenu--from-left" style="min-width: 280px;">
                                                                 <ul class="icons__submenu-list">
                                                                     <ng-container *ngIf="itemHeader.datatype=='string'">
@@ -945,6 +1133,38 @@
                                                 fill="currentColor" class="icon__color--secondary"></path>
                                         </svg>
                                     </div>
+                                    <ul class="icons__submenu icons__submenu--from-left">
+
+                                        <li class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent"
+                                            style="min-width: 280px;">
+                                            <select class="floating-select">
+                                                <option value="">Choose Filter</option>
+                                                <option value="cn">Contains</option>
+                                                <option value="nc">Does NOT Contain</option>
+                                                <option value="eq">Equals</option>
+                                                <option value="ne">Does NOT Equal</option>
+                                                <option value="bw">Begins With</option>
+                                                <option value="Empty">Is Empty</option>
+                                            </select>
+
+                                        </li>
+                                        <hr>
+                                        <li
+                                            class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent">
+
+
+                                            <input class="form__input" type="text" id="value">
+
+                                        </li>
+                                        <hr>
+                                        <li
+                                            class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent">
+                                            <div class="button-group">
+                                                <button class="button button--small button--text-only">Cancel</button>
+                                                <button type="submit" class="button button--small">Apply</button>
+                                            </div>
+                                        </li>
+                                    </ul>
                                     <!-- <div class="icons__submenu icons__submenu--from-left" style="min-width: 280px;">
                                                                 <ul class="icons__submenu-list">
                                                                     <ng-container *ngIf="itemHeader.datatype=='string'">
@@ -1105,6 +1325,38 @@
                                                 fill="currentColor" class="icon__color--secondary"></path>
                                         </svg>
                                     </div>
+                                    <ul class="icons__submenu icons__submenu--from-left">
+
+                                        <li class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent"
+                                            style="min-width: 280px;">
+                                            <select class="floating-select">
+                                                <option value="">Choose Filter</option>
+                                                <option value="cn">Contains</option>
+                                                <option value="nc">Does NOT Contain</option>
+                                                <option value="eq">Equals</option>
+                                                <option value="ne">Does NOT Equal</option>
+                                                <option value="bw">Begins With</option>
+                                                <option value="Empty">Is Empty</option>
+                                            </select>
+
+                                        </li>
+                                        <hr>
+                                        <li
+                                            class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent">
+
+
+                                            <input class="form__input" type="text" id="value">
+
+                                        </li>
+                                        <hr>
+                                        <li
+                                            class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent">
+                                            <div class="button-group">
+                                                <button class="button button--small button--text-only">Cancel</button>
+                                                <button type="submit" class="button button--small">Apply</button>
+                                            </div>
+                                        </li>
+                                    </ul>
                                     <!-- <div class="icons__submenu icons__submenu--from-left" style="min-width: 280px;">
                                                                 <ul class="icons__submenu-list">
                                                                     <ng-container *ngIf="itemHeader.datatype=='string'">
@@ -1265,6 +1517,38 @@
                                                 fill="currentColor" class="icon__color--secondary"></path>
                                         </svg>
                                     </div>
+                                    <ul class="icons__submenu icons__submenu--from-left">
+
+                                        <li class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent"
+                                            style="min-width: 280px;">
+                                            <select class="floating-select">
+                                                <option value="">Choose Filter</option>
+                                                <option value="cn">Contains</option>
+                                                <option value="nc">Does NOT Contain</option>
+                                                <option value="eq">Equals</option>
+                                                <option value="ne">Does NOT Equal</option>
+                                                <option value="bw">Begins With</option>
+                                                <option value="Empty">Is Empty</option>
+                                            </select>
+
+                                        </li>
+                                        <hr>
+                                        <li
+                                            class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent">
+
+
+                                            <input class="form__input" type="text" id="value">
+
+                                        </li>
+                                        <hr>
+                                        <li
+                                            class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent">
+                                            <div class="button-group">
+                                                <button class="button button--small button--text-only">Cancel</button>
+                                                <button type="submit" class="button button--small">Apply</button>
+                                            </div>
+                                        </li>
+                                    </ul>
                                     <!-- <div class="icons__submenu icons__submenu--from-left" style="min-width: 280px;">
                                                             <ul class="icons__submenu-list">
                                                                 <ng-container *ngIf="itemHeader.datatype=='string'">

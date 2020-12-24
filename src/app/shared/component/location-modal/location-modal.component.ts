@@ -57,4 +57,7 @@ export class LocationModalComponent implements OnInit {
           }
         });
   }
+  closeaddlocation(form) {
+    form.reset();
+  }
 }
