@@ -29,7 +29,8 @@
 
     <div class="taskbar">
         <div class="taskbar__col">
-            <button type="button" (click)="OpenModal()" class="button button--medium button--icon button--theme02 ">
+            <button type="button" data-modal="#AddLocationinnerModal"
+                class="button button--medium button--icon button--theme02 js-modal">
                 <svg class="icon-simple icon-simple--theme01 icon-simple--add" aria-labelledby="title-5f86742813ab3"
                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                     <path fill="none" d="M0 0h24v24H0z"></path>
@@ -38,9 +39,9 @@
                 </svg> &nbsp; Add New Location
             </button>
         </div>
+        <app-location-modal (RefreshLocation)="GetLocation()"></app-location-modal>
+        <!--  <app-add-location *ngIf="addLocation" (loadLocation)="GetLocation()" (hideClose)="getValue($event)"> </app-add-location> -->
 
-        <app-add-location *ngIf="addLocation" (loadLocation)="GetLocation()" (hideClose)="getValue($event)">
-        </app-add-location>
 
         <!-- <div id="locationModal" class="smallModal" role="dialog" aria-labelledby="dialog-title"
             aria-describedby="dialog-description" tabindex="-1" hidden="">
@@ -225,7 +226,7 @@
                             <div class="loader"></div>
                             <h3>Please Wait...</h3>
                         </div>
-                       
+
                     </ng-container>
 
                     <ng-container *ngFor="let item of locations">
@@ -283,7 +284,8 @@
                                                 <path fill="currentColor"
                                                     d="M10.734 1.738l3.96.52-.26 1.98-3.96-.52zM16.3 10h3l-1 8-.4 3h-3l.4-3 1-8zM9.1 21h-3l-.4-3-1.1-8h3.1l1 8 .4 3z">
                                                 </path>
-                                            </svg></div>
+                                            </svg>
+                                        </div>
                                         <span class="icons__label">Remove</span>
                                     </button>
                                 </div>

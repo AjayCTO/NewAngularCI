@@ -16,6 +16,7 @@ import dropdown from '../../../../assets/js/lib/_dropdown';
   styleUrls: ['./convert-event.component.scss']
 })
 export class ConvertEventComponent implements OnInit {
+  public selectedTenantId: number;
 
   @Input() IsConvertEvent: boolean;
   @Input() item: any;
@@ -26,7 +27,6 @@ export class ConvertEventComponent implements OnInit {
   @Input() today: Date;
   @Input() UomList: any[];
   busy: boolean;
-  selectedTenantId: number;
   constructor(private authService: AuthService, private toastr: ToastrService, private currentinventoryService: CurrentinventoryService, private libraryService: LibraryService, private spinner: NgxSpinnerService) {
     this.today = new Date();
   }
@@ -43,8 +43,8 @@ export class ConvertEventComponent implements OnInit {
   }
   ngOnInit(): void {
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
-    this.ApplyJsFunction();
   }
+
   ApplyJsFunction() {
     setTimeout(function () {
       inputClear();

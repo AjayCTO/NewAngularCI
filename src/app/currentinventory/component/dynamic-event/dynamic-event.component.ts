@@ -10,7 +10,7 @@ import inputFocus from '../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../assets/js/lib/_inputClear';
 import datePicker from '../../../../assets/js/lib/_datePicker';
 import trigger from '../../../../assets/js/lib/_trigger';
-
+import modal from '../../../../assets/js/lib/_modal';
 @Component({
   selector: 'app-dynamic-event',
   templateUrl: './dynamic-event.component.html',
@@ -55,7 +55,11 @@ export class DynamicEventComponent implements OnInit {
     debugger;
     let data = this.CustomFields;
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+
     this.ApplyJsFunction();
+
+    modal();
+
   }
 
   EventAction(item: any) {

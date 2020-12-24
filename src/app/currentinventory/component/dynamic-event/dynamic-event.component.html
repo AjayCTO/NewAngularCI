@@ -180,6 +180,9 @@
                                 [(ngModel)]="TransactionTargetObj.ToConvertedQuantity" name="location_convert" required>
                         </div>
                         <div class="form__col form__col--third">
+                            <button type="button" data-modal="#AddUOMinnerModal"
+                                class="invModal__control addLibrary js-modal">Add New UOM</button>
+
                             <label class="form__label" for="Uom_convert">New UOM <span
                                     class="form__required">*</span></label>
                             <select class="form__input form__select" id="Uom_convert" name="Uom_convert"
@@ -223,9 +226,9 @@
                                 for="Circustance_{{field.columnId}}"
                                 [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>'4' ? 'prefixLabel3':'']">{{field.columnLabel}}<span
                                     *ngIf="field.customFieldIsRequired" class="form__required">*</span></label>
-                            <span class="form__group-outer-label"
-                                *ngIf="field.dataType=='True/False'">{{
-                                                        (field.columnLabel.length>5)? (field.columnLabel | slice:0:5)+'...':(field.columnLabel)}}
+                            <span class="form__group-outer-label" *ngIf="field.dataType=='True/False'">{{
+                                (field.columnLabel.length>5)? (field.columnLabel |
+                                slice:0:5)+'...':(field.columnLabel)}}
                                 :</span>
                             <ng-container *ngIf="field.dataType=='Text'">
 
@@ -267,8 +270,9 @@
                                         class="input-group">
                                         <span *ngIf="field.customFieldPrefix" class="input-group-addon text Prefix"
                                             [popper]="popper13Content" [popperTrigger]="'hover'"
-                                            [popperPlacement]="'bottom'">{{(field.customFieldPrefix.length>3)? (field.customFieldPrefix |
-                                                slice:0:3)+'...':(field.customFieldPrefix)}}</span>
+                                            [popperPlacement]="'bottom'">{{(field.customFieldPrefix.length>3)?
+                                            (field.customFieldPrefix |
+                                            slice:0:3)+'...':(field.customFieldPrefix)}}</span>
                                         <popper-content #popper13Content>
                                             <p class="popperTitle"><b>{{field.customFieldPrefix}}</b></p>
                                         </popper-content>
@@ -372,13 +376,16 @@
                     (click)="AddEventSubmit()" href=" #">Save</button>
                 <button type="button" class="button button--medium button--text-only js-trigger"
                     (click)="EventAction(item)" data-trigger=".table__button-group .icons__item.is-active">Cancel
-                </button></div>
+                </button>
+            </div>
         </form>
         <button class="action__close js-trigger icons--size02"
             data-trigger=".table__button-group .icons__item.is-active" type="button">
             Back to Event Menu
         </button>
-
+        <app-uom-modal (RefreshUom)="GetUOM()"></app-uom-modal>
     </div>
+
+    <!-- <app-uom-library (RefreshUom)="getUOMList()"><app-uom-library> -->
 </ng-container>
 <ngx-spinner></ngx-spinner>

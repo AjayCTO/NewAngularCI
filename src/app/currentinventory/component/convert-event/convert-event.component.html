@@ -30,6 +30,8 @@
 
             </div>
         </div>
+
+
         <div class="form__section">
             <h2 class="form__section-title">Into this QTY of this UOM...</h2>
             <div class="form__col-wrap">
@@ -39,6 +41,7 @@
                     <input class="form__input" type="number" id="location_convert"
                         [(ngModel)]="TransactionTargetObj.ToConvertedQuantity" name="location_convert" required>
                 </div>
+
                 <div class="form__col form__col--third">
                     <label class="form__label" for="Uom_convert">New UOM <span class="form__required">*</span></label>
                     <select class="form__input form__select" id="Uom_convert" name="Uom_convert"
@@ -71,9 +74,8 @@
                             for="Circustance_{{field.columnId}}"
                             [ngClass]="field.customFieldPrefix ? 'prefixLabel':''">{{field.columnLabel}}<span
                                 *ngIf="field.customFieldIsRequired" class="form__required">*</span></label>
-                        <span class="form__group-outer-label"
-                            *ngIf="field.dataType=='True/False'">{{
-                                                            (field.columnLabel.length>5)? (field.columnLabel | slice:0:5)+'...':(field.columnLabel)}}
+                        <span class="form__group-outer-label" *ngIf="field.dataType=='True/False'">{{
+                            (field.columnLabel.length>5)? (field.columnLabel | slice:0:5)+'...':(field.columnLabel)}}
                             :</span>
                         <ng-container *ngIf="field.dataType=='Text'">
 

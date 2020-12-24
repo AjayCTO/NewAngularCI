@@ -13,6 +13,6 @@ import { CustomFieldModalComponent } from './component/custom-field-modal/custom
   ],
   imports: [FormsModule, ReactiveFormsModule],
   declarations: [LocationModalComponent, UomModalComponent, StatusModalComponent, CustomFieldModalComponent],
-  exports: [LocationModalComponent, StatusModalComponent, UomModalComponent]
+  exports: [LocationModalComponent, StatusModalComponent, UomModalComponent,]
 })
 export class SharedModule { }

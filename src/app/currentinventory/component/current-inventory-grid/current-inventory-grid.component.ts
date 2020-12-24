@@ -1123,34 +1123,7 @@ export class CurrentInventoryGridComponent implements OnInit {
 
 
 
-  AddNewUOM() {
-    if (this.uomForm.invalid) {
-      return;
-    }
-    this.spinner.show();
-    this.uomForm.value;
-    this.libraryService.AddUom(this.selectedTenantId, this.uomForm.value, this.authService.accessToken)
-      .pipe(finalize(() => {
-        this.spinner.hide();
-      }))
-      .subscribe(
-        result => {
-          if (result) {
-            debugger;
 
-            if (result.entity == true) {
-              this.toastr.success("Your Uom is Successfully Add.");
-              let el: HTMLElement = this.AddUOMClose.nativeElement;
-              el.click();
-              this.getUOMList();
-
-            }
-            else {
-              this.toastr.warning(result.message);
-            }
-          }
-        });
-  }
 
   // custom fields new add
   AddNewCustomfield() {

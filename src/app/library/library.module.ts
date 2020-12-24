@@ -24,12 +24,13 @@ import { RestockComponent } from './component/item-library/edit-item/restock/res
 import { DetailsComponent } from './component/item-library/edit-item/details/details.component';
 import { EditItemComponent } from './component/item-library/edit-item/edit-item.component';
 import { ImageLibraryComponent } from './component/image-library/image-library.component';
+import { SharedModule } from '../shared/shared.module';
 @NgModule({
   declarations: [LocationLibraryComponent, UOMLibraryComponent, StatusLibraryComponent,
     ItemLibraryComponent, AddLocationComponent, AddStatusComponent, AddUomComponent, DeleteConfirmationComponent, EditItemComponent, DetailsComponent, RestockComponent, UsersComponent, ValuesComponent, SettingsComponent, ImageLibraryComponent],
   imports: [
     CommonModule,
-    NgxSpinnerModule, FormsModule, NgxPopperModule, ReactiveFormsModule, AutocompleteLibModule,
+    NgxSpinnerModule, FormsModule, NgxPopperModule, SharedModule, ReactiveFormsModule, AutocompleteLibModule,
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'danger', // set defaults here
     }),
