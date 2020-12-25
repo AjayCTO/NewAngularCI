@@ -32,6 +32,11 @@ export class StatusLibraryComponent implements OnInit {
   statusForm: FormGroup;
   submitted = false;
   addStatus = false;
+  length = 100;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+  pageIndex = 0;
+  lastPageIndex = 0;
 
   constructor(private formBuilder: FormBuilder, private libraryService: LibraryService,
     private toastr: ToastrService, private authService: AuthService, private spinner: NgxSpinnerService,
@@ -73,6 +78,7 @@ export class StatusLibraryComponent implements OnInit {
           if (result.entity != null) {
             this.loadingRecords = false;
             this.Statuslist = result.entity;
+            this.length = result.entity.length;
           }
         }
         this.spinner.hide();
@@ -187,5 +193,30 @@ export class StatusLibraryComponent implements OnInit {
     const html = document.querySelector('html');
     html.classList.remove('js-modal-page');
     this.deleteStatus2 = false;
+  }
+  gotoFirstPage() {
+    this.pageIndex = 0;
+    this.GetStatus();
+  }
+  gotoLastPage() {
+
+    this.pageIndex = this.length / this.pageSize;
+    this.pageIndex = parseInt(this.pageIndex.toString())
+    this.GetStatus();
+  }
+  gotoNext() {
+    debugger;
+    this.lastPageIndex = this.length / this.pageSize;
+    this.lastPageIndex = parseInt(this.lastPageIndex.toString())
+    if (this.pageIndex != this.lastPageIndex) {
+      this.pageIndex++;
+      this.GetStatus();
+    }
+  }
+  gotoBack() {
+    if (this.pageIndex > 0) {
+      this.pageIndex = this.pageIndex - 1;
+      this.GetStatus();
+    }
   }
 }

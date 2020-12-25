@@ -98,7 +98,7 @@
 
         <div class="pagination">
             <div class="icons icons--size02 icons--horziontal">
-                <a href="#" class="icons__item icons__item--theme09">
+                <a class="icons__item icons__item--theme09" (click)="gotoFirstPage()">
                     <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--first"
                             aria-labelledby="title-5f8080f1a0466" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                             width="24" height="24">
@@ -107,7 +107,7 @@
                             </path>
                         </svg></div>
                 </a>
-                <a class="icons__item icons__item--theme09">
+                <a class="icons__item icons__item--theme09" (click)="gotoBack()">
                     <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--previous"
                             aria-labelledby="title-5f8080f1a0482" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                             width="24" height="24">
@@ -116,9 +116,10 @@
                         </svg></div>
                 </a>
             </div>
-            <span class="footer__statements">Statements 1-50</span>
+            <span class="footer__statements">Statements
+                {{pageIndex*pageSize}}-{{(pageIndex+1)*(pageSize>length?length:pageSize)}}</span>
             <div class="icons icons--size02 icons--horziontal">
-                <a class="icons__item icons__item--theme09">
+                <a class="icons__item icons__item--theme09" (click)="gotoNext()">
                     <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--next"
                             aria-labelledby="title-5f8080f1a0490" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                             width="24" height="24">
@@ -126,7 +127,7 @@
                             <path d="M8.6 1.9L6.2 5.1l9 6.9-9 6.9 2.4 3.2L21.8 12z" fill="currentColor"></path>
                         </svg></div>
                 </a>
-                <a class="icons__item icons__item--theme09">
+                <a class="icons__item icons__item--theme09" (click)="gotoLastPage()">
                     <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--last"
                             aria-labelledby="title-5f8080f1a049c" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                             width="24" height="24">
@@ -137,7 +138,7 @@
                         </svg></div>
                 </a>
             </div>
-            <span class="footer__total">of 1,800</span>
+            <span class="footer__total">of {{length}}</span>
         </div>
         <div class="table">
             <table class="table__table">

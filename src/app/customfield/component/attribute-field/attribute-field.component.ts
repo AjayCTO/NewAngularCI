@@ -79,7 +79,11 @@ export class AttributeFieldsComponent implements OnInit {
     offsetDateFields: '',
     offsetTimeFields: '',
   }
-
+  length: number = 0;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+  pageIndex = 0;
+  lastPageIndex = 0;
 
   constructor(private authService: AuthService, private toastr: ToastrService, private spinner: NgxSpinnerService, private customfieldservice: CustomFieldService,) { }
 
@@ -108,6 +112,7 @@ export class AttributeFieldsComponent implements OnInit {
           if (result.entity != null) {
             this.loadingRecords = false;
             this.CustomFields = result.entity;
+            this.length = result.entity.length;
           }
         }
       })
@@ -252,16 +257,15 @@ export class AttributeFieldsComponent implements OnInit {
 
 
   onSubmit() {
-    
+
 
     if (this.attributeFields.customFieldSpecialType == "Autocomplete" || this.attributeFields.customFieldSpecialType == "Dropdown") {
       this.attributeFields.comboBoxValue = this.cfdcomboValuesString;
     }
-   if (this.attributeFields.customFieldBaseValue==null|| this.attributeFields.customFieldIncrementBy==null)
-   {
-     this.attributeFields.customFieldBaseValue=0;
-     this.attributeFields.customFieldIncrementBy=0;
-   }
+    if (this.attributeFields.customFieldBaseValue == null || this.attributeFields.customFieldIncrementBy == null) {
+      this.attributeFields.customFieldBaseValue = 0;
+      this.attributeFields.customFieldIncrementBy = 0;
+    }
     this.attributeFields.customFieldType = "AttributeField";
     this.spinner.show();
     this.customfieldservice.AddAttributeFields(this.attributeFields, this.selectedTenantId, this.authService.accessToken)
@@ -481,6 +485,30 @@ export class AttributeFieldsComponent implements OnInit {
     html.classList.remove('js-modal-page');
     this.deleteCustom = false;
   }
+  gotoFirstPage() {
+    this.pageIndex = 0;
+    this.GetAttributeFields();
+  }
+  gotoLastPage() {
 
+    this.pageIndex = this.length / this.pageSize;
+    this.pageIndex = parseInt(this.pageIndex.toString())
+    this.GetAttributeFields();
+  }
+  gotoNext() {
+    debugger;
+    this.lastPageIndex = this.length / this.pageSize;
+    this.lastPageIndex = parseInt(this.lastPageIndex.toString())
+    if (this.pageIndex != this.lastPageIndex) {
+      this.pageIndex++;
+      this.GetAttributeFields();
+    }
+  }
+  gotoBack() {
+    if (this.pageIndex > 0) {
+      this.pageIndex = this.pageIndex - 1;
+      this.GetAttributeFields();
+    }
+  }
 }
 

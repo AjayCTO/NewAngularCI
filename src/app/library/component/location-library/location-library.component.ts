@@ -41,6 +41,11 @@ export class LocationLibraryComponent implements OnInit {
   constructor(protected store: Store<AppState>, private formBuilder: FormBuilder, private libraryService: LibraryService, private toast: ToastrService, private cdr: ChangeDetectorRef, private spinner: NgxSpinnerService, private authService: AuthService) {
 
   }
+  length = 100;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+  pageIndex = 0;
+  lastPageIndex = 0;
 
   ngOnInit(): void {
 
@@ -78,7 +83,7 @@ export class LocationLibraryComponent implements OnInit {
     debugger;
     this.addLocation = false;
     this.istableloaded = false;
-    
+
     this.loadingRecords = true;
     this.libraryService.GetLocation(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
@@ -92,6 +97,7 @@ export class LocationLibraryComponent implements OnInit {
           if (result.entity != null) {
             this.loadingRecords = false;
             this.locations = result.entity;
+            this.length = result.entity.length;
           }
         }
 
@@ -211,5 +217,30 @@ export class LocationLibraryComponent implements OnInit {
     const html = document.querySelector('html');
     html.classList.remove('js-modal-page');
     this.deleteLocation = false;
+  }
+  gotoFirstPage() {
+    this.pageIndex = 0;
+    this.GetLocation();
+  }
+  gotoLastPage() {
+
+    this.pageIndex = this.length / this.pageSize;
+    this.pageIndex = parseInt(this.pageIndex.toString())
+    this.GetLocation();
+  }
+  gotoNext() {
+    debugger;
+    this.lastPageIndex = this.length / this.pageSize;
+    this.lastPageIndex = parseInt(this.lastPageIndex.toString())
+    if (this.pageIndex != this.lastPageIndex) {
+      this.pageIndex++;
+      this.GetLocation();
+    }
+  }
+  gotoBack() {
+    if (this.pageIndex > 0) {
+      this.pageIndex = this.pageIndex - 1;
+      this.GetLocation();
+    }
   }
 }

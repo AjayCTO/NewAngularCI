@@ -286,7 +286,7 @@ export class CurrentInventoryGridComponent implements OnInit {
 
 
 
-  length = 100;
+  length: number = 0;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageIndex = 0;

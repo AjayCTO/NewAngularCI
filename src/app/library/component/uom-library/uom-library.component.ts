@@ -32,6 +32,11 @@ export class UOMLibraryComponent implements OnInit {
   submitted = false;
   addUom = false;
   deleteUom = false;
+  length = 100;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+  pageIndex = 0;
+  lastPageIndex = 0;
 
   constructor(private formBuilder: FormBuilder, private spinner: NgxSpinnerService,
     private toast: ToastrService, private libraryService: LibraryService,
@@ -87,6 +92,7 @@ export class UOMLibraryComponent implements OnInit {
           if (result.entity != null) {
             this.loadingRecords = false;
             this.UOMlist = result.entity;
+            this.length = result.entity.length;
           }
         }
         this.UOMlist.forEach(element => {
@@ -185,6 +191,31 @@ export class UOMLibraryComponent implements OnInit {
     const html = document.querySelector('html');
     html.classList.remove('js-modal-page');
     this.deleteUom = false;
+  }
+  gotoFirstPage() {
+    this.pageIndex = 0;
+    this.GetUOM();
+  }
+  gotoLastPage() {
+
+    this.pageIndex = this.length / this.pageSize;
+    this.pageIndex = parseInt(this.pageIndex.toString())
+    this.GetUOM();
+  }
+  gotoNext() {
+    debugger;
+    this.lastPageIndex = this.length / this.pageSize;
+    this.lastPageIndex = parseInt(this.lastPageIndex.toString())
+    if (this.pageIndex != this.lastPageIndex) {
+      this.pageIndex++;
+      this.GetUOM();
+    }
+  }
+  gotoBack() {
+    if (this.pageIndex > 0) {
+      this.pageIndex = this.pageIndex - 1;
+      this.GetUOM();
+    }
   }
 
 }

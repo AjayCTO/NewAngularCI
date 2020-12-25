@@ -79,7 +79,11 @@ export class CustomFieldsComponent implements OnInit {
     offsetDateFields: '',
     offsetTimeFields: '',
   }
-
+  length: number = 0;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+  pageIndex = 0;
+  lastPageIndex = 0;
 
   constructor(private authService: AuthService, private toastr: ToastrService, private spinner: NgxSpinnerService, private customfieldservice: CustomFieldService,) { }
 
@@ -108,6 +112,7 @@ export class CustomFieldsComponent implements OnInit {
           if (result.entity != null) {
             this.loadingRecords = false;
             this.CustomFields = result.entity;
+            this.length = result.entity.length;
           }
         }
       })
@@ -473,5 +478,30 @@ export class CustomFieldsComponent implements OnInit {
     const html = document.querySelector('html');
     html.classList.remove('js-modal-page');
     this.deleteCustom = false;
+  }
+  gotoFirstPage() {
+    this.pageIndex = 0;
+    this.GetCustomFields();
+  }
+  gotoLastPage() {
+
+    this.pageIndex = this.length / this.pageSize;
+    this.pageIndex = parseInt(this.pageIndex.toString())
+    this.GetCustomFields();
+  }
+  gotoNext() {
+    debugger;
+    this.lastPageIndex = this.length / this.pageSize;
+    this.lastPageIndex = parseInt(this.lastPageIndex.toString())
+    if (this.pageIndex != this.lastPageIndex) {
+      this.pageIndex++;
+      this.GetCustomFields();
+    }
+  }
+  gotoBack() {
+    if (this.pageIndex > 0) {
+      this.pageIndex = this.pageIndex - 1;
+      this.GetCustomFields();
+    }
   }
 }
