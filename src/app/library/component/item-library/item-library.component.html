@@ -763,14 +763,14 @@
             </div>
             <div class="form__section">
                 <h2 class="form__section-title">Item Settings
-                    <button type="button" data-modal="#AddUOMinnerModal" class="invModal__control js-modal">Add New
-                        UOM</button>
-                    <button type="button" data-modal="#AddLocationinnerModal" class="invModal__control js-modal">Add New
-                        Location</button>
-                </h2>
+                </h2>                                                 
                 <div class="form__col-wrap">
-                    <div class="form__col form__col--half"
-                        [ngClass]="{'form__col--error': submitted && f.uomId.errors}">
+                    <div class="form__col form__col--half"[ngClass]="{'form__col--error': submitted && f.uomId.errors}">
+                        <button type="button" data-modal="#AddUOMinnerModal"
+                        class="invModal__control addLibrary js-modal">Add
+                        New
+                        UOM</button>
+    
                         <!-- <label class="form__label" for="UomFormControl">Default UOM<span
                                 class="form__required">*</span></label>
                         <select class="form__input  form__select" id="UomFormControl" name="UomFormControl"
@@ -793,6 +793,9 @@
                     </div>
                     <div class="form__col form__col--half"
                         [ngClass]="{ 'form__col--error': submitted && f.locationId.errors}">
+                        <button type="button" data-modal="#AddLocationinnerModal"
+                        class="invModal__control addLibrary js-modal">Add New
+                        Location</button>
                         <!-- <label class="form__label" for="locationFormControl">Default Location<span
                                 class="form__required">*</span></label>
                         <select class="form__input  form__select" id="locationFormControl" formControlName="locationId"
@@ -835,14 +838,17 @@
             </div>
             <div class="form__section" *ngIf="AttributeFields!=undefined&&AttributeFields.length>0">
                 <h2 class="form__section-title">
-                    Attributes <button type="button" data-modal="#innerModal" class="invModal__control js-modal">Add New
-                        Attribute</button>
+                    Attributes 
+                    <button type="button" data-modal="#innerModal"
+                    class="invModal__control js-modal">Add New
+                       Attribute</button>
                 </h2>
+             
                 <div class="form__col-wrap">
                     <ng-container *ngFor="let field of AttributeFields">
                         <div class="form__col form__col--third"
-                            [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''">
-                            <label class="form__label" for="Attribute_{{field.columnId}}"
+                            [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''">   
+                         <label class="form__label" for="Attribute_{{field.columnId}}"
                                 *ngIf="field.customFieldSpecialType!='Dropdown'&&field.dataType!='True/False'"
                                 [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>'4' ? 'prefixLabel3':'']">{{field.columnLabel}}<span
                                     *ngIf="field.customFieldIsRequired" class="form__required">*</span></label>
@@ -1479,6 +1485,9 @@
                 Go to Inventory
             </button>
         </div>
+        <app-uom-modal (RefreshUom)="getUOMList()"></app-uom-modal>
+        <app-location-modal (RefreshLocation)="getLocationList()"></app-location-modal>
+        <app-attribute-field-modal (RefreshAttributeField)="GetAttributeFields()"></app-attribute-field-modal>
     </section>
 </ng-container>
 

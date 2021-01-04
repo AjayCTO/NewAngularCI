@@ -180,8 +180,8 @@
                                 [(ngModel)]="TransactionTargetObj.ToConvertedQuantity" name="location_convert" required>
                         </div>
                         <div class="form__col form__col--third">
-                            <button type="button" data-modal="#AddUOMinnerModal"
-                                class="invModal__control addLibrary js-modal">Add New UOM</button>
+                            <!-- <button type="button" data-modal="#AddUOMinnerModal"
+                                class="invModal__control addLibrary js-modal">Add New UOM</button> -->
 
                             <label class="form__label" for="Uom_convert">New UOM <span
                                     class="form__required">*</span></label>
@@ -204,7 +204,7 @@
                     <button type="button" class="invModal__control" (click)="AddCustomModal()">Add New Custom
                         Field</button>
                 </h2>
-                <app-add-custom-field *ngIf="AddCustomForm"></app-add-custom-field>
+               
 
 
                 <div class="form__col-wrap">
@@ -383,9 +383,9 @@
             data-trigger=".table__button-group .icons__item.is-active" type="button">
             Back to Event Menu
         </button>
-        <app-uom-modal (RefreshUom)="GetUOM()"></app-uom-modal>
+        <!-- <app-add-uom-modal (RefreshUom)="getUOMList()"></app-add-uom-modal> -->
     </div>
-
+    <app-add-custom-field *ngIf="AddCustomForm"></app-add-custom-field>
     <!-- <app-uom-library (RefreshUom)="getUOMList()"><app-uom-library> -->
 </ng-container>
 <ngx-spinner></ngx-spinner>
