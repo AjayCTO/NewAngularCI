@@ -7,6 +7,7 @@ import inputFocus from '../../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../../assets/js/lib/_inputClear';
 import { AuthService } from '../../../../core/auth.service';
 import { finalize } from 'rxjs/operators';
+import { ReportTable } from '../../../models/admin.models';
 import { SetSelectedTenant, SetSelectedTenantId } from '../../../../store/actions/tenant.action';
 @Component({
   selector: 'app-create-report',
@@ -16,6 +17,8 @@ import { SetSelectedTenant, SetSelectedTenantId } from '../../../../store/action
 export class CreateReportComponent implements OnInit {
   @Input() item: any;
   @Output() hideClose = new EventEmitter();
+  ReportTable = new ReportTable()
+  dataarray = [];
   public OpenAdvanced = false;
   public Showform: boolean = false;
   public tabulatorColumn1: any;
@@ -32,6 +35,7 @@ export class CreateReportComponent implements OnInit {
 
   ngOnInit(): void {
     debugger;
+    this.dataarray.push(this.ReportTable)
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     this.tabulatorColumn1 = JSON.parse(localStorage.getItem("tabelColumn"));
 
@@ -62,8 +66,13 @@ export class CreateReportComponent implements OnInit {
   }
   add() {
     debugger;
-    this.tablecolumname;
-    this.adddata = true;
+    this.ReportTable = new ReportTable();
+    this.dataarray.push(this.ReportTable);
+    this.ApplyJsFunction();
+  }
+  removeForm(index) {
+    debugger;
+    this.dataarray.splice(index, 1);
   }
   hide() {
     $('#f').hide();

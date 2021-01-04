@@ -233,5 +233,11 @@ export class ChangeStateFields {
     public columnName: string;
     public columnValue: string;
 }
+export class ReportTable {
+    public ColumnName: any;
+    public FilterBy: any;
+    public SortOrder: any;
+    public SortType: any;
+}
 
 

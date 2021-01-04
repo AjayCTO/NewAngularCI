@@ -26,19 +26,23 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { SharedModule } from '../shared/shared.module';
 import { ReportComponent } from './component/report/report.component';
 import { CreateReportComponent } from './component/report/create-report/create-report.component';
+import { IteminventoryComponent } from './component/report/itemInventory/iteminventory/iteminventory.component';
+import { CreateNewitemReportComponent } from './component/report/itemInventory/create-newitem-report/create-newitem-report.component';
 @NgModule({
   declarations: [CurrentInventoryGridComponent, UploadComponent, ArrangeColumnComponent,
     AddEventComponent, RemoveEventComponent, MoveEventComponent, ChangeEventComponent,
     UpdateEventComponent, ConvertEventComponent, MoveAndChangeEventComponent,
     UploadActivityComponent, AdjustEventComponent, DynamicEventComponent,
-    StatementHistoryComponent, EventListComponent, ReportComponent, CreateReportComponent],
+    StatementHistoryComponent, EventListComponent, ReportComponent, CreateReportComponent, IteminventoryComponent, CreateNewitemReportComponent],
   imports: [
     CommonModule, SharedModule, FormsModule, NgxPopperModule, ReactiveFormsModule, NgxSpinnerModule, AutocompleteLibModule, ProgressBarModule, NgImageSliderModule,
     RouterModule.forChild([
       { path: 'CurrentInventory', component: CurrentInventoryGridComponent, canActivate: [AuthGuard], runGuardsAndResolvers: "paramsChange" },
       { path: 'ArrangeColumn', component: ArrangeColumnComponent, canActivate: [AuthGuard] },
       { path: 'Reports', component: ReportComponent, canActivate: [AuthGuard] },
-      { path: 'crateReport', component: CreateReportComponent, canActivate: [AuthGuard] }
+      { path: 'ItemReports', component: IteminventoryComponent, canActivate: [AuthGuard] },
+      { path: 'crateReport', component: CreateReportComponent, canActivate: [AuthGuard] },
+      { path: 'newitem', component: CreateNewitemReportComponent, canActivate: [AuthGuard] }
     ]),
 
   ],

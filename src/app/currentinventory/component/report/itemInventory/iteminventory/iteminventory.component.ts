@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import inputFocus from '../../../../assets/js/lib/_inputFocus';
-import toggle from '../../../../assets/js/lib/_toggle';
+import inputFocus from '../../../../../../assets/js/lib/_inputFocus';
+import toggle from '../../../../../../assets/js/lib/_toggle';
 @Component({
-  selector: 'app-report',
-  templateUrl: './report.component.html',
-  styleUrls: ['./report.component.css']
+  selector: 'app-iteminventory',
+  templateUrl: './iteminventory.component.html',
+  styleUrls: ['./iteminventory.component.css']
 })
-export class ReportComponent implements OnInit {
+export class IteminventoryComponent implements OnInit {
   creatReportOpen = false;
-  public tabeldata: any = [{ 'Quantity': 20, 'UOM': 'piece', 'ItemName': 'Shirt', 'ItemDescription': 'this is shirt', 'Location': 'kankroli', 'Status': 'damaged' },
-  { 'Quantity': 30, 'UOM': 'pieces', 'ItemName': 'T-Shirt', 'ItemDescription': 'this is Tshirt', 'Location': 'jodhpur', 'Status': 'damaged' }];
+  public tabeldata: any = [{ 'ItemName': 'Shirt', 'ItemDescription': 'this is shirt', },
+  { 'ItemName': 'T-Shirt', 'ItemDescription': 'this is Tshirt' }];
   public pageIndex: number;
   lastPageIndex = 0;
   pageSize = 10;
+  image = "https://assets.ajio.com/medias/sys_master/root/hff/h1b/16003868000286/rosso_fem_white_striped_regular_fit_shirt.jpg"
   length = 100;
   public tabulatorColumn1: any = [{ 'title': 'Quantity', 'datatype': 'number' }, { 'title': 'UOM', 'datatype': 'stringUom' }, { 'title': 'Item Name', 'datatype': 'string' }, { 'title': 'Item Description', 'datatype': 'string' }, { 'title': 'Location', 'datatype': 'string' }, { 'title': 'Status', 'datatype': 'stringStatus' },];
   public tabulatorValue: any;
@@ -20,11 +21,6 @@ export class ReportComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    debugger;
-    // this.tabulatorColumn1 = JSON.parse(localStorage.getItem("tabelColumn"));
-    // this.tabulatorValue = JSON.parse(localStorage.getItem("tabelValue"));
-    inputFocus();
-    this.onOptionsSelected('Quantity');
     toggle();
   }
   CreateReport() {
@@ -64,7 +60,6 @@ export class ReportComponent implements OnInit {
       // this.ApplyJsFunction();
     }
   }
-
   onOptionsSelected(event) {
     debugger;
     this.tabulatorColumn1.forEach(element => {
@@ -81,5 +76,4 @@ export class ReportComponent implements OnInit {
     }, 500);
 
   }
-
 }

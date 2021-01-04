@@ -1,4 +1,4 @@
-<h1 style="margin-left: 50px;">Create New Current Inventory Report</h1>
+<h1 style="margin-left: 50px;">Create New Item Report</h1>
 
 <section class="main">
     <div class="edit--card">
@@ -9,18 +9,16 @@
                     <div class="form__col form__col--third">
                         <label class="form__label form_label" for="Reporttitle">Report Title <span
                                 class="form__required">*</span></label>
-                        <input class="form__input" type="text" id="Reporttitle" name="Reporttitle"
-                            value="Current Inventory" required>
+                        <input class="form__input" type="text" id="Reporttitle" name="Reporttitle" value="Items"
+                            required>
                     </div>
                     <div class="form__col form__col--two-third">
                         <label class="form__label" for="two">Subtitle</label>
-                        <input class="form__input" type="text" id="two" name="two"
-                            value="This report shows where everything is right now.">
+                        <input class="form__input" type="text" id="two" name="two" value="This report shows All item.">
                     </div>
                     <div class="form__col form__col--one-two">
                         <label class="form__label" for="third">Report Description</label>
-                        <input class="form__input" type="text" id="third" name="third"
-                            value="This is inventory report.">
+                        <input class="form__input" type="text" id="third" name="third" value="This is Item report.">
                     </div>
                 </div>
             </div>
@@ -1302,8 +1300,7 @@
         </form>
         <div class="button-group">
             <button type="submit" class="button button--medium">Save Report</button>
-            <button type="button" class="button button--medium button--text-only" routerLink="/CurrentInventory"
-                (click)="Close()">Cancel
+            <button type="button" class="button button--medium button--text-only" routerLink="/CurrentInventory">Cancel
             </button>
         </div>
     </div>
