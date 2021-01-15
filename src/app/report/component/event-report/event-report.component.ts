@@ -35,6 +35,7 @@ export class EventReportComponent implements OnInit {
   }
   public Inventorytable: any;
   public tabulatorColumn: any = [];
+  public tabulatorColumnCustomReport: any = [];
   public InventoryDataBind: any = [];
   public myInventoryField: Observable<any>;
   public allInventoryItems: any;
@@ -51,6 +52,7 @@ export class EventReportComponent implements OnInit {
   public tabulatorValue: any;
   public ColumnDataType: string;
   public CustomFields: any;
+
   constructor(protected store: Store<AppState>, private authService: AuthService, private reportService: ReportService, private customfieldservice: CustomFieldService, private cdr: ChangeDetectorRef, private commanShardService: CommanSharedService) { }
 
   ngOnInit(): void {
@@ -81,6 +83,32 @@ export class EventReportComponent implements OnInit {
   SelectedReport(report) {
     debugger;
 
+    let data = JSON.parse(report.columnFilterJsonSettings);
+    if (data.length != 0) {
+      this.tabulatorColumn = [];
+      this.FilterArray = [];
+
+      data.forEach(element => {
+        this.dataColumnFilter = {
+          columnName: "",
+          displayName: "",
+          filterOperator: "",
+          searchValue: "",
+          type: ""
+        }
+        this.tabulatorColumn.push({ title: element.ColumnLabel, field: element.ColumnName, type: element.Type, datatype: element.Datatype, width: "170" });
+        if (element.ColumnValue != "") {
+          this.dataColumnFilter.columnName = element.ColumnName;
+          this.dataColumnFilter.displayName = element.ColumnLabel;
+          this.dataColumnFilter.filterOperator = element.ColumnOperator;
+          this.dataColumnFilter.searchValue = element.ColumnValue;
+          this.dataColumnFilter.type = element.Type;
+
+          this.FilterArray.push(this.dataColumnFilter);
+        }
+      });
+    }
+    this.GetReport();
   }
 
 
@@ -121,7 +149,7 @@ export class EventReportComponent implements OnInit {
             this.myInventoryField = result.entity;
             this.myInventoryField.forEach(element => {
 
-              this.tabulatorColumn.push({ title: element.columnLabel, field: element.columnName, type: element.customeFieldType, datatype: "string", width: "170" });
+              this.tabulatorColumn.push({ title: element.columnLabel, field: element.columnName, type: element.customFieldType, datatype: "string", width: "170" });
 
             });
           }
@@ -178,6 +206,22 @@ export class EventReportComponent implements OnInit {
     }
   }
   onOptionsSelected(event) {
+    debugger;
+    this.tabulatorColumn1.forEach(element => {
+
+      if (element.field == event) {
+
+        this.ColumnDataType = element.datatype;
+      }
+    });
+
+    setTimeout(function () {
+
+      inputFocus();
+    }, 500);
+
+  }
+  onOptionsSelected2(event) {
     debugger;
     this.tabulatorColumn1.forEach(element => {
 

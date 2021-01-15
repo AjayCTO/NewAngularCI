@@ -107,13 +107,13 @@ export class AddCustomReportComponent implements OnInit {
   public OperatorFilterSpeacial = [
     {
       name: "Equals",
-      value: "eq",
+      value: "t-eq",
       src: "../../../../assets/img/filter/EqualTo.gif",
 
     },
     {
       name: "Not Equals",
-      value: "ne",
+      value: "t-ne",
       src: "../../../../assets/img/filter/NotEqualTo.gif",
 
     },
@@ -153,6 +153,7 @@ export class AddCustomReportComponent implements OnInit {
     conlumnLabel: "",
     columnOperator: "",
     columnValue: "",
+    type: "",
     sortOrder: 0
   }
 
@@ -180,6 +181,9 @@ export class AddCustomReportComponent implements OnInit {
       conlumnLabel: "",
       columnOperator: "cn",
       columnValue: "",
+      datatype: "",
+      width: "",
+      type: "",
       sortOrder: 0
     }
     this.columnFilters.push(this.columnFilter);
@@ -222,6 +226,9 @@ export class AddCustomReportComponent implements OnInit {
         obj.columnDataType = element.datatype;
         obj.columnLabel = element.title;
         obj.columnName = element.field;
+        obj.type = element.type;
+        obj.datatype = element.datatype;
+        obj.width = element.width;
       }
     });
 
@@ -256,7 +263,7 @@ export class AddCustomReportComponent implements OnInit {
             this.myInventoryField = result.entity;
             this.myInventoryField.forEach(element => {
 
-              this.tabulatorColumn.push({ title: element.columnLabel, field: element.columnName, type: element.customeFieldType, datatype: "string", width: "170" });
+              this.tabulatorColumn.push({ title: element.columnLabel, field: element.columnName, type: element.customFieldType, datatype: "string", width: "170" });
 
             });
           }

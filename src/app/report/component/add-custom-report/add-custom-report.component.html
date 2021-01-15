@@ -903,7 +903,7 @@
                                                 <select [(ngModel)]="obj.columnValue" id="dropdownSpecialvalue_{{i}}"
                                                     name="dropdownSpecialvalue_{{i}}" class="floating-select">
                                                     <option value="">Choose Event</option>
-                                                    <option [value]="event.id" *ngFor="let event of EventList">
+                                                    <option [value]="event.eventName" *ngFor="let event of EventList">
                                                         {{event.eventName}}
                                                     </option>
 

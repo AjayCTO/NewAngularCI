@@ -4,25 +4,28 @@
         <h2> <strong>Event Report </strong></h2>
 
         <div class="icons icons--horziontal icons--size02">
-            <button type="button" class="icons__item icons__item--outline  icons__item--theme09"
-                (click)="toggleDropDown()" (blur)="closeDropDown()">
-                <div class="icons__icon"><svg class="icon icon--theme09 icon--arrow-down"
-                        aria-labelledby="title-5f7c9b3febeff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
-                        width="12" height="12">
-                        <path fill="none" d="M0 0h12v12H0z"></path>
-                        <path d="M7.26 7.27a2 2 0 001.57-.77l2.2-2.87-1.57-1.25-1 1.29L6 6.84a1.93 1.93 0 001.26.43z"
-                            fill="currentColor"></path>
-                        <path
-                            d="M4.41 8.12L.94 3.6l1.59-1.21 3.14 4.09a1.8 1.8 0 00.33.36 2 2 0 001.22.43 2 2 0 001.61-.77L7.59 8.12a2 2 0 01-2.81.37 2.16 2.16 0 01-.37-.37z"
-                            fill="currentColor"></path>
-                    </svg></div>
-                <ul *ngIf="showDropDown" class="toggleDropDown">
-                    <li class="icons__submenu-item" *ngFor="let item of ReportList"><a class="icons__submenu-link"
-                            (click)="SelectedReport(item)">{{item.reportTitle}}</a></li>
-                </ul>
-            </button>
-            &nbsp;&nbsp;
-            <button type="button" class="icons__item icons__item--outline">
+            <ng-container *ngIf="ReportList!=undefined&&ReportList.length!=0">
+                <button type="button" class="icons__item icons__item--outline  icons__item--theme09"
+                    (click)="toggleDropDown()" (blur)="closeDropDown()">
+                    <div class="icons__icon"><svg class="icon icon--theme09 icon--arrow-down"
+                            aria-labelledby="title-5f7c9b3febeff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                            width="12" height="12">
+                            <path fill="none" d="M0 0h12v12H0z"></path>
+                            <path
+                                d="M7.26 7.27a2 2 0 001.57-.77l2.2-2.87-1.57-1.25-1 1.29L6 6.84a1.93 1.93 0 001.26.43z"
+                                fill="currentColor"></path>
+                            <path
+                                d="M4.41 8.12L.94 3.6l1.59-1.21 3.14 4.09a1.8 1.8 0 00.33.36 2 2 0 001.22.43 2 2 0 001.61-.77L7.59 8.12a2 2 0 01-2.81.37 2.16 2.16 0 01-.37-.37z"
+                                fill="currentColor"></path>
+                        </svg></div>
+                    <ul *ngIf="showDropDown" class="toggleDropDown">
+                        <li class="icons__submenu-item" *ngFor="let item of ReportList"><a class="icons__submenu-link"
+                                (click)="SelectedReport(item)">{{item.reportTitle}}</a></li>
+                    </ul>
+                </button>
+                &nbsp;&nbsp;
+            </ng-container>
+            <button routerLink="/report/create-custom-report" type="button" class="icons__item icons__item--outline">
                 <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
                         aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                         width="24" height="24">
@@ -170,7 +173,8 @@
         <button type="button" class="button button--large button--outline js-modal">
             Copy This Report
         </button>
-        <button type="button" class="button button--large button--icon button--theme02 js-modal" routerLink="/newitem">
+        <button type="button" class="button button--large button--icon button--theme02 js-modal"
+            routerLink="/report/create-custom-report">
             <svg class="icon-simple icon-simple--theme01 icon-simple--add" aria-labelledby="title-5f86742813ab3"
                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="13" height="13">
                 <path fill="none" d="M0 0h24v24H0z"></path>
