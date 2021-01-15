@@ -47,7 +47,7 @@ export class EventListComponent implements OnInit {
     islocationRequired: false,
     isUOMRequired: false,
     eventQuantityAction: 'Add',
-    circumstanceColumnRequired: []
+    customFieldsRequired: []
 
   };
   constructor(protected store: Store<AppState>, private eventService: EventService, private customfieldservice: CustomFieldService, private toastr: ToastrService, private cdr: ChangeDetectorRef, private spinner: NgxSpinnerService, private authService: AuthService) {
@@ -168,7 +168,7 @@ export class EventListComponent implements OnInit {
   onSubmit() {
     debugger;
     this.eventForm.eventIcon = this.SelectedIcon.toString();
-    this.eventForm.circumstanceColumnRequired = this.checklist;
+    this.eventForm.customFieldsRequired = this.checklist;
     this.eventService.EditEvent(this.selectedTenantId, this.eventForm.id, this.eventForm, this.authService.accessToken)
       .pipe(finalize(() => {
 
@@ -190,7 +190,7 @@ export class EventListComponent implements OnInit {
                 withNewRecord: false,
                 withExistRecord: false,
                 isUOMRequired: false,
-                circumstanceColumnRequired: []
+                customFieldsRequired: []
               };
 
             }

@@ -8,6 +8,6 @@ export class DynamicEvents {
     public islocationRequired: boolean;
     public isUOMRequired: boolean;
     public eventQuantityAction: string;
-    public circumstanceColumnRequired: [];
+    public customFieldsRequired: [];
 }
 

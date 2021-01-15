@@ -6,7 +6,6 @@ export enum TenantActionTypes {
 }
 export const SET_SELECTED_TENENT = '[Tenants] SET_SELECTED_TENENT';
 export const SET_SELECTED_TENENT_ID = '[Tenants] SET_SELECTED_TENENT_ID';
-
 export class AddTenantAction implements Action {
 
     readonly type = TenantActionTypes.ADD_Tenant

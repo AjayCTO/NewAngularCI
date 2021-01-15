@@ -42,7 +42,7 @@ export class AddEventComponent implements OnInit {
   public datatype: any = ['OpenField', 'Dropdown', 'Autocomplete', 'Number', 'Currency', 'Date', 'Date & Time', 'Time', 'True/False']
   public selectedDatatype: string;
   public cfdcomboValuesString: string;
-  
+
   customField: CustomFields = {
     columnId: 0,
     columnName: '',
@@ -86,7 +86,7 @@ export class AddEventComponent implements OnInit {
     withNewRecord: false,
     withExistRecord: false,
     eventQuantityAction: 'Add',
-    circumstanceColumnRequired: []
+    customFieldsRequired: []
   };
   constructor(private formBuilder: FormBuilder, private eventService: EventService, private customfieldservice: CustomFieldService, private toastr: ToastrService, private spinner: NgxSpinnerService, private authService: AuthService) {
     this.masterSelected = false;
@@ -160,7 +160,7 @@ export class AddEventComponent implements OnInit {
     this.spinner.show();
     // this.eventForm = this.eventformControl.value;
     this.eventForm.eventIcon = this.SelectedIcon.toString();
-    this.eventForm.circumstanceColumnRequired = this.checklist;
+    this.eventForm.customFieldsRequired = this.checklist;
     this.eventService.AddEvent(this.selectedTenantId, this.eventForm, this.authService.accessToken).pipe(finalize(() => {
       this.spinner.hide();
     }))
@@ -214,12 +214,12 @@ export class AddEventComponent implements OnInit {
     this.SelectedIcon = type;
   }
   // Clear form 
-  clearform(form){
+  clearform(form) {
     form.reset();
   }
- 
-   // custom fields new add
-   AddNewCustomfield() {
+
+  // custom fields new add
+  AddNewCustomfield() {
     this.spinner.show();
     debugger;
     if (this.customField.customFieldSpecialType == "Autocomplete" || this.customField.customFieldSpecialType == "Dropdown") {
