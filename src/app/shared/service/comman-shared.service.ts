@@ -45,6 +45,29 @@ export class CommanSharedService extends BaseService {
     return this.http.get<IApiResponse>(this.configService.resourceApiURI + '/api/Library/GetLocationwithSearch?TenantId=' + TenantId + '&term=' + term, httpOptions).pipe(catchError(this.handleError));
 
   }
+  Download(TenantId: number, token: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + token
+      })
+    };
+    return this.http.get<IApiResponse>(this.configService.resourceApiURI + '/api/MyInventoryColumn/GetMyInventoryColumns?TenantId=' + TenantId, httpOptions).pipe(catchError(this.handleError));
+  }
+
+
+  GetEventReport(TenantId: number, token: string, pageToReturn: number, rowsPerPage: number, sortCol: string, sortDir: string, startDate: string, endDate: string, searchText: string, data: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + token
+      })
+    };
+
+    return this.http.post<IApiResponse>(this.configService.resourceApiURI + '/api/Report/EventReports?TenantId=' + TenantId + '&pageToReturn=' + pageToReturn + '&rowsPerPage=' + rowsPerPage + '&sortCol=' + sortCol + '&sortDir=' + sortDir + '&startDate=' + startDate + '&endDate=' + endDate + '&searchText=' + searchText, data, httpOptions).pipe(catchError(this.handleError));
+
+  }
+
 
   SaveMyInventoryColumns(data: any, TenantId: number, token: string) {
     const httpOptions = {

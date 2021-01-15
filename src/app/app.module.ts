@@ -29,6 +29,7 @@ import { StoreModule } from '@ngrx/store';
 import { eventsStoreReducers, metaReducers } from './store';
 import { NgxPopperModule } from 'ngx-popper';
 import { DynamicEventsModule } from './dynamic-events/dynamic-events.module';
+import { ReportModule } from './report/report.module';
 // import { AddCustomFieldComponent } from './add-custom-field/add-custom-field.component';
 import { ClickOutsideModule } from 'ng-click-outside';
 @NgModule({
@@ -56,7 +57,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
     FormsModule,
     SharedModule,
     UserModule,
-
+    ReportModule,
     StoreModule.forRoot({}, {}),
     StoreModule.forRoot(eventsStoreReducers, { metaReducers }),
     FlatpickrModule.forRoot(),

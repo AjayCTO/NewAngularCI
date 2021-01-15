@@ -108,6 +108,17 @@ export class CustomFieldService extends BaseService {
     };
     return this.http.get<IApiResponse>(this.configService.resourceApiURI + '/api/CustomFields/GetCustomFields?TenantId=' + TenantId, httpOptions).pipe(catchError(this.handleError));
   }
+
+  GetAllFields(TenantId: number, token: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      })
+    };
+    return this.http.get<IApiResponse>(this.configService.resourceApiURI + '/api/CustomFields/GetAllFields?TenantId=' + TenantId, httpOptions).pipe(catchError(this.handleError));
+  }
+
   AddCustomFields(data: any, TenantId: number, token: string) {
     const httpOptions = {
       headers: new HttpHeaders({

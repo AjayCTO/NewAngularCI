@@ -3,6 +3,8 @@ import { selectSelectedTenantId, selectSelectedTenant } from '../../../store/sel
 import { EventService } from '../../../dynamic-events/service/event.service';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from '../../../core/auth.service';
+import * as XLSX from 'xlsx';
+import { CurrentinventoryService } from '../../service/currentinventory.service'
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -16,10 +18,13 @@ export class UploadComponent implements OnInit {
   @Output() hideClose = new EventEmitter();
   @Input() EventList: any;
   public uploadActivity: any;
+  public exportdata: any;
   public selectedTenantId: number;
+  // download as excel file
+  fileName = 'ExcelSheet.xlsx';
   public busy: boolean;
 
-  constructor(private authService: AuthService, private spinner: NgxSpinnerService, private eventService: EventService) { }
+  constructor(private authService: AuthService, private spinner: NgxSpinnerService, private currentinventoryService: CurrentinventoryService, private eventService: EventService) { }
 
   ngOnInit(): void {
     debugger;
@@ -52,5 +57,28 @@ export class UploadComponent implements OnInit {
         }
       })
   }
+  DownloadTemplate() {
+    this.currentinventoryService.downloadItemTemplate(this.selectedTenantId, this.authService.accessToken)
+      .pipe(finalize(() => {
+        this.spinner.hide();
+      }))
+      .subscribe(
+        result => {
+          debugger;
+          this.exportdata = result
+          this.exportexcel(this.exportdata)
+        })
+  }
+  exportexcel(data): void {
+    /* table id is passed over here */
+    let element = data;
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(element);
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
+
+  }
 }

@@ -238,6 +238,7 @@ export class ReportTable {
     public FilterBy: any;
     public SortOrder: any;
     public SortType: any;
+    filterOperator: any = 'cn';
 }
 
 

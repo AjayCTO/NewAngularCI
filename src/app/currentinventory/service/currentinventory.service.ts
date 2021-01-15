@@ -110,6 +110,18 @@ export class CurrentinventoryService extends BaseService {
   //     return response;
   //   }));
   // }
+  Download(TenantId: number, token: string, pageToReturn: number, rowsPerPage: number, sortCol: string, sortDir: string, searchText: string, data: any) {
+    debugger;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + token
+      })
+    };
+
+    return this.http.post<IApiResponse>(this.configService.resourceApiURI + '/api/CurrentInventory/GetAllInventories?TenantId=' + TenantId + '&pageToReturn=' + pageToReturn + '&rowsPerPage=' + rowsPerPage + '&sortCol=' + sortCol + '&sortDir=' + sortDir + '&searchText=' + searchText, data, httpOptions).pipe(catchError(this.handleError));
+
+  }
   downloadItemTemplate(TenantId: number, token: string) {
     const httpOptions = {
       headers: new HttpHeaders({

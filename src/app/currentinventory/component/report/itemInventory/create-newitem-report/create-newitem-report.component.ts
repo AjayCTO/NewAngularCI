@@ -16,9 +16,19 @@ import { SetSelectedTenant, SetSelectedTenantId } from '../../../../../store/act
 })
 export class CreateNewitemReportComponent implements OnInit {
   public availuser: boolean = false;
+  public OpenAdvanced = false;
+  public Showform: boolean = false;
+  public tabulatorColumn1: any;
+  public busy: boolean;
+  public myInventoryField: Observable<any>;
+  public tabledata: any = [];
+  
+  public tabulatorColumn: any;
+  public selectedTenantId: number;
+  public adddata: boolean = false;
   ReportTable = new ReportTable()
   dataarray = [];
-  public tabulatorColumn1: any;
+  public tablecolumname: any = [];
   constructor() { }
 
   ngOnInit(): void {

@@ -21,6 +21,7 @@ import trigger from '../../../../assets/js/lib/_trigger';
 import dropdown from '../../../../assets/js/lib/_dropdown';
 import { Router } from '@angular/router';
 import { each } from 'jquery';
+import * as XLSX from 'xlsx';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EventService } from '../../../dynamic-events/service/event.service';
 import { CircumstanceFields, StateFields, AttributeFields, CustomFields } from '../../../customfield/models/customfieldmodel';
@@ -48,6 +49,8 @@ export class CurrentInventoryGridComponent implements OnInit {
   public error: string;
   public busy: boolean;
   public a: any
+  // download as excel file
+  fileName = 'ExcelSheet.xlsx';
   public isSelectedCount: any;
   public CheckboxShow = false;
   public selectedTenantId: number;
@@ -57,6 +60,7 @@ export class CurrentInventoryGridComponent implements OnInit {
   public addTenantForm: FormGroup;
   public IsActive: boolean;
   public selectedItem: any;
+  public exportdata: any;
   public showForms: boolean = false;
   public ColumnDataType: string;
   public isSearchFilterActive: boolean = false;
@@ -483,6 +487,48 @@ export class CurrentInventoryGridComponent implements OnInit {
           this.error = error;
           this.spinner.hide();
         });
+  }
+  Download() {
+    debugger;
+    let sortCol = "PartName";
+    let sortDir = "asc";
+    this.commanService.Download(this.selectedTenantId, this.authService.accessToken)
+      .pipe(finalize(() => {
+      })).subscribe(result => {
+        debugger;
+        this.exportdata = result.entity
+        this.downloadFile(this.exportdata)
+        console.log(this.exportdata)
+      }),
+
+      error => console.log("Error downloading the file.")
+  }
+  downloadFile(data) {
+    debugger;
+    /* table id is passed over here */
+    let element = data;
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(element);
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
+  }
+  // download as excel sheet
+  exportexcel(): void {
+    /* table id is passed over here */
+    let element = document.getElementById('excel-table');
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
+
   }
 
   onSubmit() {

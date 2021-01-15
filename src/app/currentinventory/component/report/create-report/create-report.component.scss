@@ -1,0 +1,15 @@
+
+a {
+    color: #128ece;
+    text-decoration: none;
+    transition-duration: 300ms;
+    transition-property: background-color, color;
+    transition-timing-function: ease;
+    display: flex;
+}
+.icons__submenu-item--contains-input {
+    border-bottom: 0px solid #d4d6d7;
+    margin-bottom: 1rem;
+    padding-bottom: 0rem;
+    padding-top: 0;
+}

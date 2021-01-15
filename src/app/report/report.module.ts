@@ -1,0 +1,28 @@
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { EventReportComponent } from './component/event-report/event-report.component';
+import { InventoryReportComponent } from './component/inventory-report/inventory-report.component';
+import { RouterModule } from '@angular/router';
+import { AuthGuard } from '../core/auth-guard.service';
+import { SharedModule } from '../shared/shared.module';
+import { AddCustomReportComponent } from './component/add-custom-report/add-custom-report.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReportService } from './service/report.service';
+@NgModule({
+  declarations: [EventReportComponent, InventoryReportComponent, AddCustomReportComponent],
+  imports: [
+    CommonModule,
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forChild([
+      { path: 'report/event-report', component: EventReportComponent, canActivate: [AuthGuard] },
+      { path: 'report/create-custom-report', component: AddCustomReportComponent, canActivate: [AuthGuard] },
+
+    ]),
+  ],
+  providers:
+    [ReportService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
+export class ReportModule { }
