@@ -8,8 +8,10 @@ import { SharedModule } from '../shared/shared.module';
 import { AddCustomReportComponent } from './component/add-custom-report/add-custom-report.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReportService } from './service/report.service';
+import { DeleteConfirmationComponent } from './component/delete-confirmation/delete-confirmation.component';
+import { EditCustomReportComponent } from './component/edit-custom-report/edit-custom-report.component';
 @NgModule({
-  declarations: [EventReportComponent, InventoryReportComponent, AddCustomReportComponent],
+  declarations: [EventReportComponent, InventoryReportComponent, AddCustomReportComponent,DeleteConfirmationComponent, EditCustomReportComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -18,7 +20,7 @@ import { ReportService } from './service/report.service';
     RouterModule.forChild([
       { path: 'report/event-report', component: EventReportComponent, canActivate: [AuthGuard] },
       { path: 'report/create-custom-report', component: AddCustomReportComponent, canActivate: [AuthGuard] },
-
+      { path:  'report/edit-custom-report', component:EditCustomReportComponent, canActivate: [AuthGuard] }
     ]),
   ],
   providers:

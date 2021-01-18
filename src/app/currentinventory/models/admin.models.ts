@@ -93,6 +93,14 @@ export class DataColumnFilter {
     public searchValue: string;
     public type: string;
 }
+export class DataColumnFilter1 {
+    public columnName: string;
+    public displayName: string;
+    public filterOperator: string = "cn";
+    public searchValue: string;
+    public ColumnDataType:string;
+    public type: string;
+}
 
 
 

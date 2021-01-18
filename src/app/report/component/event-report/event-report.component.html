@@ -1,31 +1,40 @@
-<div class="actions">
+<div class="actions" *ngIf="!EditReport">
     <div class="actions__title">
 
         <h2> <strong>Event Report </strong></h2>
 
         <div class="icons icons--horziontal icons--size02">
-            <ng-container *ngIf="ReportList!=undefined&&ReportList.length!=0">
-                <button type="button" class="icons__item icons__item--outline  icons__item--theme09"
-                    (click)="toggleDropDown()" (blur)="closeDropDown()">
-                    <div class="icons__icon"><svg class="icon icon--theme09 icon--arrow-down"
-                            aria-labelledby="title-5f7c9b3febeff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
-                            width="12" height="12">
-                            <path fill="none" d="M0 0h12v12H0z"></path>
-                            <path
-                                d="M7.26 7.27a2 2 0 001.57-.77l2.2-2.87-1.57-1.25-1 1.29L6 6.84a1.93 1.93 0 001.26.43z"
-                                fill="currentColor"></path>
-                            <path
-                                d="M4.41 8.12L.94 3.6l1.59-1.21 3.14 4.09a1.8 1.8 0 00.33.36 2 2 0 001.22.43 2 2 0 001.61-.77L7.59 8.12a2 2 0 01-2.81.37 2.16 2.16 0 01-.37-.37z"
-                                fill="currentColor"></path>
-                        </svg></div>
-                    <ul *ngIf="showDropDown" class="toggleDropDown">
-                        <li class="icons__submenu-item" *ngFor="let item of ReportList"><a class="icons__submenu-link"
-                                (click)="SelectedReport(item)">{{item.reportTitle}}</a></li>
-                    </ul>
-                </button>
-                &nbsp;&nbsp;
-            </ng-container>
-            <button routerLink="/report/create-custom-report" type="button" class="icons__item icons__item--outline">
+            <button type="button" class="icons__item icons__item--outline  icons__item--theme09"
+                (click)="toggleDropDown()" >
+                <div class="icons__icon"><svg class="icon icon--theme09 icon--arrow-down"
+                        aria-labelledby="title-5f7c9b3febeff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                        width="12" height="12">
+                        <path fill="none" d="M0 0h12v12H0z"></path>
+                        <path d="M7.26 7.27a2 2 0 001.57-.77l2.2-2.87-1.57-1.25-1 1.29L6 6.84a1.93 1.93 0 001.26.43z"
+                            fill="currentColor"></path>
+                        <path
+                            d="M4.41 8.12L.94 3.6l1.59-1.21 3.14 4.09a1.8 1.8 0 00.33.36 2 2 0 001.22.43 2 2 0 001.61-.77L7.59 8.12a2 2 0 01-2.81.37 2.16 2.16 0 01-.37-.37z"
+                            fill="currentColor"></path>
+                    </svg></div>
+                <ul *ngIf="showDropDown" class="toggleDropDown">
+                    <li class="icons__submenu-item" *ngFor="let item of ReportList"><a class="icons__submenu-link" style="display: flex;"
+                            (click)="SelectedReport(item)">{{item.reportTitle}}</a>
+                           
+                          
+                            <span>
+                                <div class="icons__item">
+                                <div class="icons__icon">
+                                   <a (click)="EditCustomReport(item)" type="button"> <svg class="icon-simple icon-simple--theme01 icon-simple--adjust" aria-labelledby="title-600122b1cc5a0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12"><path fill="none" d="M24 0v24H0V0z"></path><path d="M0 24h24V0H0z" fill="none"></path><path fill="currentColor" d="M3 18h18v4H3zm2.968-6.351l8.485-8.486 2.829 2.829-8.485 8.485zm13.428-7.801l-1.414 1.414-2.828-2.828 1.414-1.414z"></path><path fill="currentColor" d="M5.3 15.1l.7-3.5 2.8 2.8-3.5.7z"></path></svg>
+                                   </a>
+                                   </div>
+                            </div>
+                            </span>
+                        </li>
+                </ul>
+            </button>
+           
+            &nbsp;&nbsp;
+            <button type="button" routerLink="/report/create-custom-report" class="icons__item icons__item--outline">
                 <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
                         aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                         width="24" height="24">
@@ -123,7 +132,7 @@
     </div>
 </div>
 
-<div class="taskbar">
+<div class="taskbar" *ngIf="!EditReport">
     <div class="taskbar__col">
         <form class="form form--search" style="margin-left:5px;width: 330px; display: inline-flex;">
             <div class="form__section">
@@ -173,15 +182,14 @@
         <button type="button" class="button button--large button--outline js-modal">
             Copy This Report
         </button>
-        <button type="button" class="button button--large button--icon button--theme02 js-modal"
-            routerLink="/report/create-custom-report">
+        <!-- <button type="button" class="button button--large button--icon button--theme02 js-modal" routerLink="/report/create-custom-report">
             <svg class="icon-simple icon-simple--theme01 icon-simple--add" aria-labelledby="title-5f86742813ab3"
                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="13" height="13">
                 <path fill="none" d="M0 0h24v24H0z"></path>
                 <path fill="currentColor" d="M0 10h24v4H0z"></path>
                 <path fill="currentColor" d="M14 0v24h-4V0z"></path>
             </svg> &nbsp;Create Report
-        </button>
+        </button> -->
     </div>
     <div class="taskbar__col">
         <div class="taskbar__filter">
@@ -237,7 +245,37 @@
                         </svg></div> -->
                 <!-- </button> -->
 
-
+                <button type="button" *ngFor="let filter of FilterArray"
+                class="icons__item icons__item--contains-text icons__item--theme07">
+                <div class="icons__text"><strong class="icons__name">{{filter.displayName}}:</strong>
+                    <span *ngIf="filter.filterOperator=='bw'"><img
+                            src="../../../../assets/img/filter/BeginsWith.gif"></span>
+                    <span *ngIf="filter.filterOperator=='cn'"><img
+                            src="../../../../assets/img/filter/Contains.gif"></span>
+                    <span *ngIf="filter.filterOperator=='nc'"><img
+                            src="../../../../assets/img/filter/DoesNotContain.gif"></span>
+                    <span *ngIf="filter.filterOperator=='eq'||filter.filterOperator=='num-eq'"><img
+                            src="../../../../assets/img/filter/EqualTo.gif"></span>
+                    <span *ngIf="filter.filterOperator=='ne'||filter.filterOperator=='num-ne'"><img
+                            src="../../../../assets/img/filter/NotEqualTo.gif"></span>
+                    <span *ngIf="filter.filterOperator=='num-gte'"><img
+                            src="../../../../assets/img/filter/GreaterThanOrEqualTo.gif"></span>
+                    <span *ngIf="filter.filterOperator=='num-lte'"><img
+                            src="../../../../assets/img/filter/LessThanOrEqualTo.gif"></span>
+                    <span *ngIf="filter.filterOperator=='Empty'"><img
+                            src="../../../../assets/img/filter/IsNull.gif"></span>
+                    <span class="icons__value">{{filter.searchValue}}</span>
+                </div>
+                <div class="icons__icon" (click)="RemoveFilter(filter)"><svg
+                        class="icon-simple icon-simple--theme01 icon-simple--remove"
+                        aria-labelledby="title-5f7cbab264ccf" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z"></path>
+                        <path fill="currentColor" d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                        <path fill="currentColor" d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z">
+                        </path>
+                    </svg></div>
+            </button>
                 <button type="button" id="filterButton"
                     class="icons__item icons__item--outline icons__item--theme07 js-toggle">
                     <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
@@ -467,7 +505,7 @@
 </div>
 
 
-<section class="main">
+<section class="main" *ngIf="!EditReport">
 
     <!-- <li class="nav__menu-item" style="display: inline-flex; z-index: 3;">
         <a class=" nav__menu-link">More</a>
@@ -574,9 +612,9 @@
                     <th scope="col" class="table__heading" *ngFor="let itemHeader of tabulatorColumn">
                         <div class="table__heading-title" [style.width.px]="itemHeader.width">{{itemHeader.title}}</div>
                         <div class="table__heading-options">
-                            <div class="icons icons--horziontal icons--size02">
+                              <div class="icons icons--horziontal icons--size02">
                                 <button type=" button" class="icons__item  js-toggle"
-                                    (click)='onOptionsSelected2($event)' id="filterButton2_{{itemHeader.field}}">
+                                    (click)='onOptionsSelected(itemHeader,$event)' id="filterButton2_{{itemHeader.field}}">
                                     <div class="icons__icon">
                                         <svg class="icon icon--theme01 icon--filter"
                                             aria-labelledby="title-5f83f48269fe1" xmlns="http://www.w3.org/2000/svg"
@@ -592,7 +630,7 @@
                                     </div>
                                     <div class="icons__submenu icons__submenu--from-left" style="min-width: 280px;">
                                         <ul class="icons__submenu-list">
-                                            <ng-container *ngIf="itemHeader.datatype=='string'">
+                                            <ng-container *ngIf="itemHeader.ColumnDataType=='string'">
                                                 <li class="icons__submenu-item icons__submenu-item--contains-input">
                                                     <div class="form__col">
                                                         <select class="floating-select"
@@ -613,7 +651,7 @@
                                                     </div>
                                                 </li>
                                             </ng-container>
-                                            <ng-container *ngIf="itemHeader.datatype=='stringUom'">
+                                            <ng-container *ngIf="itemHeader.ColumnDataType=='stringUom'">
                                                 <li class="icons__submenu-item icons__submenu-item--contains-input">
                                                     <div class="form__col">
                                                         <select class="floating-select"
@@ -630,7 +668,7 @@
                                                     </div>
                                                 </li>
                                             </ng-container>
-                                            <ng-container *ngIf="itemHeader.datatype=='stringStatus'">
+                                            <ng-container *ngIf="itemHeader.ColumnDataType=='stringStatus'">
                                                 <li class="icons__submenu-item icons__submenu-item--contains-input">
                                                     <div class="form__col">
                                                         <label class="form__label form__label--hidden"
@@ -647,7 +685,7 @@
                                                 </li>
                                             </ng-container>
 
-                                            <ng-container *ngIf="itemHeader.datatype=='number'">
+                                            <ng-container *ngIf="itemHeader.ColumnDataType=='number'">
                                                 <li class="icons__submenu-item icons__submenu-item--contains-input">
                                                     <div class="form__col">
                                                         <label class="form__label form__label--hidden"
@@ -667,7 +705,7 @@
                                                 </li>
                                             </ng-container>
                                             <ng-container
-                                                *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype!='stringStatus'&&itemHeader.datatype!='stringUom'">
+                                                *ngIf="itemHeader.ColumnDataType!=undefined&&itemHeader.ColumnDataType!='stringStatus'&&itemHeader.ColumnDataType!='stringUom'">
                                                 <li class="icons__submenu-item icons__submenu-item--contains-input">
                                                     <div class="form__col">
                                                         <label class="form__label"
@@ -681,7 +719,7 @@
                                             </ng-container>
 
                                             <ng-container
-                                                *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='stringStatus'">
+                                                *ngIf="itemHeader.ColumnDataType!=undefined&&itemHeader.ColumnDataType=='stringStatus'">
                                                 <li class="icons__submenu-item icons__submenu-item--contains-input">
                                                     <div class="form__col">
                                                         <label class="form__label form__label--hidden"
@@ -700,7 +738,7 @@
                                                 </li>
                                             </ng-container>
                                             <ng-container
-                                                *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='stringUom'">
+                                                *ngIf="itemHeader.ColumnDataType!=undefined&&itemHeader.ColumnDataType=='stringUom'">
 
                                                 <li class="icons__submenu-item icons__submenu-item--contains-input">
                                                     <div class="form__col">
@@ -719,7 +757,7 @@
                                                 </li>
                                             </ng-container>
                                         </ul>
-                                        <ng-container *ngIf="itemHeader.datatype!=undefined">
+                                        <ng-container *ngIf="itemHeader.ColumnDataType!=undefined">
                                             <div class="button-group">
                                                 <button class="button button--small button--text-only"
                                                     (click)="CloseFilter2(itemHeader.field)">Cancel</button>
@@ -732,7 +770,7 @@
                             </div>
                         </div>
                     </th>
-
+                   
 
                 </tr>
             </thead>
@@ -756,3 +794,5 @@
 
 
 </section>
+<app-edit-custom-report *ngIf="EditReport" [Data]="Reportdata" [tabledata]="tabulatorColumn" [ReportData]="Data">
+</app-edit-custom-report>

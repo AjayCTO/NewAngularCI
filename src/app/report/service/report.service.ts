@@ -33,8 +33,9 @@ export class ReportService extends BaseService {
     }
     ));
   }
-
+  
   GetCustomReportList(TenantId: number, token: string) {
+    debugger;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -44,5 +45,39 @@ export class ReportService extends BaseService {
     return this.http.get<IApiResponse>(this.configService.resourceApiURI + '/api/Report/CustomReportConfiguration/Get?TenantId=' + TenantId, httpOptions).pipe(catchError(this.handleError));
 
   }
-
+  UpdateCustomReport(TenantId: number, token: string, ReportId: number,Data:any)
+  {
+    debugger;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      })
+    };
+    return this.http.put(this.configService.resourceApiURI + '/api/Report/CustomReportConfiguration/Edit?TenantId=' + TenantId+'&ReportId='+ ReportId,Data, httpOptions).pipe(map((response: {
+      message: string;
+      code: number;
+      entity: boolean;
+    }) => {
+      return response;
+    }
+    ));
+  }
+  
+   DeleteCustomReport(TenantId: number, ReportId: number, token: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "bearer " + token
+      })
+    };
+    return this.http.delete(this.configService.resourceApiURI + '/api/Report/CustomReportConfiguration/Delete?TenantId=' + TenantId + '&ReportId=' + ReportId, httpOptions).pipe(map((response: {
+      message: string;
+      code: number;
+      entity: boolean;
+    }) => {
+      return response;
+    }
+    ));
+  }
 }

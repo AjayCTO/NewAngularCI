@@ -8,10 +8,13 @@ import { selectSelectedTenantId, selectSelectedTenant } from '../../../store/sel
 import { CommanSharedService } from '../../../shared/service/comman-shared.service';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from '../../../core/auth.service';
-import { DataColumnFilter } from '../../../currentinventory/models/admin.models';
+import { DataColumnFilter1 } from '../../../currentinventory/models/admin.models';
+import { ToastrService } from 'ngx-toastr';
 import { from, Observable } from 'rxjs';
 import { CustomFieldService } from '../../../customfield/service/custom-field.service';
 import { ReportService } from '../../service/report.service';
+import { Router } from '@angular/router';
+import { threadId } from 'worker_threads';
 @Component({
   selector: 'app-event-report',
   templateUrl: './event-report.component.html',
@@ -22,15 +25,19 @@ export class EventReportComponent implements OnInit {
   public selectedTenantId: number;
   public searchFilterText: string;
   public selectReport: number;
+
   public creatReportOpen = false;
   public startDate: string;
   public endDate: string;
-  public FilterArray: DataColumnFilter[] = [];
-  public dataColumnFilter: DataColumnFilter = {
+  public EditReport:boolean=false;
+  public Reportdata :any;
+  public FilterArray: DataColumnFilter1[] = [];
+  public dataColumnFilter: DataColumnFilter1 = {
     columnName: "",
     displayName: "",
     filterOperator: "",
     searchValue: "",
+    ColumnDataType:"",
     type: ""
   }
   public Inventorytable: any;
@@ -48,15 +55,16 @@ export class EventReportComponent implements OnInit {
   pageSize = 10;
   image = "https://assets.ajio.com/medias/sys_master/root/hff/h1b/16003868000286/rosso_fem_white_striped_regular_fit_shirt.jpg"
   length = 100;
-  public tabulatorColumn1: any = [{ 'title': 'Quantity', 'datatype': 'number' }, { 'title': 'UOM', 'datatype': 'stringUom' }, { 'title': 'Item Name', 'datatype': 'string' }, { 'title': 'Item Description', 'datatype': 'string' }, { 'title': 'Location', 'datatype': 'string' }, { 'title': 'Status', 'datatype': 'stringStatus' },];
+  // public tabulatorColumn1: any = [{ 'title': 'Quantity', 'datatype': 'number' }, { 'title': 'UOM', 'datatype': 'stringUom' }, { 'title': 'Item Name', 'datatype': 'string' }, { 'title': 'Item Description', 'datatype': 'string' }, { 'title': 'Location', 'datatype': 'string' }, { 'title': 'Status', 'datatype': 'stringStatus' },];
   public tabulatorValue: any;
   public ColumnDataType: string;
   public CustomFields: any;
 
-  constructor(protected store: Store<AppState>, private authService: AuthService, private reportService: ReportService, private customfieldservice: CustomFieldService, private cdr: ChangeDetectorRef, private commanShardService: CommanSharedService) { }
+  constructor(protected store: Store<AppState>, private authService: AuthService,private toastr: ToastrService, private reportService: ReportService, private customfieldservice: CustomFieldService, private cdr: ChangeDetectorRef, private commanShardService: CommanSharedService) { }
 
   ngOnInit(): void {
     this.searchFilterText = "";
+  
     this.store.pipe(select(selectSelectedTenantId)).
       subscribe(eventId => {
         if (eventId) {
@@ -82,7 +90,7 @@ export class EventReportComponent implements OnInit {
 
   SelectedReport(report) {
     debugger;
-
+   
     let data = JSON.parse(report.columnFilterJsonSettings);
     if (data.length != 0) {
       this.tabulatorColumn = [];
@@ -91,18 +99,20 @@ export class EventReportComponent implements OnInit {
       data.forEach(element => {
         this.dataColumnFilter = {
           columnName: "",
-          displayName: "",
+          displayName: "",  
           filterOperator: "",
           searchValue: "",
+          ColumnDataType:"",
           type: ""
         }
-        this.tabulatorColumn.push({ title: element.ColumnLabel, field: element.ColumnName, type: element.Type, datatype: element.Datatype, width: "170" });
+        this.tabulatorColumn.push({ title: element.ColumnLabel, field: element.ColumnName, type: element.SortType, ColumnDataType: element.ColumnDataType, width: "170" });
         if (element.ColumnValue != "") {
           this.dataColumnFilter.columnName = element.ColumnName;
           this.dataColumnFilter.displayName = element.ColumnLabel;
           this.dataColumnFilter.filterOperator = element.ColumnOperator;
           this.dataColumnFilter.searchValue = element.ColumnValue;
-          this.dataColumnFilter.type = element.Type;
+          this.dataColumnFilter.ColumnDataType=element.ColumnDataType;
+          this.dataColumnFilter.type = element.SortType;
 
           this.FilterArray.push(this.dataColumnFilter);
         }
@@ -111,15 +121,27 @@ export class EventReportComponent implements OnInit {
     this.GetReport();
   }
 
+  RemoveFilter(data) {
+    this.FilterArray.forEach((element, index) => {
 
+      if (element.columnName == data.columnName) {
+        this.FilterArray.splice(index, 1);
+      }
+
+    });
+    
+    this.GetReport();
+    // this.ApplyJsFunction();
+  }
 
   getCustomreportList() {
 
-
+   debugger;
     this.reportService.GetCustomReportList(this.selectedTenantId, this.authService.accessToken).subscribe((result => {
       if (result.code == 200) {
         debugger;
         this.ReportList = result.entity;
+    
       }
 
     }))
@@ -168,6 +190,7 @@ export class EventReportComponent implements OnInit {
   }
   closeDropDown() {
     debugger
+   
     this.showDropDown = false;
   }
 
@@ -205,25 +228,26 @@ export class EventReportComponent implements OnInit {
       // this.ApplyJsFunction();
     }
   }
-  onOptionsSelected(event) {
+  onOptionsSelected(obj,event) {
     debugger;
-    this.tabulatorColumn1.forEach(element => {
+    this.tabulatorColumn.forEach(element => {
 
       if (element.field == event) {
 
-        this.ColumnDataType = element.datatype;
+        obj.ColumnDataType = element.ColumnDataType;
       }
     });
 
     setTimeout(function () {
 
       inputFocus();
-    }, 500);
+      toggle();
+    }, 200);
 
   }
   onOptionsSelected2(event) {
     debugger;
-    this.tabulatorColumn1.forEach(element => {
+    this.tabulatorColumn.forEach(element => {
 
       if (element.field == event) {
 
@@ -238,7 +262,16 @@ export class EventReportComponent implements OnInit {
 
   }
 
+  EditCustomReport(ReportData)
+  {
+     
+    debugger;
+     this.EditReport=true
+     
+     this.Reportdata=ReportData;
+    //  this.Reportdata.columnFilterJsonSettings=Data
 
+  }
 
   GetReport() {
 
@@ -289,6 +322,48 @@ export class EventReportComponent implements OnInit {
         inputClear();
         inputFocus();
       });
+  }
+  ApplyFilter2(columnName) {
+    this.dataColumnFilter.columnName = columnName;
+    if (this.dataColumnFilter.columnName == "" || this.dataColumnFilter.filterOperator == "" || this.dataColumnFilter.searchValue == "") {
+      return false;
+    }
+
+    this.FilterArray.forEach((element, index) => {
+
+      if (element.columnName == this.dataColumnFilter.columnName) { 
+
+        this.toastr.warning("This coloum name already in filter");
+        return false;
+      }
+
+    });
+    this.tabulatorColumn.forEach(element => {
+      if (element.field == this.dataColumnFilter.columnName) {
+        this.dataColumnFilter.displayName = element.title;
+        this.dataColumnFilter.type = element.type;
+      }
+    });
+    this.FilterArray.push(this.dataColumnFilter);
+    if (this.dataColumnFilter.type == "AttributeField" || this.dataColumnFilter.type == "StateField") {
+      this.dataColumnFilter.columnName = "$." + this.dataColumnFilter.columnName;
+    }
+    this.dataColumnFilter = {
+      columnName: "",
+      displayName: "",
+      filterOperator: "",
+      searchValue: "",
+      ColumnDataType:"",
+      type: ""
+    }
+    document.getElementById("filterButton2_" + columnName).click();
+    this.GetReport();
+    // this.ApplyJsFunction();
+  }
+
+  CloseFilter2(Id) {
+    debugger;
+    document.getElementById("filterButton2_" + Id).click();
   }
 
 }

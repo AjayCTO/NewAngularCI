@@ -7,7 +7,7 @@ import inputClear from '../../../../assets/js/lib/_inputClear';
 import { AuthService } from '../../../core/auth.service';
 import { finalize } from 'rxjs/operators';
 import { ReportTable, DataColumnFilter } from '../../../currentinventory/models/admin.models';
-import { SetSelectedTenant, SetSelectedTenantId } from '../../../store/actions/tenant.action';
+// import { SetSelectedTenant, SetSelectedTenantId } from '../../../store/actions/tenant.action';
 import { CustomFieldService } from '../../../customfield/service/custom-field.service';
 import { EventService } from '../../../dynamic-events/service/event.service';
 import { ReportService } from '../../service/report.service';
@@ -26,18 +26,17 @@ export class AddCustomReportComponent implements OnInit {
   ReportTable = new ReportTable()
   dataarray: any = [];
   reportArray: any = [];
-
   public EventsTypes: any = [];
-
   public tabulatorColumn1: any;
   public Description: any;
   public Title: any;
   public busy: boolean;
-
   public isSelected: boolean = false
   selectLabel: any = [];
   SelectColumn: any = [];
   public myInventoryField: Observable<any>;
+  public tabulatorColumn3:any[]=[{"field":"Ascending"},{"field":"Descending"}];
+  public tabulatorColumn2:any[]=[{ "id":1,"field":"One"},{"id":2,"field":"Two"},{"id":3,"field":"Three"},{"id":4,"field":"Four"}];
   public tabledata: any = [];
   public availuser: boolean = false;
   public ColumnDataType: string;
@@ -49,78 +48,59 @@ export class AddCustomReportComponent implements OnInit {
   public CustomFields;
   public EventList: any;
   constructor(private commanService: CommanSharedService, private router: Router, private eventService: EventService, private reportService: ReportService, private customfieldservice: CustomFieldService, private authService: AuthService,) { }
-
   public tablecolumname: any = [];
-
-
   public customreport = {
     reportTitle: "",
     subTitle: "",
     description: "",
     reportType: "Event Report",
     ColumnFilter: [],
-
   }
-
-
   public OperatorFilterString = [
     {
       name: "Contains",
       value: "cn",
       src: "../../../../assets/img/filter/Contains.gif",
-
     },
     {
       name: "Does Not Contains",
       value: "nc",
       src: "../../../../assets/img/filter/DoesNotContain.gif",
-
     },
     {
       name: "Equals",
       value: "eq",
       src: "../../../../assets/img/filter/EqualTo.gif",
-
     },
     {
       name: "Not Equals",
       value: "ne",
       src: "../../../../assets/img/filter/NotEqualTo.gif",
-
     },
     {
       name: "Begins With",
       value: "bw",
       src: "../../../../assets/img/filter/BeginsWith.gif",
-
     },
     {
       name: "Empty",
       value: "Empty",
       src: "../../../../assets/img/filter/IsNull.gif",
-
     },
-
   ]
-
-
   public OperatorFilterSpeacial = [
     {
       name: "Equals",
       value: "t-eq",
       src: "../../../../assets/img/filter/EqualTo.gif",
-
     },
     {
       name: "Not Equals",
       value: "t-ne",
       src: "../../../../assets/img/filter/NotEqualTo.gif",
-
     },
   ]
-
   public OperatorFilterNumber = [
-
     {
       name: "Equals",
       value: "num-eq",
@@ -164,7 +144,7 @@ export class AddCustomReportComponent implements OnInit {
     columnName: "",
     displayName: "",
     filterOperator: 'string',
-    searchValue: "",
+    searchValue: "",  
     type: ""
   }
   ngOnInit(): void {
@@ -184,7 +164,7 @@ export class AddCustomReportComponent implements OnInit {
       datatype: "",
       width: "",
       type: "",
-      sortOrder: 0
+      // sortOrder: 0
     }
     this.columnFilters.push(this.columnFilter);
     this.ApplyJsFunction();
@@ -223,12 +203,12 @@ export class AddCustomReportComponent implements OnInit {
 
       if (element.field == event) {
 
-        obj.columnDataType = element.datatype;
-        obj.columnLabel = element.title;
-        obj.columnName = element.field;
-        obj.type = element.type;
-        obj.datatype = element.datatype;
-        obj.width = element.width;
+        obj.ColumnDataType = element.datatype;
+        obj.ColumnLabel = element.title;
+        // obj.columnName = element.field;
+        // obj.type = element.type;
+        // obj.datatype = element.datatype;
+        // obj.width = element.width;
       }
     });
 
@@ -238,7 +218,30 @@ export class AddCustomReportComponent implements OnInit {
     }, 500);
 
   }
+  onOptionsSelected1(obj,event)
+  {
+    this.tabulatorColumn1.forEach(element => {
 
+      if (element.field == event) {
+
+        obj.SortType = element.datatype;
+        
+      }
+    });
+
+  }
+  onOptionsSelected2(obj,event)
+  {
+    this.tabulatorColumn2.forEach(element => {
+
+      if (element.field == event) {
+
+        obj.SortOrder = element.datatype;
+       
+      }
+    });
+
+  }
 
   GetAllFields() {
     debugger;
@@ -305,7 +308,7 @@ export class AddCustomReportComponent implements OnInit {
       conlumnLabel: "",
       columnOperator: "cn",
       columnValue: "",
-      sortOrder: 0
+      // sortOrder: 0
     }
     this.columnFilters.push(this.columnFilter);
     this.ApplyJsFunction();
