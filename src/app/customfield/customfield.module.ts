@@ -11,13 +11,16 @@ import { FormsModule } from '@angular/forms';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { DeleteConfirmation2Component } from './component/delete-confirmation2/delete-confirmation2.component';
-import { CustomFieldsComponent } from './component/custom-fields/custom-fields.component'
+import { CustomFieldsComponent } from './component/custom-fields/custom-fields.component';
+// import { MessageModule } from 'ui-message-angular';
+import { AddCustomComponent } from './component/custom-fields/add-custom/add-custom.component'
 @NgModule({
-  declarations: [AttributeFieldsComponent, StatefieldComponent, CustomFieldsComponent, CircumstancefieldComponent, DeleteConfirmation2Component],
+  declarations: [AttributeFieldsComponent, StatefieldComponent, CustomFieldsComponent, CircumstancefieldComponent, DeleteConfirmation2Component, AddCustomComponent],
   imports: [
     CommonModule, NgxSpinnerModule,
     FormsModule,
     AutocompleteLibModule,
+    // MessageModule,
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'danger', // set defaults here
     }),
@@ -26,6 +29,7 @@ import { CustomFieldsComponent } from './component/custom-fields/custom-fields.c
       { path: 'StateField', component: StatefieldComponent, canActivate: [AuthGuard] },
       { path: 'CircumstanceField', component: CircumstancefieldComponent, canActivate: [AuthGuard] },
       { path: 'CustomField', component: CustomFieldsComponent, canActivate: [AuthGuard] },
+      { path: 'AddCustomField', component: AddCustomComponent, canActivate: [AuthGuard] },
     ]),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

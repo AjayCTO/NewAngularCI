@@ -93,6 +93,7 @@ export class CustomFieldsComponent implements OnInit {
     this.showForm = false;
     this.EditMode = false;
     this.GetCustomFields();
+    modal();
 
 
   }
