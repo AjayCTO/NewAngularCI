@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./false.component.css']
 })
 export class FalseComponent implements OnInit {
-
+  public selectedFieldName: any = []
   constructor() { }
 
   ngOnInit(): void {
+  }
+  selectField(index) {
+    debugger;
+    if (index == "false") {
+      this.selectedFieldName.push("false");
+    }
   }
 
 }

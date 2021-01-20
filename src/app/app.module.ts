@@ -15,7 +15,6 @@ import { HomeModule } from './home/home.module';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-
 // import { Observable } from 'rxjs';
 import 'flatpickr/dist/flatpickr.css';
 import { FlatpickrModule } from 'angularx-flatpickr';
@@ -31,6 +30,7 @@ import { eventsStoreReducers, metaReducers } from './store';
 import { NgxPopperModule } from 'ngx-popper';
 import { DynamicEventsModule } from './dynamic-events/dynamic-events.module';
 import { ReportModule } from './report/report.module';
+import { NgDragDropModule } from 'ng-drag-drop';
 
 // import { AddCustomFieldComponent } from './add-custom-field/add-custom-field.component';
 import { ClickOutsideModule } from 'ng-click-outside';
@@ -53,6 +53,8 @@ import { ClickOutsideModule } from 'ng-click-outside';
     NgxSpinnerModule,
     DynamicEventsModule,
     AccountModule,
+    // Observable,
+
     CurrentinventoryModule,
     CustomfieldModule,
     CoreModule.forRoot(),
@@ -60,7 +62,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
     SharedModule,
     UserModule,
     ReportModule,
-
+    NgDragDropModule.forRoot(),
     StoreModule.forRoot({}, {}),
     StoreModule.forRoot(eventsStoreReducers, { metaReducers }),
     FlatpickrModule.forRoot(),

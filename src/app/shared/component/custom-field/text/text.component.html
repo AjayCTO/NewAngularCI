@@ -1,12 +1,22 @@
-<div class="container" style=" margin-left: 36px;
-    margin-top: 21px;
-">
+<div class="container" style=" margin-left: 36px; margin-top: 21px;">
     <div class="container" style="display: flex;">
         <p>OpenTextField</p>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <div class="form__col form__col--half">
             <label class="form__label" for="text">Text</label>
             <input type="text" id="text" style="width: 160px;" name="text" class="form__input">
+        </div>
+        <div class="icons icons--horziontal icons--size02" style="margin-top: -20px; margin-left: 10px;">
+            <button type="button" (click)="selectField('text')" class="icons__item icons__item--outline">
+                <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
+                        aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z"></path>
+                        <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                        <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                    </svg></div>
+
+            </button>
         </div>
     </div>
     <div class="container" style="display: flex;">
@@ -17,6 +27,18 @@
             <label class="form__label" style="margin-left: 20px;" for="prefix">prefix</label>
             <input type="text" id="prefix" class="form__input Addon" style="width: 160px;" name="prefix">
         </div>
+        <div class="icons icons--horziontal icons--size02" style="margin-top: -20px; margin-left: 10px;">
+            <button type="button" (click)="selectField('prefix')" class="icons__item icons__item--outline">
+                <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
+                        aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z"></path>
+                        <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                        <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                    </svg></div>
+
+            </button>
+        </div>
     </div>
     <div class="container" style="display: flex;">
         <p>Postfix Text Field</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -24,6 +46,18 @@
             <label class="form__label" for="suffix">seffsadfcsdf</label>
             <input type="text" id="suffix" class="form__input Addon" style="width: 160px;" name="suffix">
             <span class="input-group-addon text Suffix" style="margin-left: 7px;">12</span>
+        </div>
+        <div class="icons icons--horziontal icons--size02" style="margin-top: -20px; margin-left: 10px;">
+            <button type="button" (click)="selectField('suffix')" class="icons__item icons__item--outline">
+                <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
+                        aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z"></path>
+                        <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                        <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                    </svg></div>
+
+            </button>
         </div>
     </div>
     <div class="container" style="display: flex;">
@@ -34,11 +68,36 @@
             <input type="text" id="PrefixPostfix" class="form__input Addon" style="width: 160px;" name="PrefixPostfix">
             <span class="input-group-addon text Suffix">1</span>
         </div>
+        <div class="icons icons--horziontal icons--size02" style="margin-top: -20px; margin-left: 10px;">
+            <button type="button" (click)="selectField('PrefixPostfix')" class="icons__item icons__item--outline">
+                <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
+                        aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z"></path>
+                        <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                        <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                    </svg></div>
+
+            </button>
+        </div>
     </div>
     <div class="container" style="display: flex;">
         <p>Incrementor Text Field</p> &nbsp;&nbsp;<input type="text" id="Incrementor" style="width: 160px;"
             name="Incrementor" class="form__input">
+        <div class="icons icons--horziontal icons--size02" style="margin-top: -20px; margin-left: 10px;">
+            <button type="button" (click)="selectField('Incrementor')" class="icons__item icons__item--outline">
+                <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
+                        aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z"></path>
+                        <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                        <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                    </svg></div>
+
+            </button>
+        </div>
     </div>
+
     <div class="container" style="display: flex;">
         <p> Dropdown</p> &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;<select class="floating-select" id="dynamic_Attribute" name="dynamic_Attribute" value=""
@@ -47,6 +106,18 @@
             <option> 1 </option>
             <option> 2 </option>
         </select>
+        <div class="icons icons--horziontal icons--size02" style="margin-top: -20px; margin-left: 10px;">
+            <button type="button" (click)="selectField('dropdown')" class="icons__item icons__item--outline">
+                <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
+                        aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z"></path>
+                        <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                        <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                    </svg></div>
+
+            </button>
+        </div>
 
     </div>
     <div class="container" style="display: flex;">

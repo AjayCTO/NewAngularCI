@@ -7,16 +7,40 @@ import inputClear from '../../../../../assets/js/lib/_inputClear';
   styleUrls: ['./text.component.css']
 })
 export class TextComponent implements OnInit {
-
+  public selectedFieldName: any = []
   constructor() { }
 
   ngOnInit(): void {
-   this.AddJsFunction();
+    this.AddJsFunction();
   }
   AddJsFunction() {
     setTimeout(function () {
       inputClear();
       inputFocus();
     }, 300)
-}
+  }
+  selectField(index) {
+    debugger;
+    if (index == "text") {
+      this.selectedFieldName.push("text");
+    }
+    if (index == "prefix") {
+      this.selectedFieldName.push("prefix");
+    }
+    if (index == "suffix") {
+      this.selectedFieldName.push("suffix");
+    }
+    if (index == "PrefixPostfix") {
+      this.selectedFieldName.push("PrefixPostfix");
+    }
+    if (index == "Incrementor") {
+      this.selectedFieldName.push("Incrementor");
+    }
+    if (index == "dropdown") {
+      this.selectedFieldName.push("dropdown");
+    }
+    // if (index = "text") {
+
+    // }
+  }
 }

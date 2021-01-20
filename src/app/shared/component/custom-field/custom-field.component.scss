@@ -1,0 +1,138 @@
+
+.nav_menu-item .Active {
+    border-bottom: 2px solid #128ece;
+    background:none;
+    color:#128ece;
+}
+a{
+    cursor: pointer;
+}
+.form__col--half {
+width: 160px;
+}
+
+.card {
+  position: relative;
+  display: block;
+  min-width: 0;
+  background-color: #fff;
+  border: 0;
+  border-radius: 1pc solid #ccc;
+  overflow: hidden;
+  padding: 0;
+
+  .card-header {
+    position: relative;
+  }
+
+  .card-controls {
+    position: absolute;
+    top: 15px / 2;
+    right: 15px / 2;
+  }
+}
+
+.card-user .card-header {
+  padding: 20px;
+}
+
+.card .card-header {
+  position: relative;
+}
+.draggable {
+  cursor: move;
+}
+.card-user .card-image {
+  display: block;
+  width: 162px;
+  height: 162px;
+  margin: auto;
+  pointer-events: none;
+}
+.card {
+  position: relative;
+  display: block;
+  min-width: 0;
+  background-color: #fff;
+  border: 0;
+  border-radius: 5px;
+  overflow: hidden;
+  padding: 0;
+
+  .card-header {
+    position: relative;
+    padding: 10px;
+  }
+
+  .card-controls {
+    position: absolute;
+    top: 0px;
+    right: 3px;
+    margin: 5px;
+  }
+}
+.panel-empty-body
+{
+  padding: 10px;
+  position: relative;
+  height: 50px;
+  text-align: center;
+  margin: auto 0px;
+}
+.drag-over-border
+{
+  border: 2px dashed #ccc;
+    border-radius: 10px;
+}
+input.Addon {
+    padding-left: 29px !important;
+    padding-right: 29px;
+}
+.card-user .card-image img {
+  display: block;
+  width: 162px;
+  height: 162px;
+  border-radius: 162px;
+  border: 2px solid #ccc;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: center;
+  object-position: center;
+  background-color: #fff;
+}
+
+  .card-body {
+  padding: 15px;
+
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.card-user .card-user-name {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+
+  h2 {
+    font-size: 18px !important;
+  }
+}
+
+.card-user .card-user-email {
+  margin-top: 10px;
+  display: block;
+  font-size: 14px;
+  color: #1b75bb;
+  text-decoration: none;
+  font-weight: 400;
+  height: 21px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  outline: 0;
+}

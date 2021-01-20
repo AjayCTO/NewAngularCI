@@ -4,5 +4,8 @@ input.Addon {
 }
 span.input-group-addon  {
     padding-left: 0px;
-    margin-right: 407px;
+    margin-right: 5px;
+}
+.form__col--half {
+width: 160px;
 }

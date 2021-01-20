@@ -8,7 +8,7 @@ import inputClear from '../../../../../assets/js/lib/_inputClear';
   styleUrls: ['./number.component.css']
 })
 export class NumberComponent implements OnInit {
-
+  public selectedFieldName: any = []
   constructor() { }
 
   ngOnInit(): void {
@@ -19,5 +19,15 @@ export class NumberComponent implements OnInit {
       inputClear();
       inputFocus();
     }, 300)
+  }
+  selectField(index) {
+    debugger;
+    if (index == "currency") {
+      this.selectedFieldName.push("currency");
+    }
+    if (index == "number") {
+      this.selectedFieldName.push("number");
+    }
+
   }
 }

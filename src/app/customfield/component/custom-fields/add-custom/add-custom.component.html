@@ -1,0 +1,627 @@
+<!-- <div >
+   <div class="container" style="margin-top: 100px;">
+    <section class="main" style=" margin-top: 10px;">
+    
+        <div class="row">
+            <div class="col-md-6">
+                 <h2>
+                     Form 
+                 </h2>
+            </div> -->
+            <!-- <div class="col-md-6" >
+                <form class="form" style=" padding: 10px;">
+                    <div class="form__section">
+                        <div class="form__col-wrap">
+                            <div class="form__col">
+                                <label  > Custom Name <span
+                                        class="form__required">*</span></label>
+                                <input class="form__input" type="text" id="columnLabel" name="columnLabel"
+                                     required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form__section">
+                        <div class="form__col-wrap">
+                            <div class="form__col">
+
+                                <select class="floating-select" id="Datatype" name="Datatype"
+                                [(ngModel)]="customField.dataType"  required="required">
+                                    <option value=""></option>
+                                    <option *ngFor="let option of types">{{option}}</option>
+                                </select>
+                                <span class="highlight"></span>
+                                <label class="form__label form_label">Data Type <span
+                                        class="form__required">*</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="customField.customFieldSpecialType=='Dropdown'">
+                        <div class="form__col form__col--half">
+                            <label class="form__label" for="typeName1">Enter or Copy Dropdown Values in the
+                                Field Below</label>
+                            <textarea rows="4" [(ngModel)]="customField.comboBoxValue" id="typeName1" name="typeName1"
+                                (change)="ComboBoxChangeDropDown(customField.comboBoxValue)" cols="20"
+                                class="drpdown form__input ng-valid ng-dirty"></textarea>
+                        </div>
+                        <div class="form__col form__col--half">
+                            
+    
+                            <select class="floating-select" name="TypePreviewName" id="TypePreviewName" value="">
+                                <option value=""></option>
+                                <option *ngFor="let product of PreviewtypesDropDown" [value]="product">{{product}}</option>
+                            </select>
+                            <span class="highlight"></span>
+                            <label class="form__label form_label">Preview Dropdown List <span
+                                    class="form__required">*</span></label>
+                        </div>
+                    </div>
+                    <div *ngIf="customField.customFieldSpecialType=='Autocomplete'">
+                        <div class="form__col form__col--half">
+                            <label class="form__label" for="typeName2">Enter or Copy Autocomplete Values in the
+                                Field Below</label>
+                            <textarea rows="4" [(ngModel)]="customField.comboBoxValue" name="typeName2" id="typeName2"
+                                (change)="ComboBoxChangeAutocomlete(customField.comboBoxValue)" cols="60"
+                                class="drpdown form__input ng-valid ng-dirty"></textarea>
+    
+    
+    
+                        </div>
+                        <div class="form__col form__col--half">
+                            <label class="" for="nameAutocomplete">Preview Autocomplete</label>
+    
+                            <ng-autocomplete [data]="PreviewtypesAutocomplete" [searchKeyword]=""
+                                (selected)='selectEvent($event)' isLoading [debounceTime]="600"
+                                [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                            </ng-autocomplete>
+    
+                            <ng-template #itemTemplate let-item>
+                                <a [innerHTML]="item"></a>
+                            </ng-template>
+                            <ng-template #notFoundTemplate let-notFound>
+                                <a [innerHTML]="notFound"></a>
+                            </ng-template>
+    
+                        </div>
+                    </div>
+                    <div *ngIf="customField.customFieldSpecialType=='OpenField'">
+                        <div class="form__col form__col--half">
+                            <label class="form__label" for="customFieldTextMaxLength">Maximum Number of
+                                Characters</label>
+                            <input [disabled]="customField.customFieldPrefix!=''|| customField.customFieldSuffix!=''"
+                                type="number" id="customFieldTextMaxLength" name="customFieldTextMaxLength"
+                                id="customFieldTextMaxLength" [(ngModel)]="customField.customFieldTextMaxLength"
+                                class="form__input">
+                        </div> <br>
+                        <div class="form__col form__col--half">
+                            <label class="form__label" for="customFieldDefaultValue">Default Value</label>
+                            <input [disabled]="customField.customFieldPrefix!=''|| customField.customFieldSuffix!=''"
+                                type="text" id="customFieldDefaultValue" name="customFieldDefaultValue"
+                                [(ngModel)]="customField.customFieldDefaultValue" class="form__input">
+                        </div><br>
+                        <div class="form__col form__col--half">
+                            <label class="form__label" for="Prefix">Prefix Value</label>
+                            <input type="text" id="Prefix" name="Prefix" [(ngModel)]="customField.customFieldPrefix"
+                                class="form__input">
+                        </div><br>
+                        <div class="form__col form__col--half"> <label class="form__label" for="customFieldSuffix">Suffix
+                                Value</label>
+                            <input type="text" id="customFieldSuffix" name="customFieldSuffix"
+                                [(ngModel)]="customField.customFieldSuffix" class="form__input">
+                        </div><br>
+                        <div class="form__col form__col--half"> <label class="form__label" for="cfdBaseValue">Base
+                                Value</label>
+                            <input type="number" id="cfdBaseValue" name="cfdBaseValue"
+                                [(ngModel)]="customField.customFieldBaseValue" class="form__input">
+                        </div><br>
+                        <div class="form__col form__col--half"> <label class="form__label" for="cfdIncrementBy">Increment
+                                By</label>
+                            <input type="number" id="cfdIncrementBy" name="cfdIncrementBy"
+                                [(ngModel)]="customField.customFieldIncrementBy" class="form__input">
+                        </div>
+                    </div>
+                
+    
+               
+    
+                    <div *ngIf="customField.customFieldSpecialType=='Number'">
+    
+                        <div class="form__col form__col--half">
+                            <label class="form__label" for="NumbercustomFieldNumberMin">Minimum Value</label>
+                            <input type="number" id="customFieldTextMaxLength" name="customFieldNumberMin"
+                                [(ngModel)]="customField.customFieldNumberMin" class="form__input">
+                        </div>
+                        <div class="form__col form__col--half">
+                            <label class="form__label" for="customFieldNumberMax">Maximum Value </label>
+                            <input type="number" id="customFieldTextMaxLength" name="customFieldNumberMax"
+                                [(ngModel)]="customField.customFieldNumberMax" class="form__input">
+                        </div>
+                        <div class="form__col form__col--half">
+                            <label class="form__label" for="customFieldDefaultValue">Default Value </label>
+                            <input type="text" id="customFieldTextMaxLength" name="customFieldDefaultValue"
+                                [(ngModel)]="customField.customFieldDefaultValue" class="form__input">
+                        </div>
+                        <div class="form__col form__col--half">
+                            <label class="form__label" for="customFieldNumberDecimalPlaces">Decimal Places </label>
+                            <input type="number" id="customFieldTextMaxLength" name="customFieldNumberDecimalPlaces"
+                                [(ngModel)]="customField.customFieldNumberDecimalPlaces" class="form__input">
+                        </div>
+    
+                    </div>
+                    <div *ngIf="customField.customFieldSpecialType=='Currency'">
+                        <div class="form__col form__col--half">
+                            <label class="form__label" for="customFieldDefaultValue">Default Value </label>
+                            <input type="text" id="customFieldDefaultValue" name="customFieldDefaultValue"
+                                [(ngModel)]="customField.customFieldDefaultValue" class="form__input">
+                        </div>
+                    </div>
+               
+                    
+    
+               
+    
+                    <div *ngIf="customField.customFieldSpecialType=='Date'">
+    
+                        <div class="form__col-wrap">
+                            <div class="form__col form__col--group">
+                                <div class="form__group form__group--radio">
+                                    <input id="radio1" (click)="showoffsetdatefields('false')" class="form__radio"
+                                        type="radio" [checked]="customField.offsetDateFields=='false'"
+                                        name="inlineRadioOptionsDate">
+                                    <label class="form__group-label" for="radio1">Current Date</label>
+                                </div>
+                                <div class="form__group form__group--radio">
+                                    <input (click)="showoffsetdatefields('true')" id="radio2"
+                                        [checked]="customField.offsetDateFields=='true'" class="form__radio" type="radio"
+                                        name="inlineRadioOptionsDate">
+                                    <label class="form__group-label" for="radio2">Offset Date</label>
+                                </div>
+                                <div class="form__group form__group--radio">
+                                    <input (click)="showoffsetdatefields('none')"
+                                        [checked]="customField.offsetDateFields=='none'" id="radio3" class="form__radio"
+                                        type="radio" name="inlineRadioOptionsDate">
+                                    <label class="form__group-label" for="radio3">None</label>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div *ngIf="customField.offsetDateFields=='true'">
+    
+                            <div class="form__col-wrap">
+    
+                                <div class="form__col form__col--third">
+    
+                                    <select class="floating-select" id="Dateplusminus" name="Dateplusminus"
+                                        [(ngModel)]="customField.dateDefaultPlusMinus" value="">
+                                        <option value=""></option>
+                                        <option value="+">Plus(+)</option>
+                                        <option value="-">Minus(-)</option>
+                                    </select>
+                                    <span class="highlight"></span>
+                                    <label class="form__label form_label">Plus/Minus <span
+                                            class="form__required">*</span></label>
+                                </div>
+                                <div class="form__col form__col--third">
+                                    <label class="form__label" for="dateDefaultNumber"> Value </label>
+                                    <input type="number" id="dateDefaultNumber" class="form-control form__input"
+                                        name="dateDefaultNumber" [(ngModel)]="customField.dateDefaultNumber">
+    
+                                </div>
+    
+                                <div class="form__col form__col--third">
+    
+                                    <select class="floating-select" id="df" name="df"
+                                        [(ngModel)]="customField.dateDefaulInterval" value="">
+                                        <option value=""></option>
+                                        <option value="day">Days</option>
+                                        <option value="months">Months</option>
+                                    </select>
+                                    <span class="highlight"></span>
+                                    <label class="form__label form_label">Days/Months <span
+                                            class="form__required">*</span></label>
+    
+                                </div>
+                                <div class="form__col" style="font-size: 13px;">
+                                    To use the 'Offset Date' option, you'll need to enter a value for all of the above
+                                    fields (Plus/Minus, Value and Days/Months).
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div *ngIf="customField.customFieldSpecialType=='Date & Time'">
+    
+                        <h3> Default </h3>
+    
+                        <div class="form__col-wrap">
+                            <div class="form__col form__col--group">
+                                <div class="form__group form__group--radio">
+                                    <input id="radio1" (click)="showoffsetdatefields('false')" class="form__radio"
+                                        type="radio" [checked]="customField.offsetDateFields=='false'"
+                                        name="inlineRadioOptionsDateTimeandDate">
+                                    <label class="form__group-label" for="radio1">Current Date</label>
+                                </div>
+                                <div class="form__group form__group--radio">
+                                    <input (click)="showoffsetdatefields('true')" id="radio2"
+                                        [checked]="customField.offsetDateFields=='true'" class="form__radio" type="radio"
+                                        name="inlineRadioOptionsDateTimeandDate">
+                                    <label class="form__group-label" for="radio2">Offset Date</label>
+                                </div>
+                                <div class="form__group form__group--radio">
+                                    <input (click)="showoffsetdatefields('none')"
+                                        [checked]="customField.offsetDateFields=='none'" id="radio3" class="form__radio"
+                                        type="radio" name="inlineRadioOptionsDateTimeandDate">
+                                    <label class="form__group-label" for="radio3">None</label>
+                                </div>
+                            </div>
+                        </div>
+    
+    
+                        <div *ngIf="customField.offsetDateFields=='true'">
+    
+                            <div class="form__col-wrap">
+    
+                                <div class="form__col form__col--third">
+                                    <select class="floating-select" id="Dateplusminus" name="Dateplusminus"
+                                        [(ngModel)]="customField.dateDefaultPlusMinus" value="">
+                                        <option value=""></option>
+                                        <option value="+">Plus(+)</option>
+                                        <option value="-">Minus(-)</option>
+                                    </select>
+                                    <span class="highlight"></span>
+                                    <label class="form__label form_label">Plus/Minus <span
+                                            class="form__required">*</span></label>
+    
+                                </div>
+                                <div class="form__col form__col--third">
+                                    <label class="form__label" for="dateDefaultNumber"> Value </label>
+                                    <input type="number" id="dateDefaultNumber" class="form-control form__input"
+                                        name="dateDefaultNumber" [(ngModel)]="customField.dateDefaultNumber">
+    
+                                </div>
+    
+                                <div class="form__col form__col--third">
+    
+                                    <select class="floating-select" id="df" name="df"
+                                        [(ngModel)]="customField.dateDefaulInterval" value="">
+                                        <option value=""></option>
+                                        <option value="day">Days</option>
+                                        <option value="months">Months</option>
+                                    </select>
+                                    <span class="highlight"></span>
+                                    <label class="form__label form_label">Days/Months <span
+                                            class="form__required">*</span></label>
+    
+                                </div>
+                                <div class="form__col" style="font-size: 13px;">
+                                    To use the 'Offset Date' option, you'll need to enter a value for all of the above
+                                    fields (Plus/Minus, Value and Days/Months).
+                                </div>
+    
+                            </div>
+                        </div>
+    
+    
+                        <div class="form__col-wrap">
+                            <div class="form__col form__col--group">
+                                <div class="form__group form__group--radio">
+                                    <input id="mydefaultdateandtimetime45" (click)="showoffsettimefields('false')"
+                                        class="form__radio" type="radio" [checked]="customField.offsetTimeFields=='false'"
+                                        [disabled]="customField.offsetDateFields=='none'"
+                                        name="inlineRadioOptionsDateTimeandTime">
+                                    <label class="form__group-label" for="mydefaultdateandtimetime45">Current
+                                        Time</label>
+                                </div>
+                                <div class="form__group form__group--radio">
+                                    <input (click)="showoffsettimefields('true')" id="radio223"
+                                        [checked]="customField.offsetTimeFields=='true'" class="form__radio"
+                                        [disabled]="customField.offsetDateFields=='none'" type="radio"
+                                        name="inlineRadioOptionsDateTimeandTime">
+                                    <label class="form__group-label" for="radio223"> Offset Time</label>
+                                </div>
+                                <div class="form__group form__group--radio">
+                                    <input (click)="showoffsettimefields('none')"
+                                        [checked]="customField.offsetTimeFields=='none'" id="radio333"
+                                        [disabled]="customField.offsetDateFields=='none'" class="form__radio" type="radio"
+                                        name="inlineRadioOptionsDateTimeandTime">
+                                    <label class="form__group-label" for="radio333">None</label>
+                                </div>
+                            </div>
+                        </div>
+    
+    
+    
+                        <div *ngIf="customField.offsetTimeFields=='true'">
+    
+                            <div class="form__col-wrap">
+    
+                                <div class="form__col form__col--third">
+    
+                                    <select class="floating-select" id="datetimePlusMinus" name="datetimePlusMinus"
+                                        [(ngModel)]="customField.timeDefaultPlusMinus" value="">
+                                        <option value=""></option>
+                                        <option value="+">Plus(+)</option>
+                                        <option value="-">Minus(-)</option>
+                                    </select>
+                                    <span class="highlight"></span>
+                                    <label class="form__label form_label">Plus/Minus <span
+                                            class="form__required">*</span></label>
+    
+                                </div>
+                                <div class="form__col form__col--third">
+                                    <label class="form__label" for="datetimeNumberofhour">Number of hours</label>
+                                    <input type="number" id="datetimeNumberofhour" name="datetimeNumberofhour"
+                                        class="onlytypenumber form__input" [(ngModel)]="customField.timeNumberOfHours">
+                                </div>
+    
+                                <div class="form__col form__col--third">
+                                    <label class="form__label" for="datetimeNumberofminute">Number of minutes</label>
+                                    <input type="number" id="datetimeNumberofminute" name="datetimeNumberofminute"
+                                        class="onlytypenumber form__input" [(ngModel)]="customField.timeNumberOFMinutes">
+                                </div>
+                                <div class="form__col" style="font-size:13px">
+                                    To use the 'Offset Time' option, you'll need to enter a value for all of the above
+                                    fields (Plus/Minus,Number of hours and Number of minutes).
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div *ngIf="customField.customFieldSpecialType=='Time'">
+    
+                        <div class="form__col-wrap">
+                            <div class="form__col form__col--group">
+                                <div class="form__group form__group--radio">
+                                    <input id="mydefaultdateandtimetime45" (click)="showoffsettimefields('false')"
+                                        class="form__radio" type="radio" [checked]="customField.offsetTimeFields=='false'"
+                                        name="inlineRadioOptionsTime">
+                                    <label class="form__group-label" for="mydefaultdateandtimetime45">Current
+                                        Time</label>
+                                </div>
+                                <div class="form__group form__group--radio">
+                                    <input (click)="showoffsettimefields('true')" id="radio223"
+                                        [checked]="customField.offsetTimeFields=='true'" class="form__radio" type="radio"
+                                        name="inlineRadioOptionsTime">
+                                    <label class="form__group-label" for="radio223"> Offset Time</label>
+                                </div>
+                                <div class="form__group form__group--radio">
+                                    <input (click)="showoffsettimefields('none')"
+                                        [checked]="customField.offsetTimeFields=='none'" id="radio333" class="form__radio"
+                                        type="radio" name="inlineRadioOptionsTime">
+                                    <label class="form__group-label" for="radio333">None</label>
+                                </div>
+                            </div>
+                        </div>
+    
+    
+    
+    
+                        <div *ngIf="customField.offsetTimeFields=='true'">
+                            <div class="form__col-wrap">
+    
+                                <div class="form__col form__col--third">
+    
+    
+    
+                                    <select class="floating-select" id="datetimePlusMinus" name="datetimePlusMinus"
+                                        [(ngModel)]="customField.timeDefaultPlusMinus" value="">
+                                        <option value=""></option>
+                                        <option value="+">Plus(+)</option>
+                                        <option value="-">Minus(-)</option>
+                                    </select>
+                                    <span class="highlight"></span>
+                                    <label class="form__label form_label">Plus/Minus <span
+                                            class="form__required">*</span></label>
+    
+                                </div>
+                                <div class="form__col form__col--third">
+                                    <label class="form__label" for="datetimeNumberofhour">Number of hours</label>
+                                    <input type="number" id="datetimeNumberofhour" name="datetimeNumberofhour"
+                                        class="onlytypenumber form__input" [(ngModel)]="customField.timeNumberOfHours">
+                                </div>
+    
+                                <div class="form__col form__col--third">
+                                    <label class="form__label" for="datetimeNumberofminute">Number of minutes</label>
+                                    <input type="number" id="datetimeNumberofminute" name="datetimeNumberofminute"
+                                        class="onlytypenumber form__input" [(ngModel)]="customField.timeNumberOFMinutes">
+                                </div>
+    
+                                <div class="form__col" style="font-size:13px">
+                                    To use the 'Offset Time' option, you'll need to enter a value for all of the above
+                                    fields (Plus/Minus,Number of hours and Number of minutes).
+                                </div>
+                            </div>
+    
+                        </div>
+    
+    
+    
+    
+    
+                    </div>
+    
+               
+    
+               
+                    <div *ngIf="customField.customFieldSpecialType=='CheckBox'">
+    
+                        <div class="form__col form__col--half">
+                            <label class="form__label" for="customFieldTrueLabel">True Label</label>
+                            <input type="text" id="customFieldTrueLabel" name="customFieldTrueLabel"
+                                [(ngModel)]="customField.customFieldTrueLabel" class="form__input">
+                        </div>
+                        <div class="form__col form__col--half">
+                            <label class="form__label" for="customFieldFalseLabel">False Label</label>
+                            <input type="text" id="customFieldFalseLabel" name="customFieldFalseLabel"
+                                [(ngModel)]="customField.customFieldFalseLabel" class="form__input">
+                        </div>
+                    </div>
+              
+                </form> 
+            </div> -->
+            <!-- <div class="col-md-6">
+                <form class="form">
+                    <div *ngIf="customField.dataType=='Text'">
+                        <div class="form__section">
+                            <div class="form__col-wrap">
+                                <div class="form__col form__col--half">
+                                  <select class="floating-select" (ngModelChange)='onOptionsSelected($event)'
+                                        id="SpecialTypeField" name="SpecialTypeField"
+                                        [(ngModel)]="customField.customFieldSpecialType" value="">
+                                        <option value=""></option>
+                                        <option *ngFor="let product of Inputtypes" [value]="product">
+                                            {{product}}</option>
+                                    </select>
+                                    <span class="highlight"></span>
+                                    <label class="form__label form_label">Data Type <span
+                                            class="form__required">*</span></label>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+              <div *ngIf="customField.dataType=='Number'">
+                        <div class="form__section">
+                             <div class="form__col-wrap">
+                                <div class="form__col form__col--half">
+                                    <select class="floating-select" name="NumberSpecialField"
+                                      (ngModelChange)='onOptionsSelected($event)' id="NumberSpecialField"
+                                      [(ngModel)]="customField.customFieldSpecialType" value="">
+                                          <option value=""></option>
+                                          <option *ngFor="let product of InputtypeNumber" [value]="product">{{product}}</option>
+                                           </select>
+                                     <span class="highlight"></span>
+                                     <label class="form__label form_label">Input type <span
+                                       class="form__required">*</span></label>
+                               </div>
+                           </div>
+                       </div>
+              </div>
+              <div *ngIf="customField.dataType=='Date/Time'">
+    
+                <div class="form__col form__col--half">
+                    
+
+                    <select class="floating-select" name="DateSpecialField" (ngModelChange)='onOptionsSelected($event)'
+                        id="DateSpecialField" [(ngModel)]="customField.customFieldSpecialType" value="">
+                        <option value=""></option>
+                        <option *ngFor="let product of InputtypeDate" [value]="product">{{product}}</option>
+                    </select>
+                    <span class="highlight"></span>
+                    <label class="form__label form_label">Input type <span class="form__required">*</span></label>
+                </div>
+              </div>
+              <div *ngIf="customField.dataType=='True/False'">
+                <div class="form__section">
+                    <div class="form__col-wrap">
+                        <div class="form__col form__col--half">
+                            <select class="floating-select" (ngModelChange)='onOptionsSelected($event)'
+                                name="typeNameCheckbox" id="typeNameCheckbox"
+                                [(ngModel)]="customField.customFieldSpecialType" value="">
+                                <option value=""></option>
+                                <option *ngFor="let product of InputtypeBool" [value]="product">
+                                    {{product}}</option>
+                            </select>
+                            <span class="highlight"></span>
+                            <label class="form__label form_label">Input Type <span
+                                    class="form__required">*</span></label>
+                        </div>
+                    </div>
+                </div>
+              </div>
+                </form>
+                     
+            </div>
+        </div>  
+    </section>
+</div>
+</div> -->
+<!-- <div class="contenedor-principal container">
+   <ng-template mat-tab-label>Formulario</ng-template>
+  <div class="contenedor-principal container" style="padding-top: 20px;padding-bottom: 20px;">
+    <div class="row">
+      <div class="col-4 col-sm-4 col-md-4 col-lx-4">
+        <div class="card">
+          <div class="card-header">Componentes</div>
+          <div class="card-block form-horizontal container">
+            <blockquote class="card-blockquote" id="textboxData" style="padding-top: 15px;" dnd-draggable [dragEnabled]="true"  [dragData]="textboxData">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Text input</label>
+                <div class="col-sm-8">
+                  <input class="form-control" disabled placeholder="placeholder" type="text" />
+                  <small class="form-text text-muted">description</small>
+                </div>
+              </div>
+            </blockquote>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="col-8 col-sm-8 col-md-8 col-lx-8">
+        <div class="card" (mouseout)="muestraBotones(-1)">
+
+          <div class="card-header">Drop Here</div>
+          <div class="card-block" dnd-droppable (onDropSuccess)="transferenciaDeObjetoHTML($event.dragData)">
+              <div [ngSwitch]="true" *ngFor="let registro of configuracionesCampoHtml">
+
+                <div class="form-group row text-center" *ngSwitchCase="registro.type === 'title'" (mouseover)="muestraBotones(registro.orden)">
+                  <h5 class="col-sm-11 col-md-11 col-lg-11 col-form-label">{{registro.etiLeyendaPrincipal}}</h5>
+                  <div class="col-sm-1 col-md-1 col-lg-1" [hidden]="registro.orden != registroBotones">
+                    <div class="col-sm-1 col-md-1 col-lg-1 pull-right contenedor-botones">
+
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group container" *ngSwitchCase="registro.type !== 'title'" (mouseover)="muestraBotones(registro.orden)">
+                  <div class="form-group row">
+                    <label [attr.for]="registro.datNombreObjHtml" class="col-3 col-form-label">{{registro.etiLeyendaPrincipal}}</label>
+                    <div class="row col-8">
+                      <div *ngFor="let control of registro.datIngresos" [ngSwitch]="control.tobTipoControl" [ngClass]="{
+                        'col-3': registro.datIngresos.length >= 4 || registro.datIngresos.length <= 12, 
+                        'col-4': registro.datIngresos.length === 3,
+                        'col-6': registro.datIngresos.length === 2, 
+                        'col-12': registro.datIngresos.length === 1 }">
+                        <div *ngSwitchCase="'input'">
+                          <input class="form-control" [type]="control.datTipoDato" [attr.name]="control.datNombreObjHtml"
+
+
+                            [attr.id]="control.datNombreObjHtml"  ngModel>
+                        </div>                        
+
+                      </div>
+                    </div>                        
+                  </div>
+                </div>
+              </div>                
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>    
+</div> -->
+<!-- <hello name="{{ name }}"></hello>
+<div class="fields-container">
+  <h2>Origin</h2>
+
+  <div
+    cdkDropList
+    #originList="cdkDropList"
+    [cdkDropListData]="origin"
+    [cdkDropListConnectedTo]="[destinationList]"
+    class="field-list">
+    <div class="field-box" *ngFor="let item of origin" cdkDrag>{{item.title}}</div>
+  </div>
+</div>
+
+<div class="fields-container">
+  <h2>Copy</h2>
+  <div
+    cdkDropList
+    #destinationList="cdkDropList"
+    [cdkDropListData]="destination"
+    class="field-list"
+    (cdkDropListDropped)="drop($event)">
+    <div class="field-box" *ngFor="let item of destination" cdkDrag>{{item.title}}</div>
+  </div>
+</div> -->

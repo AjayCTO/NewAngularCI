@@ -6,58 +6,724 @@
                 <div>
                     <ul class="nav_menu">
                         <li class="nav_menu-item">
-                            <a type="button" (click)="Text()" [ngClass]="!Time&&!Number&&!False?'Active':''">Text</a>
+                            <a style="text-decoration: none;" type="button" (click)="Text()"
+                                [ngClass]="!Time&&!Number&&!False?'Active':''">Text</a>
                         </li>
                         <li class="nav_menu-item">
-                            <a type="button" (click)="Numbers()" [ngClass]="Number?'Active':''">Number</a>
+                            <a style="text-decoration: none;" type="button" (click)="Numbers()"
+                                [ngClass]="Number?'Active':''">Number</a>
                         </li>
                         <li class="nav_menu-item">
-                            <a type="button" (click)="Times()" [ngClass]="Time?'Active':''">Date/Time</a>
+                            <a style="text-decoration: none;" type="button" (click)="Times()"
+                                [ngClass]="Time?'Active':''">Date/Time</a>
                         </li>
                         <li class="nav_menu-item">
-                            <a type="button" (click)="True()" [ngClass]="False?'Active':''">True/false</a>
+                            <a style="text-decoration: none;" type="button" (click)="True()"
+                                [ngClass]="False?'Active':''">True/false</a>
                         </li>
 
                     </ul>
                 </div>
 
                 <div class="edit-input-card">
-                    <app-time *ngIf="Time"></app-time>
-                    <app-number *ngIf="Number"></app-number>
-                    <app-text *ngIf="!Time&&!Number&&!False"></app-text>
-                    <app-false *ngIf="False"></app-false>
+                    <div *ngIf="!Time&&!Number&&!False">
+                        <div class="container" style=" margin-left: 36px; margin-top: 21px;">
+                            <div class="container" style="display: flex;">
+                                <p>OpenTextField</p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="form__col form__col--half">
+                                    <label class="form__label form_label" for="text">Text</label>
+                                    <input type="text" id="text" style="width: 160px;" name="text" class="form__input">
+                                </div>
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="selectField('text')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--add"
+                                                aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                                                <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="container" style="display: flex;">
+                                <p>Prefix Text Field</p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="form__col form__col--half input-group">
+                                    <span class="input-group-addon text" style="margin-left: 7px;">1</span>
+                                    <label class="form__label" style="margin-left: 20px;" for="prefix">prefix</label>
+                                    <input type="text" id="prefix" class="form__input Addon" style="width: 160px;"
+                                        name="prefix">
+                                </div>
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="selectField('prefix')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--add"
+                                                aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                                                <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="container" style="display: flex;">
+                                <p>Postfix Text Field</p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="form__col form__col--half input-group">
+                                    <label class="form__label" for="suffix">seffsadfcsdf</label>
+                                    <input type="text" id="suffix" class="form__input Addon"
+                                        style="width: 160px; padding-left: 0px;" name="suffix">
+                                    <span class="input-group-addon text Suffix" style="margin-left: 7px;">12</span>
+                                </div>
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="selectField('suffix')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--add"
+                                                aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                                                <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="container" style="display: flex;">
+                                <p>Prefix Postfix Text Field</p> &nbsp;&nbsp;
+                                <div class="form__col form__col--half input-group">
+                                    <span class="input-group-addon text"
+                                        style="margin-left: 7px; float: right;">1</span>
+                                    <label class="form__label" for="PrefixPostfix"
+                                        style="margin-left: 20px;">seff</label>
+                                    <input type="text" id="PrefixPostfix" class="form__input Addon"
+                                        style="width: 160px;" name="PrefixPostfix">
+                                    <span class="input-group-addon text Suffix">1</span>
+                                </div>
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="selectField('PrefixPostfix')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--add"
+                                                aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                                                <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="container" style="display: flex;">
+                                <p>Incrementor Text Field</p> &nbsp;&nbsp;<input type="text" id="Incrementor"
+                                    style="width: 160px;" name="Incrementor" class="form__input">
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="selectField('Incrementor')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--add"
+                                                aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                                                <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="container" style="display: flex;">
+                                <p> Dropdown</p> &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;<select class="floating-select" id="dynamic_Attribute"
+                                    name="dynamic_Attribute" value="" style="width: 160px; ">
+                                    <option value=""></option>
+                                    <option> 1 </option>
+                                    <option> 2 </option>
+                                </select>
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="selectField('dropdown')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--add"
+                                                aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                                                <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+
+                            </div>
+                            <div class="container" style="display: flex;">
+                                <p>Autocomplete</p> &nbsp;
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="Time">
+                        <div class="container" style="margin-left: 36px;margin-top: 21px;">
+
+                            <div class="container" style="display: flex;">
+                                <p>Date</p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
+                                    type="text" style="width: 160px;" id="date" name="date" data-flatpickr-mode="single"
+                                    class="form__input flatpickr">
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="selectField('date')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--add"
+                                                aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                                                <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="container" style="display: flex;">
+                                <p>Date&Time</p> &nbsp;&nbsp; <input type="text" id="dateandtime" style="width: 160px;"
+                                    name="dateandtime" data-flatpickr-mode="single" class="form__input flatpickr">
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="selectField('dateandtime')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--add"
+                                                aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                                                <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="container" style="display: flex;">
+                                <p>Time</p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
+                                    type="text" id="time" style="width: 160px;" name="time" data-flatpickr-mode="single"
+                                    class="form__input flatpickr">
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="selectField('time')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--add"
+                                                aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                                                <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div *ngIf="Number">
+                        <div class="container" style="margin-left: 36px;margin-top: 21px;">
+
+                            <div class="container" style="display: flex;">
+                                <p>Number</p>&nbsp;&nbsp;
+                                <div class="form__col form__col--half">
+                                    <label class=" form__label" for="dynamic_Attribute">Iasfsdfsdf</label>
+                                    <input type="number" style="width: 160px;" id="dynamic_Attribute"
+                                        name="dynamic_Attribute" class="form__input">
+                                </div>
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="selectField('number')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--add"
+                                                aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                                                <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="container" style="display: flex;">
+                                <p>Currency</p>&nbsp;
+                                <div class="form__col form__col--half">
+
+                                    <span class="input-group-addon text" style="margin-left: 7px;">$</span>
+                                    <label class="form__label" style="margin-left: 20px;"
+                                        for="dynamic_Attribute1">Iasfsdfsdf</label>
+                                    <input type="number" id="dynamic_Attribute1" class="form__input Addon"
+                                        style="width: 160px;" name="dynamic_Attribute1">
+                                </div>
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="selectField('currency')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--add"
+                                                aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                                                <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div *ngIf="False">
+                        <div class="container" style="margin-left: 36px;margin-top: 21px;">
+
+                            <div class="container" style="display: flex;">
+                                <p>Radio</p> &nbsp; &nbsp;<div class="form__group form__group--radio">
+                                    <input id="radio1" class="form__radio" type="radio" name="dynamic_radio200">
+                                    <label class="form__group-label" for="radio1"> True
+                                    </label>
+
+                                </div>
+                                <div class="form__group form__group--radio">
+                                    <input id="radio2" class="form__radio" type="radio" name="dynamic_radio200">
+                                    <label class="form__group-label" for="radio2"> False</label>
+                                </div>
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="selectField('false')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--add"
+                                                aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                                                <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="edit--card">
-                <form>
-                    <h2>Form Title</h2>
+            <div class="card">
+                <div class="card-header">
+                    <form class="container">
+
+                        <div class="form__col-wrap">
+                            <div class="form__col">
+                                <label class="form__label" for="columnLabel"> Custom Name <span
+                                        class="form__required">*</span></label>
+                                <input class="form__input"
+                                    style="width: 26%; border-left-style: none;border-top-style: none;border-right-style: none;"
+                                    type="text" id="columnLabel" name="columnLabel" required>
+                            </div>
+                            <div class="form__col form__col--group">
+                                <div class="form__group form__group--checkbox">
+                                    <input class="form__checkbox" type="checkbox" id="customFieldIsRequired1"
+                                        name="customFieldIsRequired">
+                                    <label class="form__group-label" for="customFieldIsRequired1">Required</label>
+                                </div>
+                            </div>
+                            <div class="form__col">
+                                <label class="form__label" for="textarea">Information</label>
+                                <textarea class="form__input form__input--textarea" type="textarea" style="width: 27%;"
+                                    id="customFieldInformation1" name="customFieldInformation"></textarea>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="panel-empty-body" droppable (onDrop)="onItemDrop($event)"
+                        [dragOverClass]="'drag-target-border'"
+                        *ngIf="selectedFieldName==undefined || selectedFieldName.length==0">
+                        Drop Items here
+                    </div>
+                    <div *ngFor="let item of selectedFieldName">
+                        <div *ngIf="item=='text'">
+                            <div class="container" style="display: flex;">
+                                <p>OpenTextField</p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="form__col form__col--half">
+                                    <label class="form__label" for="text1">Text</label>
+                                    <input type="text" id="text1" style="width: 160px;" name="text1"
+                                        class="form__input">
+                                </div>
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="RemoveColumn('text')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                                aria-labelledby="title-6007fa52cf811" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor"
+                                                    d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                                                <path fill="currentColor"
+                                                    d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div *ngIf="item=='time'">
+                            <div class="container" style="display: flex;">
+                                <p>Time</p>
+                                &nbsp;&nbsp; <input type="text" id="time1" style="width: 160px;" name="time1"
+                                    data-flatpickr-mode="single" class="form__input flatpickr">
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="RemoveColumn('time')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                                aria-labelledby="title-6007fa52cf811" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor"
+                                                    d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                                                <path fill="currentColor"
+                                                    d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="item=='dateandtime'">
+                            <div class="container" style="display: flex;">
+                                <p>Date&Time</p> &nbsp;&nbsp; <input type="text" id="dateandtime1" style="width: 160px;"
+                                    name="dateandtime1" data-flatpickr-mode="single" class="form__input flatpickr">
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="RemoveColumn('dateandtime')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                                aria-labelledby="title-6007fa52cf811" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor"
+                                                    d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                                                <path fill="currentColor"
+                                                    d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="item=='date'">
+                            <div class="container" style="display: flex;">
+                                <p>Date</p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
+                                    type="text" style="width: 160px;" id="date1" name="date1"
+                                    data-flatpickr-mode="single" class="form__input flatpickr">
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="RemoveColumn('date')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                                aria-labelledby="title-6007fa52cf811" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor"
+                                                    d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                                                <path fill="currentColor"
+                                                    d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="item=='false'">
 
 
-                    <div>
+                            <div class="container" style="display: flex;">
+                                <p>Radio</p> &nbsp; &nbsp;<div class="form__group form__group--radio">
+                                    <input id="radio11" class="form__radio" type="radio" name="dynamic_radio200">
+                                    <label class="form__group-label" for="radio1"> True
+                                    </label>
 
-                        <!-- <ng-container *ngIf="field.customFieldSpecialType=='Autocomplete'">
-                <ng-autocomplete [data]="ComboValueDropdown(field.comboBoxValue)"
-                    [searchKeyword]="keyword" (selected)='selectEvent($event)' [debounceTime]="600"
-                    [itemTemplate]="itemTemplate" [disabled]="IsItemHave"
-                    [notFoundTemplate]="notFoundTemplate">
-                </ng-autocomplete>
-                <ng-template #itemTemplate let-item>
-                    <a [innerHTML]="item"></a>
-                </ng-template>
-            </ng-container> -->
+                                </div>
+                                <div class="form__group form__group--radio">
+                                    <input id="radio2" class="form__radio" type="radio" name="dynamic_radio200">
+                                    <label class="form__group-label" for="radio2"> False</label>
+                                </div>
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="RemoveColumn('false')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                                aria-labelledby="title-6007fa52cf811" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor"
+                                                    d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                                                <path fill="currentColor"
+                                                    d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z"></path>
+                                            </svg></div>
 
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div *ngIf="item=='number'">
+                            <div class="container" style="display: flex;">
+                                <p>Number</p>&nbsp;&nbsp;
+                                <div class="form__col form__col--half">
+                                    <label class=" form__label" for="number">Iasfsdfsdf</label>
+                                    <input type="number" style="width: 160px;" id="number" name="number"
+                                        class="form__input">
+                                </div>
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="RemoveColumn('number')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                                aria-labelledby="title-6007fa52cf811" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor"
+                                                    d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                                                <path fill="currentColor"
+                                                    d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="item=='currency'">
+                            <div class="container" style="display: flex;">
+                                <p>Currency</p>&nbsp;
+                                <div class="form__col form__col--half">
+
+                                    <span class="input-group-addon text" style="margin-left: 7px;">$</span>
+                                    <label class="form__label" style="margin-left: 20px;"
+                                        for="currency">Iasfsdfsdf</label>
+                                    <input type="number" id="currency" class="form__input Addon" style="width: 160px;"
+                                        name="currency">
+                                </div>
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="RemoveColumn('currency')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                                aria-labelledby="title-6007fa52cf811" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor"
+                                                    d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                                                <path fill="currentColor"
+                                                    d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="item=='prefix'">
+                            <div class="container" style="display: flex;">
+                                <p>Prefix Text Field</p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="form__col form__col--half input-group">
+                                    <span class="input-group-addon text" style="margin-left: 7px;">1</span>
+                                    <label class="form__label" style="margin-left: 20px;" for="prefix1">prefix</label>
+                                    <input type="text" id="prefix1" class="form__input Addon" style="width: 160px;"
+                                        name="prefix1">
+                                </div>
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="RemoveColumn('prefix')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                                aria-labelledby="title-6007fa52cf811" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor"
+                                                    d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                                                <path fill="currentColor"
+                                                    d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="item=='suffix'">
+                            <div class="container" style="display: flex;">
+                                <p>Postfix Text Field</p>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="form__col form__col--half input-group">
+                                    <label class="form__label" for="suffix1">seffsadfcsdf</label>
+                                    <input type="text" id="suffix1" class="form__input Addon" style="width: 160px;"
+                                        name="suffix1">
+                                    <span class="input-group-addon text Suffix" style="margin-left: 7px;">12</span>
+                                </div>
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="RemoveColumn('suffix')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                                aria-labelledby="title-6007fa52cf811" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor"
+                                                    d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                                                <path fill="currentColor"
+                                                    d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="item=='PrefixPostfix'">
+                            <div class="container" style="display: flex;">
+                                <p>Prefix Postfix Text Field</p> &nbsp;&nbsp;
+                                <div class="form__col form__col--half input-group">
+                                    <span class="input-group-addon text"
+                                        style="margin-left: 7px; float: right;">1</span>
+                                    <label class="form__label" for="PrefixPostfix1"
+                                        style="margin-left: 20px;">seff</label>
+                                    <input type="text" id="PrefixPostfix1" class="form__input Addon"
+                                        style="width: 160px;" name="PrefixPostfix1">
+                                    <span class="input-group-addon text Suffix">1</span>
+                                </div>
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="RemoveColumn('PrefixPostfix')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                                aria-labelledby="title-6007fa52cf811" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor"
+                                                    d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                                                <path fill="currentColor"
+                                                    d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="item=='Incrementor'">
+                            <div class="container" style="display: flex;">
+                                <p>Incrementor Text Field</p> &nbsp;&nbsp;<input type="text" id="Incrementor1"
+                                    style="width: 160px;" name="Incrementor1" class="form__input">
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="RemoveColumn('Incrementor')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                                aria-labelledby="title-6007fa52cf811" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor"
+                                                    d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                                                <path fill="currentColor"
+                                                    d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="item=='dropdown'">
+                            <div class="container" style="display: flex;">
+                                <p> Dropdown</p> &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;<select class="floating-select" id="dropdown" name="dropdown" value=""
+                                    style="width: 160px; ">
+                                    <option value=""></option>
+                                    <option> 1 </option>
+                                    <option> 2 </option>
+                                </select>
+                                <div class="icons icons--horziontal icons--size02"
+                                    style="margin-top: -20px; margin-left: 10px;">
+                                    <button type="button" (click)="RemoveColumn('dropdown')"
+                                        class="icons__item icons__item--outline">
+                                        <div class="icons__icon"><svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                                aria-labelledby="title-6007fa52cf811" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="24" height="24">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path fill="currentColor"
+                                                    d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                                                <path fill="currentColor"
+                                                    d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z"></path>
+                                            </svg></div>
+
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
 
                     </div>
-
-                    <div>
-
+                </div>
+                <div class="container">
+                    <div class="button-group"><button type="submit" href="#" class="button button--medium">Save</button>
+                        <button _ngcontent-eoq-c89="" type="button"
+                            data-trigger=".table__button-group .icons__item.is-active"
+                            class="button button--medium button--text-only js-trigger">Cancel </button>
                     </div>
-                </form>
+                </div>
             </div>
-
         </div>
     </div>
 </section>

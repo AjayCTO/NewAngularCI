@@ -73,6 +73,7 @@ export class InventoryReportComponent implements OnInit {
 
     let IsExist = false;
     this.selectedFields.forEach(element => {
+      this.selectedFields.push(e.dragData);
 
       if (element.columnId == e.dragData.columnId) {
         IsExist = true;
