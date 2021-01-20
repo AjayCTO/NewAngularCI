@@ -4,7 +4,7 @@ import toggle from '../../../../../../assets/js/lib/_toggle';
 @Component({
   selector: 'app-iteminventory',
   templateUrl: './iteminventory.component.html',
-  styleUrls: ['./iteminventory.component.css']
+  styleUrls: ['./iteminventory.component.scss']
 })
 export class IteminventoryComponent implements OnInit {
   creatReportOpen = false;

@@ -48,7 +48,7 @@
   border: 0;
   border-radius: 5px;
   overflow: hidden;
-  padding: 0;
+  padding: 20px;
 
   .card-header {
     position: relative;
@@ -65,11 +65,10 @@
 }
 .panel-empty-body
 {
-  padding: 10px;
+ 
   position: relative;
   height: 200px;
-  text-align: center;
-  margin: auto 0px;
+
 }
 .drag-over-border
 {
@@ -123,4 +122,19 @@
   white-space: nowrap;
   width: 100%;
   outline: 0;
+}
+
+.close {
+    
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .2;
+    cursor: pointer;
+        position: absolute;
+    top: -24px;
+    right: 1px;
+    filter: alpha(opacity=20);
 }

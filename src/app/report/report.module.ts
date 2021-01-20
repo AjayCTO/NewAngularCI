@@ -12,6 +12,10 @@ import { DeleteConfirmationComponent } from './component/delete-confirmation/del
 import { EditCustomReportComponent } from './component/edit-custom-report/edit-custom-report.component';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { NgxPopperModule } from 'ngx-popper';
+import { ColorPickerModule } from 'ngx-color-picker';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+
+
 @NgModule({
   declarations: [EventReportComponent, InventoryReportComponent, AddCustomReportComponent, DeleteConfirmationComponent, EditCustomReportComponent],
   imports: [
@@ -19,6 +23,8 @@ import { NgxPopperModule } from 'ngx-popper';
     SharedModule,
     FormsModule,
     NgxPopperModule,
+    ColorPickerModule,
+    AutocompleteLibModule,
     NgDragDropModule.forRoot(),
     ReactiveFormsModule,
     RouterModule.forChild([
