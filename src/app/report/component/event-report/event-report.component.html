@@ -5,7 +5,7 @@
 
         <div class="icons icons--horziontal icons--size02">
             <button type="button" class="icons__item icons__item--outline  icons__item--theme09"
-                (click)="toggleDropDown()" >
+                (click)="toggleDropDown()">
                 <div class="icons__icon"><svg class="icon icon--theme09 icon--arrow-down"
                         aria-labelledby="title-5f7c9b3febeff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
                         width="12" height="12">
@@ -17,22 +17,32 @@
                             fill="currentColor"></path>
                     </svg></div>
                 <ul *ngIf="showDropDown" class="toggleDropDown">
-                    <li class="icons__submenu-item" *ngFor="let item of ReportList"><a class="icons__submenu-link" style="display: flex;"
-                            (click)="SelectedReport(item)">{{item.reportTitle}}</a>
-                           
-                          
-                            <span>
-                                <div class="icons__item">
+                    <li class="icons__submenu-item" *ngFor="let item of ReportList"><a class="icons__submenu-link"
+                            style="display: flex;" (click)="SelectedReport(item)">{{item.reportTitle}}</a>
+
+
+                        <span>
+                            <div class="icons__item">
                                 <div class="icons__icon">
-                                   <a (click)="EditCustomReport(item)" type="button"> <svg class="icon-simple icon-simple--theme01 icon-simple--adjust" aria-labelledby="title-600122b1cc5a0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12"><path fill="none" d="M24 0v24H0V0z"></path><path d="M0 24h24V0H0z" fill="none"></path><path fill="currentColor" d="M3 18h18v4H3zm2.968-6.351l8.485-8.486 2.829 2.829-8.485 8.485zm13.428-7.801l-1.414 1.414-2.828-2.828 1.414-1.414z"></path><path fill="currentColor" d="M5.3 15.1l.7-3.5 2.8 2.8-3.5.7z"></path></svg>
-                                   </a>
-                                   </div>
+                                    <a (click)="EditCustomReport(item)" type="button"> <svg
+                                            class="icon-simple icon-simple--theme01 icon-simple--adjust"
+                                            aria-labelledby="title-600122b1cc5a0" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24" width="12" height="12">
+                                            <path fill="none" d="M24 0v24H0V0z"></path>
+                                            <path d="M0 24h24V0H0z" fill="none"></path>
+                                            <path fill="currentColor"
+                                                d="M3 18h18v4H3zm2.968-6.351l8.485-8.486 2.829 2.829-8.485 8.485zm13.428-7.801l-1.414 1.414-2.828-2.828 1.414-1.414z">
+                                            </path>
+                                            <path fill="currentColor" d="M5.3 15.1l.7-3.5 2.8 2.8-3.5.7z"></path>
+                                        </svg>
+                                    </a>
+                                </div>
                             </div>
-                            </span>
-                        </li>
+                        </span>
+                    </li>
                 </ul>
             </button>
-           
+
             &nbsp;&nbsp;
             <button type="button" routerLink="/report/create-custom-report" class="icons__item icons__item--outline">
                 <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
@@ -246,36 +256,36 @@
                 <!-- </button> -->
 
                 <button type="button" *ngFor="let filter of FilterArray"
-                class="icons__item icons__item--contains-text icons__item--theme07">
-                <div class="icons__text"><strong class="icons__name">{{filter.displayName}}:</strong>
-                    <span *ngIf="filter.filterOperator=='bw'"><img
-                            src="../../../../assets/img/filter/BeginsWith.gif"></span>
-                    <span *ngIf="filter.filterOperator=='cn'"><img
-                            src="../../../../assets/img/filter/Contains.gif"></span>
-                    <span *ngIf="filter.filterOperator=='nc'"><img
-                            src="../../../../assets/img/filter/DoesNotContain.gif"></span>
-                    <span *ngIf="filter.filterOperator=='eq'||filter.filterOperator=='num-eq'"><img
-                            src="../../../../assets/img/filter/EqualTo.gif"></span>
-                    <span *ngIf="filter.filterOperator=='ne'||filter.filterOperator=='num-ne'"><img
-                            src="../../../../assets/img/filter/NotEqualTo.gif"></span>
-                    <span *ngIf="filter.filterOperator=='num-gte'"><img
-                            src="../../../../assets/img/filter/GreaterThanOrEqualTo.gif"></span>
-                    <span *ngIf="filter.filterOperator=='num-lte'"><img
-                            src="../../../../assets/img/filter/LessThanOrEqualTo.gif"></span>
-                    <span *ngIf="filter.filterOperator=='Empty'"><img
-                            src="../../../../assets/img/filter/IsNull.gif"></span>
-                    <span class="icons__value">{{filter.searchValue}}</span>
-                </div>
-                <div class="icons__icon" (click)="RemoveFilter(filter)"><svg
-                        class="icon-simple icon-simple--theme01 icon-simple--remove"
-                        aria-labelledby="title-5f7cbab264ccf" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                        width="24" height="24">
-                        <path fill="none" d="M0 0h24v24H0z"></path>
-                        <path fill="currentColor" d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
-                        <path fill="currentColor" d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z">
-                        </path>
-                    </svg></div>
-            </button>
+                    class="icons__item icons__item--contains-text icons__item--theme07">
+                    <div class="icons__text"><strong class="icons__name">{{filter.displayName}}:</strong>
+                        <span *ngIf="filter.filterOperator=='bw'"><img
+                                src="../../../../assets/img/filter/BeginsWith.gif"></span>
+                        <span *ngIf="filter.filterOperator=='cn'"><img
+                                src="../../../../assets/img/filter/Contains.gif"></span>
+                        <span *ngIf="filter.filterOperator=='nc'"><img
+                                src="../../../../assets/img/filter/DoesNotContain.gif"></span>
+                        <span *ngIf="filter.filterOperator=='eq'||filter.filterOperator=='num-eq'"><img
+                                src="../../../../assets/img/filter/EqualTo.gif"></span>
+                        <span *ngIf="filter.filterOperator=='ne'||filter.filterOperator=='num-ne'"><img
+                                src="../../../../assets/img/filter/NotEqualTo.gif"></span>
+                        <span *ngIf="filter.filterOperator=='num-gte'"><img
+                                src="../../../../assets/img/filter/GreaterThanOrEqualTo.gif"></span>
+                        <span *ngIf="filter.filterOperator=='num-lte'"><img
+                                src="../../../../assets/img/filter/LessThanOrEqualTo.gif"></span>
+                        <span *ngIf="filter.filterOperator=='Empty'"><img
+                                src="../../../../assets/img/filter/IsNull.gif"></span>
+                        <span class="icons__value">{{filter.searchValue}}</span>
+                    </div>
+                    <div class="icons__icon" (click)="RemoveFilter(filter)"><svg
+                            class="icon-simple icon-simple--theme01 icon-simple--remove"
+                            aria-labelledby="title-5f7cbab264ccf" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="24" height="24">
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path fill="currentColor" d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                            <path fill="currentColor" d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z">
+                            </path>
+                        </svg></div>
+                </button>
                 <button type="button" id="filterButton"
                     class="icons__item icons__item--outline icons__item--theme07 js-toggle">
                     <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
@@ -558,9 +568,10 @@
                     <th scope="col" class="table__heading" *ngFor="let itemHeader of tabulatorColumn">
                         <div class="table__heading-title" [style.width.px]="itemHeader.width">{{itemHeader.title}}</div>
                         <div class="table__heading-options">
-                              <div class="icons icons--horziontal icons--size02">
+                            <div class="icons icons--horziontal icons--size02">
                                 <button type=" button" class="icons__item  js-toggle"
-                                    (click)='onOptionsSelected(itemHeader,$event)' id="filterButton2_{{itemHeader.field}}">
+                                    (click)='onOptionsSelected(itemHeader,$event)'
+                                    id="filterButton2_{{itemHeader.field}}">
                                     <div class="icons__icon">
                                         <svg class="icon icon--theme01 icon--filter"
                                             aria-labelledby="title-5f83f48269fe1" xmlns="http://www.w3.org/2000/svg"
@@ -716,7 +727,7 @@
                             </div>
                         </div>
                     </th>
-                   
+
 
                 </tr>
             </thead>

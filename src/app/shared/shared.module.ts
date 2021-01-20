@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from './api.service';
 import { RouterModule } from '@angular/router';
+import { AuthGuard } from '../core/auth-guard.service';
 import { CommanSharedService } from './service/comman-shared.service';
 import { LocationModalComponent } from './component/location-modal/location-modal.component';
 import { UomModalComponent } from './component/uom-modal/uom-modal.component';
@@ -21,7 +22,7 @@ import { FalseComponent } from './component/custom-field/True/false/false.compon
   ],
 
   imports: [CommonModule, FormsModule, ReactiveFormsModule,RouterModule.forChild([
-    { path: 'sharedcustomfield', component: CustomFieldComponent },])],
+    { path: 'sharedcustomfield', component: CustomFieldComponent, canActivate: [AuthGuard] },])],
   declarations: [LocationModalComponent, UomModalComponent, StatusModalComponent, CustomFieldModalComponent, AttributeFieldModalComponent, CustomFieldComponent, TextComponent, NumberComponent, TimeComponent, FalseComponent],
   exports: [LocationModalComponent, StatusModalComponent, UomModalComponent, CustomFieldModalComponent, AttributeFieldModalComponent],
 

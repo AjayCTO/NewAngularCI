@@ -45,10 +45,10 @@
                                     <div class="table__heading-title">Column Name</div>
                                     <div class="table__heading-options">
                                         <div class="icons icons--horziontal icons--size02">
-                                           
-                                                <div class="icons__icon">
-                                                 
-                                                </div>
+
+                                            <div class="icons__icon">
+
+                                            </div>
 
                                         </div>
                                     </div>
@@ -57,10 +57,10 @@
                                     <div class="table__heading-title">Filter By</div>
                                     <div class="table__heading-options">
                                         <div class="icons icons--horziontal icons--size02">
-                                            
-                                                <div class="icons__icon">
 
-                                                </div>
+                                            <div class="icons__icon">
+
+                                            </div>
 
                                         </div>
                                     </div>
@@ -69,10 +69,10 @@
                                     <div class="table__heading-title">Short Order</div>
                                     <div class="table__heading-options">
                                         <div class="icons icons--horziontal icons--size02">
-                                           
-                                                <div class="icons__icon">
-                                                   
-                                                </div>
+
+                                            <div class="icons__icon">
+
+                                            </div>
 
                                         </div>
                                     </div>
@@ -81,11 +81,11 @@
                                     <div class="table__heading-title">Short Type</div>
                                     <div class="table__heading-options">
                                         <div class="icons icons--horziontal icons--size02">
-                                        
-                                                <div class="icons__icon">
-                                                 
-                                                </div>
-                                             
+
+                                            <div class="icons__icon">
+
+                                            </div>
+
                                         </div>
                                     </div>
                                 </th>
@@ -93,9 +93,9 @@
                                     <div class="table__heading-title">Close</div>
                                     <div class="table__heading-options">
                                         <div class="icons icons--horziontal icons--size02">
-                                                <div class="icons__icon">
+                                            <div class="icons__icon">
 
-                                                </div>
+                                            </div>
 
                                         </div>
                                     </div>
@@ -183,8 +183,9 @@
                                 <td class="table__cell" data-title="Column Title">
                                     <div class="form__col">
                                         <select class="floating-select" id="list-dropdown1{{i}}"
-                                        (ngModelChange)='onOptionsSelected2(obj,$event)'   name="list-dropdown1{{i}}" [{ngModel}]="obj.sortOrder" >
-                                            <option [value]=opt.id  *ngFor="let opt of tabulatorColumn2">
+                                            (ngModelChange)='onOptionsSelected2(obj,$event)' name="list-dropdown1{{i}}"
+                                            [(ngModel)]="obj.SortOrder">
+                                            <option [value]=opt.field *ngFor="let opt of tabulatorColumn2">
                                                 {{opt.field}}
                                             </option>
                                             <!-- <option value=""></option>
@@ -200,13 +201,12 @@
                                 <td class="table__cell" data-title="Column Title">
                                     <div class="form__col">
                                         <select class="floating-select" id="list-dropdown1{{i}}"
-                                        (ngModelChange)='onOptionsSelected1(obj,$event)'   name="list-dropdown1{{i}}" [{ngModel}]="obj.SortType" >
-                                            <option [value]="opt.field"  *ngFor="let opt of tabulatorColumn3">
+                                            (ngModelChange)='onOptionsSelected1(obj,$event)' name="list-dropdown1{{i}}"
+                                            [(ngModel)]="obj.SortType">
+                                            <option [value]="opt.field" *ngFor="let opt of tabulatorColumn3">
                                                 {{opt.field}}
                                             </option>
-                                            <!-- <option value=""></option>
-                                            <option>Ascending</option>
-                                            <option>Descending</option> -->
+
                                         </select>
                                         <span class="highlight"></span>
                                         <label class="form__label form_label form__label--hidden">Dropdown</label>

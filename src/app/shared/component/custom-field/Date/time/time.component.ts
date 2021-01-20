@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import datePicker from '../../../../../../assets/js/lib/_datePicker';
 @Component({
   selector: 'app-time',
   templateUrl: './time.component.html',
@@ -10,6 +10,7 @@ export class TimeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    datePicker();
   }
 
 }

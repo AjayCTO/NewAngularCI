@@ -29,15 +29,15 @@ export class EventReportComponent implements OnInit {
   public creatReportOpen = false;
   public startDate: string;
   public endDate: string;
-  public EditReport:boolean=false;
-  public Reportdata :any;
+  public EditReport: boolean = false;
+  public Reportdata: any;
   public FilterArray: DataColumnFilter1[] = [];
   public dataColumnFilter: DataColumnFilter1 = {
     columnName: "",
     displayName: "",
     filterOperator: "",
     searchValue: "",
-    ColumnDataType:"",
+    ColumnDataType: "",
     type: ""
   }
   public Inventorytable: any;
@@ -60,11 +60,11 @@ export class EventReportComponent implements OnInit {
   public ColumnDataType: string;
   public CustomFields: any;
 
-  constructor(protected store: Store<AppState>, private authService: AuthService,private toastr: ToastrService, private reportService: ReportService, private customfieldservice: CustomFieldService, private cdr: ChangeDetectorRef, private commanShardService: CommanSharedService) { }
+  constructor(protected store: Store<AppState>, private authService: AuthService, private toastr: ToastrService, private reportService: ReportService, private customfieldservice: CustomFieldService, private cdr: ChangeDetectorRef, private commanShardService: CommanSharedService) { }
 
   ngOnInit(): void {
     this.searchFilterText = "";
-  
+
     this.store.pipe(select(selectSelectedTenantId)).
       subscribe(eventId => {
         if (eventId) {
@@ -90,7 +90,7 @@ export class EventReportComponent implements OnInit {
 
   SelectedReport(report) {
     debugger;
-   
+
     let data = JSON.parse(report.columnFilterJsonSettings);
     if (data.length != 0) {
       this.tabulatorColumn = [];
@@ -99,10 +99,10 @@ export class EventReportComponent implements OnInit {
       data.forEach(element => {
         this.dataColumnFilter = {
           columnName: "",
-          displayName: "",  
+          displayName: "",
           filterOperator: "",
           searchValue: "",
-          ColumnDataType:"",
+          ColumnDataType: "",
           type: ""
         }
         this.tabulatorColumn.push({ title: element.ColumnLabel, field: element.ColumnName, type: element.SortType, ColumnDataType: element.ColumnDataType, width: "170" });
@@ -111,7 +111,7 @@ export class EventReportComponent implements OnInit {
           this.dataColumnFilter.displayName = element.ColumnLabel;
           this.dataColumnFilter.filterOperator = element.ColumnOperator;
           this.dataColumnFilter.searchValue = element.ColumnValue;
-          this.dataColumnFilter.ColumnDataType=element.ColumnDataType;
+          this.dataColumnFilter.ColumnDataType = element.ColumnDataType;
           this.dataColumnFilter.type = element.SortType;
 
           this.FilterArray.push(this.dataColumnFilter);
@@ -129,19 +129,19 @@ export class EventReportComponent implements OnInit {
       }
 
     });
-    
+
     this.GetReport();
-    // this.ApplyJsFunction();
+
   }
 
   getCustomreportList() {
 
-   debugger;
+    debugger;
     this.reportService.GetCustomReportList(this.selectedTenantId, this.authService.accessToken).subscribe((result => {
       if (result.code == 200) {
         debugger;
         this.ReportList = result.entity;
-    
+
       }
 
     }))
@@ -227,7 +227,7 @@ export class EventReportComponent implements OnInit {
       // this.ApplyJsFunction();
     }
   }
-  onOptionsSelected(obj,event) {
+  onOptionsSelected(obj, event) {
     debugger;
     this.tabulatorColumn.forEach(element => {
 
@@ -244,6 +244,7 @@ export class EventReportComponent implements OnInit {
     }, 200);
 
   }
+
   onOptionsSelected2(event) {
     debugger;
     this.tabulatorColumn.forEach(element => {
@@ -261,13 +262,12 @@ export class EventReportComponent implements OnInit {
 
   }
 
-  EditCustomReport(ReportData)
-  {
-     
+  EditCustomReport(ReportData) {
+
     debugger;
-     this.EditReport=true
-     
-     this.Reportdata=ReportData;
+    this.EditReport = true
+
+    this.Reportdata = ReportData;
     //  this.Reportdata.columnFilterJsonSettings=Data
 
   }
@@ -330,7 +330,7 @@ export class EventReportComponent implements OnInit {
 
     this.FilterArray.forEach((element, index) => {
 
-      if (element.columnName == this.dataColumnFilter.columnName) { 
+      if (element.columnName == this.dataColumnFilter.columnName) {
 
         this.toastr.warning("This coloum name already in filter");
         return false;
@@ -352,7 +352,7 @@ export class EventReportComponent implements OnInit {
       displayName: "",
       filterOperator: "",
       searchValue: "",
-      ColumnDataType:"",
+      ColumnDataType: "",
       type: ""
     }
     document.getElementById("filterButton2_" + columnName).click();

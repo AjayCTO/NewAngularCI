@@ -35,8 +35,8 @@ export class AddCustomReportComponent implements OnInit {
   selectLabel: any = [];
   SelectColumn: any = [];
   public myInventoryField: Observable<any>;
-  public tabulatorColumn3:any[]=[{"field":"Ascending"},{"field":"Descending"}];
-  public tabulatorColumn2:any[]=[{ "id":1,"field":"One"},{"id":2,"field":"Two"},{"id":3,"field":"Three"},{"id":4,"field":"Four"}];
+  public tabulatorColumn3: any[] = [{ "field": "Ascending" }, { "field": "Descending" }];
+  public tabulatorColumn2: any[] = [{ "id": 1, "field": "One" }, { "id": 2, "field": "Two" }, { "id": 3, "field": "Three" }, { "id": 4, "field": "Four" }];
   public tabledata: any = [];
   public availuser: boolean = false;
   public ColumnDataType: string;
@@ -128,13 +128,13 @@ export class AddCustomReportComponent implements OnInit {
 
 
   public columnFilter: any = {
-    columnDataType: "string",
-    columnName: "",
-    conlumnLabel: "",
-    columnOperator: "",
-    columnValue: "",
-    type: "",
-    sortOrder: 0
+    // columnDataType: "string",
+    // columnName: "",
+    // conlumnLabel: "",
+    // columnOperator: "",
+    // columnValue: "",
+    // type: "",
+    // sortOrder: ""
   }
 
   public IsFilterActive: boolean = true;
@@ -144,7 +144,7 @@ export class AddCustomReportComponent implements OnInit {
     columnName: "",
     displayName: "",
     filterOperator: 'string',
-    searchValue: "",  
+    searchValue: "",
     type: ""
   }
   ngOnInit(): void {
@@ -157,13 +157,13 @@ export class AddCustomReportComponent implements OnInit {
     this.GetAllFields();
     this.GetEvents();
     this.columnFilter = {
-      columnName: "",
-      conlumnLabel: "",
-      columnOperator: "cn",
-      columnValue: "",
-      datatype: "",
-      width: "",
-      type: "",
+      // columnName: "",
+      // conlumnLabel: "",
+      // columnOperator: "cn",
+      // columnValue: "",
+      // datatype: "",
+      // width: "",
+      // type: "",
       // sortOrder: 0
     }
     this.columnFilters.push(this.columnFilter);
@@ -204,7 +204,7 @@ export class AddCustomReportComponent implements OnInit {
       if (element.field == event) {
 
         obj.ColumnDataType = element.datatype;
-        obj.ColumnLabel = element.title;
+        // obj.ColumnLabel = element.title;
         // obj.columnName = element.field;
         // obj.type = element.type;
         // obj.datatype = element.datatype;
@@ -218,26 +218,25 @@ export class AddCustomReportComponent implements OnInit {
     }, 500);
 
   }
-  onOptionsSelected1(obj,event)
-  {
-    this.tabulatorColumn1.forEach(element => {
+  onOptionsSelected1(obj, event) {
+    debugger;
+    this.tabulatorColumn3.forEach(element => {
 
       if (element.field == event) {
 
         obj.SortType = element.datatype;
-        
+
       }
     });
 
   }
-  onOptionsSelected2(obj,event)
-  {
+  onOptionsSelected2(obj, event) {
     this.tabulatorColumn2.forEach(element => {
 
       if (element.field == event) {
 
         obj.SortOrder = element.datatype;
-       
+
       }
     });
 
@@ -304,11 +303,12 @@ export class AddCustomReportComponent implements OnInit {
   addRow() {
     debugger;
     this.columnFilter = {
-      columnName: "string",
-      conlumnLabel: "",
-      columnOperator: "cn",
-      columnValue: "",
-      // sortOrder: 0
+      // columnName: "string",
+      // conlumnLabel: "",
+      // columnOperator: "cn",
+      // columnValue: "",
+      // SortOrder: "",
+      // SortType: ""
     }
     this.columnFilters.push(this.columnFilter);
     this.ApplyJsFunction();
