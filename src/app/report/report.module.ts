@@ -10,17 +10,23 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReportService } from './service/report.service';
 import { DeleteConfirmationComponent } from './component/delete-confirmation/delete-confirmation.component';
 import { EditCustomReportComponent } from './component/edit-custom-report/edit-custom-report.component';
+import { NgDragDropModule } from 'ng-drag-drop';
+import { NgxPopperModule } from 'ngx-popper';
 @NgModule({
-  declarations: [EventReportComponent, InventoryReportComponent, AddCustomReportComponent,DeleteConfirmationComponent, EditCustomReportComponent],
+  declarations: [EventReportComponent, InventoryReportComponent, AddCustomReportComponent, DeleteConfirmationComponent, EditCustomReportComponent],
   imports: [
     CommonModule,
     SharedModule,
     FormsModule,
+    NgxPopperModule,
+    NgDragDropModule.forRoot(),
     ReactiveFormsModule,
     RouterModule.forChild([
       { path: 'report/event-report', component: EventReportComponent, canActivate: [AuthGuard] },
       { path: 'report/create-custom-report', component: AddCustomReportComponent, canActivate: [AuthGuard] },
-      { path:  'report/edit-custom-report', component:EditCustomReportComponent, canActivate: [AuthGuard] }
+      { path: 'report/edit-custom-report', component: EditCustomReportComponent, canActivate: [AuthGuard] },
+      { path: 'report/CreateEventNew', component: InventoryReportComponent, canActivate: [AuthGuard] },
+
     ]),
   ],
   providers:

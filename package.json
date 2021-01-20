@@ -31,6 +31,7 @@
     "flatpickr": "^4.6.6",
     "jquery": "^3.5.1",
     "ng-click-outside": "^7.0.1",
+    "ng-drag-drop": "^5.0.0",
     "ng-image-slider": "^2.6.4",
     "ngrx-store-localstorage": "^10.1.1",
     "ngx-color-picker": "^10.1.0",
