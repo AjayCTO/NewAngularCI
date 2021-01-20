@@ -1,0 +1,47 @@
+<section class="main">
+    <div class="row">
+        <div class="col-md-6">
+    <div class="edit--card">
+        <div class="edit--card-header"></div>
+        <div>
+            <ul class="nav_menu">
+                <li class="nav_menu-item">
+                    <button type="button" class="nav_button" 
+                     (click)="Text()"   [ngClass]="!Time&&!Number&&!False?'Active':''"  >Text</button>
+                </li>
+                <li class="nav_menu-item">
+                    <button type="button" class="nav_button" 
+                    (click)="Numbers()"  [ngClass]="Number?'Active':''" >Number</button>
+                </li>
+                <li class="nav_menu-item">
+                    <button type="button" class="nav_button" 
+                    (click)="Settings()" [ngClass]="Time?'Active':''" >Date/Time</button>
+                </li>
+                <li class="nav_menu-item">
+                    <button type="button" class="nav_button" 
+                    (click)="Users()" [ngClass]="False?'Active':''"  >True/false</button>
+                </li>
+                
+            </ul>
+        </div>
+
+        <div class="edit-input-card">
+            <app-time *ngIf="Time" 
+               ></app-time>
+            <app-number *ngIf="Number" 
+                ></app-number>
+            <app-text  *ngIf="!Time&&!Number&&!False"  ></app-text>
+            <app-false *ngIf="False"></app-false>
+            
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="edit--card">    <form >
+        <h2>Form Title</h2>
+    </form>
+</div>
+
+</div>
+</div>
+</section>

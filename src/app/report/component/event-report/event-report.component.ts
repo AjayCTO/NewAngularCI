@@ -190,7 +190,6 @@ export class EventReportComponent implements OnInit {
   }
   closeDropDown() {
     debugger
-   
     this.showDropDown = false;
   }
 
@@ -232,7 +231,7 @@ export class EventReportComponent implements OnInit {
     debugger;
     this.tabulatorColumn.forEach(element => {
 
-      if (element.field == event) {
+      if (element.field == event.field) {
 
         obj.ColumnDataType = element.ColumnDataType;
       }
