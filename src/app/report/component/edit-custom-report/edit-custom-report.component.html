@@ -1,18 +1,18 @@
 <div *ngIf="EditMode">
-    <h1 style="margin-left: 50px;">Edit Current Inventory Report</h1>
+<h1  style="margin-left: 50px;">Edit Current Inventory Report</h1>
 </div>
 <section class="main" *ngIf="EditMode">
     <div class="edit--card">
-        <form class="form" #f="ngForm" style="margin: 0;max-width:1141px">
+        <form class="form" #f="ngForm" style="margin: 0;max-width:1141px" >
 
             <div class="form__section">
                 <h2 class="form__section-title">General Settings</h2>
-                <div class="form__col-wrap">
-                    <div class="form__col form__col--third">
+                <div class="form__col-wrap" >
+                    <div class="form__col form__col--third" >
                         <label class="form__label form_label" for="Reporttitle">Report Title <span
                                 class="form__required">*</span></label>
                         <input class="form__input" type="text" id="Reporttitle" [(ngModel)]="customreport.reportTitle"
-                            name="Reporttitle" required>
+                            name="Reporttitle"  required>
 
                     </div>
                     <div class="form__col form__col--two-third">
@@ -22,13 +22,13 @@
                     <div class="form__col form__col--one-two">
                         <label class="form__label" for="third">Report Description</label>
                         <input class="form__input" [(ngModel)]="customreport.description" type="text" id="third"
-                            name="third">
+                            name="third" >
                     </div>
-
+                    
                 </div>
             </div>
         </form>
-        <form class="form" style="margin: 0;max-width: 100%;">
+      <form class="form" style="margin: 0;max-width: 100%;">
             <div class="form__section">
                 <h2 class="form__section-title">
                     <button type="submit" class="button button--medium" style="margin-left: auto;">Reset
@@ -42,8 +42,8 @@
                                     <div class="table__heading-title">Column Name</div>
                                     <div class="table__heading-options">
                                         <div class="icons icons--horziontal icons--size02">
-                                            <div class="icons__icon">
-                                            </div>
+                                                <div class="icons__icon">
+                                                </div>
                                         </div>
                                     </div>
                                 </th>
@@ -51,8 +51,8 @@
                                     <div class="table__heading-title">Filter By</div>
                                     <div class="table__heading-options">
                                         <div class="icons icons--horziontal icons--size02">
-                                            <div class="icons__icon">
-                                            </div>
+                                           <div class="icons__icon">
+                                           </div>
                                         </div>
                                     </div>
                                 </th>
@@ -60,8 +60,8 @@
                                     <div class="table__heading-title">Short Order</div>
                                     <div class="table__heading-options">
                                         <div class="icons icons--horziontal icons--size02">
-                                            <div class="icons__icon">
-                                            </div>
+                                          <div class="icons__icon">
+                                          </div>
                                         </div>
                                     </div>
                                 </th>
@@ -69,8 +69,8 @@
                                     <div class="table__heading-title">Short Type</div>
                                     <div class="table__heading-options">
                                         <div class="icons icons--horziontal icons--size02">
-                                            <div class="icons__icon">
-                                            </div>
+                                             <div class="icons__icon">
+                                         </div>
                                         </div>
                                     </div>
                                 </th>
@@ -78,8 +78,8 @@
                                     <div class="table__heading-title">Close</div>
                                     <div class="table__heading-options">
                                         <div class="icons icons--horziontal icons--size02">
-                                            <div class="icons__icon">
-                                            </div>
+                                              <div class="icons__icon">
+                                                </div>
                                         </div>
                                     </div>
                                 </th>
@@ -90,9 +90,9 @@
                                 <td class="table__cell" data-title="Column Title">
                                     <div class="form__col">
                                         <select class="floating-select" id="list-dropdown3{{i}}"
-                                            (ngModelChange)='onOptionsSelected(obj,$event)' name="list-dropdown3{{i}}"
+                                        (ngModelChange)='onOptionsSelected(obj,$event)'   name="list-dropdown3{{i}}"
                                             [(ngModel)]="obj.ColumnName">
-                                            <option [value]="opt.field" *ngFor="let opt of tabulatorColumn">
+                                            <option [value]="opt.field"  *ngFor="let opt of tabulatorColumn">
                                                 {{opt.title}}
                                             </option>
                                         </select>
@@ -104,7 +104,7 @@
                                 <td class="table__cell" data-title="Column Title">
                                     <div class="form__col">
                                         <div class="form__col form__col--full" style="display: flex;">
-                                            <ng-container *ngIf="obj.ColumnDataType=='string'">
+                                           <ng-container *ngIf="obj.ColumnDataType=='string'">
                                                 <select [(ngModel)]="obj.ColumnOperator" id="dropdownString_{{i}}"
                                                     name="dropdownString_{{i}}" class="floating-select">
                                                     <option [value]="opt.value"
@@ -144,15 +144,14 @@
                                                     </option>
                                                 </select>
                                             </ng-container>
-                                        </div>
+                                       </div>
                                     </div>
                                 </td>
                                 <td class="table__cell" data-title="Column Title">
                                     <div class="form__col">
                                         <select class="floating-select" id="list-dropdown1{{i}}"
-                                            (ngModelChange)='onOptionsSelected2(obj,$event)' name="list-dropdown1{{i}}"
-                                            [(ngModel)]="obj.SortOrder">
-                                            <option [value]="opt.field" *ngFor="let opt of tabulatorColumn2">
+                                        (ngModelChange)='onOptionsSelected2(obj,$event)'   name="list-dropdown1{{i}}"  [(ngModel)]="obj.SortOrder" >
+                                            <option [value]="opt.field"  *ngFor="let opt of tabulatorColumn2">
                                                 {{opt.field}}
                                             </option>
                                             <!-- <option >One</option>
@@ -165,14 +164,13 @@
                                     </div>
                                 </td>
                                 <td class="table__cell" data-title="Column Title">
-                                    <div class="form__col">
+                                    <div class="form__col" >
                                         <select class="floating-select" id="list-dropdown2{{i}}"
-                                            (ngModelChange)='onOptionsSelected1(obj,$event)' name="list-dropdown2{{i}}"
-                                            [(ngModel)]="obj.SortType">
-                                            <option [value]="opt.field" *ngFor="let opt of tabulatorColumn1">
-                                                {{opt.field}}
-                                            </option>
-
+                                        (ngModelChange)='onOptionsSelected1(obj,$event)'  name="list-dropdown2{{i}}" [(ngModel)]="obj.SortType"  >
+                                        <option [value]="opt.field"  *ngFor="let opt of tabulatorColumn1">
+                                            {{opt.field}}
+                                        </option>
+                                            
                                         </select>
                                         <span class="highlight"></span>
                                         <label class="form__label form_label form__label--hidden">Dropdown</label>
@@ -213,7 +211,7 @@
                         </tbody>
                     </table>
                     <br>
-                    <button type="submit" class="button button--medium" (click)="addRow()">Add Column</button>
+                    <button type="submit" class="button button--medium" (click)="addRow()" >Add Column</button>
                 </div>
             </div>
         </form>
@@ -223,8 +221,7 @@
 
             <button type="button" class="button button--medium button--text-only" (click)="CloseEdit()">Cancel
             </button>
-            <button type="button" (click)="DeleteConfirm()" [disabled]="!f.form.valid"
-                class="button button--medium">Delete This
+            <button type="button" (click)="DeleteConfirm()" [disabled]="!f.form.valid" class="button button--medium">Delete This
                 Report</button>
         </div>
     </div>

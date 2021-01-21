@@ -14,7 +14,7 @@ import { NgDragDropModule } from 'ng-drag-drop';
 import { NgxPopperModule } from 'ngx-popper';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 @NgModule({
   declarations: [EventReportComponent, InventoryReportComponent, AddCustomReportComponent, DeleteConfirmationComponent, EditCustomReportComponent],
@@ -25,14 +25,13 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     NgxPopperModule,
     ColorPickerModule,
     AutocompleteLibModule,
-    DragDropModule,
     NgDragDropModule.forRoot(),
     ReactiveFormsModule,
     RouterModule.forChild([
       { path: 'report/event-report', component: EventReportComponent, canActivate: [AuthGuard] },
       { path: 'report/create-custom-report', component: AddCustomReportComponent, canActivate: [AuthGuard] },
       { path: 'report/edit-custom-report', component: EditCustomReportComponent, canActivate: [AuthGuard] },
-      { path: 'Dynamic/CreateEvent', component: InventoryReportComponent, canActivate: [AuthGuard] },
+      { path: 'report/CreateEventNew', component: InventoryReportComponent, canActivate: [AuthGuard] },
 
     ]),
   ],

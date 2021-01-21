@@ -6,10 +6,9 @@ import inputClear from '../../../../assets/js/lib/_inputClear';
 import { AuthService } from '../../../core/auth.service';
 import { AppState } from '../../../shared/appState';
 import { select, Store } from '@ngrx/store';
-import { finalize } from 'rxjs/operators';
 import { selectSelectedTenantId, selectSelectedTenant } from '../../../store/selectors/tenant.selectors';
 import { ReportService } from '../../service/report.service';
-import { EventService } from '../../../dynamic-events/service/event.service';
+
 @Component({
   selector: 'app-edit-custom-report',
   templateUrl: './edit-custom-report.component.html',
@@ -19,11 +18,9 @@ export class EditCustomReportComponent implements OnInit {
   @Input() Data: any;
   @Input() tabledata: any;
   @Input() ReportData: any;
-  @Input() EventList: any;
   public selectedTenantId: number;
   public EditMode: boolean
   error: string;
-  public busy: boolean;
   public columnFilters: any[] = [];
   public jsonobject: any;
   public deleteReport: boolean;
@@ -41,19 +38,16 @@ export class EditCustomReportComponent implements OnInit {
   }
   public columnFilter: any = {
   }
-  constructor(protected store: Store<AppState>, private eventService: EventService, private toast: ToastrService, private reportService: ReportService, private authService: AuthService) { }
+  constructor(protected store: Store<AppState>, private toast: ToastrService, private reportService: ReportService, private authService: AuthService) { }
 
   ngOnInit(): void {
     debugger;
-
-
     this.EditMode = true;
     this.deleteReport = false;
     this.customreport.reportTitle = this.Data.reportTitle;
     this.customreport.description = this.Data.description;
     this.customreport.subTitle = this.Data.subTitle;
     let Data = JSON.parse(this.Data.columnFilterJsonSettings);
-    debugger;
     this.columnFilters = Data;
     this.tabulatorColumn = this.tabledata
     this.store.pipe(select(selectSelectedTenantId)).
@@ -75,8 +69,6 @@ export class EditCustomReportComponent implements OnInit {
 
     }, 200)
   }
-
-
   addRow() {
     debugger;
     this.columnFilter = {
@@ -120,13 +112,15 @@ export class EditCustomReportComponent implements OnInit {
   public OperatorFilterSpeacial = [
     {
       name: "Equals",
-      value: "t-eq",
+      value: "eq",
       src: "../../../../assets/img/filter/EqualTo.gif",
+
     },
     {
       name: "Not Equals",
-      value: "t-ne",
+      value: "ne",
       src: "../../../../assets/img/filter/NotEqualTo.gif",
+
     },
   ]
   public OperatorFilterNumber = [
@@ -177,13 +171,8 @@ export class EditCustomReportComponent implements OnInit {
     debugger;
     this.tabulatorColumn.forEach(element => {
       if (element.field == event) {
-
         obj.ColumnDataType = element.datatype;
         obj.ColumnLabel = element.title;
-        obj.columnName = element.field;
-        obj.type = element.type;
-        obj.datatype = element.datatype;
-        obj.width = element.width;
 
       }
     });
