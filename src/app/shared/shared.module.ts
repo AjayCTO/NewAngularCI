@@ -14,7 +14,6 @@ import { CustomFieldComponent } from './component/custom-field/custom-field.comp
 import { TextComponent } from './component/custom-field/text/text.component';
 import { NumberComponent } from './component/custom-field/number/number.component';
 import { TimeComponent } from './component/custom-field/Date/time/time.component';
-import { NgxPopperModule } from 'ngx-popper';
 import { FalseComponent } from './component/custom-field/True/false/false.component';
 @NgModule({
   providers: [
@@ -22,7 +21,7 @@ import { FalseComponent } from './component/custom-field/True/false/false.compon
     CommanSharedService,
   ],
 
-  imports: [CommonModule, FormsModule, NgxPopperModule, ReactiveFormsModule, RouterModule.forChild([
+  imports: [CommonModule, FormsModule, ReactiveFormsModule,RouterModule.forChild([
     { path: 'sharedcustomfield', component: CustomFieldComponent, canActivate: [AuthGuard] },])],
   declarations: [LocationModalComponent, UomModalComponent, StatusModalComponent, CustomFieldModalComponent, AttributeFieldModalComponent, CustomFieldComponent, TextComponent, NumberComponent, TimeComponent, FalseComponent],
   exports: [LocationModalComponent, StatusModalComponent, UomModalComponent, CustomFieldModalComponent, AttributeFieldModalComponent],

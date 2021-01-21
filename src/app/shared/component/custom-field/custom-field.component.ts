@@ -20,7 +20,7 @@ export class CustomFieldComponent implements OnInit {
   error: string;
   public Number: boolean
   cfdcomboValuesString: string;
-
+  public dropvalue: any = ["red", "green", "blue"]
   public False: boolean
   PreviewtypesDropDown: any = [];
   PreviewtypesAutocomplete: any = [];
@@ -71,7 +71,6 @@ export class CustomFieldComponent implements OnInit {
     }, 500)
   }
   Text() {
-    this.customField.customFieldSpecialType = "";
     this.DetailsOpen = true;
     this.Time = false;
     this.Number = false;
@@ -80,7 +79,6 @@ export class CustomFieldComponent implements OnInit {
     this.AddJsFunction();
   }
   Times() {
-    this.customField.customFieldSpecialType = "";
     this.Time = true;
     this.DetailsOpen = false;
     this.Number = false;
@@ -89,7 +87,6 @@ export class CustomFieldComponent implements OnInit {
     this.AddJsFunction();
   }
   Numbers() {
-    this.customField.customFieldSpecialType = "";
     this.Number = true;
     this.DetailsOpen = false;
     this.Time = false;
@@ -98,7 +95,6 @@ export class CustomFieldComponent implements OnInit {
     this.AddJsFunction();
   }
   True() {
-    this.customField.customFieldSpecialType = "";
     this.False = true;
     this.DetailsOpen = false;
     this.Time = false;
@@ -109,9 +105,7 @@ export class CustomFieldComponent implements OnInit {
   selectField(index) {
     debugger;
     if (index == "text") {
-      this.customField.customFieldSpecialType = "OpenField"
       let IsExist = false;
-      this.selectedFieldName = [];
       this.selectedFieldName.forEach(element => {
 
         if (element == index) {
@@ -129,7 +123,6 @@ export class CustomFieldComponent implements OnInit {
     if (index == "prefix") {
       this.customField.customFieldSpecialType = "OpenField"
       let IsExist = false;
-
       this.selectedFieldName.forEach(element => {
 
         if (element == index) {
@@ -163,7 +156,8 @@ export class CustomFieldComponent implements OnInit {
     }
     if (index == "PrefixPostfix") {
       this.customField.customFieldSpecialType = "OpenField"
-
+      this.customField.customFieldSuffix = '12'
+      this.customField.customFieldPrefix = '12'
       let IsExist = false;
       this.selectedFieldName.forEach(element => {
 
@@ -182,7 +176,7 @@ export class CustomFieldComponent implements OnInit {
     }
     if (index == "Incrementor") {
       this.customField.customFieldSpecialType = "OpenField"
-
+      this.customField.customFieldIncrementBy = 12
       let IsExist = false;
       this.selectedFieldName.forEach(element => {
 
@@ -199,10 +193,9 @@ export class CustomFieldComponent implements OnInit {
       this.AddJsFunction();
     }
     if (index == "dropdown") {
-      this.selectedFieldName = [];
       this.customField.customFieldSpecialType = "Dropdown"
-
-
+      // this.ComboBoxChangeDropDown(this.dropvalue);
+      this.customField.comboBoxValue = this.dropvalue;
       let IsExist = false;
       this.selectedFieldName.forEach(element => {
 
@@ -220,7 +213,6 @@ export class CustomFieldComponent implements OnInit {
       this.AddJsFunction();
     }
     if (index == "false") {
-      this.selectedFieldName = [];
       this.customField.customFieldSpecialType = "CheckBox";
       let IsExist = false;
       this.selectedFieldName.forEach(element => {
@@ -238,7 +230,6 @@ export class CustomFieldComponent implements OnInit {
       this.AddJsFunction();
     }
     if (index == "currency") {
-      this.selectedFieldName = [];
       this.customField.customFieldSpecialType = "Currency";
       this.customField.customFieldDefaultValue = '12';
       let IsExist = false;
@@ -257,7 +248,6 @@ export class CustomFieldComponent implements OnInit {
       this.AddJsFunction();
     }
     if (index == "number") {
-      this.selectedFieldName = [];
       this.customField.customFieldSpecialType = "Number";
       this.customField.customFieldDefaultValue = '12';
       let IsExist = false;
@@ -276,7 +266,6 @@ export class CustomFieldComponent implements OnInit {
       this.AddJsFunction();
     }
     if (index == "date") {
-      this.selectedFieldName = [];
       this.customField.customFieldSpecialType = "Date";
       let IsExist = false;
       this.selectedFieldName.forEach(element => {
@@ -295,7 +284,6 @@ export class CustomFieldComponent implements OnInit {
       this.AddJsFunction();
     }
     if (index == "dateandtime") {
-      this.selectedFieldName = [];
       this.customField.customFieldSpecialType = "Date & Time";
       let IsExist = false;
       this.selectedFieldName.forEach(element => {
@@ -314,7 +302,6 @@ export class CustomFieldComponent implements OnInit {
 
     }
     if (index == "time") {
-      this.selectedFieldName = [];
       this.customField.customFieldSpecialType = "Time";
       let IsExist = false;
       this.selectedFieldName.forEach(element => {
@@ -332,6 +319,10 @@ export class CustomFieldComponent implements OnInit {
       this.AddJsFunction();
 
     }
+
+    // if (index = "text") {
+
+    // }
   }
   RemoveColumn(data) {
     this.selectedFieldName.forEach((element, index) => {
@@ -363,31 +354,6 @@ export class CustomFieldComponent implements OnInit {
       return current + $.trim(value);
     }, '');
   }
-  showoffsetdatefields(value) {
-
-    this.customField.offsetDateFields = value;
-    if (value == 'false' || value == 'none') {
-      this.customField.dateDefaultPlusMinus = "";
-      this.customField.dateDefaultNumber = null;
-      this.customField.dateDefaulInterval = "";
-      if (value == 'none') {
-        this.customField.offsetTimeFields = value;
-      }
-    }
-    this.AddJsFunction();
-  }
-
-
-  showoffsettimefields(value) {
-    this.customField.offsetTimeFields = value;
-    if (value == 'false' || value == 'none') {
-      this.customField.timeDefaultPlusMinus = '';
-      this.customField.timeNumberOfHours = null;
-      this.customField.timeNumberOFMinutes = null;
-    }
-    this.AddJsFunction();
-  }
-
 
   onSubmit() {
     debugger;

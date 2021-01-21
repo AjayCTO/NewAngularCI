@@ -633,7 +633,13 @@
                 <div class="form__section">
                     <div class="form__col-wrap">
                         <div class="form__col form__col--half">
-
+                            <!-- <label class="form__label" for="SpecialTypeField">Input type</label>
+                            <select (ngModelChange)='onOptionsSelected($event)' class="form__input"
+                                id="SpecialTypeField" name="SpecialTypeField"
+                                [(ngModel)]="customField.customFieldSpecialType">
+                                <option *ngFor="let product of Inputtypes" [value]="product">
+                                    {{product}}</option>
+                            </select> -->
                             <select class="floating-select" (ngModelChange)='onOptionsSelected($event)'
                                 id="SpecialTypeField" name="SpecialTypeField"
                                 [(ngModel)]="customField.customFieldSpecialType" value="">
@@ -656,6 +662,11 @@
                             class="drpdown form__input ng-valid ng-dirty"></textarea>
                     </div>
                     <div class="form__col form__col--half">
+                        <!-- <label class="form__label" for="TypePreviewName">Preview Dropdown List</label>
+                        <select id="TypePreviewName" name="TypePreviewName" class="form__input">
+                            <option *ngFor="let product of PreviewtypesDropDown" [value]="product">
+                                {{product}}</option>
+                        </select> -->
 
                         <select class="floating-select" name="TypePreviewName" id="TypePreviewName" value="">
                             <option value=""></option>
@@ -738,6 +749,14 @@
                     <div class="form__col-wrap">
                         <div class="form__col form__col--half">
 
+                            <!-- <label class="form__label" for="NumberSpecialField">Input type</label>
+                            <select (ngModelChange)='onOptionsSelected($event)' id="NumberSpecialField"
+                                name="NumberSpecialField" class="form__input"
+                                [(ngModel)]="customField.customFieldSpecialType">
+                                <option *ngFor="let product of InputtypeNumber" [value]="product">{{product}}
+                                </option>
+                            </select> -->
+
                             <select class="floating-select" name="NumberSpecialField"
                                 (ngModelChange)='onOptionsSelected($event)' id="NumberSpecialField"
                                 [(ngModel)]="customField.customFieldSpecialType" value="">
@@ -789,6 +808,11 @@
             <div *ngIf="customField.dataType=='Date/Time'">
 
                 <div class="form__col form__col--half">
+                    <!-- <label class="form__label" for="DateSpecialField">Input type</label>
+                    <select name="DateSpecialField" (ngModelChange)='onOptionsSelected($event)' id="DateSpecialField"
+                        class="form__input" [(ngModel)]="customField.customFieldSpecialType">
+                        <option *ngFor="let product of InputtypeDate" [value]="product">{{product}}</option>
+                    </select> -->
 
                     <select class="floating-select" name="DateSpecialField" (ngModelChange)='onOptionsSelected($event)'
                         id="DateSpecialField" [(ngModel)]="customField.customFieldSpecialType" value="">
