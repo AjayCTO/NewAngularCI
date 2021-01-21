@@ -638,12 +638,12 @@ export class CurrentInventoryGridComponent implements OnInit {
     this.ApplyJsFunction();
   }
 
-
   DynamicEventAction(item, dynamicEvent) {
     debugger;
 
     this.selectedDynamicEvent = dynamicEvent;
     let obj = JSON.parse(dynamicEvent.circumstanceJsonString);
+
     this.InventoryTransactionObj = item;
     this.CustomFields.forEach(element => {
       element.columnValue = "";

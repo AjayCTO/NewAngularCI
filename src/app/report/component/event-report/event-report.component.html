@@ -1,7 +1,7 @@
 <div class="actions" *ngIf="!EditReport">
     <div class="actions__title">
 
-        <h2> <strong>Event Report </strong></h2>
+        <h2> <strong>{{selectedRepotTitle}} </strong> Report</h2>
 
         <div class="icons icons--horziontal icons--size02">
             <button type="button" class="icons__item icons__item--outline  icons__item--theme09"
@@ -17,28 +17,31 @@
                             fill="currentColor"></path>
                     </svg></div>
                 <ul *ngIf="showDropDown" class="toggleDropDown">
-                    <li class="icons__submenu-item" *ngFor="let item of ReportList"><a class="icons__submenu-link"
-                            style="display: flex;" (click)="SelectedReport(item)">{{item.reportTitle}}</a>
+                    <li class="icons__submenu-item" *ngFor="let item of ReportList">
+                        <div class="form__col-wrap">
 
-
-                        <span>
-                            <div class="icons__item">
-                                <div class="icons__icon">
-                                    <a (click)="EditCustomReport(item)" type="button"> <svg
-                                            class="icon-simple icon-simple--theme01 icon-simple--adjust"
-                                            aria-labelledby="title-600122b1cc5a0" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24" width="12" height="12">
-                                            <path fill="none" d="M24 0v24H0V0z"></path>
-                                            <path d="M0 24h24V0H0z" fill="none"></path>
-                                            <path fill="currentColor"
-                                                d="M3 18h18v4H3zm2.968-6.351l8.485-8.486 2.829 2.829-8.485 8.485zm13.428-7.801l-1.414 1.414-2.828-2.828 1.414-1.414z">
-                                            </path>
-                                            <path fill="currentColor" d="M5.3 15.1l.7-3.5 2.8 2.8-3.5.7z"></path>
-                                        </svg>
-                                    </a>
+                            <a class="icons__submenu-link" style="display: flex;"
+                                (click)="SelectedReport(item)">{{item.reportTitle}}</a>
+                            <span>
+                                <div class="icons__item">
+                                    <div class="icons__icon">
+                                        <a (click)="EditCustomReport(item)" type="button"> <svg
+                                                class="icon-simple icon-simple--theme01 icon-simple--adjust"
+                                                aria-labelledby="title-600122b1cc5a0" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" width="12" height="12">
+                                                <path fill="none" d="M24 0v24H0V0z"></path>
+                                                <path d="M0 24h24V0H0z" fill="none"></path>
+                                                <path fill="currentColor"
+                                                    d="M3 18h18v4H3zm2.968-6.351l8.485-8.486 2.829 2.829-8.485 8.485zm13.428-7.801l-1.414 1.414-2.828-2.828 1.414-1.414z">
+                                                </path>
+                                                <path fill="currentColor" d="M5.3 15.1l.7-3.5 2.8 2.8-3.5.7z"></path>
+                                            </svg>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                        </span>
+                            </span>
+                        </div>
+
                     </li>
                 </ul>
             </button>
@@ -264,9 +267,11 @@
                                 src="../../../../assets/img/filter/Contains.gif"></span>
                         <span *ngIf="filter.filterOperator=='nc'"><img
                                 src="../../../../assets/img/filter/DoesNotContain.gif"></span>
-                        <span *ngIf="filter.filterOperator=='eq'||filter.filterOperator=='num-eq'"><img
+                        <span
+                            *ngIf="filter.filterOperator=='eq'||filter.filterOperator=='num-eq'||filter.filterOperator=='t-eq'"><img
                                 src="../../../../assets/img/filter/EqualTo.gif"></span>
-                        <span *ngIf="filter.filterOperator=='ne'||filter.filterOperator=='num-ne'"><img
+                        <span
+                            *ngIf="filter.filterOperator=='ne'||filter.filterOperator=='num-ne'||filter.filterOperator=='t-ne'"><img
                                 src="../../../../assets/img/filter/NotEqualTo.gif"></span>
                         <span *ngIf="filter.filterOperator=='num-gte'"><img
                                 src="../../../../assets/img/filter/GreaterThanOrEqualTo.gif"></span>
@@ -286,7 +291,7 @@
                             </path>
                         </svg></div>
                 </button>
-                <button type="button" id="filterButton"
+                <!-- <button type="button" id="filterButton"
                     class="icons__item icons__item--outline icons__item--theme07 js-toggle">
                     <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
                             aria-labelledby="title-5f7cd7ce12c29" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -296,100 +301,8 @@
                             <path fill="currentColor" d="M14 0v24h-4V0z"></path>
                         </svg></div>
                     <span class="icons__label">Add Filter</span>
-                    <ul class="icons__submenu icons__submenu--from-left">
-                        <li class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent"
-                            style="min-width: 280px;">
-                            <select class="floating-select" (ngModelChange)='onOptionsSelected($event)' value="">
-                                <option value="">Choose column</option>
-                                <option *ngFor="let item of tabulatorColumn1" [value]="item.title">{{item.title}}
-                                </option>
-                            </select>
 
-                        </li>
-                        <hr>
-
-                        <li class="icons__submenu-item icons__submenu-item--contains-input"
-                            *ngIf="ColumnDataType=='string'">
-                            <div class="form__col">
-                                <label class="form__label form__label--hidden" for="list-dropdown1">Dropdown</label>
-                                <select class="form__input form__select" id="list-dropdown1" name="list-dropdown1">
-                                    <option value="">Choose Filter</option>
-                                    <option value="cn">Contains</option>
-                                    <option value="nc">Does NOT Contain</option>
-                                    <option value="eq">Equals</option>
-                                    <option value="ne">Does NOT Equal</option>
-                                    <option value="bw">Begins With</option>
-                                    <option value="Empty">Is Empty</option>
-                                </select>
-                            </div>
-                        </li>
-                        <li class="icons__submenu-item icons__submenu-item--contains-input"
-                            *ngIf="ColumnDataType=='stringUom'">
-                            <div class="form__col">
-                                <label class="form__label form__label--hidden" for="list-dropdown3">Dropdown</label>
-                                <select class="form__input form__select" id="list-dropdown3" name="list-dropdown1">
-                                    <option value="">Choose Filter</option>
-                                    <option value="eq">Equals</option>
-                                    <option value="nc">Does NOT Contain</option>
-                                </select>
-                            </div>
-                        </li>
-                        <li class="icons__submenu-item icons__submenu-item--contains-input"
-                            *ngIf="ColumnDataType=='stringStatus'">
-                            <div class="form__col">
-                                <label class="form__label form__label--hidden" for="list-dropdown4">Dropdown</label>
-                                <select class="form__input form__select" id="list-dropdown4" name="list-dropdown1">
-                                    <option value="">Choose Filter</option>
-                                    <option value="eq">Equals</option>
-                                    <option value="nc">Does NOT Contain</option>
-                                </select>
-                            </div>
-                        </li>
-                        <li class="icons__submenu-item icons__submenu-item--contains-input"
-                            *ngIf="ColumnDataType=='number'">
-                            <div class="form__col">
-                                <label class="form__label form__label--hidden" for="list-dropdown2">Dropdown</label>
-                                <select class="form__input form__select" id=" list-dropdown2" name="list-dropdown2">
-                                    <option value="">Choose Filter</option>
-                                    <option value="num-eq">Equals</option>
-                                    <option value="num-ne">Does NOT Equal</option>
-                                    <option value="num-gte">Greater Than OR Equals</option>
-                                    <option value="num-lte">Less Than OR Equals</option>
-                                    <option value="Empty">Is Null (Empty)</option>
-                                </select>
-                            </div>
-                        </li>
-                        <li class="icons__submenu-item icons__submenu-item--contains-input"
-                            *ngIf="ColumnDataType!=undefined&&ColumnDataType!='stringStatus'&&ColumnDataType!='stringUom'">
-                            <div class="form__col">
-                                <label class="form__label" for="value1">Value</label>
-                                <input class="form__input" [(ngModel)]="dataColumnFilter.searchValue" type="text"
-                                    id="value1" name="value1">
-                            </div>
-                        </li>
-                        <!-- <li class="icons__submenu-item icons__submenu-item--contains-input"
-                            *ngIf="ColumnDataType!=undefined&&ColumnDataType=='stringStatus'">
-                            <div class="form__col">
-                                <label class="form__label form__label--hidden" for="list-dropdown5">Value</label>
-                                <select class="form__input form__select" [(ngModel)]="dataColumnFilter.searchValue"
-                                    id="list-dropdown5" name="list-dropdown5">
-                                    <option value="">Choose Filter</option>
-                                    <option *ngFor="let opt of statusList" [value]="opt.statusValue">
-                                        {{opt.statusValue}}
-                                    </option>
-                                </select>
-                            </div>
-                        </li> -->
-                        <hr>
-                        <li class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent">
-                            <div class="button-group">
-                                <button class="button button--small button--text-only">Cancel</button>
-                                <button type="submit" class="button button--small">Apply</button>
-                            </div>
-                        </li>
-                    </ul>
-
-                    <!-- <div class="icons__submenu icons__submenu--from-left" style="width:260px">
+                    <div class="icons__submenu icons__submenu--from-left" style="width:260px">
                         <ul class="icons__submenu-list">
                             <li class="icons__submenu-item icons__submenu-item--contains-input">
                                 <div class="form__col">
@@ -506,8 +419,8 @@
                             <a class="button button--small button--text-only" (click)="CloseFilter()">Cancel</a>
                             <a class="button button--small" (click)="ApplyFilter()">Apply</a>
                         </div>
-                    </div> -->
-                </button>
+                    </div>
+                </button> -->
             </div>
         </div>
 
@@ -570,8 +483,7 @@
                         <div class="table__heading-options">
                             <div class="icons icons--horziontal icons--size02">
                                 <button type=" button" class="icons__item  js-toggle"
-                                    (click)='onOptionsSelected(itemHeader,$event)'
-                                    id="filterButton2_{{itemHeader.field}}">
+                                    (click)='onOptionsSelected2($event)' id="filterButton2_{{itemHeader.field}}">
                                     <div class="icons__icon">
                                         <svg class="icon icon--theme01 icon--filter"
                                             aria-labelledby="title-5f83f48269fe1" xmlns="http://www.w3.org/2000/svg"
@@ -587,7 +499,7 @@
                                     </div>
                                     <div class="icons__submenu icons__submenu--from-left" style="min-width: 280px;">
                                         <ul class="icons__submenu-list">
-                                            <ng-container *ngIf="itemHeader.ColumnDataType=='string'">
+                                            <ng-container *ngIf="itemHeader.datatype=='string'">
                                                 <li class="icons__submenu-item icons__submenu-item--contains-input">
                                                     <div class="form__col">
                                                         <select class="floating-select"
@@ -608,7 +520,7 @@
                                                     </div>
                                                 </li>
                                             </ng-container>
-                                            <ng-container *ngIf="itemHeader.ColumnDataType=='stringUom'">
+                                            <ng-container *ngIf="itemHeader.datatype=='stringUom'">
                                                 <li class="icons__submenu-item icons__submenu-item--contains-input">
                                                     <div class="form__col">
                                                         <select class="floating-select"
@@ -625,7 +537,7 @@
                                                     </div>
                                                 </li>
                                             </ng-container>
-                                            <ng-container *ngIf="itemHeader.ColumnDataType=='stringStatus'">
+                                            <ng-container *ngIf="itemHeader.datatype=='special'">
                                                 <li class="icons__submenu-item icons__submenu-item--contains-input">
                                                     <div class="form__col">
                                                         <label class="form__label form__label--hidden"
@@ -642,7 +554,7 @@
                                                 </li>
                                             </ng-container>
 
-                                            <ng-container *ngIf="itemHeader.ColumnDataType=='number'">
+                                            <ng-container *ngIf="itemHeader.datatype=='number'">
                                                 <li class="icons__submenu-item icons__submenu-item--contains-input">
                                                     <div class="form__col">
                                                         <label class="form__label form__label--hidden"
@@ -662,7 +574,7 @@
                                                 </li>
                                             </ng-container>
                                             <ng-container
-                                                *ngIf="itemHeader.ColumnDataType!=undefined&&itemHeader.ColumnDataType!='stringStatus'&&itemHeader.ColumnDataType!='stringUom'">
+                                                *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype!='special'&&itemHeader.datatype!='stringUom'">
                                                 <li class="icons__submenu-item icons__submenu-item--contains-input">
                                                     <div class="form__col">
                                                         <label class="form__label"
@@ -676,7 +588,7 @@
                                             </ng-container>
 
                                             <ng-container
-                                                *ngIf="itemHeader.ColumnDataType!=undefined&&itemHeader.ColumnDataType=='stringStatus'">
+                                                *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='special'">
                                                 <li class="icons__submenu-item icons__submenu-item--contains-input">
                                                     <div class="form__col">
                                                         <label class="form__label form__label--hidden"
@@ -685,17 +597,17 @@
                                                             [(ngModel)]="dataColumnFilter.searchValue"
                                                             id="list-dropdown51{{itemHeader.field}}"
                                                             name="list-dropdown51{{itemHeader.field}}">
-                                                            <option value="">Choose Filter</option>
-                                                            <option *ngFor="let opt of statusList"
-                                                                [value]="opt.statusValue">
-                                                                {{opt.statusValue}}
+                                                            <option value="">Choose Event</option>
+                                                            <option *ngFor="let event of EventList"
+                                                                [value]="event.eventName">
+                                                                {{event.eventName}}
                                                             </option>
                                                         </select>
                                                     </div>
                                                 </li>
                                             </ng-container>
                                             <ng-container
-                                                *ngIf="itemHeader.ColumnDataType!=undefined&&itemHeader.ColumnDataType=='stringUom'">
+                                                *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='stringUom'">
 
                                                 <li class="icons__submenu-item icons__submenu-item--contains-input">
                                                     <div class="form__col">
@@ -714,7 +626,7 @@
                                                 </li>
                                             </ng-container>
                                         </ul>
-                                        <ng-container *ngIf="itemHeader.ColumnDataType!=undefined">
+                                        <ng-container *ngIf="itemHeader.datatype!=undefined">
                                             <div class="button-group">
                                                 <button class="button button--small button--text-only"
                                                     (click)="CloseFilter2(itemHeader.field)">Cancel</button>
@@ -751,5 +663,6 @@
 
 
 </section>
-<app-edit-custom-report *ngIf="EditReport" [Data]="Reportdata" [tabledata]="tabulatorColumn" [ReportData]="Data">
+<app-edit-custom-report *ngIf="EditReport" [Data]="Reportdata" [EventList]="EventList" [tabledata]="mainColumn"
+    [ReportData]="Data">
 </app-edit-custom-report>
