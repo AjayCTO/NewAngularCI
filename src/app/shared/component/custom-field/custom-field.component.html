@@ -342,7 +342,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <form class="container">
+                    <form class="container" f="ngForm">
 
                         <div class="form__col-wrap">
                             <div class="form__col">
@@ -722,8 +722,8 @@
                     </div>
                 </div>
                 <div class="container">
-                    <div class="button-group"><button type="submit" (click)="onSubmit()"
-                            class="button button--medium">Save</button>
+                    <div class="button-group"><button type="submit" [disabled]="customField.columnLabel=='' "
+                            (click)="onSubmit()" class="button button--medium">Save</button>
                         <button _ngcontent-eoq-c89="" type="button"
                             data-trigger=".table__button-group .icons__item.is-active"
                             class="button button--medium button--text-only js-trigger">Cancel </button>
