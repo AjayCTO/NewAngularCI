@@ -13,9 +13,10 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { DeleteConfirmation2Component } from './component/delete-confirmation2/delete-confirmation2.component';
 import { CustomFieldsComponent } from './component/custom-fields/custom-fields.component';
 // import { MessageModule } from 'ui-message-angular';
+import { AddCustomComponent } from './component/custom-fields/add-custom/add-custom.component'
 
 @NgModule({
-  declarations: [AttributeFieldsComponent, StatefieldComponent, CustomFieldsComponent, CircumstancefieldComponent, DeleteConfirmation2Component],
+  declarations: [AttributeFieldsComponent, StatefieldComponent, CustomFieldsComponent, CircumstancefieldComponent, DeleteConfirmation2Component, AddCustomComponent],
   imports: [
     CommonModule, NgxSpinnerModule,
     FormsModule,

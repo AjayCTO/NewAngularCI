@@ -350,19 +350,21 @@
                                         class="form__required">*</span></label>
                                 <input class="form__input"
                                     style="width: 26%; border-left-style: none;border-top-style: none;border-right-style: none;"
-                                    type="text" id="columnLabel" name="columnLabel" required>
+                                    [(ngModel)]="customField.columnLabel" type="text" id="columnLabel"
+                                    name="columnLabel" required>
                             </div>
                             <div class="form__col form__col--group">
                                 <div class="form__group form__group--checkbox">
                                     <input class="form__checkbox" type="checkbox" id="customFieldIsRequired1"
-                                        name="customFieldIsRequired">
+                                        [(ngModel)]="customField.customFieldIsRequired" name="customFieldIsRequired">
                                     <label class="form__group-label" for="customFieldIsRequired1">Required</label>
                                 </div>
                             </div>
                             <div class="form__col">
                                 <label class="form__label" for="textarea">Information</label>
                                 <textarea class="form__input form__input--textarea" type="textarea" style="width: 27%;"
-                                    id="customFieldInformation1" name="customFieldInformation"></textarea>
+                                    [(ngModel)]="customField.customFieldInformation" id="customFieldInformation1"
+                                    name="customFieldInformation"></textarea>
                             </div>
 
                         </div>
@@ -485,14 +487,16 @@
 
                             <div class="container" style="display: flex;">
                                 <p>Radio</p> &nbsp; &nbsp;<div class="form__group form__group--radio">
-                                    <input id="radio11" class="form__radio" type="radio" name="dynamic_radio200">
-                                    <label class="form__group-label" for="radio1"> True
+                                    <input id="radio11" class="form__radio" type="radio"
+                                        [(ngModel)]="customField.customFieldTrueLabel" name="dynamic_radio2001">
+                                    <label class="form__group-label" for="radio11"> True
                                     </label>
 
                                 </div>
                                 <div class="form__group form__group--radio">
-                                    <input id="radio2" class="form__radio" type="radio" name="dynamic_radio200">
-                                    <label class="form__group-label" for="radio2"> False</label>
+                                    <input id="radio21" class="form__radio" type="radio"
+                                        [(ngModel)]="customField.customFieldFalseLabel" name="dynamic_radio20022">
+                                    <label class="form__group-label" for="radio21"> False</label>
                                 </div>
                                 <div class="icons icons--horziontal icons--size02"
                                     style="margin-top: -20px; margin-left: 10px;">
@@ -550,7 +554,7 @@
                                     <label class="form__label" style="margin-left: 20px;"
                                         for="currency">Iasfsdfsdf</label>
                                     <input type="number" id="currency" class="form__input Addon" style="width: 160px;"
-                                        name="currency">
+                                        [(ngModel)]="customField.customFieldDefaultValue" name="currency">
                                 </div>
                                 <div class="icons icons--horziontal icons--size02"
                                     style="margin-top: -20px; margin-left: 10px;">
@@ -579,7 +583,7 @@
                                     <span class="input-group-addon text" style="margin-left: 7px;">1</span>
                                     <label class="form__label" style="margin-left: 20px;" for="prefix1">prefix</label>
                                     <input type="text" id="prefix1" class="form__input Addon" style="width: 160px;"
-                                        name="prefix1">
+                                        [(ngModel)]="customField.customFieldPrefix" name="prefix1">
                                 </div>
                                 <div class="icons icons--horziontal icons--size02"
                                     style="margin-top: -20px; margin-left: 10px;">
@@ -607,7 +611,7 @@
                                 <div class="form__col form__col--half input-group">
                                     <label class="form__label" for="suffix1">seffsadfcsdf</label>
                                     <input type="text" id="suffix1" class="form__input Addon" style="width: 160px;"
-                                        name="suffix1">
+                                        [(ngModel)]="customField.customFieldSuffix" name="suffix1">
                                     <span class="input-group-addon text Suffix" style="margin-left: 7px;">12</span>
                                 </div>
                                 <div class="icons icons--horziontal icons--size02"
@@ -663,7 +667,8 @@
                         <div *ngIf="item=='Incrementor'">
                             <div class="container" style="display: flex;">
                                 <p>Incrementor Text Field</p> &nbsp;&nbsp;<input type="text" id="Incrementor1"
-                                    style="width: 160px;" name="Incrementor1" class="form__input">
+                                    [(ngModel)]="customField.customFieldIncrementBy" style="width: 160px;"
+                                    name="Incrementor1" class="form__input">
                                 <div class="icons icons--horziontal icons--size02"
                                     style="margin-top: -20px; margin-left: 10px;">
                                     <button type="button" (click)="RemoveColumn('Incrementor')"
@@ -687,8 +692,8 @@
                             <div class="container" style="display: flex;">
                                 <p> Dropdown</p> &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;<select class="floating-select" id="dropdown" name="dropdown" value=""
-                                    style="width: 160px; ">
+                                &nbsp;&nbsp;&nbsp;<select class="floating-select" id="dropdown" name="dropdown"
+                                    [(ngModel)]="customField.comboBoxValue" value="" style="width: 160px; ">
                                     <option value=""></option>
                                     <option> 1 </option>
                                     <option> 2 </option>
@@ -717,7 +722,8 @@
                     </div>
                 </div>
                 <div class="container">
-                    <div class="button-group"><button type="submit" href="#" class="button button--medium">Save</button>
+                    <div class="button-group"><button type="submit" (click)="onSubmit()"
+                            class="button button--medium">Save</button>
                         <button _ngcontent-eoq-c89="" type="button"
                             data-trigger=".table__button-group .icons__item.is-active"
                             class="button button--medium button--text-only js-trigger">Cancel </button>

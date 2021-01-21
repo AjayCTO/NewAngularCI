@@ -258,6 +258,7 @@ export class CustomFieldsComponent implements OnInit {
 
 
   onSubmit() {
+    debugger;
 
     if (this.customField.customFieldSpecialType == "Autocomplete" || this.customField.customFieldSpecialType == "Dropdown") {
       this.customField.comboBoxValue = this.cfdcomboValuesString;
