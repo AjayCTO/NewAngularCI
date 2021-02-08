@@ -88,6 +88,7 @@
   .modal__wrap--inner & {
     border: solid $black-squeeze;
     border-width: 0 .75rem .75rem;
+    max-height: 250px;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }

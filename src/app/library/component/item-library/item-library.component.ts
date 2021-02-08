@@ -32,7 +32,7 @@ export class ItemLibraryComponent implements OnInit {
   @ViewChild('AddUOMClose', { static: true }) AddUOMClose: ElementRef<HTMLElement>;
   @ViewChild('AddLocationClose', { static: true }) AddLocationClose: ElementRef<HTMLElement>;
   @ViewChild('AddAttributeClose', { static: true }) AddAttributeClose: ElementRef<HTMLElement>;
-
+  public myDT: Date;
   partformControl: FormGroup;
   public selectedTenantId: number;
   public error: string;
@@ -79,7 +79,11 @@ export class ItemLibraryComponent implements OnInit {
   };
   keys: string[] = [];
   Value: String[] = [];
-
+  public Month = [{ 'id': '1', 'month': 'Janurary' }, { 'id': '2', 'month': 'February' }, { 'id': '3', 'month': 'March' }, { 'id': '4', 'month': 'April' }, { 'id': '5', 'month': 'May' }, { 'id': '6', 'month': 'June' }, { 'id': '7', 'month': 'July' }, { 'id': '8', 'month': 'August' }, { 'id': '9', 'month': 'September' }, { 'id': '10', 'month': 'October' }, { 'id': '11', 'month': 'November' }, { 'id': '12', 'month': 'December' },]
+  public hour = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
+  public minutes = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59']
+  public seconds = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59']
+  public options = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
   public FilterArray: DataColumnFilter[] = [];
   public edititem: boolean;
   public dataColumnFilter: DataColumnFilter = {
@@ -262,7 +266,7 @@ export class ItemLibraryComponent implements OnInit {
     this.FilterArray.forEach((element, index) => {
 
       if (element.columnName == this.dataColumnFilter.columnName) {
-        return false;
+        // return false;
         this.toastr.warning("This coloum name already in filter");
 
       }
@@ -368,12 +372,25 @@ export class ItemLibraryComponent implements OnInit {
     this.partForm = this.partformControl.value;
     this.AttributeFields.forEach(element => {
 
-      element.columnValue = this.partformControl.value[element.columnId];
-      if (element.customFieldPrefix != "" || element.customFieldSuffix != "") {
-        element.columnValue = element.columnValue
+      if (element.customFieldSpecialType == "Date & Time") {
+        element.columnValue = (this.partformControl.value[element.columnId]);
+      }
+
+      else if (element.customFieldSpecialType == "Time") {
+        element.columnValue = (this.partformControl.value[element.columnId]);
+      }
+      else if (element.customFieldSpecialType == "Date") {
+        element.columnValue = (this.partformControl.value[element.columnId]);
+      }
+      else {
+
+        element.columnValue = this.partformControl.value[element.columnId];
+        if (element.customFieldPrefix != "" || element.customFieldSuffix != "") {
+          element.columnValue = element.columnValue
+        }
       }
     });
-
+    // this.convertToString()
     this.partForm.attributeFields = this.AttributeFields;
     if (this.partForm.highQtyThreshold == null) {
       this.partForm.highQtyThreshold = 0;
@@ -407,6 +424,21 @@ export class ItemLibraryComponent implements OnInit {
         });
 
 
+  }
+  convertToString() {
+    this.AttributeFields.forEach(element => {
+      if (element.columnValue.type != 0) {
+        element.columnValue.toDateString()
+      }
+    });
+  }
+  SelectedMonth(id) {
+    debugger;
+    this.Month.forEach(element => {
+      if (element.id == id) {
+        this.dataColumnFilter.searchValue = element.month;
+      }
+    })
   }
   getUOMList() {
     this.libraryService.GetUOM(this.selectedTenantId, this.authService.accessToken)
@@ -521,11 +553,12 @@ export class ItemLibraryComponent implements OnInit {
 
 
   GetMyInventoryColumn() {
+    debugger;
     this.commanService.GetMyInventoryColumns(this.selectedTenantId, this.authService.accessToken).pipe(finalize(() => {
       this.busy = false;
       this.spinner.hide();
     })).subscribe(result => {
-
+      debugger;
       if (result.entity != null) {
         this.myInventoryField = result.entity;
         this.tabulatorColumn.push({ title: "Item Name", field: "partName", type: "", datatype: "string", width: "170" });
@@ -534,7 +567,7 @@ export class ItemLibraryComponent implements OnInit {
         this.tabulatorColumn.push({ title: " Defualt UOM", field: "uomName", type: "", datatype: "stringUom", width: "170" });
         this.myInventoryField.forEach(element => {
           if (element.customeFieldType == "AttributeField") {
-            this.tabulatorColumn.push({ title: element.columnLabel, field: element.columnName, type: element.customeFieldType, datatype: "string", width: "170" });
+            this.tabulatorColumn.push({ title: element.columnLabel, field: element.columnName, type: element.customeFieldType, datatype: element.dataType, customFieldSpecialType: element.customFieldSpecialType, width: "170" });
           }
         });
         this.item = result.entity;
@@ -606,6 +639,7 @@ export class ItemLibraryComponent implements OnInit {
         //this.spinner.hide();
       })).subscribe(result => {
 
+        debugger;
         if (result.code == 403) {
           this.NotPermitted = true;
         }
@@ -617,7 +651,7 @@ export class ItemLibraryComponent implements OnInit {
         this.length = result.entity.totalParts;
 
         for (let i = 0; i < this.allItems.length; i++) {
-          let map = new Map<string, string>();
+          let map = new Map<string, any>();
           for (let j = 0; j < this.tabulatorColumn.length; j++) {
 
             let keys = Object.keys(this.allItems[i])
@@ -633,9 +667,26 @@ export class ItemLibraryComponent implements OnInit {
             }
 
             for (let k = 0; k < this.allItems[i].attributeFields.length; k++) {
-
+              debugger;
               if (this.allItems[i].attributeFields[k].columnName == this.tabulatorColumn[j].field) {
-                map.set(this.tabulatorColumn[j].field, this.allItems[i].attributeFields[k].columnValue)
+
+                if (this.tabulatorColumn[j].datatype == "Date/Time") {
+                  this.myDT = new Date(this.allItems[i].attributeFields[k].columnValue)
+                  let DateManual = this.myDT.toLocaleDateString();
+                  if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
+                    DateManual = this.myDT.toLocaleTimeString()
+                  }
+                  if (this.tabulatorColumn[j].customFieldSpecialType == "Date & Time") {
+                    DateManual = this.myDT.toLocaleString();
+                  }
+                  if (this.tabulatorColumn[j].customFieldSpecialType == "Date") {
+                    DateManual = this.myDT.toLocaleDateString()
+                  }
+                  map.set(this.tabulatorColumn[j].field, DateManual)
+                }
+                else {
+                  map.set(this.tabulatorColumn[j].field, this.allItems[i].attributeFields[k].columnValue)
+                }
               }
             }
           }

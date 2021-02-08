@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, Injector } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from './api.service';
@@ -11,20 +11,29 @@ import { StatusModalComponent } from './component/status-modal/status-modal.comp
 import { CustomFieldModalComponent } from './component/custom-field-modal/custom-field-modal.component';
 import { AttributeFieldModalComponent } from './component/attribute-field-modal/attribute-field-modal.component';
 import { CustomFieldComponent } from './component/custom-field/custom-field.component';
-import { TextComponent } from './component/custom-field/text/text.component';
-import { NumberComponent } from './component/custom-field/number/number.component';
-import { TimeComponent } from './component/custom-field/Date/time/time.component';
 import { FalseComponent } from './component/custom-field/True/false/false.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { FormioModule } from '@formio/angular';
+// import { registerCustomComponent } from './component/custom-field/text/text.formio';
+// import { EditEventsComponent } from '../shared/component/custom-field/edit-events/edit-events.component';
+import { EditEventComponent } from './component/custom-field/edit-event/edit-event.component'
+
 @NgModule({
   providers: [
     ApiService,
     CommanSharedService,
   ],
 
-  imports: [CommonModule, FormsModule, ReactiveFormsModule,RouterModule.forChild([
-    { path: 'sharedcustomfield', component: CustomFieldComponent, canActivate: [AuthGuard] },])],
-  declarations: [LocationModalComponent, UomModalComponent, StatusModalComponent, CustomFieldModalComponent, AttributeFieldModalComponent, CustomFieldComponent, TextComponent, NumberComponent, TimeComponent, FalseComponent],
+  imports: [FormioModule, CommonModule, FormsModule, DragDropModule, ReactiveFormsModule, RouterModule.forChild([
+    { path: 'sharedcustomfield', component: CustomFieldComponent, canActivate: [AuthGuard] },
+    { path: 'sharedcustomfield12', component: FalseComponent, canActivate: [AuthGuard] },
+    { path: 'eidtevents', component: EditEventComponent, canActivate: [AuthGuard] }])],
+  declarations: [LocationModalComponent, UomModalComponent, StatusModalComponent, CustomFieldModalComponent, AttributeFieldModalComponent, CustomFieldComponent, FalseComponent, EditEventComponent],
   exports: [LocationModalComponent, StatusModalComponent, UomModalComponent, CustomFieldModalComponent, AttributeFieldModalComponent],
 
 })
-export class SharedModule { }
+export class SharedModule {
+  constructor(injector: Injector) {
+    // registerCustomComponent(injector);
+  }
+}

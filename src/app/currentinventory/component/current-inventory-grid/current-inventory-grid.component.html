@@ -3,26 +3,6 @@
         <h2><span id="activeinventoryname"><strong>{{selectedTenant.name}} </strong></span> Inventory </h2>
         <div class="icons icons--size02 icons--horziontal">
             <ng-container *ngIf="Tenants!=undefined && Tenants.length>1">
-                <!-- <button type="button" class="icons__item icons__item--outline js-toggle icons__item--theme09"
-                    aria-expanded="true">
-                    <div class="icons__icon"><svg class="icon icon--theme09 icon--arrow-down"
-                            aria-labelledby="title-5f7c9b3febeff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
-                            width="12" height="12">
-                            <path fill="none" d="M0 0h12v12H0z"></path>
-                            <path
-                                d="M7.26 7.27a2 2 0 001.57-.77l2.2-2.87-1.57-1.25-1 1.29L6 6.84a1.93 1.93 0 001.26.43z"
-                                fill="currentColor"></path>
-                            <path
-                                d="M4.41 8.12L.94 3.6l1.59-1.21 3.14 4.09a1.8 1.8 0 00.33.36 2 2 0 001.22.43 2 2 0 001.61-.77L7.59 8.12a2 2 0 01-2.81.37 2.16 2.16 0 01-.37-.37z"
-                                fill="currentColor"></path>
-                        </svg></div>
-                    <ul class="icons__submenu icons__submenu--from-left">
-
-                        <li class="icons__submenu-item" *ngFor="let item of Tenants"><a class="icons__submenu-link"
-                                (click)="SelectedTenant(item)">{{item.name}}</a></li>
-
-                    </ul>
-                </button> -->
                 <button type="button" class="icons__item icons__item--outline  icons__item--theme09"
                     (click)="toggleDropDown()" (blur)="closeDropDown()">
                     <div class="icons__icon"><svg class="icon icon--theme09 icon--arrow-down"
@@ -45,8 +25,9 @@
             <ng-container *ngIf="Tenants!=undefined && Tenants.length==1">
                 <button style="height:40px ;width:40px" type="button" data-modal="#innerModal2332"
                     class=" js-modal button button--small  button--theme02 button--text-only">
-                    <svg class="icon icon--theme01 icon--add" aria-labelledby="title-5f83f10fae696"
-                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="18">
+                    <svg class="icon icon--theme01 icon--add" style="margin-left: -15px;"
+                        aria-labelledby="title-5f83f10fae696" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                        width="48" height="18">
                         <path fill="none" d="M0 0h48v48H0z"></path>
                         <path d="M28 36v12h-8V28a8 8 0 00-8-8 16 16 0 0116 16z" fill="currentColor"
                             class="icon__color--primary">
@@ -163,6 +144,25 @@
 
 <div class="taskbar" *ngIf="!UploadActivityOpen">
     <div class="taskbar__col">
+        <ng-container *ngIf="EventList!=undefined && EventList.length==0">
+            <button style="height:40px ;width:40px" type="button" routerLink="/sharedcustomfield12"
+                class=" js-modal button button--small  button--theme02 button--text-only">
+                <svg class="icon icon--theme01 icon--add" style="margin-left: -15px;"
+                    aria-labelledby="title-5f83f10fae696" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                    width="48" height="18">
+                    <path fill="none" d="M0 0h48v48H0z"></path>
+                    <path d="M28 36v12h-8V28a8 8 0 00-8-8 16 16 0 0116 16z" fill="currentColor"
+                        class="icon__color--primary">
+                    </path>
+                    <path d="M20 28H0v-8h12a8 8 0 018 8z" fill="currentColor" class="icon__color--secondary"></path>
+                    <path d="M20 12V0h8v20a8 8 0 008 8 16 16 0 01-16-16z" fill="currentColor"
+                        class="icon__color--primary">
+                    </path>
+                    <path d="M28 20h20v8H36a8 8 0 01-8-8z" fill="currentColor" class="icon__color--secondary">
+                    </path>
+                </svg>
+            </button>
+        </ng-container>
         <ng-container *ngFor="let event of EventList">
             <ng-container *ngIf="event.withNewRecord">
 
@@ -674,9 +674,9 @@
                         <div class="table__heading-title"></div>
                         <div class="table__heading-options">
                             <div class="icons icons--horziontal icons--size02">
-                                <button class="icons__item" type="button">
-                                    <div class="icons__icon">&nbsp;</div>
-                                </button>
+
+                                <div class="icons__icon">&nbsp;</div>
+
                             </div>
                         </div>
                     </th>
@@ -703,19 +703,9 @@
                         <div class="table__heading-title">Image</div>
                         <div class="table__heading-options">
                             <div class="icons icons--horziontal icons--size02">
-                                <button class="icons__item" type="button">
-                                    <div class="icons__icon"><svg class="icon icon--theme01 icon--filter"
-                                            aria-labelledby="title-5fd9931d02014" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 48 48" width="48" height="48">
-                                            <path fill="none" d="M0 0h48v48H0z"></path>
-                                            <path
-                                                d="M40 13.7a5.6 5.6 0 01-1.7 4 5.5 5.5 0 01-4 1.6 5.8 5.8 0 01-4-1.7 5.4 5.4 0 00-4-1.6h-8.6a3.9 3.9 0 00-3.7 2.5 3.8 3.8 0 00.8 4.3l-4.5-4.5A7.9 7.9 0 018 12.7 4.7 4.7 0 0112.7 8h21.6a5.7 5.7 0 013.6 1.3.8.8 0 01.4.4 5.3 5.3 0 011.7 4z"
-                                                fill="currentColor" class="icon__color--primary"></path>
-                                            <path
-                                                d="M28 28v12h-8V29.7a4 4 0 00-1.2-2.9l-4-4a3.8 3.8 0 01-.8-4.3 3.9 3.9 0 013.7-2.5h1.6l3.3 3.2 3.1 3.2A7.9 7.9 0 0128 28z"
-                                                fill="currentColor" class="icon__color--secondary"></path>
-                                        </svg></div>
-                                </button>
+
+                                <div class="icons__icon"></div>
+
                             </div>
                         </div>
                     </th>
@@ -1363,7 +1353,8 @@
                             [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''">
                             <label class="form__label" for="dynamic_Attribute_{{field.columnId}}"
                                 *ngIf="field.dataType!='True/False'&&field.customFieldSpecialType!='Dropdown'"
-                                [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>'4' ? 'prefixLabel3':'']">{{field.columnLabel}}<span
+                                [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>='4' ? 'prefixLabel3':'']">{{(field.columnLabel.length>13)?
+                                (field.columnLabel|slice:0:13)+'...':(field.columnLabel)}}<span
                                     *ngIf="field.customFieldIsRequired" class="form__required">*</span></label>
 
                             <span class="form__group-outer-label" *ngIf="field.dataType=='True/False'"
@@ -1439,7 +1430,7 @@
                                             id="dynamic_Attribute_{{field.columnId}}" [disabled]="IsItemHave"
                                             name="dynamic_Attribute_{{field.columnId}}" [(ngModel)]="field.columnValue"
                                             class="form__input"
-                                            [ngClass]="[field.customFieldPrefix.length=='1' ? 'Addon':''||field.customFieldPrefix.length=='2'?'Addon1':''||field.customFieldPrefix.length=='3'?'Addon2':''||field.customFieldPrefix.length>'4'?'Addon3':'']">
+                                            [ngClass]="[field.customFieldPrefix.length=='1' ? 'Addon':''||field.customFieldPrefix.length=='2'?'Addon1':''||field.customFieldPrefix.length=='3'?'Addon2':''||field.customFieldPrefix.length>='4'?'Addon3':'']">
                                         <span *ngIf="field.customFieldSuffix"
                                             class="input-group-addon text Suffix">{{field.customFieldSuffix}}</span>
                                         <div class="infopanel" [popper]="popper3Content" [popperTrigger]="'hover'"
@@ -1463,8 +1454,7 @@
                                         </popper-content>
                                     </ng-container>
                                     <ng-container *ngIf="!field.customFieldSuffix&&!field.customFieldPrefix">
-                                        <input type="{{field.dataType}}" maxlength="{{field.customFieldTextMaxLength}}"
-                                            [required]="field.customFieldIsRequired"
+                                        <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
                                             id="dynamic_Attribute_{{field.columnId}}"
                                             name="dynamic_Attribute_{{field.columnId}}" [(ngModel)]="field.columnValue"
                                             class="form__input" [disabled]="IsItemHave">
@@ -1772,39 +1762,7 @@
                         </popper-content>
 
                     </div>
-                    <div class="form__col form__col--third">
-                        <button type="button" data-modal="#AddStatusinnerModal"
-                            class="invModal__control addLibrary js-modal">Add New
-                            Status</button>
 
-                        <select class="floating-select" [(ngModel)]="selectedStatus" id="dynamic_status"
-                            name="dynamic_status" value="">
-                            <option value=""></option>
-                            <option *ngFor="let item of statusList" value="{{item.statusValue}}">{{item.statusValue}}
-                            </option>
-                        </select>
-                        <span class="highlight"></span>
-                        <label class="form__label form_label">Status</label>
-
-                        <div class="infopanel" [popper]="popper6Content" [popperTrigger]="'hover'"
-                            [popperPlacement]="'bottom'"><svg class="icon-simple icon-simple--theme01 icon-simple--info"
-                                aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 12 12" width="12" height="12">
-                                <g data-name="Group 748" fill="currentColor">
-                                    <path data-name="Path 435"
-                                        d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
-                                    </path>
-                                    <path data-name="Path 436"
-                                        d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
-                                    </path>
-                                </g>
-                            </svg>
-                        </div>
-                        <popper-content #popper6Content>
-                            <h3 class="popperTitle"><b>Status</b></h3>
-                            <span>Select the Status that you will use for know the current status of the product.</span>
-                        </popper-content>
-                    </div>
                     <div class="form__col form__col--third">
                         <button type="button" data-modal="#AddLocationinnerModal"
                             class="invModal__control addLibrary js-modal">Add New
@@ -1862,10 +1820,12 @@
 
                     <ng-container *ngFor="let field of CustomFields">
                         <div class="form__col form__col--third"
-                            [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''">
-                            <label class="form__label" for="dynamic_Attribute_{{field.columnId}}"
+                            [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''"
+                            *ngIf="field.customFieldIncludeOnDynamicEvent">
+                            <label class="form__label" for="dynamic_CustomField_{{field.columnId}}"
                                 *ngIf="field.dataType!='True/False'&&field.customFieldSpecialType!='Dropdown'"
-                                [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>'4' ? 'prefixLabel3':'']">{{field.columnLabel}}<span
+                                [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>='4' ? 'prefixLabel3':'']">{{(field.columnLabel.length>13)?
+                                (field.columnLabel|slice:0:13)+'...':(field.columnLabel)}}<span
                                     *ngIf="field.customFieldIsRequired" class="form__required">*</span></label>
 
                             <span class="form__group-outer-label" *ngIf="field.dataType=='True/False'"
@@ -1891,8 +1851,8 @@
                                 </ng-container>
 
                                 <ng-container *ngIf="field.customFieldSpecialType=='Dropdown'">
-                                    <select class="floating-select" id="dynamic_Attribute_{{field.columnId}}"
-                                        name="dynamic_Attribute_{{field.columnId}}" [(ngModel)]="field.columnValue"
+                                    <select class="floating-select" id="dynamic_CustomField_{{field.columnId}}"
+                                        name="dynamic_CustomField_{{field.columnId}}" [(ngModel)]="field.columnValue"
                                         [disabled]="IsItemHave" value="">
                                         <option value=""></option>
                                         <option *ngFor="let opt of ComboValueDropdown(field.comboBoxValue)"
@@ -1938,10 +1898,10 @@
                                             <p class="popperTitle"><b>{{field.customFieldPrefix}}</b></p>
                                         </popper-content>
                                         <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
-                                            id="dynamic_Attribute_{{field.columnId}}" [disabled]="IsItemHave"
-                                            name="dynamic_Attribute_{{field.columnId}}" [(ngModel)]="field.columnValue"
-                                            class="form__input"
-                                            [ngClass]="[field.customFieldPrefix.length=='1' ? 'Addon':''||field.customFieldPrefix.length=='2'?'Addon1':''||field.customFieldPrefix.length=='3'?'Addon2':''||field.customFieldPrefix.length>'4'?'Addon3':'']">
+                                            id="dynamic_CustomField_{{field.columnId}}" [disabled]="IsItemHave"
+                                            name="dynamic_CustomField_{{field.columnId}}"
+                                            [(ngModel)]="field.columnValue" class="form__input"
+                                            [ngClass]="[field.customFieldPrefix.length=='1' ? 'Addon':''||field.customFieldPrefix.length=='2'?'Addon1':''||field.customFieldPrefix.length=='3'?'Addon2':''||field.customFieldPrefix.length>='4'?'Addon3':'']">
                                         <span *ngIf="field.customFieldSuffix"
                                             class="input-group-addon text Suffix">{{field.customFieldSuffix}}</span>
                                         <div class="infopanel" [popper]="popper3Content" [popperTrigger]="'hover'"
@@ -1965,11 +1925,10 @@
                                         </popper-content>
                                     </ng-container>
                                     <ng-container *ngIf="!field.customFieldSuffix&&!field.customFieldPrefix">
-                                        <input type="{{field.dataType}}" maxlength="{{field.customFieldTextMaxLength}}"
-                                            [required]="field.customFieldIsRequired"
-                                            id="dynamic_Attribute_{{field.columnId}}"
-                                            name="dynamic_Attribute_{{field.columnId}}" [(ngModel)]="field.columnValue"
-                                            class="form__input" [disabled]="IsItemHave">
+                                        <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
+                                            id="dynamic_CustomField_{{field.columnId}}"
+                                            name="dynamic_CustomField_{{field.columnId}}"
+                                            [(ngModel)]="field.columnValue" class="form__input" [disabled]="IsItemHave">
                                         <div class="infopanel" [popper]="popper3Content" [popperTrigger]="'hover'"
                                             [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''">
                                             <svg class="icon-simple icon-simple--theme01 icon-simple--info"
@@ -1996,8 +1955,8 @@
                                 <ng-container *ngIf="field.customFieldSpecialType==''">
 
                                     <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
-                                        id="dynamic_Attribute_{{field.columnId}}"
-                                        name="dynamic_Attribute_{{field.columnId}}" [(ngModel)]="field.columnValue"
+                                        id="dynamic_CustomField_{{field.columnId}}"
+                                        name="dynamic_CustomField_{{field.columnId}}" [(ngModel)]="field.columnValue"
                                         class="form__input" [disabled]="IsItemHave">
                                     <div class="infopanel" [popper]="popper3Content" [popperTrigger]="'hover'"
                                         [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
@@ -2025,8 +1984,8 @@
 
                                 <ng-container *ngIf="field.customFieldSpecialType=='Number'">
                                     <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
-                                        id="dynamic_Attribute_{{field.columnId}}"
-                                        name="dynamic_Attribute_{{field.columnId}}" [(ngModel)]="field.columnValue"
+                                        id="dynamic_CustomField_{{field.columnId}}"
+                                        name="dynamic_CustomField_{{field.columnId}}" [(ngModel)]="field.columnValue"
                                         class="form__input" [disabled]="IsItemHave">
                                     <div class="infopanel" [popper]="popper3Content" [popperTrigger]="'hover'"
                                         [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
@@ -2051,8 +2010,8 @@
                                 <ng-container *ngIf="field.customFieldSpecialType=='Currency'" class="input-group">
                                     <span class="input-group-addon text ">$</span>
                                     <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
-                                        id="dynamic_Attribute_{{field.columnId}}"
-                                        name="dynamic_Attribute_{{field.columnId}}" [(ngModel)]="field.columnValue"
+                                        id="dynamic_CustomField_{{field.columnId}}"
+                                        name="dynamic_CustomField_{{field.columnId}}" [(ngModel)]="field.columnValue"
                                         class="form__input Addon" [disabled]="IsItemHave">
                                     <div class="infopanel" [popper]="popper3Content" [popperTrigger]="'hover'"
                                         [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
@@ -2077,8 +2036,8 @@
 
                                 <ng-container *ngIf="field.customFieldSpecialType==''">
                                     <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
-                                        id="dynamic_Attribute_{{field.columnId}}"
-                                        name="dynamic_Attribute_{{field.columnId}}" [(ngModel)]="field.columnValue"
+                                        id="dynamic_CustomField_{{field.columnId}}"
+                                        name="dynamic_CustomField_{{field.columnId}}" [(ngModel)]="field.columnValue"
                                         class="form__input" [disabled]="IsItemHave">
                                     <div class="infopanel" [popper]="popper3Content" [popperTrigger]="'hover'"
                                         [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
@@ -2108,8 +2067,8 @@
                                 <ng-container
                                     *ngIf="field.customFieldSpecialType=='Date'||field.customFieldSpecialType==''">
                                     <input type="text" [required]="field.customFieldIsRequired"
-                                        id="dynamic_Attribute_{{field.columnId}}"
-                                        name="dynamic_Attribute_{{field.columnId}}" [(ngModel)]="field.columnValue"
+                                        id="dynamic_CustomField_{{field.columnId}}"
+                                        name="dynamic_CustomField_{{field.columnId}}" [(ngModel)]="field.columnValue"
                                         data-flatpickr-mode="single" class="form__input flatpickr"
                                         [disabled]="IsItemHave">
                                     <div class="infopanel" [popper]="popper11Content" [popperTrigger]="'hover'"
@@ -2134,8 +2093,8 @@
                                 </ng-container>
                                 <ng-container *ngIf="field.customFieldSpecialType=='Date & Time'">
                                     <input type="text" [required]="field.customFieldIsRequired"
-                                        id="dynamic_Attribute_{{field.columnId}}"
-                                        name="dynamic_Attribute_{{field.columnId}}" [(ngModel)]="field.columnValue"
+                                        id="dynamic_CustomField_{{field.columnId}}"
+                                        name="dynamic_CustomField_{{field.columnId}}" [(ngModel)]="field.columnValue"
                                         data-flatpickr-mode="single" class="form__input flatpickr"
                                         [disabled]="IsItemHave">
                                     <div class="infopanel" [popper]="popper11Content" [popperTrigger]="'hover'"
@@ -2160,8 +2119,8 @@
                                 </ng-container>
                                 <ng-container *ngIf="field.customFieldSpecialType=='Time'">
                                     <input type="text" [required]="field.customFieldIsRequired"
-                                        id="dynamic_Attribute_{{field.columnId}}"
-                                        name="dynamic_Attribute_{{field.columnId}}" [(ngModel)]="field.columnValue"
+                                        id="dynamic_CustomField_{{field.columnId}}"
+                                        name="dynamic_CustomField_{{field.columnId}}" [(ngModel)]="field.columnValue"
                                         data-flatpickr-mode="single" class="form__input flatpickr"
                                         [disabled]="IsItemHave">
                                     <div class="infopanel" [popper]="popper11Content" [popperTrigger]="'hover'"
@@ -2187,19 +2146,19 @@
                             </ng-container>
                             <ng-container *ngIf="field.dataType=='True/False'">
                                 <div class="form__group form__group--radio">
-                                    <input id="dynamic_Attribute_{{field.columnId}}_1" [(ngModel)]="field.columnValue"
+                                    <input id="dynamic_CustomField_{{field.columnId}}_1" [(ngModel)]="field.columnValue"
                                         class="form__radio" type="radio" value="{{field.customFieldFalseLabel}}"
                                         name="dynamic_radio200">
                                     <label class="form__group-label"
-                                        for="dynamic_Attribute_{{field.columnId}}_1">{{field.customFieldFalseLabel}}
+                                        for="dynamic_CustomField_{{field.columnId}}_1">{{field.customFieldFalseLabel}}
                                     </label>
                                 </div>
                                 <div class="form__group form__group--radio">
                                     <input [(ngModel)]="field.columnValue" value="{{field.customFieldTrueLabel}}"
-                                        id="dynamic_Attribute_{{field.columnId}}_2" class="form__radio" type="radio"
+                                        id="dynamic_CustomField_{{field.columnId}}_2" class="form__radio" type="radio"
                                         name="dynamic_radio200">
                                     <label class="form__group-label"
-                                        for="dynamic_Attribute_{{field.columnId}}_2">{{field.customFieldTrueLabel}}</label>
+                                        for="dynamic_CustomField_{{field.columnId}}_2">{{field.customFieldTrueLabel}}</label>
                                 </div>
 
                             </ng-container>
@@ -2293,8 +2252,6 @@
 <app-uom-modal (RefreshUom)="getUOMList()"></app-uom-modal>
 
 <app-upload *ngIf="UploadActivityOpen" (hideClose)="getValue($event)"></app-upload>
-
-<!-- <app-upload-activity (RefreshInventory)="RefreshCurrentInventory()"></app-upload-activity> -->
 <div id="UploadActivity" class="invModal" role="dialog" aria-labelledby="dialog-title"
     aria-describedby="dialog-description" tabindex="-1" hidden="">
     <div class="invModal__head">

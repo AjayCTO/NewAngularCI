@@ -97,6 +97,14 @@ export class DetailsComponent implements OnInit {
   ngOnInit(): void {
     debugger;
     this.selecteditem = this.item;
+    this.attributefields.forEach(element => {
+      if (element.dataType == "Date/Time") {
+        element.columnValue = new Date(this.selecteditem[element.columnName]);
+      }
+      else {
+        element.columnValue = this.selecteditem[element.columnName];
+      }
+    });
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
 
     modal();
@@ -294,7 +302,7 @@ export class DetailsComponent implements OnInit {
     debugger;
     this.selecteditem.attributeFields = this.attributefields;
     this.partId = this.item.partId
-    this.libraryService.EditPart(this.selectedTenantId, this.partId, this.selecteditem, this.authService.accessToken)
+    this.libraryService.EditPart(this.selectedTenantId, this.item.partId, this.selecteditem, this.authService.accessToken)
       .pipe(finalize(() => {
 
         this.spinner.hide();

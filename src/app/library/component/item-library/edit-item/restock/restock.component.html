@@ -5,18 +5,19 @@
             <div class="form__col-wrap">
                 <div class="form__col form__col--third">
                     <label class="form__label form_label" for="six">Low Qty Threshold(ea.)</label>
-                    <input class="form__input" type="text" id="six" name="six" value="{{item.lowQtyThreshold}}">
+                    <input class="form__input" type="number" id="six" name="six"
+                        [(ngModel)]="selectedItem.lowQtyThreshold">
                 </div>
                 <div class="form__col form__col--third">
                     <label class="form__label form_label" for="seven">High Qty Threshold (ea.)<span
                             class="form__required">*</span></label>
-                    <input class="form__input" type="text" id="seven" name="seven" required
-                        value="{{item.highQtyThreshold}}">
+                    <input class="form__input" type="number" id="seven" name="seven" required
+                        [(ngModel)]="selectedItem.highQtyThreshold">
                 </div>
                 <div class="form__col form__col--third"></div>
             </div>
             <div class="button-group">
-                <button type="submit" class="button button--medium" href="#">
+                <button type="submit" class="button button--medium" (click)="edit()">
                     Save
                 </button>
             </div>

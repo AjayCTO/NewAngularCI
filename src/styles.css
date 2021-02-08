@@ -1,5 +1,5 @@
 
-
+@import "~ng-pick-datetime/assets/style/picker.min.css";
 .authenticating-loader {
   display: flex;
   align-items: center;
@@ -25,3 +25,4 @@
 .table-props tr th {
   width: 1px;
 }
+ 

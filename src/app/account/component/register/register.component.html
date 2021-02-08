@@ -34,7 +34,9 @@
                                 pattern="[a-zA-Z]{1,}" maxlength="30" formControlName="firstName" required>
                             <ng-container *ngIf="submitted && f.firstName.errors"> <span
                                     *ngIf="f.firstName.errors.required" class="form__error-message">This field is
-                                    required</span></ng-container>
+                                    required</span>
+                            </ng-container>
+
                         </div>
                         <div class="form__col form__col--third"
                             [ngClass]="{ 'form__col--error': submitted && f.lastName.errors}">
@@ -44,7 +46,8 @@
                                 pattern="[a-zA-Z]{1,}" maxlength="30" formControlName="lastName">
                             <ng-container *ngIf="submitted && f.lastName.errors"> <span
                                     *ngIf="f.lastName.errors.required" class="form__error-message">This field is
-                                    required</span></ng-container>
+                                    required</span>
+                            </ng-container>
                         </div>
                         <div class="form__col form__col--two"
                             [ngClass]="{ 'form__col--error': submitted && f.email.errors}">
@@ -73,8 +76,7 @@
                                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" name="passwordFormcontrol"
                                 formControlName="password">
 
-                            <i *ngIf="!showPassword" class="fa fa-eye" id="togglePassword"
-                                (click)="showPasswords()"><svg
+                            <i *ngIf="!showPassword" id="togglePassword" (click)="showPasswords()"><svg
                                     class="icon-simple icon-simple--theme01 icon-simple--show"
                                     aria-labelledby="title-5fd0b5a288597" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24" width="18" height="18">
@@ -84,7 +86,7 @@
                                         fill="currentColor"></path>
                                     <circle cx="12" cy="12" r="3.5" fill="currentColor"></circle>
                                 </svg></i>
-                            <i *ngIf="showPassword" class="fa fa-eye" id="togglePassword" (click)="showPasswords()"><svg
+                            <i *ngIf="showPassword" id="togglePassword" (click)="showPasswords()"><svg
                                     class="icon-simple icon-simple--theme01 icon-simple--hide"
                                     aria-labelledby="title-5fd1bb780d44b" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24" width="18" height="18">

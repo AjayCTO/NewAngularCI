@@ -1,18 +1,18 @@
 <div *ngIf="EditMode">
-<h1  style="margin-left: 50px;">Edit Current Inventory Report</h1>
+    <h1 style="margin-left: 50px;">Edit Current Inventory Report</h1>
 </div>
 <section class="main" *ngIf="EditMode">
     <div class="edit--card">
-        <form class="form" #f="ngForm" style="margin: 0;max-width:1141px" >
+        <form class="form" #f="ngForm" style="margin: 0;max-width:1141px">
 
             <div class="form__section">
                 <h2 class="form__section-title">General Settings</h2>
-                <div class="form__col-wrap" >
-                    <div class="form__col form__col--third" >
+                <div class="form__col-wrap">
+                    <div class="form__col form__col--third">
                         <label class="form__label form_label" for="Reporttitle">Report Title <span
                                 class="form__required">*</span></label>
                         <input class="form__input" type="text" id="Reporttitle" [(ngModel)]="customreport.reportTitle"
-                            name="Reporttitle"  required>
+                            name="Reporttitle" required>
 
                     </div>
                     <div class="form__col form__col--two-third">
@@ -22,13 +22,13 @@
                     <div class="form__col form__col--one-two">
                         <label class="form__label" for="third">Report Description</label>
                         <input class="form__input" [(ngModel)]="customreport.description" type="text" id="third"
-                            name="third" >
+                            name="third">
                     </div>
-                    
+
                 </div>
             </div>
         </form>
-      <form class="form" style="margin: 0;max-width: 100%;">
+        <form class="form" style="margin: 0;max-width: 100%;">
             <div class="form__section">
                 <h2 class="form__section-title">
                     <button type="submit" class="button button--medium" style="margin-left: auto;">Reset
@@ -42,8 +42,8 @@
                                     <div class="table__heading-title">Column Name</div>
                                     <div class="table__heading-options">
                                         <div class="icons icons--horziontal icons--size02">
-                                                <div class="icons__icon">
-                                                </div>
+                                            <div class="icons__icon">
+                                            </div>
                                         </div>
                                     </div>
                                 </th>
@@ -51,8 +51,8 @@
                                     <div class="table__heading-title">Filter By</div>
                                     <div class="table__heading-options">
                                         <div class="icons icons--horziontal icons--size02">
-                                           <div class="icons__icon">
-                                           </div>
+                                            <div class="icons__icon">
+                                            </div>
                                         </div>
                                     </div>
                                 </th>
@@ -60,8 +60,8 @@
                                     <div class="table__heading-title">Short Order</div>
                                     <div class="table__heading-options">
                                         <div class="icons icons--horziontal icons--size02">
-                                          <div class="icons__icon">
-                                          </div>
+                                            <div class="icons__icon">
+                                            </div>
                                         </div>
                                     </div>
                                 </th>
@@ -69,8 +69,8 @@
                                     <div class="table__heading-title">Short Type</div>
                                     <div class="table__heading-options">
                                         <div class="icons icons--horziontal icons--size02">
-                                             <div class="icons__icon">
-                                         </div>
+                                            <div class="icons__icon">
+                                            </div>
                                         </div>
                                     </div>
                                 </th>
@@ -78,21 +78,21 @@
                                     <div class="table__heading-title">Close</div>
                                     <div class="table__heading-options">
                                         <div class="icons icons--horziontal icons--size02">
-                                              <div class="icons__icon">
-                                                </div>
+                                            <div class="icons__icon">
+                                            </div>
                                         </div>
                                     </div>
                                 </th>
                             </tr>
                         </thead>
                         <tbody class="table__section table__section--body">
-                            <tr class="table__row table__row--body" *ngFor="let obj of columnFilters; let i=index">
+                            <!-- <tr class="table__row table__row--body" *ngFor="let obj of columnFilters; let i=index">
                                 <td class="table__cell" data-title="Column Title">
                                     <div class="form__col">
                                         <select class="floating-select" id="list-dropdown3{{i}}"
-                                        (ngModelChange)='onOptionsSelected(obj,$event)'   name="list-dropdown3{{i}}"
+                                            (ngModelChange)='onOptionsSelected(obj,$event)' name="list-dropdown3{{i}}"
                                             [(ngModel)]="obj.ColumnName">
-                                            <option [value]="opt.field"  *ngFor="let opt of tabulatorColumn">
+                                            <option [value]="opt.field" *ngFor="let opt of tabulatorColumn">
                                                 {{opt.title}}
                                             </option>
                                         </select>
@@ -104,7 +104,7 @@
                                 <td class="table__cell" data-title="Column Title">
                                     <div class="form__col">
                                         <div class="form__col form__col--full" style="display: flex;">
-                                           <ng-container *ngIf="obj.ColumnDataType=='string'">
+                                            <ng-container *ngIf="obj.dataType=='string'">
                                                 <select [(ngModel)]="obj.ColumnOperator" id="dropdownString_{{i}}"
                                                     name="dropdownString_{{i}}" class="floating-select">
                                                     <option [value]="opt.value"
@@ -113,7 +113,7 @@
                                                     </option>
                                                 </select>
                                             </ng-container>
-                                            <ng-container *ngIf="obj.ColumnDataType=='number'">
+                                            <ng-container *ngIf="obj.DataType=='number'">
                                                 <select [(ngModel)]="obj.ColumnOperator" id="dropdownNumber_{{i}}"
                                                     name="dropdownNumber_{{i}}" class="floating-select">
                                                     <option [value]="opt.value"
@@ -122,7 +122,7 @@
                                                     </option>
                                                 </select>
                                             </ng-container>
-                                            <ng-container *ngIf="obj.ColumnDataType=='special'">
+                                            <ng-container *ngIf="obj.DataType=='special'">
                                                 <select [(ngModel)]="obj.ColumnOperator" id="dropdownSpecial_{{i}}"
                                                     name="dropdownSpecial_{{i}}" class="floating-select">
                                                     <option [value]="opt.value"
@@ -131,11 +131,11 @@
                                                     </option>
                                                 </select>
                                             </ng-container>
-                                            <ng-container *ngIf="obj.ColumnDataType!='special'">
+                                            <ng-container *ngIf="obj.DataType!='special'">
                                                 <input class="form__input" [(ngModel)]="obj.ColumnValue" type="text"
                                                     id="columnValue_{{i}}" name="columnValue_{{i}}">
                                             </ng-container>
-                                            <ng-container *ngIf="obj.columnDataType=='special'">
+                                            <ng-container *ngIf="obj.DataType=='special'">
                                                 <select [(ngModel)]="obj.ColumnValue" id="dropdownSpecialvalue_{{i}}"
                                                     name="dropdownSpecialvalue_{{i}}" class="floating-select">
                                                     <option value="">Choose Event</option>
@@ -144,33 +144,31 @@
                                                     </option>
                                                 </select>
                                             </ng-container>
-                                       </div>
+                                        </div>
                                     </div>
                                 </td>
                                 <td class="table__cell" data-title="Column Title">
                                     <div class="form__col">
                                         <select class="floating-select" id="list-dropdown1{{i}}"
-                                        (ngModelChange)='onOptionsSelected2(obj,$event)'   name="list-dropdown1{{i}}"  [(ngModel)]="obj.SortOrder" >
-                                            <option [value]="opt.field"  *ngFor="let opt of tabulatorColumn2">
+                                            (ngModelChange)='onOptionsSelected2(obj,$event)' name="list-dropdown1{{i}}"
+                                            [(ngModel)]="obj.SortOrder">
+                                            <option [value]="opt.field" *ngFor="let opt of tabulatorColumn2">
                                                 {{opt.field}}
                                             </option>
-                                            <!-- <option >One</option>
-                                            <option>Two</option>
-                                            <option>Three</option>
-                                            <option>Four</option> -->
                                         </select>
                                         <span class="highlight"></span>
                                         <label class="form__label form_label form__label--hidden">Dropdown</label>
                                     </div>
                                 </td>
                                 <td class="table__cell" data-title="Column Title">
-                                    <div class="form__col" >
+                                    <div class="form__col">
                                         <select class="floating-select" id="list-dropdown2{{i}}"
-                                        (ngModelChange)='onOptionsSelected1(obj,$event)'  name="list-dropdown2{{i}}" [(ngModel)]="obj.SortType"  >
-                                        <option [value]="opt.field"  *ngFor="let opt of tabulatorColumn1">
-                                            {{opt.field}}
-                                        </option>
-                                            
+                                            (ngModelChange)='onOptionsSelected1(obj,$event)' name="list-dropdown2{{i}}"
+                                            [(ngModel)]="obj.SortType">
+                                            <option [value]="opt.field" *ngFor="let opt of tabulatorColumn1">
+                                                {{opt.field}}
+                                            </option>
+
                                         </select>
                                         <span class="highlight"></span>
                                         <label class="form__label form_label form__label--hidden">Dropdown</label>
@@ -207,11 +205,152 @@
                                         </button>
                                     </div>
                                 </td>
+                            </tr> -->
+                            <tr class="table__row table__row--body" *ngFor="let obj of columnFilters; let i=index">
+
+                                <td class="table__cell" data-title="Column Title">
+
+                                    <div class="form__col">
+                                        <select class="floating-select" id="list-dropdown2{{i}}"
+                                            (ngModelChange)='onOptionsSelected(obj,$event)' name="list-dropdown2{{i}}"
+                                            [(ngModel)]="obj.ColumnName">
+                                            <option value="">Choose Column</option>
+                                            <option [value]="opt.field" *ngFor="let opt of tabulatorColumn">
+                                                {{opt.title}}
+                                            </option>
+
+                                        </select>
+                                        <span class="highlight"></span>
+                                        <label class="form__label form_label form__label--hidden"
+                                            for="list-dropdown2">Dropdown</label>
+                                    </div>
+
+                                </td>
+                                <td class="table__cell" data-title="Column Title">
+                                    <div class="form__col">
+
+                                        <div class="form__col form__col--full" style="display: flex;">
+
+                                            <ng-container *ngIf="obj.Datatype=='string'">
+                                                <select [(ngModel)]="obj.ColumnOperator" id="dropdownString_{{i}}"
+                                                    name="dropdownString_{{i}}" class="floating-select">
+                                                    <option [value]="opt.value"
+                                                        *ngFor="let opt of OperatorFilterString">
+                                                        <img src="{{opt.src}}" alt=""> {{opt.name}}
+                                                    </option>
+
+                                                </select>
+                                            </ng-container>
+                                            <ng-container *ngIf="obj.Datatype=='number'">
+                                                <select [(ngModel)]="obj.ColumnOperator" id="dropdownNumber_{{i}}"
+                                                    name="dropdownNumber_{{i}}" class="floating-select">
+                                                    <option [value]="opt.value"
+                                                        *ngFor="let opt of OperatorFilterNumber">
+                                                        <img src="{{opt.src}}" alt=""> {{opt.name}}
+                                                    </option>
+
+                                                </select>
+                                            </ng-container>
+                                            <ng-container *ngIf="obj.Datatype=='special'">
+                                                <select [(ngModel)]="obj.ColumnOperator" id="dropdownSpecial_{{i}}"
+                                                    name="dropdownSpecial_{{i}}" class="floating-select">
+                                                    <option [value]="opt.value"
+                                                        *ngFor="let opt of OperatorFilterSpeacial">
+                                                        <img src="{{opt.src}}" alt=""> {{opt.name}}
+                                                    </option>
+
+                                                </select>
+
+                                            </ng-container>
+
+                                            <ng-container *ngIf="obj.Datatype!='special'">
+                                                <input class="form__input" [(ngModel)]="obj.ColumnValue" type="text"
+                                                    id="columnValue_{{i}}" name="columnValue_{{i}}">
+                                            </ng-container>
+                                            <ng-container *ngIf="obj.Datatype=='special'">
+                                                <select [(ngModel)]="obj.ColumnValue" id="dropdownSpecialvalue_{{i}}"
+                                                    name="dropdownSpecialvalue_{{i}}" class="floating-select">
+                                                    <option value="">Choose Event</option>
+                                                    <option [value]="event.eventName" *ngFor="let event of EventList">
+                                                        {{event.eventName}}
+                                                    </option>
+
+                                                </select>
+
+                                            </ng-container>
+
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="table__cell" data-title="Column Title">
+                                    <div class="form__col">
+                                        <select class="floating-select" id="list-dropdown1{{i}}"
+                                            (ngModelChange)='onOptionsSelected2(obj,$event)' name="list-dropdown1{{i}}"
+                                            [(ngModel)]="obj.SortOrder">
+                                            <option [value]=opt.field *ngFor="let opt of tabulatorColumn2">
+                                                {{opt.field}}
+                                            </option>
+                                            <!-- <option value=""></option>
+                                                                        <option>One</option>
+                                                                        <option>Two</option>
+                                                                        <option>Three</option>
+                                                                        <option>Four</option> -->
+                                        </select>
+                                        <span class="highlight"></span>
+                                        <label class="form__label form_label form__label--hidden">Dropdown</label>
+                                    </div>
+                                </td>
+                                <td class="table__cell" data-title="Column Title">
+                                    <div class="form__col">
+                                        <select class="floating-select" id="list-dropdown1{{i}}"
+                                            (ngModelChange)='onOptionsSelected1(obj,$event)' name="list-dropdown1{{i}}"
+                                            [(ngModel)]="obj.SortType">
+                                            <option [value]="opt.field" *ngFor="let opt of tabulatorColumn1">
+                                                {{opt.field}}
+                                            </option>
+
+                                        </select>
+                                        <span class="highlight"></span>
+                                        <label class="form__label form_label form__label--hidden">Dropdown</label>
+                                    </div>
+                                </td>
+                                <td class="table__cell" data-title="Column Title" style="padding-top: 0;">
+                                    <div class="icons icons--size02">
+                                        <button class="icons__item icons__item--theme02" type="button"
+                                            (click)="removeForm(i)">
+                                            <div class=" icons__item">
+                                                <div class="icons__icon">
+                                                    <svg class="icon icon--theme01 icon--remove"
+                                                        aria-labelledby="title-5fdc960b960e8"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                                                        width="48" height="48">
+                                                        <path fill="none" d="M0 0h48v48H0z"></path>
+                                                        <path
+                                                            d="M12.7 18.3L4.2 9.9l5.7-5.7L24 18.3a7.9 7.9 0 0011.3 0 15.9 15.9 0 01-22.6 0z"
+                                                            fill="currentColor" class="icon__color--primary"></path>
+                                                        <path class="icon__color--secondary"
+                                                            d="M24 18.3L38.1 4.2l5.7 5.7-8.5 8.4a7.9 7.9 0 01-11.3 0z"
+                                                            fill="currentColor">
+                                                        </path>
+                                                        <path class="icon__color--primary"
+                                                            d="M35.3 28.9l8.5 8.5-5.7 5.6L24 28.9a8 8 0 00-11.3 0 15.9 15.9 0 0122.6 0z"
+                                                            fill="currentColor"></path>
+                                                        <path class="icon__color--secondary"
+                                                            d="M24 28.9L9.9 43l-5.7-5.6 8.5-8.5a8 8 0 0111.3 0z"
+                                                            fill="currentColor"></path>
+                                                    </svg>
+                                                </div>
+                                                <span class="icons__label">Cancel</span>
+                                            </div>
+                                        </button>
+                                    </div>
+
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                     <br>
-                    <button type="submit" class="button button--medium" (click)="addRow()" >Add Column</button>
+                    <button type="submit" class="button button--medium" (click)="addRow()">Add Column</button>
                 </div>
             </div>
         </form>
@@ -221,7 +360,8 @@
 
             <button type="button" class="button button--medium button--text-only" (click)="CloseEdit()">Cancel
             </button>
-            <button type="button" (click)="DeleteConfirm()" [disabled]="!f.form.valid" class="button button--medium">Delete This
+            <button type="button" (click)="DeleteConfirm()" [disabled]="!f.form.valid"
+                class="button button--medium">Delete This
                 Report</button>
         </div>
     </div>

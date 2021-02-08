@@ -138,7 +138,7 @@ export class UploadActivityComponent implements OnInit {
     formData.append('file', this.fileUploaded, this.fileUploaded.name);
     this.showProgressBar = true;
     this.GetCountOfRecords();
-    this.currentinventoryService.UploadexcelFile(this.selectedTenantId, formData, this.authService.accessToken).subscribe(response => {
+    this.currentinventoryService.UploadexcelFile(this.selectedTenantId, this.toastr, formData, this.authService.accessToken).subscribe(response => {
       this.spinner.hide();
       if (response.code == 200) {
 

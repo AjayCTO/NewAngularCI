@@ -147,14 +147,14 @@ export class CurrentinventoryService extends BaseService {
     }));
   }
 
-  UploadexcelFile(TenantId: number, file, token: string) {
+  UploadexcelFile(TenantId: number, file, config: any, token: string) {
+
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': "Bearer " + token
+        'Authorization': "Bearer " + token,
       })
     };
-    return this.http.post<IApiResponse>(this.configService.resourceApiURI + '/api/ManageUploads/ImportAddInventory?TenantId=' + TenantId, file, httpOptions).pipe(catchError(this.handleError));
-
+    return this.http.post<IApiResponse>(this.configService.resourceApiURI + '/api/ManageUploads/ImportAddInventory?TenantId=' + TenantId + '&EventName=' + config.eventName + '&EventId=' + config.id + '&EventQuantityAction=' + config.eventQuantityAction + '&IslocationRequired=' + config.islocationRequired + '&IsUOMRequired=' + config.isUOMRequired, file, httpOptions).pipe(catchError(this.handleError));
   }
 
 }

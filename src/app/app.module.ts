@@ -31,6 +31,7 @@ import { NgxPopperModule } from 'ngx-popper';
 import { DynamicEventsModule } from './dynamic-events/dynamic-events.module';
 import { ReportModule } from './report/report.module';
 import { NgDragDropModule } from 'ng-drag-drop';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 // import { AddCustomFieldComponent } from './add-custom-field/add-custom-field.component';
 import { ClickOutsideModule } from 'ng-click-outside';
@@ -45,6 +46,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
     // AddCustomFieldComponent,
   ],
   imports: [
+    OwlDateTimeModule, OwlNativeDateTimeModule,
     BrowserModule, NgxPopperModule.forRoot(),
     BrowserAnimationsModule,
     ToastrModule.forRoot(),

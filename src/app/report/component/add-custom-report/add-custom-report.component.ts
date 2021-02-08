@@ -204,11 +204,11 @@ export class AddCustomReportComponent implements OnInit {
       if (element.field == event) {
 
         obj.ColumnDataType = element.datatype;
-        // obj.ColumnLabel = element.title;
-        // obj.columnName = element.field;
-        // obj.type = element.type;
-        // obj.datatype = element.datatype;
-        // obj.width = element.width;
+        obj.ColumnLabel = element.title;
+        obj.columnName = element.field;
+        obj.type = element.type;
+        obj.datatype = element.datatype;
+        obj.width = element.width;
       }
     });
 

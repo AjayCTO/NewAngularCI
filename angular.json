@@ -34,7 +34,8 @@
               "node_modules/ng-drag-drop/style.css"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.js"
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/@webcomponents/custom-elements/src/native-shim.js"
             ]
           },
           "configurations": {

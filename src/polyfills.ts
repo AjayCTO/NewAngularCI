@@ -57,7 +57,7 @@
  */
 import 'zone.js/dist/zone';  // Included with Angular CLI.
 
-
+import '@webcomponents/custom-elements/custom-elements.min';
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */

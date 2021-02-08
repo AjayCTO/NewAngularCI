@@ -12,6 +12,7 @@ import { DataColumnFilter1 } from '../../../currentinventory/models/admin.models
 import { ToastrService } from 'ngx-toastr';
 import { from, Observable } from 'rxjs';
 import { CustomFieldService } from '../../../customfield/service/custom-field.service';
+import { EventService } from '../../../dynamic-events/service/event.service';
 import { ReportService } from '../../service/report.service';
 import { Router } from '@angular/router';
 import { threadId } from 'worker_threads';
@@ -25,12 +26,16 @@ export class EventReportComponent implements OnInit {
   public selectedTenantId: number;
   public searchFilterText: string;
   public selectReport: number;
-
+  public busy: boolean;
   public creatReportOpen = false;
   public startDate: string;
   public endDate: string;
   public EditReport: boolean = false;
+  public EventList: any;
   public Reportdata: any;
+  public selectedRepotTitle: string;
+  public isSearchFilterActive: boolean = false;
+  public mainColumn: [];
   public FilterArray: DataColumnFilter1[] = [];
   public dataColumnFilter: DataColumnFilter1 = {
     columnName: "",
@@ -60,11 +65,11 @@ export class EventReportComponent implements OnInit {
   public ColumnDataType: string;
   public CustomFields: any;
 
-  constructor(protected store: Store<AppState>, private authService: AuthService, private toastr: ToastrService, private reportService: ReportService, private customfieldservice: CustomFieldService, private cdr: ChangeDetectorRef, private commanShardService: CommanSharedService) { }
+  constructor(protected store: Store<AppState>, private eventService: EventService, private authService: AuthService, private toastr: ToastrService, private reportService: ReportService, private customfieldservice: CustomFieldService, private cdr: ChangeDetectorRef, private commanShardService: CommanSharedService) { }
 
   ngOnInit(): void {
     this.searchFilterText = "";
-
+    this.selectedRepotTitle = "Default Event";
     this.store.pipe(select(selectSelectedTenantId)).
       subscribe(eventId => {
         if (eventId) {
@@ -76,6 +81,7 @@ export class EventReportComponent implements OnInit {
 
 
     this.selectReport = 1;
+    this.GetEvents();
     this.getCustomreportList();
     this.GetCustomFields();
     inputClear();
@@ -90,7 +96,7 @@ export class EventReportComponent implements OnInit {
 
   SelectedReport(report) {
     debugger;
-
+    this.selectedRepotTitle = report.reportTitle;
     let data = JSON.parse(report.columnFilterJsonSettings);
     if (data.length != 0) {
       this.tabulatorColumn = [];
@@ -105,8 +111,8 @@ export class EventReportComponent implements OnInit {
           ColumnDataType: "",
           type: ""
         }
-        this.tabulatorColumn.push({ title: element.ColumnLabel, field: element.ColumnName, type: element.SortType, ColumnDataType: element.ColumnDataType, width: "170" });
-        if (element.ColumnValue != "") {
+        this.tabulatorColumn.push({ title: element.ColumnLabel, field: element.ColumnName, type: element.Type, datatype: element.Datatype, width: "170" });
+        if (element.ColumnValue != "" && element.ColumnValue != null) {
           this.dataColumnFilter.columnName = element.ColumnName;
           this.dataColumnFilter.displayName = element.ColumnLabel;
           this.dataColumnFilter.filterOperator = element.ColumnOperator;
@@ -131,7 +137,11 @@ export class EventReportComponent implements OnInit {
     });
 
     this.GetReport();
-
+    setTimeout(function () {
+      toggle();
+      inputClear();
+      inputFocus();
+    }, 500);
   }
 
   getCustomreportList() {
@@ -146,7 +156,37 @@ export class EventReportComponent implements OnInit {
 
     }))
   }
+  SearchFilter() {
+    debugger;
 
+    if (this.searchFilterText != undefined && this.searchFilterText != "") {
+      this.isSearchFilterActive = true;
+      this.GetReport();
+      // this.ApplyJsFunction();
+    }
+  }
+  RemoveSearchFilter() {
+    debugger;
+    // this.IsInventoryLoaded = false;
+    this.isSearchFilterActive = false;
+    this.searchFilterText = ""
+    this.GetReport();
+    // this.ApplyJsFunction();
+  }
+  GetEvents() {
+    debugger;
+    this.eventService.GetEvents(this.selectedTenantId, this.authService.accessToken)
+      .pipe(finalize(() => {
+        this.busy = false;
+      })).subscribe(result => {
+        debugger;
+        if (result.entity != null) {
+          debugger;
+          this.EventList = result.entity;
+        }
+
+      })
+  }
 
   GetCustomFields() {
     debugger;
@@ -158,10 +198,10 @@ export class EventReportComponent implements OnInit {
         if (result.code == 200) {
           debugger;
           // this.CustomFields = result.entity;
-
+          this.mainColumn = [];
           this.tabulatorColumn.push({ title: "Item Name", field: "partName", type: "", datatype: "string", width: "170" });
           this.tabulatorColumn.push({ title: "Description", field: "partDescription", type: "", datatype: "string", width: "450" });
-          this.tabulatorColumn.push({ title: "Type of Event", field: "action", type: "", datatype: "string", width: "170" });
+          this.tabulatorColumn.push({ title: "Type of Event", field: "action", type: "", datatype: "special", width: "170" });
           this.tabulatorColumn.push({ title: "Date of Event", field: "transactionDate", type: "", datatype: "number", width: "170" });
           this.tabulatorColumn.push({ title: "Change in Qty", field: "transactionQtyChange", type: "", datatype: "number", width: "170" });
           this.tabulatorColumn.push({ title: "Location", field: "locationName", type: "", datatype: "string", width: "170" });
@@ -171,10 +211,11 @@ export class EventReportComponent implements OnInit {
             this.myInventoryField = result.entity;
             this.myInventoryField.forEach(element => {
 
-              this.tabulatorColumn.push({ title: element.columnLabel, field: element.columnName, type: element.customFieldType, datatype: "string", width: "170" });
+              this.tabulatorColumn.push({ title: element.columnLabel, field: element.columnName, type: element.customFieldType, datatype: element.dataType, width: "170" });
 
             });
           }
+          this.mainColumn = this.tabulatorColumn;
           this.GetReport()
 
         }
@@ -227,24 +268,23 @@ export class EventReportComponent implements OnInit {
       // this.ApplyJsFunction();
     }
   }
-  onOptionsSelected(obj, event) {
-    debugger;
+  onOptionsSelected(event) {
+    // send selected value
     this.tabulatorColumn.forEach(element => {
 
-      if (element.field == event.field) {
+      if (element.field == event) {
 
-        obj.ColumnDataType = element.ColumnDataType;
+        this.ColumnDataType = element.datatype;
       }
+
     });
 
     setTimeout(function () {
-
+      inputClear();
       inputFocus();
-      toggle();
-    }, 200);
+    }, 500);
 
   }
-
   onOptionsSelected2(event) {
     debugger;
     this.tabulatorColumn.forEach(element => {
@@ -320,6 +360,7 @@ export class EventReportComponent implements OnInit {
         toggle();
         inputClear();
         inputFocus();
+
       });
   }
   ApplyFilter2(columnName) {
@@ -344,7 +385,7 @@ export class EventReportComponent implements OnInit {
       }
     });
     this.FilterArray.push(this.dataColumnFilter);
-    if (this.dataColumnFilter.type == "AttributeField" || this.dataColumnFilter.type == "StateField") {
+    if (this.dataColumnFilter.type == "AttributeField" || this.dataColumnFilter.type == "StateField" || this.dataColumnFilter.type == "CustomField") {
       this.dataColumnFilter.columnName = "$." + this.dataColumnFilter.columnName;
     }
     this.dataColumnFilter = {
@@ -357,6 +398,13 @@ export class EventReportComponent implements OnInit {
     }
     document.getElementById("filterButton2_" + columnName).click();
     this.GetReport();
+    setTimeout(function () {
+      toggle();
+      inputClear();
+      inputFocus();
+    }, 500);
+
+
     // this.ApplyJsFunction();
   }
 

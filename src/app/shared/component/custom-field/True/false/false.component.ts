@@ -1,21 +1,730 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { options, PannelDisplay, minimalEditForm, existingOptions } from '../options';
+import { FormioCustomComponentInfo, FormioSubmissionCallback, registerCustomFormioComponent } from '@formio/angular';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthService } from '../../../../../core/auth.service';
+import { finalize } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
+import { CustomFieldService } from '../../../../../customfield/service/custom-field.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { EventService } from '../../../../../dynamic-events/service/event.service';
+import { LibraryService } from '../../../../../library/service/library.service';
 @Component({
   selector: 'app-false',
   templateUrl: './false.component.html',
-  styleUrls: ['./false.component.css']
+  styleUrls: ['./false.component.scss']
 })
 export class FalseComponent implements OnInit {
-  public selectedFieldName: any = []
-  constructor() { }
+  @ViewChild('json') jsonElement?: ElementRef;
+  @ViewChild('builder') builderElement?: ElementRef;
+  public submitted = false;
+  public busy: boolean;
+  public error: string;
+  public SelectedIcon = "1";
+  public selectedFields: any = [];
+  public newFormCopy: any;
+  public eventFormCopy: any;
+  public customFieldsRequired = {
+    columnName: '',
+    isSelected: true
+  }
+  public getcustomFieldResult: any = {
+    columnId: 0,
+    columnName: '',
+    columnLabel: '',
+  }
+  isAllLoaded = false;
+  public form: Object = {
+    components: PannelDisplay
+    // {
+    //   "theme": "primary",
+    //   "tooltip": "Create your event form with this ",
+    //   "collapsible": false,
+    //   "key": "panel",
+    //   "type": "panel",
+    //   "label": "Panel",
+    //   "input": false,
+    //   "tableView": false,
+    // "components": [
+    //   {
+    //     type: 'textfield',
+    //     label: 'FirstName',
+    //     key: 'firstName',
+    //     input: true
+    //   },
+    //   {
+    //     type: 'textfield',
+    //     label: 'LastName',
+    //     key: 'lastName',
+    //     input: true
+    //   },
+    //   {
+    //     type: 'email',
+    //     label: 'Email',
+    //     key: 'email',
+    //     input: true
+    //   },
+    //   {
+    //     type: 'button',
+    //     action: 'Submit',
+    //     label: 'Submit',
+    //     theme: 'primary'
+    //   }
+    // ]
+    // }
+  };
 
+  eventForm: any = {
+    id: 0,
+    eventName: '',
+    eventColor: '',
+    eventIcon: '',
+    islocationRequired: false,
+    isUOMRequired: false,
+    withNewRecord: false,
+    withExistRecord: true,
+    eventQuantityAction: '',
+    eventFormJsonSettings: '',
+    customFieldsRequired: []
+  };
+  public isPreview: boolean = false;
+  @Output() rebuildEmitter = new EventEmitter<any>();
+  public selectedFieldName: any = []
+  constructor(private libraryService: LibraryService, private authService: AuthService, private router: Router, private toastr: ToastrService, private spinner: NgxSpinnerService, private customfieldservice: CustomFieldService, private eventService: EventService) {
+    this.options = options;
+
+  }
+  public options: any;
+  public CustomSpecialType: string;
+
+  customField: any = {
+    columnId: 0,
+    columnName: '',
+    columnLabel: '',
+    customFieldType: '',
+    dataType: '',
+    columnValue: '',
+    comboBoxValue: '',
+    customFieldIsRequired: false,
+    customFieldInformation: '',
+    customFieldPrefix: '',
+    customFieldSuffix: '',
+    customFieldIsIncremental: false,
+    customFieldBaseValue: 0,
+    customFieldIncrementBy: 0,
+    customFieldTextMaxLength: 0,
+    customFieldDefaultValue: '',
+    customFieldNumberMin: 0,
+    customFieldNumberMax: 0,
+    customFieldNumberDecimalPlaces: 0,
+    customFieldTrueLabel: '',
+    customFieldFalseLabel: '',
+    customFieldSpecialType: '',
+    dateDefaultPlusMinus: '',
+    dateDefaultNumber: null,
+    dateDefaulInterval: '',
+    timeDefaultPlusMinus: '',
+    timeNumberOfHours: null,
+    timeNumberOFMinutes: null,
+    offsetDateFields: '',
+    offsetTimeFields: '',
+  }
+  selectedTenantId: number = 0;
+
+  public Newform: Object = { components: [] };
   ngOnInit(): void {
+    this.spinner.show();
+    this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+
+    this.GetCustomFields();
+
+
   }
-  selectField(index) {
+
+
+  SelectedEvent(type) {
     debugger;
-    if (index == "false") {
-      this.selectedFieldName.push("false");
-    }
+    this.SelectedIcon = type;
   }
+
+  getDataType(field) {
+
+    this.customField = {
+      columnId: field.columnId != undefined ? field.columnId : 0,
+      columnName: '',
+      columnLabel: field.label,
+      customFieldType: 'CustomField',
+      dataType: '',
+      columnValue: '',
+      comboBoxValue: '',
+      customFieldIsRequired: field.validate != undefined ? field.validate.required != undefined ? field.validate.required : false : false,
+      customFieldInformation: field.tooltip != undefined ? field.tooltip : '',
+      customFieldPrefix: field.prefix != undefined ? field.prefix : "",
+      customFieldSuffix: field.suffix != undefined ? field.suffix : "",
+      customFieldIsIncremental: false,
+      customFieldBaseValue: 0,
+      customFieldIncrementBy: 0,
+      customFieldTextMaxLength: 0,
+      customFieldDefaultValue: field.defaultValue != undefined ? field.defaultValue.toString() : "",
+      CustomFieldNumberMin: field.validate != undefined ? field.validate.min != undefined && field.validate.min != "" ? field.validate.min : 0 : 0,
+      customFieldNumberMax: field.validate != undefined ? field.validate.max != undefined && field.validate.min != "" ? field.validate.max : 0 : 0,
+      customFieldNumberDecimalPlaces: field.decimalLimit != undefined ? field.decimalLimit : 0,
+      customFieldTrueLabel: '',
+      customFieldFalseLabel: '',
+      customFieldSpecialType: '',
+      dateDefaultPlusMinus: '',
+      dateDefaultNumber: null,
+      dateDefaulInterval: '',
+      timeDefaultPlusMinus: '',
+      timeNumberOfHours: null,
+      timeNumberOFMinutes: null,
+      offsetDateFields: '',
+      offsetTimeFields: '',
+    }
+
+
+
+    switch (field.type) {
+
+      case "number": {
+        this.customField.dataType = "Number";
+        if (this.customField.customFieldPrefix == "")
+          this.customField.customFieldSpecialType = "Number";
+        else
+          this.customField.customFieldSpecialType = "Currency";
+        break;
+      }
+
+      case "radio": {
+        this.customField.dataType = "True/False";
+        this.customField.customFieldSpecialType = "CheckBox";
+        break;
+      }
+      case "time":
+        this.customField.dataType = "Date/Time";
+        this.customField.customFieldSpecialType = "Time";
+        break;
+      case "datetime":
+        this.customField.dataType = "Date/Time";
+        if (!field.enableTime)
+          this.customField.customFieldSpecialType = "Date";
+        else
+          this.customField.customFieldSpecialType = "Date & Time";
+        break;
+
+      case "select":
+        {
+          this.customField.dataType = "Text";
+          this.customField.customFieldSpecialType = "Dropdown";
+          this.customField.comboBoxValue = field.data != undefined ? JSON.stringify(field.data.values) : '';
+        }
+        break;
+      case "textfield":
+        this.customField.dataType = "Text";
+        this.customField.customFieldSpecialType = "OpenField";
+        break;
+    }
+
+  }
+
+  onChange(event) {
+    if (event.form) {
+      this.newFormCopy = event.form;
+    }
+    if (event.component != undefined) {
+      if (event.component.eventQuantityAction != undefined) {
+        if (event.component.components != undefined) {
+          event.component.components.forEach(element => {
+            if (element.key == "fieldsetToThisLocation" || element.key == "fieldsetToThisLocation1" || element.key == "fieldsetToThisLocation2") {
+              this.libraryService.GetLocation(this.selectedTenantId, this.authService.accessToken)
+                .pipe(finalize(() => {
+                  this.busy = false;
+                  this.spinner.hide();
+                })).subscribe(result => {
+                  if (result.code == 403) {
+                  }
+                  else {
+                    if (result.entity != null) {
+                      element.data.values = [];
+                      result.entity.forEach(location => {
+                        element.data.values.push({ value: location.locationId, label: location.locationName });
+                      });
+                    }
+                  }
+                });
+            }
+            if (element.key == "fieldsetwithUom" || element.key == "fieldsetwithUom1" || element.key == "fieldsetwithUom2") {
+              this.libraryService.GetUOM(this.selectedTenantId, this.authService.accessToken)
+                .pipe(finalize(() => {
+                  this.busy = false;
+                  this.spinner.hide();
+                })).subscribe(result => {
+                  if (result.code == 403) {
+                  }
+                  else {
+                    if (result.entity != null) {
+                      element.data.values = [];
+                      result.entity.forEach(uom => {
+                        element.data.values.push({ value: uom.uomId, label: uom.uomName });
+                      });
+                    }
+                  }
+                });
+            }
+
+
+          });
+        }
+        this.eventForm.eventQuantityAction = event.component.eventQuantityAction;
+        // this.Newform = event.form;
+      }
+
+      if (event.type == "addComponent") {
+        debugger;
+
+        if (event.component.isNew) {
+          this.getDataType(event.component);
+          this.customfieldservice.AddCustomFields(this.customField, this.selectedTenantId, this.authService.accessToken)
+            .pipe(finalize(() => {
+              this.spinner.hide();
+            }))
+            .subscribe(
+              result => {
+
+                if (result.code == 200) {
+                  this.getcustomFieldResult = result.entity;
+                  event.component.key = this.getcustomFieldResult.columnName;
+                  event.component.isNew = false;
+                  // this.form = event.form;
+                  // this.newFormCopy = this.Newform;
+                  // event.form.components[0].components.forEach(element => {
+                  //   if (element.isNew) {
+                  //     element.isNew = false;
+                  //     element.columnId = this.getcustomFieldResult.columnId;
+                  //     element.key = this.getcustomFieldResult.columnName;
+                  //     this.newFormCopy.components[0].components.push(element);
+
+                  //   }
+                  // });
+                  // event.component.isNew = false;
+                  // event.component.isExist = true;
+                  // this.Newform = this.newFormCopy;
+
+                  this.toastr.success("Your custom field is Successfully add.");
+                  this.customField = {
+                    columnId: 0,
+                    columnName: '',
+                    columnLabel: '',
+                    customFieldType: '',
+                    dataType: '',
+                    columnValue: '',
+                    comboBoxValue: '',
+                    customFieldIsRequired: false,
+                    customFieldInformation: '',
+                    customFieldPrefix: '',
+                    customFieldSuffix: '',
+                    customFieldIsIncremental: false,
+                    customFieldBaseValue: 0,
+                    customFieldIncrementBy: 0,
+                    customFieldTextMaxLength: 0,
+                    customFieldDefaultValue: '',
+                    customFieldNumberMin: 0,
+                    customFieldNumberMax: 0,
+                    customFieldNumberDecimalPlaces: 0,
+                    customFieldTrueLabel: '',
+                    customFieldFalseLabel: '',
+                    customFieldSpecialType: '',
+                    dateDefaultPlusMinus: '',
+                    dateDefaultNumber: null,
+                    dateDefaulInterval: '',
+                    timeDefaultPlusMinus: '',
+                    timeNumberOfHours: null,
+                    timeNumberOFMinutes: null,
+                    offsetDateFields: '',
+                    offsetTimeFields: '',
+                  }
+                  // this.router.navigate(['Dynamic/CreateEvent']);
+
+                }
+                else {
+                  this.toastr.warning(result.message);
+                }
+              },
+              error => {
+                //this.error = error;
+                this.spinner.hide();
+              });
+
+        }
+
+        // this.Newform = event.form;
+
+      }
+
+
+      if (event.type == "saveComponent") {
+        //alert("b");
+        // this.newFormCopy = this.Newform;
+        // this.eventFormCopy = event.form;
+        // this.newFormCopy.components[0].title = this.eventFormCopy.components[0].title
+        // this.newFormCopy.components[0].theme = this.eventFormCopy.components[0].theme
+        // this.Newform = this.newFormCopy;
+
+
+        // this.Newform = event.form;
+      }
+
+
+      // if (event.type == "deleteComponent") {
+      //   alert("c");
+      //   this.Newform = event.form;
+      // }
+      // if (event.type == "updateComponent") {
+
+      //   if (this.newFormCopy.components[0].key == event.component.key) {
+      //     this.newFormCopy.components = event.component;
+      //     this.Newform = this.newFormCopy;
+      //   }
+
+
+      // }
+
+    }
+
+  }
+  CustomFields: any = [];
+  ExistingFiledOptions: any = existingOptions;
+
+  GetCustomFields() {
+    this.customfieldservice.GetCustomFields(this.selectedTenantId, this.authService.accessToken)
+      .pipe(finalize(() => {
+        //this.busy = false;
+        this.spinner.hide();
+      })).subscribe(result => {
+        this.CustomFields = [];
+        if (result.code == 403) {
+          // this.NotPermitted = true;
+        }
+        else {
+
+          if (result.entity != null) {
+
+            this.options.builder.existingFields.components = [];
+            this.CustomFields = result.entity;
+
+            this.CustomFields.forEach(element => {
+              if (element.dataType == "Text" && element.customFieldSpecialType == "OpenField") {
+                debugger;
+                this.options.builder.existingFields.components[element.columnLabel] = {
+                  title: element.columnLabel,
+                  schema: {
+                    label: element.columnLabel,
+                    placeholder: element.columnLabel,
+                    tableView: true,
+                    isNew: false,
+                    prefix: element.customFieldPrefix,
+                    suffix: element.customFieldSuffix,
+                    tooltip: element.customFieldInformation,
+                    key: element.columnName,
+                    columnName: element.columnName,
+                    multiple: false,
+                    protected: false,
+                    unique: true,
+                    type: "textfield",
+                    validate: {
+                      max: element.customFieldNumberMax,
+                      min: element.customFieldNumberMin,
+                      required: element.isRequired
+                    }
+                  }
+                };
+
+              }
+              if (element.dataType == "Number" && element.customFieldSpecialType == "Number") {
+                debugger;
+                this.options.builder.existingFields.components[element.columnLabel] = {
+                  title: element.columnLabel,
+                  schema: {
+                    label: element.columnLabel,
+                    placeholder: element.columnLabel,
+                    tableView: true,
+                    defaultValue: element.customFieldDefaultValue,
+                    decimalLimit: element.customFieldNumberDecimalPlaces,
+                    mask: false,
+                    isNew: false,
+                    requireDecimal: false,
+                    spellcheck: true,
+                    tooltip: element.customFieldInformation,
+                    key: element.columnName,
+                    columnName: element.columnName,
+                    multiple: false,
+                    protected: false,
+                    unique: true,
+                    type: "number",
+                    validate: {
+                      max: element.customFieldNumberMax,
+                      min: element.customFieldNumberMin,
+                      required: element.isRequired
+                    }
+                  }
+                };
+
+              }
+              if (element.dataType == "Number" && element.customFieldSpecialType == "Currency") {
+                debugger;
+                this.options.builder.existingFields.components[element.columnLabel] = {
+                  title: element.columnLabel,
+                  input: true,
+                  schema: {
+                    label: element.columnLabel,
+                    placeholder: element.columnLabel,
+                    tableView: true,
+                    mask: false,
+                    isNew: false,
+                    requireDecimal: false,
+                    spellcheck: true,
+                    defaultValue: element.customFieldDefaultValue,
+                    prefix: element.customFieldPrefix,
+                    tooltip: element.customFieldInformation,
+                    key: element.columnName,
+                    columnName: element.columnName,
+                    type: "number",
+                    validate: {
+                      max: false,
+                      min: false,
+                      required: element.isRequired
+                    }
+
+                  }
+                };
+
+              }
+              if (element.dataType == "Date/Time" && element.customFieldSpecialType == "Date") {
+                debugger;
+                this.options.builder.existingFields.components[element.columnLabel] = {
+                  title: element.columnLabel,
+                  input: true,
+                  schema: {
+                    label: element.columnLabel,
+                    tableView: true,
+                    mask: false,
+                    enableTime: false,
+                    isNew: false,
+                    defaultValue: element.columnValue,
+                    useLocaleSettings: false,
+                    tooltip: element.customFieldInformation,
+                    key: element.columnName,
+                    columnName: element.columnName,
+                    type: "datetime",
+                    validate: {
+                      required: element.isRequired
+                    }
+
+                  }
+                };
+
+              }
+              if (element.dataType == "Date/Time" && element.customFieldSpecialType == "Date & Time") {
+                debugger;
+                this.options.builder.existingFields.components[element.columnLabel] = {
+                  title: element.columnLabel,
+                  input: true,
+                  schema: {
+                    label: element.columnLabel,
+                    tableView: true,
+                    enableMaxDateInput: false,
+                    enableMinDateInput: false,
+                    mask: false,
+                    isNew: false,
+                    defaultValue: element.columnValue,
+                    useLocaleSettings: false,
+                    tooltip: element.customFieldInformation,
+                    key: element.columnName,
+                    columnName: element.columnName,
+                    type: "datetime",
+                    validate: {
+                      required: element.isRequired
+                    }
+
+                  }
+
+                };
+
+              }
+              if (element.dataType == "Date/Time" && element.customFieldSpecialType == "Time") {
+                debugger;
+                this.options.builder.existingFields.components[element.columnLabel] = {
+                  title: element.columnLabel,
+                  input: true,
+                  schema: {
+                    label: element.columnLabel,
+                    tableView: true,
+                    mask: false,
+                    isNew: false,
+                    defaultValue: element.columnValue,
+                    tooltip: element.customFieldInformation,
+                    key: element.columnName,
+                    columnName: element.columnName,
+                    type: "time",
+                    validate: {
+                      required: element.isRequired
+                    }
+
+                  }
+
+                };
+
+              }
+              if (element.dataType == "Text" && element.customFieldSpecialType == "Dropdown") {
+                let JsonData = JSON.parse(element.comboBoxValue);
+                this.options.builder.existingFields.components[element.columnLabel] = {
+                  title: element.columnLabel,
+                  input: true,
+                  schema: {
+                    label: element.columnLabel,
+                    tableView: true,
+                    isNew: false,
+                    tooltip: element.customFieldInformation,
+                    key: element.columnName,
+                    columnName: element.columnName,
+                    widget: "choicesjs",
+                    type: "select",
+                    multiple: false,
+                    protected: false,
+                    unique: true,
+                    data: {
+                      values: JsonData
+                    },
+                    validate: {
+                      required: element.isRequired
+                    }
+
+                  }
+
+                };
+
+              }
+              if (element.dataType == "True/False" && element.customFieldSpecialType == "CheckBox") {
+                debugger;
+                this.options.builder.existingFields.components[element.columnLabel] = {
+                  title: element.columnLabel,
+                  input: true,
+                  schema: {
+                    label: element.columnLabel,
+                    tableView: true,
+                    optionsLabelPosition: "right",
+                    isNew: false,
+                    tooltip: element.customFieldInformation,
+                    key: element.columnName,
+                    columnName: element.columnName,
+                    multiple: false,
+                    protected: false,
+                    unique: true,
+                    type: "radio",
+                    values: [{
+                      label: element.customFieldTrueLabel,
+                      value: element.customFieldTrueLabel,
+                    }, {
+                      label: element.customFieldFalseLabel,
+                      value: element.customFieldFalseLabel
+                    }],
+                    validate: {
+                      required: element.isRequired
+                    }
+                  }
+
+                };
+
+              }
+            });
+            this.isAllLoaded = true;
+
+            //this.rebuildEmitter.next(options);
+            // this.rebuildEmitter.next(this.ExistingFiledOptions);
+          }
+        }
+      })
+  }
+  SaveEvent() {
+    debugger;
+
+    this.eventForm.eventQuantityAction == ""
+    this.spinner.show();
+    let Jsonstring = JSON.stringify(this.newFormCopy);
+    let JsonData = JSON.parse(Jsonstring);
+
+    // this.eventForm = this.eventformControl.value;
+    this.eventForm.eventIcon = this.SelectedIcon.toString();
+    this.eventForm.eventColor = JsonData.components[0].theme;
+    this.eventForm.eventName = JsonData.components[0].title;
+    if (this.eventForm.eventQuantityAction == "") {
+
+      this.toastr.warning("Please Add any Qauntity Action");
+      return false;
+    }
+    if (this.eventForm.eventQuantityAction == 'Add') {
+      this.eventForm.withNewRecord = true;
+    }
+    if (this.eventForm.eventQuantityAction == 'Move') {
+      this.eventForm.islocationRequired = true;
+
+    }
+    if (this.eventForm.eventQuantityAction == 'Convert') {
+      this.eventForm.isUOMRequired = true;
+    }
+
+    let selectedComponent = JsonData.components[0].components;
+    this.selectedFields = [];
+    selectedComponent.forEach(element => {
+      this.customFieldsRequired = {
+        columnName: '',
+        isSelected: true
+      }
+
+      if (element.key != "submit" && element.key != "add" && element.key != "remove" && element.key != 'move' && element.key != 'convert') {
+        // this.customFieldsRequired.columnName = element.key;
+        this.selectedFields.push({
+          columnName: element.key,
+          isSelected: true
+        });
+      }
+    });
+
+    debugger;
+    this.eventForm.eventFormJsonSettings = Jsonstring;
+    this.eventForm.customFieldsRequired = this.selectedFields;
+    this.eventService.AddEvent(this.selectedTenantId, this.eventForm, this.authService.accessToken).pipe(finalize(() => {
+      this.spinner.hide();
+    }))
+      .subscribe(
+        result => {
+          if (result) {
+
+            if (result.entity == true) {
+              this.toastr.success("Your event is Successfully Added.");
+              this.router.navigate(['CurrentInventory']);
+            }
+            else {
+              this.toastr.warning(result.message);
+            }
+          }
+        },
+        error => {
+          this.error = error;
+          this.spinner.hide();
+        });
+
+  }
+
+  onSubmit(event) {
+    debugger;
+    alert('form submitted!')
+  }
+
+  onSubmitCustomForm() {
+    alert('Curstom alert submitted!')
+  }
+
 
 }

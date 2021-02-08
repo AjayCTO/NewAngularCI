@@ -5,8 +5,9 @@
             <div class="form__col-wrap">
                 <div class="form__col form__col--third">
                     <label class="form__label form_label" for="dropdown">Default UOM</label>
-                    <select class="form__input form__select" id="dropdown" name="dropdown">
-                        <option selected>{{selectedItem.uomName}}</option>
+                    <select class="form__input form__select" [(ngModel)]="selectedItem.uomName"
+                        (ngModelChange)='onUomSelected($event)' id="dropdown" name="dropdown">
+                        <!-- <option selected>{{selectedItem.uomName}}</option> -->
 
                         <option *ngFor="let uom of uomLists">{{uom.uomName}}</option>
                     </select>
@@ -22,15 +23,17 @@
                 </div> -->
                 <div class="form__col form__col--third">
                     <label class="form__label form_label" for="dropdown2">Default Location</label>
-                    <select class="form__input form__select" id="dropdown2" name="dropdown">
-                        <option selected>{{selectedItem.locationName}}</option>
-                        <option *ngFor="let location of locationsList">{{location.locationName}}</option>
+                    <select class="form__input form__select" [(ngModel)]="selectedItem.locationName"
+                        (ngModelChange)='onLocationSelected($event)' id="dropdown2" name="dropdown2">
+                        <!-- <option selected>{{selectedItem.locationName}}</option> -->
+                        <option *ngFor="let location of locationsList">
+                            {{location.locationName}}</option>
                     </select>
                 </div>
                 <div class="form__col form__col--third"></div>
             </div>
             <div class="button-group">
-                <button type="submit" class="button button--medium" href="#">
+                <button type="submit" class="button button--medium" (click)="edit()">
                     Save
                 </button>
             </div>

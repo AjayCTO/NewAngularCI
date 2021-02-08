@@ -598,8 +598,7 @@ export class CurrentInventoryGridComponent implements OnInit {
       this.tabulatorColumn.push({ title: "Qty", field: "quantity", type: "", datatype: "number", width: "170" });
       this.tabulatorColumn.push({ title: "Location", field: "locationName", type: "", datatype: "string", width: "170" });
       this.tabulatorColumn.push({ title: "UOM", field: "uomName", type: "", datatype: "stringUom", width: "170" });
-      this.tabulatorColumn.push({ title: "Status", field: "statusValue", datatype: "stringStatus", width: "170" });
-      this.tabulatorColumn.push({ title: "Last Event", field: "lastAction", datatype: "string", width: "170" });
+      this.tabulatorColumn.push({ title: "Last Event", field: "lastAction", type: "", datatype: "string", width: "170" });
       if (result.entity != null) {
         this.myInventoryField = result.entity;
         this.myInventoryField.forEach(element => {
@@ -701,11 +700,11 @@ export class CurrentInventoryGridComponent implements OnInit {
     this.CheckboxShow = false;
     let sortCol = "PartName";
     let sortDir = "asc";
-
+    debugger;
     this.currentinventoryService.GetCurrentInventory(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, this.pageSize, sortCol, sortDir, this.searchFilterText, this.FilterArray)
       .pipe(finalize(() => {
       })).subscribe(result => {
-
+        debugger;
         this.InventoryDataBind = [];
         this.allInventoryItems = [];
         this.allInventoryItems = result.entity.items;
@@ -800,7 +799,7 @@ export class CurrentInventoryGridComponent implements OnInit {
     });
     this.IsInventoryLoaded = false;
     this.GetCurrentInventory();
-    this.ApplyJsFunction();
+    // this.ApplyJsFunction();
   }
 
   ClearAllFilter() {
@@ -886,6 +885,7 @@ export class CurrentInventoryGridComponent implements OnInit {
   }
 
   ApplyFilter2(columnName) {
+    debugger;
     this.dataColumnFilter.columnName = columnName;
     if (this.dataColumnFilter.columnName == "" || this.dataColumnFilter.filterOperator == "" || this.dataColumnFilter.searchValue == "") {
       return false;
@@ -1062,7 +1062,7 @@ export class CurrentInventoryGridComponent implements OnInit {
       inputClear();
       inputFocus();
       datePicker();
-    }, 2000)
+    }, 2500)
   }
 
 
@@ -1285,6 +1285,7 @@ export class CurrentInventoryGridComponent implements OnInit {
           this.toastr.success("Files has been Uploaded", "SuccessFully");
           let el: HTMLElement = this.uploadActivity.nativeElement;
           el.click();
+          window.location.reload();
 
         }
         else {

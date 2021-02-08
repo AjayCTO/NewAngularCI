@@ -121,7 +121,7 @@ export class CustomFieldsComponent implements OnInit {
 
 
   openmenu(item) {
-
+    debugger;
     this.PreviewtypesDropDown = [];
     this.CustomFields.forEach(element => {
       if (item.columnId != element.columnId)
@@ -224,8 +224,11 @@ export class CustomFieldsComponent implements OnInit {
 
 
   ComboBoxChangeDropDown(value) {
+    debugger;
     this.cfdcomboValuesString = "";
-    this.PreviewtypesDropDown = value.split("\n");
+
+    // this.PreviewtypesDropDown = value.split("\n");
+    this.PreviewtypesDropDown = JSON.parse(value);
     this.cfdcomboValuesString = this.PreviewtypesDropDown.reduce((current, value, index) => {
       if (index > 0 && value != '') {
         current += '\n';

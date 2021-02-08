@@ -1,3 +1,5 @@
+<!-- <link rel="stylesheet"
+    href="https://demos.creative-tim.com/argon-design-system/assets/css/argon-design-system.min.css?v=1.2.2"> -->
 <ng-container *ngIf="IsDynamicEventOpen!=undefined&&item!=undefined&&CustomFields!=undefined&&DynamicEvent!=undefined">
     <div class="action action--add" [ngClass]="{'action--is-active': IsDynamicEventOpen}">
         <button *ngIf="IsDynamicEventOpen"
@@ -130,7 +132,16 @@
 
             <span class="icons__label">{{DynamicEvent.eventName}}</span>
         </button>
-        <form class="action__wrap form" #f="ngForm">
+
+
+        <div *ngIf="isDataLoaded">
+            <formio [form]="currentData" (submit)="onSubmit($event)">
+            </formio>
+        </div>
+
+
+
+        <form class="action__wrap form" #f="ngForm" style="display: none;">
             <div class="form__section">
                 <h2 class="form__section-title">{{DynamicEvent.eventName}} this QTY...</h2>
                 <div class="form__col-wrap">
@@ -181,7 +192,7 @@
                         </div>
                         <div class="form__col form__col--third">
                             <!-- <button type="button" data-modal="#AddUOMinnerModal"
-                                class="invModal__control addLibrary js-modal">Add New UOM</button> -->
+                                    class="invModal__control addLibrary js-modal">Add New UOM</button> -->
 
                             <label class="form__label" for="Uom_convert">New UOM <span
                                     class="form__required">*</span></label>
@@ -204,7 +215,7 @@
                     <button type="button" class="invModal__control" (click)="AddCustomModal()">Add New Custom
                         Field</button>
                 </h2>
-               
+
 
 
                 <div class="form__col-wrap">
@@ -245,12 +256,12 @@
                                 <ng-container *ngIf="field.customFieldSpecialType=='Dropdown'">
 
                                     <!-- <select class="form__input form__select" id="Circustance_{{field.columnId}}"
-                                    name="Circustance_{{field.columnId}}" [(ngModel)]="field.columnValue" required>
-                                    <option value=""></option>
-                                    <option *ngFor="let opt of ComboValueDropdown(field.comboBoxValue)" [value]="opt">
-                                        {{opt}}
-                                    </option>
-                                </select> -->
+                                        name="Circustance_{{field.columnId}}" [(ngModel)]="field.columnValue" required>
+                                        <option value=""></option>
+                                        <option *ngFor="let opt of ComboValueDropdown(field.comboBoxValue)" [value]="opt">
+                                            {{opt}}
+                                        </option>
+                                    </select> -->
 
 
                                     <select class="floating-select" id="Circustance_{{field.columnId}}"
@@ -285,10 +296,9 @@
                                             class="input-group-addon text Suffix">{{field.customFieldSuffix}}</span>
                                     </ng-container>
                                     <ng-container *ngIf="!field.customFieldSuffix&&!field.customFieldPrefix">
-                                        <input type="text" maxlength="{{field.customFieldTextMaxLength}}"
-                                            [required]="field.customFieldIsRequired" id="Circustance_{{field.columnId}}"
-                                            name="Circustance_{{field.columnId}}" [(ngModel)]="field.columnValue"
-                                            class="form__input">
+                                        <input type="text" [required]="field.customFieldIsRequired"
+                                            id="Circustance_{{field.columnId}}" name="Circustance_{{field.columnId}}"
+                                            [(ngModel)]="field.columnValue" class="form__input">
                                     </ng-container>
 
                                 </ng-container>
@@ -379,6 +389,8 @@
                 </button>
             </div>
         </form>
+
+
         <button class="action__close js-trigger icons--size02"
             data-trigger=".table__button-group .icons__item.is-active" type="button">
             Back to Event Menu

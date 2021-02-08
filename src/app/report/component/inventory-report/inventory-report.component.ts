@@ -13,6 +13,7 @@ import { DynamicEvents } from '../../../dynamic-events/models/event-models';
 import { ToastrService } from 'ngx-toastr';
 import modal from '../../../../assets/js/lib/_modal';
 import { EventService } from '../../../dynamic-events/service/event.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-inventory-report',
   templateUrl: './inventory-report.component.html',
@@ -45,7 +46,9 @@ export class InventoryReportComponent implements OnInit {
     customFieldsRequired: []
   };
 
-
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.selectedFields, event.previousIndex, event.currentIndex);
+  }
 
   constructor(private spinner: NgxSpinnerService, private eventService: EventService, private toastr: ToastrService, private customFieldService: CustomFieldService, protected store: Store<AppState>, private authService: AuthService, private cdr: ChangeDetectorRef) { }
 
@@ -73,7 +76,7 @@ export class InventoryReportComponent implements OnInit {
 
     let IsExist = false;
     this.selectedFields.forEach(element => {
-      this.selectedFields.push(e.dragData);
+
 
       if (element.columnId == e.dragData.columnId) {
         IsExist = true;

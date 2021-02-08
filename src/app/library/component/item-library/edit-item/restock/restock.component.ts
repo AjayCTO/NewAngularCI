@@ -2,6 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import inputFocus from '../../../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../../../assets/js/lib/_inputClear';
 import dropdown from '../../../../../../assets/js/lib/_dropdown';
+import { LibraryService } from '../../../../service/library.service';
+import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs/operators';
+import { AuthService } from '../../../../../core/auth.service';
 @Component({
   selector: 'app-restock',
   templateUrl: './restock.component.html',
@@ -11,10 +15,17 @@ export class RestockComponent implements OnInit {
   @Input() item: any;
   @Input() locationsList: any;
   public location: any;
-  constructor() { }
+  public selectedItem
+  public partId: number;
+  error: string;
+  public selectedTenantId: number;
+  constructor(private libraryService: LibraryService, private toastr: ToastrService, private authService: AuthService) { }
 
   ngOnInit(): void {
+    debugger;
     this.location = this.locationsList;
+    this.selectedItem = this.item;
+    this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     // this.ApplyJsFunction();
     setTimeout(function () {
       inputClear();
@@ -22,6 +33,37 @@ export class RestockComponent implements OnInit {
 
     }, 200)
 
+  }
+  edit() {
+    debugger;
+
+    this.partId = this.item.partId
+
+    this.libraryService.EditPart(this.selectedTenantId, this.item.partId, this.selectedItem, this.authService.accessToken)
+      .pipe(finalize(() => {
+
+        // this.spinner.hide();
+      }))
+      .subscribe(
+        result => {
+          if (result) {
+
+            if (result.entity == true) {
+              this.toastr.success("Your Restock is Successfully update.");
+              // this.GetLocation();
+
+            }
+            else {
+              this.toastr.warning(result.message);
+            }
+
+          }
+        },
+        error => {
+          debugger;
+          this.error = error.error.message;
+          // this.spinner.hide();
+        });
   }
 
 }

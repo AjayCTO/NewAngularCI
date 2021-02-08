@@ -271,10 +271,15 @@
                             <ng-container *ngIf="field.dataType=='Date/Time'">
                                 <ng-container
                                     *ngIf="field.customFieldSpecialType=='Date'||field.customFieldSpecialType==''">
-                                    <input type="text" [required]="field.customFieldIsRequired"
+                                    <input [owlDateTimeTrigger]="dt3" class="form__input" autocomplete="off"
+                                        name="Attribute_{{field.columnId}}" id="Attribute_{{field.columnId}}"
+                                        [(ngModel)]="field.columnValue" [required]="field.customFieldIsRequired"
+                                        [owlDateTime]="dt3">
+                                    <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+                                    <!-- <input type="text" [required]="field.customFieldIsRequired"
                                         id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
                                         formControlName="{{field.columnId}}" data-flatpickr-mode="single"
-                                        class="form__input flatpickr">
+                                        class="form__input flatpickr"> -->
                                     <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
                                         [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
                                             class="icon-simple icon-simple--theme01 icon-simple--info"
@@ -296,10 +301,15 @@
                                     </popper-content>
                                 </ng-container>
                                 <ng-container *ngIf="field.customFieldSpecialType=='Date & Time'">
-                                    <input type="date" [required]="field.customFieldIsRequired"
+                                    <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" class="form__input"
+                                        id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
+                                        [(ngModel)]="field.columnValue" autocomplete="off"
+                                        [required]="field.customFieldIsRequired">
+                                    <owl-date-time #dt1></owl-date-time>
+                                    <!-- <input type="date" [required]="field.customFieldIsRequired"
                                         id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
                                         formControlName="{{field.columnId}}" data-flatpickr-mode="single"
-                                        class="form__input  flatpickr">
+                                        class="form__input  flatpickr"> -->
                                     <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
                                         [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
                                             class="icon-simple icon-simple--theme01 icon-simple--info"
@@ -321,10 +331,15 @@
                                     </popper-content>
                                 </ng-container>
                                 <ng-container *ngIf="field.customFieldSpecialType=='Time'">
-                                    <input type="date" [required]="field.customFieldIsRequired"
+                                    <input [owlDateTimeTrigger]="dt2" id="Attribute_{{field.columnId}}"
+                                        autocomplete="off" name="Attribute_{{field.columnId}}"
+                                        [(ngModel)]="field.columnValue" [owlDateTime]="dt2" class="form__input">
+                                    <owl-date-time [pickerType]="'timer'" [required]="field.customFieldIsRequired" #dt2>
+                                    </owl-date-time>
+                                    <!-- <input type="date" [required]="field.customFieldIsRequired"
                                         id="Attribute_{{field.columnId}}" name="Attribute_{{field.columnId}}"
                                         formControlName="{{field.columnId}}ddd" data-flatpickr-mode="single"
-                                        class="form__input flatpickr">
+                                        class="form__input flatpickr"> -->
                                     <div class="infopanel" [popper]="popper24Content" [popperTrigger]="'hover'"
                                         [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''"><svg
                                             class="icon-simple icon-simple--theme01 icon-simple--info"

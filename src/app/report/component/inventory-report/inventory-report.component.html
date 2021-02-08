@@ -9,13 +9,69 @@
     <div class="form__col-wrap">
 
         <div class="form__col--second">
-            <h3>All available columns</h3>
+            <h3>All available columns </h3>
 
+
+            <div class="card card-user" style="margin:5px;">
+                <div class="" id="header">
+                    <button class="button button--large button--theme02" routerLink="/sharedcustomfield12">
+                        <svg class="icon-simple icon-simple--theme01 icon-simple--add"
+                            aria-labelledby="title-5f86742813ab3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="24" height="24">
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                            <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                        </svg> &nbsp;Add New Custom Field
+                    </button>
+                </div>
+            </div>
             <ng-container *ngFor="let item of customFields">
 
                 <div class="card card-user draggable" style="margin:5px;" draggable [dragData]="item">
-                    <div class="card-header" id="header">
-                        <h2>{{item.columnLabel}}</h2>
+                    <div class="" id="header">
+                        <span class="" style="float: right;">
+                            <div style="top: -70px; left: -255px; display: block;" class="icons__icon"
+                                [popper]="EditCustomField" [popperTrigger]="'click'" [popperPlacement]="'right'"
+                                [popperApplyClass]="'popperSpecialStyle'"><svg class="icon icon--theme01 icon--adjust"
+                                    aria-labelledby="title-600944d40a8c9" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 48 48" width="48" height="48">
+                                    <path fill="currentColor" class="icon__color--primary" d="M6 36h36v8H6z"></path>
+                                    <path
+                                        d="M12 23.2a8 8 0 00-2.1 7.7 7.9 7.9 0 007.7-2 8.1 8.1 0 002.1-7.8 8 8 0 00-7.7 2.1z"
+                                        fill="currentColor" class="icon__color--secondary"></path>
+                                    <path d="M17.6 17.6L12 23.2l5.6 5.7a8 8 0 010-11.3z" fill="currentColor"
+                                        class="icon__color--secondary">
+                                    </path>
+                                    <path
+                                        d="M28.9 6.2L17.6 17.6a8 8 0 000 11.3l17-17zm5.075-3.486l4.242 4.243a1 1 0 010 1.414l-2.121 2.122-5.657-5.657 2.122-2.122a1 1 0 011.414 0z"
+                                        fill="currentColor" class="icon__color--primary"></path>
+                                    <path fill="none" d="M48 0v48H0V0z"></path>
+                                    <path d="M0 48h48V0H0z" fill="none"></path>
+                                </svg></div>
+                        </span>
+                        <span class="" style="float: right;">
+                            <div class="icons__icon"><svg class="icon icon--theme01 icon--menu"
+                                    aria-labelledby="title-600944d40ab8b" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 48 48" width="48" height="48">
+                                    <path fill="none" d="M0 0h48v48H0z"></path>
+                                    <circle cx="8" cy="24" r="6" fill="currentColor" class="icon__color--primary">
+                                    </circle>
+                                    <circle cx="8" cy="10" r="4" fill="currentColor" class="icon__color--secondary">
+                                    </circle>
+                                    <circle cx="8" cy="38" r="4" fill="currentColor" class="icon__color--secondary">
+                                    </circle>
+                                    <rect x="16.4" y="6" width="31" height="8" rx="4" fill="currentColor"
+                                        class="icon__color--secondary"></rect>
+                                    <rect x="16.4" y="34" width="31" height="8" rx="4" fill="currentColor"
+                                        class="icon__color--secondary">
+                                    </rect>
+                                    <rect x="16.4" y="18" width="31" height="12" rx="6" fill="currentColor"
+                                        class="icon__color--primary"></rect>
+                                </svg></div>
+
+                        </span>
+                        <h3>{{item.columnLabel}}</h3>
+
                     </div>
                 </div>
 
@@ -274,7 +330,8 @@
                 </div>
 
 
-                <div class="card-body" droppable (onDrop)="onItemDrop($event)" [dragOverClass]="'drag-target-border'">
+                <div class="card-body" cdkDropList droppable (onDrop)="onItemDrop($event)"
+                    (cdkDropListDropped)="drop($event)" [dragOverClass]="'drag-target-border'">
 
                     <div class="panel-empty-body">
                         <div style="text-align: center;" *ngIf="selectedFields==undefined || selectedFields.length==0">
@@ -282,9 +339,10 @@
 
 
                         <div class="form__col-wrap">
+
                             <ng-container *ngFor="let field of selectedFields;let i=index">
 
-                                <div draggable class="form__col form__col--third"
+                                <div cdkDrag class="form__col form__col--third"
                                     [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''">
 
                                     <label class="form__label" *ngIf="field.dataType!='True/False'"
@@ -440,7 +498,9 @@
                                     <div class="close" (click)="removeField(i)">×</div>
                                 </div>
                             </ng-container>
+
                             <div class="form__col form__col--third"></div>
+
                         </div>
                     </div>
                 </div>
@@ -779,3 +839,20 @@
         </div>
     </div>
 </section>
+<popper-content #EditCustomField>
+    <div>
+        <form>
+            <div>
+                <h2>Prefix</h2>
+            </div>
+            <input type="text">
+            <br>
+            <div style="display: flex; margin-top: 20px;">
+                <button type="submit" class="button button--medium">Update</button> &nbsp;
+                <button type="submit" class="button button--medium">Cancel</button>
+            </div>
+        </form>
+
+
+    </div>
+</popper-content>

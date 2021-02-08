@@ -268,7 +268,7 @@
                                                         fill="currentColor" class="icon__color--secondary"></path>
                                                 </svg></div>
                                         </div>
-                                        <a (click)="DownloadTemplate()" style="color: dodgerblue;font-size: 16px;">
+                                        <a (click)="DownloadTemplate(event)" style="color: dodgerblue;font-size: 16px;">
                                             <b>Download Template File</b>
                                         </a>
                                     </div>
@@ -278,7 +278,8 @@
                                             click the 'next' button.</p>
                                     </div>
                                     <div class="button-group">
-                                        <button type="button" class="button button--medium">Next
+                                        <button type="button" (click)="selectedconfig(event)"
+                                            class="button button--medium ">Next
                                         </button>
                                         <button type="button" class="button button--medium button--text-only"
                                             data-close="#locationModal" id="Closebtn">Close
@@ -293,5 +294,109 @@
         </div>
     </div>
 </section>
+<input type="button" hidden #NextButton class="js-modal" data-modal="#UploadEventActivity" />
+
 <br>
 <br>
+<div id="UploadEventActivity" class="invModal" role="dialog" aria-labelledby="dialog-title"
+    aria-describedby="dialog-description" tabindex="-1" hidden="">
+    <div class="invModal__head">
+        <h1 class="invModal__title">Inventory Upload Activity</h1>
+
+    </div>
+    <div class="invModal__body">
+        <div class="form__section">
+            <h1 class="invModal__title"> Add new
+                ExcelShet</h1><br />
+            <div class="form__col-wrap">
+                <div class="card icons icons--horziontal icons--size01"
+                    *ngIf=" ExcelSheetName != undefined && ExcelSheetName != '' ">
+                    <button type="button" class="icons__item icons__item--contains-text icons__item--theme07"
+                        style="height:55px;border-radius: 120px;">
+                        <div class="icons__text" style="display: flex;align-items: center;">
+                            <strong class="icons__name"> {{ExcelSheetName}}
+                            </strong>
+                            &nbsp;&nbsp;
+                            <!-- <strong class="icons__name" *ngFor="let selectFile of selectedFiles"
+                                                                            style="font-size: 16px;">
+                                                                            {{selectFile.name}}
+                                                                        </strong> -->
+                            &nbsp;&nbsp;
+                            <div class="" (click)="RemoveexcelName()">
+                                <svg class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                    aria-labelledby="title-5f7cbab264ccf" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24" width="18" height="18">
+                                    <path fill="none" d="M0 0h24v24H0z"></path>
+                                    <path fill="currentColor" d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z">
+                                    </path>
+                                    <path fill="currentColor" d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                    </button>&nbsp;&nbsp;&nbsp;
+                </div>
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                    <span class="fileinput-filename"></span>
+                    <br>
+                    <input #UploadExcel hidden type="file" class="form-control" (change)="uploadedFile($event)"
+                        placeholder="Upload file" accept=".xlsx">
+                    <input type="hidden" value name="fileToUpload">
+                    <!-- <input hidden type="file" accept="image/*" multiple (change)="selectFiles($event)" /> -->
+
+                    <input type="hidden" value name="fileToUpload">
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!showProgressBar" class="actions__wrap">
+            <div class="form__section">
+                <div class="form__col-wrap">
+                    <button (click)="triggerFalseClick()" type="button" class="button button--medium">Select
+                        files</button>
+                </div>
+            </div>
+
+            <!-- <div class="icons__item">
+                <button class="button button--large button--theme02" type="button" (click)="btnUpload()">
+                    <svg class="icon-simple icon-simple--theme01 icon-simple--upload"
+                        aria-labelledby="title-5f92b954262cc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.7 18.6"
+                        width="24" height="24">
+                        <path d="M.8 7l1.5 1.5 4.2-3.8v9.2H9V4.7l4.1 3.8 1.6-1.6L7.8 0z" fill="currentColor"
+                            class="icon__color--secondary">
+                        </path>
+                        <path fill="currentColor" d="M15.2 16.2v2.5H.43v-2.5z"></path>
+                        <path fill="currentColor" d="M13.2 13.3h2.5v5.3h-2.5zM0 13.3h2.5v5.3H0z"></path>
+                    </svg> Upload
+                </button>
+
+            </div> -->
+
+
+
+        </div>
+        <div *ngIf="showProgressBar" style="width:100%">
+            <ul>
+                <li *ngFor="let item of messages">
+                    {{item}}
+                </li>
+            </ul>
+            <progress-bar [progress]="ResultProgress" [disable-percentage]="false">
+            </progress-bar>
+        </div>
+        <div class="button-group">
+
+
+        </div>
+    </div>
+    <div class="invModal__footer">
+
+        <div class="button-group">
+            <button [ngClass]="ExcelSheetName==''?'hidden':''" type="button" (click)="btnUpload()"
+                class="button button--medium button--theme02">Upload</button>
+            <!-- <button [ngClass]="TotalCounter.length==0?'hidden':''" type="button"
+                class="button button--medium button--text-only" (click)="cancel()" #uploadActivity
+                data-close="#UploadActivity">Cancel
+            </button> -->
+        </div>
+    </div>
+</div>

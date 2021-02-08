@@ -234,16 +234,17 @@ export class EventListComponent implements OnInit {
       if (item.id != element.id)
         element.isActive = false;
     });
-    item.isActive = !item.isActive;
+    // item.isActive = !item.isActive;
     this.eventForm = item;
-    let obj = {}
-    obj = JSON.parse(item.circumstanceJsonString);
+    localStorage.setItem('jsonobject', JSON.stringify(this.eventForm));
+    // let obj = {}
+    // obj = JSON.parse(item.circumstanceJsonString);
 
-    this.checklist.forEach(element => {
-      element.isSelected = false;
-      element.isSelected = obj[element.columnName];
-    });
-    this.SelectedIcon = this.eventForm.eventIcon;
+    // this.checklist.forEach(element => {
+    //   element.isSelected = false;
+    //   element.isSelected = obj[element.columnName];
+    // });
+    // this.SelectedIcon = this.eventForm.eventIcon;
     this.AddJsFunction();
   }
   DeleteConfirm(item) {

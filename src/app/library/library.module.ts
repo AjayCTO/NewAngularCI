@@ -25,11 +25,12 @@ import { DetailsComponent } from './component/item-library/edit-item/details/det
 import { EditItemComponent } from './component/item-library/edit-item/edit-item.component';
 import { ImageLibraryComponent } from './component/image-library/image-library.component';
 import { SharedModule } from '../shared/shared.module';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 @NgModule({
   declarations: [LocationLibraryComponent, UOMLibraryComponent, StatusLibraryComponent,
     ItemLibraryComponent, AddLocationComponent, AddStatusComponent, AddUomComponent, DeleteConfirmationComponent, EditItemComponent, DetailsComponent, RestockComponent, UsersComponent, ValuesComponent, SettingsComponent, ImageLibraryComponent],
   imports: [
-    CommonModule,
+    CommonModule, OwlDateTimeModule, OwlNativeDateTimeModule,
     NgxSpinnerModule, FormsModule, NgxPopperModule, SharedModule, ReactiveFormsModule, AutocompleteLibModule,
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'danger', // set defaults here

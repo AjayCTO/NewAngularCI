@@ -335,20 +335,20 @@
   transform: translate(0, -50%);
   z-index: 5;
 }
-.tooltip {
-  font-size: 0;
-  height: 12px;
-  line-height: 1;
-  position: absolute;
-  right: -14px;
-  top: 50%;
-  transform: translate(0, -50%);
-  width: 12px;
-  .icon-simple {
-    color: $cold-gray-hover;
-  }
-  .invModal__control & {
-    right: 0;
-    top: calc(50% + .3rem);
-  }
-}
+// .tooltip {
+//   font-size: 0;
+//   height: 12px;
+//   line-height: 1;
+//   position: absolute;
+//   right: -14px;
+//   top: 50%;
+//   transform: translate(0, -50%);
+//   width: 12px;
+//   .icon-simple {
+//     color: $cold-gray-hover;
+//   }
+//   .invModal__control & {
+//     right: 0;
+//     top: calc(50% + .3rem);
+//   }
+// }
