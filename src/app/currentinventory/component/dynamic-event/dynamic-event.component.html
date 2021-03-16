@@ -148,7 +148,7 @@
                             Date<span class="form__required">*</span></label>
                         <input class="form__input" [owlDateTimeTrigger]="dt1" placeholder="Select Date"
                             id="event-date_add_{{item.inventoryId}}" name="event-date_add_{{item.inventoryId}}"
-                            [ngModel]="today | date:'yyyy-MM-dd'" [owlDateTime]="dt1">
+                            [(ngModel)]="today" [owlDateTime]="dt1">
                         <owl-date-time [pickerType]="'calendar'" #dt1>
                         </owl-date-time>
                     </div>

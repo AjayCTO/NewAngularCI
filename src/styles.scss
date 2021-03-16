@@ -794,17 +794,18 @@ width: 100%;
     padding: 0;
 }
 .col-form-label {
+  padding-top: 5px;
       /* padding-top: 5px; */
     /* padding-bottom: calc(.375rem + 1px); */
         margin-bottom: 0;
-    margin-top: 4px;
-    font-size: inherit;
+    margin-top: -14px;;
     line-height: 1.5;
     position: absolute;
-    left: 10px;
+    
     padding: 0px 3px;
     color: #a6a3a3;
-    background-color: #ffffff;
+   // background-color: #ffffff;
+    //
 }
 
 //  .builder-sidebar_search
@@ -971,15 +972,11 @@ padding:10px;
 
 .input-group-append
 {
-      margin: 0px auto;
+          margin: 0px auto;
     position: absolute;
-    right: 7px;
-    top: 9px;
+    right: 0px;
      padding: 6px 5px;
-    color: #1492d0;
     font-size: 12px;
-    background: #e9eef4;
-    margin-top: -3px;
     border-radius: 0px 5px 5px 0px;
 }
 .fieldset-body
@@ -1001,14 +998,9 @@ padding:10px;
 .input-group-prepend{
    margin: 0px auto;
     position: absolute;
-    left: 6px;
-    top: 9px;
-   
+    left: 0px;
     padding: 6px 5px;
-    color: #1492d0;
     font-size: 12px;
-   background: #e9eef4;
-    margin-top: -3px;
     border-radius: 5px 0px 0px 5px;
 }
 .input-group .form-control

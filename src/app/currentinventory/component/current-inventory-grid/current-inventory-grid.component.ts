@@ -347,6 +347,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     inventoryId: 0,
     locationId: 0,
     locationName: "",
+    transactionDate: new Date(),
     statusValue: "",
     attributeFields: [],
     circumstanceFields: [],
@@ -584,7 +585,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
 
   onSubmitDymamicEvent() {
-
+    debugger;
     if ($.trim(this.CurrentInventoryObj.partName) == "") {
       this.toastr.warning("Item Name Required");
       return false;
@@ -596,6 +597,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.CurrentInventoryObj.uomId = parseInt(this.selectedUOm);
     this.CurrentInventoryObj.statusValue = this.selectedStatus;
     this.CurrentInventoryObj.eventConfiguartion = this.selectedDynamicEvent;
+    this.CurrentInventoryObj.transactionDate = this.today;
     this.currentinventoryService.AddDynamicEventInventory(this.selectedTenantId, this.authService.accessToken, this.CurrentInventoryObj)
       .pipe(finalize(() => {
         this.spinner.hide();
@@ -616,6 +618,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
               inventoryId: 0,
               locationId: 0,
               locationName: "",
+              transactionDate: new Date(),
               statusValue: "",
               attributeFields: [],
               circumstanceFields: [],
@@ -865,6 +868,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
               uomName: "",
               inventoryId: 0,
               locationId: 0,
+              transactionDate: new Date(),
               locationName: "",
               statusValue: "",
               attributeFields: [],
@@ -950,12 +954,6 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       this.busy = false;
       this.spinner.hide();
     })).subscribe(result => {
-      // this.tabulatorColumn.push({ title: "Image", field: "image", type: "", datatype: "string", width: "170", id: "000", isAdded: true });
-      // this.tabulatorColumn.push({ title: "Item Name", field: "partName", type: "", datatype: "string", width: "170", id: "001", isAdded: true });
-      // this.tabulatorColumn.push({ title: "Description", field: "partDescription", type: "", datatype: "string", width: "450", id: "002", isAdded: true });
-      // this.tabulatorColumn.push({ title: "Quantity", field: "quantity", type: "", datatype: "number", width: "170", id: "006", isAdded: true });
-      // this.tabulatorColumn.push({ title: "UOM", field: "uomName", type: "", datatype: "stringUom", width: "170", id: "004", isAdded: true });
-      // this.tabulatorColumn.push({ title: "Last Event", field: "lastAction", type: "", datatype: "string", width: "170", id: "005", isAdded: true });
       if (result.entity != null) {
         debugger;
         this.myInventoryField = result.entity;
@@ -964,16 +962,12 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
             this.tabulatorColumn.push({ id: element.columnId, title: element.columnLabel, isAdded: true, field: element.columnName, type: element.customeFieldType, customFieldSpecialType: element.customFieldSpecialType, datatype: element.dataType, width: element.columnWidth });
         });
         this.ColspanTable = this.tabulatorColumn.length + 3;
+        this.store.dispatch(new SetDefaultInventoryColumn(this.myInventoryField));
         this.GetInventoryView();
         this.GetCurrentInventory();
       }
       else {
       }
-      // this.tabulatorColumn.push({ title: "Location", field: "locationName", type: "", datatype: "string", width: "170", id: "003", isAdded: true });
-
-      // this.store.dispatch(new SetDefaultInventoryColumn(this.tabulatorColumn));
-      // localStorage.setItem('tabelColumn', JSON.stringify(this.tabulatorColumn));
-
     })
   }
 
@@ -1745,6 +1739,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       uomName: "",
       inventoryId: 0,
       locationId: 0,
+      transactionDate: new Date(),
       locationName: "",
       statusValue: "",
       attributeFields: [],

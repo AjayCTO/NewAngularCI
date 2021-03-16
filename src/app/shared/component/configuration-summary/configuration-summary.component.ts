@@ -7,7 +7,7 @@ import { CommanSharedService } from '../../service/comman-shared.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { select, Store } from '@ngrx/store';
-import { selectSelectedTenantId } from 'src/app/store/selectors/tenant.selectors';
+import { selectSelectedTenantId, selectMyInventoryColumn } from 'src/app/store/selectors/tenant.selectors';
 import { AppState } from 'src/app/store/models/app-state.model';
 import inputFocus from '../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../assets/js/lib/_inputClear';
@@ -123,6 +123,16 @@ export class ConfigurationSummaryComponent implements OnInit {
         }
         this.cdr.detectChanges();
       });
+
+    this.store.pipe(select(selectMyInventoryColumn)).
+      subscribe(myInventoryColumn => {
+        if (myInventoryColumn) {
+
+          let column = myInventoryColumn;
+
+        }
+        this.cdr.detectChanges();
+      });
     this.GetCustomFields();
     this.GetAttributeFields();
     this.GetMyInventoryColumns();
@@ -169,7 +179,6 @@ export class ConfigurationSummaryComponent implements OnInit {
         }
         else {
           if (result.entity != null) {
-
             this.AttributeFields = result.entity;
             this.length1 = result.entity.length;
           }

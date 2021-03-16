@@ -98,7 +98,7 @@ export class DataColumnFilter1 {
     public displayName: string;
     public filterOperator: string = "cn";
     public searchValue: string;
-    public ColumnDataType:string;
+    public ColumnDataType: string;
     public type: string;
 }
 
@@ -154,6 +154,7 @@ export class CurrentInventory {
     public inventoryId: number;
     public uomId: number;
     public uomName: string;
+    public transactionDate: Date;
     public locationId: number;
     public locationName: string;
     public statusValue: string;

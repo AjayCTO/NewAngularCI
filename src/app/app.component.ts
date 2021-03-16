@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   canActivateProtectedRoutes: Observable<boolean>;
   _haveTenantId$: Observable<boolean>;
   userInfo
-  Tenants$: any;
+  Tenants$: Observable<any>;
   busy
   constructor(private store: Store<AppState>,
     private authService: AuthService,
@@ -61,12 +61,20 @@ export class AppComponent implements OnInit {
   // url = "assets/js/NewJsForCI.js";
 
   GetTenants() {
-    this.homeService.GetTenants(this.authService.accessToken)
-      .pipe(finalize(() => {
-        this.busy = false;
-      })).subscribe(result => {
-        this.Tenants$ = result.entity;
-      })
+
+    return new Promise(resolve => {
+      setTimeout(() => {
+        this.homeService.GetTenants(this.authService.accessToken)
+          .pipe(finalize(() => {
+            this.busy = false;
+          })).subscribe(result => {
+            this.Tenants$ = result.entity;
+          })
+
+      }, 2000);
+    });
+
+
   }
 
   // loadScript() {

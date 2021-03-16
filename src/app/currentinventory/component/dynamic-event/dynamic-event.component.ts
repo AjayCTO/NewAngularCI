@@ -114,7 +114,7 @@ export class DynamicEventComponent implements OnInit {
 
 
   AddEventSubmit() {
-
+    debugger;
     if (this.selectedDynamicEvent.eventQuantityAction == "Move") {
 
       if (this.TransactionTargetObj.ToLocation == "") {
@@ -151,6 +151,7 @@ export class DynamicEventComponent implements OnInit {
     this.InventoryTransactionObj.circumstanceFields = this.CircumstanceFields;
     this.InventoryTransactionObj.customFields = this.CustomFields;
     this.InventoryTransactionObj.tenantId = this.selectedTenantId;
+    this.InventoryTransactionObj.transactionDate = this.today;
     if (this.TransactionTargetObj.ToUomId == null) {
       this.TransactionTargetObj.ToUomId = 0;
     }
