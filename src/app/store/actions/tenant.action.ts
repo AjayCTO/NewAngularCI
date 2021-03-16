@@ -6,6 +6,7 @@ export enum TenantActionTypes {
 }
 export const SET_SELECTED_TENENT = '[Tenants] SET_SELECTED_TENENT';
 export const SET_SELECTED_TENENT_ID = '[Tenants] SET_SELECTED_TENENT_ID';
+export const SET_MYINVENTORY_COLUMN = '[Tenants] SET_INVENTORY_COLUMN';
 export class AddTenantAction implements Action {
 
     readonly type = TenantActionTypes.ADD_Tenant
@@ -28,7 +29,11 @@ export class SetSelectedTenantId extends PayloadAction<number> {
     readonly type = SET_SELECTED_TENENT_ID;
 }
 
+export class SetDefaultInventoryColumn extends PayloadAction<any>{
+    readonly type = SET_MYINVENTORY_COLUMN;
+}
 
 
 
-export type TenantAction = AddTenantAction | SetSelectedTenant | SetSelectedTenantId | ResetTenantsState
+
+export type TenantAction = AddTenantAction | SetSelectedTenant | SetSelectedTenantId | ResetTenantsState | SetDefaultInventoryColumn

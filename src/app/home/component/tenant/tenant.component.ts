@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { from } from 'rxjs';
 import { HomeService } from '../../service/home.service';
 import { AuthService } from '../../../core/auth.service';
@@ -19,6 +19,7 @@ import { SetSelectedTenant, SetSelectedTenantId } from '../../../store/actions/t
   styleUrls: ['./tenant.component.scss']
 })
 export class TenantComponent implements OnInit {
+  @ViewChild('AddTenantModel', { static: true }) AddTenantModel: ElementRef<HTMLElement>;
   error: string;
   busy: boolean;
   showForm: boolean
@@ -51,6 +52,16 @@ export class TenantComponent implements OnInit {
       inputFocus();
     }, 300)
   }
+
+  AddNewTenant() {
+    debugger;
+    setTimeout(() => {
+      let el: HTMLElement = this.AddTenantModel.nativeElement;
+      el.click();
+    }, 100);
+
+  }
+
   GetTenants() {
     this.homeService.GetTenants(this.authService.accessToken)
       .pipe(finalize(() => {

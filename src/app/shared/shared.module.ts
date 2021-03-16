@@ -16,8 +16,10 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormioModule } from '@formio/angular';
 // import { registerCustomComponent } from './component/custom-field/text/text.formio';
 // import { EditEventsComponent } from '../shared/component/custom-field/edit-events/edit-events.component';
-import { EditEventComponent } from './component/custom-field/edit-event/edit-event.component'
-
+import { EditEventComponent } from './component/custom-field/edit-event/edit-event.component';
+import { IconsComponent } from './component/icons/icons.component';
+import { ConfigurationSummaryComponent } from './component/configuration-summary/configuration-summary.component';
+import { NotPermitComponent } from './component/not-permit/not-permit.component';
 @NgModule({
   providers: [
     ApiService,
@@ -27,9 +29,13 @@ import { EditEventComponent } from './component/custom-field/edit-event/edit-eve
   imports: [FormioModule, CommonModule, FormsModule, DragDropModule, ReactiveFormsModule, RouterModule.forChild([
     { path: 'sharedcustomfield', component: CustomFieldComponent, canActivate: [AuthGuard] },
     { path: 'sharedcustomfield12', component: FalseComponent, canActivate: [AuthGuard] },
-    { path: 'eidtevents', component: EditEventComponent, canActivate: [AuthGuard] }])],
-  declarations: [LocationModalComponent, UomModalComponent, StatusModalComponent, CustomFieldModalComponent, AttributeFieldModalComponent, CustomFieldComponent, FalseComponent, EditEventComponent],
-  exports: [LocationModalComponent, StatusModalComponent, UomModalComponent, CustomFieldModalComponent, AttributeFieldModalComponent],
+    { path: 'eidtevents', component: EditEventComponent, canActivate: [AuthGuard] },
+    { path: 'notPermited', component: NotPermitComponent, canActivate: [AuthGuard] },
+    { path: 'configurationSummary', component: ConfigurationSummaryComponent, canActivate: [AuthGuard] }
+  ])],
+
+  declarations: [LocationModalComponent, UomModalComponent, StatusModalComponent, CustomFieldModalComponent, AttributeFieldModalComponent, CustomFieldComponent, FalseComponent, EditEventComponent, IconsComponent, ConfigurationSummaryComponent, NotPermitComponent],
+  exports: [LocationModalComponent, StatusModalComponent, UomModalComponent, CustomFieldModalComponent, AttributeFieldModalComponent, IconsComponent],
 
 })
 export class SharedModule {

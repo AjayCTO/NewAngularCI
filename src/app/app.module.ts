@@ -35,12 +35,15 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 // import { AddCustomFieldComponent } from './add-custom-field/add-custom-field.component';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { SettingsComponent } from './settings/settings.component'
+import { AuthGuard } from './core/auth-guard.service';
 @NgModule({
   declarations: [
     AppComponent,
     AppMenuComponent,
     FallbackComponent,
     ShouldLoginComponent,
+    SettingsComponent,
     FooterComponent,
     TruncatePipe,
     // AddCustomFieldComponent,
@@ -74,7 +77,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
       { path: 'register', component: RegisterComponent },
       { path: '', redirectTo: '/register', pathMatch: 'full' },
 
-
+      { path: 'configure', component: SettingsComponent, canActivate: [AuthGuard] },
       // Note: this way of module loading requires this in your tsconfig.json: "module": "esnext"
       // { path: 'basics', loadChildren: () => import('./feature-basics/basics.module').then(m => m.BasicsModule) },
       // { path: 'extras', loadChildren: () => import('./feature-extras/extras.module').then(m => m.ExtrasModule) },
@@ -88,7 +91,6 @@ import { ClickOutsideModule } from 'ng-click-outside';
   providers: [
     ConfigService
   ],
-
   bootstrap: [AppComponent]
 })
 export class AppModule { }

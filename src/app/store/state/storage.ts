@@ -9,7 +9,7 @@ export const getThisState = (stateName) => {
 }
 
 export const getItem = (itemName) => {
-
+  debugger;
   const items = getThisState(itemName)
   if (items === undefined) {
     return { Tenant: [] }

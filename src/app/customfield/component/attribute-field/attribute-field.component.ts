@@ -8,6 +8,7 @@ import { CustomFieldService } from '../../service/custom-field.service';
 import modal from '../../../../assets/js/lib/_modal';
 import inputFocus from '../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../assets/js/lib/_inputClear';
+import { Router, Routes } from '@angular/router';
 import tables from '../../../../assets/js/lib/_tables'
 import { debug } from 'console';
 // import { MatDialog } from '@angular/material/dialog';
@@ -85,7 +86,7 @@ export class AttributeFieldsComponent implements OnInit {
   pageIndex = 0;
   lastPageIndex = 0;
 
-  constructor(private authService: AuthService, private toastr: ToastrService, private spinner: NgxSpinnerService, private customfieldservice: CustomFieldService,) { }
+  constructor(private router: Router, private authService: AuthService, private toastr: ToastrService, private spinner: NgxSpinnerService, private customfieldservice: CustomFieldService,) { }
 
   ngOnInit() {
     this.spinner.show();
@@ -106,7 +107,7 @@ export class AttributeFieldsComponent implements OnInit {
         this.spinner.hide();
       })).subscribe(result => {
         if (result.code == 403) {
-          this.NotPermitted = true;
+          this.router.navigateByUrl('/notPermited');
         }
         else {
           if (result.entity != null) {

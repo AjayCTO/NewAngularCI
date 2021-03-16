@@ -8,22 +8,29 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="/assets/img/favicon-32x32.png">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&amp;display=swap" rel="stylesheet">
   <!-- <link rel="stylesheet" href="https://designrevision.com/demo/shards/styles/main-demo.css?v=2.0.0"> -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 </head>
 
 <body>
   <app-root></app-root>
 
 </body>
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
   integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script>
+  $(document).ready(function () {
+
+    $(document).find(".smallModal").parent().parent().css("background-color", "red");;
+  });
+</script>
+<!-- <script>
+
+
+
 
   $(document).ready(function () {
     $("body").click(function () {
@@ -44,69 +51,11 @@
             }
           }
         });
-      $('label').each(
-        function () {
-
-          var itemSelect = $(this).parent().find("select");
-          var vals = itemSelect.val() != null ? itemSelect.val().trim() : '';
-          if (vals.length > 0) {
-            $(this).addClass("top-30");
-          } else {
-            // $(this).removeClass("top-30");
-          }
-          if (itemSelect.is(":focus")) {
-            $(this).addClass("top-30");
-          }
-
-
-        });
 
     });
-    // $(document).on("focus", "input,.dropdown,.flatpickr-input", function () {
-    //   $(this).parent().parent().find("label").addClass("top-30")
-    // });
 
-
-    // $(document).on("focus", ".input-group input", function () {
-    //   $(this).parent().parent().parent().find("label").addClass("top-30")
-    // });
-
-    // $(document).on("focusout", ".input-group input", function () {
-    //   if ($(this).val() == "") {
-    //     $(this).parent().parent().parent().find("label").removeClass("top-30")
-    //   }
-
-    // });
-
-    // $(document).on("focusout", "input", function () {
-
-    //   if ($(this).val() == "") {
-    //     $(this).parent().parent().find("label").removeClass("top-30")
-    //   }
-
-    // });
-
-    // $(document).on("focusout", ".formio-component-datetime", function () {
-
-    //   $(this).find("label").addClass("top-30");
-    //   if ($(this).find("input").hasClass(".flatpickr-input").next("input").val() == "") {
-    //     $(this).find("label").removeClass("top-30");
-    //   }
-    // });
-    // $(document).on("focus", ".dropdown", function () {
-    //   $(this).parent().parent().find("label").addClass("top-30")
-    // });
-    // $(document).on("focusout", ".dropdown", function () {
-
-    //   if ($(".choices__input option:selected") == false) {
-    //     $(this).parent().parent().find("label").removeClass("top-30-select")
-    //   } else {
-    //     $(this).parent().parent().find("label").addClass("top-30-select")
-    //   }
-
-    // });
 
   })
-</script>
+</script> -->
 
 </html>

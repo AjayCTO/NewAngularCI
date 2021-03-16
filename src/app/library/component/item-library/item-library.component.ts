@@ -20,7 +20,9 @@ import { ToastrService } from 'ngx-toastr';
 import { Form, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AttributeFields } from '../../../customfield/models/customfieldmodel';
 import { Router, Routes } from '@angular/router';
+import { Workbook } from 'exceljs';
 
+import * as fs from 'file-saver';
 @Component({
   selector: 'app-item-library',
   templateUrl: './item-library.component.html',
@@ -47,7 +49,7 @@ export class ItemLibraryComponent implements OnInit {
   public showForm: boolean;
   public NotPermitted: boolean = false;
   public selectedPartItem: any;
-
+  UploadActivityOpen: boolean;
   selectedUOm;
   public uomList: any[];
   public locationsList: any[];
@@ -89,7 +91,7 @@ export class ItemLibraryComponent implements OnInit {
   public dataColumnFilter: DataColumnFilter = {
     columnName: "",
     displayName: "",
-    filterOperator: "cn",
+    filterOperator: "",
     searchValue: "",
     type: ""
   }
@@ -138,6 +140,7 @@ export class ItemLibraryComponent implements OnInit {
   public selectedDatatype: string;
   public cfdcomboValuesString: string;
   public item: any;
+  public ColumnDataTypeSpecial: string
   public CfdcomboValuesDropDown: string;
   PreviewtypesDropDown: any = [];
   PreviewtypesAutocomplete: any = [];
@@ -148,6 +151,7 @@ export class ItemLibraryComponent implements OnInit {
 
 
   ngOnInit() {
+    this.UploadActivityOpen = false;
     this.spinner.show();
     this.uomForm = this.formBuilder.group({
       uomName: ['', Validators.required],
@@ -209,8 +213,88 @@ export class ItemLibraryComponent implements OnInit {
       datePicker();
     }, 1000)
   }
+  mainToggleDropdown = false;
+  MainFilterToggle() {
+    this.mainToggleDropdown = !this.mainToggleDropdown;
+  }
+  FilterOperartorSelect(data) {
 
-
+    if (data == 'Equals') {
+      this.dataColumnFilter.filterOperator = 'eq'
+    }
+    if (data == 'Does Not Equal') {
+      this.dataColumnFilter.filterOperator = 'ne'
+    }
+    if (data == 'Contains') {
+      this.dataColumnFilter.filterOperator = 'cn'
+    }
+    if (data == 'Does NOT Contain') {
+      this.dataColumnFilter.filterOperator = 'nc'
+    }
+    if (data == 'Is Empty') {
+      this.dataColumnFilter.filterOperator = 'Empty'
+    }
+    if (data == 'Begins With') {
+      this.dataColumnFilter.filterOperator = 'bw'
+    }
+    if (data == 'Number Equals') {
+      this.dataColumnFilter.filterOperator = 'num-eq'
+    }
+    if (data == 'Number Not Equal') {
+      this.dataColumnFilter.filterOperator = 'num-ne'
+    }
+    if (data == 'Less Than or Equals') {
+      this.dataColumnFilter.filterOperator = 'num-lte'
+    }
+    if (data == 'Greater Than or Equals') {
+      this.dataColumnFilter.filterOperator = 'num-gte'
+    }
+    if (data == 'DateEquals') {
+      this.dataColumnFilter.filterOperator = 'date-eq'
+    }
+    if (data == 'TimeEquals') {
+      this.dataColumnFilter.filterOperator = 'time-eq'
+    }
+    if (data == 'Date Between') {
+      this.dataColumnFilter.filterOperator = 'date-bw'
+    }
+    if (data == 'Minute Equals') {
+      this.dataColumnFilter.filterOperator = 'date-minute'
+    }
+    if (data == 'Hour Equals') {
+      this.dataColumnFilter.filterOperator = 'date-hour'
+    }
+    if (data == 'Second Equals') {
+      this.dataColumnFilter.filterOperator = 'date-second'
+    }
+    if (data == 'Month Equals') {
+      this.dataColumnFilter.filterOperator = 'date-month'
+    }
+    if (data == 'Day Equals') {
+      this.dataColumnFilter.filterOperator = 'date-day'
+    }
+    if (data == 'Year Equals') {
+      this.dataColumnFilter.filterOperator = 'date-year'
+    }
+    if (data == 'On Or After') {
+      this.dataColumnFilter.filterOperator = 'date-after'
+    }
+    if (data == 'On Or Before') {
+      this.dataColumnFilter.filterOperator = 'date-before'
+    }
+    if (data == 'On Or Time Before') {
+      this.dataColumnFilter.filterOperator = 'time-before'
+    }
+    if (data == 'On Or Time After') {
+      this.dataColumnFilter.filterOperator = 'time-after'
+    }
+  }
+  ExportToExecel() {
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet("Item List");
+    let header = []
+    let headerRow = worksheet.addRow(header);
+  }
 
   // ApplyDropdown() {
   //   setTimeout(() => {
@@ -225,6 +309,7 @@ export class ItemLibraryComponent implements OnInit {
       if (element.field == event) {
 
         this.ColumnDataType = element.datatype;
+        this.ColumnDataTypeSpecial = element.customFieldSpecialType
       }
 
     });
@@ -276,16 +361,19 @@ export class ItemLibraryComponent implements OnInit {
       if (element.field == this.dataColumnFilter.columnName) {
         this.dataColumnFilter.displayName = element.title;
         this.dataColumnFilter.type = element.type;
+        element.inFilter = true;
+        this.mainToggleDropdown = !this.mainToggleDropdown;
       }
     });
     this.FilterArray.push(this.dataColumnFilter);
     if (this.dataColumnFilter.type == "AttributeField" || this.dataColumnFilter.type == "StateField") {
       this.dataColumnFilter.columnName = "$." + this.dataColumnFilter.columnName;
     }
+    this.ColumnDataTypeSpecial = '';
     this.dataColumnFilter = {
       columnName: "",
       displayName: "",
-      filterOperator: "cn",
+      filterOperator: "",
       searchValue: "",
       type: ""
     }
@@ -297,6 +385,7 @@ export class ItemLibraryComponent implements OnInit {
 
   }
   RemoveFilter(data) {
+    debugger
     this.FilterArray.forEach((element, index) => {
 
       if (element.columnName == data.columnName) {
@@ -304,12 +393,19 @@ export class ItemLibraryComponent implements OnInit {
       }
 
     });
+    this.tabulatorColumn.forEach(element => {
+      var pre = element.type == "AttributeField" ? '$.' : '';
+      if (pre + element.field == data.columnName) {
+        element.inFilter = false;
+      }
+    });
     this.GetParts();
 
   }
   CloseFilter() {
+    this.mainToggleDropdown = !this.mainToggleDropdown;
 
-    document.getElementById("filterButton").click();
+    // document.getElementById("filterButton").click();
 
     // let el: HTMLElement = this.filterChange.nativeElement;
     // el.click();
@@ -336,6 +432,8 @@ export class ItemLibraryComponent implements OnInit {
       if (element.field == this.dataColumnFilter.columnName) {
         this.dataColumnFilter.displayName = element.title;
         this.dataColumnFilter.type = element.type;
+        element.inFilter = true;
+        element.opentoggleDropdown = !element.opentoggleDropdown
       }
     });
     this.FilterArray.push(this.dataColumnFilter);
@@ -345,7 +443,7 @@ export class ItemLibraryComponent implements OnInit {
     this.dataColumnFilter = {
       columnName: "",
       displayName: "",
-      filterOperator: "cn",
+      filterOperator: "",
       searchValue: "",
       type: ""
     }
@@ -353,6 +451,26 @@ export class ItemLibraryComponent implements OnInit {
     // document.getElementById("filterButton3_" + Id).click();
     this.GetParts();
 
+  }
+  toggleGlobalDropDown(event) {
+
+    this.tabulatorColumn.forEach(element => {
+      if (element.field == event) {
+        this.ColumnDataType = element.datatype;
+        element.opentoggleDropdown = !element.opentoggleDropdown;
+      }
+    });
+
+
+    this.ApplyJsFunction();
+  }
+  closeGlobalDropDown(event) {
+    this.tabulatorColumn.forEach(element => {
+      if (element.field == event) {
+
+        element.opentoggleDropdown = !element.opentoggleDropdown;
+      }
+    });
   }
 
   CloseFilter2(Id) {
@@ -362,7 +480,7 @@ export class ItemLibraryComponent implements OnInit {
   }
 
   onSubmit() {
-    debugger;
+
     this.submitted = true;
     if (this.partformControl.invalid) {
       this.toastr.warning("Required", "Please fill required column");
@@ -433,7 +551,7 @@ export class ItemLibraryComponent implements OnInit {
     });
   }
   SelectedMonth(id) {
-    debugger;
+
     this.Month.forEach(element => {
       if (element.id == id) {
         this.dataColumnFilter.searchValue = element.month;
@@ -533,7 +651,7 @@ export class ItemLibraryComponent implements OnInit {
       .subscribe(
         result => {
           if (result) {
-            debugger;
+
 
             if (result.entity == true) {
               this.toastr.success("Your Uom is Successfully Add.");
@@ -553,20 +671,20 @@ export class ItemLibraryComponent implements OnInit {
 
 
   GetMyInventoryColumn() {
-    debugger;
+
     this.commanService.GetMyInventoryColumns(this.selectedTenantId, this.authService.accessToken).pipe(finalize(() => {
       this.busy = false;
       this.spinner.hide();
     })).subscribe(result => {
-      debugger;
+
       if (result.entity != null) {
         this.myInventoryField = result.entity;
-        this.tabulatorColumn.push({ title: "Item Name", field: "partName", type: "", datatype: "string", width: "170" });
-        this.tabulatorColumn.push({ title: "Description", field: "partDescription", type: "", datatype: "string", width: "450" });
-        this.tabulatorColumn.push({ title: "Default Location", field: "locationName", type: "", datatype: "string", width: "170" });
-        this.tabulatorColumn.push({ title: " Defualt UOM", field: "uomName", type: "", datatype: "stringUom", width: "170" });
+        // this.tabulatorColumn.push({ title: "Item Name", field: "partName", type: "", datatype: "string", width: "170" });
+        // this.tabulatorColumn.push({ title: "Description", field: "partDescription", type: "", datatype: "string", width: "450" });
+        // this.tabulatorColumn.push({ title: "Default Location", field: "locationName", type: "", datatype: "string", width: "170" });
+        // this.tabulatorColumn.push({ title: " Defualt UOM", field: "uomName", type: "", datatype: "stringUom", width: "170" });
         this.myInventoryField.forEach(element => {
-          if (element.customeFieldType == "AttributeField") {
+          if (element.customeFieldType == "AttributeField" || element.customeFieldType == "") {
             this.tabulatorColumn.push({ title: element.columnLabel, field: element.columnName, type: element.customeFieldType, datatype: element.dataType, customFieldSpecialType: element.customFieldSpecialType, width: "170" });
           }
         });
@@ -595,7 +713,7 @@ export class ItemLibraryComponent implements OnInit {
     this.GetParts();
   }
   gotoNext() {
-    debugger;
+
     this.lastPageIndex = this.length / this.pageSize;
     this.lastPageIndex = parseInt(this.lastPageIndex.toString())
     if (this.pageIndex != this.lastPageIndex) {
@@ -611,7 +729,6 @@ export class ItemLibraryComponent implements OnInit {
   }
 
   SearchFilter() {
-    debugger;
 
     if (this.searchFilterText != undefined && this.searchFilterText != "") {
       this.isSearchFilterActive = true;
@@ -632,16 +749,16 @@ export class ItemLibraryComponent implements OnInit {
     this.loadingRecords = true;
     let sortCol = "PartName";
     let sortDir = "asc";
-    debugger;
+
     this.libraryService.getAllPartWithPaging(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, this.pageSize, sortCol, sortDir, this.searchFilterText, this.FilterArray)
       .pipe(finalize(() => {
 
         //this.spinner.hide();
       })).subscribe(result => {
 
-        debugger;
+
         if (result.code == 403) {
-          this.NotPermitted = true;
+          this.router.navigateByUrl('/notPermited');
         }
         this.loadingRecords = false;
         this.PartDataBind = [];
@@ -667,7 +784,7 @@ export class ItemLibraryComponent implements OnInit {
             }
 
             for (let k = 0; k < this.allItems[i].attributeFields.length; k++) {
-              debugger;
+
               if (this.allItems[i].attributeFields[k].columnName == this.tabulatorColumn[j].field) {
 
                 if (this.tabulatorColumn[j].datatype == "Date/Time") {
@@ -705,9 +822,15 @@ export class ItemLibraryComponent implements OnInit {
   }
 
 
+  ShowUploadActivity() {
 
+    this.UploadActivityOpen = true;
+  }
+  getValue(value: boolean) {
+    this.UploadActivityOpen = false;
+  }
   selectEvent(event, data) {
-    debugger;
+
     data.columnValue = event;
   }
 
@@ -736,7 +859,7 @@ export class ItemLibraryComponent implements OnInit {
     //   return;
     // }
     this.spinner.show();
-    debugger;
+
     if (this.attributeFields.customFieldSpecialType == "Autocomplete" || this.attributeFields.customFieldSpecialType == "Dropdown") {
       this.attributeFields.comboBoxValue = this.cfdcomboValuesString;
     }
@@ -760,7 +883,7 @@ export class ItemLibraryComponent implements OnInit {
       .subscribe(
         result => {
           if (result) {
-            debugger;
+
 
             if (result.entity == true) {
               this.toastr.success("Your Attribute is Successfully Add.");
@@ -801,7 +924,7 @@ export class ItemLibraryComponent implements OnInit {
   //====Chirag====
 
   AddNewLocation(form) {
-    debugger;
+
 
 
     if (this.locationForm.invalid) {
@@ -816,7 +939,7 @@ export class ItemLibraryComponent implements OnInit {
       .subscribe(
         result => {
           if (result) {
-            debugger;
+
 
             if (result.entity == true) {
               this.toastr.success("Your Location is Successfully add.");
@@ -837,7 +960,7 @@ export class ItemLibraryComponent implements OnInit {
   }
   // 
   edit(item) {
-    debugger;
+
     this.edititem = true;
     // this.PartDataBind=false;
     this.selecteditem = item;

@@ -4,6 +4,8 @@ import { catchError, map } from 'rxjs/operators';
 import { BaseService } from "../../shared/base.service";
 import { ConfigService } from '../../shared/config.service';
 import { IApiResponse } from '../../../app/core/models/api-response';
+import { NumberValueAccessor } from '@angular/forms';
+import { data } from 'jquery';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,7 @@ export class CurrentinventoryService extends BaseService {
   }
 
 
-  GetCurrentInventory(TenantId: number, token: string, pageToReturn: number, rowsPerPage: number, sortCol: string, sortDir: string, searchText: string, data: any) {
+  GetCurrentInventory(TenantId: number, token: string, pageToReturn: number, rowsPerPage: number, sortCol: string, sortDir: string, searchText: string, showSelected: boolean, data: any) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -23,7 +25,7 @@ export class CurrentinventoryService extends BaseService {
       })
     };
 
-    return this.http.post<IApiResponse>(this.configService.resourceApiURI + '/api/CurrentInventory/GetAllInventories?TenantId=' + TenantId + '&pageToReturn=' + pageToReturn + '&rowsPerPage=' + rowsPerPage + '&sortCol=' + sortCol + '&sortDir=' + sortDir + '&searchText=' + searchText, data, httpOptions).pipe(catchError(this.handleError));
+    return this.http.post<IApiResponse>(this.configService.resourceApiURI + '/api/CurrentInventory/GetAllInventories?TenantId=' + TenantId + '&pageToReturn=' + pageToReturn + '&rowsPerPage=' + rowsPerPage + '&sortCol=' + sortCol + '&sortDir=' + sortDir + '&searchText=' + searchText + '&showSelected=' + showSelected, data, httpOptions).pipe(catchError(this.handleError));
 
   }
   AddItemInventory(TenantId: number, token: string, Data: any) {
@@ -155,6 +157,137 @@ export class CurrentinventoryService extends BaseService {
       })
     };
     return this.http.post<IApiResponse>(this.configService.resourceApiURI + '/api/ManageUploads/ImportAddInventory?TenantId=' + TenantId + '&EventName=' + config.eventName + '&EventId=' + config.id + '&EventQuantityAction=' + config.eventQuantityAction + '&IslocationRequired=' + config.islocationRequired + '&IsUOMRequired=' + config.isUOMRequired, file, httpOptions).pipe(catchError(this.handleError));
+  }
+
+
+  CreateInventoryView(TenantId: number, token: string, data: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': "Bearer " + token,
+      })
+    };
+    return this.http.post(this.configService.resourceApiURI + '/api/CurrentInventory/InventoryView/Save?TenantId=' + TenantId, data, httpOptions).pipe(map((response: {
+      message: string;
+      code: number;
+      entity: boolean;
+    }) => {
+      return response;
+    }
+    ));
+  }
+
+  GetInventoryView(TenantId: number, token: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': "Bearer " + token
+      })
+    };
+    return this.http.get(this.configService.resourceApiURI + '/api/CurrentInventory/InventoryViews/Get?TenantId=' + TenantId, httpOptions,
+    ).pipe(map((response: any) => {
+      return response;
+    }));
+  }
+
+  DeleteInventoryView(TenantId: number, token: string, viewId: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "bearer " + token
+      })
+    };
+    return this.http.delete(this.configService.resourceApiURI + '/api/CurrentInventory/InventoryView/Delete?TenantId=' + TenantId + '&ViewId=' + viewId, httpOptions).pipe(map((response: {
+      message: string;
+      code: number;
+      entity: boolean;
+    }) => {
+      return response;
+    }
+    ));
+  }
+
+  MakeasDefault(TenantId: number, token: string, viewId: number, data) {
+    debugger;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "bearer " + token
+      })
+    };
+    return this.http.put(this.configService.resourceApiURI + '/api/CurrentInventory/InventoryViews/MakeDefault?TenantId=' + TenantId + '&ViewId=' + viewId, data, httpOptions).pipe(map((response: {
+      message: string;
+      code: number;
+      entity: boolean;
+    }) => {
+      return response;
+    }
+    ));
+  }
+
+  EditInventoryView(TenantId: number, token: string, data: any, viewId: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': "Bearer " + token,
+      })
+    };
+    return this.http.put(this.configService.resourceApiURI + '/api/CurrentInventory/InventoryView/Edit?TenantId=' + TenantId + '&ViewId=' + viewId, data, httpOptions).pipe(map((response: {
+      message: string;
+      code: number;
+      entity: boolean;
+    }) => {
+      return response;
+    }
+    ));
+  }
+
+  UndoTransaction(TenantId: number, token: string, transactionId: number, inventoryId: number, parentId: number) {
+    debugger;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': "Bearer " + token,
+      })
+    };
+    return this.http.get(this.configService.resourceApiURI + '/api/CurrentInventory/UndoTransaction?TenantId=' + TenantId + '&TransactionId=' + transactionId + '&InventoryId=' + inventoryId + '&ParentTransactionId=' + parentId, httpOptions).pipe(map((response: {
+      message: string;
+      code: number;
+      entity: boolean;
+    }) => {
+      return response;
+    }
+    ));
+  }
+  saveCart(TenantId: number, token: string, viewId: number, carts: any) {
+
+
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': "Bearer " + token,
+      })
+    };
+    return this.http.post(this.configService.resourceApiURI + '/api/CurrentInventory/InventoryCart/Save?TenantId=' + TenantId + '&ViewId=' + viewId, carts, httpOptions).pipe(map((response: {
+      message: string;
+      code: number;
+      entity: boolean;
+    }) => {
+      return response;
+    }
+    ));
+  }
+  getCartdetails(TenantId: number, token: string, viewId: number,) {
+    debugger;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': "Bearer " + token,
+      })
+    };
+    return this.http.get(this.configService.resourceApiURI + '/api/CurrentInventory/InventoryCart/Get?TenantId=' + TenantId + '&ViewId=' + viewId, httpOptions).pipe(map((response: {
+      message: string;
+      code: number;
+      entity: boolean;
+    }) => {
+      return response;
+    }
+    ));
   }
 
 }

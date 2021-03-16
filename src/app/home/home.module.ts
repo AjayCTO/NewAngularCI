@@ -7,14 +7,14 @@ import { TenantComponent } from './component/tenant/tenant.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from "ngx-spinner";
-
+import { NgxPopperModule } from 'ngx-popper';
 @NgModule({
   declarations: [TenantComponent],
   imports: [
     CommonModule,
     NgxSpinnerModule,
     FormsModule, ReactiveFormsModule,
-
+    NgxPopperModule,
     RouterModule.forChild([
 
       { path: 'home', component: TenantComponent, canActivate: [AuthGuard] },

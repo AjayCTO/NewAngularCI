@@ -9,6 +9,7 @@ import modal from '../../../../assets/js/lib/_modal';
 import inputFocus from '../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../assets/js/lib/_inputClear';
 import tables from '../../../../assets/js/lib/_tables'
+import { Router, Routes } from '@angular/router';
 import { debug } from 'console';
 
 @Component({
@@ -85,7 +86,7 @@ export class CustomFieldsComponent implements OnInit {
   pageIndex = 0;
   lastPageIndex = 0;
 
-  constructor(private authService: AuthService, private toastr: ToastrService, private spinner: NgxSpinnerService, private customfieldservice: CustomFieldService,) { }
+  constructor(private router: Router, private authService: AuthService, private toastr: ToastrService, private spinner: NgxSpinnerService, private customfieldservice: CustomFieldService,) { }
 
   ngOnInit() {
     this.spinner.show();
@@ -107,10 +108,12 @@ export class CustomFieldsComponent implements OnInit {
         this.spinner.hide();
       })).subscribe(result => {
         if (result.code == 403) {
-          this.NotPermitted = true;
+          this.router.navigateByUrl('/notPermited');
+
         }
         else {
           if (result.entity != null) {
+            debugger;
             this.loadingRecords = false;
             this.CustomFields = result.entity;
             this.length = result.entity.length;
@@ -274,54 +277,55 @@ export class CustomFieldsComponent implements OnInit {
       }))
       .subscribe(
         result => {
+          if (result) {
+            if (result.code == 200) {
+              if (this.EditMode)
+                this.toastr.success("Your custom field is Successfully update.");
+              else {
 
-          if (result.entity == true) {
-            if (this.EditMode)
-              this.toastr.success("Your custom field is Successfully update.");
+                this.toastr.success("Your custom field is Successfully add.");
+              }
+              document.getElementById("closeModal").click();
+              this.showForm = false;
+              this.SelectedEditColumnId = null;
+              this.customField = {
+                columnId: 0,
+                columnName: '',
+                columnLabel: '',
+                customFieldType: '',
+                dataType: '',
+                columnValue: '',
+                comboBoxValue: '',
+                customFieldIsRequired: false,
+                customFieldInformation: '',
+                customFieldPrefix: '',
+                customFieldSuffix: '',
+                customFieldIsIncremental: false,
+                customFieldBaseValue: 0,
+                customFieldIncrementBy: 0,
+                customFieldTextMaxLength: 0,
+                customFieldDefaultValue: '',
+                customFieldNumberMin: 0,
+                customFieldNumberMax: 0,
+                customFieldNumberDecimalPlaces: 0,
+                customFieldTrueLabel: '',
+                customFieldFalseLabel: '',
+                customFieldSpecialType: '',
+                dateDefaultPlusMinus: '',
+                dateDefaultNumber: null,
+                dateDefaulInterval: '',
+                timeDefaultPlusMinus: '',
+                timeNumberOfHours: null,
+                timeNumberOFMinutes: null,
+                offsetDateFields: '',
+                offsetTimeFields: '',
+              }
+              this.GetCustomFields();
+              this.AddJsFunction();
+            }
             else {
-
-              this.toastr.success("Your custom field is Successfully add.");
+              this.toastr.warning(result.message);
             }
-            document.getElementById("closeModal").click();
-            this.showForm = false;
-            this.SelectedEditColumnId = null;
-            this.customField = {
-              columnId: 0,
-              columnName: '',
-              columnLabel: '',
-              customFieldType: '',
-              dataType: '',
-              columnValue: '',
-              comboBoxValue: '',
-              customFieldIsRequired: false,
-              customFieldInformation: '',
-              customFieldPrefix: '',
-              customFieldSuffix: '',
-              customFieldIsIncremental: false,
-              customFieldBaseValue: 0,
-              customFieldIncrementBy: 0,
-              customFieldTextMaxLength: 0,
-              customFieldDefaultValue: '',
-              customFieldNumberMin: 0,
-              customFieldNumberMax: 0,
-              customFieldNumberDecimalPlaces: 0,
-              customFieldTrueLabel: '',
-              customFieldFalseLabel: '',
-              customFieldSpecialType: '',
-              dateDefaultPlusMinus: '',
-              dateDefaultNumber: null,
-              dateDefaulInterval: '',
-              timeDefaultPlusMinus: '',
-              timeNumberOfHours: null,
-              timeNumberOFMinutes: null,
-              offsetDateFields: '',
-              offsetTimeFields: '',
-            }
-            this.GetCustomFields();
-            this.AddJsFunction();
-          }
-          else {
-            this.toastr.warning(result.message);
           }
         },
         error => {

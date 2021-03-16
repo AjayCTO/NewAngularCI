@@ -1,0 +1,319 @@
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+// .card {
+//   position: relative;
+//   display: block;
+//   min-width: 0;
+//   background-color: #fff;
+//   //border: 1px solid transparent;
+//   border: 0;
+//   border-radius: 1pc solid #ccc;
+//   overflow: hidden;
+//   padding: 0;
+
+//   .card-header {
+//     position: relative;
+//   }
+
+//   .card-controls {
+//     position: absolute;
+//     top: 15px / 2;
+//     right: 15px / 2;
+//   }
+// }
+.card-user .card-header {
+  //background: linear-gradient(45deg, #1b75bb 0%, rgba(73, 140, 193, 0.9) 100%);
+  padding: 20px;
+}
+
+.card .card-header {
+  position: relative;
+}
+.draggable {
+  cursor: move;
+}
+.card-user .card-image {
+  display: block;
+  width: 162px;
+  height: 162px;
+  margin: auto;
+  pointer-events: none;
+}
+.card {
+  position: relative;
+  // display: block;
+  // min-width: 0;
+  // background-color: #fff;
+  //border: 1px solid transparent;
+  // border: black;
+  // border-radius: 5px;
+  // overflow: hidden;
+  padding: 27px;
+
+  .card-header {
+    position: relative;
+    padding: 10px;
+  }
+
+  .card-controls {
+    position: absolute;
+    top: 0px;
+    right: 3px;
+    /* border-radius: 100px; */
+    margin: 5px;
+  }
+}
+.panel-empty-body
+{
+ 
+  position: relative;
+  height: 200px;
+
+}
+.drag-over-border
+{
+  border: 2px dashed #ccc;
+    border-radius: 15px;
+}
+.card-user .card-image img {
+  display: block;
+  width: 162px;
+  height: 162px;
+  border-radius: 162px;
+  border: 2px solid #ccc;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: center;
+  object-position: center;
+  background-color: #fff;
+}
+
+  .card-body {
+  // padding: 15px;
+
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.card-user .card-user-name {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+
+  h2 {
+    font-size: 18px !important;
+  }
+}
+
+.card-user .card-user-email {
+  margin-top: 10px;
+  display: block;
+  font-size: 14px;
+  color: #1b75bb;
+  text-decoration: none;
+  font-weight: 400;
+  height: 21px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  outline: 0;
+}
+
+.close {
+    
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .2;
+    cursor: pointer;
+    position: absolute;
+    top: -18px;
+    right: 37px;
+    filter: alpha(opacity=20);
+}
+
+/*default css that you provided*/
+.content-editable {
+    outline-width: 0;
+    min-height: 1em;
+    max-height: 300px;
+     
+    overflow-y: scroll;
+    color: #283237;
+    font-size: 1rem;
+    font-weight: 300;
+    padding: 10px;
+    border: 1px dashed;
+    width: calc(100% - 50px);
+    top: 10px;
+    left: 57PX;
+    position: absolute !important;
+}
+.content-editable:empty:before {
+    content: attr(placeholder);
+}
+
+
+/*my added css*/
+.content-editable {
+	/*hides ugly unneccessary scrollbars*/
+	overflow: hidden;
+
+	/*allows proper positioning of `before` area*/
+	position: relative;
+    
+    /*breaks long words into multiple lines - firefox needs it*/
+    word-wrap: break-word;
+}
+
+.content-editable:empty::before {
+	/*useless - used to identify the `before` area*/
+	/*background: red*/
+
+	/*following css is used to make `before` element span the entire editable div*/
+	position: relative;
+	top: 0;
+	left: 0;
+    padding: 10px;  /*must be as much as the editable div, so that text and placeholder appear at same height*/
+    width: 90%;
+	height: 100%;
+}
+
+.drag-handle {
+ 
+  cursor: move;
+    // top: -22px;
+    // position: absolute;
+    // left: 6px;
+    color: #888;
+    font-size: 15px;
+    width: 100%;
+}
+
+.f-card .form__col
+{
+  margin-bottom: 0;
+}
+
+.f-card
+{
+  margin-bottom: 5px;
+  padding:30px
+}
+.add
+{
+float: right;
+    margin-top: -22px;
+    cursor: pointer;
+    align-items: center;
+    display: flow-root;
+    flex-wrap: wrap;
+    position: absolute;
+    right: 0;
+}
+.remove{
+  float: right;
+    margin-top: -19px;
+    cursor: pointer;
+    align-items: center;
+    display: flow-root;
+    flex-wrap: wrap;
+    position: absolute;
+    right: -173px;
+}
+
+.card2
+{
+    // background: #fff;
+    width: 350px;
+    height: 185px;
+    padding: 10px;
+    text-align: justify;
+    text-decoration: none;
+    line-height: 32px;
+    box-sizing: content-box;
+    margin:10px;
+}
+.card2:hover{
+    background: #fff;
+    -webkit-box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+-moz-box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+}
+.sticky
+{
+    
+    
+  position: fixed;
+  top: 0;
+ z-index: 8;
+  padding: 50px;
+  font-size: 20px;
+}
+.card1
+{
+    // background: #fff;
+    width: 110%;
+    padding: 10px;
+    text-align: justify;
+    text-decoration: none;
+    line-height: 32px;
+    box-sizing: content-box;
+    margin:10px;
+     background: #fff;
+     
+    -webkit-box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+-moz-box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+  
+}
+.card1:hover{
+    background: #fff;
+    -webkit-box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+-moz-box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+}
+.manageButton
+{
+    padding: 60px 0px 0px 10px;
+      cursor: pointer;
+}
+ .card-header1 {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+   
+}
+
+.form__col--second {
+    width: 420px !important;
+}
+#btn1 {
+    width: 100%;
+    text-align: right;
+}
+.Add_Icon {
+    border: 1px solid #2de29d;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 44px;
+    cursor: pointer;
+    background: #2de29d;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+.add--tenant {
+    text-align: center;
+    padding: 48px;
+}
+.material-icons:hover
+{
+   cursor: move;
+}

@@ -1,4 +1,4 @@
-<ng-container *ngIf="!NotPermitted && !edititem">
+<ng-container *ngIf="!NotPermitted && !edititem &&!UploadActivityOpen">
 
     <div class="actions">
         <div class="actions__title">
@@ -6,7 +6,7 @@
 
         </div>
         <div class="actions__wrap">
-            <div class="icons__item">
+            <div style="cursor: pointer;" class="icons__item">
                 <div class="icons__icon"><svg class="icon icon--theme01 icon--download"
                         aria-labelledby="title-5f7c9ac573e4a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
                         width="48" height="48">
@@ -22,8 +22,8 @@
                     </svg></div>
                 <span class="icons__label">Download</span>
             </div>
-            <div class="icons__item">
-                <div class="icons__icon"><svg class="icon icon--theme01 icon--upload"
+            <div style="cursor: pointer;" class="icons__item">
+                <div class="icons__icon" (click)="ShowUploadActivity()"><svg class="icon icon--theme01 icon--upload"
                         aria-labelledby="title-5f7c9b3feaee9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
                         width="48" height="48">
                         <path d="M12.2 36.6a5 5 0 01-5-5.1v-5h5zm23.6 0a5 5 0 005-5.1v-5h-5z" fill="currentColor"
@@ -132,105 +132,47 @@
 
                     </div>
                     <div class="icons__icon">
-                        <a (click)="ClearAllFilter()" class="command__isolated"> Clear All </a>
+                        <a style="cursor: pointer;" (click)="ClearAllFilter()" class="command__isolated"> Clear All </a>
                     </div>
                 </div>
                 <div class="card icons icons--horziontal icons--size01">
 
-
                     <button type="button" *ngFor="let filter of FilterArray"
                         class="icons__item icons__item--contains-text icons__item--theme07">
                         <div class="icons__text"><strong class="icons__name">{{filter.displayName}}:</strong>
-                            <span *ngIf="filter.filterOperator=='bw'"><img
-                                    src="../../../../assets/img/filter/BeginsWith.gif"></span>
-                            <span *ngIf="filter.filterOperator=='cn'"><img
-                                    src="../../../../assets/img/filter/Contains.gif"></span>
-                            <span *ngIf="filter.filterOperator=='nc'"><img
-                                    src="../../../../assets/img/filter/DoesNotContain.gif"></span>
-                            <span
-                                *ngIf="filter.filterOperator=='eq'||filter.filterOperator=='num-eq'||filter.filterOperator=='t-eq'"><img
-                                    src="../../../../assets/img/filter/EqualTo.gif"></span>
-                            <span *ngIf="filter.filterOperator=='time-eq'"><img
-                                    src="../../../../assets/img/filter/EqualTo.gif"></span>
-                            <span *ngIf="filter.filterOperator=='DateTime-equals'"><img
-                                    src="../../../../assets/img/filter/EqualTo.gif"></span>
-                            <span *ngIf="filter.filterOperator=='Date-eq'"><img
-                                    src="../../../../assets/img/filter/EqualTo.gif"></span>
-                            <span
-                                *ngIf="filter.filterOperator=='ne'||filter.filterOperator=='num-ne'||filter.filterOperator=='t-ne'"><img
-                                    src="../../../../assets/img/filter/NotEqualTo.gif"></span>
-                            <span *ngIf="filter.filterOperator=='num-gte'"><img
-                                    src="../../../../assets/img/filter/GreaterThanOrEqualTo.gif"></span>
-                            <span *ngIf="filter.filterOperator=='num-lte'"><img
-                                    src="../../../../assets/img/filter/LessThanOrEqualTo.gif"></span>
-                            <span *ngIf="filter.filterOperator=='date-month'"><img
-                                    src="../../../../assets/img/filter/EqualTo.gif"></span>
-                            <span *ngIf="filter.filterOperator=='date-hour'"><img
-                                    src="../../../../assets/img/filter/EqualTo.gif"></span>
-                            <span *ngIf="filter.filterOperator=='date-second'"><img
-                                    src="../../../../assets/img/filter/EqualTo.gif"></span>
-                            <span *ngIf="filter.filterOperator=='date-minute'"><img
-                                    src="../../../../assets/img/filter/EqualTo.gif"></span>
-                            <span *ngIf="filter.filterOperator=='date-year'"><img
-                                    src="../../../../assets/img/filter/EqualTo.gif"></span>
-                            <span *ngIf="filter.filterOperator=='date-day'"><img
-                                    src="../../../../assets/img/filter/EqualTo.gif"></span>
-                            <span *ngIf="filter.filterOperator=='date-bw'"><img
-                                    src="../../../../assets/img/filter/EqualTo.gif"></span>
-                            <span *ngIf="filter.filterOperator=='date-before'"><img
-                                    src="../../../../assets/img/filter/OnOrBefore.gif"></span>
-                            <span *ngIf="filter.filterOperator=='dateTime-before'"><img
-                                    src="../../../../assets/img/filter/OnOrBefore.gif"></span>
-                            <span *ngIf="filter.filterOperator=='Time-before'"><img
-                                    src="../../../../assets/img/filter/OnOrBefore.gif"></span>
-                            <span *ngIf="filter.filterOperator=='Empty'"><img
-                                    src="../../../../assets/img/filter/IsNull.gif"></span>
+                            <span class="icons__value" *ngIf="filter.filterOperator=='bw'">
+                                Begin With
+                            </span>
+                            <span class="icons__value" *ngIf="filter.filterOperator=='cn'">Contains</span>
+                            <span class="icons__value" *ngIf="filter.filterOperator=='nc'">Not Contains</span>
+                            <span class="icons__value"
+                                *ngIf="filter.filterOperator=='eq'||filter.filterOperator=='date-day'||filter.filterOperator=='date-month'||filter.filterOperator=='date-year'||filter.filterOperator=='num-eq'||filter.filterOperator=='time-eq'||filter.filterOperator=='date-eq'">Equals</span>
 
-                            <span *ngIf="filter.filterOperator=='date-after'"><img
-                                    src="../../../../assets/img/filter/OnOrAfter.gif"></span>
-                            <span *ngIf="filter.filterOperator=='dateTime-after'"><img
-                                    src="../../../../assets/img/filter/OnOrAfter.gif"></span><span
-                                *ngIf="filter.filterOperator=='Time-after'"><img
-                                    src="../../../../assets/img/filter/OnOrAfter.gif"></span>
+                            <span class="icons__value" *ngIf="filter.filterOperator=='date-hour'">Hour Equals</span>
+                            <span class="icons__value" *ngIf="filter.filterOperator=='date-second'">Second Equals</span>
+                            <span class="icons__value" *ngIf="filter.filterOperator=='date-minute'">Minute Equals</span>
+                            <span class="icons__value"
+                                *ngIf="filter.filterOperator=='ne'||filter.filterOperator=='num-ne'">Not
+                                Equals</span>
+                            <span class="icons__value" *ngIf="filter.filterOperator=='num-gte'">Greater Than Or Equal
+                                To</span>
+                            <span class="icons__value" *ngIf="filter.filterOperator=='num-lte'">Less Than Or Equal To
+                            </span>
+                            <span class="icons__value" *ngIf="filter.filterOperator=='date-bw'">Date Between</span>
+                            <span class="icons__value" *ngIf="filter.filterOperator=='date-before'">On Or Before</span>
+                            <span class="icons__value" *ngIf="filter.filterOperator=='time-before'">On Or Time
+                                Before</span>
+                            <span class="icons__value" *ngIf="filter.filterOperator=='time-after'">On Or Time
+                                After</span>
+                            <span class="icons__value" *ngIf="filter.filterOperator=='Empty'">Empty</span>
+
+                            <span class="icons__value" *ngIf="filter.filterOperator=='date-after'">On Or After</span>
+                            &nbsp;
 
                             <span class="icons__value">{{filter.searchValue}}</span>
                         </div>
-                        <!-- <div class="icons__text"><strong class="icons__name">{{filter.displayName}}:</strong>
-                            <span *ngIf="filter.filterOperator=='bw'"><img
-                                    src="../../../../assets/img/filter/BeginsWith.gif"></span>
-                            <span *ngIf="filter.filterOperator=='cn'"><img
-                                    src="../../../../assets/img/filter/Contains.gif"></span>
-                            <span *ngIf="filter.filterOperator=='nc'"><img
-                                    src="../../../../assets/img/filter/DoesNotContain.gif"></span>
-                            <span
-                                *ngIf="filter.filterOperator=='eq'||filter.filterOperator=='num-eq'||filter.filterOperator=='t-eq'"><img
-                                    src="../../../../assets/img/filter/EqualTo.gif"></span>
-                            <span
-                                *ngIf="filter.filterOperator=='ne'||filter.filterOperator=='num-ne'||filter.filterOperator=='t-ne'"><img
-                                    src="../../../../assets/img/filter/NotEqualTo.gif"></span>
-                            <span *ngIf="filter.filterOperator=='num-gte'"><img
-                                    src="../../../../assets/img/filter/GreaterThanOrEqualTo.gif"></span>
-                            <span *ngIf="filter.filterOperator=='num-lte'"><img
-                                    src="../../../../assets/img/filter/LessThanOrEqualTo.gif"></span>
-                            <span *ngIf="filter.filterOperator=='date-month'"><img
-                                    src="../../../../assets/img/filter/EqualTo.gif"></span>
-                            <span *ngIf="filter.filterOperator=='date-year'"><img
-                                    src="../../../../assets/img/filter/EqualTo.gif"></span>
-                            <span *ngIf="filter.filterOperator=='date-day'"><img
-                                    src="../../../../assets/img/filter/EqualTo.gif"></span>
-                            <span *ngIf="filter.filterOperator=='date-bw'"><img
-                                    src="../../../../assets/img/filter/EqualTo.gif"></span>
-                            <span *ngIf="filter.filterOperator=='OOB'"><img
-                                    src="../../../../assets/img/filter/OnOrBefore.gif"></span>
-                            <span *ngIf="filter.filterOperator=='Empty'"><img
-                                    src="../../../../assets/img/filter/IsNull.gif"></span>
 
-                            <span *ngIf="filter.filterOperator=='OOA'"><img
-                                    src="../../../../assets/img/filter/OnOrAfter.gif"></span>
-
-                            <span class="icons__value">{{filter.searchValue}}</span>
-                        </div> -->
-                        <div class="icons__icon" (click)="RemoveFilter(filter)"><svg
+                        <div style="cursor: pointer;" class="icons__icon" (click)="RemoveFilter(filter)"><svg
                                 class="icon-simple icon-simple--theme01 icon-simple--remove"
                                 aria-labelledby="title-5f7cbab264ccf" xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24" width="24" height="24">
@@ -240,158 +182,557 @@
                                 </path>
                             </svg></div>
                     </button>
-
-
-                    <button type="button" id="filterButton"
-                        class="icons__item icons__item--outline icons__item--theme07 js-toggle">
-                        <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
-                                aria-labelledby="title-5f7cd7ce12c29" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24" width="24" height="24">
-                                <path fill="none" d="M0 0h24v24H0z"></path>
-                                <path fill="currentColor" d="M0 10h24v4H0z"></path>
-                                <path fill="currentColor" d="M14 0v24h-4V0z"></path>
-                            </svg></div>
-                        <span class="icons__label">Add Filter</span>
-
-                        <div id="" class="icons__submenu icons__submenu--from-left" style="width:260px">
-                            <ul class="icons__submenu-list">
-                                <li class="icons__submenu-item icons__submenu-item--contains-input">
-                                    <div class="form__col">
-                                        <label class="form__label form__label--hidden" for="dropdown">Dropdown</label>
-                                        <select class="form__input form__select"
-                                            (ngModelChange)='onOptionsSelected($event)'
-                                            [(ngModel)]="dataColumnFilter.columnName" id="list-dropdown"
-                                            name="list-dropdown1">
-                                            <option value="">Choose Column</option>
-                                            <option *ngFor="let opt of tabulatorColumn" [value]="opt.field">
-                                                {{opt.title}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </li>
-                                <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                    *ngIf="ColumnDataType=='string'">
-                                    <div class="form__col">
-                                        <label class="form__label form__label--hidden"
-                                            for="list-dropdown1">Dropdown</label>
-                                        <select class="form__input form__select"
-                                            [(ngModel)]="dataColumnFilter.filterOperator" id="list-dropdown1"
-                                            name="list-dropdown1">
-                                            <option value="">Choose Filter</option>
-                                            <option value="cn">Contains</option>
-                                            <option value="nc">Does NOT Contain</option>
-                                            <option value="eq">Equals</option>
-                                            <option value="ne">Does NOT Equal</option>
-                                            <option value="bw">Begins With</option>
-                                            <option value="Empty">Is Empty</option>
-                                        </select>
-                                    </div>
-                                </li>
-                                <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                    *ngIf="ColumnDataType=='stringUom'">
-                                    <div class="form__col">
-                                        <label class="form__label form__label--hidden"
-                                            for="list-dropdown3">Dropdown</label>
-                                        <select class="form__input form__select"
-                                            [(ngModel)]="dataColumnFilter.filterOperator" id="list-dropdown3"
-                                            name="list-dropdown1">
-                                            <option value="">Choose Filter</option>
-                                            <option value="eq">Equals</option>
-                                            <option value="nc">Does NOT Contain</option>
-                                        </select>
-                                    </div>
-                                </li>
-                                <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                    *ngIf="ColumnDataType=='stringStatus'">
-                                    <div class="form__col">
-                                        <label class="form__label form__label--hidden"
-                                            for="list-dropdown4">Dropdown</label>
-                                        <select class="form__input form__select"
-                                            [(ngModel)]="dataColumnFilter.filterOperator" id="list-dropdown4"
-                                            name="list-dropdown1">
-                                            <option value="">Choose Filter</option>
-                                            <option value="eq">Equals</option>
-                                            <option value="nc">Does NOT Contain</option>
-                                        </select>
-                                    </div>
-                                </li>
-                                <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                    *ngIf="ColumnDataType=='number'">
-                                    <div class="form__col">
-                                        <label class="form__label form__label--hidden"
-                                            for="list-dropdown2">Dropdown</label>
-                                        <select class="form__input form__select"
-                                            [(ngModel)]="dataColumnFilter.filterOperator" id="list-dropdown2"
-                                            name="list-dropdown2">
-                                            <option value="">Choose Filter</option>
-                                            <option value="num-eq">Equals</option>
-                                            <option value="num-ne">Does NOT Equal</option>
-                                            <option value="num-gte">Greater Than OR Equals</option>
-                                            <option value="num-lte">Less Than OR Equals</option>
-                                            <option value="Empty">Is Null (Empty)</option>
-                                        </select>
-                                    </div>
-                                </li>
-                                <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                    *ngIf="ColumnDataType!=undefined&&ColumnDataType!='stringStatus'&&ColumnDataType!='stringUom'">
-                                    <div class="form__col">
-                                        <label class="form__label" for="value1">Value</label>
-                                        <input class="form__input" [(ngModel)]="dataColumnFilter.searchValue"
-                                            type="text" id="value1" name="value1">
-                                    </div>
-                                </li>
-                                <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                    *ngIf="ColumnDataType!=undefined&&ColumnDataType=='stringStatus'">
-                                    <div class="form__col">
-                                        <label class="form__label form__label--hidden"
-                                            for="list-dropdown5">Value</label>
-                                        <select class="form__input form__select"
-                                            [(ngModel)]="dataColumnFilter.searchValue" id="list-dropdown5"
-                                            name="list-dropdown5">
-                                            <option value="">Choose Filter</option>
-                                            <option *ngFor="let opt of statusList" [value]="opt.statusValue">
-                                                {{opt.statusValue}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </li>
-                                <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                    *ngIf="ColumnDataType!=undefined&&ColumnDataType=='stringUom'">
-                                    <div class="form__col">
-                                        <label class="form__label form__label--hidden"
-                                            for="list-dropdown6">Value</label>
-                                        <select class="form__input form__select"
-                                            [(ngModel)]="dataColumnFilter.searchValue" id="list-dropdown6"
-                                            name="list-dropdown5">
-                                            <option value="">Choose Filter</option>
-                                            <option *ngFor="let opt of uomList" [value]="opt.uomName">
-                                                {{opt.uomName}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </li>
-
-
-                            </ul>
-                            <div class="button-group" *ngIf="ColumnDataType!=undefined">
-                                <a class="button button--small button--text-only" (click)="CloseFilter()">Cancel</a>
-                                <a class="button button--small" (click)="ApplyFilter()">Apply</a>
+                    <div class="card icons icons--horziontal icons--size01">
+                        <button style="cursor: pointer;" type="button" id="filterButton"
+                            class="icons__item icons__item--outline icons__item--theme07">
+                            <div class="icons__item icons__item--outline icons__item--theme07"
+                                (click)="MainFilterToggle()">
+                                <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
+                                        aria-labelledby="title-6026203de0166" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24" width="24" height="24">
+                                        <path fill="none" d="M0 0h24v24H0z"></path>
+                                        <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                                        <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                                    </svg>
+                                </div>
+                                <span class="icons__label">Add Filter</span>
                             </div>
-                        </div>
-                    </button>
-                    <button type="button" (click)="SearchFilter()" class="form__submit form__icon icons__item">
-                        <div class="icons__icon"><svg class="icon icon--theme01 icon--search"
-                                aria-labelledby="title-5f7cca8a452b7" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 48 48" width="48" height="48">
-                                <path fill="none" d="M0 0h48v48H0z"></path>
-                                <path
-                                    d="M31.9 27.7l9.9 9.9a3.1 3.1 0 010 4.2 3 3 0 01-4.3 0L27.4 31.7a6 6 0 00-4.6-1.7 8.3 8.3 0 004.8-2.3 3 3 0 014.3 0z"
-                                    fill="currentColor" class="icon__color--secondary"></path>
-                                <path
-                                    d="M27.7 9.2a14 14 0 018.1 10.9 2.9 2.9 0 01-3.3 3.3 3 3 0 01-2.6-2.6 7.8 7.8 0 00-3.6-5.5 8 8 0 00-8.4-.2 8.1 8.1 0 00-1.6 12.6 7.9 7.9 0 006.3 2.3h.2a6 6 0 014.6 1.7l2.1 2.1-.6.4a14.5 14.5 0 01-11.7 1A14.1 14.1 0 0114.7 10a14.2 14.2 0 0113-.8z"
-                                    fill="currentColor" class="icon__color--primary"></path>
-                            </svg></div>
-                    </button>
+
+
+
+                            <div *ngIf="mainToggleDropdown" class="toggleDropDown"
+                                style="min-width: 235px;left: 9px;top: 18px;">
+                                <ul class="icons__submenu-list" style="padding-top: 15px">
+                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                        <div class="form__col">
+                                            <label class="form__label form__label--hidden"
+                                                for="dropdown">Dropdown</label>
+                                            <select style="cursor: pointer;" class="floating-select"
+                                                (ngModelChange)='onOptionsSelected($event)'
+                                                [(ngModel)]="dataColumnFilter.columnName" id="list-dropdown1"
+                                                name="list-dropdown1">
+                                                <option value="">Choose Column</option>
+                                                <option *ngFor="let opt of tabulatorColumn" [disabled]="opt.inFilter"
+                                                    [value]="opt.field">
+                                                    {{opt.title}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                        *ngIf="ColumnDataType!='Date/Time'&&ColumnDataType!=''&&ColumnDataType!=undefined&&ColumnDataType!='stringUom'">
+                                        <div class="form__col">
+                                            <label class="form__label" for="value">Value</label>
+                                            <input class="form__input" type="text" id="value"
+                                                [(ngModel)]="dataColumnFilter.searchValue" name="value">
+                                        </div>
+                                    </li>
+                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                        *ngIf="ColumnDataType!=undefined&&ColumnDataType=='stringUom'">
+                                        <div class="form__col">
+                                            <label class="form__label form__label--hidden"
+                                                for="list-dropdown6">Value</label>
+                                            <select class="form__input form__select"
+                                                [(ngModel)]="dataColumnFilter.searchValue" id="list-dropdown6"
+                                                name="list-dropdown5">
+                                                <option value="">Choose Filter</option>
+                                                <option *ngFor="let opt of uomList" [value]="opt.uomName">
+                                                    {{opt.uomName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </li>
+
+                                    <ng-container *ngIf="ColumnDataType=='Date/Time'">
+                                        <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                            *ngIf="dataColumnFilter.filterOperator=='date-eq'">
+                                            <div class="form__col" *ngIf="ColumnDataTypeSpecial=='Date'">
+                                                <input class="form__input" [owlDateTimeTrigger]="dt1"
+                                                    placeholder="Select Date" [(ngModel)]="dataColumnFilter.searchValue"
+                                                    [owlDateTime]="dt1">
+                                                <owl-date-time [pickerType]="'calendar'" #dt1>
+                                                </owl-date-time>
+                                            </div>
+                                            <div class="form__col" *ngIf="ColumnDataTypeSpecial=='Date & Time'">
+
+                                                <input class="form__input" [owlDateTimeTrigger]="dt1"
+                                                    [(ngModel)]="dataColumnFilter.searchValue" [owlDateTime]="dt1">
+                                                <owl-date-time #dt1>
+                                                </owl-date-time>
+                                            </div>
+
+                                        </li>
+                                        <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                            *ngIf="dataColumnFilter.filterOperator=='time-eq'">
+                                            <div class="form__col">
+                                                <input [owlDateTimeTrigger]="dt4" class="form__input"
+                                                    placeholder="select Date andTime"
+                                                    [(ngModel)]="dataColumnFilter.searchValue" [owlDateTime]="dt4">
+                                                <owl-date-time [pickerType]="'timer'" #dt4>
+                                                </owl-date-time>
+                                            </div>
+
+                                        </li>
+
+                                        <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                            *ngIf="dataColumnFilter.filterOperator=='date-month'">
+                                            <div class="form__col">
+                                                <!-- <label class="form__label"
+                                                        for="list-dropdown815r.field}}">Value</label> -->
+                                                <select class="floating-select" (ngModelChange)='SelectedMonth($event)'
+                                                    [(ngModel)]="dataColumnFilter.searchValue" id="list-dropdown815"
+                                                    name="list-dropdown815">
+                                                    <option value="">Choose Months</option>
+                                                    <option *ngFor="let opt of Month" [value]="opt.id">
+                                                        {{opt.month}}
+                                                    </option>
+                                                </select>
+
+
+                                            </div>
+
+                                        </li>
+                                        <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                            *ngIf="dataColumnFilter.filterOperator=='date-year'">
+                                            <div class="form__col">
+                                                <input class="form__input" [owlDateTimeTrigger]="dt1"
+                                                    placeholder="Select year" [(ngModel)]="dataColumnFilter.searchValue"
+                                                    [owlDateTime]="dt1">
+                                                <owl-date-time [startView]="'year'" #dt1>
+                                                </owl-date-time>
+                                            </div>
+
+                                        </li>
+                                        <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                            *ngIf="dataColumnFilter.filterOperator=='Time-before'">
+
+                                            <div class="form__col">
+
+                                                <input [owlDateTimeTrigger]="dt4" class="form__input"
+                                                    placeholder="selectTime" [(ngModel)]="dataColumnFilter.searchValue"
+                                                    [owlDateTime]="dt4">
+                                                <owl-date-time [pickerType]="'timer'" #dt4>
+                                                </owl-date-time>
+                                            </div>
+
+
+                                        </li>
+
+                                        <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                            *ngIf="dataColumnFilter.filterOperator=='Empty'">
+                                            <div class="form__col">
+
+                                                <input class="form__input" [(ngModel)]="dataColumnFilter.searchValue"
+                                                    value="Null">
+                                            </div>
+
+                                        </li>
+                                        <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                            *ngIf="dataColumnFilter.filterOperator=='date-day'">
+                                            <div class="form__col">
+                                                <!-- <label class="form__label"
+                                                        for="list-dropdown81{{itemHeader.field}}">Value</label> -->
+                                                <select class="floating-select"
+                                                    [(ngModel)]="dataColumnFilter.searchValue" id="list-dropdown81"
+                                                    name="list-dropdown81">
+                                                    <option value="">Choose Days</option>
+                                                    <option *ngFor="let opt of options" [value]="opt">
+                                                        {{opt}}
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                        </li>
+                                        <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                            *ngIf="dataColumnFilter.filterOperator=='date-bw'">
+
+                                            <input class="form__input" [owlDateTimeTrigger]="dt10"
+                                                [(ngModel)]="dataColumnFilter.searchValue" [owlDateTime]="dt10"
+                                                [selectMode]="'range'">
+                                            <owl-date-time [pickerType]="'calendar'" #dt10>
+                                            </owl-date-time>
+
+
+                                        </li>
+                                        <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                            *ngIf="dataColumnFilter.filterOperator=='date-hour'">
+                                            <div class="form__col">
+                                                <!-- <label class="form__label"
+                                                        for="list-dropdown81{{itemHeader.field}}">Value</label> -->
+                                                <select class="floating-select"
+                                                    [(ngModel)]="dataColumnFilter.searchValue" id="list-dropdown811"
+                                                    name="list-dropdown811">
+                                                    <option value="">Choose Hour</option>
+                                                    <option *ngFor="let opt of hour" [value]="opt">
+                                                        {{opt}}
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                        </li>
+                                        <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                            *ngIf="dataColumnFilter.filterOperator=='date-minute'">
+                                            <div class="form__col">
+                                                <!-- <label class="form__label"
+                                                        for="list-dropdown81{{itemHeader.field}}">Value</label> -->
+                                                <select class="floating-select"
+                                                    [(ngModel)]="dataColumnFilter.searchValue" id="list-dropdown812"
+                                                    name="list-dropdown812">
+                                                    <option value="">Choose Minutes</option>
+                                                    <option *ngFor="let opt of minutes" [value]="opt">
+                                                        {{opt}}
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                        </li>
+                                        <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                            *ngIf="dataColumnFilter.filterOperator=='date-second'">
+                                            <div class="form__col">
+                                                <!-- <label class="form__label"
+                                                        for="list-dropdown81{{itemHeader.field}}">Value</label> -->
+                                                <select class="floating-select"
+                                                    [(ngModel)]="dataColumnFilter.searchValue" id="list-dropdown813"
+                                                    name="list-dropdown813">
+                                                    <option value="">Choose Seconds</option>
+                                                    <option *ngFor="let opt of seconds" [value]="opt">
+                                                        {{opt}}
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                        </li>
+                                        <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                            *ngIf="dataColumnFilter.filterOperator=='date-after'">
+
+                                            <div class="form__col" *ngIf="ColumnDataTypeSpecial=='Date'">
+
+                                                <input class="form__input" [owlDateTimeTrigger]="dt1"
+                                                    [(ngModel)]="dataColumnFilter.searchValue" [owlDateTime]="dt1">
+                                                <owl-date-time [pickerType]="'calendar'" #dt1>
+                                                </owl-date-time>
+                                            </div>
+                                            <div class="form__col" *ngIf="ColumnDataTypeSpecial=='Time'">
+
+                                                <input [owlDateTimeTrigger]="dt4" class="form__input"
+                                                    [(ngModel)]="dataColumnFilter.searchValue" [owlDateTime]="dt4">
+                                                <owl-date-time [pickerType]="'timer'" #dt4>
+                                                </owl-date-time>
+                                            </div>
+                                            <div class="form__col" *ngIf="ColumnDataTypeSpecial=='Date & Time'">
+
+                                                <input class="form__input" [owlDateTimeTrigger]="dt1"
+                                                    [(ngModel)]="dataColumnFilter.searchValue" [owlDateTime]="dt1">
+                                                <owl-date-time #dt1>
+                                                </owl-date-time>
+                                            </div>
+
+
+                                        </li>
+
+                                        <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                            *ngIf="dataColumnFilter.filterOperator=='date-before'">
+
+                                            <div class="form__col" *ngIf="ColumnDataTypeSpecial=='Date'">
+
+                                                <input class="form__input" [owlDateTimeTrigger]="dt1"
+                                                    [(ngModel)]="dataColumnFilter.searchValue" [owlDateTime]="dt1">
+                                                <owl-date-time [pickerType]="'calendar'" #dt1>
+                                                </owl-date-time>
+                                            </div>
+                                            <div class="form__col" *ngIf="ColumnDataTypeSpecial=='Date & Time'">
+
+                                                <input [owlDateTimeTrigger]="dt1" class="form__input"
+                                                    [(ngModel)]="dataColumnFilter.searchValue" [owlDateTime]="dt1">
+                                                <owl-date-time #dt1>
+                                                </owl-date-time>
+                                            </div>
+                                            <div class="form__col" *ngIf="ColumnDataTypeSpecial=='Time'">
+
+                                                <input [owlDateTimeTrigger]="dt4" class="form__input"
+                                                    [(ngModel)]="dataColumnFilter.searchValue" [owlDateTime]="dt4">
+                                                <owl-date-time [pickerType]="'timer'" #dt4>
+                                                </owl-date-time>
+                                            </div>
+                                        </li>
+                                    </ng-container>
+
+                                    <ul *ngIf="ColumnDataType=='string'||ColumnDataType=='Text'"
+                                        style="list-style: none; padding-left: 0px;">
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='eq'?'active':''">
+                                            <a class="icons__submenu-link" (click)="FilterOperartorSelect('Equals')"
+                                                style="display: flex;">Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='ne'?'active':''"><a
+                                                class="icons__submenu-link"
+                                                (click)="FilterOperartorSelect('Does Not Equal')"
+                                                style="display: flex;">Does Not
+                                                Equal
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='cn'?'active':''"><a
+                                                class="icons__submenu-link" (click)="FilterOperartorSelect('Contains')"
+                                                style="display: flex;">Contains
+                                            </a></li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='bw'?'active':''"><a
+                                                class="icons__submenu-link"
+                                                (click)="FilterOperartorSelect('Begins With')"
+                                                style="display: flex;">Begins
+                                                With</a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='nc'?'active':''"><a
+                                                class="icons__submenu-link"
+                                                (click)="FilterOperartorSelect('Does NOT Contain')"
+                                                style="display: flex;">Does NOT
+                                                Contain </a></li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='Empty'?'active':''"><a
+                                                class="icons__submenu-link" (click)="FilterOperartorSelect('Is Empty')"
+                                                style="display: flex;">Is
+                                                Empty</a></li>
+                                    </ul>
+
+                                    <ul *ngIf="ColumnDataType=='number'||ColumnDataType=='Number'"
+                                        style="list-style: none;  padding-left: 0px;">
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='num-eq'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Number Equals')"
+                                                class="icons__submenu-link" style="display: flex;">Equals
+                                            </a></li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='num-ne'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Number Not Equal')"
+                                                class="icons__submenu-link" style="display: flex;">Does Not
+                                                Equal</a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='num-gte'?'active':''">
+                                            <a (click)="FilterOperartorSelect('Greater Than or Equals')"
+                                                class="icons__submenu-link" style="display: flex;">Greater Than or
+                                                Equals</a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='num-lte'?'active':''">
+                                            <a (click)="FilterOperartorSelect('Less Than or Equals')"
+                                                class="icons__submenu-link" style="display: flex;">Less Than or
+                                                Equals</a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='Empty'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Is Empty')" class="icons__submenu-link"
+                                                style="display: flex;">Is Empty </a>
+                                        </li>
+                                    </ul>
+                                    <ul *ngIf="ColumnDataType=='stringUom'"
+                                        style="list-style: none;  padding-left: 0px;">
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='eq'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Equals')" class="icons__submenu-link"
+                                                style="display: flex;">Equals</a></li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='ne'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Does Not Equal')"
+                                                class="icons__submenu-link" style="display: flex;">Does Not
+                                                Equal
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                    <ul *ngIf="ColumnDataTypeSpecial=='Date'"
+                                        style="list-style: none; padding-left: 0px; ">
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-eq'?'active':''">
+                                            <a (click)="FilterOperartorSelect('DateEquals')" class="icons__submenu-link"
+                                                style="display: flex;">Equals</a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-bw'?'active':''">
+                                            <a class="icons__submenu-link"
+                                                (click)="FilterOperartorSelect('Date Between')"
+                                                style="display: flex;">Date
+                                                Between
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-month'?'active':''"><a
+                                                class="icons__submenu-link"
+                                                (click)="FilterOperartorSelect('Month Equals')"
+                                                style="display: flex;">Month
+                                                Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-day'?'active':''">
+                                            <a class="icons__submenu-link" (click)="FilterOperartorSelect('Day Equals')"
+                                                style="display: flex;">Day
+                                                Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-year'?'active':''"><a
+                                                class="icons__submenu-link"
+                                                (click)="FilterOperartorSelect('Year Equals')"
+                                                style="display: flex;">Year
+                                                Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-after'?'active':''"><a
+                                                class="icons__submenu-link"
+                                                (click)="FilterOperartorSelect('On Or After')" style="display: flex;">On
+                                                Or
+                                                After
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-before'?'active':''">
+                                            <a class="icons__submenu-link"
+                                                (click)="FilterOperartorSelect('On Or Before')"
+                                                style="display: flex;">On Or
+                                                Before
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='Empty'?'active':''"><a
+                                                class="icons__submenu-link" (click)="FilterOperartorSelect('Is Empty')"
+                                                style="display: flex;">Is Null
+                                                Empty
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                    <ul *ngIf="ColumnDataTypeSpecial=='Date & Time'"
+                                        style="list-style: none; padding-left: 0px; ">
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-eq'?'active':''">
+                                            <a class="icons__submenu-link" (click)="FilterOperartorSelect('DateEquals')"
+                                                style="display: flex;">Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-bw'?'active':''">
+                                            <a (click)="FilterOperartorSelect('Date Between')"
+                                                class="icons__submenu-link" style="display: flex;">Date Between
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-month'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Month Equals')"
+                                                class="icons__submenu-link" style="display: flex;">Month Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-day'?'active':''">
+                                            <a (click)="FilterOperartorSelect('Day Equals')" class="icons__submenu-link"
+                                                style="display: flex;">Day Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-year'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Year Equals')"
+                                                class="icons__submenu-link" style="display: flex;">Year Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-after'?'active':''"><a
+                                                (click)="FilterOperartorSelect('On Or After')"
+                                                class="icons__submenu-link" style="display: flex;">On Or After
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-before'?'active':''">
+                                            <a (click)="FilterOperartorSelect('On Or Before')"
+                                                class="icons__submenu-link" style="display: flex;">On Or Before
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='Empty'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Is Empty')" class="icons__submenu-link"
+                                                style="display: flex;">Is Null Empty
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-second'?'active':''">
+                                            <a (click)="FilterOperartorSelect('Second Equals')"
+                                                class="icons__submenu-link" style="display: flex;">Second Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-minute'?'active':''">
+                                            <a (click)="FilterOperartorSelect('Minute Equals')"
+                                                class="icons__submenu-link" style="display: flex;">Minute Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-hour'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Hour Equals')"
+                                                class="icons__submenu-link" style="display: flex;">Hour Equals
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul *ngIf="ColumnDataTypeSpecial=='Time'"
+                                        style="list-style: none; padding-left: 0px; ">
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='time-eq'?'active':''">
+                                            <a class="icons__submenu-link" (click)="FilterOperartorSelect('TimeEquals')"
+                                                style="display: flex;">Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-second'?'active':''">
+                                            <a (click)="FilterOperartorSelect('Second Equals')"
+                                                class="icons__submenu-link" style="display: flex;">Second Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-minute'?'active':''">
+                                            <a (click)="FilterOperartorSelect('Minute Equals')"
+                                                class="icons__submenu-link" style="display: flex;">Minute Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-hour'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Hour Equals')"
+                                                class="icons__submenu-link" style="display: flex;">Hour Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='time-after'?'active':''"><a
+                                                (click)="FilterOperartorSelect('On Or Time After')"
+                                                class="icons__submenu-link" style="display: flex;">On Or Time After
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='time-before'?'active':''">
+                                            <a (click)="FilterOperartorSelect('On Or Time Before')"
+                                                class="icons__submenu-link" style="display: flex;">On Or Time Before
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='Empty'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Is Empty')" class="icons__submenu-link"
+                                                style="display: flex;">Is Null Empty
+                                            </a>
+                                        </li>
+
+
+                                    </ul>
+
+                                </ul>
+                                <div class="button-group">
+                                    <a class="button button--small button--text-only" (click)="CloseFilter()">Cancel</a>
+                                    <a class="button button--small" (click)="ApplyFilter()">Apply</a>
+                                </div>
+                            </div>
+
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="taskbar__sort">
@@ -423,7 +764,7 @@
                                 </g>
                             </svg></div>
                         <span class="icons__label">ACTIVE SORTS</span>
-                        <a class="command__isolated">Clear All</a>
+                        <a style="cursor: pointer;" class="command__isolated">Clear All</a>
                     </div>
                 </div>
                 <div class="card icons icons--horziontal icons--size01">
@@ -433,7 +774,8 @@
                     <button type="button" class="icons__item icons__item--contains-text">
                         <div class="icons__text"><strong class="icons__name">Date Modified:</strong> <span
                                 class="icons__value">Descending</span></div>
-                        <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--remove"
+                        <div style="cursor: pointer;" class="icons__icon"><svg
+                                class="icon-simple icon-simple--theme01 icon-simple--remove"
                                 aria-labelledby="title-5f7cbab264ccf" xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24" width="24" height="24">
                                 <path fill="none" d="M0 0h24v24H0z"></path>
@@ -442,7 +784,7 @@
                                 </path>
                             </svg></div>
                     </button>
-                    <button type="button" class="icons__item icons__item--outline js-toggle">
+                    <button style="cursor: pointer;" type="button" class="icons__item icons__item--outline js-toggle">
                         <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
                                 aria-labelledby="title-5f7cd7ce12c36" xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24" width="24" height="24">
@@ -570,623 +912,657 @@
                             </div>
                             <div class="table__heading-options">
                                 <div class="icons icons--horziontal icons--size02">
-                                    <button class="icons__item  js-toggle" type="button"
-                                        (click)='onOptionsSelected2($event)' id="filterButton3_{{itemHeader.field}}">
-                                        <div class="icons__icon"><svg class="icon icon--theme01 icon--filter"
-                                                aria-labelledby="title-5f83f48269fe1" xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 48 48" width="48" height="48">
-                                                <path fill="none" d="M0 0h48v48H0z"></path>
-                                                <path
-                                                    d="M40 13.7a5.6 5.6 0 01-1.7 4 5.5 5.5 0 01-4 1.6 5.8 5.8 0 01-4-1.7 5.4 5.4 0 00-4-1.6h-8.6a3.9 3.9 0 00-3.7 2.5 3.8 3.8 0 00.8 4.3l-4.5-4.5A7.9 7.9 0 018 12.7 4.7 4.7 0 0112.7 8h21.6a5.7 5.7 0 013.6 1.3.8.8 0 01.4.4 5.3 5.3 0 011.7 4z"
-                                                    fill="currentColor" class="icon__color--primary"></path>
-                                                <path
-                                                    d="M28 28v12h-8V29.7a4 4 0 00-1.2-2.9l-4-4a3.8 3.8 0 01-.8-4.3 3.9 3.9 0 013.7-2.5h1.6l3.3 3.2 3.1 3.2A7.9 7.9 0 0128 28z"
-                                                    fill="currentColor" class="icon__color--secondary"></path>
-                                            </svg></div>
-                                        <div class="icons__submenu icons__submenu--from-left" style="min-width: 280px;">
-                                            <ul class="icons__submenu-list">
-                                                <ng-container *ngIf="itemHeader.datatype=='string'">
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
-                                                        <div class="form__col">
-                                                            <label class="form__label form__label--hidden"
-                                                                for="list-dropdown_{{itemHeader.field}}">Dropdown</label>
-                                                            <select class="form__input form__select"
-                                                                [(ngModel)]="dataColumnFilter.filterOperator"
-                                                                id="list-dropdown_{{itemHeader.field}}"
-                                                                name="list-dropdown_{{itemHeader.field}}">
-                                                                <option value="">Choose Filter</option>
-                                                                <option value="cn">Contains</option>
-                                                                <option value="nc">Does NOT Contain</option>
-                                                                <option value="eq">Equals</option>
-                                                                <option value="ne">Does NOT Equal</option>
-                                                                <option value="bw">Begins With</option>
-                                                                <option value="Empty">Is Empty</option>
-                                                            </select>
+                                    <ng-contaier *ngIf="itemHeader.datatype!='button'">
+                                        <button style="cursor: pointer;" type="button"
+                                            class="icons__item icons__item--theme07"
+                                            id="filterButton2_{{itemHeader.field}}">
+                                            <div class="icons__icon" (click)='toggleGlobalDropDown(itemHeader.field)'>
+                                                <svg class="icon icon--theme01 icon--filter"
+                                                    aria-labelledby="title-5f83f48269fe1"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48"
+                                                    height="48">
+                                                    <path fill="none" d="M0 0h48v48H0z"></path>
+                                                    <path
+                                                        d="M40 13.7a5.6 5.6 0 01-1.7 4 5.5 5.5 0 01-4 1.6 5.8 5.8 0 01-4-1.7 5.4 5.4 0 00-4-1.6h-8.6a3.9 3.9 0 00-3.7 2.5 3.8 3.8 0 00.8 4.3l-4.5-4.5A7.9 7.9 0 018 12.7 4.7 4.7 0 0112.7 8h21.6a5.7 5.7 0 013.6 1.3.8.8 0 01.4.4 5.3 5.3 0 011.7 4z"
+                                                        fill="currentColor" class="icon__color--primary"></path>
+                                                    <path
+                                                        d="M28 28v12h-8V29.7a4 4 0 00-1.2-2.9l-4-4a3.8 3.8 0 01-.8-4.3 3.9 3.9 0 013.7-2.5h1.6l3.3 3.2 3.1 3.2A7.9 7.9 0 0128 28z"
+                                                        fill="currentColor" class="icon__color--secondary"></path>
+                                                </svg>
+                                            </div>
+                                            <ng-container *ngIf="itemHeader.opentoggleDropdown">
+                                                <div class="toggleDropDown" style="min-width: 235px; top: 28px;
+                                left: -6px;">
+                                                    <ul class="icons__submenu-list" style="padding-top: 15px">
+                                                        <ng-container
+                                                            *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype!='stringUom'&&itemHeader.datatype!='Date/Time'">
+                                                            <li
+                                                                class="icons__submenu-item icons__submenu-item--contains-input">
+                                                                <div class="form__col">
+                                                                    <label class="form__label"
+                                                                        for="value12{{itemHeader.field}}">Value</label>
+                                                                    <input class="form__input"
+                                                                        [(ngModel)]="dataColumnFilter.searchValue"
+                                                                        type="text" id="value12{{itemHeader.field}}"
+                                                                        name="value12{{itemHeader.field}}">
+                                                                </div>
+                                                            </li>
+                                                        </ng-container>
+                                                        <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                                            *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='stringUom'">
+                                                            <div class="form__col">
+                                                                <label class="form__label form__label--hidden"
+                                                                    for="list-dropdown6">Value</label>
+                                                                <select class="form__input form__select"
+                                                                    [(ngModel)]="dataColumnFilter.searchValue"
+                                                                    id="list-dropdown6" name="list-dropdown5">
+                                                                    <option value="">Choose Filter</option>
+                                                                    <option *ngFor="let opt of uomList"
+                                                                        [value]="opt.uomName">
+                                                                        {{opt.uomName}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </li>
+                                                        <ng-container *ngIf="itemHeader.datatype=='Date/Time'">
+                                                            <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                                                *ngIf="dataColumnFilter.filterOperator=='date-eq'">
+                                                                <div class="form__col"
+                                                                    *ngIf="itemHeader.customFieldSpecialType=='Date'">
+
+                                                                    <input class="form__input"
+                                                                        [owlDateTimeTrigger]="dt1"
+                                                                        [(ngModel)]="dataColumnFilter.searchValue"
+                                                                        [owlDateTime]="dt1">
+                                                                    <owl-date-time [pickerType]="'calendar'" #dt1>
+                                                                    </owl-date-time>
+                                                                </div>
+                                                                <div class="form__col"
+                                                                    *ngIf="itemHeader.customFieldSpecialType=='Date & Time'">
+
+                                                                    <input class="form__input"
+                                                                        [owlDateTimeTrigger]="dt1"
+                                                                        [(ngModel)]="dataColumnFilter.searchValue"
+                                                                        [owlDateTime]="dt1">
+                                                                    <owl-date-time #dt1>
+                                                                    </owl-date-time>
+                                                                </div>
+
+
+                                                            </li>
+                                                            <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                                                *ngIf="dataColumnFilter.filterOperator=='time-eq'">
+                                                                <div class="form__col">
+                                                                    <input [owlDateTimeTrigger]="dt4"
+                                                                        class="form__input"
+                                                                        [(ngModel)]="dataColumnFilter.searchValue"
+                                                                        [owlDateTime]="dt4">
+                                                                    <owl-date-time [pickerType]="'timer'" #dt4>
+                                                                    </owl-date-time>
+                                                                </div>
+
+                                                            </li>
+
+                                                            <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                                                *ngIf="dataColumnFilter.filterOperator=='date-month'">
+                                                                <div class="form__col">
+                                                                    <label class="form__label"
+                                                                        for="list-dropdown81{{itemHeader.field}}">Value</label>
+                                                                    <select class="floating-select"
+                                                                        (ngModelChange)='SelectedMonth($event)'
+                                                                        [(ngModel)]="dataColumnFilter.searchValue"
+                                                                        id="list-dropdown81{{itemHeader.field}}"
+                                                                        name="list-dropdown81{{itemHeader.field}}">
+                                                                        <option value="">Choose Months</option>
+                                                                        <option *ngFor="let opt of Month"
+                                                                            [value]="opt.id">
+                                                                            {{opt.month}}
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+
+                                                            </li>
+                                                            <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                                                *ngIf="dataColumnFilter.filterOperator=='date-year'">
+                                                                <div class="form__col">
+                                                                    <input class="form__input"
+                                                                        [owlDateTimeTrigger]="dt1"
+                                                                        [(ngModel)]="dataColumnFilter.searchValue"
+                                                                        [owlDateTime]="dt1">
+                                                                    <owl-date-time [startView]="'year'" #dt1>
+                                                                    </owl-date-time>
+                                                                </div>
+
+                                                            </li>
+                                                            <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                                                *ngIf="dataColumnFilter.filterOperator=='Time-before'">
+
+                                                                <div class="form__col">
+
+                                                                    <input [owlDateTimeTrigger]="dt4"
+                                                                        class="form__input"
+                                                                        [(ngModel)]="dataColumnFilter.searchValue"
+                                                                        [owlDateTime]="dt4">
+                                                                    <owl-date-time [pickerType]="'timer'" #dt4>
+                                                                    </owl-date-time>
+                                                                </div>
+
+
+                                                            </li>
+
+                                                            <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                                                *ngIf="dataColumnFilter.filterOperator=='Empty'">
+                                                                <div class="form__col">
+                                                                    <label class="form__label"
+                                                                        for="value12{{itemHeader.field}}">Value</label>
+                                                                    <input class="form__input"
+                                                                        [(ngModel)]="dataColumnFilter.searchValue"
+                                                                        id="value12{{itemHeader.field}}"
+                                                                        name="value12{{itemHeader.field}}">
+                                                                </div>
+
+                                                            </li>
+                                                            <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                                                *ngIf="dataColumnFilter.filterOperator=='date-day'">
+                                                                <div class="form__col">
+                                                                    <label class="form__label"
+                                                                        for="list-dropdown81{{itemHeader.field}}">Value</label>
+                                                                    <select class="floating-select"
+                                                                        [(ngModel)]="dataColumnFilter.searchValue"
+                                                                        id="list-dropdown81{{itemHeader.field}}"
+                                                                        name="list-dropdown81{{itemHeader.field}}">
+                                                                        <option value="">Choose Days</option>
+                                                                        <option *ngFor="let opt of options"
+                                                                            [value]="opt">
+                                                                            {{opt}}
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+
+                                                            </li>
+                                                            <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                                                *ngIf="dataColumnFilter.filterOperator=='date-bw'">
+
+                                                                <input class="form__input" [owlDateTimeTrigger]="dt10"
+                                                                    [(ngModel)]="dataColumnFilter.searchValue"
+                                                                    [owlDateTime]="dt10" [selectMode]="'range'">
+                                                                <owl-date-time [pickerType]="'calendar'" #dt10>
+                                                                </owl-date-time>
+
+
+                                                            </li>
+                                                            <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                                                *ngIf="dataColumnFilter.filterOperator=='date-hour'">
+                                                                <div class="form__col">
+                                                                    <label class="form__label"
+                                                                        for="list-dropdown81{{itemHeader.field}}">Value</label>
+                                                                    <select class="floating-select"
+                                                                        [(ngModel)]="dataColumnFilter.searchValue"
+                                                                        id="list-dropdown81{{itemHeader.field}}"
+                                                                        name="list-dropdown81{{itemHeader.field}}">
+                                                                        <option value="">Choose Hour</option>
+                                                                        <option *ngFor="let opt of hour" [value]="opt">
+                                                                            {{opt}}
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+
+                                                            </li>
+                                                            <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                                                *ngIf="dataColumnFilter.filterOperator=='date-minute'">
+                                                                <div class="form__col">
+                                                                    <label class="form__label"
+                                                                        for="list-dropdown81{{itemHeader.field}}">Value</label>
+                                                                    <select class="floating-select"
+                                                                        [(ngModel)]="dataColumnFilter.searchValue"
+                                                                        id="list-dropdown81{{itemHeader.field}}"
+                                                                        name="list-dropdown81{{itemHeader.field}}">
+                                                                        <option value="">Choose Minutes</option>
+                                                                        <option *ngFor="let opt of minutes"
+                                                                            [value]="opt">
+                                                                            {{opt}}
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+
+                                                            </li>
+                                                            <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                                                *ngIf="dataColumnFilter.filterOperator=='date-second'">
+                                                                <div class="form__col">
+                                                                    <label class="form__label"
+                                                                        for="list-dropdown81{{itemHeader.field}}">Value</label>
+                                                                    <select class="floating-select"
+                                                                        [(ngModel)]="dataColumnFilter.searchValue"
+                                                                        id="list-dropdown81{{itemHeader.field}}"
+                                                                        name="list-dropdown81{{itemHeader.field}}">
+                                                                        <option value="">Choose Seconds</option>
+                                                                        <option *ngFor="let opt of seconds"
+                                                                            [value]="opt">
+                                                                            {{opt}}
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+
+                                                            </li>
+                                                            <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                                                *ngIf="dataColumnFilter.filterOperator=='date-after'">
+
+                                                                <div class="form__col"
+                                                                    *ngIf="itemHeader.customFieldSpecialType=='Date'">
+
+                                                                    <input class="form__input"
+                                                                        [owlDateTimeTrigger]="dt1"
+                                                                        [(ngModel)]="dataColumnFilter.searchValue"
+                                                                        [owlDateTime]="dt1">
+                                                                    <owl-date-time [pickerType]="'calendar'" #dt1>
+                                                                    </owl-date-time>
+                                                                </div>
+                                                                <div class="form__col"
+                                                                    *ngIf="itemHeader.customFieldSpecialType=='Time'">
+
+                                                                    <input [owlDateTimeTrigger]="dt4"
+                                                                        class="form__input"
+                                                                        [(ngModel)]="dataColumnFilter.searchValue"
+                                                                        [owlDateTime]="dt4">
+                                                                    <owl-date-time [pickerType]="'timer'" #dt4>
+                                                                    </owl-date-time>
+                                                                </div>
+                                                                <div class="form__col"
+                                                                    *ngIf="itemHeader.customFieldSpecialType=='Date & Time'">
+
+                                                                    <input class="form__input"
+                                                                        [owlDateTimeTrigger]="dt1"
+                                                                        [(ngModel)]="dataColumnFilter.searchValue"
+                                                                        [owlDateTime]="dt1">
+                                                                    <owl-date-time #dt1>
+                                                                    </owl-date-time>
+                                                                </div>
+                                                            </li>
+
+                                                            <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                                                *ngIf="dataColumnFilter.filterOperator=='date-before'">
+
+                                                                <div class="form__col"
+                                                                    *ngIf="itemHeader.customFieldSpecialType=='Date'">
+
+                                                                    <input class="form__input"
+                                                                        [owlDateTimeTrigger]="dt1"
+                                                                        [(ngModel)]="dataColumnFilter.searchValue"
+                                                                        [owlDateTime]="dt1">
+                                                                    <owl-date-time [pickerType]="'calendar'" #dt1>
+                                                                    </owl-date-time>
+                                                                </div>
+                                                                <div class="form__col"
+                                                                    *ngIf="itemHeader.customFieldSpecialType=='Date & Time'">
+
+                                                                    <input [owlDateTimeTrigger]="dt1"
+                                                                        class="form__input"
+                                                                        [(ngModel)]="dataColumnFilter.searchValue"
+                                                                        [owlDateTime]="dt1">
+                                                                    <owl-date-time #dt1>
+                                                                    </owl-date-time>
+                                                                </div>
+                                                                <div class="form__col"
+                                                                    *ngIf="itemHeader.customFieldSpecialType=='Time'">
+
+                                                                    <input [owlDateTimeTrigger]="dt4"
+                                                                        class="form__input"
+                                                                        [(ngModel)]="dataColumnFilter.searchValue"
+                                                                        [owlDateTime]="dt4">
+                                                                    <owl-date-time [pickerType]="'timer'" #dt4>
+                                                                    </owl-date-time>
+                                                                </div>
+                                                            </li>
+                                                        </ng-container>
+                                                        <ng-container
+                                                            *ngIf="itemHeader.datatype=='string'||itemHeader.datatype=='Text'">
+                                                            <ul style="list-style: none; padding-left: 0px;">
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='eq'?'active':''">
+                                                                    <a class="icons__submenu-link"
+                                                                        (click)="FilterOperartorSelect('Equals')"
+                                                                        style="display: flex;">Equals
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='ne'?'active':''">
+                                                                    <a class="icons__submenu-link"
+                                                                        (click)="FilterOperartorSelect('Does Not Equal')"
+                                                                        style="display: flex;">Does Not
+                                                                        Equal
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='cn'?'active':''">
+                                                                    <a class="icons__submenu-link"
+                                                                        (click)="FilterOperartorSelect('Contains')"
+                                                                        style="display: flex;">Contains
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='bw'?'active':''">
+                                                                    <a class="icons__submenu-link"
+                                                                        (click)="FilterOperartorSelect('Begins With')"
+                                                                        style="display: flex;">Begins
+                                                                        With</a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='nc'?'active':''">
+                                                                    <a class="icons__submenu-link"
+                                                                        (click)="FilterOperartorSelect('Does NOT Contain')"
+                                                                        style="display: flex;">Does NOT
+                                                                        Contain </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='Empty'?'active':''">
+                                                                    <a class="icons__submenu-link"
+                                                                        (click)="FilterOperartorSelect('Is Empty')"
+                                                                        style="display: flex;">Is
+                                                                        Empty </a>
+                                                                </li>
+                                                            </ul>
+
+                                                        </ng-container>
+
+
+                                                        <ng-container *ngIf="itemHeader.datatype=='Date/Time'">
+
+                                                            <ng-container
+                                                                *ngIf="itemHeader.customFieldSpecialType=='Date'"
+                                                                style="list-style: none; padding-left: 0px; ">
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='date-eq'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('DateEquals')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">Equals</a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='date-bw'?'active':''">
+                                                                    <a class="icons__submenu-link"
+                                                                        (click)="FilterOperartorSelect('Date Between')"
+                                                                        style="display: flex;">Date
+                                                                        Between
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='date-month'?'active':''">
+                                                                    <a class="icons__submenu-link"
+                                                                        (click)="FilterOperartorSelect('Month Equals')"
+                                                                        style="display: flex;">Month
+                                                                        Equals
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='date-day'?'active':''">
+                                                                    <a class="icons__submenu-link"
+                                                                        (click)="FilterOperartorSelect('Day Equals')"
+                                                                        style="display: flex;">Day
+                                                                        Equals
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='date-year'?'active':''">
+                                                                    <a class="icons__submenu-link"
+                                                                        (click)="FilterOperartorSelect('Year Equals')"
+                                                                        style="display: flex;">Year
+                                                                        Equals
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='date-after'?'active':''">
+                                                                    <a class="icons__submenu-link"
+                                                                        (click)="FilterOperartorSelect('On Or After')"
+                                                                        style="display: flex;">On Or
+                                                                        After
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='date-before'?'active':''">
+                                                                    <a class="icons__submenu-link"
+                                                                        (click)="FilterOperartorSelect('On Or Before')"
+                                                                        style="display: flex;">On Or
+                                                                        Before
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='Empty'?'active':''">
+                                                                    <a class="icons__submenu-link"
+                                                                        (click)="FilterOperartorSelect('Is Empty')"
+                                                                        style="display: flex;">Is Null
+                                                                        Empty
+                                                                    </a>
+                                                                </li>
+                                                            </ng-container>
+
+                                                            <ng-container
+                                                                class="icons__submenu-item icons__submenu-item--contains-input"
+                                                                *ngIf="itemHeader.customFieldSpecialType=='Date & Time'">
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='date-eq'?'active':''">
+                                                                    <a class="icons__submenu-link"
+                                                                        (click)="FilterOperartorSelect('DateEquals')"
+                                                                        style="display: flex;">Equals
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='date-bw'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('Date Between')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">Date
+                                                                        Between
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='date-month'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('Month Equals')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">Month
+                                                                        Equals
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='date-day'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('Day Equals')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">Day
+                                                                        Equals
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='date-year'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('Year Equals')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">Year
+                                                                        Equals
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='date-after'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('On Or After')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">On Or
+                                                                        After
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='date-before'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('On Or Before')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">On Or
+                                                                        Before
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='Empty'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('Is Empty')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">Is
+                                                                        Null Empty
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='date-second'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('Second Equals')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">Second Equals
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='date-minute'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('Minute Equals')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">Minute Equals
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='date-hour'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('Hour Equals')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">Hour
+                                                                        Equals
+                                                                    </a>
+                                                                </li>
+
+                                                            </ng-container>
+                                                            <!-- </li> -->
+                                                            <ng-container
+                                                                class="icons__submenu-item icons__submenu-item--contains-input"
+                                                                *ngIf="itemHeader.customFieldSpecialType=='Time'">
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='time-eq'?'active':''">
+                                                                    <a class="icons__submenu-link"
+                                                                        (click)="FilterOperartorSelect('TimeEquals')"
+                                                                        style="display: flex;">Equals
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='date-second'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('Second Equals')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">Second Equals
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='date-minute'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('Minute Equals')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">Minute Equals
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='date-hour'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('Hour Equals')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">Hour
+                                                                        Equals
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='time-after'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('On Or Time After')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">On Or Time
+                                                                        After
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='time-before'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('On Or Time Before')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">On Or Time
+                                                                        Before
+                                                                    </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='Empty'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('Is Empty')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">Is
+                                                                        Null Empty
+                                                                    </a>
+                                                                </li>
+
+                                                            </ng-container>
+                                                        </ng-container>
+
+                                                        <ng-container *ngIf="itemHeader.datatype=='stringUom'">
+                                                            <ul style="list-style: none;  padding-left: 0px;">
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='eq'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('Equals')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">Equals</a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='ne'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('Does Not Equal')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">Does
+                                                                        Not
+                                                                        Equal
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+
+                                                        </ng-container>
+
+
+                                                        <ng-container
+                                                            *ngIf="itemHeader.datatype=='number'||itemHeader.datatype=='Number'">
+
+                                                            <ul style="list-style: none;  padding-left: 0px;">
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='num-eq'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('Number Equals')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">Equals</a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='num-ne'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('Number Not Equal')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">Does
+                                                                        Not
+                                                                        Equal</a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='num-gte'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('Greater Than or Equals')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">Greater Than or
+                                                                        Equals </a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='num-lte'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('Less Than or Equals')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">Less
+                                                                        Than or
+                                                                        Equals</a>
+                                                                </li>
+                                                                <li class="icons__submenu-item"
+                                                                    [ngClass]="dataColumnFilter.filterOperator=='Empty'?'active':''">
+                                                                    <a (click)="FilterOperartorSelect('Is Empty')"
+                                                                        class="icons__submenu-link"
+                                                                        style="display: flex;">Is
+                                                                        Empty</a>
+                                                                </li>
+                                                            </ul>
+
+                                                        </ng-container>
+                                                    </ul>
+                                                    <ng-container>
+                                                        <div class="button-group">
+                                                            <button class="button button--small button--text-only"
+                                                                (click)="closeGlobalDropDown(itemHeader.field)">Cancel</button>
+                                                            <button type="submit" class="button button--small"
+                                                                (click)="ApplyFilter2(itemHeader.field)">Apply</button>
                                                         </div>
-                                                    </li>
-                                                </ng-container>
-                                                <ng-container *ngIf="itemHeader.datatype=='Text'">
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
-                                                        <div class="form__col">
-                                                            <label class="form__label form__label--hidden"
-                                                                for="list-dropdown_{{itemHeader.field}}">Dropdown</label>
-                                                            <select class="form__input form__select"
-                                                                [(ngModel)]="dataColumnFilter.filterOperator"
-                                                                id="list-dropdown_{{itemHeader.field}}"
-                                                                name="list-dropdown_{{itemHeader.field}}">
-                                                                <option value="">Choose Filter</option>
-                                                                <option value="cn">Contains</option>
-                                                                <option value="nc">Does NOT Contain</option>
-                                                                <option value="eq">Equals</option>
-                                                                <option value="ne">Does NOT Equal</option>
-                                                                <option value="bw">Begins With</option>
-                                                                <option value="Empty">Is Empty</option>
-                                                            </select>
-                                                        </div>
-                                                    </li>
-                                                </ng-container>
-                                                <!-- <ng-container *ngIf="itemHeader.datatype=='Date/Time'">
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
-                                                        <div class="form__col">
-                                                            <select class="floating-select"
-                                                                [(ngModel)]="dataColumnFilter.filterOperator"
-                                                                id="list-dropdown_{{itemHeader.field}}"
-                                                                name="list-dropdown_{{itemHeader.field}}">
-                                                                <option value="">Choose Filter</option>
-                                                                <option value="eq">Equals</option>
-                                                                <option value="date-bw">Date Between</option>
-                                                                <option value="date-month">Month Equals</option>
-                                                                <option value="date-day">Day Equals</option>
-                                                                <option value="date-year">Year Equals</option>
-                                                                <option value="OOA">On Or After</option>
-                                                                <option value="OOB">On Or Before</option>
-                                                                <option value="Empty">Is Null Empty</option>
-                                                            </select>
-                                                            <span class="highlight"></span>
-                                                            <label
-                                                                class="form__label form_label form__label--hidden">Dropdown</label>
-                                                        </div>
-                                                    </li>
-                                                </ng-container> -->
-                                                <ng-container *ngIf="itemHeader.datatype=='Date/Time'">
-
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="itemHeader.customFieldSpecialType=='Date'">
-                                                        <div class="form__col">
-                                                            <select class="floating-select"
-                                                                [(ngModel)]="dataColumnFilter.filterOperator"
-                                                                id="list-dropdown_{{itemHeader.field}}"
-                                                                name="list-dropdown_{{itemHeader.field}}">
-                                                                <option value="">Choose Filter</option>
-                                                                <option value="date-eq">Equals</option>
-                                                                <option value="date-bw">Date Between</option>
-                                                                <option value="date-month">Month Equals</option>
-                                                                <option value="date-day">Day Equals</option>
-                                                                <option value="date-year">Year Equals</option>
-                                                                <option value="date-after">On Or After</option>
-                                                                <option value="date-before">On Or Before</option>
-                                                                <option value="Empty">Is Null Empty</option>
-                                                            </select>
-                                                            <span class="highlight"></span>
-                                                            <label
-                                                                class="form__label form_label form__label--hidden">Dropdown</label>
-                                                        </div>
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="itemHeader.customFieldSpecialType=='Date & Time'">
-                                                        <div class="form__col">
-                                                            <select class="floating-select"
-                                                                [(ngModel)]="dataColumnFilter.filterOperator"
-                                                                id="list-dropdown_{{itemHeader.field}}"
-                                                                name="list-dropdown_{{itemHeader.field}}">
-                                                                <option value="">Choose Filter</option>
-                                                                <option value="dateTime-Equals">Equals</option>
-                                                                <option value="date-month">Month Equals</option>
-                                                                <option value="date-day">Day Equals</option>
-                                                                <option value="date-year">Year Equals</option>
-                                                                <option value="date-second">Second Equals</option>
-                                                                <option value="date-minute">Minute Equals</option>
-                                                                <option value="date-hour">Hour Equals</option>
-                                                                <option value="dateTime-after">On Or After</option>
-                                                                <option value="dateTime-before">On Or Before</option>
-                                                                <option value="Empty">Is Null Empty</option>
-                                                            </select>
-                                                            <span class="highlight"></span>
-                                                            <label
-                                                                class="form__label form_label form__label--hidden">Dropdown</label>
-                                                        </div>
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="itemHeader.customFieldSpecialType=='Time'">
-                                                        <div class="form__col">
-                                                            <select class="floating-select"
-                                                                [(ngModel)]="dataColumnFilter.filterOperator"
-                                                                id="list-dropdown_{{itemHeader.field}}"
-                                                                name="list-dropdown_{{itemHeader.field}}">
-                                                                <option value="">Choose Filter</option>
-                                                                <option value="time-eq">Equals</option>
-                                                                <option value="date-second">Second Equals</option>
-                                                                <option value="date-minute">Minute Equals</option>
-                                                                <option value="date-hour">Hour Equals</option>
-                                                                <option value="Time-after">On Or After</option>
-                                                                <option value="Time-before">On Or Before</option>
-                                                                <option value="Empty">Is Null Empty</option>
-                                                            </select>
-                                                            <span class="highlight"></span>
-                                                            <label
-                                                                class="form__label form_label form__label--hidden">Dropdown</label>
-                                                        </div>
-                                                    </li>
-                                                </ng-container>
-                                                <ng-container *ngIf="itemHeader.datatype=='stringUom'">
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
-                                                        <div class="form__col">
-                                                            <label class="form__label form__label--hidden"
-                                                                for="list-dropdownuom{{itemHeader.field}}">Dropdown</label>
-                                                            <select class="form__input form__select"
-                                                                [(ngModel)]="dataColumnFilter.filterOperator"
-                                                                id="list-dropdown{{itemHeader.field}}"
-                                                                name="list-dropdownuom{{itemHeader.field}}">
-                                                                <option value="">Choose Filter</option>
-                                                                <option value="eq">Equals</option>
-                                                                <option value="nc">Does NOT Contain</option>
-                                                            </select>
-                                                        </div>
-                                                    </li>
-                                                </ng-container>
-                                                <ng-container *ngIf="itemHeader.datatype=='stringStatus'">
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
-                                                        <div class="form__col">
-                                                            <label class="form__label form__label--hidden"
-                                                                for="list-dropdownstatus{{itemHeader.field}}">Dropdown</label>
-                                                            <select class="form__input form__select"
-                                                                [(ngModel)]="dataColumnFilter.filterOperator"
-                                                                id="list-dropdownstatus{{itemHeader.field}}"
-                                                                name="list-dropdownstatus{{itemHeader.field}}">
-                                                                <option value="">Choose Filter</option>
-                                                                <option value="eq">Equals</option>
-                                                                <option value="nc">Does NOT Contain</option>
-                                                            </select>
-                                                        </div>
-                                                    </li>
-                                                </ng-container>
-
-                                                <ng-container *ngIf="itemHeader.datatype=='number'">
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
-                                                        <div class="form__col">
-                                                            <label class="form__label form__label--hidden"
-                                                                for="list-dropdown{{itemHeader.field}}">Dropdown</label>
-                                                            <select class="form__input form__select"
-                                                                [(ngModel)]="dataColumnFilter.filterOperator"
-                                                                id="list-dropdown{{itemHeader.field}}"
-                                                                name="list-dropdown{{itemHeader.field}}">
-                                                                <option value="">Choose Filter</option>
-                                                                <option value="num-eq">Equals</option>
-                                                                <option value="num-ne">Does NOT Equal</option>
-                                                                <option value="num-gte">Greater Than OR Equals</option>
-                                                                <option value="num-lte">Less Than OR Equals</option>
-                                                                <option value="Empty">Is Null (Empty)</option>
-                                                            </select>
-                                                        </div>
-                                                    </li>
-                                                </ng-container>
-                                                <ng-container
-                                                    *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype!='stringStatus'&&itemHeader.datatype!='stringUom'&&itemHeader.datatype!='Date/Time'">
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
-                                                        <div class="form__col">
-                                                            <label class="form__label"
-                                                                for="value12{{itemHeader.field}}">Value</label>
-                                                            <input class="form__input"
-                                                                [(ngModel)]="dataColumnFilter.searchValue" type="text"
-                                                                id="value12{{itemHeader.field}}"
-                                                                name="value12{{itemHeader.field}}">
-                                                        </div>
-                                                    </li>
-                                                </ng-container>
-                                                <!-- <ng-container *ngIf="itemHeader.datatype=='Date/Time'">
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='eq'">
-                                                        <div class="form__col">
-
-                                                            <input class="form__input" [owlDateTimeTrigger]="dt1"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                [owlDateTime]="dt1">
-                                                            <owl-date-time [pickerType]="'calendar'" #dt1>
-                                                            </owl-date-time>
-                                                        </div>
-
-                                                    </li>
-
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='date-month'">
-                                                        <div class="form__col">
-                                                            <input [owlDateTimeTrigger]="dt" class="form__input"
-                                                                [owlDateTime]="dt" [formControl]="date">
-                                                            <owl-date-time [pickerType]="'calendar'"
-                                                                [startView]="'multi-years'"
-                                                                (yearSelected)="chosenYearHandler($event)"
-                                                                (monthSelected)="chosenMonthHandler($event, dt)"
-                                                                #dt="owlDateTime"></owl-date-time>
-                                                        </div>
-
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='date-year'">
-                                                        <div class="form__col">
-                                                            <input class="form__input" [owlDateTimeTrigger]="dt1"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                [owlDateTime]="dt1">
-                                                            <owl-date-time [startView]="'year'" #dt1></owl-date-time>
-                                                        </div>
-
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='OOB'">
-
-                                                        <div class="form__col">
-
-                                                            <input class="form__input" [owlDateTimeTrigger]="dt1"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                [owlDateTime]="dt1">
-                                                            <owl-date-time [pickerType]="'calendar'" #dt1>
-                                                            </owl-date-time>
-                                                        </div>
-
-
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='OOA'">
-
-                                                        <div class="form__col">
-
-                                                            <input class="form__input" [owlDateTimeTrigger]="dt1"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                [owlDateTime]="dt1">
-                                                            <owl-date-time [pickerType]="'calendar'" #dt1>
-                                                            </owl-date-time>
-                                                        </div>
-
-
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='Empty'">
-                                                        <div class="form__col">
-                                                            <label class="form__label"
-                                                                for="value12{{itemHeader.field}}">Value</label>
-                                                            <input class="form__input"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                id="value12{{itemHeader.field}}"
-                                                                name="value12{{itemHeader.field}}">
-                                                        </div>
-
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='date-day'">
-                                                        <div class="form__col">
-                                                            <label class="form__label"
-                                                                for="list-dropdown81{{itemHeader.field}}">Value</label>
-                                                            <select class="floating-select"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                id="list-dropdown81{{itemHeader.field}}"
-                                                                name="list-dropdown81{{itemHeader.field}}">
-                                                                <option value="">Choose Days</option>
-                                                                <option *ngFor="let opt of options" [value]="opt">
-                                                                    {{opt}}
-                                                                </option>
-                                                            </select>
-                                                        </div>
-
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='date-bw'">
-
-                                                        <input class="form__input" [owlDateTimeTrigger]="dt10"
-                                                            [(ngModel)]="dataColumnFilter.searchValue"
-                                                            [owlDateTime]="dt10" [selectMode]="'range'">
-                                                        <owl-date-time [pickerType]="'calendar'" #dt10></owl-date-time>
-
-
-                                                    </li>
-                                                </ng-container> -->
-                                                <ng-container *ngIf="itemHeader.datatype=='Date/Time'">
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='date-eq'">
-                                                        <div class="form__col">
-
-                                                            <input class="form__input" [owlDateTimeTrigger]="dt1"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                [owlDateTime]="dt1">
-                                                            <owl-date-time [pickerType]="'calendar'" #dt1>
-                                                            </owl-date-time>
-                                                        </div>
-
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='time-eq'">
-                                                        <div class="form__col">
-                                                            <input [owlDateTimeTrigger]="dt4" class="form__input"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                [owlDateTime]="dt4">
-                                                            <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
-                                                            <!-- <input class="form__input" [owlDateTimeTrigger]="dt1"
-                                                                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                                                                [owlDateTime]="dt1">
-                                                                                                            <owl-date-time [pickerType]="'calendar'" #dt1>
-                                                                                                            </owl-date-time> -->
-                                                        </div>
-
-                                                    </li>
-
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='date-month'">
-                                                        <div class="form__col">
-                                                            <label class="form__label"
-                                                                for="list-dropdown81{{itemHeader.field}}">Value</label>
-                                                            <select class="floating-select"
-                                                                (ngModelChange)='SelectedMonth($event)'
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                id="list-dropdown81{{itemHeader.field}}"
-                                                                name="list-dropdown81{{itemHeader.field}}">
-                                                                <option value="">Choose Months</option>
-                                                                <option *ngFor="let opt of Month" [value]="opt.id">
-                                                                    {{opt.month}}
-                                                                </option>
-                                                            </select>
-
-
-                                                            <!-- <input [owlDateTimeTrigger]="dt" class="form__input"
-                                                                                                                [owlDateTime]="dt" [formControl]="date">
-                                                                                                            <owl-date-time [pickerType]="'calendar'"
-                                                                                                                [startView]="'multi-years'"
-                                                                                                                (yearSelected)="chosenYearHandler($event)"
-                                                                                                                (monthSelected)="chosenMonthHandler($event, dt)"
-                                                                                                                #dt="owlDateTime"></owl-date-time> -->
-                                                        </div>
-
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='date-year'">
-                                                        <div class="form__col">
-                                                            <input class="form__input" [owlDateTimeTrigger]="dt1"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                [owlDateTime]="dt1">
-                                                            <owl-date-time [startView]="'year'" #dt1></owl-date-time>
-                                                        </div>
-
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='Time-before'">
-
-                                                        <div class="form__col">
-
-                                                            <input [owlDateTimeTrigger]="dt4" class="form__input"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                [owlDateTime]="dt4">
-                                                            <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
-                                                        </div>
-
-
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='Time-after'">
-
-                                                        <div class="form__col">
-
-                                                            <input [owlDateTimeTrigger]="dt4" class="form__input"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                [owlDateTime]="dt4">
-                                                            <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
-                                                        </div>
-
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='Empty'">
-                                                        <div class="form__col">
-                                                            <label class="form__label"
-                                                                for="value12{{itemHeader.field}}">Value</label>
-                                                            <input class="form__input"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                id="value12{{itemHeader.field}}"
-                                                                name="value12{{itemHeader.field}}">
-                                                        </div>
-
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='date-day'">
-                                                        <div class="form__col">
-                                                            <label class="form__label"
-                                                                for="list-dropdown81{{itemHeader.field}}">Value</label>
-                                                            <select class="floating-select"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                id="list-dropdown81{{itemHeader.field}}"
-                                                                name="list-dropdown81{{itemHeader.field}}">
-                                                                <option value="">Choose Days</option>
-                                                                <option *ngFor="let opt of options" [value]="opt">
-                                                                    {{opt}}
-                                                                </option>
-                                                            </select>
-                                                        </div>
-
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='date-bw'">
-
-                                                        <input class="form__input" [owlDateTimeTrigger]="dt10"
-                                                            [(ngModel)]="dataColumnFilter.searchValue"
-                                                            [owlDateTime]="dt10" [selectMode]="'range'">
-                                                        <owl-date-time [pickerType]="'calendar'" #dt10></owl-date-time>
-
-
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='date-hour'">
-                                                        <div class="form__col">
-                                                            <label class="form__label"
-                                                                for="list-dropdown81{{itemHeader.field}}">Value</label>
-                                                            <select class="floating-select"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                id="list-dropdown81{{itemHeader.field}}"
-                                                                name="list-dropdown81{{itemHeader.field}}">
-                                                                <option value="">Choose Hour</option>
-                                                                <option *ngFor="let opt of hour" [value]="opt">
-                                                                    {{opt}}
-                                                                </option>
-                                                            </select>
-                                                        </div>
-
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='date-minute'">
-                                                        <div class="form__col">
-                                                            <label class="form__label"
-                                                                for="list-dropdown81{{itemHeader.field}}">Value</label>
-                                                            <select class="floating-select"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                id="list-dropdown81{{itemHeader.field}}"
-                                                                name="list-dropdown81{{itemHeader.field}}">
-                                                                <option value="">Choose Minutes</option>
-                                                                <option *ngFor="let opt of minutes" [value]="opt">
-                                                                    {{opt}}
-                                                                </option>
-                                                            </select>
-                                                        </div>
-
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='date-second'">
-                                                        <div class="form__col">
-                                                            <label class="form__label"
-                                                                for="list-dropdown81{{itemHeader.field}}">Value</label>
-                                                            <select class="floating-select"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                id="list-dropdown81{{itemHeader.field}}"
-                                                                name="list-dropdown81{{itemHeader.field}}">
-                                                                <option value="">Choose Seconds</option>
-                                                                <option *ngFor="let opt of seconds" [value]="opt">
-                                                                    {{opt}}
-                                                                </option>
-                                                            </select>
-                                                        </div>
-
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='date-after'">
-
-                                                        <div class="form__col">
-
-                                                            <input class="form__input" [owlDateTimeTrigger]="dt1"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                [owlDateTime]="dt1">
-                                                            <owl-date-time [pickerType]="'calendar'" #dt1>
-                                                            </owl-date-time>
-                                                        </div>
-
-
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='DateTime-equals'">
-
-                                                        <div class="form__col">
-
-                                                            <input class="form__input" [owlDateTimeTrigger]="dt1"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                [owlDateTime]="dt1">
-                                                            <owl-date-time #dt1>
-                                                            </owl-date-time>
-                                                        </div>
-
-
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='dateTime-before'">
-
-                                                        <div class="form__col">
-                                                            <input [owlDateTimeTrigger]="dt1" class="form__input"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                [owlDateTime]="dt1">
-                                                            <owl-date-time #dt1>
-                                                            </owl-date-time>
-
-                                                        </div>
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='dateTime-after'">
-
-                                                        <div class="form__col">
-
-                                                            <input class="form__input" [owlDateTimeTrigger]="dt1"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                [owlDateTime]="dt1">
-                                                            <owl-date-time #dt1>
-                                                            </owl-date-time>
-                                                        </div>
-
-
-                                                    </li>
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                        *ngIf="dataColumnFilter.filterOperator=='date-before'">
-
-                                                        <div class="form__col">
-
-                                                            <input class="form__input" [owlDateTimeTrigger]="dt1"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                [owlDateTime]="dt1">
-                                                            <owl-date-time [pickerType]="'calendar'" #dt1>
-                                                            </owl-date-time>
-                                                        </div>
-                                                    </li>
-                                                </ng-container>
-                                                <ng-container
-                                                    *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='stringStatus'">
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
-                                                        <div class="form__col">
-                                                            <label class="form__label form__label--hidden"
-                                                                for="list-dropdown51{{itemHeader.field}}">Value</label>
-                                                            <select class="form__input form__select"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                id="list-dropdown51{{itemHeader.field}}"
-                                                                name="list-dropdown51{{itemHeader.field}}">
-                                                                <option value="">Choose Filter</option>
-                                                                <option *ngFor="let opt of statusList"
-                                                                    [value]="opt.statusValue">
-                                                                    {{opt.statusValue}}
-                                                                </option>
-                                                            </select>
-                                                        </div>
-                                                    </li>
-                                                </ng-container>
-                                                <ng-container
-                                                    *ngIf="itemHeader.datatype!=undefined&&itemHeader.datatype=='stringUom'">
-
-                                                    <li class="icons__submenu-item icons__submenu-item--contains-input">
-                                                        <div class="form__col">
-                                                            <label class="form__label form__label--hidden"
-                                                                for="list-dropdown61{{itemHeader.field}}">Value</label>
-                                                            <select class="form__input form__select"
-                                                                [(ngModel)]="dataColumnFilter.searchValue"
-                                                                id="list-dropdown61{{itemHeader.field}}"
-                                                                name="list-dropdown61{{itemHeader.field}}">
-                                                                <option value="">Choose Filter</option>
-                                                                <option *ngFor="let opt of uomList"
-                                                                    [value]="opt.uomName">
-                                                                    {{opt.uomName}}
-                                                                </option>
-                                                            </select>
-                                                        </div>
-                                                    </li>
-                                                </ng-container>
-                                                <ng-container *ngIf="itemHeader.datatype!=undefined">
-                                                    <div class="button-group">
-                                                        <button class="button button--small button--text-only"
-                                                            (click)="CloseFilter2(itemHeader.field)">Cancel</button>
-                                                        <button type="submit" class="button button--small"
-                                                            (click)="ApplyFilter2(itemHeader.field)">Apply</button>
-                                                    </div>
-                                                </ng-container>
-                                            </ul>
-
-                                        </div>
-                                    </button>
+                                                    </ng-container>
+                                                </div>
+                                            </ng-container>
+                                        </button>
+                                    </ng-contaier>
 
                                 </div>
                             </div>
@@ -1214,7 +1590,8 @@
                             [ngClass]="{'table__row--is-active':item.isActive==true}">
                             <td class="table__cell" data-title="Column Title">
                                 <div class="icons icons--size02">
-                                    <button class="icons__item icons__item--theme07" type="button" (click)="edit(item)">
+                                    <button style="cursor: pointer;" class="icons__item icons__item--theme07"
+                                        type="button" (click)="edit(item)">
                                         <div class="icons__icon"><svg class="icon icon--theme01 icon--adjust"
                                                 aria-labelledby="title-5f83f4826a17f" xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 48 48" width="48" height="48">
@@ -1236,7 +1613,8 @@
                                         <span class="icons__label">Edit</span>
                                     </button>
 
-                                    <button class="icons__item icons__item--theme03" (click)="DeleteConfirm(item)">
+                                    <button style="cursor: pointer;" class="icons__item icons__item--theme03"
+                                        (click)="DeleteConfirm(item)">
                                         <div class="icons__icon">
                                             <svg class="icon icon--theme01 icon-simple--trash"
                                                 aria-labelledby="title-5f84133e656c0" xmlns="http://www.w3.org/2000/svg"
@@ -1301,7 +1679,7 @@
 
     </section>
 </ng-container>
-<ng-container *ngIf="edititem">
+<ng-container *ngIf="edititem &&!UploadActivityOpen">
     <app-edit-item [item]="selecteditem" [AttributeFields]="AttributeFields" [uomList]="uomList"
         [locationsList]="locationsList">
 
@@ -2071,20 +2449,6 @@
 </div>
 
 
-<ng-container *ngIf="NotPermitted">
-    <section class="main">
-        <h2><b>You are Not Permitted for Item Library</b></h2>
-        <div>
-            <button class="button button--medium button--theme02 js-modal" type="button" routerLink="/CurrentInventory"
-                data-modal="#InventorytestModal">
-                Go to Inventory
-            </button>
-        </div>
-        <app-uom-modal (RefreshUom)="getUOMList()"></app-uom-modal>
-        <app-location-modal (RefreshLocation)="getLocationList()"></app-location-modal>
-        <app-attribute-field-modal (RefreshAttributeField)="GetAttributeFields()"></app-attribute-field-modal>
-    </section>
-</ng-container>
 
-
+<app-upload-item *ngIf="UploadActivityOpen" (hideClose)="getValue($event)"></app-upload-item>
 <ngx-spinner></ngx-spinner>

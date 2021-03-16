@@ -5,6 +5,8 @@ import { Store } from '@ngrx/store';
 import { Tenant } from './store/models/tenant.model';
 import { AppState } from './store/models/app-state.model';
 import { AddTenantAction } from './store/actions/tenant.action';
+import { finalize } from 'rxjs/operators';
+import { HomeService } from '../app/home/service/home.service';
 @Component({
   selector: 'app-root',
   templateUrl: `./app.component.html`,
@@ -17,8 +19,11 @@ export class AppComponent implements OnInit {
   canActivateProtectedRoutes: Observable<boolean>;
   _haveTenantId$: Observable<boolean>;
   userInfo
+  Tenants$: any;
+  busy
   constructor(private store: Store<AppState>,
     private authService: AuthService,
+    private homeService: HomeService,
   ) {
     //this.shoppingItems = this.store.select(store => store.tenant);
     this.isAuthenticated = this.authService.isAuthenticated$;
@@ -29,11 +34,15 @@ export class AppComponent implements OnInit {
     this.authService.runInitialLoginSequence();
     this.userInfo = authService.identityClaims;
 
+
   }
   ngOnInit() {
 
 
-
+    debugger;
+    if (this.isAuthenticated) {
+      this.GetTenants();
+    }
     // setTimeout(() => {
     //   this.addTenant();
     // }, 2000);
@@ -50,6 +59,15 @@ export class AppComponent implements OnInit {
     this.authService.login();
   }
   // url = "assets/js/NewJsForCI.js";
+
+  GetTenants() {
+    this.homeService.GetTenants(this.authService.accessToken)
+      .pipe(finalize(() => {
+        this.busy = false;
+      })).subscribe(result => {
+        this.Tenants$ = result.entity;
+      })
+  }
 
   // loadScript() {
   //   console.log("preparing to load...");

@@ -1,13 +1,19 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from './core/auth.service';
 import { Tenant } from './currentinventory/models/admin.models';
+import { Store, select } from '@ngrx/store';
+import { AppState } from '../app/shared/appState';
+import { SetSelectedTenant, SetSelectedTenantId } from '../app/store/actions/tenant.action';
+import { Router } from '@angular/router';
+import { selectSelectedTenantId, selectSelectedTenant } from '../app/store/selectors/tenant.selectors';
 @Component({
   selector: 'app-menu',
   templateUrl: `./app-menu.component.html`,
   styleUrls: ['./app-menu.component.scss']
 })
 export class AppMenuComponent {
+  @Input() tenantList
   isAuthenticated: Observable<boolean>;
   currentTenantId$: Observable<number>;
   currentTenantName$: Observable<string>;
@@ -16,15 +22,25 @@ export class AppMenuComponent {
   showProfileDD: boolean = false;
   showInventoryDD: boolean = false;
   selectedTenant: Tenant;
-  constructor(private authService: AuthService) {
+  showDropDown = false;
+  constructor(private authService: AuthService, protected store: Store<AppState>, private router: Router,) {
 
     this.isAuthenticated = authService.isAuthenticated$;
     this._haveTenantId$ = authService.haveTenantId;
     this.currentTenantName$ = authService.curentTenantName;
     this.currentTenantId$ = authService.currentTenantId;
     this._isTenantOwner$ = authService.isTenantOwner;
-    let TenantObj = localStorage.getItem('Tenant');
-    this.selectedTenant = JSON.parse(TenantObj);
+
+    this.store.pipe(select(selectSelectedTenant)).
+      subscribe(event => {
+        if (event) {
+          debugger;
+          this.selectedTenant = event;
+
+        }
+      });
+    // let TenantObj = localStorage.getItem('Tenant');
+    // this.selectedTenant = JSON.parse(TenantObj);
   }
 
   login() {
@@ -37,10 +53,28 @@ export class AppMenuComponent {
     this.authService.logout();
   }
 
+  SelectedTenant(value: any) {
+    this.store.dispatch(new SetSelectedTenant(value));
+    localStorage.setItem('TenantId', JSON.stringify(value.tenantId));
+    localStorage.setItem('Tenant', JSON.stringify(value));
+    this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['CurrentInventory']);
+    });
+  }
+
+
   ProfileDropDown() {
     this.showProfileDD = !this.showProfileDD
   }
-
+  toggleDropDown() {
+    debugger
+    this.showDropDown = !this.showDropDown;
+    console.log('clicked');
+  }
+  closeDropDown() {
+    debugger
+    this.showDropDown = false;
+  }
   InventoryDropDown() {
     this.showInventoryDD = !this.showInventoryDD
   }

@@ -20,9 +20,12 @@ export class StatementHistoryComponent implements OnInit {
   @Input() CustomFields: any;
   @Input() InventoryTransactionObj: any;
   @Input() EventList: any;
+
+  @Output() RefreshInventory = new EventEmitter();
   selectedTenantId: number;
   error: string;
   public today: Date;
+  public myDT: Date;
   public statementHistory: any;
   public transaction_History: any;
   loadingRecords = false;
@@ -55,6 +58,20 @@ export class StatementHistoryComponent implements OnInit {
               this.CustomFields.forEach(elementcustom => {
                 if (elementcustom.columnName == element.columnName) {
                   element.columnLabel = elementcustom.columnLabel;
+                  if (elementcustom.dataType == "Date/Time") {
+                    this.myDT = new Date(element.columnValue)
+                    let DateManual = this.myDT.toLocaleDateString();
+                    if (elementcustom.customFieldSpecialType == "Time") {
+                      DateManual = this.myDT.toLocaleTimeString()
+                    }
+                    if (elementcustom.customFieldSpecialType == "Date & Time") {
+                      DateManual = this.myDT.toLocaleString();
+                    }
+                    if (elementcustom.customFieldSpecialType == "Date") {
+                      DateManual = this.myDT.toLocaleDateString()
+                    }
+                    element.columnValue = DateManual;
+                  }
                 }
               });
 
@@ -68,6 +85,28 @@ export class StatementHistoryComponent implements OnInit {
           this.error = error;
           this.spinner.hide();
         })
+  }
+
+  public comfirmBoxDelete = false;
+  public SelectedTransaction: any;
+  UndoTransaction(transaction) {
+    this.SelectedTransaction = transaction;
+    this.comfirmBoxDelete = true;
+    debugger;
+
+  }
+
+  Confirm() {
+    this.spinner.show();
+    this.currentinventoryService.UndoTransaction(this.selectedTenantId, this.authService.accessToken, this.SelectedTransaction.transactionId, this.SelectedTransaction.inventoryId, this.SelectedTransaction.parentTransactionId).subscribe(res => {
+      if (res.code == 200) {
+        this.spinner.hide()
+        this.RefreshInventory.emit();
+      }
+    })
+  }
+  close() {
+    this.comfirmBoxDelete = false;
   }
   ApplyJsFunction() {
     setTimeout(function () {

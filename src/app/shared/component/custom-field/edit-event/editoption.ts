@@ -354,6 +354,7 @@ export const options = {
         basic: false,
         data: false,
         advanced: false,
+        layout: false,
         premium: false,
         eventQuantityAction: {
             title: 'Event Quantity Action',
@@ -378,9 +379,9 @@ export const options = {
                         type: "number",
                         data: false,
                         validate: {
-                            max: 123,
-                            min: 12
+                            required: true
                         }
+
                     }
 
                     // schema: {
@@ -428,10 +429,9 @@ export const options = {
                         type: "number",
                         data: false,
                         multiple: false,
-                        // validate: {
-                        //     max: 123,
-                        //     min: 12
-                        // }
+                        validate: {
+                            required: true
+                        }
 
                     }
                     // schema: {
@@ -492,27 +492,13 @@ export const options = {
                                 defaultValue: "",
                                 protected: false,
                                 unique: false,
-                                persistent: true,
-                                hidden: false,
-                                clearOnHide: true,
-                                spellcheck: true,
-                                validate: {
-                                    required: false,
-                                    minLength: "",
-                                    maxLength: "",
-                                    pattern: "",
-                                    custom: "",
-                                    customPrivate: false
-                                },
-                                conditional: {
-                                    show: "",
-                                    when: null,
-                                    eq: ""
-                                },
-                                type: "textfield",
+                                type: "number",
                                 $$hashKey: "object:494",
                                 labelPosition: "top",
                                 inputFormat: "plain",
+                                validate: {
+                                    required: true
+                                },
                                 tags: [
                                 ],
                                 properties: {
@@ -574,7 +560,7 @@ export const options = {
                                 lockKey: true
                             }
                         ],
-                        type: "panel",
+                        type: "fieldset",
                         $$hashKey: "object:407",
                         hideLabel: true,
                         tags: [
@@ -630,6 +616,7 @@ export const options = {
                         tableView: false,
                         legend: "Manage Convert",
                         components: [
+
                             {
                                 autofocus: false,
                                 input: true,
@@ -648,24 +635,13 @@ export const options = {
                                 persistent: true,
                                 hidden: false,
                                 clearOnHide: true,
-                                spellcheck: true,
-                                validate: {
-                                    required: false,
-                                    minLength: "",
-                                    maxLength: "",
-                                    pattern: "",
-                                    custom: "",
-                                    customPrivate: false
-                                },
-                                conditional: {
-                                    show: "",
-                                    when: null,
-                                    eq: ""
-                                },
-                                type: "textfield",
+                                type: "number",
                                 $$hashKey: "object:494",
                                 labelPosition: "top",
                                 inputFormat: "plain",
+                                validate: {
+                                    required: true
+                                },
                                 tags: [
                                 ],
                                 properties: {
@@ -688,25 +664,13 @@ export const options = {
                                 unique: false,
                                 persistent: true,
                                 hidden: false,
-                                clearOnHide: true,
-                                spellcheck: true,
-                                validate: {
-                                    required: false,
-                                    minLength: "",
-                                    maxLength: "",
-                                    pattern: "",
-                                    custom: "",
-                                    customPrivate: false
-                                },
-                                conditional: {
-                                    show: "",
-                                    when: null,
-                                    eq: ""
-                                },
-                                type: "textfield",
+                                type: "number",
                                 $$hashKey: "object:494",
                                 labelPosition: "top",
                                 inputFormat: "plain",
+                                validate: {
+                                    required: true
+                                },
                                 tags: [
                                 ],
                                 properties: {
@@ -768,7 +732,7 @@ export const options = {
                                 lockKey: true
                             }
                         ],
-                        type: "panel",
+                        type: "fieldset",
                         $$hashKey: "object:407",
                         hideLabel: true,
                         tags: [
@@ -826,9 +790,6 @@ export const options = {
                     input: true,
                     key: "currency",
                     isNew: true,
-                    protected: false,
-                    persistent: true,
-                    formOpen: false,
                     schema: {
                         label: "Currency",
                         isNew: true,
@@ -842,6 +803,7 @@ export const options = {
                     hideInputLabels: false,
                     input: true,
                     key: "date",
+                    isNew: true,
                     schema: {
                         enableTime: false,
                         datePicker: {
@@ -851,7 +813,6 @@ export const options = {
                         label: "Date",
                         tableView: false,
                         isNew: true,
-                        tooltip: "Day",
                         type: "datetime",
                         useLocaleSettings: false,
                         key: "date",
@@ -863,16 +824,14 @@ export const options = {
                     enableMinDateInput: false,
                     input: true,
                     key: "dateTime",
+                    isNew: true,
                     schema: {
                         datePicker: {
                             disableWeekdays: false,
                             disableWeekends: false,
                         },
-                        label: "Date/Time",
-                        placeholder: "Date/Time",
-                        tableView: false,
+                        label: "Date & Time",
                         isNew: true,
-                        tooltip: "Date/Time",
                         type: "datetime",
                         key: "dateTime",
                     }
@@ -882,9 +841,9 @@ export const options = {
                     title: 'Dropdown',
                     input: true,
                     key: "dropdown",
+                    isNew: true,
                     schema: {
                         label: "Dropdown",
-                        tableView: true,
                         isNew: true,
                         type: "select",
                         widget: "choicesjs",
@@ -895,31 +854,25 @@ export const options = {
                     title: 'Number',
                     delimiter: false,
                     input: true,
-                    inputFormat: "plain",
                     key: "number",
+                    isNew: true,
+                    inputFormat: "plain",
                     schema: {
                         label: "Number",
-                        mask: false,
                         requireDecimal: false,
-                        spellcheck: true,
-                        tableView: false,
                         key: "number",
                         isNew: true,
-                        tooltip: "Number",
                         type: "number",
-                        validate: {
-                            max: 123,
-                            min: 12
-                        }
                     }
                 },
                 prefix: {
                     title: 'Prefix',
                     input: true,
+                    key: "prefix",
+                    isNew: true,
                     schema: {
                         label: "Prefix",
                         prefix: "Prefix",
-                        tableView: true,
                         isNew: true,
                         type: "textfield",
                         key: "prefix",
@@ -930,12 +883,12 @@ export const options = {
                     title: 'PrefixSuffix',
                     input: true,
                     key: "prefixsuffix",
+                    isNew: true,
                     schema: {
                         label: "Prefix Suffix",
+                        isNew: true,
                         prefix: "Prefix",
                         suffix: "Suffix",
-                        tableView: true,
-                        isNew: true,
                         type: "textfield",
                         key: "prefixsuffix",
                     }
@@ -945,10 +898,10 @@ export const options = {
                     inline: false,
                     input: true,
                     key: "checkbox",
+                    isNew: true,
                     schema: {
                         label: "CheckBox",
                         optionsLabelPosition: "right",
-                        tableView: false,
                         type: "radio",
                         isNew: true,
                         key: "checkbox",
@@ -964,13 +917,13 @@ export const options = {
                 Suffix: {
                     title: 'Suffix',
                     input: true,
-                    key: "suffix",
+                    key: "textfield",
+                    isNew: true,
                     schema: {
                         label: "Suffix",
                         suffix: "Suffix",
                         key: "suffix",
                         isNew: true,
-                        tableView: true,
                         type: "textfield",
                     }
                 },
@@ -978,18 +931,15 @@ export const options = {
                 Text: {
                     title: 'Text',
                     input: true,
-                    key: "text",
+                    key: "textfield",
+                    isNew: true,
                     schema: {
-                        label: "Openfield",
-                        placeholder: "Openfield",
+                        label: "Text",
                         tableView: true,
-                        tooltip: "Openfield",
                         key: "text",
                         isNew: true,
                         type: "textfield",
-                        validate: {
-                            required: true
-                        }
+
                     }
                 },
 
@@ -997,14 +947,13 @@ export const options = {
                 Time: {
                     title: 'Time',
                     input: true,
-                    inputMask: "99:99",
                     key: "time",
+                    isNew: true,
                     schema: {
                         label: "Time",
                         tableView: true,
                         key: "time",
                         isNew: true,
-                        tooltip: "Time",
                         type: "time"
                     }
                 },
@@ -1286,245 +1235,6 @@ export const options = {
 export const PannelDisplay = [
 
 
-
-    {
-        "label": "Columns",
-        "columns": [
-            {
-                "components": [
-                    {
-                        "label": "Save",
-                        "theme": "secondary",
-                        "tableView": false,
-                        "key": "reset",
-                        "type": "button",
-                        "input": true,
-                        "canDelete": true,
-                        "$$hashKey": "object:860",
-                        "hideOnChildrenHidden": false,
-                        "placeholder": "",
-                        "prefix": "",
-                        "customClass": "",
-                        "suffix": "",
-                        "multiple": false,
-                        "defaultValue": null,
-                        "protected": false,
-                        "unique": false,
-                        "persistent": false,
-                        "hidden": false,
-                        "clearOnHide": true,
-                        "refreshOn": "",
-                        "redrawOn": "",
-                        "modalEdit": false,
-                        "labelPosition": "top",
-                        "description": "",
-                        "errorLabel": "",
-                        "tooltip": "",
-                        "hideLabel": false,
-                        "tabindex": "",
-                        "disabled": false,
-                        "autofocus": false,
-                        "dbIndex": false,
-                        "customDefaultValue": "",
-                        "calculateValue": "",
-                        "calculateServer": false,
-                        "widget": {
-                            "type": "input"
-                        },
-                        "attributes": {},
-                        "validateOn": "change",
-                        "validate": {
-                            "required": false,
-                            "custom": "",
-                            "customPrivate": false,
-                            "strictDateValidation": false,
-                            "multiple": false,
-                            "unique": false
-                        },
-                        "conditional": {
-                            "show": null,
-                            "when": null,
-                            "eq": ""
-                        },
-                        "overlay": {
-                            "style": "",
-                            "left": "",
-                            "top": "",
-                            "width": "",
-                            "height": ""
-                        },
-                        "allowCalculateOverride": false,
-                        "encrypted": false,
-                        "showCharCount": false,
-                        "showWordCount": false,
-                        "properties": {},
-                        "allowMultipleMasks": false,
-                        "size": "md",
-                        "leftIcon": "",
-                        "rightIcon": "",
-                        "block": false,
-                        "action": "submit",
-                        "disableOnInvalid": false,
-                        "dataGridLabel": true,
-                        "id": "e7xzuz"
-                    }
-                ],
-                "size": "md",
-                "offset": 0,
-                "push": 0,
-                "pull": 0,
-                "width": 2
-            },
-            {
-                "components": [
-                    {
-                        "input": true,
-                        "label": "Cancel",
-                        "tableView": false,
-                        "key": "reset1",
-                        "action": "reset",
-                        "canDelete": true,
-                        "theme": "secondary",
-                        "type": "button",
-                        "$$hashKey": "object:860",
-                        "hideOnChildrenHidden": false,
-                        "placeholder": "",
-                        "prefix": "",
-                        "customClass": "",
-                        "suffix": "",
-                        "multiple": false,
-                        "defaultValue": null,
-                        "protected": false,
-                        "unique": false,
-                        "persistent": false,
-                        "hidden": false,
-                        "clearOnHide": true,
-                        "refreshOn": "",
-                        "redrawOn": "",
-                        "modalEdit": false,
-                        "labelPosition": "top",
-                        "description": "",
-                        "errorLabel": "",
-                        "tooltip": "",
-                        "hideLabel": false,
-                        "tabindex": "",
-                        "disabled": false,
-                        "autofocus": false,
-                        "dbIndex": false,
-                        "customDefaultValue": "",
-                        "calculateValue": "",
-                        "calculateServer": false,
-                        "widget": {
-                            "type": "input"
-                        },
-                        "attributes": {},
-                        "validateOn": "change",
-                        "validate": {
-                            "required": false,
-                            "custom": "",
-                            "customPrivate": false,
-                            "strictDateValidation": false,
-                            "multiple": false,
-                            "unique": false
-                        },
-                        "conditional": {
-                            "show": null,
-                            "when": null,
-                            "eq": ""
-                        },
-                        "overlay": {
-                            "style": "",
-                            "left": "",
-                            "top": "",
-                            "width": "",
-                            "height": ""
-                        },
-                        "allowCalculateOverride": false,
-                        "encrypted": false,
-                        "showCharCount": false,
-                        "showWordCount": false,
-                        "properties": {},
-                        "allowMultipleMasks": false,
-                        "size": "md",
-                        "leftIcon": "",
-                        "rightIcon": "",
-                        "block": false,
-                        "disableOnInvalid": false,
-                        "dataGridLabel": true,
-                        "id": "eomhod2"
-                    }
-                ],
-                "size": "md",
-                "push": 0,
-                "pull": 0,
-                "offset": 0,
-                "width": 2
-            }
-        ],
-        "key": "columns",
-        "type": "columns",
-        "input": false,
-        "tableView": false,
-        "placeholder": "",
-        "prefix": "",
-        "customClass": "",
-        "suffix": "",
-        "multiple": false,
-        "defaultValue": null,
-        "protected": false,
-        "unique": false,
-        "persistent": false,
-        "hidden": false,
-        "clearOnHide": false,
-        "refreshOn": "",
-        "redrawOn": "",
-        "modalEdit": false,
-        "labelPosition": "top",
-        "description": "",
-        "errorLabel": "",
-        "tooltip": "",
-        "hideLabel": false,
-        "tabindex": "",
-        "disabled": false,
-        "autofocus": false,
-        "dbIndex": false,
-        "customDefaultValue": "",
-        "calculateValue": "",
-        "calculateServer": false,
-        "widget": null,
-        "attributes": {},
-        "validateOn": "change",
-        "validate": {
-            "required": false,
-            "custom": "",
-            "customPrivate": false,
-            "strictDateValidation": false,
-            "multiple": false,
-            "unique": false
-        },
-        "conditional": {
-            "show": null,
-            "when": null,
-            "eq": ""
-        },
-        "overlay": {
-            "style": "",
-            "left": "",
-            "top": "",
-            "width": "",
-            "height": ""
-        },
-        "allowCalculateOverride": false,
-        "encrypted": false,
-        "showCharCount": false,
-        "showWordCount": false,
-        "properties": {},
-        "allowMultipleMasks": false,
-        "tree": false,
-        "autoAdjust": false,
-        "hideOnChildrenHidden": false,
-        "id": "e6dd20n"
-    }
 ];
 
 export function minimalEditForm() {

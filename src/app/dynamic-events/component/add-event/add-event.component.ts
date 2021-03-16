@@ -23,7 +23,7 @@ export class AddEventComponent implements OnInit {
   @Output() RefreshEventList = new EventEmitter();
   @ViewChild('AddEventClose', { static: true }) AddEventClose: ElementRef<HTMLElement>;
   @ViewChild('AddCustomFieldClose', { static: true }) AddCustomFieldClose: ElementRef<HTMLElement>;
-  color;
+  color = "#2de29d";
   public SelectedIcon = "1";
   public eventformControl: FormGroup;
   public submitted = false;

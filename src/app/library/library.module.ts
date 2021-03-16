@@ -26,9 +26,10 @@ import { EditItemComponent } from './component/item-library/edit-item/edit-item.
 import { ImageLibraryComponent } from './component/image-library/image-library.component';
 import { SharedModule } from '../shared/shared.module';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { UploadItemComponent } from './component/item-library/upload-item/upload-item.component'
 @NgModule({
   declarations: [LocationLibraryComponent, UOMLibraryComponent, StatusLibraryComponent,
-    ItemLibraryComponent, AddLocationComponent, AddStatusComponent, AddUomComponent, DeleteConfirmationComponent, EditItemComponent, DetailsComponent, RestockComponent, UsersComponent, ValuesComponent, SettingsComponent, ImageLibraryComponent],
+    UploadItemComponent, ItemLibraryComponent, AddLocationComponent, AddStatusComponent, AddUomComponent, DeleteConfirmationComponent, EditItemComponent, DetailsComponent, RestockComponent, UsersComponent, ValuesComponent, SettingsComponent, ImageLibraryComponent],
   imports: [
     CommonModule, OwlDateTimeModule, OwlNativeDateTimeModule,
     NgxSpinnerModule, FormsModule, NgxPopperModule, SharedModule, ReactiveFormsModule, AutocompleteLibModule,

@@ -12,6 +12,7 @@ import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs/operators';
 import { AppState } from '../../../shared/appState';
+import { Router, Routes } from '@angular/router';
 import { selectSelectedTenantId, selectSelectedTenant } from '../../../store/selectors/tenant.selectors';
 @Component({
   selector: 'app-location-library',
@@ -38,7 +39,7 @@ export class LocationLibraryComponent implements OnInit {
   submitted = false;
   addLocation = false;
   deleteLocation = false;
-  constructor(protected store: Store<AppState>, private formBuilder: FormBuilder, private libraryService: LibraryService, private toast: ToastrService, private cdr: ChangeDetectorRef, private spinner: NgxSpinnerService, private authService: AuthService) {
+  constructor(private router: Router, protected store: Store<AppState>, private formBuilder: FormBuilder, private libraryService: LibraryService, private toast: ToastrService, private cdr: ChangeDetectorRef, private spinner: NgxSpinnerService, private authService: AuthService) {
 
   }
   length = 100;
@@ -91,7 +92,7 @@ export class LocationLibraryComponent implements OnInit {
         this.spinner.hide();
       })).subscribe(result => {
         if (result.code == 403) {
-          this.NotPermitted = true;
+          this.router.navigateByUrl('/notPermited');
         }
         else {
           if (result.entity != null) {

@@ -13,6 +13,7 @@ import { DynamicEvents } from '../../models/event-models';
 import inputFocus from '../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../assets/js/lib/_inputClear';
 import { CustomFieldService } from '../../../customfield/service/custom-field.service';
+import { debug } from 'src/app/store';
 @Component({
   selector: 'app-event-list',
   templateUrl: './event-list.component.html',
@@ -91,21 +92,27 @@ export class EventListComponent implements OnInit {
             debugger;
             this.loadingRecords = false;
             this.EventList = result.entity;
-
-            // this.EventList.forEach(element => {
-            //   let obj = {}
-            //   obj = JSON.parse(element.circumstanceJsonString);
-
-            //   this.checklist.forEach(element12 => {
-            //     element12.isSelected = obj[element12.columnName];
-            //   });
-
-            // });
           }
         }
       })
   }
+  CustomFieldsExist(Json) {
+    debugger;
+    let columnList = [];
+    let obj = {}
+    if (Json != null) {
+      obj = JSON.parse(Json);
+    }
 
+    this.checklist.forEach(element12 => {
+
+      if (obj[element12.columnName]) {
+        columnList.push(element12.columnLabel);
+      }
+    });
+
+    return columnList;
+  }
 
 
   deleteItem(id) {

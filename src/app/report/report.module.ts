@@ -16,9 +16,11 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-
+import { NgxSortableModule } from 'ngx-sortable'
+import { AddnewCustomReportComponent } from './component/addnew-custom-report/addnew-custom-report.component';
+import { EditnewCustomReportComponent } from './component/editnew-custom-report/editnew-custom-report.component'
 @NgModule({
-  declarations: [EventReportComponent, InventoryReportComponent, AddCustomReportComponent, DeleteConfirmationComponent, EditCustomReportComponent],
+  declarations: [EventReportComponent, InventoryReportComponent, AddCustomReportComponent, DeleteConfirmationComponent, EditCustomReportComponent, AddnewCustomReportComponent, EditnewCustomReportComponent],
   imports: [
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
@@ -29,14 +31,16 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     ColorPickerModule,
     DragDropModule,
     AutocompleteLibModule,
+    NgxSortableModule,
     NgDragDropModule.forRoot(),
     ReactiveFormsModule,
     RouterModule.forChild([
       { path: 'report/event-report', component: EventReportComponent, canActivate: [AuthGuard] },
       { path: 'report/create-custom-report', component: AddCustomReportComponent, canActivate: [AuthGuard] },
       { path: 'report/edit-custom-report', component: EditCustomReportComponent, canActivate: [AuthGuard] },
+      { path: 'report/editnew-custom-report', component: EditnewCustomReportComponent, canActivate: [AuthGuard] },
       { path: 'Dynamic/CreateEvent', component: InventoryReportComponent, canActivate: [AuthGuard] },
-
+      { path: 'AddNewReport', component: AddnewCustomReportComponent, canActivate: [AuthGuard] },
     ]),
   ],
   providers:

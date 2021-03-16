@@ -250,8 +250,8 @@
                             </td>
                             <td class="table__cell" data-title="Column Title">
                                 <div class="icons icons--size02">
-                                    <button class="icons__item icons__item--theme07" (click)="OpenMenu(item)"
-                                        type="button">
+                                    <button style="cursor: pointer;" class="icons__item icons__item--theme07"
+                                        (click)="OpenMenu(item)" type="button">
                                         <div class="icons__icon"><svg class="icon icon--theme01 icon--adjust"
                                                 aria-labelledby="title-5f83f4826a17f" xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 48 48" width="48" height="48">
@@ -272,7 +272,8 @@
                                             </svg></div>
                                         <span class="icons__label">Edit</span>
                                     </button>
-                                    <button class="icons__item icons__item--theme03" (click)="DeleteConfirm(item)">
+                                    <button style="cursor: pointer;" class="icons__item icons__item--theme03"
+                                        (click)="DeleteConfirm(item)">
                                         <div class="icons__icon">
                                             <svg class="icon icon--theme01 icon-simple--trash"
                                                 aria-labelledby="title-5f84133e656c0" xmlns="http://www.w3.org/2000/svg"
@@ -374,7 +375,8 @@
                                             [ngClass]="{'libraryexpand':item.isActive}">
 
                                             <div class="icons icons--size02">
-                                                <button class="icons__item icons__item--theme02" type="button"
+                                                <button style="cursor: pointer;"
+                                                    class="icons__item icons__item--theme02" type="button"
                                                     (click)="onSubmit()" data-action="" data-parent=".table__row"
                                                     data-parent-class="table__row--is-active"
                                                     data-html-class="event-menu-is-active">
@@ -395,8 +397,9 @@
                                                         <span class="icons__label">Update</span>
                                                     </div>
                                                 </button>
-                                                <button class="icons__item icons__item--theme03"
-                                                    (click)="CloseMenu(item)" type="button">
+                                                <button style="cursor: pointer;"
+                                                    class="icons__item icons__item--theme03" (click)="CloseMenu(item)"
+                                                    type="button">
                                                     <div class="icons__item">
                                                         <div class="icons__icon"><svg
                                                                 class="icon icon--theme01 icon--remove"
@@ -440,18 +443,4 @@
 
 <app-delete-confirmation *ngIf="deleteLocation" (deleteLocation)="deleteField()" (hideClose)="deleteValue($event)">
 </app-delete-confirmation>
-
-
-<ng-container *ngIf="NotPermitted">
-    <section class="main">
-        <h2><b>You are Not Permitted for Location Library</b></h2>
-        <div>
-            <button class="button button--medium button--theme02 js-modal" type="button" routerLink="/CurrentInventory"
-                data-modal="#InventorytestModal">
-                Go to Inventory
-            </button>
-        </div>
-    </section>
-</ng-container>
-
 <ngx-spinner></ngx-spinner>

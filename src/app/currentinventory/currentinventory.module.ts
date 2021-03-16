@@ -21,12 +21,15 @@ import { CreateReportComponent } from './component/report/create-report/create-r
 import { IteminventoryComponent } from './component/report/itemInventory/iteminventory/iteminventory.component';
 import { CreateNewitemReportComponent } from './component/report/itemInventory/create-newitem-report/create-newitem-report.component';
 import { FormioModule } from '@formio/angular';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { ResizeColumnDirective } from './component/current-inventory-grid/resize-column.directive';
+import * as moment from 'moment';
 @NgModule({
   declarations: [CurrentInventoryGridComponent, UploadComponent, ArrangeColumnComponent,
-    UploadActivityComponent, DynamicEventComponent,
+    UploadActivityComponent, DynamicEventComponent, ResizeColumnDirective,
     StatementHistoryComponent, EventListComponent, ReportComponent, CreateReportComponent, IteminventoryComponent, CreateNewitemReportComponent],
   imports: [
-    CommonModule, SharedModule, FormsModule, NgxPopperModule, ReactiveFormsModule, NgxSpinnerModule, AutocompleteLibModule, ProgressBarModule, NgImageSliderModule, FormioModule,
+    OwlDateTimeModule, OwlNativeDateTimeModule, CommonModule, SharedModule, FormsModule, NgxPopperModule, ReactiveFormsModule, NgxSpinnerModule, AutocompleteLibModule, ProgressBarModule, NgImageSliderModule, FormioModule,
     RouterModule.forChild([
       { path: 'CurrentInventory', component: CurrentInventoryGridComponent, canActivate: [AuthGuard], runGuardsAndResolvers: "paramsChange" },
       { path: 'ArrangeColumn', component: ArrangeColumnComponent, canActivate: [AuthGuard] },
@@ -37,6 +40,7 @@ import { FormioModule } from '@formio/angular';
     ]),
 
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [{ provide: 'moment', useValue: moment }]
 })
 export class CurrentinventoryModule { }

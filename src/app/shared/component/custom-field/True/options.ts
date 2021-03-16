@@ -41,6 +41,7 @@ export const CurrencyFields = [
     { key: 'disabled', ignore: true },
     { key: 'autofocus', ignore: true },
     { key: 'mask', ignore: true },
+
 ]
 export const OurcustomFormValidation = [
     { key: 'custom-validation-js', ignore: true },
@@ -52,6 +53,8 @@ export const OurcustomFormValidation = [
     { key: 'validate.maxWords', ignore: true },
     { key: 'validate.pattern', ignore: true },
     { key: 'unique', ignore: true },
+    { key: 'hidden', ignore: true },
+
 ]
 
 
@@ -100,6 +103,7 @@ export const NumberDataColumn = [
     { key: 'calculateValuePanel', ignore: true },
     { key: 'calculateServer', ignore: true },
     { key: 'allowCalculateOverride', ignore: true },
+    { key: 'hidden', ignore: true }
 
 ]
 
@@ -153,185 +157,15 @@ export const OurcustomFormFields = [
     { key: 'useLocaleSettings', ignore: true },
     { key: 'format', ignore: true },
     { key: 'widget', ignore: true },
-    { key: 'inputType', ignore: true }
+    { key: 'inputType', ignore: true },
+    { key: 'hidden', ignore: true },
 
-
+    { key: 'tooltip', ignore: true },
+    { key: 'description', ignore: true }
 ]
 
 
 export const OurCustomFields = [
-    // {
-    //     data: {
-    //         values: [{
-    //             label: "red",
-    //             value: "red"
-    //         }, {
-    //             label: "green",
-    //             value: "green"
-    //         }
-
-    //         ]
-    //     },
-    //     defaultValue: "red",
-    //     indexeddb: {
-    //         filter: {}
-    //     },
-    //     input: true,
-    //     key: "selectAsdasd",
-    //     label: "Select asdasd",
-    //     placeholder: "Open Drop Down ",
-    //     selectThreshold: 0.3,
-    //     tableView: true,
-    //     tooltip: "Open Drop Down ",
-    //     type: "select",
-    //     widget: "choicesjs",
-    // },
-    // {
-    //     input: true,
-    //     key: "openfield",
-    //     label: "Openfield",
-    //     placeholder: "Openfield",
-    //     prefix: "12",
-    //     tableView: true,
-    //     tooltip: "Openfield",
-    //     type: "textfield"
-    // },
-    // {
-    //     input: true,
-    //     key: "suffix",
-    //     label: "Suffix",
-    //     placeholder: "Suffix",
-    //     suffix: "123",
-    //     tableView: true,
-    //     tooltip: "Suffix",
-    //     type: "textfield",
-    // },
-    // {
-    //     delimiter: false,
-    //     input: true,
-    //     inputFormat: "plain",
-    //     key: "incrementor",
-    //     label: "Incrementor",
-    //     mask: false,
-    //     placeholder: "Number",
-    //     requireDecimal: false,
-    //     spellcheck: true,
-    //     tableView: false,
-    //     type: "number"
-    // },
-    // {
-    //     delimiter: false,
-    //     input: true,
-    //     inputFormat: "plain",
-    //     key: "number",
-    //     label: "Number",
-    //     mask: false,
-    //     requireDecimal: false,
-    //     spellcheck: true,
-    //     tableView: false,
-    //     tooltip: "Number",
-    //     type: "number",
-    //     validate: {
-    //         max: 123,
-    //         min: 12
-    //     }
-    // },
-    // {
-    //     delimiter: false,
-    //     input: true,
-    //     inputFormat: "plain",
-    //     key: "currency",
-    //     label: "Currency",
-    //     mask: false,
-    //     placeholder: "Currency",
-    //     prefix: "$",
-    //     requireDecimal: false,
-    //     spellcheck: true,
-    //     tableView: false,
-    //     tooltip: "Currency",
-    //     type: "number"
-    // },
-    // {
-    //     inline: false,
-    //     input: true,
-    //     key: "checkValue",
-    //     label: "CheckValue",
-    //     optionsLabelPosition: "right",
-    //     tableView: false,
-    //     tooltip: "CheckValue",
-    //     type: "radio",
-    //     values: [{
-    //         label: "True",
-    //         shortcut: "T",
-    //         value: "true",
-    //     }, {
-    //         label: "False",
-    //         shortcut: "F",
-    //         value: "false"
-    //     }]
-    // },
-    // {
-    //     input: true,
-    //     key: "prefixSuffix",
-    //     label: "Prefix Suffix",
-    //     placeholder: "Prefix Suffix",
-    //     prefix: "12",
-    //     suffix: "123",
-    //     tableView: true,
-    //     tooltip: "Prefix Suffix",
-    //     type: "textfield",
-    // },
-    // {
-    //     defaultValue: "18:54:00",
-    //     input: true,
-    //     inputMask: "99:99",
-    //     key: "time",
-    //     label: "Time",
-    //     tableView: true,
-    //     tooltip: "Time",
-    //     type: "time"
-    // },
-    // {
-    //     datePicker: {
-    //         disableWeekdays: false,
-    //         disableWeekends: false
-    //     },
-    //     enableMaxDateInput: false,
-    //     enableMinDateInput: false,
-    //     input: true,
-    //     key: "dateTime",
-    //     label: "Date / Time",
-    //     placeholder: "Date / Time",
-    //     tableView: false,
-    //     tooltip: "Date / Time",
-    //     type: "datetime"
-    // },
-    // {
-    //     defaultValue: "00/00/0000",
-    //     fields: {
-    //         day: {
-    //             hide: false,
-    //             type: "select"
-    //         },
-    //         month: {
-    //             hide: false,
-    //             type: "select"
-    //         },
-    //         year: {
-    //             hide: false,
-    //             type: "select"
-    //         }
-    //     },
-    //     hideInputLabels: false,
-    //     input: true,
-    //     inputsLabelPosition: "top",
-    //     key: "day",
-    //     label: "Day",
-    //     tableView: false,
-    //     tooltip: "Day",
-    //     type: "day",
-    //     useLocaleSettings: false,
-    // }
 
 
 ];
@@ -355,6 +189,7 @@ export const options = {
         data: false,
         advanced: false,
         premium: false,
+        layout: false,
         eventQuantityAction: {
             title: 'Event Quantity Action',
             components: {
@@ -1216,21 +1051,6 @@ export const options = {
 };
 
 
-
-
-
-// export const OurCustomFieldscomponents = [
-//     {
-//         "theme": "primary",
-//         "collapsible": false,
-//         "key": "panel",
-//         "type": "panel",
-//         "label": "Attribute Fields",
-//         "input": false,
-//         "tableView": false,
-//         "components": OurCustomFields
-//     }
-// ];
 export const PannelDisplay = [
     {
         "theme": "success",
@@ -1245,244 +1065,7 @@ export const PannelDisplay = [
         "components": [
         ]
     },
-    {
-        "label": "Columns",
-        "columns": [
-            {
-                "components": [
-                    {
-                        "label": "Save",
-                        "theme": "secondary",
-                        "tableView": false,
-                        "key": "reset",
-                        "type": "button",
-                        "input": true,
-                        "canDelete": true,
-                        "$$hashKey": "object:860",
-                        "hideOnChildrenHidden": false,
-                        "placeholder": "",
-                        "prefix": "",
-                        "customClass": "",
-                        "suffix": "",
-                        "multiple": false,
-                        "defaultValue": null,
-                        "protected": false,
-                        "unique": false,
-                        "persistent": false,
-                        "hidden": false,
-                        "clearOnHide": true,
-                        "refreshOn": "",
-                        "redrawOn": "",
-                        "modalEdit": false,
-                        "labelPosition": "top",
-                        "description": "",
-                        "errorLabel": "",
-                        "tooltip": "",
-                        "hideLabel": false,
-                        "tabindex": "",
-                        "disabled": false,
-                        "autofocus": false,
-                        "dbIndex": false,
-                        "customDefaultValue": "",
-                        "calculateValue": "",
-                        "calculateServer": false,
-                        "widget": {
-                            "type": "input"
-                        },
-                        "attributes": {},
-                        "validateOn": "change",
-                        "validate": {
-                            "required": false,
-                            "custom": "",
-                            "customPrivate": false,
-                            "strictDateValidation": false,
-                            "multiple": false,
-                            "unique": false
-                        },
-                        "conditional": {
-                            "show": null,
-                            "when": null,
-                            "eq": ""
-                        },
-                        "overlay": {
-                            "style": "",
-                            "left": "",
-                            "top": "",
-                            "width": "",
-                            "height": ""
-                        },
-                        "allowCalculateOverride": false,
-                        "encrypted": false,
-                        "showCharCount": false,
-                        "showWordCount": false,
-                        "properties": {},
-                        "allowMultipleMasks": false,
-                        "size": "md",
-                        "leftIcon": "",
-                        "rightIcon": "",
-                        "block": false,
-                        "action": "submit",
-                        "disableOnInvalid": false,
-                        "dataGridLabel": true,
-                        "id": "e7xzuz"
-                    }
-                ],
-                "size": "md",
-                "offset": 0,
-                "push": 0,
-                "pull": 0,
-                "width": 2
-            },
-            {
-                "components": [
-                    {
-                        "input": true,
-                        "label": "Cancel",
-                        "tableView": false,
-                        "key": "reset1",
-                        "action": "reset",
-                        "canDelete": true,
-                        "theme": "secondary",
-                        "type": "button",
-                        "$$hashKey": "object:860",
-                        "hideOnChildrenHidden": false,
-                        "placeholder": "",
-                        "prefix": "",
-                        "customClass": "",
-                        "suffix": "",
-                        "multiple": false,
-                        "defaultValue": null,
-                        "protected": false,
-                        "unique": false,
-                        "persistent": false,
-                        "hidden": false,
-                        "clearOnHide": true,
-                        "refreshOn": "",
-                        "redrawOn": "",
-                        "modalEdit": false,
-                        "labelPosition": "top",
-                        "description": "",
-                        "errorLabel": "",
-                        "tooltip": "",
-                        "hideLabel": false,
-                        "tabindex": "",
-                        "disabled": false,
-                        "autofocus": false,
-                        "dbIndex": false,
-                        "customDefaultValue": "",
-                        "calculateValue": "",
-                        "calculateServer": false,
-                        "widget": {
-                            "type": "input"
-                        },
-                        "attributes": {},
-                        "validateOn": "change",
-                        "validate": {
-                            "required": false,
-                            "custom": "",
-                            "customPrivate": false,
-                            "strictDateValidation": false,
-                            "multiple": false,
-                            "unique": false
-                        },
-                        "conditional": {
-                            "show": null,
-                            "when": null,
-                            "eq": ""
-                        },
-                        "overlay": {
-                            "style": "",
-                            "left": "",
-                            "top": "",
-                            "width": "",
-                            "height": ""
-                        },
-                        "allowCalculateOverride": false,
-                        "encrypted": false,
-                        "showCharCount": false,
-                        "showWordCount": false,
-                        "properties": {},
-                        "allowMultipleMasks": false,
-                        "size": "md",
-                        "leftIcon": "",
-                        "rightIcon": "",
-                        "block": false,
-                        "disableOnInvalid": false,
-                        "dataGridLabel": true,
-                        "id": "eomhod2"
-                    }
-                ],
-                "size": "md",
-                "push": 0,
-                "pull": 0,
-                "offset": 0,
-                "width": 2
-            }
-        ],
-        "key": "columns",
-        "type": "columns",
-        "input": false,
-        "tableView": false,
-        "placeholder": "",
-        "prefix": "",
-        "customClass": "",
-        "suffix": "",
-        "multiple": false,
-        "defaultValue": null,
-        "protected": false,
-        "unique": false,
-        "persistent": false,
-        "hidden": false,
-        "clearOnHide": false,
-        "refreshOn": "",
-        "redrawOn": "",
-        "modalEdit": false,
-        "labelPosition": "top",
-        "description": "",
-        "errorLabel": "",
-        "tooltip": "",
-        "hideLabel": false,
-        "tabindex": "",
-        "disabled": false,
-        "autofocus": false,
-        "dbIndex": false,
-        "customDefaultValue": "",
-        "calculateValue": "",
-        "calculateServer": false,
-        "widget": null,
-        "attributes": {},
-        "validateOn": "change",
-        "validate": {
-            "required": false,
-            "custom": "",
-            "customPrivate": false,
-            "strictDateValidation": false,
-            "multiple": false,
-            "unique": false
-        },
-        "conditional": {
-            "show": null,
-            "when": null,
-            "eq": ""
-        },
-        "overlay": {
-            "style": "",
-            "left": "",
-            "top": "",
-            "width": "",
-            "height": ""
-        },
-        "allowCalculateOverride": false,
-        "encrypted": false,
-        "showCharCount": false,
-        "showWordCount": false,
-        "properties": {},
-        "allowMultipleMasks": false,
-        "tree": false,
-        "autoAdjust": false,
-        "hideOnChildrenHidden": false,
-        "id": "e6dd20n"
-    }
+
 
 
 

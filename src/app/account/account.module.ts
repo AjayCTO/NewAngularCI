@@ -10,13 +10,13 @@ import { ToastrModule } from 'ngx-toastr';
 import { ProfileComponent } from './component/profile/profile.component';
 import { AuthGuard } from '../core/auth-guard.service';
 
-
+import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
 
 
 @NgModule({
   declarations: [RegisterComponent, ProfileComponent],
   imports: [
-    CommonModule, NgxSpinnerModule, FormsModule, ReactiveFormsModule, ToastrModule.forRoot(),
+    CommonModule, NgxSpinnerModule, InternationalPhoneNumberModule, FormsModule, ReactiveFormsModule, ToastrModule.forRoot(),
     RouterModule.forChild([
       { path: 'register', component: RegisterComponent },
       { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }

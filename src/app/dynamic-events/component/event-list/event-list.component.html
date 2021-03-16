@@ -9,7 +9,7 @@
 
     <div class="taskbar">
         <div class="taskbar__col">
-            <button data-modal="#AddEventModal" class="button button--large button--theme02 js-modal">
+            <button routerLink="/Dynamic/CreateEvent" class="button button--large button--theme02">
                 <svg class="icon-simple icon-simple--theme01 icon-simple--add" aria-labelledby="title-5f86742813ab3"
                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                     <path fill="none" d="M0 0h24v24H0z"></path>
@@ -336,9 +336,9 @@
                             </td>
 
                             <td class="table__cell" data-title="Column Title">
-                                <ng-container *ngFor="let check of checklist">
+                                <ng-container *ngFor="let check of CustomFieldsExist(item.circumstanceJsonString)">
                                     <ng-container>
-                                        {{check.columnLabel}}
+                                        {{check}}
                                         &nbsp;&nbsp;&nbsp;
                                     </ng-container>
                                 </ng-container>
@@ -346,8 +346,8 @@
 
                             <td class="table__cell" data-title="Column Title">
                                 <div class="icons icons--size02">
-                                    <button class="icons__item icons__item--theme07" (click)="OpenMenu(item)"
-                                        routerLink="/eidtevents" type="button">
+                                    <button style="cursor: pointer;" class="icons__item icons__item--theme07"
+                                        (click)="OpenMenu(item)" routerLink="/eidtevents" type="button">
                                         <div class="icons__icon"><svg class="icon icon--theme01 icon--adjust"
                                                 aria-labelledby="title-5f83f4826a17f" xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 48 48" width="48" height="48">
@@ -368,7 +368,8 @@
                                             </svg></div>
                                         <span class="icons__label">Edit</span>
                                     </button>
-                                    <button class="icons__item icons__item--theme03" (click)="DeleteConfirm(item)">
+                                    <button style="cursor: pointer;" class="icons__item icons__item--theme03"
+                                        (click)="DeleteConfirm(item)">
                                         <div class="icons__icon">
                                             <svg class="icon icon--theme01 icon-simple--trash"
                                                 aria-labelledby="title-5f84133e656c0" xmlns="http://www.w3.org/2000/svg"

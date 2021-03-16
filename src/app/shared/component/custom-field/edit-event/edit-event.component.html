@@ -13,7 +13,8 @@
         <div class="row">
             <div class="col-md-12">
 
-                <button class="btn btn pull-right" style="margin-left: 5px;">Back to Inventory</button>
+                <button class="btn btn pull-right" style="margin-left: 5px;" routerLink="/CurrentInventory">Back to
+                    Inventory</button>
                 <button class="btn btn-primary pull-right" (click)="EditEvent()">Edit Event</button>
                 <!-- <div class="form__col-wrap form__col form__col--group pull-left" style="margin-right:20px">
                     <div class="form__group form__group--radio">
@@ -314,7 +315,7 @@
                 <hr>
 
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" *ngIf="isAllLoaded">
                 <form-builder [form]="form" [options]="options" (change)="onChange($event)"
                     [rebuild]="rebuildEmitter.asObservable()">
                 </form-builder>

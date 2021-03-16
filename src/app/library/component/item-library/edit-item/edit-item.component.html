@@ -10,23 +10,23 @@
         <div>
             <ul class="nav_menu">
                 <li class="nav_menu-item">
-                    <button type="button" class="nav_button" (click)="Details()"
+                    <button style="cursor: pointer;" type="button" class="nav_button" (click)="Details()"
                         [ngClass]="!SettingsOpen&&!RestockOpen&&!UsersOpen&&!ValuesOpen?'Active':''">Details</button>
                 </li>
                 <li class="nav_menu-item">
-                    <button type="button" class="nav_button" (click)="Settings()"
+                    <button style="cursor: pointer;" type="button" class="nav_button" (click)="Settings()"
                         [ngClass]="SettingsOpen?'Active':''">Settings</button>
                 </li>
                 <li class="nav_menu-item">
-                    <button type="button" class="nav_button" (click)="Restock()"
+                    <button style="cursor: pointer;" type="button" class="nav_button" (click)="Restock()"
                         [ngClass]="RestockOpen?'Active':''">Restock</button>
                 </li>
                 <li class="nav_menu-item">
-                    <button type="button" class="nav_button" (click)="Users()"
+                    <button style="cursor: pointer;" type="button" class="nav_button" (click)="Users()"
                         [ngClass]="UsersOpen?'Active':''">Users</button>
                 </li>
                 <li class="nav_menu-item">
-                    <button type="button" class="nav_button" (click)="Values()"
+                    <button style="cursor: pointer;" type="button" class="nav_button" (click)="Values()"
                         [ngClass]="ValuesOpen?'Active':''">$Values</button>
                 </li>
             </ul>

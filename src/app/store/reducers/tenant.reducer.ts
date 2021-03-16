@@ -6,7 +6,7 @@ import * as storage from '../state/storage';
 export interface ITenantState {
     selectedTenantId: number;
     selectedTenant: Tenant;
-
+    myInventoryColumn: any;
 }
 export const eventsStateKey = 'eventState';
 
@@ -16,7 +16,8 @@ export interface IEventsSlice {
 
 export const initialState: ITenantState = {
     selectedTenantId: storage.getItem('eventState').selectedTenantId,
-    selectedTenant: storage.getItem('eventState'),
+    selectedTenant: storage.getItem('eventState').selectedTenant,
+    myInventoryColumn: storage.getItem('eventState').myInventoryColumn,
 };
 
 export function TenantReducer(state: ITenantState = initialState, action: fromEvents.TenantAction): ITenantState {
@@ -37,6 +38,15 @@ export function TenantReducer(state: ITenantState = initialState, action: fromEv
                 selectedTenantId: action.payload ?? null,
             };
         }
+
+        case fromEvents.SET_MYINVENTORY_COLUMN: {
+            return {
+                ...state,
+                myInventoryColumn: action.payload ?? null,
+            }
+        }
+
+
         case fromEvents.RESET_STATE: ({ ...initialState });
         default:
             return state;
@@ -47,6 +57,7 @@ export const getTasks = (state: ITenantState) => {
     return {
         selectedTenant: state.selectedTenant,
         selectedTenantId: state.selectedTenantId,
+        myInventoryColumn: state.myInventoryColumn
     };
 };
 

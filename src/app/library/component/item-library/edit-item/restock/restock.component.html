@@ -40,7 +40,7 @@
                 </div>
                 <div class="form__col form__col--third">
                     <label class="form__label form_label" for="dropdown">Location</label>
-                    <select class="form__input form__select" id="dropdown" name="dropdown">
+                    <select style="cursor: pointer;" class="form__input form__select" id="dropdown" name="dropdown">
                         <option value=""></option>
                         <option *ngFor="let locationitem of location">{{locationitem.locationName}}</option>
 

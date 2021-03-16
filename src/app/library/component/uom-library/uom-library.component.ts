@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import inputFocus from '../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../assets/js/lib/_inputClear';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, Routes } from '@angular/router';
 @Component({
   selector: 'app-uom-library',
   templateUrl: './uom-library.component.html',
@@ -38,7 +39,7 @@ export class UOMLibraryComponent implements OnInit {
   pageIndex = 0;
   lastPageIndex = 0;
 
-  constructor(private formBuilder: FormBuilder, private spinner: NgxSpinnerService,
+  constructor(private formBuilder: FormBuilder, private router: Router, private spinner: NgxSpinnerService,
     private toast: ToastrService, private libraryService: LibraryService,
     private authService: AuthService, private cdr: ChangeDetectorRef) { }
 
@@ -86,7 +87,7 @@ export class UOMLibraryComponent implements OnInit {
       })).subscribe(result => {
         debugger;
         if (result.code == 403) {
-          this.NotPermitted = true;
+          this.router.navigateByUrl('/notPermited');
         }
         else {
           if (result.entity != null) {

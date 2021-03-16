@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { options, PannelDisplay, minimalEditForm, existingOptions } from '../options';
 import { FormioCustomComponentInfo, FormioSubmissionCallback, registerCustomFormioComponent } from '@formio/angular';
@@ -37,42 +37,7 @@ export class FalseComponent implements OnInit {
   isAllLoaded = false;
   public form: Object = {
     components: PannelDisplay
-    // {
-    //   "theme": "primary",
-    //   "tooltip": "Create your event form with this ",
-    //   "collapsible": false,
-    //   "key": "panel",
-    //   "type": "panel",
-    //   "label": "Panel",
-    //   "input": false,
-    //   "tableView": false,
-    // "components": [
-    //   {
-    //     type: 'textfield',
-    //     label: 'FirstName',
-    //     key: 'firstName',
-    //     input: true
-    //   },
-    //   {
-    //     type: 'textfield',
-    //     label: 'LastName',
-    //     key: 'lastName',
-    //     input: true
-    //   },
-    //   {
-    //     type: 'email',
-    //     label: 'Email',
-    //     key: 'email',
-    //     input: true
-    //   },
-    //   {
-    //     type: 'button',
-    //     action: 'Submit',
-    //     label: 'Submit',
-    //     theme: 'primary'
-    //   }
-    // ]
-    // }
+
   };
 
   eventForm: any = {
@@ -91,7 +56,7 @@ export class FalseComponent implements OnInit {
   public isPreview: boolean = false;
   @Output() rebuildEmitter = new EventEmitter<any>();
   public selectedFieldName: any = []
-  constructor(private libraryService: LibraryService, private authService: AuthService, private router: Router, private toastr: ToastrService, private spinner: NgxSpinnerService, private customfieldservice: CustomFieldService, private eventService: EventService) {
+  constructor(private libraryService: LibraryService, private cd: ChangeDetectorRef, private authService: AuthService, private router: Router, private toastr: ToastrService, private spinner: NgxSpinnerService, private customfieldservice: CustomFieldService, private eventService: EventService) {
     this.options = options;
 
   }
@@ -152,7 +117,7 @@ export class FalseComponent implements OnInit {
 
     this.customField = {
       columnId: field.columnId != undefined ? field.columnId : 0,
-      columnName: '',
+      columnName: field.columnName != undefined ? field.columnName : '',
       columnLabel: field.label,
       customFieldType: 'CustomField',
       dataType: '',
@@ -231,6 +196,7 @@ export class FalseComponent implements OnInit {
   onChange(event) {
     if (event.form) {
       this.newFormCopy = event.form;
+      this.cd.detectChanges();
     }
     if (event.component != undefined) {
       if (event.component.eventQuantityAction != undefined) {
@@ -295,21 +261,9 @@ export class FalseComponent implements OnInit {
                 if (result.code == 200) {
                   this.getcustomFieldResult = result.entity;
                   event.component.key = this.getcustomFieldResult.columnName;
+                  event.component.columnId = this.getcustomFieldResult.columnId;
+                  event.component.columnName = this.getcustomFieldResult.columnName;
                   event.component.isNew = false;
-                  // this.form = event.form;
-                  // this.newFormCopy = this.Newform;
-                  // event.form.components[0].components.forEach(element => {
-                  //   if (element.isNew) {
-                  //     element.isNew = false;
-                  //     element.columnId = this.getcustomFieldResult.columnId;
-                  //     element.key = this.getcustomFieldResult.columnName;
-                  //     this.newFormCopy.components[0].components.push(element);
-
-                  //   }
-                  // });
-                  // event.component.isNew = false;
-                  // event.component.isExist = true;
-                  // this.Newform = this.newFormCopy;
 
                   this.toastr.success("Your custom field is Successfully add.");
                   this.customField = {
@@ -345,10 +299,11 @@ export class FalseComponent implements OnInit {
                     offsetTimeFields: '',
                   }
                   // this.router.navigate(['Dynamic/CreateEvent']);
-
+                  this.cd.detectChanges();
                 }
                 else {
                   this.toastr.warning(result.message);
+                  this.cd.detectChanges();
                 }
               },
               error => {
@@ -358,38 +313,90 @@ export class FalseComponent implements OnInit {
 
         }
 
-        // this.Newform = event.form;
+        // else {
+
+        //   let isExist = false;
+        //   debugger;
+        //   if (this.newFormCopy != undefined) {
+        //     this.newFormCopy.components[0].components.forEach(element => {
+        //       if (element.eventQuantityAction != undefined) {
+        //         isExist = true;
+        //       }
+        //     });
+        //     if (isExist) {
+        //       this.toastr.warning("Action Qauntity Already Exist Please Delete and Create New");
+        //       this.form = this.newFormCopy
+        //     }
+        //     else {
+        //       this.newFormCopy = event.form;
+        //     }
+
+        //   }
+
+        // }
 
       }
-
-
       if (event.type == "saveComponent") {
-        //alert("b");
-        // this.newFormCopy = this.Newform;
-        // this.eventFormCopy = event.form;
-        // this.newFormCopy.components[0].title = this.eventFormCopy.components[0].title
-        // this.newFormCopy.components[0].theme = this.eventFormCopy.components[0].theme
-        // this.Newform = this.newFormCopy;
+        debugger;
+        if (event.component.columnId != undefined) {
+          this.getDataType(event.component);
+          this.customfieldservice.AddCustomFields(this.customField, this.selectedTenantId, this.authService.accessToken)
+            .pipe(finalize(() => {
+              this.spinner.hide();
+            }))
+            .subscribe(
+              result => {
 
+                if (result.code == 200) {
+                  this.toastr.success("Your custom field is Successfully Update.");
+                  this.customField = {
+                    columnId: 0,
+                    columnName: '',
+                    columnLabel: '',
+                    customFieldType: '',
+                    dataType: '',
+                    columnValue: '',
+                    comboBoxValue: '',
+                    customFieldIsRequired: false,
+                    customFieldInformation: '',
+                    customFieldPrefix: '',
+                    customFieldSuffix: '',
+                    customFieldIsIncremental: false,
+                    customFieldBaseValue: 0,
+                    customFieldIncrementBy: 0,
+                    customFieldTextMaxLength: 0,
+                    customFieldDefaultValue: '',
+                    customFieldNumberMin: 0,
+                    customFieldNumberMax: 0,
+                    customFieldNumberDecimalPlaces: 0,
+                    customFieldTrueLabel: '',
+                    customFieldFalseLabel: '',
+                    customFieldSpecialType: '',
+                    dateDefaultPlusMinus: '',
+                    dateDefaultNumber: null,
+                    dateDefaulInterval: '',
+                    timeDefaultPlusMinus: '',
+                    timeNumberOfHours: null,
+                    timeNumberOFMinutes: null,
+                    offsetDateFields: '',
+                    offsetTimeFields: '',
+                  }
+                  // this.router.navigate(['Dynamic/CreateEvent']);
+                  this.cd.detectChanges();
+                }
+                else {
+                  this.toastr.warning(result.message);
+                  this.cd.detectChanges();
+                }
+              },
+              error => {
+                //this.error = error;
+                this.spinner.hide();
+              });
 
-        // this.Newform = event.form;
+        }
+
       }
-
-
-      // if (event.type == "deleteComponent") {
-      //   alert("c");
-      //   this.Newform = event.form;
-      // }
-      // if (event.type == "updateComponent") {
-
-      //   if (this.newFormCopy.components[0].key == event.component.key) {
-      //     this.newFormCopy.components = event.component;
-      //     this.Newform = this.newFormCopy;
-      //   }
-
-
-      // }
-
     }
 
   }
@@ -428,6 +435,7 @@ export class FalseComponent implements OnInit {
                     tooltip: element.customFieldInformation,
                     key: element.columnName,
                     columnName: element.columnName,
+                    columnId: element.columnId,
                     multiple: false,
                     protected: false,
                     unique: true,
@@ -458,6 +466,7 @@ export class FalseComponent implements OnInit {
                     tooltip: element.customFieldInformation,
                     key: element.columnName,
                     columnName: element.columnName,
+                    columnId: element.columnId,
                     multiple: false,
                     protected: false,
                     unique: true,
@@ -489,6 +498,7 @@ export class FalseComponent implements OnInit {
                     tooltip: element.customFieldInformation,
                     key: element.columnName,
                     columnName: element.columnName,
+                    columnId: element.columnId,
                     type: "number",
                     validate: {
                       max: false,
@@ -516,6 +526,7 @@ export class FalseComponent implements OnInit {
                     tooltip: element.customFieldInformation,
                     key: element.columnName,
                     columnName: element.columnName,
+                    columnId: element.columnId,
                     type: "datetime",
                     validate: {
                       required: element.isRequired
@@ -542,6 +553,7 @@ export class FalseComponent implements OnInit {
                     tooltip: element.customFieldInformation,
                     key: element.columnName,
                     columnName: element.columnName,
+                    columnId: element.columnId,
                     type: "datetime",
                     validate: {
                       required: element.isRequired
@@ -566,6 +578,7 @@ export class FalseComponent implements OnInit {
                     tooltip: element.customFieldInformation,
                     key: element.columnName,
                     columnName: element.columnName,
+                    columnId: element.columnId,
                     type: "time",
                     validate: {
                       required: element.isRequired
@@ -588,6 +601,7 @@ export class FalseComponent implements OnInit {
                     tooltip: element.customFieldInformation,
                     key: element.columnName,
                     columnName: element.columnName,
+                    columnId: element.columnId,
                     widget: "choicesjs",
                     type: "select",
                     multiple: false,
@@ -618,6 +632,7 @@ export class FalseComponent implements OnInit {
                     tooltip: element.customFieldInformation,
                     key: element.columnName,
                     columnName: element.columnName,
+                    columnId: element.columnId,
                     multiple: false,
                     protected: false,
                     unique: true,
@@ -648,7 +663,7 @@ export class FalseComponent implements OnInit {
   }
   SaveEvent() {
     debugger;
-
+    this.cd.detectChanges();
     this.eventForm.eventQuantityAction == ""
     this.spinner.show();
     let Jsonstring = JSON.stringify(this.newFormCopy);

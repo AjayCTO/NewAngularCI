@@ -258,6 +258,7 @@ export class DetailsComponent implements OnInit {
       .subscribe(result => {
         if (result.code == 200) {
           this.toastr.success(result.message);
+          this.Attributevalue();
           this.GetAllImage();
         }
       })

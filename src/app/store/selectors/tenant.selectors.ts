@@ -9,3 +9,5 @@ export const selectSelectedTenantId = createSelector(getEventsState, state =>
     state.selectedTenantId || (state.selectedTenant && state.selectedTenant.tenantId));
 
 export const selectSelectedTenant = createSelector(getEventsState, state => state.selectedTenant);
+
+export const selectMyInventoryColumn = createSelector(getEventsState, state => state.myInventoryColumn);

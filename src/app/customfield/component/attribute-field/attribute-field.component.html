@@ -1,15 +1,3 @@
-<ng-container *ngIf="NotPermitted">
-    <section class="main">
-        <h2><b>You are Not Permitted for Attribute Fields</b></h2>
-        <div>
-            <button class="button button--medium button--theme02 js-modal" type="button" routerLink="/CurrentInventory"
-                data-modal="#InventorytestModal">
-                Go to Inventory
-            </button>
-        </div>
-    </section>
-</ng-container>
-
 <app-delete-confirmation2 *ngIf="deleteCustom" (deleteCustom)="deleteField()" (hideClose)="deleteValue($event)">
 </app-delete-confirmation2>
 <ng-container *ngIf="!NotPermitted">
@@ -220,7 +208,7 @@
                         </td>
                         <td class="table__cell" data-title="Column Title" style="padding-top: 0;">
                             <div class="icons icons--size02">
-                                <button class="icons__item icons__item--theme02"
+                                <button style="cursor: pointer;" class="icons__item icons__item--theme02"
                                     [disabled]="attributeFields.columnLabel==''|| attributeFields.dataType==''"
                                     type="button" (click)="onSubmit()">
                                     <div class="icons__item">
@@ -236,7 +224,8 @@
                                         <span class="icons__label">Save</span>
                                     </div>
                                 </button>
-                                <button class="icons__item icons__item--theme03" (click)="HideForm()" type="button">
+                                <button style="cursor: pointer;" class="icons__item icons__item--theme03"
+                                    (click)="HideForm()" type="button">
                                     <div class="icons__item">
                                         <div class="icons__icon"><svg class="icon icon--theme06 icon--remove"
                                                 aria-labelledby="title-5f880d5b173dc" xmlns="http://www.w3.org/2000/svg"
@@ -301,8 +290,8 @@
                             <td></td>
                             <td class="table__cell" data-title="Column Title">
                                 <div class="icons icons--size02">
-                                    <button class="icons__item icons__item--theme07" (click)="openmenu(item)"
-                                        type="button">
+                                    <button style="cursor: pointer;" class="icons__item icons__item--theme07"
+                                        (click)="openmenu(item)" type="button">
                                         <div class="icons__icon"><svg class="icon icon--theme01 icon--adjust"
                                                 aria-labelledby="title-5f83f4826a17f" xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 48 48" width="48" height="48">
@@ -323,7 +312,8 @@
                                             </svg></div>
                                         <span class="icons__label">Edit</span>
                                     </button>
-                                    <button class="icons__item icons__item--theme03" (click)="DeleteConfirm(item)">
+                                    <button style="cursor: pointer;" class="icons__item icons__item--theme03"
+                                        (click)="DeleteConfirm(item)">
                                         <div class="icons__icon">
                                             <svg class="icon icon--theme01 icon-simple--trash"
                                                 aria-labelledby="title-5f84133e656c0" xmlns="http://www.w3.org/2000/svg"
@@ -465,7 +455,8 @@
                                             [ngClass]="{'exapandmenurow':item.isActive}">
 
                                             <div class="icons icons--size02">
-                                                <button class="icons__item icons__item--theme02" type="button"
+                                                <button style="cursor: pointer;"
+                                                    class="icons__item icons__item--theme02" type="button"
                                                     [disabled]="attributeFields.columnLabel==''|| attributeFields.dataType==''"
                                                     (click)="onSubmit()" data-action="" data-parent=".table__row"
                                                     data-parent-class="table__row--is-active"
@@ -487,8 +478,9 @@
                                                         <span class="icons__label">Update</span>
                                                     </div>
                                                 </button>
-                                                <button class="icons__item icons__item--theme03"
-                                                    (click)=" closemenu(item) " type="button">
+                                                <button style="cursor: pointer;"
+                                                    class="icons__item icons__item--theme03" (click)=" closemenu(item) "
+                                                    type="button">
                                                     <div class="icons__item">
                                                         <div class="icons__icon"><svg
                                                                 class="icon icon--theme01 icon--remove"

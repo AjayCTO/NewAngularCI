@@ -1,0 +1,381 @@
+<div class="sidenav">
+    <a>Settings</a>
+</div>
+<div class="main">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card" style="margin-left: 10px; width: 700px; background-color: white;margin-top: 10px;">
+                <!-- <div class="card-header">
+                
+                </div> -->
+                <div class="card-body">
+                    <h5 class="card-title" style="margin-left: 10px; color: #128cee;margin-bottom: 10px;">Account
+                        Settings</h5>
+                    <label style="margin-left: 10px; margin-top: -10px; font-size: 11px;color: #128ece">Time
+                        Zone</label>
+
+                    <select class="floating-select" style="margin-left: 10px; width: 600px;" id="SelectTimeZone"
+                        name="SelectTimeZone">
+                        <option value=""></option>
+                        <!-- <option></option> -->
+                    </select>
+
+                    <label
+                        style="margin-left: 10px; color: #128ece; margin-top: -10px; display: inline-block; font-size: 11px;transform: none;margin-bottom: 2px;">
+                        Automatically delete statements when the quantity reaches zero.
+                    </label>
+                    <select class="floating-select" style="margin-left: 10px; margin-top: 5px; width: 600px;"
+                        [(ngModel)]="Config.DeleteStatement" id="selectStatementSetting" name="selectStatementSetting">
+                        <option value="on">on</option>
+                        <option value="off"> off</option>
+                    </select>
+                    <div style="margin-left: 10px;">
+                        <label style="color:#128ece">Email Warning Recipients </label>
+                        <div>
+                            <textarea name="ctl00$ContentPlaceHolder1$tbEmail" [(ngModel)]="Config.EmailWarning"
+                                rows="4" cols="5" id="ctl00_ContentPlaceHolder1_tbEmail" class="form-control"
+                                style="width:88%;"></textarea>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card" style=" width: 700px; margin-top: 20px; background-color: white; ">
+                <div class="card-header">
+
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" style="margin-left: 10px; color: #128cee;margin-bottom: 10px;">Selected
+                        Features</h5>
+                    <p style="font-size: 11px; margin-left: 10px;">Unchecking a feature will turn the feature off and
+                        hide it in reports
+                        and navigation. You can
+                        always turn them back on
+                        later.</p>
+                    <table id="ctl00_ContentPlaceHolder1_chkFeatureSelection"
+                        style="border:'0';margin-top: -10px; margin-left: 10px;">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="checkbox m-b-15"><label style="font-size:13px; color: black;"><input
+                                                id="ctl00_ContentPlaceHolder1_chkFeatureSelection_0"
+                                                [(ngModel)]="Config.Restock" (click)="Settings('Restock')"
+                                                type="checkbox"
+                                                name="ctl00$ContentPlaceHolder1$chkFeatureSelection$0"><i
+                                                class="input-helper"></i>
+                                            &nbsp;Restock</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="checkbox m-b-15"><label style="font-size:13px; color: black;"><input
+                                                id="ctl00_ContentPlaceHolder1_chkFeatureSelection_1"
+                                                [(ngModel)]="Config.Cost" (click)="Settings('Cost')" type="checkbox"
+                                                name="ctl00$ContentPlaceHolder1$chkFeatureSelection$1"><i
+                                                class="input-helper"></i>
+                                            &nbsp;Cost</label></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="checkbox m-b-15"><label style="font-size:13px; color: black;"><input
+                                                id="ctl00_ContentPlaceHolder1_chkFeatureSelection_2" type="checkbox"
+                                                [(ngModel)]="Config.ListKitting" (click)="Settings('ListKitting')"
+                                                name="ctl00$ContentPlaceHolder1$chkFeatureSelection$2"><i
+                                                class="input-helper"></i>
+                                            &nbsp;Component
+                                            List/Kitting</label></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="checkbox m-b-5">
+                                <label style="white-space: nowrap; font-size:13px ;color: black;">
+                                    <input id="ctl00_ContentPlaceHolder1_cbAutoName" style="margin-left: 10px;"
+                                        type="checkbox" [(ngModel)]="Config.CreateItemName"
+                                        (click)="Settings('CreateItemName')"
+                                        name="ctl00$ContentPlaceHolder1$cbAutoName">
+                                    <i class="input-helper"></i> &nbsp;
+                                    Automatically create item name.(i.e. If checked, Item Name will be automated on the
+                                    "Add
+                                    Inventory" )
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card" style="margin-left: 20px; width: 700px; background-color: white;margin-top: 10px;">
+            <div class="card-body">
+                <h5 class="card-title" style="margin-left: 10px; color: #128cee;margin-bottom: 10px;">Others</h5>
+                <div class="checkbox m-b-15" style="margin-left: 25px;">
+                    <label style="white-space: nowrap; font-size:13px ;color: black;">
+                        <input id="ctl00_ContentPlaceHolder1_cbAutoName" type="checkbox"
+                            [(ngModel)]="Config.defaultLocation" (click)="Settings('defaultLocation')"
+                            name="ctl00$ContentPlaceHolder1$cbAutoName">
+                        <i class="input-helper"></i> &nbsp;
+                        If checked, Default Location will be auto populated on the "Add" Event Panel.
+                    </label>
+                </div>
+
+                <div class="">
+                    <div class="checkbox m-b-15" style="margin-left: 25px;">
+                        <label style="white-space: nowrap; font-size:13px ;color: black;">
+                            <input id="ctl00_ContentPlaceHolder1_cbAutoName" type="checkbox"
+                                [(ngModel)]="Config.allowResultInNegative" (click)="Settings('allowResultInNegative')"
+                                name="ctl00$ContentPlaceHolder1$cbAutoName">
+                            <i class="input-helper"></i> &nbsp;
+                            Allow moving, changing, converting, updating, or making of a component list to result in
+                            negative quantities.
+
+                        </label>
+                    </div>
+                </div>
+                <div class="" style="margin-left: 25px;">
+                    <div class="checkbox m-b-15">
+                        <label style="white-space: nowrap; font-size:13px ;color: black;">
+                            <input id="ctl00_ContentPlaceHolder1_cbAutoName" type="checkbox"
+                                [(ngModel)]="Config.Quantity" (click)="Settings('Quantity')"
+                                name="ctl00$ContentPlaceHolder1$cbAutoName">
+                            <i class="input-helper"></i> &nbsp;
+                            If checked, all event quantities will default to "1".(Quantity field is empty if unchecked)
+                        </label>
+                    </div>
+                </div>
+                <div class="" style="margin-left: 25px;">
+                    <div class="checkbox m-b-15">
+                        <label style="white-space: nowrap; font-size:13px ;color: black;">
+                            <input id="ctl00_ContentPlaceHolder1_cbAutoName" type="checkbox"
+                                [(ngModel)]="Config.LowQuantityThreshold" (click)="Settings('LowQuantityThreshold')"
+                                name="ctl00$ContentPlaceHolder1$cbAutoName">
+                            <i class="input-helper"></i> &nbsp;
+                            Use color to indicate attribute approaching their "Low Quantity Threshold".
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 10px;">
+        <button type="submit" style="margin-left: 25px;" (click)="saveSettings()" class="button button--small">Save
+            Setings</button>
+    </div>
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-md-10">
+            <h4 style="margin-left: 10px;">Custom "Hello" Menu Links </h4>
+            <small style="margin-left: 10px;">These are links you create for quick navigation to anywhere on the
+                Web, kind of
+                bookmarks.</small>
+            <div>
+                <button type="submit" style="margin-left: 20px;" (click)="saveSettings()" data-modal="#InnerModal"
+                    class="button button--small js-modal">Add Link</button>
+
+            </div>
+            <div class="table" style="margin-left: 10px;">
+                <table class="table__table">
+                    <thead class="table__section table__section--head">
+                        <tr class="table__row table__row--head">
+
+
+                            <th scope="col" class="table__heading">
+                                <div class="table__heading-title">Label</div>
+                                <div class="table__heading-options">
+                                    <div class="icons icons--horziontal icons--size02">
+                                        <button class="icons__item" type="button">
+                                            <div class="icons__icon"></div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </th>
+                            <th scope="col" class="table__heading">
+                                <div class="table__heading-title">Link</div>
+                                <div class="table__heading-options">
+                                    <div class="icons icons--horziontal icons--size02">
+                                        <button class="icons__item" type="button">
+                                            <div class="icons__icon"></div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </th>
+                            <th scope="col" class="table__heading">
+                                <div class="table__heading-title">NewWindow</div>
+                                <div class="table__heading-options">
+                                    <div class="icons icons--horziontal icons--size02">
+                                        <button class="icons__item" type="button">
+                                            <div class="icons__icon"></div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </th>
+                            <th scope="col" class="table__heading">
+                                <div class="table__heading-title">Action</div>
+                                <div class="table__heading-options">
+                                    <div class="icons icons--horziontal icons--size02">
+                                        <button class="icons__item" type="button">
+                                            <div class="icons__icon">&nbsp;</div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="table__section table__section--body" *ngFor="let Item of array;let i=index">
+
+                        <ng-container>
+                            <tr class="table__row table__row--body">
+                                <td class="table__cell" data-title="Column Title">
+                                    {{Item.label}}
+                                </td>
+                                <td class="table__cell" data-title="Column Title">
+                                    {{Item.link}}
+                                </td>
+                                <td class="table__cell" data-title="Column Title">
+                                    {{Item.NewWindow}}
+                                </td>
+                                <td class="table__cell" data-title="Column Title">
+                                    <div class="icons icons--size02">
+                                        <button class="icons__item icons__item--theme07 js-modal"
+                                            data-modal="#InnerModal12" type="button" (click)="Edit(i)" data-action=""
+                                            data-parent=".table__row" data-parent-class="table__row--is-active"
+                                            data-html-class="event-menu-is-active">
+                                            <div class="icons__icon"><svg class="icon icon--theme01 icon--adjust"
+                                                    aria-labelledby="title-5f83f4826a17f"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48"
+                                                    height="48">
+                                                    <path fill="currentColor" class="icon__color--primary"
+                                                        d="M6 36h36v8H6z">
+                                                    </path>
+                                                    <path
+                                                        d="M12 23.2a8 8 0 00-2.1 7.7 7.9 7.9 0 007.7-2 8.1 8.1 0 002.1-7.8 8 8 0 00-7.7 2.1z"
+                                                        fill="currentColor" class="icon__color--secondary">
+                                                    </path>
+                                                    <path d="M17.6 17.6L12 23.2l5.6 5.7a8 8 0 010-11.3z"
+                                                        fill="currentColor" class="icon__color--secondary">
+                                                    </path>
+                                                    <path
+                                                        d="M28.9 6.2L17.6 17.6a8 8 0 000 11.3l17-17zm5.075-3.486l4.242 4.243a1 1 0 010 1.414l-2.121 2.122-5.657-5.657 2.122-2.122a1 1 0 011.414 0z"
+                                                        fill="currentColor" class="icon__color--primary"></path>
+                                                    <path fill="none" d="M48 0v48H0V0z"></path>
+                                                    <path d="M0 48h48V0H0z" fill="none"></path>
+                                                </svg></div>
+                                            <span class="icons__label">Edit</span>
+                                        </button>
+                                        <button class="icons__item icons__item--theme03" (click)="delete(i)">
+                                            <div class="icons__icon">
+                                                <svg class="icon icon--theme01 icon-simple--trash"
+                                                    aria-labelledby="title-5f84133e656c0"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+                                                    height="24">
+                                                    <path fill="none" d="M0 0h24v24H0z"></path>
+                                                    <path fill="currentColor"
+                                                        d="M18.3 18l-.4 3H6.1l-.4-3h12.6zM4.541 2.927l15.863 2.088-.391 2.975L4.15 5.9z"
+                                                        class="icon__color--primary">
+                                                    </path>
+                                                    <path fill="currentColor"
+                                                        d="M10.734 1.738l3.96.52-.26 1.98-3.96-.52zM16.3 10h3l-1 8-.4 3h-3l.4-3 1-8zM9.1 21h-3l-.4-3-1.1-8h3.1l1 8 .4 3z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <span class="icons__label">Remove</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </ng-container>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="InnerModal" role="dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description" tabindex="-1"
+    hidden="">
+    <div class="invModal__head">
+        <h2 class="invModal__title">Create Menu Link</h2>
+    </div>
+
+    <div class="invModal__body">
+        <form class="form" #t="ngForm">
+            <div class="form__section">
+                <div class="form__col-wrap">
+                    <div class="form__col form__col--half">
+                        <label class="form__label" for="filled-name">Label<span class="form__required">*</span></label>
+                        <input class="form__input" type="text" [(ngModel)]="tableInfo.label" id="filled-name"
+                            name="filled-name" required>
+
+                    </div>
+
+                </div>
+                <div class="form__col-wrap">
+                    <div class="form__col form__col--half">
+                        <label class="form__label" for="filled-Link">Link<span class="form__required">*</span></label>
+                        <input class="form__input" type="text" [(ngModel)]="tableInfo.link" id="filled-Link"
+                            name="filled-Link" required>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="button button--medium" (click)="savelinks()"
+                    [disabled]="!t.form.valid">Save</button>
+                <button type="button" #closeInventoryModal class="button button--medium button--text-only"
+                    data-close="#InnerModal" id="CloseBtnTenant">Cancel
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+<div id="InnerModal12" role="dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description" tabindex="-1"
+    hidden="">
+    <div class="invModal__head">
+        <h2 class="invModal__title">Create Menu Link</h2>
+    </div>
+    <div class="invModal__body">
+        <form class="form" #f="ngForm">
+            <div class="form__section">
+                <div class="form__col-wrap">
+                    <div class="form__col form__col--half">
+                        <label class="form__label" for="filled-name">Label<span class="form__required">*</span></label>
+                        <input class="form__input" type="text" [(ngModel)]="EditItem.label" id="filled-name"
+                            name="filled-name" required>
+
+                    </div>
+
+                </div>
+                <div class="form__col-wrap">
+                    <div class="form__col form__col--half">
+                        <label class="form__label" for="filled-Link">Link<span class="form__required">*</span></label>
+                        <input class="form__input" type="text" [(ngModel)]="EditItem.link" id="filled-Link"
+                            name="filled-Link" required>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="button button--medium" (click)="savelinks()"
+                    [disabled]="!f.form.valid">Update</button>
+                <button type="button" #closeInventoryModal12 class="button button--medium button--text-only"
+                    data-close="#InnerModal12" id="CloseBtnTenant">Cancel
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>

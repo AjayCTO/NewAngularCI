@@ -50,6 +50,7 @@ export class InventoryReportComponent implements OnInit {
     moveItemInArray(this.selectedFields, event.previousIndex, event.currentIndex);
   }
 
+
   constructor(private spinner: NgxSpinnerService, private eventService: EventService, private toastr: ToastrService, private customFieldService: CustomFieldService, protected store: Store<AppState>, private authService: AuthService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
@@ -172,6 +173,11 @@ export class InventoryReportComponent implements OnInit {
             this.loadingRecords = false;
             debugger;
             this.customFields = result.entity;
+            this.customFields.forEach(element => {
+              if (element.comboBoxValue != "") {
+                element.comboBoxArray = JSON.parse(element.comboBoxValue);
+              }
+            });
             this.customFieldslength = result.entity.length;
           }
         }

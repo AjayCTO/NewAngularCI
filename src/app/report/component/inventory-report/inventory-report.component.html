@@ -1,844 +1,1082 @@
 <div class="actions">
     <div class="actions__title">
-        <h2> Create Dynamic Event </h2>
+        <h1> Create Dynamic Event </h1>
 
     </div>
 </div>
+
 <section class="main">
-
     <div class="form__col-wrap">
-
-        <div class="form__col--second">
-            <h3>All available columns </h3>
-
-
-            <div class="card card-user" style="margin:5px;">
-                <div class="" id="header">
-                    <button class="button button--large button--theme02" routerLink="/sharedcustomfield12">
-                        <svg class="icon-simple icon-simple--theme01 icon-simple--add"
-                            aria-labelledby="title-5f86742813ab3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                            width="24" height="24">
-                            <path fill="none" d="M0 0h24v24H0z"></path>
-                            <path fill="currentColor" d="M0 10h24v4H0z"></path>
-                            <path fill="currentColor" d="M14 0v24h-4V0z"></path>
-                        </svg> &nbsp;Add New Custom Field
-                    </button>
-                </div>
-            </div>
-            <ng-container *ngFor="let item of customFields">
-
-                <div class="card card-user draggable" style="margin:5px;" draggable [dragData]="item">
-                    <div class="" id="header">
-                        <span class="" style="float: right;">
-                            <div style="top: -70px; left: -255px; display: block;" class="icons__icon"
-                                [popper]="EditCustomField" [popperTrigger]="'click'" [popperPlacement]="'right'"
-                                [popperApplyClass]="'popperSpecialStyle'"><svg class="icon icon--theme01 icon--adjust"
-                                    aria-labelledby="title-600944d40a8c9" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 48 48" width="48" height="48">
-                                    <path fill="currentColor" class="icon__color--primary" d="M6 36h36v8H6z"></path>
-                                    <path
-                                        d="M12 23.2a8 8 0 00-2.1 7.7 7.9 7.9 0 007.7-2 8.1 8.1 0 002.1-7.8 8 8 0 00-7.7 2.1z"
-                                        fill="currentColor" class="icon__color--secondary"></path>
-                                    <path d="M17.6 17.6L12 23.2l5.6 5.7a8 8 0 010-11.3z" fill="currentColor"
-                                        class="icon__color--secondary">
-                                    </path>
-                                    <path
-                                        d="M28.9 6.2L17.6 17.6a8 8 0 000 11.3l17-17zm5.075-3.486l4.242 4.243a1 1 0 010 1.414l-2.121 2.122-5.657-5.657 2.122-2.122a1 1 0 011.414 0z"
-                                        fill="currentColor" class="icon__color--primary"></path>
-                                    <path fill="none" d="M48 0v48H0V0z"></path>
-                                    <path d="M0 48h48V0H0z" fill="none"></path>
-                                </svg></div>
-                        </span>
-                        <span class="" style="float: right;">
-                            <div class="icons__icon"><svg class="icon icon--theme01 icon--menu"
-                                    aria-labelledby="title-600944d40ab8b" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 48 48" width="48" height="48">
-                                    <path fill="none" d="M0 0h48v48H0z"></path>
-                                    <circle cx="8" cy="24" r="6" fill="currentColor" class="icon__color--primary">
-                                    </circle>
-                                    <circle cx="8" cy="10" r="4" fill="currentColor" class="icon__color--secondary">
-                                    </circle>
-                                    <circle cx="8" cy="38" r="4" fill="currentColor" class="icon__color--secondary">
-                                    </circle>
-                                    <rect x="16.4" y="6" width="31" height="8" rx="4" fill="currentColor"
-                                        class="icon__color--secondary"></rect>
-                                    <rect x="16.4" y="34" width="31" height="8" rx="4" fill="currentColor"
-                                        class="icon__color--secondary">
-                                    </rect>
-                                    <rect x="16.4" y="18" width="31" height="12" rx="6" fill="currentColor"
-                                        class="icon__color--primary"></rect>
-                                </svg></div>
-
-                        </span>
-                        <h3>{{item.columnLabel}}</h3>
-
-                    </div>
-                </div>
-
-
-            </ng-container>
-        </div>
-
-
-
-        <div class="form__col--half">
-            <h3>Event Configuration Form</h3>
+        <div class="form__col--third">
             <div class="card">
                 <div class="card-header">
-                    <div style="display: flex; flex-direction: row;">
-                        <ng-container *ngIf="SelectedIcon=='1'">
-                            <button class="icons__item icon-simple--theme01" type="button">
-                                <div class="icons__item" [style.color]="color">
-                                    <div class="icons__icon"><svg
-                                            class="icon-simple icon-simple--theme01 icon-simple--add"
-                                            aria-labelledby="title-5fc9e2b76f25d" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24" width="24" height="24">
-                                            <path fill="none" d="M0 0h24v24H0z"></path>
-                                            <path fill="currentColor" d="M0 10h24v4H0z"></path>
-                                            <path fill="currentColor" d="M14 0v24h-4V0z"></path>
-                                        </svg></div>
-
-                                </div>
-                            </button>
-                        </ng-container>
-                        <ng-container *ngIf="SelectedIcon=='2'">
-                            <button class="icons__item icon-simple--theme01" type="button">
-                                <div class="icons__item" [style.color]="color">
-                                    <div class="icons__icon"><svg
-                                            class="icon-simple icon-simple--theme01 icon-simple--remove"
-                                            aria-labelledby="title-5fc9e2b76f271" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24" width="24" height="24">
-                                            <path fill="none" d="M0 0h24v24H0z"></path>
-                                            <path fill="currentColor"
-                                                d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
-                                            <path fill="currentColor"
-                                                d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z"></path>
-                                        </svg></div>
-
-                                </div>
-                            </button>
-                        </ng-container>
-                        <ng-container *ngIf="SelectedIcon=='3'">
-                            <button class="icons__item icon-simple--theme01" type="button">
-                                <div class="icons__item" [style.color]="color">
-                                    <div class="icons__icon"><svg
-                                            class="icon-simple icon-simple--theme01 icon-simple--move"
-                                            aria-labelledby="title-5fc9e2b76f27f" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24" width="24" height="24">
-                                            <path fill="currentColor"
-                                                d="M23.1 14l-2 2h-5.7l2-2-2-2-6.5-6.5 2.9-2.8L23.1 14z"></path>
-                                            <path fill="none" d="M0 0h24v24H0z"></path>
-                                            <path fill="currentColor" d="M2 12h17v4H2z"></path>
-                                        </svg></div>
-
-                                </div>
-                            </button>
-                        </ng-container>
-                        <ng-container *ngIf="SelectedIcon=='4'">
-                            <button class="icons__item icon-simple--theme01" type="button">
-                                <div class="icons__item" [style.color]="color">
-                                    <div class="icons__icon"><svg
-                                            class="icon-simple icon-simple--theme01 icon-simple--adjust"
-                                            aria-labelledby="title-5fc9e2b76f29c" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24" width="24" height="24">
-                                            <path fill="none" d="M24 0v24H0V0z"></path>
-                                            <path d="M0 24h24V0H0z" fill="none"></path>
-                                            <path fill="currentColor"
-                                                d="M3 18h18v4H3zm2.968-6.351l8.485-8.486 2.829 2.829-8.485 8.485zm13.428-7.801l-1.414 1.414-2.828-2.828 1.414-1.414z">
-                                            </path>
-                                            <path fill="currentColor" d="M5.3 15.1l.7-3.5 2.8 2.8-3.5.7z">
-                                            </path>
-                                        </svg></div>
-
-                                </div>
-
-                            </button>
-                        </ng-container>
-                        <ng-container *ngIf="SelectedIcon=='5'">
-                            <button class="icons__item icon-simple--theme01" type="button">
-
-                                <div class="icons__item" [style.color]="color">
-                                    <div class="icons__icon"><svg
-                                            class="icon-simple icon-simple--theme01 icon-simple--status"
-                                            aria-labelledby="title-5fc9e2b76f2ba" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24" width="24" height="24">
-                                            <path fill="none" d="M24 0v24H0V0z"></path>
-                                            <path d="M0 24h24V0H0z" fill="none"></path>
-                                            <path fill="currentColor"
-                                                d="M10 2h4v4h-4zm.5 12h3v3h-3zm2.5-2h-2l-1-6h4l-1 6zM2 19h20v3H2z">
-                                            </path>
-                                            <path fill="currentColor" d="M22 2v20h-3V2zM5 2v20H2V2z"></path>
-                                        </svg></div>
-
-                                </div>
-
-                            </button>
-                        </ng-container>
-                        <ng-container *ngIf="SelectedIcon=='8'">
-                            <button class="icons__item icon-simple--theme01" type="button">
-                                <div class="icons__item" [style.color]="color">
-                                    <div class="icons__icon"><svg
-                                            class="icon-simple icon-simple--theme01 icon-simple--convert"
-                                            aria-labelledby="title-5fc9e2b76f463" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24" width="24" height="24">
-                                            <path fill="none" d="M24 0v24H0V0z"></path>
-                                            <circle cx="12" cy="18.5" r="4" fill="currentColor"></circle>
-                                            <circle cx="21" cy="5.2" r="2.7" fill="currentColor"></circle>
-                                            <circle cx="3" cy="5.2" r="2.7" fill="currentColor"></circle>
-                                            <circle cx="12" cy="9.2" r="2.7" fill="currentColor"></circle>
-                                        </svg></div>
-
-                                </div>
-
-                            </button>
-                        </ng-container>
-                        <ng-container *ngIf="SelectedIcon=='7'">
-                            <button class="icons__item icon-simple--theme01" type="button">
-                                <div class="icons__item" [style.color]="color">
-                                    <div class="icons__icon"><svg
-                                            class="icon-simple icon-simple--theme01 icon-simple--move-change"
-                                            aria-labelledby="title-5fc9e2b76f2d3" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24" width="24" height="24">
-                                            <path fill="none" d="M0 0h24v24H0z"></path>
-                                            <path fill="currentColor"
-                                                d="M23.1 10l-2 2h-5.7l2-2-2-2-4.3-4.4L13.9.8l9.2 9.2z"></path>
-                                            <path fill="currentColor" d="M2 8h17v4H2zm0 6h9v10H2zm11 7h9v3h-9z">
-                                            </path>
-                                            <path fill="currentColor" d="M19 14h3v10h-3z"></path>
-                                            <path fill="currentColor" d="M13 14h9v3h-9z"></path>
-                                        </svg></div>
-
-                                </div>
-                            </button>
-                        </ng-container>
-                        <ng-container *ngIf="SelectedIcon=='6'">
-                            <button class="icons__item icon-simple--theme01" type="button">
-
-                                <div class="icons__item" [style.color]="color">
-                                    <div class="icons__icon"><svg
-                                            class="icon-simple icon-simple--theme01 icon-simple--change"
-                                            aria-labelledby="title-5fc9e2b76f2c6" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20" width="20" height="20">
-                                            <path fill="currentColor" d="M0 0h9v20H0zm17 0h3v20h-3z"></path>
-                                            <path fill="currentColor" d="M20 17v3h-9v-3zm0-17v3h-9V0z"></path>
-                                        </svg></div>
-
-                                </div>
-
-
-                            </button>
-                        </ng-container>
-                        <ng-container *ngIf="SelectedIcon=='9'">
-                            <button class="icons__item icon-simple--theme01" type="button">
-                                <div class="icons__item" [style.color]="color">
-                                    <div class="icons__icon"><svg
-                                            class="icon-simple icon-simple--theme01 icon-simple--convert"
-                                            aria-labelledby="title-5fc9e2b76f463" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24" width="24" height="24">
-                                            <path fill="none" d="M24 0v24H0V0z"></path>
-                                            <circle cx="12" cy="18.5" r="4" fill="currentColor">
-                                            </circle>
-                                            <circle cx="21" cy="5.2" r="2.7" fill="currentColor">
-                                            </circle>
-                                            <circle cx="3" cy="5.2" r="2.7" fill="currentColor">
-                                            </circle>
-                                            <circle cx="12" cy="9.2" r="2.7" fill="currentColor">
-                                            </circle>
-                                        </svg></div>
-
-                                </div>
-
-                            </button>
-                        </ng-container>
-
-                        <div>
-                            <input
-                                style="width: 100%; border-left-style: none;border-top-style: none;border-right-style: none; margin-top: 10px; "
-                                class="form__input" placeholder="Event Name" required="required"
-                                [(ngModel)]="eventForm.eventName" type="text" id="Add_Event-Name" name="Add_Event-Name">
-                        </div>
-                    </div>
-
-
-
-                    <div class="form__col form__col--third">
-
-                    </div>
-
-                    <br>
-                    <div class="form__section">
-                        <h2 class="form__section-title">{{eventForm.eventName}} this QTY...</h2>
-                        <div class="form__col-wrap">
-                            <div class="form__col form__col--third">
-                                <label class="form__label" for="quantity_add">Quantity<span
-                                        class="form__required">*</span></label>
-                                <input class="form__input" type="number" id="quantity_add" readonly required
-                                    name="quantity_add">
-                            </div>
-
-                        </div>
-                    </div>
-                    <ng-container *ngIf="eventForm.eventQuantityAction=='Move'">
-                        <div class="form__section">
-                            <h2 class="form__section-title">To this Location ...</h2>
-                            <div class="form__col-wrap">
-                                <div class="form__col form__col--third">
-                                    <label class="form__label" for="location_move">Location<span
-                                            class="form__required">*</span></label>
-
-
-                                    <input class="form__input" type="text" id="location_move" name="location_move"
-                                        required>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </ng-container>
-                    <ng-container *ngIf="eventForm.eventQuantityAction=='Convert'">
-                        <div class="form__section">
-                            <h2 class="form__section-title">Into this QTY of this UOM...</h2>
-                            <div class="form__col-wrap">
-                                <div class="form__col form__col--third">
-                                    <label class="form__label" for="location_convert">New Qty<span
-                                            class="form__required">*</span></label>
-                                    <input class="form__input" type="number" id="location_convert"
-                                        name="location_convert" required>
-                                </div>
-                                <div class="form__col form__col--third">
-                                    <!-- <button type="button" data-modal="#AddUOMinnerModal"
-                                                        class="invModal__control addLibrary js-modal">Add New UOM</button> -->
-
-                                    <label class="form__label" for="Uom_convert">New UOM <span
-                                            class="form__required">*</span></label>
-                                    <select class="form__input form__select" id="Uom_convert" name="Uom_convert"
-                                        required>
-                                        <option value=""></option>
-                                        <option>Piece
-                                        </option>
-                                        <option>ea</option>
-                                        <option>unit/s</option>
-                                    </select>
-                                </div>
-                                <div class="form__col form__col--third">
-
-                                </div>
-                            </div>
-                        </div>
-                    </ng-container>
 
                 </div>
+                <div class="card-body">
+                    <div class="form__col form__col--group pull-left">
+                        <div class="form__group">
+                            <div (click)="SelectedEvent(1)" class="Selected_Icon"
+                                [ngClass]="[SelectedIcon=='1'?'Selected_Icon--Active':'']">
+                                <ng-container *ngTemplateOutlet="addIcon">
+                                </ng-container>
+
+                            </div>
+                        </div>
+                        <div class="form__group">
+                            <div (click)="SelectedEvent(2)" class="Selected_Icon"
+                                [ngClass]="[SelectedIcon=='2'?'Selected_Icon--Active':'']">
+                                <ng-container *ngTemplateOutlet="removeIcon">
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="form__group">
+                            <div (click)="SelectedEvent(3)" class="Selected_Icon"
+                                [ngClass]="[SelectedIcon=='3'?'Selected_Icon--Active':'']">
+                                <ng-container *ngTemplateOutlet="moveIcon">
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="form__group">
+                            <div (click)="SelectedEvent(4)" class="Selected_Icon"
+                                [ngClass]="[SelectedIcon=='4'?'Selected_Icon--Active':'']">
+                                <ng-container *ngTemplateOutlet="adjustIcon">
+                                </ng-container>
+
+                            </div>
+                        </div>
+
+                        <div class="form__group">
+                            <div (click)="SelectedEvent(5)" class="Selected_Icon"
+                                [ngClass]="[SelectedIcon=='5'?'Selected_Icon--Active':'']">
+                                <ng-container *ngTemplateOutlet="statusIcon">
+                                </ng-container>
+
+                            </div>
+                        </div>
 
 
-                <div class="card-body" cdkDropList droppable (onDrop)="onItemDrop($event)"
-                    (cdkDropListDropped)="drop($event)" [dragOverClass]="'drag-target-border'">
+                        <div class="form__group">
+                            <div (click)="SelectedEvent(6)" class="Selected_Icon"
+                                [ngClass]="[SelectedIcon=='6'?'Selected_Icon--Active':'']">
+                                <ng-container *ngTemplateOutlet="changeIcon">
+                                </ng-container>
 
-                    <div class="panel-empty-body">
-                        <div style="text-align: center;" *ngIf="selectedFields==undefined || selectedFields.length==0">
-                            Drop Available Column Fields here</div>
+                            </div>
+                        </div>
+                        <div class="form__group">
 
+                            <div (click)="SelectedEvent(7)" class="Selected_Icon"
+                                [ngClass]="[SelectedIcon=='7'?'Selected_Icon--Active':'']">
+                                <ng-container *ngTemplateOutlet="movechangeIcon">
+                                </ng-container>
 
-                        <div class="form__col-wrap">
+                            </div>
+                        </div>
+                        <div class="form__group">
+                            <div (click)="SelectedEvent(8)" class="Selected_Icon"
+                                [ngClass]="[SelectedIcon=='8'?'Selected_Icon--Active':'']">
+                                <ng-container *ngTemplateOutlet="convertIcon">
+                                </ng-container>
 
-                            <ng-container *ngFor="let field of selectedFields;let i=index">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <hr>
+                    <div class="form__col-wrap form__col form__col--group">
+                        <div class="form__col--second form__group form__group--radio">
+                            <input id="Add_QuantityAddRadioBtn" class="form__radio" value="Add" type="radio"
+                                [(ngModel)]="eventForm.eventQuantityAction" name="Add_QuantityRadioBtn">
+                            <label class="form__group-label" for="Add_QuantityAddRadioBtn">Add </label>
+                        </div>
+                        <div class="form__col--second form__group form__group--radio">
+                            <input id="Add_QuantityRemoveRadioBtn" class="form__radio" value="Remove"
+                                [(ngModel)]="eventForm.eventQuantityAction" type="radio" name="Add_QuantityRadioBtn">
+                            <label class="form__group-label" for="Add_QuantityRemoveRadioBtn">Remove
+                            </label>
+                        </div>
+                        <br>
+                        <div class="form__col--second form__group form__group--radio">
+                            <input id="Add_QuantityMoveRadioBtn" class="form__radio" value="Move"
+                                [(ngModel)]="eventForm.eventQuantityAction" type="radio" name="Add_QuantityRadioBtn">
+                            <label class="form__group-label" for="Add_QuantityMoveRadioBtn">Move </label>
+                        </div>
+                        <div class="form__col--second form__group form__group--radio">
+                            <input id="Add_QuantityConvertRadioBtn" class="form__radio" value="Convert"
+                                [(ngModel)]="eventForm.eventQuantityAction" type="radio" name="Add_QuantityRadioBtn">
+                            <label class="form__group-label" for="Add_QuantityConvertRadioBtn">Convert
+                            </label>
+                        </div>
+                    </div>
 
-                                <div cdkDrag class="form__col form__col--third"
-                                    [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''">
+                    <div class="form__col">
 
-                                    <label class="form__label" *ngIf="field.dataType!='True/False'"
-                                        for="Circustance_{{field.columnId}}"
-                                        [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>'4' ? 'prefixLabel3':'']">{{field.columnLabel}}<span
-                                            *ngIf="field.customFieldIsRequired" class="form__required">*</span></label>
-                                    <span class="form__group-outer-label" *ngIf="field.dataType=='True/False'">{{
-                                        (field.columnLabel.length>5)? (field.columnLabel |
-                                        slice:0:5)+'...':(field.columnLabel)}}
-                                        :</span>
-                                    <ng-container *ngIf="field.dataType=='Text'">
+                        <div class="card card-user" style="margin:5px;">
+                            <div class="" id="header">
+                                <button class="button button--large button--theme02" routerLink="/CustomField">
+                                    <svg class="icon-simple icon-simple--theme01 icon-simple--add"
+                                        aria-labelledby="title-5f86742813ab3" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24" width="24" height="24">
+                                        <path fill="none" d="M0 0h24v24H0z"></path>
+                                        <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                                        <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                                    </svg> &nbsp;Add New Custom Field
+                                </button>
+                            </div>
+                        </div>
+                        <ng-container *ngFor="let field of customFields">
+                            <div class="card f-card">
+                                <div class="card-body" draggable [dragData]="field" style="padding:30px;width:75%">
 
-                                        <ng-container *ngIf="field.customFieldSpecialType=='Autocomplete'">
-                                            <ng-autocomplete [data]="ComboValueDropdown(field.comboBoxValue)"
-                                                [searchKeyword]="keyword" (selected)='selectEvent($event)'
-                                                [debounceTime]="600" [itemTemplate]="itemTemplate"
-                                                [notFoundTemplate]="notFoundTemplate">
-                                            </ng-autocomplete>
-                                            <ng-template #itemTemplate let-item>
-                                                <a [innerHTML]="item"></a>
-                                            </ng-template>
-                                        </ng-container>
+                                    <div class="form__col"
+                                        [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''">
 
-                                        <ng-container *ngIf="field.customFieldSpecialType=='Dropdown'">
+                                        <label class="form__label" *ngIf="field.dataType!='True/False'"
+                                            for="Circustance_{{field.columnId}}"
+                                            [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>='4' ? 'prefixLabel3':'']">{{field.columnLabel}}<span
+                                                *ngIf="field.customFieldIsRequired"
+                                                class="form__required">*</span></label>
+                                        <span class="form__group-outer-label" *ngIf="field.dataType=='True/False'">{{
+                                            (field.columnLabel.length>5)? (field.columnLabel |
+                                            slice:0:5)+'...':(field.columnLabel)}}
+                                            :</span>
+                                        <ng-container *ngIf="field.dataType=='Text'">
 
-                                            <!-- <select class="form__input form__select" id="Circustance_{{field.columnId}}"
-                                                                            name="Circustance_{{field.columnId}}" [(ngModel)]="field.columnValue" required>
-                                                                            <option value=""></option>
-                                                                            <option *ngFor="let opt of ComboValueDropdown(field.comboBoxValue)" [value]="opt">
-                                                                                {{opt}}
-                                                                            </option>
-                                                                        </select> -->
+                                            <ng-container *ngIf="field.customFieldSpecialType=='Autocomplete'">
+                                                <ng-autocomplete [data]="field.comboBoxArray" [searchKeyword]="keyword"
+                                                    (selected)='selectEvent($event)' [debounceTime]="600"
+                                                    [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                                                </ng-autocomplete>
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item"></a>
+                                                </ng-template>
+                                            </ng-container>
 
+                                            <ng-container *ngIf="field.customFieldSpecialType=='Dropdown'">
 
-                                            <select class="floating-select" id="Circustance_{{field.columnId}}"
-                                                name="Circustance_{{field.columnId}}" [(ngModel)]="field.columnValue"
-                                                required="required">
-                                                <option value=""></option>
-                                                <option *ngFor="let opt of ComboValueDropdown(field.comboBoxValue)"
-                                                    [value]="opt">
-                                                    {{opt}}
-                                                </option>
-                                            </select>
+                                                <select class="floating-select"
+                                                    id="dynamic_CustomField_{{field.columnId}}"
+                                                    name="dynamic_CustomField_{{field.columnId}}">
+                                                    <option value=""></option>
+                                                    <option *ngFor="let value of field.comboBoxArray"
+                                                        [value]="value.value">
+                                                        {{value.label}}
+                                                    </option>
+                                                </select>
 
-                                        </ng-container>
+                                                <span class="highlight"></span>
+                                                <label class="form__label form_label"
+                                                    *ngIf="field.customFieldSpecialType=='Dropdown'">{{field.columnLabel}}<span
+                                                        *ngIf="field.customFieldIsRequired"
+                                                        class="form__required">*</span></label>
 
-                                        <ng-container *ngIf="field.customFieldSpecialType=='OpenField'">
-                                            <ng-container *ngIf="field.customFieldSuffix||field.customFieldPrefix"
-                                                class="input-group">
-                                                <span *ngIf="field.customFieldPrefix"
-                                                    class="input-group-addon text Prefix" [popper]="popper13Content"
-                                                    [popperTrigger]="'hover'"
-                                                    [popperPlacement]="'bottom'">{{(field.customFieldPrefix.length>3)?
-                                                    (field.customFieldPrefix |
-                                                    slice:0:3)+'...':(field.customFieldPrefix)}}</span>
-                                                <popper-content #popper13Content>
-                                                    <p class="popperTitle"><b>{{field.customFieldPrefix}}</b></p>
+                                                <div class="infopanel" [popper]="popper3Content"
+                                                    [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                                    [hidden]="field.customFieldInformation==''">
+                                                    <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                        aria-labelledby="title-5f8fce8eb6f78"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                                        width="12" height="12">
+                                                        <g data-name="Group 748" fill="currentColor">
+                                                            <path data-name="Path 435"
+                                                                d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                            </path>
+                                                            <path data-name="Path 436"
+                                                                d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                            </path>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                                <popper-content #popper3Content>
+                                                    <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                                    <span>{{field.customFieldInformation}}</span>
                                                 </popper-content>
-                                                <input type="text" [required]="field.customFieldIsRequired"
-                                                    id="Circustance_{{field.columnId}}"
-                                                    [ngClass]="[field.customFieldPrefix.length=='1' ? 'Addon':''||field.customFieldPrefix.length=='2'?'Addon1':''||field.customFieldPrefix.length=='3'?'Addon2':''||field.customFieldPrefix.length>'4'?'Addon3':'']"
-                                                    name="Circustance_{{field.columnId}}"
-                                                    [(ngModel)]="field.columnValue" class="form__input">
-                                                <span *ngIf="field.customFieldSuffix"
-                                                    class="input-group-addon text Suffix">{{field.customFieldSuffix}}</span>
                                             </ng-container>
-                                            <ng-container *ngIf="!field.customFieldSuffix&&!field.customFieldPrefix">
-                                                <input type="text" maxlength="{{field.customFieldTextMaxLength}}"
+
+                                            <ng-container *ngIf="field.customFieldSpecialType=='OpenField'">
+                                                <ng-container *ngIf="field.customFieldSuffix||field.customFieldPrefix"
+                                                    class="input-group">
+                                                    <span *ngIf="field.customFieldPrefix"
+                                                        class="input-group-addon text Prefix" [popper]="popper13Content"
+                                                        [popperTrigger]="'hover'"
+                                                        [popperPlacement]="'bottom'">{{(field.customFieldPrefix.length>3)?
+                                                        (field.customFieldPrefix |
+                                                        slice:0:3)+'...':(field.customFieldPrefix)}}</span>
+                                                    <popper-content #popper13Content>
+                                                        <p class="popperTitle"><b>{{field.customFieldPrefix}}</b></p>
+                                                    </popper-content>
+                                                    <input type="{{field.dataType}}"
+                                                        [required]="field.customFieldIsRequired"
+                                                        id="dynamic_CustomField_{{field.columnId}}"
+                                                        name="dynamic_CustomField_{{field.columnId}}"
+                                                        class="form__input"
+                                                        [ngClass]="[field.customFieldPrefix.length=='1' ? 'Addon':''||field.customFieldPrefix.length=='2'?'Addon1':''||field.customFieldPrefix.length=='3'?'Addon2':''||field.customFieldPrefix.length>='4'?'Addon3':'']">
+                                                    <span *ngIf="field.customFieldSuffix"
+                                                        class="input-group-addon text Suffix">{{field.customFieldSuffix}}</span>
+                                                    <div class="infopanel" [popper]="popper3Content"
+                                                        [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                                        [hidden]="field.customFieldInformation==''">
+                                                        <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                            aria-labelledby="title-5f8fce8eb6f78"
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                                            width="12" height="12">
+                                                            <g data-name="Group 748" fill="currentColor">
+                                                                <path data-name="Path 435"
+                                                                    d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                                </path>
+                                                                <path data-name="Path 436"
+                                                                    d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                                </path>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                    <popper-content #popper3Content>
+                                                        <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                                        <span>{{field.customFieldInformation}}</span>
+                                                    </popper-content>
+                                                </ng-container>
+                                                <ng-container
+                                                    *ngIf="!field.customFieldSuffix&&!field.customFieldPrefix">
+                                                    <input type="{{field.dataType}}"
+                                                        [required]="field.customFieldIsRequired"
+                                                        id="dynamic_CustomField_{{field.columnId}}"
+                                                        name="dynamic_CustomField_{{field.columnId}}"
+                                                        class="form__input">
+                                                    <div class="infopanel" [popper]="popper3Content"
+                                                        [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                                        [hidden]="field.customFieldInformation==''">
+                                                        <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                            aria-labelledby="title-5f8fce8eb6f78"
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                                            width="12" height="12">
+                                                            <g data-name="Group 748" fill="currentColor">
+                                                                <path data-name="Path 435"
+                                                                    d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                                </path>
+                                                                <path data-name="Path 436"
+                                                                    d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                                </path>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                    <popper-content #popper3Content>
+                                                        <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                                        <span>{{field.customFieldInformation}}</span>
+                                                    </popper-content>
+                                                </ng-container>
+
+                                            </ng-container>
+
+                                            <ng-container *ngIf="field.customFieldSpecialType==''">
+
+                                                <input type="{{field.dataType}}"
                                                     [required]="field.customFieldIsRequired"
-                                                    id="Circustance_{{field.columnId}}"
-                                                    name="Circustance_{{field.columnId}}"
-                                                    [(ngModel)]="field.columnValue" class="form__input">
+                                                    id="dynamic_CustomField_{{field.columnId}}"
+                                                    name="dynamic_CustomField_{{field.columnId}}" class="form__input">
+                                                <div class="infopanel" [popper]="popper3Content"
+                                                    [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                                    [hidden]="field.customFieldInformation==''">
+                                                    <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                        aria-labelledby="title-5f8fce8eb6f78"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                                        width="12" height="12">
+                                                        <g data-name="Group 748" fill="currentColor">
+                                                            <path data-name="Path 435"
+                                                                d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                            </path>
+                                                            <path data-name="Path 436"
+                                                                d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                            </path>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                                <popper-content #popper3Content>
+                                                    <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                                    <span>{{field.customFieldInformation}}</span>
+                                                </popper-content>
                                             </ng-container>
 
                                         </ng-container>
+                                        <ng-container *ngIf="field.dataType=='Number'">
 
-                                        <ng-container *ngIf="field.customFieldSpecialType==''">
+                                            <ng-container *ngIf="field.customFieldSpecialType=='Number'">
+                                                <input type="{{field.dataType}}"
+                                                    [required]="field.customFieldIsRequired"
+                                                    id="dynamic_CustomField_{{field.columnId}}"
+                                                    name="dynamic_CustomField_{{field.columnId}}" class="form__input">
+                                                <div class="infopanel" [popper]="popper3Content"
+                                                    [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                                    [hidden]="field.customFieldInformation==''">
+                                                    <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                        aria-labelledby="title-5f8fce8eb6f78"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                                        width="12" height="12">
+                                                        <g data-name="Group 748" fill="currentColor">
+                                                            <path data-name="Path 435"
+                                                                d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                            </path>
+                                                            <path data-name="Path 436"
+                                                                d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                            </path>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                                <popper-content #popper3Content>
+                                                    <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                                    <span>{{field.customFieldInformation}}</span>
+                                                </popper-content>
+                                            </ng-container>
+                                            <ng-container *ngIf="field.customFieldSpecialType=='Currency'"
+                                                class="input-group">
+                                                <span class="input-group-addon text ">$</span>
+                                                <input type="{{field.dataType}}"
+                                                    [required]="field.customFieldIsRequired"
+                                                    id="dynamic_CustomField_{{field.columnId}}"
+                                                    name="dynamic_CustomField_{{field.columnId}}"
+                                                    class="form__input Addon">
+                                                <div class="infopanel" [popper]="popper3Content"
+                                                    [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                                    [hidden]="field.customFieldInformation==''">
+                                                    <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                        aria-labelledby="title-5f8fce8eb6f78"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                                        width="12" height="12">
+                                                        <g data-name="Group 748" fill="currentColor">
+                                                            <path data-name="Path 435"
+                                                                d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                            </path>
+                                                            <path data-name="Path 436"
+                                                                d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                            </path>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                                <popper-content #popper3Content>
+                                                    <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                                    <span>{{field.customFieldInformation}}</span>
+                                                </popper-content>
+                                            </ng-container>
 
-                                            <input type="text" [required]="field.customFieldIsRequired"
-                                                id="Circustance_{{field.columnId}}"
-                                                name="Circustance_{{field.columnId}}" [(ngModel)]="field.columnValue"
-                                                class="form__input">
+                                            <ng-container *ngIf="field.customFieldSpecialType==''">
+                                                <input type="{{field.dataType}}"
+                                                    [required]="field.customFieldIsRequired"
+                                                    id="dynamic_CustomField_{{field.columnId}}"
+                                                    name="dynamic_CustomField_{{field.columnId}}" class="form__input">
+                                                <div class="infopanel" [popper]="popper3Content"
+                                                    [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                                    [hidden]="field.customFieldInformation==''">
+                                                    <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                        aria-labelledby="title-5f8fce8eb6f78"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                                        width="12" height="12">
+                                                        <g data-name="Group 748" fill="currentColor">
+                                                            <path data-name="Path 435"
+                                                                d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                            </path>
+                                                            <path data-name="Path 436"
+                                                                d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                            </path>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                                <popper-content #popper3Content>
+                                                    <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                                    <span>{{field.customFieldInformation}}</span>
+                                                </popper-content>
+                                            </ng-container>
+
+
 
                                         </ng-container>
-
-                                    </ng-container>
-                                    <ng-container *ngIf="field.dataType=='Number'">
-
-                                        <ng-container *ngIf="field.customFieldSpecialType=='Number'">
-                                            <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
-                                                id="Circustance_{{field.columnId}}"
-                                                name="Circustance_{{field.columnId}}" [(ngModel)]="field.columnValue"
-                                                class="form__input">
+                                        <ng-container *ngIf="field.dataType=='Date/Time'">
+                                            <ng-container
+                                                *ngIf="field.customFieldSpecialType=='Date'||field.customFieldSpecialType==''">
+                                                <input [owlDateTimeTrigger]="dt3" class="form__input"
+                                                    id="dynamic_CustomField_{{field.columnId}}"
+                                                    name="dynamic_CustomField_{{field.columnId}}"
+                                                    [required]="field.customFieldIsRequired" [owlDateTime]="dt3">
+                                                <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+                                                <div class="infopanel" [popper]="popper11Content"
+                                                    [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                                    [hidden]="field.customFieldInformation==''">
+                                                    <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                        aria-labelledby="title-5f8fce8eb6f78"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                                        width="12" height="12">
+                                                        <g data-name="Group 748" fill="currentColor">
+                                                            <path data-name="Path 435"
+                                                                d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                            </path>
+                                                            <path data-name="Path 436"
+                                                                d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                            </path>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                                <popper-content #popper11Content>
+                                                    <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                                    <span>{{field.customFieldInformation}}</span>
+                                                </popper-content>
+                                            </ng-container>
+                                            <ng-container *ngIf="field.customFieldSpecialType=='Date & Time'">
+                                                <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1"
+                                                    class="form__input" id="dynamic_CustomField_{{field.columnId}}"
+                                                    name="dynamic_CustomField_{{field.columnId}}" autocomplete="off"
+                                                    [required]="field.customFieldIsRequired">
+                                                <owl-date-time #dt1></owl-date-time>
+                                                <div class="infopanel" [popper]="popper11Content"
+                                                    [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                                    [hidden]="field.customFieldInformation==''">
+                                                    <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                        aria-labelledby="title-5f8fce8eb6f78"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                                        width="12" height="12">
+                                                        <g data-name="Group 748" fill="currentColor">
+                                                            <path data-name="Path 435"
+                                                                d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                            </path>
+                                                            <path data-name="Path 436"
+                                                                d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                            </path>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                                <popper-content #popper11Content>
+                                                    <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                                    <span>{{field.customFieldInformation}}</span>
+                                                </popper-content>
+                                            </ng-container>
+                                            <ng-container *ngIf="field.customFieldSpecialType=='Time'">
+                                                <input [owlDateTimeTrigger]="dt2"
+                                                    id="dynamic_CustomField_{{field.columnId}}" autocomplete="off"
+                                                    name="dynamic_CustomField_{{field.columnId}}" [owlDateTime]="dt2"
+                                                    class="form__input">
+                                                <owl-date-time [pickerType]="'timer'"
+                                                    [required]="field.customFieldIsRequired" #dt2>
+                                                </owl-date-time>
+                                                <div class="infopanel" [popper]="popper11Content"
+                                                    [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                                    [hidden]="field.customFieldInformation==''">
+                                                    <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                        aria-labelledby="title-5f8fce8eb6f78"
+                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                                        width="12" height="12">
+                                                        <g data-name="Group 748" fill="currentColor">
+                                                            <path data-name="Path 435"
+                                                                d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                            </path>
+                                                            <path data-name="Path 436"
+                                                                d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                            </path>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                                <popper-content #popper11Content>
+                                                    <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                                    <span>{{field.customFieldInformation}}</span>
+                                                </popper-content>
+                                            </ng-container>
                                         </ng-container>
-                                        <ng-container *ngIf="field.customFieldSpecialType=='Currency'"
-                                            class="input-group">
-                                            <span class="input-group-addon text">$</span>
-                                            <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
-                                                id="Circustance_{{field.columnId}}"
-                                                name="Circustance_{{field.columnId}}" [(ngModel)]="field.columnValue"
-                                                class="form__input">
+                                        <ng-container *ngIf="field.dataType=='True/False'">
+                                            <div class="form__group form__group--radio">
+                                                <input id="dynamic_CustomField_{{field.columnId}}_1" class="form__radio"
+                                                    type="radio" value="{{field.customFieldFalseLabel}}"
+                                                    name="dynamic_radio200">
+                                                <label class="form__group-label"
+                                                    for="dynamic_CustomField_{{field.columnId}}_1">{{field.customFieldFalseLabel}}
+                                                </label>
+                                            </div>
+                                            <div class="form__group form__group--radio">
+                                                <input value="{{field.customFieldTrueLabel}}"
+                                                    id="dynamic_CustomField_{{field.columnId}}_2" class="form__radio"
+                                                    type="radio" name="dynamic_radio200">
+                                                <label class="form__group-label"
+                                                    for="dynamic_CustomField_{{field.columnId}}_2">{{field.customFieldTrueLabel}}</label>
+                                            </div>
+
+                                        </ng-container>
+                                    </div>
+                                    <div style="position: relative;" class="pull-right"><i title="Drag Me"
+                                            class="drag-handle fa fa-th fa-lg" aria-hidden="true"></i>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form__col--two-third">
+            <div class="card">
+                <div class="card-header">
+
+                </div>
+                <div class="card-body">
+                    <div class="card">
+                        <div class="card-header">
+                            <div style="flex-direction: row;">
+                                <ng-container *ngIf="SelectedIcon=='1'">
+                                    <button class="icons__item" type="button">
+                                        <ng-container *ngTemplateOutlet="addIcon">
+                                        </ng-container>
+                                    </button>
+                                </ng-container>
+                                <ng-container *ngIf="SelectedIcon=='2'">
+                                    <button class="icons__item" type="button">
+                                        <ng-container *ngTemplateOutlet="removeIcon">
+                                        </ng-container>
+                                    </button>
+                                </ng-container>
+                                <ng-container *ngIf="SelectedIcon=='3'">
+                                    <button class="icons__item" type="button">
+                                        <ng-container *ngTemplateOutlet="moveIcon">
+                                        </ng-container>
+                                    </button>
+                                </ng-container>
+                                <ng-container *ngIf="SelectedIcon=='4'">
+                                    <button class="icons__item" type="button">
+                                        <ng-container *ngTemplateOutlet="adjustIcon">
+                                        </ng-container>
+                                    </button>
+                                </ng-container>
+                                <ng-container *ngIf="SelectedIcon=='5'">
+                                    <button class="icons__item" type="button">
+
+                                        <ng-container *ngTemplateOutlet="statusIcon">
                                         </ng-container>
 
-                                        <ng-container *ngIf="field.customFieldSpecialType==''">
-                                            <input type="{{field.dataType}}" [required]="field.customFieldIsRequired"
-                                                id="Circustance_{{field.columnId}}"
-                                                name="Circustance_{{field.columnId}}" [(ngModel)]="field.columnValue"
-                                                class="form__input">
+                                    </button>
+                                </ng-container>
+                                <ng-container *ngIf="SelectedIcon=='8'">
+                                    <button class="icons__item" type="button">
+                                        <ng-container *ngTemplateOutlet="convertIcon">
+                                        </ng-container>
+
+                                    </button>
+                                </ng-container>
+                                <ng-container *ngIf="SelectedIcon=='7'">
+                                    <button class="icons__item" type="button">
+                                        <ng-container *ngTemplateOutlet="movechangeIcon">
+                                        </ng-container>
+                                    </button>
+                                </ng-container>
+                                <ng-container *ngIf="SelectedIcon=='6'">
+                                    <button class="icons__item" type="button">
+
+                                        <ng-container *ngTemplateOutlet="changeIcon">
                                         </ng-container>
 
 
+                                    </button>
+                                </ng-container>
 
-                                    </ng-container>
-                                    <ng-container *ngIf="field.dataType=='Date/Time'">
-                                        <ng-container
-                                            *ngIf="field.customFieldSpecialType=='Date'||field.customFieldSpecialType==''">
-                                            <input type="date" [required]="field.customFieldIsRequired"
-                                                id="Circustance_{{field.columnId}}"
-                                                name="Circustance_{{field.columnId}}" [(ngModel)]="field.columnValue"
-                                                data-flatpickr-mode="single" class="form__input flatpickr">
-                                        </ng-container>
-                                        <ng-container *ngIf="field.customFieldSpecialType=='Date & Time'">
-                                            <input type="date" [required]="field.customFieldIsRequired"
-                                                id="Circustance_{{field.columnId}}"
-                                                name="Circustance_{{field.columnId}}" [(ngModel)]="field.columnValue"
-                                                data-flatpickr-mode="single" class="form__input flatpickr">
-                                        </ng-container>
-                                        <ng-container *ngIf="field.customFieldSpecialType=='Time'">
-                                            <input type="date" [required]="field.customFieldIsRequired"
-                                                id="Circustance_{{field.columnId}}"
-                                                name="Circustance_{{field.columnId}}" [(ngModel)]="field.columnValue"
-                                                data-flatpickr-mode="single" class="form__input flatpickr">
-                                        </ng-container>
-                                    </ng-container>
-                                    <ng-container *ngIf="field.dataType=='True/False'">
-                                        <div class="form__group form__group--radio">
-                                            <input id="Circustance_{{field.columnId}}_1" [(ngModel)]="field.columnValue"
-                                                class="form__radio" type="radio" value="{{field.customFieldFalseLabel}}"
-                                                name="radio200_{{field.columnId}}">
-                                            <label class="form__group-label"
-                                                for="Circustance_{{field.columnId}}_1">{{field.customFieldFalseLabel}}</label>
+
+                                <div>
+                                    <div class="content-editable" contenteditable="true"
+                                        placeholder="Enter event name..." [textContent]="eventForm.eventName"
+                                        (input)="eventForm.eventName=$event.target.textContent"></div>
+                                    <!-- <input
+                                                    style="width: 100%; border-left-style: none;border-top-style: none;border-right-style: none; margin-top: 10px; "
+                                                    class="form__input" placeholder="Event Name" required="required"
+                                                    [(ngModel)]="eventForm.eventName" type="text" id="Add_Event-Name" name="Add_Event-Name"> -->
+                                </div>
+                            </div>
+
+
+
+                            <div class="form__col form__col--third">
+
+                            </div>
+
+                            <br>
+                            <div class="form__section">
+                                <h2 class="form__section-title">{{eventForm.eventName}} this QTY...</h2>
+                                <div class="form__col-wrap">
+                                    <div class="form__col form__col--third">
+                                        <label class="form__label" for="quantity_add">Quantity<span
+                                                class="form__required">*</span></label>
+                                        <input class="form__input" type="number" id="quantity_add" readonly required
+                                            name="quantity_add">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <ng-container *ngIf="eventForm.eventQuantityAction=='Move'">
+                                <div class="form__section">
+                                    <h2 class="form__section-title">To this Location ...</h2>
+                                    <div class="form__col-wrap">
+                                        <div class="form__col form__col--third">
+                                            <label class="form__label" for="location_move">Location<span
+                                                    class="form__required">*</span></label>
+
+
+                                            <input class="form__input" type="text" id="location_move"
+                                                name="location_move" required>
+
                                         </div>
-                                        <div class="form__group form__group--radio">
-                                            <input [(ngModel)]="field.columnValue"
-                                                value="{{field.customFieldTrueLabel}}"
-                                                id="Circustance_{{field.columnId}}_2" class="form__radio" type="radio"
-                                                name="radio200_{{field.columnId}}">
-                                            <label class="form__group-label"
-                                                for="Circustance_{{field.columnId}}_2">{{field.customFieldTrueLabel}}</label>
-                                        </div>
-                                    </ng-container>
 
-                                    <div class="close" (click)="removeField(i)">×</div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="eventForm.eventQuantityAction=='Convert'">
+                                <div class="form__section">
+                                    <h2 class="form__section-title">Into this QTY of this UOM...</h2>
+                                    <div class="form__col-wrap">
+                                        <div class="form__col form__col--third">
+                                            <label class="form__label" for="location_convert">New Qty<span
+                                                    class="form__required">*</span></label>
+                                            <input class="form__input" type="number" id="location_convert"
+                                                name="location_convert" required>
+                                        </div>
+                                        <div class="form__col form__col--third">
+                                            <!-- <button type="button" data-modal="#AddUOMinnerModal"
+                                                                            class="invModal__control addLibrary js-modal">Add New UOM</button> -->
+
+                                            <label class="form__label" for="Uom_convert">New UOM <span
+                                                    class="form__required">*</span></label>
+                                            <select class="form__input form__select" id="Uom_convert" name="Uom_convert"
+                                                required>
+                                                <option value=""></option>
+                                                <option>Piece
+                                                </option>
+                                                <option>ea</option>
+                                                <option>unit/s</option>
+                                            </select>
+                                        </div>
+                                        <div class="form__col form__col--third">
+
+                                        </div>
+                                    </div>
                                 </div>
                             </ng-container>
 
-                            <div class="form__col form__col--third"></div>
-
                         </div>
-                    </div>
-                </div>
 
-                <div class="button-group"><button type="submit" href="#" class="button button--medium"
-                        (click)="onSubmit()">Save</button>
-                    <button _ngcontent-eoq-c89="" type="button"
-                        data-trigger=".table__button-group .icons__item.is-active"
-                        class="button button--medium button--text-only js-trigger">Cancel </button>
-                </div>
-            </div>
-        </div>
-        <div class="form__col--second">
 
-            <div class="card-header">
-                <h3>Configuration</h3>
-            </div>
-            <div class="card">
-                <br>
-                <h4>Icon </h4><br>
-                <div class="form__col form__col--group">
-                    <div class="form__group">
-                        <!-- <input id="iconradio" class="form__radio" type="radio" checked="checked" name="iconradio[]">
-                                    <label class="form__group-label" for="iconradio">
-                                        
-                                    </label> -->
-                        <div (click)="SelectedEvent(1)" class="Selected_Icon"
-                            [ngClass]="[SelectedIcon=='1'?'Selected_Icon--Active':'']">
-                            <div class="icons__item--theme10" [ngClass]="[SelectedIcon=='1'?'icons__item--theme11':'']">
-                                <svg class="icon icon--theme01 icon--add" aria-labelledby="title-5fc489b8acf9c"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
-                                    <path fill="none" d="M0 0h48v48H0z"></path>
-                                    <path d="M28 36v12h-8V28a8 8 0 00-8-8 16 16 0 0116 16z" fill="currentColor"
-                                        class="icon__color--secondary"></path>
-                                    <path d="M20 28H0v-8h12a8 8 0 018 8z" fill="currentColor"
-                                        class="icon__color--secondary"></path>
-                                    <path d="M20 12V0h8v20a8 8 0 008 8 16 16 0 01-16-16z" fill="currentColor"
-                                        class="icon__color--secondary"></path>
-                                    <path d="M28 20h20v8H36a8 8 0 01-8-8z" fill="currentColor"
-                                        class="icon__color--secondary"></path>
-                                </svg>
-                            </div>
-                            <div class="CheckBadge" *ngIf="SelectedIcon=='1'">
-                                <div class="icons__item--theme11">
-                                    <svg class="icon icon--theme01 icon--selected" aria-labelledby="title-5fc4b53f9dd13"
-                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
-                                        <path d="M46.6 12.7l-16.9 17a8.1 8.1 0 01-11.4 0L12.7 24A8 8 0 0024 24L41 7z"
-                                            fill="currentColor" class="icon__color--secondary"></path>
-                                        <path d="M24 24a8 8 0 01-11.3 0l-2.8-2.8 5.6-5.7z" fill="currentColor"
-                                            class="icon__color--secondary"></path>
-                                    </svg>
+                        <div class="card-body" droppable (onDrop)="onItemDrop($event)"
+                            [dragOverClass]="'drag-target-border'">
+                            <h2 class="form__section-title"> Custom Fields</h2>
+                            <div class="panel-empty-body">
+                                <div style="text-align: center;"
+                                    *ngIf="selectedFields==undefined || selectedFields.length==0">
+                                    Drop Available Column Fields here</div>
+
+
+                                <div class="form__col-wrap" cdkDropList (cdkDropListDropped)="drop($event)">
+
+                                    <ng-container *ngFor="let field of selectedFields;let i=index">
+
+                                        <div cdkDrag class="form__col form__col--third"
+                                            [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''">
+
+                                            <label class="form__label" *ngIf="field.dataType!='True/False'"
+                                                for="Circustance_{{field.columnId}}_form"
+                                                [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>='4' ? 'prefixLabel3':'']">{{field.columnLabel}}<span
+                                                    *ngIf="field.customFieldIsRequired"
+                                                    class="form__required">*</span></label>
+                                            <span class="form__group-outer-label"
+                                                *ngIf="field.dataType=='True/False'">{{
+                                                (field.columnLabel.length>5)? (field.columnLabel |
+                                                slice:0:5)+'...':(field.columnLabel)}}
+                                                :</span>
+                                            <ng-container *ngIf="field.dataType=='Text'">
+
+                                                <ng-container *ngIf="field.customFieldSpecialType=='Autocomplete'">
+                                                    <ng-autocomplete [data]="field.comboBoxArray"
+                                                        [searchKeyword]="keyword" (selected)='selectEvent($event)'
+                                                        [debounceTime]="600" [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate">
+                                                    </ng-autocomplete>
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item"></a>
+                                                    </ng-template>
+                                                </ng-container>
+
+                                                <ng-container *ngIf="field.customFieldSpecialType=='Dropdown'">
+
+                                                    <select class="floating-select"
+                                                        id="dynamic_CustomField_Config_{field.columnId}}"
+                                                        [(ngModel)]="field.columnValue"
+                                                        name="dynamic_CustomField_Config_Config_{{field.columnId}}">
+                                                        <option value=""></option>
+                                                        <option *ngFor="let value of field.comboBoxArray"
+                                                            [value]="value.value">
+                                                            {{value.label}}
+                                                        </option>
+                                                    </select>
+
+                                                    <span class="highlight"></span>
+                                                    <label class="form__label form_label"
+                                                        *ngIf="field.customFieldSpecialType=='Dropdown'">{{field.columnLabel}}<span
+                                                            *ngIf="field.customFieldIsRequired"
+                                                            class="form__required">*</span></label>
+
+                                                    <div class="infopanel" [popper]="popper3Content"
+                                                        [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                                        [hidden]="field.customFieldInformation==''">
+                                                        <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                            aria-labelledby="title-5f8fce8eb6f78"
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                                            width="12" height="12">
+                                                            <g data-name="Group 748" fill="currentColor">
+                                                                <path data-name="Path 435"
+                                                                    d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                                </path>
+                                                                <path data-name="Path 436"
+                                                                    d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                                </path>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                    <popper-content #popper3Content>
+                                                        <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                                        <span>{{field.customFieldInformation}}</span>
+                                                    </popper-content>
+                                                </ng-container>
+
+                                                <ng-container *ngIf="field.customFieldSpecialType=='OpenField'">
+                                                    <ng-container
+                                                        *ngIf="field.customFieldSuffix||field.customFieldPrefix"
+                                                        class="input-group">
+                                                        <span *ngIf="field.customFieldPrefix"
+                                                            class="input-group-addon text Prefix"
+                                                            [popper]="popper13Content" [popperTrigger]="'hover'"
+                                                            [popperPlacement]="'bottom'">{{(field.customFieldPrefix.length>3)?
+                                                            (field.customFieldPrefix |
+                                                            slice:0:3)+'...':(field.customFieldPrefix)}}</span>
+                                                        <popper-content #popper13Content>
+                                                            <p class="popperTitle"><b>{{field.customFieldPrefix}}</b>
+                                                            </p>
+                                                        </popper-content>
+                                                        <input type="{{field.dataType}}"
+                                                            [required]="field.customFieldIsRequired"
+                                                            id="dynamic_CustomField_Config_{{field.columnId}}"
+                                                            name="dynamic_CustomField_Config_{{field.columnId}}"
+                                                            [(ngModel)]="field.columnValue" class="form__input"
+                                                            [ngClass]="[field.customFieldPrefix.length=='1' ? 'Addon':''||field.customFieldPrefix.length=='2'?'Addon1':''||field.customFieldPrefix.length=='3'?'Addon2':''||field.customFieldPrefix.length>='4'?'Addon3':'']">
+                                                        <span *ngIf="field.customFieldSuffix"
+                                                            class="input-group-addon text Suffix">{{field.customFieldSuffix}}</span>
+                                                        <div class="infopanel" [popper]="popper3Content"
+                                                            [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                                            [hidden]="field.customFieldInformation==''">
+                                                            <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                                aria-labelledby="title-5f8fce8eb6f78"
+                                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                                                width="12" height="12">
+                                                                <g data-name="Group 748" fill="currentColor">
+                                                                    <path data-name="Path 435"
+                                                                        d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                                    </path>
+                                                                    <path data-name="Path 436"
+                                                                        d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                                    </path>
+                                                                </g>
+                                                            </svg>
+                                                        </div>
+                                                        <popper-content #popper3Content>
+                                                            <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                                            <span>{{field.customFieldInformation}}</span>
+                                                        </popper-content>
+                                                    </ng-container>
+                                                    <ng-container
+                                                        *ngIf="!field.customFieldSuffix&&!field.customFieldPrefix">
+                                                        <input type="{{field.dataType}}"
+                                                            [required]="field.customFieldIsRequired"
+                                                            id="dynamic_CustomField_Config_{{field.columnId}}"
+                                                            name="dynamic_CustomField_Config_{{field.columnId}}"
+                                                            [(ngModel)]="field.columnValue" class="form__input">
+                                                        <div class="infopanel" [popper]="popper3Content"
+                                                            [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                                            [hidden]="field.customFieldInformation==''">
+                                                            <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                                aria-labelledby="title-5f8fce8eb6f78"
+                                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                                                width="12" height="12">
+                                                                <g data-name="Group 748" fill="currentColor">
+                                                                    <path data-name="Path 435"
+                                                                        d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                                    </path>
+                                                                    <path data-name="Path 436"
+                                                                        d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                                    </path>
+                                                                </g>
+                                                            </svg>
+                                                        </div>
+                                                        <popper-content #popper3Content>
+                                                            <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                                            <span>{{field.customFieldInformation}}</span>
+                                                        </popper-content>
+                                                    </ng-container>
+
+                                                </ng-container>
+
+                                                <ng-container *ngIf="field.customFieldSpecialType==''">
+
+                                                    <input type="{{field.dataType}}"
+                                                        [required]="field.customFieldIsRequired"
+                                                        id="dynamic_CustomField_Config_{{field.columnId}}"
+                                                        name="dynamic_CustomField_Config_{{field.columnId}}"
+                                                        [(ngModel)]="field.columnValue" class="form__input">
+                                                    <div class="infopanel" [popper]="popper3Content"
+                                                        [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                                        [hidden]="field.customFieldInformation==''">
+                                                        <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                            aria-labelledby="title-5f8fce8eb6f78"
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                                            width="12" height="12">
+                                                            <g data-name="Group 748" fill="currentColor">
+                                                                <path data-name="Path 435"
+                                                                    d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                                </path>
+                                                                <path data-name="Path 436"
+                                                                    d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                                </path>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                    <popper-content #popper3Content>
+                                                        <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                                        <span>{{field.customFieldInformation}}</span>
+                                                    </popper-content>
+                                                </ng-container>
+
+                                            </ng-container>
+                                            <ng-container *ngIf="field.dataType=='Number'">
+
+                                                <ng-container *ngIf="field.customFieldSpecialType=='Number'">
+                                                    <input type="{{field.dataType}}"
+                                                        [required]="field.customFieldIsRequired"
+                                                        id="dynamic_CustomField_Config_{{field.columnId}}"
+                                                        name="dynamic_CustomField_Config_{{field.columnId}}"
+                                                        [(ngModel)]="field.columnValue" class="form__input">
+                                                    <div class="infopanel" [popper]="popper3Content"
+                                                        [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                                        [hidden]="field.customFieldInformation==''">
+                                                        <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                            aria-labelledby="title-5f8fce8eb6f78"
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                                            width="12" height="12">
+                                                            <g data-name="Group 748" fill="currentColor">
+                                                                <path data-name="Path 435"
+                                                                    d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                                </path>
+                                                                <path data-name="Path 436"
+                                                                    d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                                </path>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                    <popper-content #popper3Content>
+                                                        <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                                        <span>{{field.customFieldInformation}}</span>
+                                                    </popper-content>
+                                                </ng-container>
+                                                <ng-container *ngIf="field.customFieldSpecialType=='Currency'"
+                                                    class="input-group">
+                                                    <span class="input-group-addon text ">$</span>
+                                                    <input type="{{field.dataType}}"
+                                                        [required]="field.customFieldIsRequired"
+                                                        id="dynamic_CustomField_Config_{{field.columnId}}"
+                                                        name="dynamic_CustomField_Config_{{field.columnId}}"
+                                                        [(ngModel)]="field.columnValue" class="form__input Addon">
+                                                    <div class="infopanel" [popper]="popper3Content"
+                                                        [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                                        [hidden]="field.customFieldInformation==''">
+                                                        <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                            aria-labelledby="title-5f8fce8eb6f78"
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                                            width="12" height="12">
+                                                            <g data-name="Group 748" fill="currentColor">
+                                                                <path data-name="Path 435"
+                                                                    d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                                </path>
+                                                                <path data-name="Path 436"
+                                                                    d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                                </path>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                    <popper-content #popper3Content>
+                                                        <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                                        <span>{{field.customFieldInformation}}</span>
+                                                    </popper-content>
+                                                </ng-container>
+
+                                                <ng-container *ngIf="field.customFieldSpecialType==''">
+                                                    <input type="{{field.dataType}}"
+                                                        [required]="field.customFieldIsRequired"
+                                                        id="dynamic_CustomField_Config_{{field.columnId}}"
+                                                        name="dynamic_CustomField_Config_{{field.columnId}}"
+                                                        [(ngModel)]="field.columnValue" class="form__input">
+                                                    <div class="infopanel" [popper]="popper3Content"
+                                                        [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                                        [hidden]="field.customFieldInformation==''">
+                                                        <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                            aria-labelledby="title-5f8fce8eb6f78"
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                                            width="12" height="12">
+                                                            <g data-name="Group 748" fill="currentColor">
+                                                                <path data-name="Path 435"
+                                                                    d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                                </path>
+                                                                <path data-name="Path 436"
+                                                                    d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                                </path>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                    <popper-content #popper3Content>
+                                                        <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                                        <span>{{field.customFieldInformation}}</span>
+                                                    </popper-content>
+                                                </ng-container>
+
+
+
+                                            </ng-container>
+                                            <ng-container *ngIf="field.dataType=='Date/Time'">
+                                                <ng-container
+                                                    *ngIf="field.customFieldSpecialType=='Date'||field.customFieldSpecialType==''">
+                                                    <input [owlDateTimeTrigger]="dt3" class="form__input"
+                                                        id="dynamic_CustomField_Config_{{field.columnId}}"
+                                                        name="dynamic_CustomField_Config_{{field.columnId}}"
+                                                        [(ngModel)]="field.columnValue"
+                                                        [required]="field.customFieldIsRequired" [owlDateTime]="dt3">
+                                                    <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+                                                    <div class="infopanel" [popper]="popper11Content"
+                                                        [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                                        [hidden]="field.customFieldInformation==''">
+                                                        <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                            aria-labelledby="title-5f8fce8eb6f78"
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                                            width="12" height="12">
+                                                            <g data-name="Group 748" fill="currentColor">
+                                                                <path data-name="Path 435"
+                                                                    d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                                </path>
+                                                                <path data-name="Path 436"
+                                                                    d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                                </path>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                    <popper-content #popper11Content>
+                                                        <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                                        <span>{{field.customFieldInformation}}</span>
+                                                    </popper-content>
+                                                </ng-container>
+                                                <ng-container *ngIf="field.customFieldSpecialType=='Date & Time'">
+                                                    <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1"
+                                                        class="form__input"
+                                                        id="dynamic_CustomField_Config_{{field.columnId}}"
+                                                        name="dynamic_CustomField_Config_{{field.columnId}}"
+                                                        autocomplete="off" [(ngModel)]="field.columnValue"
+                                                        [required]="field.customFieldIsRequired">
+                                                    <owl-date-time #dt1></owl-date-time>
+                                                    <div class="infopanel" [popper]="popper11Content"
+                                                        [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                                        [hidden]="field.customFieldInformation==''">
+                                                        <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                            aria-labelledby="title-5f8fce8eb6f78"
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                                            width="12" height="12">
+                                                            <g data-name="Group 748" fill="currentColor">
+                                                                <path data-name="Path 435"
+                                                                    d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                                </path>
+                                                                <path data-name="Path 436"
+                                                                    d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                                </path>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                    <popper-content #popper11Content>
+                                                        <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                                        <span>{{field.customFieldInformation}}</span>
+                                                    </popper-content>
+                                                </ng-container>
+                                                <ng-container *ngIf="field.customFieldSpecialType=='Time'">
+                                                    <input [owlDateTimeTrigger]="dt2"
+                                                        id="dynamic_CustomField_Config_{{field.columnId}}"
+                                                        autocomplete="off"
+                                                        name="dynamic_CustomField_Config_{{field.columnId}}"
+                                                        [(ngModel)]="field.columnValue" [owlDateTime]="dt2"
+                                                        class="form__input">
+                                                    <owl-date-time [pickerType]="'timer'"
+                                                        [required]="field.customFieldIsRequired" #dt2>
+                                                    </owl-date-time>
+                                                    <div class="infopanel" [popper]="popper11Content"
+                                                        [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                                        [hidden]="field.customFieldInformation==''">
+                                                        <svg class="icon-simple icon-simple--theme01 icon-simple--info"
+                                                            aria-labelledby="title-5f8fce8eb6f78"
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"
+                                                            width="12" height="12">
+                                                            <g data-name="Group 748" fill="currentColor">
+                                                                <path data-name="Path 435"
+                                                                    d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                                                </path>
+                                                                <path data-name="Path 436"
+                                                                    d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                                                </path>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                    <popper-content #popper11Content>
+                                                        <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                                        <span>{{field.customFieldInformation}}</span>
+                                                    </popper-content>
+                                                </ng-container>
+                                            </ng-container>
+                                            <ng-container *ngIf="field.dataType=='True/False'">
+                                                <div class="form__group form__group--radio">
+                                                    <input id="dynamic_CustomField_Config_{{field.columnId}}_1"
+                                                        [(ngModel)]="field.columnValue" class="form__radio" type="radio"
+                                                        value="{{field.customFieldFalseLabel}}" name="dynamic_radio200">
+                                                    <label class="form__group-label"
+                                                        for="dynamic_CustomField_Config_{{field.columnId}}_1">{{field.customFieldFalseLabel}}
+                                                    </label>
+                                                </div>
+                                                <div class="form__group form__group--radio">
+                                                    <input [(ngModel)]="field.columnValue"
+                                                        value="{{field.customFieldTrueLabel}}"
+                                                        id="dynamic_CustomField_Config_{{field.columnId}}_2"
+                                                        class="form__radio" type="radio" name="dynamic_radio200">
+                                                    <label class="form__group-label"
+                                                        for="dynamic_CustomField_Config_{{field.columnId}}_2">{{field.customFieldTrueLabel}}</label>
+                                                </div>
+
+                                            </ng-container>
+
+                                            <div class="close" (click)="removeField(i)">×</div>
+                                        </div>
+                                    </ng-container>
+                                    <div class="form__col form__col--third"></div>
+                                    <div class="form__col form__col--third"></div>
+
+
+
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form__group">
-                        <!-- <input id="iconradio1" class="form__radio" type="radio" name="iconradio[]">
-                                    <label class="form__group-label" for="iconradio1">
-                                        
-                                    </label> -->
-                        <div (click)="SelectedEvent(2)" class="Selected_Icon"
-                            [ngClass]="[SelectedIcon=='2'?'Selected_Icon--Active':'']">
-                            <div class="icons__item--theme10" [ngClass]="[SelectedIcon=='2'?'icons__item--theme11':'']">
-                                <svg class="icon icon--theme01 icon--remove" aria-labelledby="title-5fc489b8acfe3"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
-                                    <path fill="none" d="M0 0h48v48H0z"></path>
-                                    <path
-                                        d="M12.7 18.3L4.2 9.9l5.7-5.7L24 18.3a7.9 7.9 0 0011.3 0 15.9 15.9 0 01-22.6 0z"
-                                        fill="currentColor" class="icon__color--secondary"></path>
-                                    <path class="icon__color--secondary"
-                                        d="M24 18.3L38.1 4.2l5.7 5.7-8.5 8.4a7.9 7.9 0 01-11.3 0z" fill="currentColor">
-                                    </path>
-                                    <path class="icon__color--secondary"
-                                        d="M35.3 28.9l8.5 8.5-5.7 5.6L24 28.9a8 8 0 00-11.3 0 15.9 15.9 0 0122.6 0z"
-                                        fill="currentColor"></path>
-                                    <path class="icon__color--secondary"
-                                        d="M24 28.9L9.9 43l-5.7-5.6 8.5-8.5a8 8 0 0111.3 0z" fill="currentColor">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div class="CheckBadge" *ngIf="SelectedIcon=='2'">
-                                <svg class="icon icon--theme01 icon--selected" aria-labelledby="title-5fc4b53f9dd13"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
-                                    <path d="M46.6 12.7l-16.9 17a8.1 8.1 0 01-11.4 0L12.7 24A8 8 0 0024 24L41 7z"
-                                        fill="currentColor" class="icon__color--secondary"></path>
-                                    <path d="M24 24a8 8 0 01-11.3 0l-2.8-2.8 5.6-5.7z" fill="currentColor"
-                                        class="icon__color--secondary"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form__group">
-                        <!-- <input id="iconradio2" class="form__radio" type="radio" name="iconradio[]">
-                                    <label class="form__group-label" for="iconradio2">
-                                        
-                                    </label> -->
-                        <div (click)="SelectedEvent(3)" class="Selected_Icon"
-                            [ngClass]="[SelectedIcon=='3'?'Selected_Icon--Active':'']">
-                            <div class="icons__item--theme10" [ngClass]="[SelectedIcon=='3'?'icons__item--theme11':'']">
-                                <svg class="icon icon--theme01 icon--move" aria-labelledby="title-5fc489b8ad01f"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
-                                    <path d="M48 48V0H0v48z" fill="none"></path>
-                                    <path
-                                        d="M43.9 21.8l-8-8a6 6 0 011.3 6.5 5.7 5.7 0 01-3 3.1 5.1 5.1 0 01-2.5.6H4v8h35.7a6 6 0 004.2-10.2z"
-                                        fill="currentColor" class="icon__color--secondary"></path>
-                                    <path d="M35.9 13.8l-8.4-8.4-5.6 5.6 12.3 12.4a5.7 5.7 0 003-3.1 6 6 0 00-1.3-6.5z"
-                                        fill="currentColor" class="icon__color--secondary"></path>
-                                </svg>
-                            </div>
-                            <div class="CheckBadge" *ngIf="SelectedIcon=='3'">
-                                <svg class="icon icon--theme01 icon--selected" aria-labelledby="title-5fc4b53f9dd13"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
-                                    <path d="M46.6 12.7l-16.9 17a8.1 8.1 0 01-11.4 0L12.7 24A8 8 0 0024 24L41 7z"
-                                        fill="currentColor" class="icon__color--secondary"></path>
-                                    <path d="M24 24a8 8 0 01-11.3 0l-2.8-2.8 5.6-5.7z" fill="currentColor"
-                                        class="icon__color--secondary"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form__group">
-                        <!-- <input id="iconradio3" class="form__radio" type="radio" name="iconradio[]">
-                                    <label class="form__group-label" for="iconradio3">
-                                        
-                                    </label> -->
-                        <div (click)="SelectedEvent(4)" class="Selected_Icon"
-                            [ngClass]="[SelectedIcon=='4'?'Selected_Icon--Active':'']">
-                            <div class="icons__item--theme10" [ngClass]="[SelectedIcon=='4'?'icons__item--theme11':'']">
-                                <svg class="icon icon--theme01 icon--adjust" aria-labelledby="title-5fc489b8ad02d"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
-                                    <path fill="currentColor" class="icon__color--secondary" d="M6 36h36v8H6z">
-                                    </path>
-                                    <path
-                                        d="M12 23.2a8 8 0 00-2.1 7.7 7.9 7.9 0 007.7-2 8.1 8.1 0 002.1-7.8 8 8 0 00-7.7 2.1z"
-                                        fill="currentColor" class="icon__color--secondary"></path>
-                                    <path d="M17.6 17.6L12 23.2l5.6 5.7a8 8 0 010-11.3z" fill="currentColor"
-                                        class="icon__color--secondary"></path>
-                                    <path
-                                        d="M28.9 6.2L17.6 17.6a8 8 0 000 11.3l17-17zm5.075-3.486l4.242 4.243a1 1 0 010 1.414l-2.121 2.122-5.657-5.657 2.122-2.122a1 1 0 011.414 0z"
-                                        fill="currentColor" class="icon__color--secondary"></path>
-                                    <path fill="none" d="M48 0v48H0V0z"></path>
-                                    <path d="M0 48h48V0H0z" fill="none"></path>
-                                </svg>
-                            </div>
-                            <div class="CheckBadge" *ngIf="SelectedIcon=='4'">
-                                <svg class="icon icon--theme01 icon--selected" aria-labelledby="title-5fc4b53f9dd13"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
-                                    <path d="M46.6 12.7l-16.9 17a8.1 8.1 0 01-11.4 0L12.7 24A8 8 0 0024 24L41 7z"
-                                        fill="currentColor" class="icon__color--secondary"></path>
-                                    <path d="M24 24a8 8 0 01-11.3 0l-2.8-2.8 5.6-5.7z" fill="currentColor"
-                                        class="icon__color--secondary"></path>
-                                </svg>
-                            </div>
+
+                        <div class="button-group"><button type="submit" href="#" class="button button--medium"
+                                (click)="onSubmit()">Save</button>
+                            <button _ngcontent-eoq-c89="" type="button"
+                                data-trigger=".table__button-group .icons__item.is-active"
+                                class="button button--medium button--text-only js-trigger">Cancel </button>
                         </div>
                     </div>
                 </div>
-                <br>
-                <div class="form__col form__col--group">
-                    <div class="form__group">
-                        <!-- <input id="iconradio4" class="form__radio" type="radio" name="iconradio[]">
-                                    <label class="form__group-label" for="iconradio4">
-                                        
-                                    </label> -->
-                        <div (click)="SelectedEvent(5)" class="Selected_Icon"
-                            [ngClass]="[SelectedIcon=='5'?'Selected_Icon--Active':'']">
-                            <div class="icons__item--theme10" [ngClass]="[SelectedIcon=='5'?'icons__item--theme11':'']">
-                                <svg class="icon icon--theme01 icon--status" aria-labelledby="title-5fc489b8ad04b"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
-                                    <path fill="none" d="M48 0v48H0V0z"></path>
-                                    <path d="M48 0H0v48h48z" fill="none"></path>
-                                    <rect x="21" y="28" width="6" height="6" rx="1.5" transform="rotate(-180 24 31)"
-                                        fill="currentColor" class="icon__color--secondary"></rect>
-                                    <path
-                                        d="M28 6v6.7a22.8 22.8 0 01-.2 2.6L26.3 24a2.3 2.3 0 01-2.3 2 2.3 2.3 0 01-2.3-2l-1.5-8.7a22.8 22.8 0 01-.2-2.6V6a2 2 0 012-2h4a2 2 0 012 2z"
-                                        fill="currentColor" class="icon__color--secondary"></path>
-                                    <path d="M10 38V4H4v34a6 6 0 006 6h6a6 6 0 01-6-6zM38 4h6v28a6 6 0 01-6 6z"
-                                        fill="currentColor" class="icon__color--secondary"></path>
-                                    <path d="M44 32v6a6 6 0 01-6 6H16a6 6 0 01-6-6h28a6 6 0 006-6z" fill="currentColor"
-                                        class="icon__color--secondary"></path>
-                                </svg>
-                            </div>
-                            <div class="CheckBadge" *ngIf="SelectedIcon=='5'">
-                                <svg class="icon icon--theme01 icon--selected" aria-labelledby="title-5fc4b53f9dd13"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
-                                    <path d="M46.6 12.7l-16.9 17a8.1 8.1 0 01-11.4 0L12.7 24A8 8 0 0024 24L41 7z"
-                                        fill="currentColor" class="icon__color--secondary"></path>
-                                    <path d="M24 24a8 8 0 01-11.3 0l-2.8-2.8 5.6-5.7z" fill="currentColor"
-                                        class="icon__color--secondary"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form__group">
-                        <!-- <input id="iconradio5" class="form__radio" type="radio" name="iconradio[]">
-                                    <label class="form__group-label" for="iconradio5">
-                                        
-                                    </label> -->
-                        <div (click)="SelectedEvent(6)" class="Selected_Icon"
-                            [ngClass]="[SelectedIcon=='6'?'Selected_Icon--Active':'']">
-                            <div class="icons__item--theme10" [ngClass]="[SelectedIcon=='6'?'icons__item--theme11':'']">
-                                <svg class="icon icon--theme01 icon--change" aria-labelledby="title-5fc489b8ad05a"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
-                                    <path fill="none" d="M48 0v48H0V0z"></path>
-                                    <path d="M0 48h48V0H0z" fill="none"></path>
-                                    <path d="M22 18V4H10a6 6 0 00-6 6v28a6 6 0 006 6h12V30l6-6z" fill="currentColor"
-                                        class="icon__color--secondary"></path>
-                                    <path d="M38 38a6 6 0 01-6 6h-6v-6zm0-28a6 6 0 00-6-6h-6v6z" fill="currentColor"
-                                        class="icon__color--secondary"></path>
-                                    <path d="M38 4h-6a6 6 0 016 6v28a6 6 0 01-6 6h6a6 6 0 006-6V10a6 6 0 00-6-6z"
-                                        fill="currentColor" class="icon__color--secondary"></path>
-                                </svg>
-                            </div>
-                            <div class="CheckBadge" *ngIf="SelectedIcon=='6'">
-                                <svg class="icon icon--theme01 icon--selected" aria-labelledby="title-5fc4b53f9dd13"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
-                                    <path d="M46.6 12.7l-16.9 17a8.1 8.1 0 01-11.4 0L12.7 24A8 8 0 0024 24L41 7z"
-                                        fill="currentColor" class="icon__color--secondary"></path>
-                                    <path d="M24 24a8 8 0 01-11.3 0l-2.8-2.8 5.6-5.7z" fill="currentColor"
-                                        class="icon__color--secondary"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form__group">
-                        <!-- <input id="iconradio6" class="form__radio" type="radio" name="iconradio[]">
-                                    <label class="form__group-label" for="iconradio6">
-                                        
-                                    </label> -->
-                        <div (click)="SelectedEvent(7)" class="Selected_Icon"
-                            [ngClass]="[SelectedIcon=='7'?'Selected_Icon--Active':'']">
-                            <div class="icons__item--theme10" [ngClass]="[SelectedIcon=='7'?'icons__item--theme11':'']">
-                                <svg class="icon icon--theme01 icon--move-change" aria-labelledby="title-5fc489b8ad077"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
-                                    <path fill="none" d="M0 0h48v48H0z"></path>
-                                    <path d="M7 28h15v20H7a3 3 0 01-3-3V31a3 3 0 013-3z" fill="currentColor"
-                                        class="icon__color--secondary"></path>
-                                    <path d="M38 42a6 6 0 01-6 6h-6v-6zm0-8H26v-6h6a6 6 0 016 6z" fill="currentColor"
-                                        class="icon__color--secondary"></path>
-                                    <path
-                                        d="M38 28h-6a6 6 0 016 6v8a6 6 0 01-6 6h6a6 6 0 006-6v-8a6 6 0 00-6-6zm3.9-14.2l-8-8a6 6 0 011.3 6.5 5.7 5.7 0 01-3 3.1 5.1 5.1 0 01-2.5.6H4v8h33.7a6 6 0 004.2-10.2z"
-                                        fill="currentColor" class="icon__color--secondary"></path>
-                                    <path d="M33.9 5.8l-4.1-4.2-5.7 5.7 8.1 8.1a5.7 5.7 0 003-3.1 6 6 0 00-1.3-6.5z"
-                                        fill="currentColor" class="icon__color--secondary"></path>
-                                </svg>
-                            </div>
-                            <div class="CheckBadge" *ngIf="SelectedIcon=='7'">
-                                <svg class="icon icon--theme01 icon--selected" aria-labelledby="title-5fc4b53f9dd13"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
-                                    <path d="M46.6 12.7l-16.9 17a8.1 8.1 0 01-11.4 0L12.7 24A8 8 0 0024 24L41 7z"
-                                        fill="currentColor" class="icon__color--secondary"></path>
-                                    <path d="M24 24a8 8 0 01-11.3 0l-2.8-2.8 5.6-5.7z" fill="currentColor"
-                                        class="icon__color--secondary"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form__group">
-                        <!-- <input id="iconradio7" class="form__radio" type="radio" name="iconradio[]">
-                                    <label class="form__group-label" for="iconradio7">
-                                        
-                                    </label> -->
-                        <div (click)="SelectedEvent(8)" class="Selected_Icon"
-                            [ngClass]="[SelectedIcon=='8'?'Selected_Icon--Active':'']">
-                            <div class="icons__item--theme10" [ngClass]="[SelectedIcon=='8'?'icons__item--theme11':'']">
-                                <svg class="icon icon--theme01 icon--convert" aria-labelledby="title-5fc489b8ad2a4"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
-                                    <path fill="none" d="M48 0v48H0V0z"></path>
-                                    <circle cx="24" cy="36.1" r="7.4" fill="currentColor"
-                                        class="icon__color--secondary">
-                                    </circle>
-                                    <circle cx="40.6" cy="11.4" r="4.9" fill="currentColor"
-                                        class="icon__color--secondary">
-                                    </circle>
-                                    <circle cx="7.4" cy="11.4" r="4.9" fill="currentColor"
-                                        class="icon__color--secondary">
-                                    </circle>
-                                    <circle cx="24" cy="18.8" r="4.9" fill="currentColor"
-                                        class="icon__color--secondary">
-                                    </circle>
-                                </svg>
-                            </div>
-                            <div class="CheckBadge" *ngIf="SelectedIcon=='8'">
-                                <svg class="icon icon--theme01 icon--selected" aria-labelledby="title-5fc4b53f9dd13"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
-                                    <path d="M46.6 12.7l-16.9 17a8.1 8.1 0 01-11.4 0L12.7 24A8 8 0 0024 24L41 7z"
-                                        fill="currentColor" class="icon__color--secondary"></path>
-                                    <path d="M24 24a8 8 0 01-11.3 0l-2.8-2.8 5.6-5.7z" fill="currentColor"
-                                        class="icon__color--secondary"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <!--  -->
-                </div>
-                <br>
-
-
-                <h4>Icon Color</h4>
-
-                <div class="form__col form__col--full">
-                    <input [(colorPicker)]="color" [style.background]="color" />
-
-                </div>
-                <br>
-
-
-
-                <h4>Quantity Action </h4>
-                <div class="form__col-wrap form__col form__col--group">
-                    <div class="form__col--full form__group form__group--radio">
-                        <input id="Add_QuantityAddRadioBtn" class="form__radio" value="Add" type="radio"
-                            [(ngModel)]="eventForm.eventQuantityAction" name="Add_QuantityRadioBtn">
-                        <label class="form__group-label" for="Add_QuantityAddRadioBtn">Add Quantity</label>
-                    </div>
-                    <div class="form__col--full form__group form__group--radio">
-                        <input id="Add_QuantityRemoveRadioBtn" class="form__radio" value="Remove"
-                            [(ngModel)]="eventForm.eventQuantityAction" type="radio" name="Add_QuantityRadioBtn">
-                        <label class="form__group-label" for="Add_QuantityRemoveRadioBtn">Remove Quantity</label>
-                    </div>
-                    <br>
-                    <div class="form__col--full form__group form__group--radio">
-                        <input id="Add_QuantityMoveRadioBtn" class="form__radio" value="Move"
-                            [(ngModel)]="eventForm.eventQuantityAction" type="radio" name="Add_QuantityRadioBtn">
-                        <label class="form__group-label" for="Add_QuantityMoveRadioBtn">Move Quantity</label>
-                    </div>
-                    <div class="form__col--full form__group form__group--radio">
-                        <input id="Add_QuantityConvertRadioBtn" class="form__radio" value="Convert"
-                            [(ngModel)]="eventForm.eventQuantityAction" type="radio" name="Add_QuantityRadioBtn">
-                        <label class="form__group-label" for="Add_QuantityConvertRadioBtn">Convert Quantity</label>
-                    </div>
-                </div>
-
-                <br>
-                <br>
             </div>
         </div>
     </div>
+
 </section>
+
+
 <popper-content #EditCustomField>
     <div>
         <form>
@@ -856,3 +1094,138 @@
 
     </div>
 </popper-content>
+
+<ng-template #addIcon>
+    <div class="icons__item icons__item--theme02">
+        <div class="icons__icon"><svg class="icon icon--theme01 icon--add" aria-labelledby="title-602e34ed70cc2"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+                <path fill="none" d="M0 0h48v48H0z"></path>
+                <path d="M28 36v12h-8V28a8 8 0 00-8-8 16 16 0 0116 16z" fill="currentColor"
+                    class="icon__color--primary">
+                </path>
+                <path d="M20 28H0v-8h12a8 8 0 018 8z" fill="currentColor" class="icon__color--secondary"></path>
+                <path d="M20 12V0h8v20a8 8 0 008 8 16 16 0 01-16-16z" fill="currentColor" class="icon__color--primary">
+                </path>
+                <path d="M28 20h20v8H36a8 8 0 01-8-8z" fill="currentColor" class="icon__color--secondary"></path>
+            </svg></div>
+    </div>
+</ng-template>
+
+<ng-template #removeIcon>
+    <div class="icons__item icons__item--theme03">
+        <div class="icons__icon"><svg class="icon icon--theme01 icon--remove" aria-labelledby="title-602e2d746228e"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+                <path fill="none" d="M0 0h48v48H0z"></path>
+                <path d="M12.7 18.3L4.2 9.9l5.7-5.7L24 18.3a7.9 7.9 0 0011.3 0 15.9 15.9 0 01-22.6 0z"
+                    fill="currentColor" class="icon__color--primary"></path>
+                <path class="icon__color--secondary" d="M24 18.3L38.1 4.2l5.7 5.7-8.5 8.4a7.9 7.9 0 01-11.3 0z"
+                    fill="currentColor"></path>
+                <path class="icon__color--primary"
+                    d="M35.3 28.9l8.5 8.5-5.7 5.6L24 28.9a8 8 0 00-11.3 0 15.9 15.9 0 0122.6 0z" fill="currentColor">
+                </path>
+                <path class="icon__color--secondary" d="M24 28.9L9.9 43l-5.7-5.6 8.5-8.5a8 8 0 0111.3 0z"
+                    fill="currentColor">
+                </path>
+            </svg></div>
+    </div>
+</ng-template>
+
+<ng-template #moveIcon>
+    <div class="icons__item icons__item--theme04">
+        <div class="icons__icon"><svg class="icon icon--theme01 icon--move" aria-labelledby="title-602e34ed70cdc"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+                <path d="M48 48V0H0v48z" fill="none"></path>
+                <path
+                    d="M43.9 21.8l-8-8a6 6 0 011.3 6.5 5.7 5.7 0 01-3 3.1 5.1 5.1 0 01-2.5.6H4v8h35.7a6 6 0 004.2-10.2z"
+                    fill="currentColor" class="icon__color--primary"></path>
+                <path d="M35.9 13.8l-8.4-8.4-5.6 5.6 12.3 12.4a5.7 5.7 0 003-3.1 6 6 0 00-1.3-6.5z" fill="currentColor"
+                    class="icon__color--secondary"></path>
+            </svg></div>
+    </div>
+</ng-template>
+
+
+<ng-template #changeIcon>
+    <div class="icons__item icons__item--theme05">
+        <div class="icons__icon"><svg class="icon icon--theme01 icon--change" aria-labelledby="title-602e34ed70ce5"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+                <path fill="none" d="M48 0v48H0V0z"></path>
+                <path d="M0 48h48V0H0z" fill="none"></path>
+                <path d="M22 18V4H10a6 6 0 00-6 6v28a6 6 0 006 6h12V30l6-6z" fill="currentColor"
+                    class="icon__color--primary">
+                </path>
+                <path d="M38 38a6 6 0 01-6 6h-6v-6zm0-28a6 6 0 00-6-6h-6v6z" fill="currentColor"
+                    class="icon__color--secondary">
+                </path>
+                <path d="M38 4h-6a6 6 0 016 6v28a6 6 0 01-6 6h6a6 6 0 006-6V10a6 6 0 00-6-6z" fill="currentColor"
+                    class="icon__color--primary"></path>
+            </svg></div>
+    </div>
+</ng-template>
+
+<ng-template #movechangeIcon>
+    <div class="icons__item icons__item--theme06">
+        <div class="icons__icon"><svg class="icon icon--theme01 icon--move-change" aria-labelledby="title-602e34ed70cee"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+                <path fill="none" d="M0 0h48v48H0z"></path>
+                <path d="M7 28h15v20H7a3 3 0 01-3-3V31a3 3 0 013-3z" fill="currentColor" class="icon__color--primary">
+                </path>
+                <path d="M38 42a6 6 0 01-6 6h-6v-6zm0-8H26v-6h6a6 6 0 016 6z" fill="currentColor"
+                    class="icon__color--secondary"></path>
+                <path
+                    d="M38 28h-6a6 6 0 016 6v8a6 6 0 01-6 6h6a6 6 0 006-6v-8a6 6 0 00-6-6zm3.9-14.2l-8-8a6 6 0 011.3 6.5 5.7 5.7 0 01-3 3.1 5.1 5.1 0 01-2.5.6H4v8h33.7a6 6 0 004.2-10.2z"
+                    fill="currentColor" class="icon__color--primary"></path>
+                <path d="M33.9 5.8l-4.1-4.2-5.7 5.7 8.1 8.1a5.7 5.7 0 003-3.1 6 6 0 00-1.3-6.5z" fill="currentColor"
+                    class="icon__color--secondary"></path>
+            </svg></div>
+    </div>
+</ng-template>
+<ng-template #adjustIcon>
+    <div class="icons__item icons__item--theme07">
+        <div class="icons__icon"><svg class="icon icon--theme01 icon--adjust" aria-labelledby="title-602e34ed70dbd"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+                <path fill="currentColor" class="icon__color--primary" d="M6 36h36v8H6z"></path>
+                <path d="M12 23.2a8 8 0 00-2.1 7.7 7.9 7.9 0 007.7-2 8.1 8.1 0 002.1-7.8 8 8 0 00-7.7 2.1z"
+                    fill="currentColor" class="icon__color--secondary"></path>
+                <path d="M17.6 17.6L12 23.2l5.6 5.7a8 8 0 010-11.3z" fill="currentColor" class="icon__color--secondary">
+                </path>
+                <path
+                    d="M28.9 6.2L17.6 17.6a8 8 0 000 11.3l17-17zm5.075-3.486l4.242 4.243a1 1 0 010 1.414l-2.121 2.122-5.657-5.657 2.122-2.122a1 1 0 011.414 0z"
+                    fill="currentColor" class="icon__color--primary"></path>
+                <path fill="none" d="M48 0v48H0V0z"></path>
+                <path d="M0 48h48V0H0z" fill="none"></path>
+            </svg></div>
+    </div>
+</ng-template>
+
+<ng-template #statusIcon>
+    <div class="icons__item icons__item--theme08">
+        <div class="icons__icon"><svg class="icon icon--theme01 icon--status" aria-labelledby="title-602e34ed70dc9"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+                <path fill="none" d="M48 0v48H0V0z"></path>
+                <path d="M48 0H0v48h48z" fill="none"></path>
+                <rect x="21" y="28" width="6" height="6" rx="1.5" transform="rotate(-180 24 31)" fill="currentColor"
+                    class="icon__color--secondary"></rect>
+                <path
+                    d="M28 6v6.7a22.8 22.8 0 01-.2 2.6L26.3 24a2.3 2.3 0 01-2.3 2 2.3 2.3 0 01-2.3-2l-1.5-8.7a22.8 22.8 0 01-.2-2.6V6a2 2 0 012-2h4a2 2 0 012 2z"
+                    fill="currentColor" class="icon__color--secondary"></path>
+                <path d="M10 38V4H4v34a6 6 0 006 6h6a6 6 0 01-6-6zM38 4h6v28a6 6 0 01-6 6z" fill="currentColor"
+                    class="icon__color--primary"></path>
+                <path d="M44 32v6a6 6 0 01-6 6H16a6 6 0 01-6-6h28a6 6 0 006-6z" fill="currentColor"
+                    class="icon__color--secondary"></path>
+            </svg></div>
+    </div>
+</ng-template>
+
+<ng-template #convertIcon>
+    <div class="icons__item icons__item--theme09">
+        <div class="icons__icon"><svg class="icon icon--theme01 icon--convert" aria-labelledby="title-602e34ed70dd2"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+                <path fill="none" d="M48 0v48H0V0z"></path>
+                <circle cx="24" cy="36.1" r="7.4" fill="currentColor" class="icon__color--primary"></circle>
+                <circle cx="40.6" cy="11.4" r="4.9" fill="currentColor" class="icon__color--secondary"></circle>
+                <circle cx="7.4" cy="11.4" r="4.9" fill="currentColor" class="icon__color--secondary"></circle>
+                <circle cx="24" cy="18.8" r="4.9" fill="currentColor" class="icon__color--secondary"></circle>
+            </svg></div>
+    </div>
+</ng-template>

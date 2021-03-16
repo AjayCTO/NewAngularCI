@@ -158,6 +158,10 @@ export class AuthService {
     // 0. LOAD CONFIG:
     // First we have to check to see how the IdServer is
     // currently configured:
+    // return this.oauthService.loadDiscoveryDocumentAndTryLogin().then(doc => {
+    //   this.oauthService.initImplicitFlow();
+    // });
+
     return this.oauthService.loadDiscoveryDocument()
 
       // For demo purposes, we pretend the previous call was very slow

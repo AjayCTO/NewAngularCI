@@ -686,7 +686,7 @@
 
                         <div class="invModal__footer">
 
-                            <div class="button-group">
+                            <div class="button-group" *ngIf="listOfFiles.length!=0">
                                 <button [ngClass]="listOfFiles.length==0?'hidden':''" type="button"
                                     (click)="uploadFiles()"
                                     class="button button--medium button--theme02">Upload</button>

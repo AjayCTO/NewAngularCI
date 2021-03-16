@@ -235,6 +235,7 @@ export class ImageLibraryComponent implements OnInit {
         }
         if (result.code == 200) {
           this.toastr.success(result.message);
+          window.location.reload();
           this.GetAllImage()
         }
         else {
