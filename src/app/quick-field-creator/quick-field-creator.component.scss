@@ -1,0 +1,62 @@
+.card
+{
+
+    width: auto;
+
+    text-align: justify;
+    text-decoration: none;
+    // line-height: 32px;
+    box-sizing: content-box;
+    border-radius: 10px;
+    margin:10px;
+    margin-bottom: 30px;
+     -webkit-box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+-moz-box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+border-bottom: 0px;
+}
+.card1
+{
+
+    width: auto;
+
+    text-align: justify;
+    text-decoration: none;
+    line-height: 32px;
+    box-sizing: content-box;
+    margin:10px;
+    
+}
+ .card-header1 {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+   width: 100%;
+}
+.card:hover{
+    background: #fff;
+    -webkit-box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+-moz-box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+border-bottom: 0px;
+}
+.form__col--second {
+    width: calc((100% / 2) - .2rem);
+}
+.form__col--third {
+    width: calc((100% / 3) - .625rem);
+}
+.form__col-wrap
+{
+    justify-content: unset;
+}
+.form__group-label::before {
+    border: 0.063rem solid #d4d6d7;
+    border-radius: 0.25rem;
+    content: "";
+    display: block;
+    height: 16px;
+    margin-right: 0.5rem;
+    position: relative;
+    top: 0.25rem;
+    width: 16px;
+}

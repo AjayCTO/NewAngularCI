@@ -119,13 +119,16 @@
                             <li class="nav__submenu-item" *ngIf="_isTenantOwner$|async"><a routerLink="/user"
                                     class="nav__submenu-link">Manage User</a>
                             </li>
-
+                            <li class="nav__submenu-item" *ngIf="_isTenantOwner$|async"><a routerLink="/QuickColumn"
+                                    class="nav__submenu-link">Quick Field Creator</a>
+                            </li>
                             <li class="nav__submenu-item" *ngIf="_isTenantOwner$|async"><a routerLink="/event"
                                     class="nav__submenu-link">Event</a>
                             </li>
                             <li class="nav__submenu-item">
                                 <a routerLink="/AttributeField" class="nav__submenu-link">Attribute Field</a>
                             </li>
+
                             <li class="nav__submenu-item">
                                 <a routerLink="/CustomField" class="nav__submenu-link">Custom Field</a>
                             </li>

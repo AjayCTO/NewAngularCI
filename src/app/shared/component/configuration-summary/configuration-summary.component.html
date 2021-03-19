@@ -331,19 +331,19 @@
     </div>
     <div class="card">
         <div class="card-header1">
-            <h2> <a href="#">Manage CustomField</a> </h2>
+            <h2> <a routerLink="/">Manage CustomField</a> </h2>
         </div>
         <div>
             <table>
                 <tr>
                     <th>Custom Name</th>
                     <th>Data Type</th>
-                    <th>Used On</th>
+
                 </tr>
                 <tr *ngFor="let item of CustomFields">
                     <td>{{item.columnLabel}}</td>
                     <td>{{item.dataType}},{{item.customFieldSpecialType}}</td>
-                    <td>$100</td>
+
                 </tr>
             </table>
             <div>
@@ -353,7 +353,7 @@
     </div>
     <div class="card" style="margin-top: 38px;">
         <div class="card-header1">
-            <h2> <a href="#">Manage Attributes</a> </h2>
+            <h2> <a routerLink="/AttributeField">Manage Attributes</a> </h2>
         </div>
         <div>
             <table>

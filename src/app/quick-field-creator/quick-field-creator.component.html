@@ -1,0 +1,229 @@
+<div class="actions">
+    <div class="actions__title ">
+        <h1><b id="activeinventoryname">Quick Field Creator</b> </h1>
+    </div>
+</div>
+<div class="taskbar">
+    <div class="taskbar__col">
+        <button (click)=" CreateFields()" type="button" class="button button--medium button--icon button--theme02">
+            Save Selection
+        </button>
+    </div>
+</div>
+<section class="main">
+    <div class="form__col-wrap">
+        <div class="form__col form__col--third">
+            <div class="card">
+                <div class="card-header1" id="header">
+                    <h2><strong>Item Attributes</strong></h2>
+
+                </div>
+                <div class="card-body">
+                    <form class="action__wrap" #f="ngForm">
+                        <div class="form__section">
+                            <ng-container>
+                                <div class="form__col-wrap">
+                                    <div class="form__col form__col--second" *ngFor="let item of AttributeField">
+                                        <div class="form__group form__group--checkbox">
+                                            <input (click)="createField(item)" id="AttributeField{{item.columnLabel}}"
+                                                class="form__checkbox" type="checkbox"
+                                                name="AttributeField{{item.columnLabel}}">
+                                            <!-- <input *ngIf="item.columnLabel==AttributeFieldList.ColumnLabel"
+                                                id="AttributeField{{item.columnLabel}}" class="form__checkbox"
+                                                type="checkbox" name="AttributeField{{item.columnLabel}}" checked> -->
+
+                                            <label class="form__group-label"
+                                                for="AttributeField{{item.columnLabel}}">{{item.columnLabel}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+
+                        <p>To create your own custom attributes, manage attribute settings, rename, or delete
+                            attributes, go
+                            to:</p>
+                        <a routerLink="/AttributeField">
+                            Advanced Settings and Custom Attributes
+                        </a>
+
+                    </form>
+                    <!-- To create your own custom circumstances, manage circumstance settings, rename, or delete circumstances, go to: -->
+                </div>
+
+            </div>
+            <div class="card">
+                <div class="card-body" style="font-size:12px">
+                    <section style="padding: 1rem;">
+                        <div>
+                            <div>
+
+                                <div class="content-section">
+                                    <p>Attributes contain data that applies to all units that have the SAME
+                                        item
+                                        name</p>
+                                </div>
+                            </div>
+
+                            <div class="center">
+                                <img style="margin-top: 10px; margin-bottom: 10px;"
+                                    src="../../../../assets/img/AttributeImage.png">
+                            </div>
+
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Attribute Examples</th>
+                                        <th>Example Values</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Color</td>
+                                        <td>Green</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Shape </td>
+                                        <td>"Z"</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Size </td>
+                                        <td>4</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Manufacturer </td>
+                                        <td>U.S.Block Co.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Model Number </td>
+                                        <td>AZX89427</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Material </td>
+                                        <td>Wood</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Type </td>
+                                        <td>COGS</td>
+                                    </tr>
+                                </thead>
+
+                            </table>
+
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="form__col form__col--third" style="margin-left: 22px;">
+            <div class="card">
+                <div class="card-header1" id="header">
+                    <h2><strong>Item CustomField</strong></h2>
+
+                </div>
+                <div class="card-body">
+                    <form class="action__wrap" #f="ngForm">
+                        <div class="form__section">
+                            <ng-container>
+                                <div class="form__col-wrap">
+                                    <div class="form__col form__col--second" *ngFor="let item of CustomField">
+                                        <div class="form__group form__group--checkbox">
+                                            <input id="CustomField{{item.columnLabel}}" class="form__checkbox"
+                                                (click)="createField(item)" type="checkbox"
+                                                name="CustomField{{item.columnLabel}}">
+
+                                            <label class="form__group-label"
+                                                for="CustomField{{item.columnLabel}}">{{item.columnLabel}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                        <p>To create your own custom, manage custom settings, rename, or delete
+                            custom, go to:</p>
+                        <a routerLink="/CustomField">
+                            Advanced Settings and Custom CustomField
+                        </a>
+                    </form>
+                </div>
+
+            </div>
+            <div class="card">
+                <div class="card-body" style="font-size:12px">
+                    <section style="padding: 1rem;">
+                        <div>
+                            <div>
+
+                                <div class="content-section">
+                                    <p>Custom contain data related to changes to
+                                        inventory. It
+                                        is data ABOUT
+                                        a purchase, move,
+                                        sale, status,update, etc...</p>
+                                </div>
+                            </div>
+
+                            <div class="center">
+                                <img style="margin-top: 10px; margin-bottom: 10px;"
+                                    src="../../../../assets/img/CustomField.png">
+                            </div>
+
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Custom Examples</th>
+                                        <th>Example Values</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Purchase Order Number</td>
+                                        <td>PO10235</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Purchase By </td>
+                                        <td>Alice Anderson</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Carrier </td>
+                                        <td>UIPS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Vendor </td>
+                                        <td> Big Block Co.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Expected recipet date </td>
+                                        <td>6/18/2019</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Certification requested </td>
+                                        <td>Yes</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>&nbsp; </td>
+                                        <td>&nbsp; </td>
+                                    </tr>
+
+                                </thead>
+
+                            </table>
+
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+
+</section>

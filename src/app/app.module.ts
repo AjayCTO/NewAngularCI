@@ -37,6 +37,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { SettingsComponent } from './settings/settings.component'
 import { AuthGuard } from './core/auth-guard.service';
+import { QuickFieldCreatorComponent } from './quick-field-creator/quick-field-creator.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +47,7 @@ import { AuthGuard } from './core/auth-guard.service';
     SettingsComponent,
     FooterComponent,
     TruncatePipe,
+    QuickFieldCreatorComponent,
     // AddCustomFieldComponent,
   ],
   imports: [
@@ -83,6 +85,7 @@ import { AuthGuard } from './core/auth-guard.service';
       // { path: 'extras', loadChildren: () => import('./feature-extras/extras.module').then(m => m.ExtrasModule) },
 
       { path: 'should-login', component: ShouldLoginComponent },
+      { path: 'QuickColumn', component: QuickFieldCreatorComponent, canActivate: [AuthGuard] },
       { path: 'auth-callback', component: FallbackComponent, },
       { path: '**', component: FallbackComponent, pathMatch: 'full' },
     ])
