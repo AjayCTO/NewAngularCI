@@ -74,7 +74,6 @@
      border-right:0px !important;
  }
  .table__heading-options {
-    cursor: col-resize;
     border-right: 1px solid #ccc;
 }
 .table {
@@ -241,23 +240,44 @@
 }
 
 // coloumn Freez 
-tabulator-row .tabulator-frozen.tabulator-frozen-left {
-    border-right: 2px solid #aaa;
+ 
+/*thead*/
+ 
+.table__row--head th
+
+{
+  position: sticky;
+ // z-index: 20;
 }
-.tabulator-row .tabulator-cell {
-    display: inline-block;
-    position: relative;
-    box-sizing: border-box;
-    padding: 6px;
-    border-right: 1px solid #aaa;
-    vertical-align: middle;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.table__row--head th:nth-child(1) {/*first cell in the header*/
+   left: 0px;
+   position: sticky;
+
 }
-.tabulator-row .tabulator-frozen {
-    display: inline-block;
-    position: absolute;
-    background-color: inherit;
-    z-index: 10;
+
+.table__row--head th:nth-child(2) {/*first cell in the header*/
+  left:50px;
+  position: sticky; 
+}
+
+ 
+/*tbody*/
+ 
+.table__row--body td:nth-child(1) {  /*the first cell in each tr*/
+ left: 0px;
+ position: sticky;
+background: white;
+// box-shadow: 8px -1px 8px -4px rgba(192,183,183,0.75);
+// -webkit-box-shadow: 8px -1px 8px -4px rgba(192,183,183,0.75);
+// -moz-box-shadow: 8px -1px 8px -4px rgba(192,183,183,0.75);
+  
+}
+ 
+.table__row--body td:nth-child(2) {  /*the first cell in each tr*/
+  left:50px;
+  position: sticky;
+  background: white;
+//  box-shadow: 8px -1px 8px -4px rgba(192,183,183,0.75);
+// -webkit-box-shadow: 8px -1px 8px -4px rgba(192,183,183,0.75);
+// -moz-box-shadow: 8px -1px 8px -4px rgba(192,183,183,0.75);
 }

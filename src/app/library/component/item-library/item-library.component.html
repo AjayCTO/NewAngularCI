@@ -139,39 +139,47 @@
 
                     <button type="button" *ngFor="let filter of FilterArray"
                         class="icons__item icons__item--contains-text icons__item--theme07">
-                        <div class="icons__text"><strong class="icons__name">{{filter.displayName}}:</strong>
+
+                        <div class="icons__text">
+                            <strong class="icons__name" style="margin-right: 5px;">{{filter.displayName}}:</strong>
                             <span class="icons__value" *ngIf="filter.filterOperator=='bw'">
                                 Begin With
                             </span>
                             <span class="icons__value" *ngIf="filter.filterOperator=='cn'">Contains</span>
                             <span class="icons__value" *ngIf="filter.filterOperator=='nc'">Not Contains</span>
                             <span class="icons__value"
-                                *ngIf="filter.filterOperator=='eq'||filter.filterOperator=='date-day'||filter.filterOperator=='date-month'||filter.filterOperator=='date-year'||filter.filterOperator=='num-eq'||filter.filterOperator=='time-eq'||filter.filterOperator=='date-eq'">Equals</span>
-
+                                *ngIf="filter.filterOperator=='eq'||filter.filterOperator=='num-eq'">Equals</span>
+                            <span class="icons__value" *ngIf="filter.filterOperator=='date-month'">Month Equals</span>
+                            <span class="icons__value" *ngIf="filter.filterOperator=='date-day'">Day Equals</span>
+                            <span class="icons__value" *ngIf="filter.filterOperator=='date-year'">Year Equals</span>
+                            <span class="icons__value" *ngIf="filter.filterOperator=='time-eq'">Time Equals</span>
+                            <span class="icons__value" *ngIf="filter.filterOperator=='date-eq'">Date Equals</span>
                             <span class="icons__value" *ngIf="filter.filterOperator=='date-hour'">Hour Equals</span>
                             <span class="icons__value" *ngIf="filter.filterOperator=='date-second'">Second Equals</span>
                             <span class="icons__value" *ngIf="filter.filterOperator=='date-minute'">Minute Equals</span>
                             <span class="icons__value"
-                                *ngIf="filter.filterOperator=='ne'||filter.filterOperator=='num-ne'">Not
-                                Equals</span>
+                                *ngIf="filter.filterOperator=='ne'||filter.filterOperator=='num-ne'">Not Equals</span>
                             <span class="icons__value" *ngIf="filter.filterOperator=='num-gte'">Greater Than Or Equal
                                 To</span>
                             <span class="icons__value" *ngIf="filter.filterOperator=='num-lte'">Less Than Or Equal To
                             </span>
                             <span class="icons__value" *ngIf="filter.filterOperator=='date-bw'">Date Between</span>
                             <span class="icons__value" *ngIf="filter.filterOperator=='date-before'">On Or Before</span>
-                            <span class="icons__value" *ngIf="filter.filterOperator=='time-before'">On Or Time
-                                Before</span>
+
+                            <span class="icons__value" *ngIf="filter.filterOperator=='Empty'">Empty</span>
                             <span class="icons__value" *ngIf="filter.filterOperator=='time-after'">On Or Time
                                 After</span>
-                            <span class="icons__value" *ngIf="filter.filterOperator=='Empty'">Empty</span>
-
+                            <span class="icons__value" *ngIf="filter.filterOperator=='time-before'">On Or Time
+                                Before</span>
                             <span class="icons__value" *ngIf="filter.filterOperator=='date-after'">On Or After</span>
                             &nbsp;
-
-                            <span class="icons__value">{{filter.searchValue}}</span>
+                            <ng-container *ngIf="filter.datatype!='Date/Time'">
+                                <span class="icons__value" style="margin-left: -10px;">{{filter.searchValue}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="filter.datatype=='Date/Time'">
+                                <span class=" icons__value" style="margin-left: -10px;">{{filter.datevalue}}</span>
+                            </ng-container>
                         </div>
-
                         <div style="cursor: pointer;" class="icons__icon" (click)="RemoveFilter(filter)"><svg
                                 class="icon-simple icon-simple--theme01 icon-simple--remove"
                                 aria-labelledby="title-5f7cbab264ccf" xmlns="http://www.w3.org/2000/svg"
@@ -279,15 +287,23 @@
                                             <div class="form__col">
                                                 <!-- <label class="form__label"
                                                         for="list-dropdown815r.field}}">Value</label> -->
-                                                <select class="floating-select" (ngModelChange)='SelectedMonth($event)'
+                                                <!-- <select class="floating-select" (ngModelChange)='SelectedMonth($event)'
                                                     [(ngModel)]="dataColumnFilter.searchValue" id="list-dropdown815"
                                                     name="list-dropdown815">
                                                     <option value="">Choose Months</option>
                                                     <option *ngFor="let opt of Month" [value]="opt.id">
                                                         {{opt.month}}
                                                     </option>
-                                                </select>
-
+                                                </select> -->
+                                                <div class="form__col">
+                                                    <input class="form__input" placeholder="Month"
+                                                        [owlDateTimeTrigger]="dt5"
+                                                        [(ngModel)]="dataColumnFilter.searchValue" [owlDateTime]="dt5">
+                                                    <owl-date-time [pickerType]="'calendar'" [startView]="'year'"
+                                                        (monthSelected)="chosenMonthHandler($event, dt5)"
+                                                        #dt5="owlDateTime">
+                                                    </owl-date-time>
+                                                </div>
 
                                             </div>
 
@@ -295,10 +311,16 @@
                                         <li class="icons__submenu-item icons__submenu-item--contains-input"
                                             *ngIf="dataColumnFilter.filterOperator=='date-year'">
                                             <div class="form__col">
-                                                <input class="form__input" [owlDateTimeTrigger]="dt1"
+                                                <!-- <input class="form__input" [owlDateTimeTrigger]="dt1"
                                                     placeholder="Select year" [(ngModel)]="dataColumnFilter.searchValue"
                                                     [owlDateTime]="dt1">
                                                 <owl-date-time [startView]="'year'" #dt1>
+                                                </owl-date-time> -->
+                                                <input class="form__input" placeholder="Year" [owlDateTimeTrigger]="dt1"
+                                                    [(ngModel)]="dataColumnFilter.searchValue" [owlDateTime]="dt1">
+                                                <owl-date-time [pickerType]="'calendar'"
+                                                    (yearSelected)="chosenYearHandler($event,dt1)"
+                                                    [startView]="'multi-years'" #dt1="owlDateTime">
                                                 </owl-date-time>
                                             </div>
 
@@ -1006,9 +1028,8 @@
                                                             <li class="icons__submenu-item icons__submenu-item--contains-input"
                                                                 *ngIf="dataColumnFilter.filterOperator=='date-month'">
                                                                 <div class="form__col">
-                                                                    <label class="form__label"
-                                                                        for="list-dropdown81{{itemHeader.field}}">Value</label>
-                                                                    <select class="floating-select"
+
+                                                                    <!-- <select class="floating-select"
                                                                         (ngModelChange)='SelectedMonth($event)'
                                                                         [(ngModel)]="dataColumnFilter.searchValue"
                                                                         id="list-dropdown81{{itemHeader.field}}"
@@ -1018,18 +1039,31 @@
                                                                             [value]="opt.id">
                                                                             {{opt.month}}
                                                                         </option>
-                                                                    </select>
+                                                                    </select> -->
+
+                                                                    <input class="form__input" placeholder="Month"
+                                                                        [owlDateTimeTrigger]="dt5"
+                                                                        [(ngModel)]="dataColumnFilter.searchValue"
+                                                                        [owlDateTime]="dt5">
+                                                                    <owl-date-time [pickerType]="'calendar'"
+                                                                        [startView]="'year'"
+                                                                        (monthSelected)="chosenMonthHandler($event, dt5)"
+                                                                        #dt5="owlDateTime">
+                                                                    </owl-date-time>
+
                                                                 </div>
 
                                                             </li>
                                                             <li class="icons__submenu-item icons__submenu-item--contains-input"
                                                                 *ngIf="dataColumnFilter.filterOperator=='date-year'">
                                                                 <div class="form__col">
-                                                                    <input class="form__input"
+                                                                    <input class="form__input" placeholder="Year"
                                                                         [owlDateTimeTrigger]="dt1"
                                                                         [(ngModel)]="dataColumnFilter.searchValue"
                                                                         [owlDateTime]="dt1">
-                                                                    <owl-date-time [startView]="'year'" #dt1>
+                                                                    <owl-date-time [pickerType]="'calendar'"
+                                                                        (yearSelected)="chosenYearHandler($event,dt1)"
+                                                                        [startView]="'multi-years'" #dt1="owlDateTime">
                                                                     </owl-date-time>
                                                                 </div>
 
@@ -1065,8 +1099,7 @@
                                                             <li class="icons__submenu-item icons__submenu-item--contains-input"
                                                                 *ngIf="dataColumnFilter.filterOperator=='date-day'">
                                                                 <div class="form__col">
-                                                                    <label class="form__label"
-                                                                        for="list-dropdown81{{itemHeader.field}}">Value</label>
+
                                                                     <select class="floating-select"
                                                                         [(ngModel)]="dataColumnFilter.searchValue"
                                                                         id="list-dropdown81{{itemHeader.field}}"
@@ -1094,8 +1127,7 @@
                                                             <li class="icons__submenu-item icons__submenu-item--contains-input"
                                                                 *ngIf="dataColumnFilter.filterOperator=='date-hour'">
                                                                 <div class="form__col">
-                                                                    <label class="form__label"
-                                                                        for="list-dropdown81{{itemHeader.field}}">Value</label>
+
                                                                     <select class="floating-select"
                                                                         [(ngModel)]="dataColumnFilter.searchValue"
                                                                         id="list-dropdown81{{itemHeader.field}}"
@@ -1111,8 +1143,7 @@
                                                             <li class="icons__submenu-item icons__submenu-item--contains-input"
                                                                 *ngIf="dataColumnFilter.filterOperator=='date-minute'">
                                                                 <div class="form__col">
-                                                                    <label class="form__label"
-                                                                        for="list-dropdown81{{itemHeader.field}}">Value</label>
+
                                                                     <select class="floating-select"
                                                                         [(ngModel)]="dataColumnFilter.searchValue"
                                                                         id="list-dropdown81{{itemHeader.field}}"
@@ -1129,8 +1160,7 @@
                                                             <li class="icons__submenu-item icons__submenu-item--contains-input"
                                                                 *ngIf="dataColumnFilter.filterOperator=='date-second'">
                                                                 <div class="form__col">
-                                                                    <label class="form__label"
-                                                                        for="list-dropdown81{{itemHeader.field}}">Value</label>
+
                                                                     <select class="floating-select"
                                                                         [(ngModel)]="dataColumnFilter.searchValue"
                                                                         id="list-dropdown81{{itemHeader.field}}"
@@ -2040,7 +2070,7 @@
 
 
                             </ng-container>
-                            <div *ngIf="field.dataType=='Date/Time'">
+                            <ng-container *ngIf="field.dataType=='Date/Time'">
                                 <ng-container
                                     *ngIf="field.customFieldSpecialType=='Date'||field.customFieldSpecialType==''">
                                     <input [owlDateTimeTrigger]="dt3" class="form__input" autocomplete="off"
@@ -2133,7 +2163,7 @@
                                         <span>{{field.customFieldInformation}}</span>
                                     </popper-content>
                                 </ng-container>
-                            </div>
+                            </ng-container>
                             <div *ngIf="field.dataType=='True/False'">
 
                                 <!-- <input [required]="field.customFieldIsRequired" id="Attribute_{{field.columnId}}"

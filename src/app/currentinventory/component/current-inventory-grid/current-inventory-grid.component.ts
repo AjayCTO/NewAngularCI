@@ -821,6 +821,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.showQuickAddDropdown = !this.showQuickAddDropdown;
   }
   addButtonColumns() {
+    debugger;
     var count = 1;
     this.tabulatorColumn.forEach(element => {
       if (element.datatype == "button") {
@@ -978,9 +979,10 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   OpenDynamicEventModel(dynamicEvent) {
     this.selectedDynamicEvent = dynamicEvent;
     let obj = JSON.parse(dynamicEvent.circumstanceJsonString);
-    this.CustomFields.forEach(element => {
-      element.columnValue = "";
-    });
+    // this.CustomFields.forEach(element => {
+    //   if(element)
+    //   element.columnValue = "";
+    // });
     for (let j = 0; j < this.CustomFields.length; j++) {
       this.CustomFields[j].customFieldIncludeOnDynamicEvent = obj[this.CustomFields[j].columnName];
     }
@@ -993,22 +995,28 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   }
 
 
-  DynamicEventAction(item, dynamicEvent) {
+  GroupDynamicEventAction(DynamicEvent) {
+    debugger;
+    this.router.navigate(['/multipleTransaction', DynamicEvent.eventName]);
+  }
 
+
+  DynamicEventAction(item, dynamicEvent) {
+    debugger;
     this.selectedDynamicEvent = dynamicEvent;
     let obj = JSON.parse(dynamicEvent.circumstanceJsonString);
     this.InventoryTransactionObj = item;
-    this.CustomFields.forEach(element => {
-      element.columnValue = "";
-    });
+    // this.CustomFields.forEach(element => {
+    //   element.columnValue = "";
+    // });
 
     for (let i = 0; i < item.customFields.length; i++) {
       for (let j = 0; j < this.CustomFields.length; j++) {
-        if (item.customFields[i].columnName == this.CustomFields[j].columnName) {
-          if (obj[this.CustomFields[j].columnName]) {
-            this.CustomFields[j].columnValue = item.customFields[i].columnValue;
-          }
-        }
+        // if (item.customFields[i].columnName == this.CustomFields[j].columnName) {
+        //   if (obj[this.CustomFields[j].columnName]) {
+        //     this.CustomFields[j].columnValue = item.customFields[i].columnValue;
+        //   }
+        // }
         this.CustomFields[j].customFieldIncludeOnDynamicEvent = obj[this.CustomFields[j].columnName];
       }
     }
@@ -1492,6 +1500,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
   //Attribute FIELDS
   GetAttributeFields() {
+
     this.customfieldservice.GetAttributeFields(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
@@ -1507,7 +1516,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   }
 
   GetCustomFields() {
-
+    debugger;
     this.customfieldservice.GetCustomFields(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
@@ -1728,7 +1737,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   }
 
   closeinvmodal(form) {
-    form.reset();
+    // form.reset();
     this.CurrentInventoryObj = {
       partId: 0,
       partName: "",
@@ -2038,12 +2047,16 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
   DefaultView() {
 
-
+    debugger;
     this.store.pipe(select(selectMyInventoryColumn)).
       subscribe(myInventoryColumn => {
         if (myInventoryColumn) {
-
-          this.tabulatorColumn = myInventoryColumn;
+          this.tabulatorColumn = [];
+          this.myInventoryField.forEach((element, index) => {
+            if (element.customeFieldType != "CustomField" && element.customeFieldType != "Report")
+              this.tabulatorColumn.push({ id: element.columnId, title: element.columnLabel, isAdded: true, field: element.columnName, type: element.customeFieldType, customFieldSpecialType: element.customFieldSpecialType, datatype: element.dataType, width: element.columnWidth });
+          });
+          this.ColspanTable = this.tabulatorColumn.length + 3;
           this.SelectedView = null;
           this.GetCurrentInventory();
         }

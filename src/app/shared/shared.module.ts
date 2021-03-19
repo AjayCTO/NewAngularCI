@@ -20,6 +20,7 @@ import { EditEventComponent } from './component/custom-field/edit-event/edit-eve
 import { IconsComponent } from './component/icons/icons.component';
 import { ConfigurationSummaryComponent } from './component/configuration-summary/configuration-summary.component';
 import { NotPermitComponent } from './component/not-permit/not-permit.component';
+import { MultipleTransactionComponent } from './component/multiple-transaction/multiple-transaction.component';
 @NgModule({
   providers: [
     ApiService,
@@ -31,10 +32,11 @@ import { NotPermitComponent } from './component/not-permit/not-permit.component'
     { path: 'sharedcustomfield12', component: FalseComponent, canActivate: [AuthGuard] },
     { path: 'eidtevents', component: EditEventComponent, canActivate: [AuthGuard] },
     { path: 'notPermited', component: NotPermitComponent, canActivate: [AuthGuard] },
-    { path: 'configurationSummary', component: ConfigurationSummaryComponent, canActivate: [AuthGuard] }
+    { path: 'configurationSummary', component: ConfigurationSummaryComponent, canActivate: [AuthGuard] },
+    { path: 'multipleTransaction/:event', component: MultipleTransactionComponent, canActivate: [AuthGuard] }
   ])],
 
-  declarations: [LocationModalComponent, UomModalComponent, StatusModalComponent, CustomFieldModalComponent, AttributeFieldModalComponent, CustomFieldComponent, FalseComponent, EditEventComponent, IconsComponent, ConfigurationSummaryComponent, NotPermitComponent],
+  declarations: [LocationModalComponent, UomModalComponent, StatusModalComponent, CustomFieldModalComponent, AttributeFieldModalComponent, CustomFieldComponent, FalseComponent, EditEventComponent, IconsComponent, ConfigurationSummaryComponent, NotPermitComponent, MultipleTransactionComponent],
   exports: [LocationModalComponent, StatusModalComponent, UomModalComponent, CustomFieldModalComponent, AttributeFieldModalComponent, IconsComponent],
 
 })

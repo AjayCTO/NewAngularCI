@@ -75,25 +75,6 @@
                 <li class="nav__menu-item" *ngIf="_haveTenantId$ | async">
                     <a class="nav__menu-link">Reports</a>
                     <ul class="nav__submenu nav__submenu--1" id="submenu">
-                        <!-- 
-                        <li class="nav__submenu-item nav__submenu--1-item nav__submenu-item--parent"><a
-                                class="nav__submenu-link">CurrentInventory</a>
-                            <ul class="nav__submenu nav__submenu--2">
-                                <li class="nav__submenu-item "><a routerLink="/Reports"
-                                        class="nav__submenu-link">InventoryReports</a>
-
-                                </li>
-                                <li class="nav__submenu-item "><a routerLink="/crateReport"
-                                        class="nav__submenu-link">Create Report
-
-                                    
-                                    </a>
-
-                                </li>
-
-                               
-                            </ul>
-                        </li> -->
                         <li class="nav__submenu-item nav__submenu--1-item nav__submenu-item--parent"><a
                                 class="nav__submenu-link">Event Report</a>
                             <ul class="nav__submenu nav__submenu--2">
@@ -104,41 +85,23 @@
                                 <li class="nav__submenu-item "><a routerLink="/AddNewReport"
                                         class="nav__submenu-link">Create Report </a>
                                 </li>
-                                <!-- <li class="nav__submenu-item "><a routerLink="/report/create-custom-report"
-                                        class="nav__submenu-link">Create Report </a></li> -->
-
                             </ul>
                         </li>
-                        <!-- 
-                        <li class="nav__submenu-item nav__submenu--1-item nav__submenu-item--parent"><a
-                                class="nav__submenu-link">All Items</a>
-                            <ul class="nav__submenu nav__submenu--2">
-                                <li class="nav__submenu-item "><a routerLink="/ItemReports"
-                                        class="nav__submenu-link">Items</a>
-
-                                </li>
-                                <li class="nav__submenu-item "><a routerLink="/newitem" class="nav__submenu-link">Create
-                                        Report
-                                  
-                                    </a>
-
-                                </li>
-
-                            </ul>
-                        </li> -->
-
                     </ul>
                 </li>
                 <li class="nav__menu-item" *ngIf="_haveTenantId$ | async">
                     <a class="nav__menu-link">Libraries</a>
                     <ul class="nav__submenu nav__submenu--1" id="submenu">
-                        <li class="nav__menu-item"><a routerLink="/item" class=" nav__menu-link">Item-Library</a></li>
-                        <li class="nav__menu-item"><a routerLink="/location" class="nav__menu-link">Location-Library</a>
+                        <li class="nav__submenu-item"><a routerLink="/item" class="nav__submenu-link">Item-Library</a>
                         </li>
-                        <li class="nav__menu-item"><a routerLink="/uom" class="nav__menu-link">UOM-Library</a></li>
+                        <li class="nav__submenu-item"><a routerLink="/location"
+                                class="nav__submenu-link">Location-Library</a>
+                        </li>
+                        <li class="nav__submenu-item"><a routerLink="/uom" class="nav__submenu-link">UOM-Library</a>
+                        </li>
                         <!-- <li class="nav__menu-item"><a routerLink="/status" class="nav__menu-link">Status-Library</a>
                         </li> -->
-                        <li class="nav__menu-item"><a routerLink="/ImageLibrary" class="nav__menu-link">
+                        <li class="nav__submenu-item"><a routerLink="/ImageLibrary" class="nav__submenu-link">
                                 image-library</a>
                         </li>
 
@@ -149,21 +112,22 @@
                         <a class="nav__menu-link" *ngIf="_isTenantOwner$|async">Admin</a>
                         <a class="nav__menu-link" *ngIf="!(_isTenantOwner$ | async)">Custom Fields</a>
                         <ul class="nav__submenu nav__submenu--1" style="width: 260px;">
-                            <li class="nav__menu-item" *ngIf="_isTenantOwner$|async"><a
-                                    routerLink="/configurationSummary" class="nav__menu-link">Configuration Summary</a>
+                            <li class="nav__submenu-item" *ngIf="_isTenantOwner$|async"><a
+                                    routerLink="/configurationSummary" class="nav__submenu-link">Configuration
+                                    Summary</a>
                             </li>
-                            <li class="nav__menu-item" *ngIf="_isTenantOwner$|async"><a routerLink="/user"
-                                    class="nav__menu-link">Manage User</a>
+                            <li class="nav__submenu-item" *ngIf="_isTenantOwner$|async"><a routerLink="/user"
+                                    class="nav__submenu-link">Manage User</a>
                             </li>
 
-                            <li class="nav__menu-item" *ngIf="_isTenantOwner$|async"><a routerLink="/event"
-                                    class="nav__menu-link">Event</a>
+                            <li class="nav__submenu-item" *ngIf="_isTenantOwner$|async"><a routerLink="/event"
+                                    class="nav__submenu-link">Event</a>
                             </li>
-                            <li class="nav__menu-item">
-                                <a routerLink="/AttributeField" class="nav__menu-link">Attribute Field</a>
+                            <li class="nav__submenu-item">
+                                <a routerLink="/AttributeField" class="nav__submenu-link">Attribute Field</a>
                             </li>
-                            <li class="nav__menu-item">
-                                <a routerLink="/CustomField" class="nav__menu-link">Custom Field</a>
+                            <li class="nav__submenu-item">
+                                <a routerLink="/CustomField" class="nav__submenu-link">Custom Field</a>
                             </li>
 
                             <!-- 

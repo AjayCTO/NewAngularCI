@@ -7,6 +7,7 @@ export interface ITenantState {
     selectedTenantId: number;
     selectedTenant: Tenant;
     myInventoryColumn: any;
+    selectedEvent: any;
 }
 export const eventsStateKey = 'eventState';
 
@@ -18,6 +19,7 @@ export const initialState: ITenantState = {
     selectedTenantId: storage.getItem('eventState').selectedTenantId,
     selectedTenant: storage.getItem('eventState').selectedTenant,
     myInventoryColumn: storage.getItem('eventState').myInventoryColumn,
+    selectedEvent: storage.getItem('eventState').selectedEvent,
 };
 
 export function TenantReducer(state: ITenantState = initialState, action: fromEvents.TenantAction): ITenantState {
@@ -46,6 +48,13 @@ export function TenantReducer(state: ITenantState = initialState, action: fromEv
             }
         }
 
+        case fromEvents.SET_SELECTED_EVENT: {
+            return {
+                ...state,
+                selectedEvent: action.payload ?? null,
+
+            }
+        }
 
         case fromEvents.RESET_STATE: ({ ...initialState });
         default:

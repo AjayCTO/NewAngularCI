@@ -663,66 +663,201 @@
                                         </a>
                                     </li>
                                 </ul>
+                                <ng-container *ngIf="ColumnDataType=='Date/Time'">
+                                    <ul *ngIf="ColumnDataTypeSpecial=='Date'||ColumnDataTypeSpecial==''"
+                                        style="list-style: none; padding-left: 0px; ">
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-eq'?'active':''">
+                                            <a (click)="FilterOperartorSelect('DateEquals')" class="icons__submenu-link"
+                                                style="display: flex;">Equals</a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-bw'?'active':''">
+                                            <a class="icons__submenu-link"
+                                                (click)="FilterOperartorSelect('Date Between')"
+                                                style="display: flex;">Date
+                                                Between
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-month'?'active':''"><a
+                                                class="icons__submenu-link"
+                                                (click)="FilterOperartorSelect('Month Equals')"
+                                                style="display: flex;">Month
+                                                Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-day'?'active':''">
+                                            <a class="icons__submenu-link" (click)="FilterOperartorSelect('Day Equals')"
+                                                style="display: flex;">Day
+                                                Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-year'?'active':''"><a
+                                                class="icons__submenu-link"
+                                                (click)="FilterOperartorSelect('Year Equals')"
+                                                style="display: flex;">Year
+                                                Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-after'?'active':''"><a
+                                                class="icons__submenu-link"
+                                                (click)="FilterOperartorSelect('On Or After')" style="display: flex;">On
+                                                Or
+                                                After
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-before'?'active':''"><a
+                                                class="icons__submenu-link"
+                                                (click)="FilterOperartorSelect('On Or Before')"
+                                                style="display: flex;">On Or
+                                                Before
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='Empty'?'active':''"><a
+                                                class="icons__submenu-link" (click)="FilterOperartorSelect('Is Empty')"
+                                                style="display: flex;">Is Null
+                                                Empty
+                                            </a>
+                                        </li>
+                                    </ul>
 
-                                <ul *ngIf="ColumnDataTypeSpecial=='Date'||ColumnDataTypeSpecial==''"
-                                    style="list-style: none; padding-left: 0px; ">
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='date-eq'?'active':''">
-                                        <a (click)="FilterOperartorSelect('DateEquals')" class="icons__submenu-link"
-                                            style="display: flex;">Equals</a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='date-bw'?'active':''">
-                                        <a class="icons__submenu-link" (click)="FilterOperartorSelect('Date Between')"
-                                            style="display: flex;">Date
-                                            Between
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='date-month'?'active':''"><a
-                                            class="icons__submenu-link" (click)="FilterOperartorSelect('Month Equals')"
-                                            style="display: flex;">Month
-                                            Equals
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='date-day'?'active':''">
-                                        <a class="icons__submenu-link" (click)="FilterOperartorSelect('Day Equals')"
-                                            style="display: flex;">Day
-                                            Equals
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='date-year'?'active':''"><a
-                                            class="icons__submenu-link" (click)="FilterOperartorSelect('Year Equals')"
-                                            style="display: flex;">Year
-                                            Equals
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='date-after'?'active':''"><a
-                                            class="icons__submenu-link" (click)="FilterOperartorSelect('On Or After')"
-                                            style="display: flex;">On
-                                            Or
-                                            After
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='date-before'?'active':''"><a
-                                            class="icons__submenu-link" (click)="FilterOperartorSelect('On Or Before')"
-                                            style="display: flex;">On Or
-                                            Before
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='Empty'?'active':''"><a
-                                            class="icons__submenu-link" (click)="FilterOperartorSelect('Is Empty')"
-                                            style="display: flex;">Is Null
-                                            Empty
-                                        </a>
-                                    </li>
-                                </ul>
 
+
+                                    <ul *ngIf="ColumnDataTypeSpecial=='Date & Time'"
+                                        style="list-style: none; padding-left: 0px; ">
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-eq'?'active':''">
+                                            <a class="icons__submenu-link" (click)="FilterOperartorSelect('DateEquals')"
+                                                style="display: flex;">Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-bw'?'active':''">
+                                            <a (click)="FilterOperartorSelect('Date Between')"
+                                                class="icons__submenu-link" style="display: flex;">Date
+                                                Between
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-month'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Month Equals')"
+                                                class="icons__submenu-link" style="display: flex;">Month
+                                                Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-day'?'active':''">
+                                            <a (click)="FilterOperartorSelect('Day Equals')" class="icons__submenu-link"
+                                                style="display: flex;">Day
+                                                Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-year'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Year Equals')"
+                                                class="icons__submenu-link" style="display: flex;">Year
+                                                Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-after'?'active':''"><a
+                                                (click)="FilterOperartorSelect('On Or After')"
+                                                class="icons__submenu-link" style="display: flex;">On Or
+                                                After
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-before'?'active':''"><a
+                                                (click)="FilterOperartorSelect('On Or Before')"
+                                                class="icons__submenu-link" style="display: flex;">On Or
+                                                Before
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='Empty'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Is Empty')" class="icons__submenu-link"
+                                                style="display: flex;">Is Null
+                                                Empty
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-second'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Second Equals')"
+                                                class="icons__submenu-link" style="display: flex;">Second Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-minute'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Minute Equals')"
+                                                class="icons__submenu-link" style="display: flex;">Minute Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-hour'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Hour Equals')"
+                                                class="icons__submenu-link" style="display: flex;">Hour
+                                                Equals
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul *ngIf="ColumnDataTypeSpecial=='Time'"
+                                        style="list-style: none; padding-left: 0px; ">
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='time-eq'?'active':''">
+                                            <a class="icons__submenu-link" (click)="FilterOperartorSelect('TimeEquals')"
+                                                style="display: flex;">Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-second'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Second Equals')"
+                                                class="icons__submenu-link" style="display: flex;">Second Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-minute'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Minute Equals')"
+                                                class="icons__submenu-link" style="display: flex;">Minute Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='date-hour'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Hour Equals')"
+                                                class="icons__submenu-link" style="display: flex;">Hour
+                                                Equals
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='time-after'?'active':''"><a
+                                                (click)="FilterOperartorSelect('On Or Time After')"
+                                                class="icons__submenu-link" style="display: flex;">On Or Time
+                                                After
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='time-before'?'active':''"><a
+                                                (click)="FilterOperartorSelect('On Or Before')"
+                                                class="icons__submenu-link" style="display: flex;">On Or Time
+                                                Before
+                                            </a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='Empty'?'active':''"><a
+                                                (click)="FilterOperartorSelect('Is Empty')" class="icons__submenu-link"
+                                                style="display: flex;">Is Null
+                                                Empty
+                                            </a>
+                                        </li>
+
+
+                                    </ul>
+                                </ng-container>
                                 <ul *ngIf="ColumnDataType=='special'" style="list-style: none;  padding-left: 0px;">
                                     <li class="icons__submenu-item"
                                         [ngClass]="dataColumnFilter.filterOperator=='eq'?'active':''">
@@ -733,137 +868,10 @@
                                         [ngClass]="dataColumnFilter.filterOperator=='nc'?'active':''">
                                         <a class="icons__submenu-link"
                                             (click)="FilterOperartorSelect('Does NOT Contain')"
-                                            style="display: flex;">Does NOT
+                                            style="display: flex;">Does
+                                            NOT
                                             Contain </a>
                                     </li>
-                                </ul>
-
-                                <ul *ngIf="ColumnDataTypeSpecial=='Date & Time'"
-                                    style="list-style: none; padding-left: 0px; ">
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='date-eq'?'active':''">
-                                        <a class="icons__submenu-link" (click)="FilterOperartorSelect('DateEquals')"
-                                            style="display: flex;">Equals
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='date-bw'?'active':''">
-                                        <a (click)="FilterOperartorSelect('Date Between')" class="icons__submenu-link"
-                                            style="display: flex;">Date
-                                            Between
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='date-month'?'active':''"><a
-                                            (click)="FilterOperartorSelect('Month Equals')" class="icons__submenu-link"
-                                            style="display: flex;">Month
-                                            Equals
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='date-day'?'active':''">
-                                        <a (click)="FilterOperartorSelect('Day Equals')" class="icons__submenu-link"
-                                            style="display: flex;">Day
-                                            Equals
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='date-year'?'active':''"><a
-                                            (click)="FilterOperartorSelect('Year Equals')" class="icons__submenu-link"
-                                            style="display: flex;">Year
-                                            Equals
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='date-after'?'active':''"><a
-                                            (click)="FilterOperartorSelect('On Or After')" class="icons__submenu-link"
-                                            style="display: flex;">On Or
-                                            After
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='date-before'?'active':''"><a
-                                            (click)="FilterOperartorSelect('On Or Before')" class="icons__submenu-link"
-                                            style="display: flex;">On Or
-                                            Before
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='Empty'?'active':''"><a
-                                            (click)="FilterOperartorSelect('Is Empty')" class="icons__submenu-link"
-                                            style="display: flex;">Is Null
-                                            Empty
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='date-second'?'active':''"><a
-                                            (click)="FilterOperartorSelect('Second Equals')" class="icons__submenu-link"
-                                            style="display: flex;">Second Equals
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='date-minute'?'active':''"><a
-                                            (click)="FilterOperartorSelect('Minute Equals')" class="icons__submenu-link"
-                                            style="display: flex;">Minute Equals
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='date-hour'?'active':''"><a
-                                            (click)="FilterOperartorSelect('Hour Equals')" class="icons__submenu-link"
-                                            style="display: flex;">Hour
-                                            Equals
-                                        </a>
-                                    </li>
-                                </ul>
-                                <ul *ngIf="ColumnDataTypeSpecial=='Time'" style="list-style: none; padding-left: 0px; ">
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='time-eq'?'active':''">
-                                        <a class="icons__submenu-link" (click)="FilterOperartorSelect('TimeEquals')"
-                                            style="display: flex;">Equals
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='date-second'?'active':''"><a
-                                            (click)="FilterOperartorSelect('Second Equals')" class="icons__submenu-link"
-                                            style="display: flex;">Second Equals
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='date-minute'?'active':''"><a
-                                            (click)="FilterOperartorSelect('Minute Equals')" class="icons__submenu-link"
-                                            style="display: flex;">Minute Equals
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='date-hour'?'active':''"><a
-                                            (click)="FilterOperartorSelect('Hour Equals')" class="icons__submenu-link"
-                                            style="display: flex;">Hour
-                                            Equals
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='time-after'?'active':''"><a
-                                            (click)="FilterOperartorSelect('On Or Time After')"
-                                            class="icons__submenu-link" style="display: flex;">On Or Time
-                                            After
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='time-before'?'active':''"><a
-                                            (click)="FilterOperartorSelect('On Or Before')" class="icons__submenu-link"
-                                            style="display: flex;">On Or Time
-                                            Before
-                                        </a>
-                                    </li>
-                                    <li class="icons__submenu-item"
-                                        [ngClass]="dataColumnFilter.filterOperator=='Empty'?'active':''"><a
-                                            (click)="FilterOperartorSelect('Is Empty')" class="icons__submenu-link"
-                                            style="display: flex;">Is Null
-                                            Empty
-                                        </a>
-                                    </li>
-
-
                                 </ul>
 
                             </ul>

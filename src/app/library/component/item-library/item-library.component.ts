@@ -23,6 +23,15 @@ import { Router, Routes } from '@angular/router';
 import { Workbook } from 'exceljs';
 
 import * as fs from 'file-saver';
+import {
+  DateTimeAdapter,
+  OWL_DATE_TIME_FORMATS,
+  OWL_DATE_TIME_LOCALE,
+  OwlDateTimeComponent,
+  OwlDateTimeFormats
+} from 'ng-pick-datetime';
+import * as _moment from "moment";
+import { Moment } from "moment";
 @Component({
   selector: 'app-item-library',
   templateUrl: './item-library.component.html',
@@ -88,7 +97,7 @@ export class ItemLibraryComponent implements OnInit {
   public options = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
   public FilterArray: DataColumnFilter[] = [];
   public edititem: boolean;
-  public dataColumnFilter: DataColumnFilter = {
+  public dataColumnFilter: any = {
     columnName: "",
     displayName: "",
     filterOperator: "",
@@ -196,7 +205,7 @@ export class ItemLibraryComponent implements OnInit {
       statusId: null,
       attributeFields: []
     }
-    this.partformControl.reset();
+    // this.partformControl.reset();
     let el: HTMLElement = this.AddLocationClose.nativeElement;
     el.click();
     let el1: HTMLElement = this.AddAttributeClose.nativeElement;
@@ -217,8 +226,10 @@ export class ItemLibraryComponent implements OnInit {
   MainFilterToggle() {
     this.mainToggleDropdown = !this.mainToggleDropdown;
   }
-  FilterOperartorSelect(data) {
 
+
+  FilterOperartorSelect(data) {
+    debugger;
     if (data == 'Equals') {
       this.dataColumnFilter.filterOperator = 'eq'
     }
@@ -282,13 +293,15 @@ export class ItemLibraryComponent implements OnInit {
     if (data == 'On Or Before') {
       this.dataColumnFilter.filterOperator = 'date-before'
     }
-    if (data == 'On Or Time Before') {
-      this.dataColumnFilter.filterOperator = 'time-before'
-    }
     if (data == 'On Or Time After') {
       this.dataColumnFilter.filterOperator = 'time-after'
     }
+    if (data == 'On Or Time Before') {
+      this.dataColumnFilter.filterOperator = 'time-before'
+    }
+    this.ApplyJsFunction200();
   }
+
   ExportToExecel() {
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet("Item List");
@@ -344,32 +357,71 @@ export class ItemLibraryComponent implements OnInit {
   }
   ApplyFilter() {
 
+    //     if (this.dataColumnFilter.columnName == "" || this.dataColumnFilter.filterOperator == "" || this.dataColumnFilter.searchValue == "") {
+    //       return false;
+    //     }
+
+    //     this.FilterArray.forEach((element, index) => {
+
+    //       if (element.columnName == this.dataColumnFilter.columnName) {
+    //         // return false;
+    //         this.toastr.warning("This coloum name already in filter");
+
+    //       }
+
+    //     });
+    //     this.tabulatorColumn.forEach(element => {
+    //       if (element.field == this.dataColumnFilter.columnName) {
+    //         this.dataColumnFilter.displayName = element.title;
+    //         this.dataColumnFilter.type = element.type;
+    //         element.inFilter = true;
+    //         this.mainToggleDropdown = !this.mainToggleDropdown;
+    //       }
+    //     });
+    //     this.FilterArray.push(this.dataColumnFilter);
+    //     if (this.dataColumnFilter.type == "AttributeField" || this.dataColumnFilter.type == "StateField") {
+    //       this.dataColumnFilter.columnName = "$." + this.dataColumnFilter.columnName;
+    //     }
+    //     this.ColumnDataTypeSpecial = '';
+    //     this.dataColumnFilter = {
+    //       columnName: "",
+    //       displayName: "",
+    //       filterOperator: "",
+    //       searchValue: "",
+    //       type: ""
+    //     }
+    //     document.getElementById("filterButton").click();
+
+    // ========
     if (this.dataColumnFilter.columnName == "" || this.dataColumnFilter.filterOperator == "" || this.dataColumnFilter.searchValue == "") {
       return false;
     }
 
-    this.FilterArray.forEach((element, index) => {
-
-      if (element.columnName == this.dataColumnFilter.columnName) {
-        // return false;
-        this.toastr.warning("This coloum name already in filter");
-
-      }
-
-    });
     this.tabulatorColumn.forEach(element => {
       if (element.field == this.dataColumnFilter.columnName) {
         this.dataColumnFilter.displayName = element.title;
         this.dataColumnFilter.type = element.type;
+        this.dataColumnFilter.datatype = element.datatype;
         element.inFilter = true;
-        this.mainToggleDropdown = !this.mainToggleDropdown;
+        if (element.datatype == "Date/Time") {
+          this.GetDate(element);
+        }
       }
     });
+
+    this.FilterArray.forEach((element, index) => {
+
+      let attribute = this.dataColumnFilter.type == "" ? '' : "$.";
+      if (element.columnName == attribute + this.dataColumnFilter.columnName) {
+        this.FilterArray.splice(index, 1);
+      }
+
+    });
+
     this.FilterArray.push(this.dataColumnFilter);
     if (this.dataColumnFilter.type == "AttributeField" || this.dataColumnFilter.type == "StateField") {
       this.dataColumnFilter.columnName = "$." + this.dataColumnFilter.columnName;
     }
-    this.ColumnDataTypeSpecial = '';
     this.dataColumnFilter = {
       columnName: "",
       displayName: "",
@@ -377,7 +429,16 @@ export class ItemLibraryComponent implements OnInit {
       searchValue: "",
       type: ""
     }
-    document.getElementById("filterButton").click();
+    this.mainToggleDropdown = false;
+
+
+
+
+
+
+
+
+
     // this.CloseFilter();
     this.GetParts();
 
@@ -413,29 +474,34 @@ export class ItemLibraryComponent implements OnInit {
     // window.location.reload();
   }
   ApplyFilter2(columnName) {
-
     this.dataColumnFilter.columnName = columnName;
     if (this.dataColumnFilter.columnName == "" || this.dataColumnFilter.filterOperator == "" || this.dataColumnFilter.searchValue == "") {
       return false;
     }
 
-    this.FilterArray.forEach((element, index) => {
-
-      if (element.columnName == this.dataColumnFilter.columnName) {
-
-        this.toastr.warning("This coloum name already in filter");
-        return false;
-      }
-
-    });
     this.tabulatorColumn.forEach(element => {
       if (element.field == this.dataColumnFilter.columnName) {
         this.dataColumnFilter.displayName = element.title;
         this.dataColumnFilter.type = element.type;
+        this.dataColumnFilter.datatype = element.datatype;
         element.inFilter = true;
         element.opentoggleDropdown = !element.opentoggleDropdown
+        if (element.datatype == "Date/Time") {
+          this.GetDate(element);
+        }
       }
     });
+
+
+    this.FilterArray.forEach((element, index) => {
+
+      let attribute = this.dataColumnFilter.type == "" ? '' : "$.";
+      if (element.columnName == attribute + this.dataColumnFilter.columnName) {
+        this.FilterArray.splice(index, 1);
+      }
+
+    });
+
     this.FilterArray.push(this.dataColumnFilter);
     if (this.dataColumnFilter.type == "AttributeField" || this.dataColumnFilter.type == "StateField") {
       this.dataColumnFilter.columnName = "$." + this.dataColumnFilter.columnName;
@@ -447,7 +513,19 @@ export class ItemLibraryComponent implements OnInit {
       searchValue: "",
       type: ""
     }
-    document.getElementById("filterButton3_" + columnName).click();
+    document.getElementById("filterButton2_" + columnName).click();
+
+
+
+
+
+
+
+
+
+
+
+    // document.getElementById("filterButton3_" + columnName).click();
     // document.getElementById("filterButton3_" + Id).click();
     this.GetParts();
 
@@ -462,7 +540,15 @@ export class ItemLibraryComponent implements OnInit {
     });
 
 
-    this.ApplyJsFunction();
+    this.ApplyJsFunction200();
+  }
+
+  ApplyJsFunction200() {
+    setTimeout(function () {
+      inputClear();
+      inputFocus();
+      datePicker();
+    }, 200)
   }
   closeGlobalDropDown(event) {
     this.tabulatorColumn.forEach(element => {
@@ -585,7 +671,7 @@ export class ItemLibraryComponent implements OnInit {
         this.busy = false;
         this.spinner.hide();
       })).subscribe(result => {
-
+        debugger;
         if (result.entity != null) {
           this.AttributeFields = result.entity;
           this.AttributeFields.forEach(element => {
@@ -599,6 +685,10 @@ export class ItemLibraryComponent implements OnInit {
             if (element.customFieldBaseValue != 0) {
               this.partformControl.get("" + element.columnId + "").setValue(element.customFieldBaseValue);
               // element.columnValue = element.customFieldBaseValue;
+            }
+            if (element.dataType == "Date/Time") {
+              this.partformControl.get("" + element.columnId + "").setValue(new Date(element.columnValue));
+              // element.columnValue = new Date(element.columnValue)
             }
 
           });
@@ -788,18 +878,23 @@ export class ItemLibraryComponent implements OnInit {
               if (this.allItems[i].attributeFields[k].columnName == this.tabulatorColumn[j].field) {
 
                 if (this.tabulatorColumn[j].datatype == "Date/Time") {
-                  this.myDT = new Date(this.allItems[i].attributeFields[k].columnValue)
-                  let DateManual = this.myDT.toLocaleDateString();
-                  if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
-                    DateManual = this.myDT.toLocaleTimeString()
+                  if (this.allItems[i].attributeFields[k].columnValue != "") {
+                    this.myDT = new Date(this.allItems[i].attributeFields[k].columnValue)
+                    let DateManual = this.myDT.toLocaleDateString();
+                    if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
+                      DateManual = this.myDT.toLocaleTimeString()
+                    }
+                    if (this.tabulatorColumn[j].customFieldSpecialType == "Date & Time") {
+                      DateManual = this.myDT.toLocaleString();
+                    }
+                    if (this.tabulatorColumn[j].customFieldSpecialType == "Date") {
+                      DateManual = this.myDT.toLocaleDateString()
+                    }
+                    map.set(this.tabulatorColumn[j].field, DateManual)
                   }
-                  if (this.tabulatorColumn[j].customFieldSpecialType == "Date & Time") {
-                    DateManual = this.myDT.toLocaleString();
+                  else {
+                    map.set(this.tabulatorColumn[j].field, this.allItems[i].attributeFields[k].columnValue)
                   }
-                  if (this.tabulatorColumn[j].customFieldSpecialType == "Date") {
-                    DateManual = this.myDT.toLocaleDateString()
-                  }
-                  map.set(this.tabulatorColumn[j].field, DateManual)
                 }
                 else {
                   map.set(this.tabulatorColumn[j].field, this.allItems[i].attributeFields[k].columnValue)
@@ -956,7 +1051,7 @@ export class ItemLibraryComponent implements OnInit {
         });
   }
   Close(form) {
-    form.reset();
+    //form.reset();
   }
   // 
   edit(item) {
@@ -978,5 +1073,82 @@ export class ItemLibraryComponent implements OnInit {
     this.showDropDown = false;
     console.log('clicked outside');
   }
+
+  GetDate(element) {
+
+    if (this.dataColumnFilter.filterOperator == 'date-eq') {
+      this.GetdateFilter(element)
+    }
+    if (this.dataColumnFilter.filterOperator == 'time-eq') {
+      this.GetdateFilter(element)
+    }
+    if (this.dataColumnFilter.filterOperator == 'date-bw') {
+      let date1 = new Date(this.dataColumnFilter.searchValue[0]).toLocaleDateString();
+      let date2 = new Date(this.dataColumnFilter.searchValue[1]).toLocaleDateString();
+      this.dataColumnFilter.datevalue = date1 + " to " + date2;
+      this.dataColumnFilter.searchValue = new Date(this.dataColumnFilter.searchValue[0]).toISOString() + " ~ " + new Date(this.dataColumnFilter.searchValue[1]).toISOString();
+
+    }
+    if (this.dataColumnFilter.filterOperator == 'date-minute') {
+      this.dataColumnFilter.datevalue = this.dataColumnFilter.searchValue;
+    }
+    if (this.dataColumnFilter.filterOperator == 'date-hour') {
+      this.dataColumnFilter.datevalue = this.dataColumnFilter.searchValue;
+    }
+    if (this.dataColumnFilter.filterOperator == 'date-second') {
+      this.dataColumnFilter.datevalue = this.dataColumnFilter.searchValue;
+    }
+    if (this.dataColumnFilter.filterOperator == 'date-day') {
+      this.dataColumnFilter.datevalue = this.dataColumnFilter.searchValue;
+    }
+    if (this.dataColumnFilter.filterOperator == 'date-after') {
+      this.GetdateFilter(element)
+    }
+    if (this.dataColumnFilter.filterOperator == 'date-before') {
+      this.GetdateFilter(element)
+    }
+    if (this.dataColumnFilter.filterOperator == 'time-before') {
+      this.GetdateFilter(element)
+    }
+    if (this.dataColumnFilter.filterOperator == 'time-after') {
+      this.GetdateFilter(element)
+    }
+
+  }
+  GetdateFilter(element) {
+
+    this.myDT = new Date(this.dataColumnFilter.searchValue)
+    let DateManual = this.myDT.toLocaleDateString();
+    if (element.customFieldSpecialType == "Time") {
+      DateManual = this.myDT.toLocaleTimeString()
+    }
+    if (element.customFieldSpecialType == "Date & Time") {
+      DateManual = this.myDT.toLocaleString();
+    }
+    if (element.customFieldSpecialType == "Date" || element.customFieldSpecialType == "") {
+      DateManual = this.myDT.toLocaleDateString()
+    }
+    this.dataColumnFilter.datevalue = DateManual;
+  }
+  chosenYearHandler(normalizedYear: Date, datepicker: OwlDateTimeComponent<Moment>) {
+    debugger;
+    this.dataColumnFilter.searchValue = normalizedYear;
+    this.dataColumnFilter.datevalue = normalizedYear.getFullYear();
+    datepicker.close();
+  }
+
+  chosenMonthHandler(
+    normalizedMonth: Date,
+    datepicker: OwlDateTimeComponent<Moment>
+  ) {
+    debugger;
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    this.dataColumnFilter.searchValue = normalizedMonth;
+    this.dataColumnFilter.datevalue = monthNames[normalizedMonth.getMonth()];
+    datepicker.close();
+  }
+
 }
 
