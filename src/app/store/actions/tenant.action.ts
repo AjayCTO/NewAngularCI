@@ -8,6 +8,7 @@ export const SET_SELECTED_TENENT = '[Tenants] SET_SELECTED_TENENT';
 export const SET_SELECTED_TENENT_ID = '[Tenants] SET_SELECTED_TENENT_ID';
 export const SET_MYINVENTORY_COLUMN = '[Tenants] SET_INVENTORY_COLUMN';
 export const SET_SELECTED_EVENT = '[Tenants] SET_SELECTED_EVENT';
+export const SET_SELECTED_CART = '[Tenants] SET_SELECTED_CART';
 export class AddTenantAction implements Action {
 
     readonly type = TenantActionTypes.ADD_Tenant
@@ -37,7 +38,11 @@ export class SetSelectedEvent extends PayloadAction<any>{
     readonly type = SET_SELECTED_EVENT
 }
 
+export class SetSelectedCart extends PayloadAction<any>{
+    readonly type = SET_SELECTED_CART
+}
 
 
 
-export type TenantAction = AddTenantAction | SetSelectedTenant | SetSelectedTenantId | ResetTenantsState | SetDefaultInventoryColumn | SetSelectedEvent
+
+export type TenantAction = AddTenantAction | SetSelectedTenant | SetSelectedTenantId | ResetTenantsState | SetDefaultInventoryColumn | SetSelectedEvent | SetSelectedCart

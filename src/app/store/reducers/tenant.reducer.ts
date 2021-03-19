@@ -8,6 +8,7 @@ export interface ITenantState {
     selectedTenant: Tenant;
     myInventoryColumn: any;
     selectedEvent: any;
+    cartDetails: any[];
 }
 export const eventsStateKey = 'eventState';
 
@@ -20,6 +21,7 @@ export const initialState: ITenantState = {
     selectedTenant: storage.getItem('eventState').selectedTenant,
     myInventoryColumn: storage.getItem('eventState').myInventoryColumn,
     selectedEvent: storage.getItem('eventState').selectedEvent,
+    cartDetails: storage.getItem('eventState').cartDetails
 };
 
 export function TenantReducer(state: ITenantState = initialState, action: fromEvents.TenantAction): ITenantState {
@@ -56,6 +58,13 @@ export function TenantReducer(state: ITenantState = initialState, action: fromEv
             }
         }
 
+        case fromEvents.SET_SELECTED_CART: {
+            return {
+                ...state,
+                cartDetails: action.payload ?? null,
+            }
+        }
+
         case fromEvents.RESET_STATE: ({ ...initialState });
         default:
             return state;
@@ -66,7 +75,9 @@ export const getTasks = (state: ITenantState) => {
     return {
         selectedTenant: state.selectedTenant,
         selectedTenantId: state.selectedTenantId,
-        myInventoryColumn: state.myInventoryColumn
+        myInventoryColumn: state.myInventoryColumn,
+        selectedEvent: state.selectedEvent,
+        cartDetails: state.cartDetails,
     };
 };
 

@@ -20,7 +20,7 @@ import * as XLSX from 'xlsx';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EventService } from '../../../dynamic-events/service/event.service';
 import { CircumstanceFields, StateFields, AttributeFields, CustomFields } from '../../../customfield/models/customfieldmodel';
-import { SetSelectedTenant, SetSelectedTenantId, SetDefaultInventoryColumn } from '../../../store/actions/tenant.action';
+import { SetSelectedTenant, SetSelectedTenantId, SetDefaultInventoryColumn, SetSelectedEvent, SetSelectedCart } from '../../../store/actions/tenant.action';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../../shared/appState';
 import { ReportService } from '../../../report/service/report.service'
@@ -997,6 +997,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
   GroupDynamicEventAction(DynamicEvent) {
     debugger;
+    this.store.dispatch(new SetSelectedEvent(DynamicEvent));
     this.router.navigate(['/multipleTransaction', DynamicEvent.eventName]);
   }
 
@@ -1159,6 +1160,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   applyGetCartDetails() {
     if (this.GetCartDetails != null) {
       debugger;
+
       var res = this.GetCartDetails.inventoryIds.split(",").map(Number);
       res.forEach(element => {
         for (var i = 0; i < this.InventoryDataBind.length; i++) {
@@ -1169,7 +1171,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       });
 
       this.InventoryIds = res;
-
+      this.store.dispatch(new SetSelectedCart(res));
     }
 
   }
@@ -1696,10 +1698,12 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   SaveCart() {
     let viewId = this.SelectedView != undefined ? this.SelectedView.id : 0;
     let carts = [];
+    let currentCart = [];
     this.InventoryIds.forEach(element => {
       carts.push({ inventoryId: element })
+      currentCart.push(element);
     });
-
+    this.store.dispatch(new SetSelectedCart(currentCart));
     this.currentinventoryService.saveCart(this.selectedTenantId, this.authService.accessToken, viewId, carts).subscribe(res => {
       if (res.code == 200) {
 
@@ -2087,6 +2091,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.ColspanTable = 3;
     this.spinner.show();
     this.SelectedView = view;
+
     let NewColumn = [];
     let selectedViewColumn = JSON.parse(view.columnJsonSettings);
     selectedViewColumn.forEach(element => {
@@ -2112,7 +2117,6 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       if (element.isAdded)
         this.ColspanTable++;
     });
-    this.GetCartDetail();
     setTimeout(() => {
       this.spinner.hide();
     }, 200);

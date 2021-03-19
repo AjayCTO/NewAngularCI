@@ -11,3 +11,7 @@ export const selectSelectedTenantId = createSelector(getEventsState, state =>
 export const selectSelectedTenant = createSelector(getEventsState, state => state.selectedTenant);
 
 export const selectMyInventoryColumn = createSelector(getEventsState, state => state.myInventoryColumn);
+
+export const getSeletectEvent = createSelector(getEventsState, state => state.selectedEvent);
+
+export const getSelectedCart = createSelector(getEventsState, state => state.cartDetails);
