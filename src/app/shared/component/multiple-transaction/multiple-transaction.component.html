@@ -1,0 +1,104 @@
+<ng-container>
+    <div class="actions">
+        <div class="actions__title">
+            <h1><b>Process Cart</b> </h1>
+        </div>
+        <div class="actions__wrap">
+            <!-- <div class="icons__item">
+                <div class="icons__icon"><svg class="icon icon--theme01 icon--download"
+                        aria-labelledby="title-5f7c9ac573e4a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                        width="48" height="48">
+                        <path
+                            d="M42.2 37.8A5.8 5.8 0 0038 36H10a6 6 0 00-6 6 5.6 5.6 0 001.8 4.2A5.6 5.6 0 0010 48h28a6 6 0 006-6 5.6 5.6 0 00-1.8-4.2zM38 45a3 3 0 113-3 2.9 2.9 0 01-3 3z"
+                            fill="currentColor" class="icon__color--primary"></path>
+                        <path d="M0 48h48V0H0z" fill="none"></path>
+                        <path d="M29 23.9a8 8 0 006.3-3h.1l8.8-11.6-6.3-4.9-4 5.2-9.7 12.6a7.6 7.6 0 004.8 1.7z"
+                            fill="currentColor" class="icon__color--secondary"></path>
+                        <path
+                         EventConfiguration.eventColor
+                            d="M17.6 27.3L3.8 9.3l6.3-4.9 12.6 16.4a6.7 6.7 0 001.5 1.4 7.6 7.6 0 004.8 1.7 8 8 0 006.3-3l-5 6.4a8 8 0 01-12.7 0z"
+                            fill="currentColor" class="icon__color--primary"></path>
+                    </svg></div>
+                <span class="icons__label">Download</span>
+            </div> -->
+            {{EventConfiguration.eventName}}<br />
+            Total Items- {{length}}
+
+
+        </div>
+
+    </div>
+    <section class="main">
+        <div class="card">
+            <div class="card-header1">
+                <h2>Put these items in inventory. <a class="button button--medium button--icon button--theme02">
+                        <svg class="icon icon--theme01 icon--add" aria-labelledby="title-60549eadf0a44"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+                            <path fill="none" d="M0 0h48v48H0z"></path>
+                            <path d="M28 36v12h-8V28a8 8 0 00-8-8 16 16 0 0116 16z" fill="currentColor"
+                                class="icon__color--primary"></path>
+                            <path d="M20 28H0v-8h12a8 8 0 018 8z" fill="currentColor" class="icon__color--secondary">
+                            </path>
+                            <path d="M20 12V0h8v20a8 8 0 008 8 16 16 0 01-16-16z" fill="currentColor"
+                                class="icon__color--primary"></path>
+                            <path d="M28 20h20v8H36a8 8 0 01-8-8z" fill="currentColor" class="icon__color--secondary">
+                            </path>
+                        </svg> Add Inventory
+                    </a></h2>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <th>Current Inventory statement</th>
+                        <th>Quantity</th>
+                        <th>Cost per Unit in ($)</th>
+                        <th>Action</th>
+
+                    </tr>
+                    <tr *ngFor="let item of groupInventoryDetails">
+                        <td>{{item.quantity}} {{item.uomName}} of <b>{{item.partName}}</b> <br /> Location:
+                            <b>{{item.locationName}}</b>
+                        </td>
+                        <td>
+                            <div class="form__col">
+                                <label class="form__label" for="Quantity_{{item.locationId}}">Quantity</label>
+                                <input class="form__input" type="text" id="locationNameEditForm_{{item.locationId}}"
+                                    style="width: 34%;" name="locationNameEditForm_{{item.locationId}}" required>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form__col">
+                                <label class="form__label" for="Cost_{{item.locationId}}">Cost per
+                                    Unit
+                                    in ($)</label>
+                                <input class="form__input" type="text" id="Cost_{{item.locationId}}" style="width: 34%;"
+                                    name="Cost_{{item.locationId}}" required>
+                            </div>
+                        </td>
+                        <td><button style="cursor: pointer;" class="icons__item icons__item--theme03">
+                                <div class="icons__icon">
+                                    <svg class="icon icon--theme01 icon-simple--trash"
+                                        aria-labelledby="title-5f84133e656c0" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24" width="24" height="24">
+                                        <path fill="none" d="M0 0h24v24H0z"></path>
+                                        <path fill="currentColor"
+                                            d="M18.3 18l-.4 3H6.1l-.4-3h12.6zM4.541 2.927l15.863 2.088-.391 2.975L4.15 5.9z"
+                                            class="icon__color--primary">
+                                        </path>
+                                        <path fill="currentColor"
+                                            d="M10.734 1.738l3.96.52-.26 1.98-3.96-.52zM16.3 10h3l-1 8-.4 3h-3l.4-3 1-8zM9.1 21h-3l-.4-3-1.1-8h3.1l1 8 .4 3z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <span class="icons__label">Remove</span>
+                            </button></td>
+
+                    </tr>
+                </table>
+                <div>
+                    If processing the cart results in a statement with "0" Quantity, clear the statement.
+                </div>
+            </div>
+        </div>
+    </section>
+</ng-container>

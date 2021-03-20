@@ -15,6 +15,7 @@ export class MultipleTransactionComponent implements OnInit {
   public EventConfiguration: any
   public cartDetails: any;
   public selectedTenantId;
+  public length: number = 0
   public groupInventoryDetails: any;
   constructor(protected store: Store<AppState>, private commanService: CommanSharedService, private cdr: ChangeDetectorRef, private authService: AuthService) { }
 
@@ -47,6 +48,7 @@ export class MultipleTransactionComponent implements OnInit {
       if (res) {
 
         this.groupInventoryDetails = res.entity.items;
+        this.length = res.entity.totalItems;
         debugger;
       }
     })
