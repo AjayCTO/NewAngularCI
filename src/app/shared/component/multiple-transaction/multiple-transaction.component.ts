@@ -15,6 +15,8 @@ import { CurrentinventoryService } from '../../../currentinventory/service/curre
 import { CurrentInventory, InventoryTransactionViewModel, TransactionTarget, ChangeStateFields, Tenant, DataColumnFilter } from '../../../currentinventory/models/admin.models'
 import { Router } from '@angular/router';
 import { SetSelectedTenant, SetSelectedTenantId, SetDefaultInventoryColumn, SetSelectedEvent, SetSelectedCart } from '../../../store/actions/tenant.action';
+import { CustomFieldService } from 'src/app/customfield/service/custom-field.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-multiple-transaction',
   templateUrl: './multiple-transaction.component.html',
@@ -38,7 +40,7 @@ export class MultipleTransactionComponent implements OnInit {
   public selectedLocation;
   public today: Date;
   public CancleConfirm: boolean;
-
+  public CustomFields: any;
   CurrentInventoryObj: CurrentInventory = {
     partId: 0,
     partName: "",
@@ -68,7 +70,7 @@ export class MultipleTransactionComponent implements OnInit {
     ToUomId: null,
   }
 
-  constructor(protected store: Store<AppState>, private commanService: CommanSharedService, private libraryService: LibraryService, private cdr: ChangeDetectorRef, private toastr: ToastrService, private authService: AuthService, private router: Router, private currentinventoryService: CurrentinventoryService,) {
+  constructor(protected store: Store<AppState>, private spinner: NgxSpinnerService, private customfieldservice: CustomFieldService, private commanService: CommanSharedService, private libraryService: LibraryService, private cdr: ChangeDetectorRef, private toastr: ToastrService, private authService: AuthService, private router: Router, private currentinventoryService: CurrentinventoryService,) {
     this.today = new Date();
   }
 
@@ -80,6 +82,7 @@ export class MultipleTransactionComponent implements OnInit {
       subscribe(event => {
         if (event) {
           this.selectedTenantId = event.tenantId;
+          this.GetCustomFields();
         }
         this.cdr.detectChanges();
       });
@@ -181,6 +184,27 @@ export class MultipleTransactionComponent implements OnInit {
   }
   cancleConfirm() {
     this.CancleConfirm = true;
+  }
+
+  GetCustomFields() {
+    debugger;
+    this.customfieldservice.GetCustomFields(this.selectedTenantId, this.authService.accessToken)
+      .pipe(finalize(() => {
+        this.busy = false;
+        this.spinner.hide();
+      })).subscribe(result => {
+        this.CustomFields = [];
+        if (result.code == 200) {
+
+          this.CustomFields = result.entity;
+          this.CustomFields.forEach(element => {
+            if (element.comboBoxValue != "") {
+              element.comboBoxArray = JSON.parse(element.comboBoxValue);
+            }
+          });
+          this.ApplyJsFunction();
+        }
+      })
   }
 
 }
