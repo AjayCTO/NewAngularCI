@@ -25,6 +25,9 @@
                                 <div class="form__col-wrap">
                                     <div class="form__col form__col--second" *ngFor="let item of AttributeField">
                                         <div class="form__group form__group--checkbox">
+
+
+
                                             <input (click)="createField(item)" id="AttributeField{{item.columnLabel}}"
                                                 class="form__checkbox" type="checkbox"
                                                 name="AttributeField{{item.columnLabel}}">

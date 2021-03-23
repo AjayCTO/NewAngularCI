@@ -21,13 +21,17 @@ import { IconsComponent } from './component/icons/icons.component';
 import { ConfigurationSummaryComponent } from './component/configuration-summary/configuration-summary.component';
 import { NotPermitComponent } from './component/not-permit/not-permit.component';
 import { MultipleTransactionComponent } from './component/multiple-transaction/multiple-transaction.component';
+import { ClearConfirmationComponent } from './component/clear-confirmation/clear-confirmation.component';
+import { NgxPopperModule } from 'ngx-popper';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { CancelConfirmationComponent } from './component/cancel-confirmation/cancel-confirmation.component';
 @NgModule({
   providers: [
     ApiService,
     CommanSharedService,
   ],
 
-  imports: [FormioModule, CommonModule, FormsModule, DragDropModule, ReactiveFormsModule, RouterModule.forChild([
+  imports: [FormioModule, OwlDateTimeModule, OwlNativeDateTimeModule, CommonModule, FormsModule, DragDropModule, ReactiveFormsModule, NgxPopperModule, RouterModule.forChild([
     { path: 'sharedcustomfield', component: CustomFieldComponent, canActivate: [AuthGuard] },
     { path: 'sharedcustomfield12', component: FalseComponent, canActivate: [AuthGuard] },
     { path: 'eidtevents', component: EditEventComponent, canActivate: [AuthGuard] },
@@ -36,7 +40,7 @@ import { MultipleTransactionComponent } from './component/multiple-transaction/m
     { path: 'multipleTransaction/:event', component: MultipleTransactionComponent, canActivate: [AuthGuard] }
   ])],
 
-  declarations: [LocationModalComponent, UomModalComponent, StatusModalComponent, CustomFieldModalComponent, AttributeFieldModalComponent, CustomFieldComponent, FalseComponent, EditEventComponent, IconsComponent, ConfigurationSummaryComponent, NotPermitComponent, MultipleTransactionComponent],
+  declarations: [LocationModalComponent, UomModalComponent, StatusModalComponent, CustomFieldModalComponent, AttributeFieldModalComponent, CustomFieldComponent, FalseComponent, EditEventComponent, IconsComponent, ConfigurationSummaryComponent, NotPermitComponent, MultipleTransactionComponent, ClearConfirmationComponent, CancelConfirmationComponent],
   exports: [LocationModalComponent, StatusModalComponent, UomModalComponent, CustomFieldModalComponent, AttributeFieldModalComponent, IconsComponent],
 
 })

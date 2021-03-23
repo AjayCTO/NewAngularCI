@@ -78,6 +78,17 @@ export class CommanSharedService extends BaseService {
     return this.http.post<IApiResponse>(this.configService.resourceApiURI + '/api/CurrentInventory/GetSelectedCartInventoriesDetails?TenantId=' + TenantId, data, httpOptions).pipe(catchError(this.handleError));
 
   }
+  savecartinventoryDetails(TenantId: number, token: string, data) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + token
+      })
+    };
+
+    return this.http.post<IApiResponse>(this.configService.resourceApiURI + '/api/CurrentInventory/SaveInventoyViewConfiguration?TenantId=' + TenantId, data, httpOptions).pipe(catchError(this.handleError));
+
+  }
 
 
 
