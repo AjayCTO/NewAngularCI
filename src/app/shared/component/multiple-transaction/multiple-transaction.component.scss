@@ -1,28 +1,20 @@
 @import "~ng-pick-datetime/assets/style/picker.min.css";
 
-// .card
-// {
-//     width: 100%;
-//     height: auto;
-//     padding: 10px;
-//     text-align: justify;
-//     text-decoration: none;
-//     line-height: 32px;
-//     box-sizing: content-box;
-//     margin:10px;
-// }
-// .card:hover{
-//     background: #fff;
-//     -webkit-box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
-// -moz-box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
-// box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
-// }
-.table__heading,.table__cell
+
+ .table__heading,.table__cell
  {
      border-right:0px !important;
  }
  .table__heading-options {
     border-right: 1px solid #ccc;
+}
+.table__table {
+    border-collapse: collapse;
+    font-size: 19px;
+    line-height: 1.4375;
+    width: 100%;
+    overflow: auto;
+    table-layout: initial;
 }
 .table {
     width: 100%;
@@ -63,3 +55,15 @@
     //   }
     }
 }
+.form__col {
+     margin: 0; 
+    position: relative;
+    width: 100%;
+}
+
+#input
+{
+  float: left;
+  margin-right: 14px;
+}
+

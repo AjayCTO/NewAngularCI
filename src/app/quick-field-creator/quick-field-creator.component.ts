@@ -19,6 +19,7 @@ export class QuickFieldCreatorComponent implements OnInit {
 
   public AllFieldList: any = []
   public FieldCreation: any = []
+
   length: number = 0;
 
   public AttributeField = [{ 'columnLabel': 'Color', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': 'Dropdown', 'isSelected': false },
@@ -230,7 +231,7 @@ export class QuickFieldCreatorComponent implements OnInit {
   }
 
   GetAllFields() {
-
+    debugger;
     this.customfieldservice.GetAllFields(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
@@ -254,6 +255,10 @@ export class QuickFieldCreatorComponent implements OnInit {
 
   CreateFields() {
     this.FieldCreation.forEach(element => {
+      if (element.customFieldBaseValue == null || element.customFieldIncrementBy == null) {
+        element.customFieldBaseValue = 0;
+        element.customFieldIncrementBy = 0;
+      }
       if (element.customFieldType == 'AttributeField') {
         this.customfieldservice.AddAttributeFields(element, this.selectedTenantId, this.authService.accessToken)
           .pipe(finalize(() => {

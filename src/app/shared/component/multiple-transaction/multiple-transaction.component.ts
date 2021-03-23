@@ -171,6 +171,8 @@ export class MultipleTransactionComponent implements OnInit {
       })
   }
   Save() {
+    debugger;
+    this.groupInventoryDetails
     this.commanService.savecartinventoryDetails(this.selectedTenantId, this.authService.accessToken, this.cartDetails).subscribe(res => {
       if (res.code = 200) {
         this.toastr.success("your cart is save")
@@ -184,6 +186,10 @@ export class MultipleTransactionComponent implements OnInit {
   }
   cancleConfirm() {
     this.CancleConfirm = true;
+  }
+  SaveTrasaction(data) {
+    debugger;
+    //  if()
   }
 
   GetCustomFields() {
