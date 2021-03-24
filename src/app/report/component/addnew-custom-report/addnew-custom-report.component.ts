@@ -23,6 +23,7 @@ import toggle from '../../../../assets/js/lib/_toggle';
 export class AddnewCustomReportComponent implements OnInit {
   public tabulatorColumn: any = [];
   public CustomFields;
+  public myDT: Date;
   public selectedTenantId: number;
   public myInventoryField: Observable<any>;
   public busy: boolean;
@@ -468,7 +469,6 @@ export class AddnewCustomReportComponent implements OnInit {
           element.ColumnOperator = 'date-hour'
         }
       });
-
     }
     if (data == 'Second Equals') {
       this.selectedFields.forEach(element => {
@@ -476,7 +476,6 @@ export class AddnewCustomReportComponent implements OnInit {
           element.ColumnOperator = 'date-second'
         }
       });
-
     }
     if (data == 'Month Equals') {
       this.selectedFields.forEach(element => {
@@ -484,7 +483,6 @@ export class AddnewCustomReportComponent implements OnInit {
           element.ColumnOperator = 'date-month'
         }
       });
-
     }
     if (data == 'Day Equals') {
       this.selectedFields.forEach(element => {
@@ -492,7 +490,6 @@ export class AddnewCustomReportComponent implements OnInit {
           element.ColumnOperator = 'date-day'
         }
       });
-
     }
     if (data == 'Year Equals') {
       this.selectedFields.forEach(element => {
@@ -500,7 +497,6 @@ export class AddnewCustomReportComponent implements OnInit {
           element.ColumnOperator = 'date-year'
         }
       });
-
     }
     if (data == 'On Or After') {
       this.selectedFields.forEach(element => {
@@ -508,7 +504,6 @@ export class AddnewCustomReportComponent implements OnInit {
           element.ColumnOperator = 'date-after'
         }
       });
-
     }
     if (data == 'On Or Before') {
       this.selectedFields.forEach(element => {
@@ -516,26 +511,45 @@ export class AddnewCustomReportComponent implements OnInit {
           element.ColumnOperator = 'date-before'
         }
       });
-
     }
   }
   ApplyFilter(event) {
+    debugger;
     this.selectedFields.forEach(element => {
       if (element.ColumnLabel == event) {
-        // element.ColumnDataType = element.datatype;
         element.isAdded = true;
         element.opentoggleDropdown = !element.opentoggleDropdown;
+        let map = new Map<string, any>();
+        element.ColumnValue = new Date(element.ColumnValue).toISOString()
+        if (element.datatype == "Date/Time") {
+          if (element.ColumnValue != "") {
+
+            this.myDT = new Date(element.ColumnValue)
+            let DateManual = this.myDT.toLocaleDateString();
+            if (element.customFieldSpecialType == "Time") {
+              DateManual = this.myDT.toLocaleTimeString()
+            }
+            if (element.customFieldSpecialType == "Date & Time") {
+              DateManual = this.myDT.toLocaleString();
+            }
+            if (element.customFieldSpecialType == "Date") {
+              DateManual = this.myDT.toLocaleDateString()
+            }
+            map.set(element.ColumnLabel, DateManual)
+            element.ColumnValue = DateManual
+          }
+          else {
+            map.set(element.ColumnLabel, element.columnValue);
+          }
+        }
+
       }
     });
-
-    // this.closeGlobalDropDown(event)
     this.ApplyJsFunction();
-
   }
   ApplySort(event) {
     this.selectedFields.forEach(element => {
       if (element.ColumnLabel == event) {
-        // element.ColumnDataType = element.datatype;
         element.isSortAdded = true;
         element.opentoggleDropdown1 = !element.opentoggleDropdown1;
       }
@@ -545,28 +559,17 @@ export class AddnewCustomReportComponent implements OnInit {
   closeGlobalDropDown1(event) {
     this.selectedFields.forEach(element => {
       if (element.ColumnLabel == event) {
-        // element.ColumnDataType = element.datatype;
         element.opentoggleDropdown1 = !element.opentoggleDropdown1;
       }
     });
 
   }
-
-
   closeGlobalDropDown(event) {
     this.RemoveFilter(event);
-
-
   }
   removeField(index) {
     debugger;
-    // this.selectedFields.forEach(element => {
-    //   if (element.ColumnLabel == index) {
     this.selectedFields.splice(index, 1);
-    //   }
-    // });
-
-
   }
   CloseFilter() {
     document.getElementById("filterButton").click();
@@ -574,11 +577,8 @@ export class AddnewCustomReportComponent implements OnInit {
   onOptionsSelected1(obj, event) {
     debugger;
     this.tabulatorColumn3.forEach(element => {
-
       if (element.field == event) {
-
         obj.SortType = element.datatype;
-
       }
     });
 
@@ -586,9 +586,7 @@ export class AddnewCustomReportComponent implements OnInit {
   onOptionsSelected(obj, event) {
     debugger;
     this.tabulatorColumn.forEach(element => {
-
       if (element.field == event) {
-
         obj.ColumnDataType = element.datatype;
         obj.ColumnLabel = element.title;
         obj.columnName = element.field;
@@ -597,12 +595,10 @@ export class AddnewCustomReportComponent implements OnInit {
         obj.width = element.width;
       }
     });
-
     setTimeout(function () {
       inputClear();
       inputFocus();
     }, 500);
-
   }
   GetEvents() {
     debugger;
@@ -615,21 +611,16 @@ export class AddnewCustomReportComponent implements OnInit {
           debugger;
           this.EventList = result.entity;
         }
-
       })
   }
-
   GetAllFields() {
     debugger;
     this.customfieldservice.GetCustomFields(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
-
       })).subscribe(result => {
         this.CustomFields = [];
         if (result.code == 200) {
           debugger;
-          // this.CustomFields = result.entity;
-
           this.tabulatorColumn.push({ columnDataType: "string", ColumnLabel: "Item Name", ColumnName: "partName", type: "", datatype: "string", width: "170" });
           this.tabulatorColumn.push({ columnDataType: "string", ColumnLabel: "Description", ColumnName: "partDescription", type: "", datatype: "string", width: "450" });
           this.tabulatorColumn.push({ columnDataType: "special", ColumnLabel: "Type of Event", ColumnName: "action", type: "", datatype: "special", width: "170" });
@@ -637,34 +628,12 @@ export class AddnewCustomReportComponent implements OnInit {
           this.tabulatorColumn.push({ columnDataType: "number", ColumnLabel: "Change in Qty", ColumnName: "transactionQtyChange", type: "", datatype: "number", width: "170" });
           this.tabulatorColumn.push({ columnDataType: "string", ColumnLabel: "location", ColumnName: "locationName", type: "", datatype: "string", width: "170" });
           this.tabulatorColumn.push({ columnDataType: "stringUom", ColumnLabel: "UOM", ColumnName: "uomName", type: "", datatype: "stringUom", width: "170" });
-
           if (result.entity != null) {
-
             this.myInventoryField = result.entity;
             this.myInventoryField.forEach(element => {
-
               this.tabulatorColumn.push({ customFieldSpecialType: element.customFieldSpecialType, columnDataType: element.dataType, ColumnLabel: element.columnLabel, ColumnName: element.columnName, type: element.customFieldType, datatype: element.dataType, width: "170" });
-
-
-
-
             });
           }
-
-
-          // const groupBySimple = this.groupBy(this.tabulatorColumn.type);
-          // groupBySimple("");
-          // this.tabulatorColumn.forEach(element => {
-          //   if (element.type == '') {
-          //     this.SimpleColumn.push(element)
-          //   }
-          //   if (element.type == 'CustomField') {
-          //     this.GroupCustomField.push(element)
-          //   }
-          // });
-
-          // const groupByCustom = this.groupBy("CustomField");
-          // groupBySimple("CustomField");
         }
       })
   }

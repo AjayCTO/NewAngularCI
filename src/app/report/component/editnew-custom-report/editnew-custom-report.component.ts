@@ -27,6 +27,7 @@ export class EditnewCustomReportComponent implements OnInit {
   public selectedTenantId: number;
   public EditMode: boolean
   error: string;
+  public myDT: Date;
   public toggleFilter: boolean;
   public busy: boolean;
   public columnFilters: any[] = [];
@@ -753,11 +754,35 @@ export class EditnewCustomReportComponent implements OnInit {
   }
 
   ApplyFilter(event) {
+    debugger;
     this.columnFilters.forEach(element => {
       if (element.ColumnLabel == event) {
         // element.ColumnDataType = element.datatype;
         element.isAdded = true;
         element.opentoggleDropdown = !element.opentoggleDropdown;
+        let map = new Map<string, any>();
+        element.ColumnValue = new Date(element.ColumnValue).toISOString()
+        if (element.datatype == "Date/Time") {
+          if (element.ColumnValue != "") {
+
+            this.myDT = new Date(element.ColumnValue)
+            let DateManual = this.myDT.toLocaleDateString();
+            if (element.customFieldSpecialType == "Time") {
+              DateManual = this.myDT.toLocaleTimeString()
+            }
+            if (element.customFieldSpecialType == "Date & Time") {
+              DateManual = this.myDT.toLocaleString();
+            }
+            if (element.customFieldSpecialType == "Date") {
+              DateManual = this.myDT.toLocaleDateString()
+            }
+            map.set(element.ColumnLabel, DateManual)
+            element.ColumnValue = DateManual
+          }
+          else {
+            map.set(element.ColumnLabel, element.columnValue);
+          }
+        }
       }
     });
 
