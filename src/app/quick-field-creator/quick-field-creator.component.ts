@@ -22,37 +22,36 @@ export class QuickFieldCreatorComponent implements OnInit {
 
   length: number = 0;
 
-  public AttributeField = [{ 'columnLabel': 'Color', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': 'Dropdown', 'isSelected': false },
-  { 'columnLabel': 'Size', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': 'Dropdown', 'isSelected': false },
-  { 'columnLabel': 'Brand', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': 'Dropdown', 'isSelected': false },
-  { 'columnLabel': 'Category', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': 'Dropdown', 'isSelected': false },
-  // { 'columnId': 5, 'columnLabel': 'Dimensions', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': '' },
-  { 'columnLabel': 'List Price', 'customFieldType': 'AttributeField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false },
-  { 'columnLabel': 'Manufacturer', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': '', 'isSelected': false },
-  { 'columnLabel': 'Material', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': '', 'isSelected': false },
-  { 'columnLabel': 'Model Number', 'customFieldType': 'AttributeField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false },
-  { 'columnLabel': 'Part Number', 'customFieldType': 'AttributeField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false },
-  { 'columnLabel': 'SKU', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': '', 'isSelected': false },
-  { 'columnLabel': 'Type', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': '', 'isSelected': false },
-  { 'columnLabel': 'UPC', 'customFieldType': 'AttributeField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false },
-  { 'columnLabel': 'Vendor', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': '', 'isSelected': false },
-  { 'columnLabel': 'Weight', 'customFieldType': 'AttributeField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false },
+  public AttributeField = [{ 'columnLabel': 'Color', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': 'Dropdown', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Size', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': 'Dropdown', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Brand', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': 'Dropdown', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Category', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': 'Dropdown', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'List Price', 'customFieldType': 'AttributeField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Manufacturer', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': '', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Material', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': '', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Model Number', 'customFieldType': 'AttributeField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Part Number', 'customFieldType': 'AttributeField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'SKU', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': '', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Type', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': '', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'UPC', 'customFieldType': 'AttributeField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Vendors', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': '', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Weight', 'customFieldType': 'AttributeField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false, 'isAdded': false },
   ]
 
-  public CustomField = [{ 'columnLabel': 'Purchase Order Number', 'customFieldType': 'CustomField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false },
-  { 'columnLabel': 'Purchase Date', 'customFieldType': 'CustomField', 'dataType': 'Date/Time', 'customFieldSpecialType': 'Date', 'isSelected': false },
-  { 'columnLabel': 'Sale Order Number', 'customFieldType': 'CustomField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false },
-  { 'columnLabel': 'Sale Date', 'customFieldType': 'CustomField', 'dataType': 'Date/Time', 'customFieldSpecialType': 'Date', 'isSelected': false },
-  { 'columnLabel': 'Sale Notes', 'customFieldType': 'CustomField', 'dataType': 'Text', 'customFieldSpecialType': 'OpenField', 'isSelected': false },
-  { 'columnLabel': 'Job Number', 'customFieldType': 'AttributeField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false },
-  { 'columnLabel': 'Vendor', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': 'OpenField', 'isSelected': false },
-  { 'columnLabel': 'Carrier', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': 'OpenField', 'isSelected': false },
-  { 'columnLabel': 'Customer', 'customFieldType': 'AttributeField', 'dataType': 'Text', 'customFieldSpecialType': 'OpenField', 'isSelected': false },
-  { 'columnLabel': 'Invoice Number', 'customFieldType': 'AttributeField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false },
-  { 'columnLabel': 'Order Number', 'customFieldType': 'AttributeField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false },
-  { 'columnLabel': 'Sale Price', 'customFieldType': 'AttributeField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false },
-  { 'columnLabel': 'Serial Number', 'customFieldType': 'AttributeField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false },
-  { 'columnLabel': 'Tracking Number', 'customFieldType': 'AttributeField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false },
+  public CustomField = [{ 'columnLabel': 'Purchase Order Number', 'customFieldType': 'CustomField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Purchase Date', 'customFieldType': 'CustomField', 'dataType': 'Date/Time', 'customFieldSpecialType': 'Date', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Sale Order Number', 'customFieldType': 'CustomField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Sale Date', 'customFieldType': 'CustomField', 'dataType': 'Date/Time', 'customFieldSpecialType': 'Date', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Sale Notes', 'customFieldType': 'CustomField', 'dataType': 'Text', 'customFieldSpecialType': 'OpenField', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Job Number', 'customFieldType': 'CustomField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Vendor', 'customFieldType': 'CustomField', 'dataType': 'Text', 'customFieldSpecialType': 'OpenField', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Carrier', 'customFieldType': 'CustomField', 'dataType': 'Text', 'customFieldSpecialType': 'OpenField', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Customer', 'customFieldType': 'CustomField', 'dataType': 'Text', 'customFieldSpecialType': 'OpenField', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Invoice Number', 'customFieldType': 'CustomField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Order Number', 'customFieldType': 'CustomField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Sale Price', 'customFieldType': 'CustomField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Serial Number', 'customFieldType': 'CustomField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false, 'isAdded': false },
+  { 'columnLabel': 'Tracking Number', 'customFieldType': 'CustomField', 'dataType': 'Number', 'customFieldSpecialType': 'Number', 'isSelected': false, 'isAdded': false },
   ]
 
 
@@ -246,7 +245,21 @@ export class QuickFieldCreatorComponent implements OnInit {
             debugger;
 
             this.AllFieldList = result.entity;
+            this.AllFieldList.forEach(elements => {
+              this.AttributeField.forEach(element => {
+                if (element.columnLabel == elements.columnLabel) {
+                  element.isAdded = true
+                }
 
+              });
+            });
+            this.AllFieldList.forEach(elements => {
+              this.CustomField.forEach(element => {
+                if (element.columnLabel == elements.columnLabel) {
+                  element.isAdded = true
+                }
+              });
+            });
           }
         }
       })
@@ -254,60 +267,41 @@ export class QuickFieldCreatorComponent implements OnInit {
 
 
   CreateFields() {
-    this.FieldCreation.forEach(element => {
-      if (element.customFieldBaseValue == null || element.customFieldIncrementBy == null) {
-        element.customFieldBaseValue = 0;
-        element.customFieldIncrementBy = 0;
-      }
-      if (element.customFieldType == 'AttributeField') {
-        this.customfieldservice.AddAttributeFields(element, this.selectedTenantId, this.authService.accessToken)
-          .pipe(finalize(() => {
-            // this.spinner.hide();
-          }))
-          .subscribe(
-            result => {
-              if (result) {
-                if (result.code == 200) {
 
 
-                  this.toastr.success("Your AttributeField  is Successfully add.");
 
-                }
-                else {
-                  this.toastr.warning(result.message);
-                }
-              }
-            },
-            error => {
-              this.error = error;
-              ;
-            });
-      }
-      else {
-        this.customfieldservice.AddCustomFields(element, this.selectedTenantId, this.authService.accessToken)
-          .pipe(finalize(() => {
-            // this.spinner.hide();
-          }))
-          .subscribe(
-            result => {
-              if (result) {
-                if (result.code == 200) {
+    this.customfieldservice.InsertQuickColumn(this.FieldCreation, this.selectedTenantId, this.authService.accessToken)
+      .pipe(finalize(() => {
+      }))
+      .subscribe(
+        result => {
+          if (result) {
+            if (result.code == 200) {
 
 
-                  this.toastr.success("Your custom field is Successfully add.");
+              this.toastr.success("Your Item  is Successfully add.");
+              this.GetAllFields();
 
-                }
-                else {
-                  this.toastr.warning(result.message);
-                }
-              }
-            },
-            error => {
-              this.error = error;
-              ;
-            });
-      }
-    });
-
+            }
+            else {
+              this.toastr.warning(result.message);
+            }
+          }
+        },
+        error => {
+          this.error = error;
+          ;
+        });
   }
+
+
+
+
+
+
+
+
+
+
+
 }

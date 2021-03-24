@@ -181,6 +181,23 @@ export class CustomFieldService extends BaseService {
     ));
   }
 
+  InsertQuickColumn(data: any, TenantId: number, token: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      })
+    };
+    return this.http.post(this.configService.resourceApiURI + '/api/CustomFields/InsertQuickColumn?TenantId=' + TenantId, data, httpOptions).pipe(map((response: {
+      message: string;
+      code: number;
+      entity: boolean;
+    }) => {
+      return response;
+    }
+    ));
+  }
+
   Deletecustomfield(id: number, tenantId, token: string) {
     const httpOptions = {
       headers: new HttpHeaders({

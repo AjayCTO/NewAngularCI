@@ -317,3 +317,8 @@ box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
 {
    cursor: move;
 }
+.button-group {
+    display: flex;
+     justify-content: left; 
+    padding: 1rem 0.5rem;
+}

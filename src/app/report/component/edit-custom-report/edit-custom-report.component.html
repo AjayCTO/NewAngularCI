@@ -354,14 +354,14 @@
                 </div>
             </div>
         </form>
-        <div class="button-group">
+        <div class="button-group" style="justify-content: left;">
             <button type="submit" (click)="EditReport()" [disabled]="!f.form.valid" class="button button--medium">Update
                 Report</button>
 
             <button type="button" class="button button--medium button--text-only" (click)="CloseEdit()">Cancel
             </button>
-            <button type="button" (click)="DeleteConfirm()" [disabled]="!f.form.valid"
-                class="button button--medium">Delete This
+            <button type="button" (click)="DeleteConfirm()" [disabled]="!f.form.valid" class="button button--medium"
+                style="background-color: red;">Delete This
                 Report</button>
         </div>
     </div>
