@@ -18,20 +18,6 @@
     </div>
     <div class="taskbar">
         <div class="taskbar__col">
-            <a data-modal="#DynamicEventModel" class="button button--medium button--icon button--theme02  js-modal">
-                <svg class="icon icon--theme01 icon--add" aria-labelledby="title-60549eadf0a44"
-                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
-                    <path fill="none" d="M0 0h48v48H0z"></path>
-                    <path d="M28 36v12h-8V28a8 8 0 00-8-8 16 16 0 0116 16z" fill="currentColor"
-                        class="icon__color--primary"></path>
-                    <path d="M20 28H0v-8h12a8 8 0 018 8z" fill="currentColor" class="icon__color--secondary">
-                    </path>
-                    <path d="M20 12V0h8v20a8 8 0 008 8 16 16 0 01-16-16z" fill="currentColor"
-                        class="icon__color--primary"></path>
-                    <path d="M28 20h20v8H36a8 8 0 01-8-8z" fill="currentColor" class="icon__color--secondary">
-                    </path>
-                </svg> Add Inventory
-            </a>
             <a (click)="clearConfirm(EventConfiguration)" class="button button--medium button--icon button--theme02"
                 style="background-color: #ff554d;">
                 <svg class="icon icon--theme01 icon--remove" aria-labelledby="title-60582342b3e93"
@@ -62,7 +48,10 @@
                         fill="currentColor" class="icon__color--primary"></path>
                 </svg> Back To Inventory
             </a>
-            <a data-modal="#ProceedModel" class="button button--medium button--icon button--theme01 js-modal">
+            <button data-modal="#ProceedModel"
+                *ngIf="EventConfiguration.eventQuantityAction=='Add'||EventConfiguration.eventQuantityAction=='Remove' ||EventConfiguration.eventQuantityAction=='Move'"
+                [disabled]=" InventoryTransactionObj.transactionQty==0||InventoryTransactionObj.transactionQty==null"
+                class="button button--medium button--icon button--theme01 js-modal">
                 Proceed
                 <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
@@ -73,7 +62,21 @@
                         d="M35.3 30.4l-18 13.8-4.9-6.3 16.4-12.6a6.7 6.7 0 001.4-1.5 7.6 7.6 0 001.7-4.8 8 8 0 00-3-6.3l6.4 5a8 8 0 010 12.7z"
                         fill="currentColor" class="icon__color--primary"></path>
                 </svg>
-            </a>
+            </button>
+            <button data-modal="#ProceedModel" *ngIf="EventConfiguration.eventQuantityAction=='Convert'"
+                [disabled]="InventoryTransactionObj.transactionQty==0||InventoryTransactionObj.transactionQty==null||InventoryTransactionObj.transactionQtyChange==0||InventoryTransactionObj.transactionQtyChange==null"
+                class="button button--medium button--icon button--theme01 js-modal">
+                Proceed
+                <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+                    <path fill="none" d="M0 0h48v48H0z"></path>
+                    <path d="M31.9 19a8 8 0 00-3-6.3h-.2L17.3 3.8l-4.9 6.3 5.2 4 12.6 9.7a7.6 7.6 0 001.7-4.8z"
+                        fill="currentColor" class="icon__color--secondary"></path>
+                    <path
+                        d="M35.3 30.4l-18 13.8-4.9-6.3 16.4-12.6a6.7 6.7 0 001.4-1.5 7.6 7.6 0 001.7-4.8 8 8 0 00-3-6.3l6.4 5a8 8 0 010 12.7z"
+                        fill="currentColor" class="icon__color--primary"></path>
+                </svg>
+            </button>
         </div>
     </div>
     <section class="main">
@@ -259,7 +262,7 @@
                                 <div class="table__heading-title">
                                     <div class="form__col-wrap">
                                         <div class="form__col form__col-group">
-                                            <div class="table__heading-options">
+                                            <div>
                                                 Action
                                             </div>
                                         </div>
@@ -299,9 +302,9 @@
                                     <div class="form__col">
                                         <label class="form__label form_label"
                                             for="Quantity_{{item.partId}}">Quantity</label>
-                                        <input id="input" class="form__input" [(ngModel)]="item.transactionQty"
-                                            type="number" id="Quantity_{{item.partId}}" name="Quantity_{{item.partId}}"
-                                            required>
+                                        <input id="input" class="form__input"
+                                            [(ngModel)]="InventoryTransactionObj.transactionQty" type="number"
+                                            id="Quantity_{{item.partId}}" name="Quantity_{{item.partId}}" required>
 
                                     </div>
                                 </td>
@@ -311,15 +314,17 @@
                                             for="Quantity_{{item.partId}}">Quantity</label>
                                         <input style="padding: 0 2.825rem;padding-left: 0px;" class="form__input"
                                             type="number" id="Quantity_{{item.partId}}"
-                                            [(ngModel)]="item.transactionQty" name="Quantity_{{item.partId}}" required>
+                                            [(ngModel)]="InventoryTransactionObj.transactionQty"
+                                            name="Quantity_{{item.partId}}" required>
                                         <span class="input-group-addon text Suffix">{{item.uomName}}</span>
                                     </div>
                                 </td>
                                 <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Convert'">
                                     <div class="form__col">
                                         <label class="form__label form_label" for="ConvertQuantity">Quantity</label>
-                                        <input class="form__input" type="number" [(ngModel)]="item.transactionQty"
-                                            id="ConvertQuantity" name="ConvertQuantity" required>
+                                        <input class="form__input" type="number"
+                                            [(ngModel)]="InventoryTransactionObj.transactionQty" id="ConvertQuantity"
+                                            name="ConvertQuantity" required>
                                         <span class="input-group-addon text Suffix">{{item.uomName}}</span>
 
 
@@ -330,6 +335,7 @@
                                         <label class="form__label form_label"
                                             for="Quantity1_{{item.partId}}">Quantity</label>
                                         <input class="form__input" type="text" id="Quantity1_{{item.partId}}"
+                                            [(ngModel)]="InventoryTransactionObj.transactionQtyChange"
                                             name="Quantity1_{{item.partId}}" required>
                                     </div>
                                 </td>
@@ -575,11 +581,11 @@
     </section>
     <section class="main">
         <div>
-
-            <!-- If processing the cart results in a statement with "0" Quantity, clear the statement. <br /> -->
             <div class="button-group" style="justify-content: start;">
 
-                <a class="button button--medium button--icon button--theme01 js-modal" data-modal="#ProceedModel">
+                <button
+                    [disabled]="InventoryTransactionObj.transactionQty==0||InventoryTransactionObj.transactionQty==null"
+                    class="button button--medium button--icon button--theme01 js-modal" data-modal="#ProceedModel">
                     Proceed
                     <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="23" height="23">
@@ -590,7 +596,7 @@
                             d="M35.3 30.4l-18 13.8-4.9-6.3 16.4-12.6a6.7 6.7 0 001.4-1.5 7.6 7.6 0 001.7-4.8 8 8 0 00-3-6.3l6.4 5a8 8 0 010 12.7z"
                             fill="currentColor" class="icon__color--primary"></path>
                     </svg>
-                </a>
+                </button>
                 <button (click)="cancleConfirm()" type="button" class="button button--medium button--text-only">Cancel
                 </button>
             </div>

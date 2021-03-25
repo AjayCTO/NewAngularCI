@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter, ViewChild, ElementRef, } from '@angular/core';
 import { getSeletectEvent, selectSelectedTenant, getSelectedCart } from 'src/app/store/selectors/tenant.selectors';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../../shared/appState';
@@ -23,6 +23,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./multiple-transaction.component.scss']
 })
 export class MultipleTransactionComponent implements OnInit {
+  @ViewChild('closeInventoryModal', { static: true }) closeInventoryModal: ElementRef<HTMLElement>;
   @Output() ClearConfirms = new EventEmitter();
   public EventConfiguration: any
   public cartDetails: any;
@@ -72,7 +73,7 @@ export class MultipleTransactionComponent implements OnInit {
     quantity: 1,
     uomName: "",
     locationName: "",
-    transactionQty: 1,
+    transactionQty: 0,
     transactionCostPerUnit: 0,
     transactionQtyChange: 0,
     avgCostPerUnit: 0,
@@ -179,8 +180,10 @@ export class MultipleTransactionComponent implements OnInit {
     this.CancleConfirm = false;
   }
   clearCart() {
-
-
+    debugger;
+    this.groupInventoryDetails = []
+    this.toastr.success("Cart Item Has Been Removed Successfully")
+    this.router.navigateByUrl('/CurrentInventory')
   }
   getLocationList() {
     this.libraryService.GetLocation(this.selectedTenantId, this.authService.accessToken)
@@ -224,6 +227,7 @@ export class MultipleTransactionComponent implements OnInit {
     this.CancleConfirm = true;
   }
   Save() {
+    debugger
     // if (this.EventConfiguration.eventQuantityAction == "Move") {
 
     //   if (this.TransactionTargetObj.ToLocation == "") {
@@ -272,9 +276,9 @@ export class MultipleTransactionComponent implements OnInit {
         quantity: element.quantity,
         uomName: element.uomName,
         locationName: element.locationName,
-        transactionQty: element.transactionQty,
+        // transactionQty: element.transactionQty,
         transactionCostPerUnit: element.transactionCostPerUnit,
-        transactionQtyChange: element.transactionQty,
+        // transactionQtyChange: this.InventoryTransactionObj.transactionQty,
         avgCostPerUnit: element.avgCostPerUnit,
         transactionActionId: this.EventConfiguration.id,
         inventoryId: element.inventoryId,
@@ -311,7 +315,10 @@ export class MultipleTransactionComponent implements OnInit {
     }
     this.currentinventoryService.DynamicMultipleInventoryTransaction(this.selectedTenantId, this.authService.accessToken, data).subscribe(res => {
       if (res.code = 200) {
-
+        this.toastr.success("your Transaction is done");
+        let el: HTMLElement = this.closeInventoryModal.nativeElement;
+        el.click();
+        this.router.navigateByUrl('/CurrentInventory')
 
         // this.groupInventoryDetails = res.entity.items;
         // this.loadingRecords = false;

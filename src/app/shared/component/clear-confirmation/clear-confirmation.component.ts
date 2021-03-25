@@ -13,8 +13,7 @@ export class ClearConfirmationComponent implements OnInit {
   ngOnInit(): void {
   }
   Confirm() {
-    // this.deleteCustom.emit();
-    // this.deleteCircumstance.emit();
+
     this.ClearConfirm.emit();
     this.close();
   }
