@@ -244,4 +244,11 @@ export class LocationLibraryComponent implements OnInit {
       this.GetLocation();
     }
   }
+  exportAsXLSX(): void {
+    let locationsList = [];
+    this.locations.forEach(element => {
+      locationsList.push({ "Location": element.locationName, "Description": element.description, "Location Group": element.locationZone });
+    });
+    this.libraryService.exportAsExcelFile(locationsList, "Location.xlsx",);
+  }
 }
