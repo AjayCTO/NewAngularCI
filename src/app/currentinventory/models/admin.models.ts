@@ -212,6 +212,16 @@ export class TransactionTarget {
     public ToUom: string;
     public ToUomId: number;
 }
+export class TransactionTargets {
+    public ToLocationId: number;
+    public ToConvertedQuantity: number;
+    public ToLocation: string;
+    public ToStatus: string;
+    public Cost: number;
+    public ToStatusId: number;
+    public ToUom: string;
+    public ToUomId: number;
+}
 export class InventoryTransactionViewModel {
     public partId: number;
     public tenantId: number;

@@ -60,6 +60,22 @@ export class CurrentinventoryService extends BaseService {
     }
     ));
   }
+  DynamicMultipleInventoryTransaction(TenantId: number, token: string, Data: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + token
+      })
+    };
+    return this.http.post(this.configService.resourceApiURI + '/api/DynamicEvent/DynamicMultipleInventoryTransaction?TenantId=' + TenantId, Data, httpOptions).pipe(map((response: {
+      message: string;
+      code: number;
+      entity: boolean;
+    }) => {
+      return response;
+    }
+    ));
+  }
 
 
   DynamicEventTransaction(TenantId: number, token: string, data: any) {

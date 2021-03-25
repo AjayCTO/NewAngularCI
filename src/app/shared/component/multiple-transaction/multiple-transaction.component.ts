@@ -12,7 +12,7 @@ import { LibraryService } from '../../../library/service/library.service';
 import { ToastrService } from 'ngx-toastr';
 import { CurrentinventoryService } from '../../../currentinventory/service/currentinventory.service'
 
-import { CurrentInventory, InventoryTransactionViewModel, TransactionTarget, ChangeStateFields, Tenant, DataColumnFilter } from '../../../currentinventory/models/admin.models'
+import { CurrentInventory, InventoryTransactionViewModel, TransactionTargets, ChangeStateFields, Tenant, DataColumnFilter } from '../../../currentinventory/models/admin.models'
 import { Router } from '@angular/router';
 import { SetSelectedTenant, SetSelectedTenantId, SetDefaultInventoryColumn, SetSelectedEvent, SetSelectedCart } from '../../../store/actions/tenant.action';
 import { CustomFieldService } from 'src/app/customfield/service/custom-field.service';
@@ -35,7 +35,7 @@ export class MultipleTransactionComponent implements OnInit {
   public uomList: any[];
   public ClearConfirm: boolean;
   public length: number = 0
-  public groupInventoryDetails: any;
+  public groupInventoryDetails: any[];
   public selectedUOm;
   public selectedLocation;
   public today: Date;
@@ -60,10 +60,36 @@ export class MultipleTransactionComponent implements OnInit {
     customFields: [],
     eventConfiguartion: null,
   }
-  TransactionTargetObj: TransactionTarget = {
+  InventoryTransactionObjList = [];
+  InventoryTransactionObj: any = {
+    partId: 0,
+    tenantId: 0,
+    uomId: 0,
+    locationId: 0,
+    costPerUnit: 0,
+    partName: "",
+    partDescription: "",
+    quantity: 1,
+    uomName: "",
+    locationName: "",
+    transactionQty: 1,
+    transactionCostPerUnit: 0,
+    transactionQtyChange: 0,
+    avgCostPerUnit: 0,
+    transactionActionId: 0,
+    inventoryId: 0,
+    statusValue: "",
+    attributeFields: [],
+    circumstanceFields: [],
+    stateFields: [],
+    customFields: [],
+  }
+  TransactionTargetObjList = [];
+  TransactionTargetObj: TransactionTargets = {
     ToLocationId: 0,
     ToConvertedQuantity: 0,
     ToLocation: "",
+    Cost: 0,
     ToStatus: "",
     ToStatusId: 0,
     ToUom: "",
@@ -113,11 +139,15 @@ export class MultipleTransactionComponent implements OnInit {
     debugger;
     this.commanService.getcartinventoryDetails(this.selectedTenantId, this.authService.accessToken, this.cartDetails).subscribe(res => {
       if (res) {
-
+        debugger;
+        this.groupInventoryDetails = [];
         this.groupInventoryDetails = res.entity.items;
         this.loadingRecords = false;
         this.length = res.entity.totalItems;
-        debugger;
+
+        this.groupInventoryDetails.forEach(element => {
+          element.customFieldsList = this.CustomFields;
+        });
       }
     })
   }
@@ -170,12 +200,111 @@ export class MultipleTransactionComponent implements OnInit {
         this.uomList = result.entity;
       })
   }
+  // Save() {
+  //   debugger;
+  //   this.groupInventoryDetails
+
+
+
+
+
+
+  //   this.currentinventoryService.DynamicMultipleInventoryTransaction(this.selectedTenantId, this.authService.accessToken, this.groupInventoryDetails).subscribe(res => {
+  //     if (res.code = 200) {
+  //       this.toastr.success("your cart is save")
+
+  //       // this.groupInventoryDetails = res.entity.items;
+  //       // this.loadingRecords = false;
+  //       // this.length = res.entity.totalItems;
+  //       // debugger;
+  //     }
+  //   })
+  // }
+  cancleConfirm() {
+    this.CancleConfirm = true;
+  }
   Save() {
+    // if (this.EventConfiguration.eventQuantityAction == "Move") {
+
+    //   if (this.TransactionTargetObj.ToLocation == "") {
+    //     this.toastr.warning("Location field is required");
+    //     return false;
+    //   }
+    //   if (this.InventoryTransactionObj.quantity < this.InventoryTransactionObj.transactionQty) {
+
+    //     this.toastr.warning("Change Quantity Greater Then Actual Quantity");
+    //     return false;
+
+    //   }
+    //   if (this.InventoryTransactionObj.locationName.toLowerCase() == this.TransactionTargetObj.ToLocation.toLowerCase()) {
+
+    //     this.toastr.warning("Please move these states to a different location.");
+    //     return false;
+    //   }
+
+    // }
+    // if (this.EventConfiguration.eventQuantityAction == "Convert") {
+    //   if (this.InventoryTransactionObj.quantity < this.InventoryTransactionObj.transactionQty) {
+
+    //     this.toastr.warning("Change Quantity Greater Then Actual Quantity");
+    //     return false;
+    //   }
+    //   if (this.InventoryTransactionObj.uomId == this.TransactionTargetObj.ToUomId) {
+    //     this.toastr.error("Please convert the states to a different unit of measure.", "UNITS OF MEASURE HAVE NOT CHANGED")
+    //     return false;
+    //   }
+
+    // }
+    this.spinner.show();
+
     debugger;
-    this.groupInventoryDetails
-    this.commanService.savecartinventoryDetails(this.selectedTenantId, this.authService.accessToken, this.cartDetails).subscribe(res => {
+    this.groupInventoryDetails.forEach(element => {
+
+
+      this.InventoryTransactionObj = {
+        partId: element.partId,
+        tenantId: this.selectedTenantId,
+        uomId: element.uomId,
+        locationId: element.locationId,
+        costPerUnit: element.costPerUnit,
+        partName: element.partName,
+        partDescription: element.partDescription,
+        quantity: element.quantity,
+        uomName: element.uomName,
+        locationName: element.locationName,
+        transactionQty: element.transactionQty,
+        transactionCostPerUnit: element.transactionCostPerUnit,
+        transactionQtyChange: element.transactionQty,
+        avgCostPerUnit: element.avgCostPerUnit,
+        transactionActionId: this.EventConfiguration.id,
+        inventoryId: element.inventoryId,
+        statusValue: "",
+        attributeFields: element.attributeFields,
+        circumstanceFields: [],
+        stateFields: [],
+        customFields: element.customFieldsList,
+        transactionDate: this.today
+      }
+      this.InventoryTransactionObjList.push(this.InventoryTransactionObj);
+    });
+
+    // this.InventoryTransactionObj.transactionQtyChange = this.InventoryTransactionObj.transactionQty;
+    // this.InventoryTransactionObj.customFields = this.CustomFields;
+    // this.InventoryTransactionObj.tenantId = this.selectedTenantId;
+    // if (this.TransactionTargetObj.ToUomId == null) {
+    //   this.TransactionTargetObj.ToUomId = 0;
+    // }
+    // else {
+    //   this.TransactionTargetObj.ToUomId = JSON.parse(this.TransactionTargetObj.ToUomId.toString())
+    // }
+    let data = {
+      TransactionList: this.InventoryTransactionObjList,
+      TargetsList: this.TransactionTargetObjList,
+      EventConfiguration: this.EventConfiguration,
+    }
+    this.currentinventoryService.DynamicMultipleInventoryTransaction(this.selectedTenantId, this.authService.accessToken, data).subscribe(res => {
       if (res.code = 200) {
-        this.toastr.success("your cart is save")
+
 
         // this.groupInventoryDetails = res.entity.items;
         // this.loadingRecords = false;
@@ -183,12 +312,6 @@ export class MultipleTransactionComponent implements OnInit {
         // debugger;
       }
     })
-  }
-  cancleConfirm() {
-    this.CancleConfirm = true;
-  }
-  SaveTrasaction(data) {
-    debugger;
     //  if()
   }
 
@@ -201,16 +324,21 @@ export class MultipleTransactionComponent implements OnInit {
       })).subscribe(result => {
         this.CustomFields = [];
         if (result.code == 200) {
-
+          let obj = JSON.parse(this.EventConfiguration.circumstanceJsonString);
           this.CustomFields = result.entity;
           this.CustomFields.forEach(element => {
             if (element.comboBoxValue != "") {
               element.comboBoxArray = JSON.parse(element.comboBoxValue);
             }
+            element.customFieldIncludeOnDynamicEvent = obj[element.columnName];
           });
           this.ApplyJsFunction();
         }
       })
+  }
+
+  customTrackBy(index: number, obj: any): any {
+    return index;
   }
 
 }
