@@ -295,7 +295,7 @@ export class MultipleTransactionComponent implements OnInit {
         ToStatus: "",
         ToStatusId: 0,
         ToUom: "",
-        ToUomId: null,
+        ToUomId: 0,
       }
       this.InventoryTransactionObjList.push(this.InventoryTransactionObj);
     });
