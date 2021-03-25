@@ -13,6 +13,7 @@ import inputFocus from '../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../assets/js/lib/_inputClear';
 import modal from '../../../../assets/js/lib/_modal';
 import datePicker from '../../../../assets/js/lib/_datePicker';
+import * as XLSX from 'xlsx';
 import action from '../../../../assets/js/lib/_action';
 import trigger from '../../../../assets/js/lib/_trigger';
 import dropdown from '../../../../assets/js/lib/_dropdown';
@@ -21,7 +22,7 @@ import { Form, FormBuilder, FormGroup, FormControl, Validators } from '@angular/
 import { AttributeFields } from '../../../customfield/models/customfieldmodel';
 import { Router, Routes } from '@angular/router';
 import { Workbook } from 'exceljs';
-
+import jsPDF from 'jspdf';
 import * as fs from 'file-saver';
 import {
   DateTimeAdapter,
@@ -49,8 +50,11 @@ export class ItemLibraryComponent implements OnInit {
   public error: string;
   public selecteditem: any = [];
   public busy: boolean;
+  fileName = 'ExcelSheet.xlsx';
+  public allInventoryItems
   public DeleteConfirmPopup: boolean;
   public myInventoryField: Observable<any>;
+  public ImportDataBind: any
   public tabulatorColumn: any = [];
   public Itemlist: any;
   public ColumnDataType: string;
@@ -188,7 +192,7 @@ export class ItemLibraryComponent implements OnInit {
     this.GetMyInventoryColumn();
 
     this.ApplyJsFunction();
-    // this.ApplyDropdown();
+
   }
 
   get f() { return this.partformControl.controls; }
@@ -205,7 +209,7 @@ export class ItemLibraryComponent implements OnInit {
       statusId: null,
       attributeFields: []
     }
-    // this.partformControl.reset();
+
     let el: HTMLElement = this.AddLocationClose.nativeElement;
     el.click();
     let el1: HTMLElement = this.AddAttributeClose.nativeElement;
@@ -309,13 +313,9 @@ export class ItemLibraryComponent implements OnInit {
     let headerRow = worksheet.addRow(header);
   }
 
-  // ApplyDropdown() {
-  //   setTimeout(() => {
-  //     dropdown();
-  //   }, 1500);
-  // }
+
   onOptionsSelected(event) {
-    // send selected value
+
 
     this.tabulatorColumn.forEach(element => {
 
@@ -334,12 +334,12 @@ export class ItemLibraryComponent implements OnInit {
   ClearAllFilter() {
     this.FilterArray = [];
     this.searchFilterText = "";
-    // window.location.reload();
+
     this.GetParts();
 
   }
   onOptionsSelected2(event) {
-    // send selected value
+
 
     this.tabulatorColumn.forEach(element => {
 
@@ -357,42 +357,6 @@ export class ItemLibraryComponent implements OnInit {
   }
   ApplyFilter() {
 
-    //     if (this.dataColumnFilter.columnName == "" || this.dataColumnFilter.filterOperator == "" || this.dataColumnFilter.searchValue == "") {
-    //       return false;
-    //     }
-
-    //     this.FilterArray.forEach((element, index) => {
-
-    //       if (element.columnName == this.dataColumnFilter.columnName) {
-    //         // return false;
-    //         this.toastr.warning("This coloum name already in filter");
-
-    //       }
-
-    //     });
-    //     this.tabulatorColumn.forEach(element => {
-    //       if (element.field == this.dataColumnFilter.columnName) {
-    //         this.dataColumnFilter.displayName = element.title;
-    //         this.dataColumnFilter.type = element.type;
-    //         element.inFilter = true;
-    //         this.mainToggleDropdown = !this.mainToggleDropdown;
-    //       }
-    //     });
-    //     this.FilterArray.push(this.dataColumnFilter);
-    //     if (this.dataColumnFilter.type == "AttributeField" || this.dataColumnFilter.type == "StateField") {
-    //       this.dataColumnFilter.columnName = "$." + this.dataColumnFilter.columnName;
-    //     }
-    //     this.ColumnDataTypeSpecial = '';
-    //     this.dataColumnFilter = {
-    //       columnName: "",
-    //       displayName: "",
-    //       filterOperator: "",
-    //       searchValue: "",
-    //       type: ""
-    //     }
-    //     document.getElementById("filterButton").click();
-
-    // ========
     if (this.dataColumnFilter.columnName == "" || this.dataColumnFilter.filterOperator == "" || this.dataColumnFilter.searchValue == "") {
       return false;
     }
@@ -430,20 +394,7 @@ export class ItemLibraryComponent implements OnInit {
       type: ""
     }
     this.mainToggleDropdown = false;
-
-
-
-
-
-
-
-
-
-    // this.CloseFilter();
     this.GetParts();
-
-
-
   }
   RemoveFilter(data) {
     debugger
@@ -465,13 +416,6 @@ export class ItemLibraryComponent implements OnInit {
   }
   CloseFilter() {
     this.mainToggleDropdown = !this.mainToggleDropdown;
-
-    // document.getElementById("filterButton").click();
-
-    // let el: HTMLElement = this.filterChange.nativeElement;
-    // el.click();
-
-    // window.location.reload();
   }
   ApplyFilter2(columnName) {
     this.dataColumnFilter.columnName = columnName;
@@ -515,18 +459,6 @@ export class ItemLibraryComponent implements OnInit {
     }
     document.getElementById("filterButton2_" + columnName).click();
 
-
-
-
-
-
-
-
-
-
-
-    // document.getElementById("filterButton3_" + columnName).click();
-    // document.getElementById("filterButton3_" + Id).click();
     this.GetParts();
 
   }
@@ -594,7 +526,6 @@ export class ItemLibraryComponent implements OnInit {
         }
       }
     });
-    // this.convertToString()
     this.partForm.attributeFields = this.AttributeFields;
     if (this.partForm.highQtyThreshold == null) {
       this.partForm.highQtyThreshold = 0;
@@ -684,11 +615,10 @@ export class ItemLibraryComponent implements OnInit {
 
             if (element.customFieldBaseValue != 0) {
               this.partformControl.get("" + element.columnId + "").setValue(element.customFieldBaseValue);
-              // element.columnValue = element.customFieldBaseValue;
             }
             if (element.dataType == "Date/Time") {
               this.partformControl.get("" + element.columnId + "").setValue(new Date(element.columnValue));
-              // element.columnValue = new Date(element.columnValue)
+
             }
 
           });
@@ -843,7 +773,7 @@ export class ItemLibraryComponent implements OnInit {
     this.libraryService.getAllPartWithPaging(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, this.pageSize, sortCol, sortDir, this.searchFilterText, this.FilterArray)
       .pipe(finalize(() => {
 
-        //this.spinner.hide();
+
       })).subscribe(result => {
 
 
@@ -1150,5 +1080,128 @@ export class ItemLibraryComponent implements OnInit {
     datepicker.close();
   }
 
+
+  //  =========  Download File ========
+  Download(type) {
+
+    let sortCol = "PartName";
+    let sortDir = "asc";
+    debugger;
+    this.libraryService.getAllPartWithPaging(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, this.pageSize, sortCol, sortDir, this.searchFilterText, this.FilterArray)
+      .pipe(finalize(() => {
+
+
+      })).subscribe(result => {
+
+        debugger;
+        this.loadingRecords = false;
+        this.ImportDataBind = [];
+        this.allItems = [];
+
+        this.allItems = result.entity.parts;
+        this.length = result.entity.totalParts;
+
+        for (let i = 0; i < this.allItems.length; i++) {
+          let map = new Map<string, any>();
+          for (let j = 0; j < this.tabulatorColumn.length; j++) {
+
+            let keys = Object.keys(this.allItems[i])
+            for (let key = 0; key < keys.length; key++) {
+
+              if (keys[key] == this.tabulatorColumn[j].field) {
+
+                map.set(this.tabulatorColumn[j].title, this.allItems[i][keys[key]])
+              }
+
+            }
+            for (let k = 0; k < this.allItems[i].attributeFields.length; k++) {
+              if (this.allItems[i].attributeFields[k].columnName == this.tabulatorColumn[j].field) {
+                map.set(this.tabulatorColumn[j].title, this.allItems[i].attributeFields[k].columnValue)
+              }
+            }
+            for (let k = 0; k < this.allItems[i].attributeFields.length; k++) {
+
+              if (this.allItems[i].attributeFields[k].columnName == this.tabulatorColumn[j].field) {
+
+                if (this.tabulatorColumn[j].datatype == "Date/Time") {
+                  if (this.allItems[i].attributeFields[k].columnValue != "") {
+                    this.myDT = new Date(this.allItems[i].attributeFields[k].columnValue)
+                    let DateManual = this.myDT.toLocaleDateString();
+                    if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
+                      DateManual = this.myDT.toLocaleTimeString()
+                    }
+                    if (this.tabulatorColumn[j].customFieldSpecialType == "Date & Time") {
+                      DateManual = this.myDT.toLocaleString();
+                    }
+                    if (this.tabulatorColumn[j].customFieldSpecialType == "Date") {
+                      DateManual = this.myDT.toLocaleDateString()
+                    }
+                    map.set(this.tabulatorColumn[j].title, DateManual)
+                  }
+                  else {
+                    map.set(this.tabulatorColumn[j].title, this.allItems[i].attributeFields[k].columnValue)
+                  }
+                }
+
+              }
+            }
+          }
+
+          let jsonObject = {};
+          map.forEach((value, key) => {
+            jsonObject[key] = value
+          });
+
+          this.ImportDataBind.push(jsonObject);
+        }
+        if (type == "Excel")
+          this.downloadFile(this.ImportDataBind);
+        else
+          this.openPDF(this.ImportDataBind);
+      });
+  }
+  downloadFile(data) {
+
+    /* table id is passed over here */
+    let element = data;
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(element);
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
+  }
+  public openPDF(Data) {
+
+    let headColumn = Object.keys(Data[0])
+    let head = []
+    let data = [];
+    data.push(Data);
+    head.push(headColumn);
+    var doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.text('My PDF Table', 11, 8);
+    doc.setFontSize(11);
+    doc.setTextColor(100);
+
+
+
+    (doc as any).autoTable({
+      body: Data,
+      theme: 'plain',
+      didDrawCell: data => {
+        console.log(data.column.index)
+      }
+    })
+
+    // Open PDF document in new tab
+    doc.output('dataurlnewwindow')
+
+    // Download PDF document  
+    doc.save('table.pdf');
+  }
 }
 

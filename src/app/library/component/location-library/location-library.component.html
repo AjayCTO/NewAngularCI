@@ -5,7 +5,7 @@
 
         </div>
         <div class="actions__wrap">
-            <div class="icons__item">
+            <div (click)="exportAsXLSX()" class="icons__item">
                 <div class="icons__icon"><svg class="icon icon--theme01 icon--download"
                         aria-labelledby="title-5f7c9ac573e4a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
                         width="48" height="48">
@@ -40,57 +40,7 @@
             </button>
         </div>
         <app-location-modal (RefreshLocation)="GetLocation()"></app-location-modal>
-        <!--  <app-add-location *ngIf="addLocation" (loadLocation)="GetLocation()" (hideClose)="getValue($event)"> </app-add-location> -->
 
-
-        <!-- <div id="locationModal" class="smallModal" role="dialog" aria-labelledby="dialog-title"
-            aria-describedby="dialog-description" tabindex="-1" hidden="">
-            <div class="invModal__head">
-                <h1 class="invModal__title">Add New Location</h1>
-            </div>
-            <div class="invModal__body">
-
-                <form class="form" [formGroup]="locationForm" (ngSubmit)="onSubmit()">
-                    <div class="form__section">
-                        <div class="form__col-wrap">
-                            <div class="form__col form__col--half"
-                                [ngClass]="{ 'form__col--error': submitted && f.locationName.errors}">
-                                <label class="form__label" for="locationNameFormcontrol">Location Name<span
-                                        class="form__required">*</span></label>
-                                <input class="form__input" formControlName="locationName" type="text"
-                                    id="locationNameFormcontrol" name="locationNameFormcontrol">
-                                <ng-container *ngIf="submitted && f.locationName.errors"> <span
-                                        *ngIf="f.locationName.errors.required" class="form__error-message">This field is
-                                        required</span></ng-container>
-                            </div>
-                        </div>
-                        <div class="form__col-wrap">
-                            <div class="form__col form__col--half">
-                                <label class="form__label" for="descriptionFormcontrol">Description</label>
-                                <input class="form__input" type="text" id="descriptionFormcontrol"
-                                    name="descriptionFormcontrol" formControlName="description">
-                            </div>
-                        </div>
-                        <div class="form__col-wrap">
-                            <div class="form__col form__col--half">
-                                <label class="form__label" for="locationZoneFormcontrol">Location Group</label>
-                                <input class="form__input" type="text" id="locationZoneFormcontrol"
-                                    name="locationZoneFormcontrol" formControlName="locationZone">
-                            </div>
-                        </div>
-                        <div class="form__col-wrap">
-                            <div class="button-group">
-                                <button type="submit" class="button button--medium">Add</button>
-                                <button type="button" (click)="onReset()"
-                                    class="button button--medium button--text-only" data-close="#locationModal"
-                                    id="Closebtn">Cancel
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div> -->
 
 
     </div>

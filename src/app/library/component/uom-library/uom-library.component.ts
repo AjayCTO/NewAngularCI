@@ -11,6 +11,7 @@ import inputFocus from '../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../assets/js/lib/_inputClear';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, Routes } from '@angular/router';
+
 @Component({
   selector: 'app-uom-library',
   templateUrl: './uom-library.component.html',
@@ -25,6 +26,7 @@ export class UOMLibraryComponent implements OnInit {
   public selectedId: number;
   loadingRecords = false;
   UOMlist: any;
+  excel = [];
   public NotPermitted: boolean = false;
   error: string;
   busy: boolean;
@@ -44,7 +46,7 @@ export class UOMLibraryComponent implements OnInit {
     private authService: AuthService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    debugger;
+
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     // this.showForm = false;
 
@@ -60,7 +62,7 @@ export class UOMLibraryComponent implements OnInit {
   get f() { return this.uomForm.controls; }
 
   OpenMenu(item) {
-    debugger;
+
     this.UOMs = { uomId: 0, uomName: '' };
     this.UOMlist.forEach(element => {
       if (item.uomId != element.uomId)
@@ -76,7 +78,7 @@ export class UOMLibraryComponent implements OnInit {
     item.isActive = false;
   }
   GetUOM() {
-    debugger;
+
     this.addUom = false;
     this.istableloaded = false;
     this.loadingRecords = true;
@@ -85,7 +87,7 @@ export class UOMLibraryComponent implements OnInit {
         this.busy = false;
         this.spinner.hide();
       })).subscribe(result => {
-        debugger;
+
         if (result.code == 403) {
           this.router.navigateByUrl('/notPermited');
         }
@@ -99,7 +101,7 @@ export class UOMLibraryComponent implements OnInit {
         this.UOMlist.forEach(element => {
           element.isActive = false;
         });
-        debugger;
+
         this.istableloaded = true;
         this.cdr.markForCheck();
         modal();
@@ -115,7 +117,7 @@ export class UOMLibraryComponent implements OnInit {
       }))
       .subscribe(
         result => {
-          debugger;
+
           if (result.code == 403) {
             this.toast.warning(result.message);
           }
@@ -133,9 +135,9 @@ export class UOMLibraryComponent implements OnInit {
         });
   }
   onSubmit() {
-    debugger;
+
     if (this.EditUOMMode) {
-      debugger;
+
       this.libraryService.EditUom(this.selectedTenantId, this.UOMs.uomId, this.UOMs, this.authService.accessToken)
         .pipe(finalize(() => {
 
@@ -184,7 +186,7 @@ export class UOMLibraryComponent implements OnInit {
 
 
   DeleteConfirm(item) {
-    debugger;
+
     this.selectedId = item.uomId;
     this.deleteUom = true;
   }
@@ -204,7 +206,7 @@ export class UOMLibraryComponent implements OnInit {
     this.GetUOM();
   }
   gotoNext() {
-    debugger;
+
     this.lastPageIndex = this.length / this.pageSize;
     this.lastPageIndex = parseInt(this.lastPageIndex.toString())
     if (this.pageIndex != this.lastPageIndex) {
@@ -217,6 +219,14 @@ export class UOMLibraryComponent implements OnInit {
       this.pageIndex = this.pageIndex - 1;
       this.GetUOM();
     }
+  }
+
+  exportAsXLSX(): void {
+    let UomList = [];
+    this.UOMlist.forEach(element => {
+      UomList.push({ "Unit of Measure Name": element.uomName });
+    });
+    this.libraryService.exportAsExcelFile(UomList, "uom.xlsx");
   }
 
 }

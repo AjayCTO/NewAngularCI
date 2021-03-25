@@ -640,7 +640,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         });
   }
   Download(type) {
-
+    debugger;
     let sortCol = "PartName";
     let sortDir = "asc";
     let GlobelFilter = {
@@ -650,7 +650,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.currentinventoryService.GetCurrentInventory(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, this.pageSize, sortCol, sortDir, this.searchFilterText, this.showSelected, GlobelFilter)
       .pipe(finalize(() => {
       })).subscribe(result => {
-
+        debugger;
         this.ImportDataBind = [];
         this.allInventoryItems = [];
         this.allInventoryItems = result.entity.items;
