@@ -283,7 +283,15 @@ export class MultipleTransactionComponent implements OnInit {
         circumstanceFields: [],
         stateFields: [],
         customFields: element.customFieldsList,
-        transactionDate: this.today
+        transactionDate: this.today,
+        ToLocationId: 0,
+        ToConvertedQuantity: 0,
+        ToLocation: "",
+        Cost: 0,
+        ToStatus: "",
+        ToStatusId: 0,
+        ToUom: "",
+        ToUomId: null,
       }
       this.InventoryTransactionObjList.push(this.InventoryTransactionObj);
     });
@@ -299,7 +307,6 @@ export class MultipleTransactionComponent implements OnInit {
     // }
     let data = {
       TransactionList: this.InventoryTransactionObjList,
-      TargetsList: this.TransactionTargetObjList,
       EventConfiguration: this.EventConfiguration,
     }
     this.currentinventoryService.DynamicMultipleInventoryTransaction(this.selectedTenantId, this.authService.accessToken, data).subscribe(res => {
