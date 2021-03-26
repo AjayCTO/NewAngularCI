@@ -12,7 +12,7 @@ import { LibraryService } from '../../../library/service/library.service';
 import { ToastrService } from 'ngx-toastr';
 import { CurrentinventoryService } from '../../../currentinventory/service/currentinventory.service'
 
-import { CurrentInventory, InventoryTransactionViewModel, TransactionTargets, ChangeStateFields, Tenant, DataColumnFilter } from '../../../currentinventory/models/admin.models'
+import { CurrentInventory, InventoryTransactionViewModel, TransactionTargets, ChangeStateFields, Tenant, DataColumnFilter, Item } from '../../../currentinventory/models/admin.models'
 import { Router } from '@angular/router';
 import { SetSelectedTenant, SetSelectedTenantId, SetDefaultInventoryColumn, SetSelectedEvent, SetSelectedCart } from '../../../store/actions/tenant.action';
 import { CustomFieldService } from 'src/app/customfield/service/custom-field.service';
@@ -276,9 +276,9 @@ export class MultipleTransactionComponent implements OnInit {
         quantity: element.quantity,
         uomName: element.uomName,
         locationName: element.locationName,
-        // transactionQty: element.transactionQty,
+        transactionQty: element.transactionQty,
         transactionCostPerUnit: element.transactionCostPerUnit,
-        // transactionQtyChange: this.InventoryTransactionObj.transactionQty,
+        transactionQtyChange: element.transactionQtyChange,
         avgCostPerUnit: element.avgCostPerUnit,
         transactionActionId: this.EventConfiguration.id,
         inventoryId: element.inventoryId,
@@ -290,7 +290,7 @@ export class MultipleTransactionComponent implements OnInit {
         transactionDate: this.today,
         ToLocationId: 0,
         ToConvertedQuantity: 0,
-        ToLocation: "",
+        ToLocation: element.ToLocation,
         Cost: 0,
         ToStatus: "",
         ToStatusId: 0,

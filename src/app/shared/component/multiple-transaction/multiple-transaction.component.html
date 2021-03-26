@@ -64,7 +64,6 @@
                 </svg>
             </button>
             <button data-modal="#ProceedModel" *ngIf="EventConfiguration.eventQuantityAction=='Convert'"
-                [disabled]="InventoryTransactionObj.transactionQty==0||InventoryTransactionObj.transactionQty==null||InventoryTransactionObj.transactionQtyChange==0||InventoryTransactionObj.transactionQtyChange==null"
                 class="button button--medium button--icon button--theme01 js-modal">
                 Proceed
                 <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
@@ -302,9 +301,9 @@
                                     <div class="form__col">
                                         <label class="form__label form_label"
                                             for="Quantity_{{item.partId}}">Quantity</label>
-                                        <input id="input" class="form__input"
-                                            [(ngModel)]="InventoryTransactionObj.transactionQty" type="number"
-                                            id="Quantity_{{item.partId}}" name="Quantity_{{item.partId}}" required>
+                                        <input id="input" class="form__input" [(ngModel)]="item.transactionQty"
+                                            type="number" id="Quantity_{{item.partId}}" name="Quantity_{{item.partId}}"
+                                            required>
 
                                     </div>
                                 </td>
@@ -314,17 +313,15 @@
                                             for="Quantity_{{item.partId}}">Quantity</label>
                                         <input style="padding: 0 2.825rem;padding-left: 0px;" class="form__input"
                                             type="number" id="Quantity_{{item.partId}}"
-                                            [(ngModel)]="InventoryTransactionObj.transactionQty"
-                                            name="Quantity_{{item.partId}}" required>
+                                            [(ngModel)]="item.transactionQty" name="Quantity_{{item.partId}}" required>
                                         <span class="input-group-addon text Suffix">{{item.uomName}}</span>
                                     </div>
                                 </td>
                                 <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Convert'">
                                     <div class="form__col">
                                         <label class="form__label form_label" for="ConvertQuantity">Quantity</label>
-                                        <input class="form__input" type="number"
-                                            [(ngModel)]="InventoryTransactionObj.transactionQty" id="ConvertQuantity"
-                                            name="ConvertQuantity" required>
+                                        <input class="form__input" type="number" [(ngModel)]="item.transactionQty"
+                                            id="ConvertQuantity" name="ConvertQuantity" required>
                                         <span class="input-group-addon text Suffix">{{item.uomName}}</span>
 
 
@@ -335,8 +332,8 @@
                                         <label class="form__label form_label"
                                             for="Quantity1_{{item.partId}}">Quantity</label>
                                         <input class="form__input" type="text" id="Quantity1_{{item.partId}}"
-                                            [(ngModel)]="InventoryTransactionObj.transactionQtyChange"
-                                            name="Quantity1_{{item.partId}}" required>
+                                            [(ngModel)]="item.transactionQtyChange" name="Quantity1_{{item.partId}}"
+                                            required>
                                     </div>
                                 </td>
                                 <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Convert'">
@@ -361,8 +358,8 @@
                                         <label class="form__label form_label"
                                             for="Location_{{item.inventoryId}}">Location
                                         </label>
-                                        <input class="form__input" type="text" id="Location_{{item.inventoryId}}"
-                                            name="Location_{{item.inventoryId}}">
+                                        <input class="form__input" type="text" [(ngModel)]="item.ToLocation"
+                                            id="Location_{{item.inventoryId}}" name="Location_{{item.inventoryId}}">
                                     </div>
                                 </td>
                                 <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Add'">
@@ -583,9 +580,7 @@
         <div>
             <div class="button-group" style="justify-content: start;">
 
-                <button
-                    [disabled]="InventoryTransactionObj.transactionQty==0||InventoryTransactionObj.transactionQty==null"
-                    class="button button--medium button--icon button--theme01 js-modal" data-modal="#ProceedModel">
+                <button class="button button--medium button--icon button--theme01 js-modal" data-modal="#ProceedModel">
                     Proceed
                     <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="23" height="23">
