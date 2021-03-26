@@ -278,7 +278,7 @@ export class MultipleTransactionComponent implements OnInit {
         locationName: element.locationName,
         transactionQty: element.transactionQty,
         transactionCostPerUnit: element.transactionCostPerUnit,
-        transactionQtyChange: element.transactionQtyChange,
+        transactionQtyChange: element.transactionQty,
         avgCostPerUnit: element.avgCostPerUnit,
         transactionActionId: this.EventConfiguration.id,
         inventoryId: element.inventoryId,
@@ -351,7 +351,7 @@ export class MultipleTransactionComponent implements OnInit {
       })
   }
 
-  customTrackBy(index: number, obj: any): any {
+  trackByIndex(index: number, value: any) {
     return index;
   }
 

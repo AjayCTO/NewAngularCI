@@ -1679,12 +1679,14 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       if (this.InventoryDataBind[i].isSelected) {
         let AddIndex = this.InventoryIds.indexOf(this.InventoryDataBind[i].inventoryId)
         if (AddIndex == -1) {
+          this.InventoryIds = Object.assign([], this.InventoryIds);
           this.InventoryIds.push(this.InventoryDataBind[i].inventoryId);
         }
       }
       else {
         let RemoveIndex = this.InventoryIds.indexOf(this.InventoryDataBind[i].inventoryId)
         if (RemoveIndex != -1) {
+          this.InventoryIds = Object.assign([], this.InventoryIds);
           this.InventoryIds.splice(RemoveIndex, 1);
         }
       }
