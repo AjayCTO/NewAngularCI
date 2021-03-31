@@ -251,8 +251,6 @@ export class AddCustomReportComponent implements OnInit {
         this.CustomFields = [];
         if (result.code == 200) {
           debugger;
-          // this.CustomFields = result.entity;
-
           this.tabulatorColumn.push({ title: "Item Name", field: "partName", type: "", datatype: "string", width: "170" });
           this.tabulatorColumn.push({ title: "Description", field: "partDescription", type: "", datatype: "string", width: "450" });
           this.tabulatorColumn.push({ title: "Type of Event", field: "action", type: "", datatype: "special", width: "170" });
@@ -296,7 +294,6 @@ export class AddCustomReportComponent implements OnInit {
       toggle();
       inputClear();
       inputFocus();
-      // datePicker();
     }, 500)
   }
 
@@ -342,6 +339,7 @@ export class AddCustomReportComponent implements OnInit {
 
       if (result.code == 200) {
         this.router.navigate(['/report/event-report']);
+
       }
     }))
   }

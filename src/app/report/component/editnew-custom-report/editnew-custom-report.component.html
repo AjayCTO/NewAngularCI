@@ -73,13 +73,13 @@
             <div style="flex-direction: row;">
                 <div>
                     <div class="actions" style="margin-left: -52px;" *ngIf="EditMode">
-                        <div class="actions__title" style="margin-top: 22px; margin-left: -206px;">
+                        <div class="actions__title" style="margin-top: 22px;">
                             <h1 style="color: #0b0c0c;"> Edit Current Inventory Report </h1>
                         </div>
                     </div>
                     <br />
                     <form class="form" #f="ngForm" style="margin:0px;display: flex;"
-                        style="margin:0px;display: flex; margin-left: -203px; margin-top: -17px;">
+                        style="margin:0px;display: flex;  margin-top: -17px;">
                         <div class="form__col--two-third">
                             <div class="form__section" style="width: 343px;">
                                 <h2 class="form__section-title"
@@ -116,7 +116,7 @@
 
             </div>
             <div class="card-body" droppable (onDrop)="onItemDrop($event)" [dragOverClass]="'drag-target-border'"
-                style="margin-left: -203px; margin-top: -61px;">
+                style="margin-top: -61px;">
 
 
                 <div cdkDropList class="form__col form__col--second" (cdkDropListDropped)="drop($event)">
@@ -153,11 +153,11 @@
                         </div> <br />
                         <ng-contaier *ngIf="itemHeader.Datatype!='button'" style="display: flex;margin-left: 12px;">
 
-                            <button type="button" style="margin-left: 5px;margin-right: 5px; cursor: pointer;"
+                            <button (click)='toggleGlobalDropDown(itemHeader.ColumnLabel)' type="button"
+                                style="margin-left: 5px;margin-right: 5px; cursor: pointer;"
                                 class="icons__item icons__item--theme07 icons__item--outline icons__item"
                                 id="filterButton2_{{itemHeader.ColumnLabel}}">
-                                <div class="icons__icon" (click)='toggleGlobalDropDown(itemHeader.ColumnLabel)'><svg
-                                        class="icon-simple icon-simple--theme01 icon-simple--add"
+                                <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
                                         aria-labelledby="title-6026203de0166" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24" width="24" height="24">
                                         <path fill="none" d="M0 0h24v24H0z"></path>
@@ -823,8 +823,9 @@
                             <div class="card icons icons--horziontal icons--size01"
                                 style="overflow: visible !important; padding: 0px; ">
 
-                                <button type="button" style="cursor: pointer;" class="icons__item icons__item--outline">
-                                    <div class=" icons__icon" (click)='toggleGlobalDropDown1(itemHeader.ColumnLabel)'>
+                                <button (click)='toggleGlobalDropDown1(itemHeader.ColumnLabel)' type="button"
+                                    style="cursor: pointer;" class="icons__item icons__item--outline">
+                                    <div class=" icons__icon">
                                         <svg class="icon-simple icon-simple--theme01 icon-simple--add"
                                             aria-labelledby="title-5f7cd7ce12c36" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 24 24" width="24" height="24">
@@ -970,8 +971,8 @@
                 </div>
 
             </div>
-            <div class="button-group" style="margin-left: -203px; "><button type="submit" (click)="EditReport()"
-                    [disabled]="!f.form.valid" class="button button--medium">Update
+            <div class="button-group"><button type="submit" (click)="EditReport()" [disabled]="!f.form.valid"
+                    class="button button--medium">Update
                     Report</button>
                 <button _ngcontent-eoq-c89="" type="button" data-trigger=".table__button-group .icons__item.is-active"
                     class="button button--medium button--text-only " (click)="Cancel()">Cancel

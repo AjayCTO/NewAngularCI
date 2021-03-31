@@ -1,19 +1,26 @@
 <app-clear-confirmation *ngIf="ClearConfirm" (ClearConfirm)="clearCart()" (hideClose)="deleteValue($event)">
 </app-clear-confirmation>
-<app-cancel-confirmation *ngIf="CancleConfirm" (cancle)="cancel()" (hideClose)="cancelValue($event)">
+<app-cancel-confirmation *ngIf="CancleConfirm" (cancle)="cancel()" (ClearCart)="clearCart()"
+    (hideClose)="cancelValue($event)">
 
 </app-cancel-confirmation>
 <ng-container>
     <div class="actions">
         <div class="actions__title">
             <h1><b>Process Cart</b> </h1>
-        </div>
-        <div class="actions__wrap" *ngIf="EventConfiguration!=undefined">
-            {{EventConfiguration.eventName}}<br />
-            Total Items- {{length}}
+            <ng-container>
+                <div class="icons icons--size02 icons--horziontal action-view-border">
+                    <div *ngIf="EventConfiguration!=undefined">
+                        <b> {{EventConfiguration.eventName}}</b>
 
-
+                    </div>
+                    <div class="icons icons--size02 icons--horziontal action-view-border" style="height: 24px;">
+                        Total Items- {{length}}
+                    </div>
+                </div>
+            </ng-container>
         </div>
+
 
     </div>
     <div class="taskbar">
@@ -60,19 +67,7 @@
                         fill="currentColor" class="icon__color--primary"></path>
                 </svg>
             </button>
-            <button data-modal="#ProceedModel" *ngIf="EventConfiguration.eventQuantityAction=='Convert'"
-                class="button button--medium button--icon button--theme01 js-modal">
-                Proceed
-                <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
-                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
-                    <path fill="none" d="M0 0h48v48H0z"></path>
-                    <path d="M31.9 19a8 8 0 00-3-6.3h-.2L17.3 3.8l-4.9 6.3 5.2 4 12.6 9.7a7.6 7.6 0 001.7-4.8z"
-                        fill="currentColor" class="icon__color--secondary"></path>
-                    <path
-                        d="M35.3 30.4l-18 13.8-4.9-6.3 16.4-12.6a6.7 6.7 0 001.4-1.5 7.6 7.6 0 001.7-4.8 8 8 0 00-3-6.3l6.4 5a8 8 0 010 12.7z"
-                        fill="currentColor" class="icon__color--primary"></path>
-                </svg>
-            </button>
+
         </div>
     </div>
     <section class="main">
@@ -369,16 +364,17 @@
                                     </div>
                                 </td>
 
-                                <ng-container
-                                    *ngFor="let field of item.customFieldsList; let i = index; trackBy:trackByIndex">
+                                <ng-container *ngFor="let field of item.customFieldsList; let i = index;">
                                     <ng-container *ngIf="field.customFieldIncludeOnDynamicEvent">
                                         <td class="table__cell">
                                             <div class="form__col"
                                                 [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''">
 
                                                 <label class="form__label" *ngIf="field.dataType!='True/False'"
-                                                    for="Circustance_{{field.columnId}}_{{item.inventoryId}}"
-                                                    [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>='4' ? 'prefixLabel3':'']">{{field.columnLabel}}<span
+                                                    for="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                    [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>='4' ? 'prefixLabel3':'']">{{
+                                                    (field.columnLabel.length>5)? (field.columnLabel |
+                                                    slice:0:5)+'...':(field.columnLabel)}}<span
                                                         *ngIf="field.customFieldIsRequired"
                                                         class="form__required">*</span></label>
                                                 <span class="form__group-outer-label"
@@ -402,8 +398,8 @@
 
                                                     <ng-container *ngIf="field.customFieldSpecialType=='Dropdown'">
                                                         <select class="floating-select"
-                                                            id="Circustance_{{field.columnId}}_{{item.inventoryId}}"
-                                                            name="Circustance_{{field.columnId}}_{{item.inventoryId}}"
+                                                            id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                            name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
                                                             [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
                                                             required="required">
                                                             <option value=""></option>
@@ -430,9 +426,9 @@
                                                                 </p>
                                                             </popper-content>
                                                             <input type="text" [required]="field.customFieldIsRequired"
-                                                                id="Circustance_{{field.columnId}}_{{item.inventoryId}}"
+                                                                id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
                                                                 [ngClass]="[field.customFieldPrefix.length=='1' ? 'Addon':''||field.customFieldPrefix.length=='2'?'Addon1':''||field.customFieldPrefix.length=='3'?'Addon2':''||field.customFieldPrefix.length>='4'?'Addon3':'']"
-                                                                name="Circustance_{{field.columnId}}_{{item.inventoryId}}"
+                                                                name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
                                                                 [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
                                                                 class="form__input">
                                                             <span *ngIf="field.customFieldSuffix"
@@ -441,16 +437,16 @@
                                                         <ng-container
                                                             *ngIf="!field.customFieldSuffix&&!field.customFieldPrefix">
                                                             <input type="text" [required]="field.customFieldIsRequired"
-                                                                id="Circustance_{{field.columnId}}_{{item.inventoryId}}"
-                                                                name="Circustance_{{field.columnId}}_{{item.inventoryId}}"
+                                                                id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                                name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
                                                                 [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
                                                                 class="form__input">
                                                         </ng-container>
                                                     </ng-container>
                                                     <ng-container *ngIf="field.customFieldSpecialType==''">
                                                         <input type="text" [required]="field.customFieldIsRequired"
-                                                            id="Circustance_{{field.columnId}}_{{item.inventoryId}}"
-                                                            name="Circustance_{{field.columnId}}_{{item.inventoryId}}"
+                                                            id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                            name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
                                                             [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
                                                             class="form__input">
                                                     </ng-container>
@@ -459,8 +455,8 @@
                                                     <ng-container *ngIf="field.customFieldSpecialType=='Number'">
                                                         <input type="{{field.dataType}}"
                                                             [required]="field.customFieldIsRequired"
-                                                            id="Circustance_{{field.columnId}}_{{item.inventoryId}}"
-                                                            name="Circustance_{{field.columnId}}_{{item.inventoryId}}"
+                                                            id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                            name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
                                                             [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
                                                             class="form__input">
                                                     </ng-container>
@@ -469,8 +465,8 @@
                                                         <span class="input-group-addon text">$</span>
                                                         <input type="{{field.dataType}}"
                                                             [required]="field.customFieldIsRequired"
-                                                            id="Circustance_{{field.columnId}}_{{item.inventoryId}}"
-                                                            name="Circustance_{{field.columnId}}_{{item.inventoryId}}"
+                                                            id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                            name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
                                                             [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
                                                             class="form__input">
                                                     </ng-container>
@@ -488,8 +484,8 @@
                                                         *ngIf="field.customFieldSpecialType=='Date'||field.customFieldSpecialType==''">
                                                         <input class="form__input" [owlDateTimeTrigger]="dt1"
                                                             placeholder="Select Date"
-                                                            id="Circustance_{{field.columnId}}_{{item.inventoryId}}"
-                                                            name="Circustance_{{field.columnId}}_{{item.inventoryId}}"
+                                                            id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                            name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
                                                             [required]="field.customFieldIsRequired"
                                                             [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
                                                             [owlDateTime]="dt1">
@@ -499,8 +495,8 @@
                                                     <ng-container *ngIf="field.customFieldSpecialType=='Date & Time'">
                                                         <input class="form__input" [owlDateTimeTrigger]="dt1"
                                                             [required]="field.customFieldIsRequired"
-                                                            id="Circustance_{{field.columnId}}_{{item.inventoryId}}"
-                                                            name="Circustance_{{field.columnId}}_{{item.inventoryId}}"
+                                                            id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                            name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
                                                             [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
                                                             [owlDateTime]="dt1">
                                                         <owl-date-time #dt1>
@@ -510,8 +506,8 @@
                                                         <input [owlDateTimeTrigger]="dt4" class="form__input"
                                                             placeholder="select Date andTime"
                                                             [required]="field.customFieldIsRequired"
-                                                            id="Circustance_{{field.columnId}}_{{item.inventoryId}}"
-                                                            name="Circustance_{{field.columnId}}_{{item.inventoryId}}"
+                                                            id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                            name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
                                                             [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
                                                             [owlDateTime]="dt4">
                                                         <owl-date-time [pickerType]="'timer'" #dt4>

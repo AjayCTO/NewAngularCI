@@ -311,7 +311,7 @@ export class AddnewCustomReportComponent implements OnInit {
       inputClear();
       inputFocus();
       // datePicker();
-    }, 2500)
+    }, 250)
   }
   onOptionsSelected2(obj, event) {
     this.tabulatorColumn3.forEach(element => {
@@ -754,7 +754,9 @@ export class AddnewCustomReportComponent implements OnInit {
 
       if (result.code == 200) {
         this.toastr.success("your report is Added")
-        this.router.navigate(['/report/event-report']);
+        this.router.navigateByUrl("/report/event-report");
+        localStorage.setItem("ReportCustomTitle", this.customreport.reportTitle)
+
       }
     }))
   }

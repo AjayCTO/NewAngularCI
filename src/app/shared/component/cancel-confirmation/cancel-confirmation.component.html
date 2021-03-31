@@ -13,8 +13,11 @@
                                     <p>Keep it so I can complete it later.</p>
                                 </div>
                                 <div>
-
+                                    <button style="cursor: pointer; background-color: green;" type="button"
+                                        (click)=" KeepCart()" class="button button--medium button">Keep Cart
+                                    </button>
                                 </div>
+
                             </div>
                         </div>
                         <div class="card2">
@@ -23,7 +26,9 @@
                                     <p>Clear the cart of all items; I don't need it.</p>
                                 </div>
                                 <div>
-
+                                    <button style="cursor: pointer; background-color: red;" type="button"
+                                        (click)="clearCart() " class="button button--medium button">Clear Cart
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -33,7 +38,9 @@
                                     <p>Return to Cart so I can complete it now.</p>
                                 </div>
                                 <div>
-
+                                    <button style="cursor: pointer;" type="button" (click)="close()"
+                                        class="button button--medium button">Return to cart
+                                    </button>
                                 </div>
                             </div>
                         </div>

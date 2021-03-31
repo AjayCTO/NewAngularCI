@@ -107,6 +107,33 @@ export class CommanSharedService extends BaseService {
       return response;
     }
     ));
+
+  }
+
+  UpdateTenantConfiguration(TenantId: number, token: string, Id: number, data) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "bearer " + token
+      })
+    };
+    return this.http.put(this.configService.resourceApiURI + '/api/Tenant/UpdateTenantConfiguration?TenantId=' + TenantId + '&Id=' + Id, data, httpOptions).pipe(map((response: {
+      message: string;
+      code: number;
+      entity: boolean;
+    }) => {
+      return response;
+    }
+    ));
+  }
+  GetTenantConfiguration(TenantId: number, token: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + token
+      })
+    };
+    return this.http.get<IApiResponse>(this.configService.resourceApiURI + '/api/Tenant/GetTenantConfiguration?TenantId=' + TenantId, httpOptions).pipe(catchError(this.handleError));
   }
 
 

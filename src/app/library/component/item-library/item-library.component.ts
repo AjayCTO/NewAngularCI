@@ -498,6 +498,7 @@ export class ItemLibraryComponent implements OnInit {
   }
 
   onSubmit() {
+    debugger;
 
     this.submitted = true;
     if (this.partformControl.invalid) {
@@ -699,13 +700,14 @@ export class ItemLibraryComponent implements OnInit {
 
       if (result.entity != null) {
         this.myInventoryField = result.entity;
+        debugger;
         // this.tabulatorColumn.push({ title: "Item Name", field: "partName", type: "", datatype: "string", width: "170" });
         // this.tabulatorColumn.push({ title: "Description", field: "partDescription", type: "", datatype: "string", width: "450" });
         // this.tabulatorColumn.push({ title: "Default Location", field: "locationName", type: "", datatype: "string", width: "170" });
         // this.tabulatorColumn.push({ title: " Defualt UOM", field: "uomName", type: "", datatype: "stringUom", width: "170" });
         this.myInventoryField.forEach(element => {
           if (element.customeFieldType == "AttributeField" || element.customeFieldType == "") {
-            this.tabulatorColumn.push({ title: element.columnLabel, field: element.columnName, type: element.customeFieldType, datatype: element.dataType, customFieldSpecialType: element.customFieldSpecialType, width: "170" });
+            this.tabulatorColumn.push({ title: element.columnLabel, field: element.columnName, type: element.customeFieldType, datatype: element.dataType, customFieldSpecialType: element.customFieldSpecialType, width: element.columnWidth });
           }
         });
         this.item = result.entity;
@@ -775,7 +777,7 @@ export class ItemLibraryComponent implements OnInit {
 
 
       })).subscribe(result => {
-
+        debugger
 
         if (result.code == 403) {
           this.router.navigateByUrl('/notPermited');
@@ -1087,7 +1089,7 @@ export class ItemLibraryComponent implements OnInit {
     let sortCol = "PartName";
     let sortDir = "asc";
     debugger;
-    this.libraryService.getAllPartWithPaging(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, this.pageSize, sortCol, sortDir, this.searchFilterText, this.FilterArray)
+    this.libraryService.getAllPartWithPaging(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, 2000, sortCol, sortDir, this.searchFilterText, this.FilterArray)
       .pipe(finalize(() => {
 
 

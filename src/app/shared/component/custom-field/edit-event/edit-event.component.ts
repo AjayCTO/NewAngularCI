@@ -279,6 +279,16 @@ export class EditEventComponent implements OnInit {
                   event.component.columnId = this.getcustomFieldResult.columnId;
                   event.component.columnName = this.getcustomFieldResult.columnName;
                   event.component.isNew = false;
+                  // event.form.components.forEach(element => {
+                  //   element.components.forEach(elements => {
+                  //     elements.key = this.getcustomFieldResult.columnName;
+                  //     elements.columnId = this.getcustomFieldResult.columnId;
+                  //     elements.columnName = this.getcustomFieldResult.columnName;
+                  //     elements.isNew = false;
+                  //   });
+                  // });
+
+
                   if (event.form) {
                     this.newFormCopy = event.form;
                   }

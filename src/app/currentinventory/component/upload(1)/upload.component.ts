@@ -195,4 +195,7 @@ export class UploadComponent implements OnInit {
     el.click();
 
   }
+  HideUploadActivity() {
+    window.location.reload();
+  }
 }

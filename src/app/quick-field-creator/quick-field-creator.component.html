@@ -24,20 +24,19 @@
                             <ng-container>
                                 <div class="form__col-wrap">
                                     <div class="form__col form__col--second" *ngFor="let item of AttributeField">
-                                        <div class="form__group form__group--checkbox">
-
-
-
-                                            <input *ngIf="item.isAdded==false" (click)="createField(item)"
-                                                id="AttributeField{{item.columnLabel}}" class="form__checkbox"
-                                                type="checkbox" name="AttributeField{{item.columnLabel}}">
-                                            <input *ngIf="item.isAdded==true" readonly
-                                                id="AttributeField{{item.columnLabel}}"
-                                                disabled="{ isAdded ? true : false}" class="form__checkbox"
-                                                type="checkbox" name="AttributeField{{item.columnLabel}}" checked>
-
-                                            <label class="form__group-label"
-                                                for="AttributeField{{item.columnLabel}}">{{item.columnLabel}}</label>
+                                        <div class="form__col form__col-group">
+                                            <div class="form__group form__group--checkbox">
+                                                <input type="checkbox" class="form__checkbox"
+                                                    id="AttributeField{{item.columnLabel}}"
+                                                    name="AttributeField{{item.columnLabel}}"
+                                                    (click)="createField(item)" />
+                                                <input type="checkbox" *ngIf="item.isAdded==true"
+                                                    disabled="{ isAdded ? true : false}" class="form__checkbox"
+                                                    id="AttributeField{{item.columnLabel}}"
+                                                    name="AttributeField{{item.columnLabel}}" checked />
+                                                <label class="form__group-label"
+                                                    for="AttributeField{{item.columnLabel}}">{{item.columnLabel}}</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -134,16 +133,19 @@
                             <ng-container>
                                 <div class="form__col-wrap">
                                     <div class="form__col form__col--second" *ngFor="let item of CustomField">
-                                        <div class="form__group form__group--checkbox">
-                                            <input *ngIf="item.isAdded==false" id="CustomField{{item.columnLabel}}"
-                                                class="form__checkbox" (click)="createField(item)" type="checkbox"
-                                                name="CustomField{{item.columnLabel}}">
-                                            <input *ngIf="item.isAdded==true" id="CustomField{{item.columnLabel}}"
-                                                class="form__checkbox" disabled="{ isAdded ? true : false}"
-                                                type="checkbox" name="CustomField{{item.columnLabel}}" checked>
-
-                                            <label class="form__group-label"
-                                                for="CustomField{{item.columnLabel}}">{{item.columnLabel}}</label>
+                                        <div class="form__col form__col-group">
+                                            <div class="form__group form__group--checkbox">
+                                                <input *ngIf="item.isAdded==false" type="checkbox"
+                                                    class="form__checkbox" id="CustomField{{item.columnLabel}}"
+                                                    name="CustomField{{item.columnLabel}}"
+                                                    (click)="createField(item)" />
+                                                <input type="checkbox" *ngIf="item.isAdded==true"
+                                                    disabled="{ isAdded ? true : false}" class="form__checkbox"
+                                                    id="CustomField{{item.columnLabel}}"
+                                                    name="CustomField{{item.columnLabel}}" checked />
+                                                <label class="form__group-label"
+                                                    for="CustomField{{item.columnLabel}}">{{item.columnLabel}}</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

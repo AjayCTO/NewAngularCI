@@ -410,6 +410,7 @@ export class FalseComponent implements OnInit {
         this.spinner.hide();
       })).subscribe(result => {
         this.CustomFields = [];
+        debugger;
         if (result.code == 403) {
           // this.NotPermitted = true;
         }
@@ -421,7 +422,7 @@ export class FalseComponent implements OnInit {
             this.CustomFields = result.entity;
 
             this.CustomFields.forEach(element => {
-              if (element.dataType == "Text" && element.customFieldSpecialType == "OpenField") {
+              if (element.dataType == "Text") {
                 debugger;
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,
@@ -449,7 +450,7 @@ export class FalseComponent implements OnInit {
                 };
 
               }
-              if (element.dataType == "Number" && element.customFieldSpecialType == "Number") {
+              if ((element.dataType == "Number" && element.customFieldSpecialType == "") || (element.dataType == "Number" && element.customFieldSpecialType == "Number")) {
                 debugger;
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,
@@ -510,7 +511,7 @@ export class FalseComponent implements OnInit {
                 };
 
               }
-              if (element.dataType == "Date/Time" && element.customFieldSpecialType == "Date") {
+              if ((element.dataType == "Date/Time" && element.customFieldSpecialType == "") || (element.dataType == "Date/Time" && element.customFieldSpecialType == "Date")) {
                 debugger;
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,

@@ -98,11 +98,9 @@ export class ConfigurationSummaryComponent implements OnInit {
 
   public Features: any = {
     restocking: false,
-    costTrcking: false,
-    list: false,
-    automatedItems: false
-  }
-  public ManageSetting: any = {
+    costTracking: false,
+    componentList: false,
+    automatedItems: false,
     TimeZone: "",
     defaultQuantity: false,
     LowQuantityThreshold: false,
@@ -114,12 +112,14 @@ export class ConfigurationSummaryComponent implements OnInit {
     private commanService: CommanSharedService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
+    debugger;
     this.Edit = false
     this.store.pipe(select(selectSelectedTenantId)).
       subscribe(TenantId => {
         if (TenantId) {
           debugger;
           this.selectedTenantId = TenantId;
+
         }
         this.cdr.detectChanges();
       });
@@ -136,6 +136,7 @@ export class ConfigurationSummaryComponent implements OnInit {
     this.GetCustomFields();
     this.GetAttributeFields();
     this.GetMyInventoryColumns();
+    this.GetTenantConfiguration()
     setTimeout(() => {
       inputClear();
       inputFocus();
@@ -226,80 +227,34 @@ export class ConfigurationSummaryComponent implements OnInit {
 
   }
 
-  // binding function of settings
-  selcted(data) {
-    debugger;
-    if (data == 'cosTracking') {
-      if (this.Features.costTrcking == false) {
-        this.Features.costTrcking = true
-      }
-      else {
-        this.Features.costTrcking = false
-      }
-    }
-    if (data == 'restocking') {
-      if (this.Features.restocking == false) {
-        this.Features.restocking = true
-      }
-      else {
-        this.Features.restocking = false
-      }
+  // Save Configration Summary Settings Function
+  saveConfigration() {
+    debugger
+    this.commanService.UpdateTenantConfiguration(this.selectedTenantId, this.authService.accessToken, 2, this.Features).pipe(finalize(() => {
 
-    }
-    if (data == 'list') {
-      if (this.Features.list == false) {
-        this.Features.list = true
+    })).subscribe(
+      result => {
+        if (result.code == 200) {
+          // this.toastr.success("Your Setting is Updated");
+        }
       }
-      else {
-        this.Features.list = false
-      }
-
-    }
-    if (data == 'automatedItems') {
-      if (this.Features.automatedItems == false) {
-        this.Features.automatedItems = true
-      }
-      else {
-        this.Features.automatedItems = false
-      }
-
-    }
-    if (data == 'defaultQuantity1') {
-      if (this.ManageSetting.defaultQuantity == false) {
-        this.ManageSetting.defaultQuantity = true
-      }
-      else {
-        this.ManageSetting.defaultQuantity = false
-      }
-
-    }
-    if (data == 'LowQuantityThreshold') {
-      if (this.ManageSetting.LowQuantityThreshold == false) {
-        this.ManageSetting.LowQuantityThreshold = true
-      }
-      else {
-        this.ManageSetting.LowQuantityThreshold = false
-      }
-
-    }
-    if (data == 'negativeQuantity') {
-      if (this.ManageSetting.negativeQuantity == false) {
-        this.ManageSetting.negativeQuantity = true
-      }
-      else {
-        this.ManageSetting.negativeQuantity = false
-      }
-
-    }
-    if (data == 'QuantityRechesZero') {
-      if (this.ManageSetting.QuantityRechesZero == false) {
-        this.ManageSetting.QuantityRechesZero = true
-      }
-      else {
-        this.ManageSetting.QuantityRechesZero = false
-      }
-
-    }
+    )
   }
+
+
+  GetTenantConfiguration() {
+    debugger;
+    this.commanService.GetTenantConfiguration(this.selectedTenantId, this.authService.accessToken,).pipe(finalize(() => {
+
+    })).subscribe(
+      result => {
+        if (result.code == 200) {
+          this.Features = result.entity
+        }
+      }
+    )
+
+  }
+
 
 }

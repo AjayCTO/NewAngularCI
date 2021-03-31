@@ -161,12 +161,15 @@
 
                             <label class="form__label" *ngIf="field.dataType!='True/False'"
                                 for="Circustance_{{field.columnId}}"
-                                [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>='4' ? 'prefixLabel3':'']">{{field.columnLabel}}<span
-                                    *ngIf="field.customFieldIsRequired" class="form__required">*</span></label>
+                                [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>='4' ? 'prefixLabel3':'']">{{
+                                (field.columnLabel.length>5)? (field.columnLabel |
+                                slice:0:9)+'...':(field.columnLabel)}}<span *ngIf="field.customFieldIsRequired"
+                                    class="form__required">*</span></label>
                             <span class="form__group-outer-label" *ngIf="field.dataType=='True/False'">{{
                                 (field.columnLabel.length>5)? (field.columnLabel |
                                 slice:0:5)+'...':(field.columnLabel)}}
                                 :</span>
+
                             <ng-container *ngIf="field.dataType=='Text'">
 
                                 <ng-container *ngIf="field.customFieldSpecialType=='Autocomplete'">

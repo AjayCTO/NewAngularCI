@@ -44,6 +44,7 @@ export class EventReportComponent implements OnInit {
   public searchFilterText: string;
   public selectReport: number;
   public busy: boolean;
+  public report: any
   public creatReportOpen = false;
   public uomList: any[];
   public startDate: string;
@@ -95,6 +96,10 @@ export class EventReportComponent implements OnInit {
   ngOnInit(): void {
     this.searchFilterText = "";
     this.selectedRepotTitle = "Default Event";
+    if (localStorage.getItem("ReportCustomTitle") != undefined) {
+      this.selectedRepotTitle = localStorage.getItem("ReportCustomTitle");
+      localStorage.removeItem("ReportCustomTitle");
+    }
     this.store.pipe(select(selectSelectedTenantId)).
       subscribe(eventId => {
         if (eventId) {
@@ -109,6 +114,7 @@ export class EventReportComponent implements OnInit {
     this.GetEvents();
     this.getCustomreportList();
     this.GetMyInventoryColumn();
+    this.SelectedNewCustomReport();
     // this.GetCustomFields();
     this.getUOMList();
     setTimeout(function () {
@@ -153,7 +159,7 @@ export class EventReportComponent implements OnInit {
           ColumnDataType: "",
           type: ""
         }
-        this.tabulatorColumn.push({ title: element.ColumnLabel, field: element.ColumnName, type: element.Type, ColumnOperator: element.ColumnOperator, customFieldSpecialType: element.CustomFieldSpecialType, datatype: element.Datatype, width: "170" });
+        this.tabulatorColumn.push({ title: element.ColumnLabel, field: element.ColumnName, type: element.Type, ColumnOperator: element.ColumnOperator, customFieldSpecialType: element.CustomFieldSpecialType, datatype: element.Datatype, width: element.Width });
         if (element.ColumnValue != "" && element.ColumnValue != null) {
           this.dataColumnFilter.columnName = element.Type == '' ? element.ColumnName : "$." + element.ColumnName;
           this.dataColumnFilter.displayName = element.ColumnLabel;
@@ -492,6 +498,24 @@ export class EventReportComponent implements OnInit {
     this.pageIndex = parseInt(this.pageIndex.toString())
     // this.GetCurrentInventory();
     // this.ApplyJsFunction();
+  }
+  UpdateSelectedReport() {
+    debugger;
+    this.EditReport = false;
+    this.showDropDown = !this.showDropDown;
+    this.reportService.GetCustomReportList(this.selectedTenantId, this.authService.accessToken).subscribe((result => {
+      if (result.code == 200) {
+        debugger;
+        this.ReportList = result.entity;
+        this.ReportList.forEach(element => {
+          if (element.reportTitle == this.selectedRepotTitle) {
+            this.report = element
+            this.SelectedReport(this.report)
+          }
+        }
+        )
+      }
+    }))
   }
   gotoNext() {
     debugger
@@ -907,7 +931,21 @@ export class EventReportComponent implements OnInit {
     // this.mainToggleDropdown = false;
     // document.getElementById("filterButton2_" + Id).click();
   }
-
+  SelectedNewCustomReport() {
+    this.reportService.GetCustomReportList(this.selectedTenantId, this.authService.accessToken).subscribe((result => {
+      if (result.code == 200) {
+        debugger;
+        this.ReportList = result.entity;
+        this.ReportList.forEach(element => {
+          if (element.reportTitle == this.selectedRepotTitle) {
+            this.report = element
+            this.SelectedReport(this.report)
+          }
+        }
+        )
+      }
+    }))
+  }
   CloseFilter1() {
     this.mainToggleDropdown = false;
   }

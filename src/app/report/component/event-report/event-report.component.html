@@ -1,8 +1,16 @@
 <div class="actions" *ngIf="!EditReport">
     <div class="actions__title">
 
-        <h1> <strong>{{selectedRepotTitle}} </strong></h1>
+        <h1> <strong> Report </strong></h1>
+        <ng-container>
+            <div class="icons icons--size02 icons--horziontal action-view-border">
+                <div>
+                    <b> {{selectedRepotTitle}}</b>
 
+                </div>
+
+            </div>
+        </ng-container>
         <div class="icons icons--horziontal icons--size02">
 
             <button type="button" *ngIf="ReportList!=undefined && ReportList.length!=0"
@@ -48,21 +56,10 @@
             </button>
 
             &nbsp;&nbsp;
-
-            <!-- <button type="button" routerLink="/AddNewReport" class="icons__item icons__item--outline">
-                <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
-                        aria-labelledby="title-5ffe9d5ebbc1a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                        width="24" height="24">
-                        <path fill="none" d="M0 0h24v24H0z"></path>
-                        <path fill="currentColor" d="M0 10h24v4H0z"></path>
-                        <path fill="currentColor" d="M14 0v24h-4V0z"></path>
-                    </svg></div>
-
-            </button> -->
-            <button [popper]="'Add New Event Report'" routerLink="/AddNewReport" [popperTrigger]="'hover'"
-                [popperPlacement]="'right'" style="height:40px ;width:40px;border-radius: 1.75rem;" type="button"
+            <button routerLink="/AddNewReport" style="height:40px ;width:40px;border-radius: 1.75rem;" type="button"
                 data-modal="#innerModal2332" class=" js-modal button button--small  button--theme02 button--text-only">
-                <svg class="icon icon--theme01 icon--add" style="margin-left: -15px;"
+                <svg [popper]="'Add New Event Report'" [popperTrigger]="'hover'" [popperPlacement]="'top'"
+                    class="icon icon--theme01 icon--add" style="margin-left: -15px;"
                     aria-labelledby="title-5f83f10fae696" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
                     width="48" height="18">
                     <path fill="none" d="M0 0h48v48H0z"></path>
@@ -99,7 +96,7 @@
                             fill="currentColor" class="icon__color--primary"></path>
                     </svg></div>
                 <span class="icons__label">Download</span>
-                <ul class="icons__submenu icons__submenu--from-left">
+                <ul class="icons__submenu icons__submenu--from-right">
 
                     <li class="icons__submenu-item icons__submenu--1-item icons__submenu-item--parent"><a
                             (click)="Download('pdf')" class="icons__submenu-link">Download as pdf </a>
@@ -112,7 +109,7 @@
                 </ul>
             </button>
         </div>
-        <div class="icons__item">
+        <!-- <div class="icons__item">
             <button style="cursor: pointer;" type="button" class="icons__item  js-toggle icons__item--theme01"
                 aria-expanded="true">
                 <div class="icons__icon"><svg class="icon icon--theme01 icon--menu"
@@ -163,7 +160,7 @@
 
                 </ul>
             </button>
-        </div>
+        </div> -->
     </div>
 </div>
 
@@ -214,10 +211,10 @@
                 </div>
             </div>
 
-        </form> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button type="button" class="button button--large button--outline js-modal">
+        </form>&nbsp;&nbsp;&nbsp;
+        <!-- <button type="button" class="button button--large button--outline js-modal">
             Copy This Report
-        </button>
+        </button> -->
     </div>
     <div class="taskbar__col">
         <div class="taskbar__filter">
@@ -1628,8 +1625,8 @@
 
 
 </section>
-<app-editnew-custom-report *ngIf="EditReport" [Data]="Reportdata" [EventList]="EventList" [tabledata]="mainColumn"
-    [ReportData]="Data">
+<app-editnew-custom-report *ngIf="EditReport" [Data]="Reportdata" [EventList]="EventList"
+    (update)="UpdateSelectedReport()" [tabledata]="mainColumn" [ReportData]="Data">
 
 </app-editnew-custom-report>
 <!-- <app-edit-custom-report *ngIf="EditReport" [Data]="Reportdata" [EventList]="EventList" [tabledata]="mainColumn"

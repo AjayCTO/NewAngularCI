@@ -27,3 +27,11 @@
     height: 23vh;
     padding: 2rem 3.75rem;
 }
+.form__col-wrap {
+    display: flex;
+    flex-wrap: wrap;
+     justify-content: start;
+}
+.form__col--two-third {
+    width: calc(((100% / 5) * 2) - .625rem);
+}

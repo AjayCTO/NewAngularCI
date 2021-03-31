@@ -181,15 +181,24 @@ export class MultipleTransactionComponent implements OnInit {
   }
   clearCart() {
     debugger;
-    this.groupInventoryDetails = []
+
     this.toastr.success("Cart Item Has Been Removed Successfully")
+    let viewId = this.SelectedView != undefined ? this.SelectedView.id : 0;
+    let carts = [];
+    let currentCart = [];
+
+    this.store.dispatch(new SetSelectedCart(currentCart));
+    this.currentinventoryService.saveCart(this.selectedTenantId, this.authService.accessToken, viewId, carts).subscribe(res => {
+      if (res.code == 200) {
+
+      }
+    })
     this.router.navigateByUrl('/CurrentInventory')
   }
   getLocationList() {
     this.libraryService.GetLocation(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
-        // this.spinner.hide();
       })).subscribe(result => {
         this.locationsList = result.entity;
       })
@@ -198,31 +207,10 @@ export class MultipleTransactionComponent implements OnInit {
     this.libraryService.GetUOM(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
-        // this.spinner.hide();
       })).subscribe(result => {
         this.uomList = result.entity;
       })
   }
-  // Save() {
-  //   debugger;
-  //   this.groupInventoryDetails
-
-
-
-
-
-
-  //   this.currentinventoryService.DynamicMultipleInventoryTransaction(this.selectedTenantId, this.authService.accessToken, this.groupInventoryDetails).subscribe(res => {
-  //     if (res.code = 200) {
-  //       this.toastr.success("your cart is save")
-
-  //       // this.groupInventoryDetails = res.entity.items;
-  //       // this.loadingRecords = false;
-  //       // this.length = res.entity.totalItems;
-  //       // debugger;
-  //     }
-  //   })
-  // }
   cancleConfirm() {
     this.CancleConfirm = true;
   }
@@ -352,6 +340,7 @@ export class MultipleTransactionComponent implements OnInit {
   }
 
   trackByIndex(index: number, value: any) {
+    debugger;
     return index;
   }
 

@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { IEventsSlice, eventsStateKey } from '../reducers/tenant.reducer';
 import { EventsStoreState } from '..';
+import { state } from '@angular/animations';
 
 export const getEventsStoreState = createFeatureSelector<EventsStoreState>('eventsStore');
 export const getEventsState = createSelector(getEventsStoreState, state => state[eventsStateKey]);

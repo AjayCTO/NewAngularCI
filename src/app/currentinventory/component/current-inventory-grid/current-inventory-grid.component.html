@@ -238,7 +238,7 @@
                 </svg></div>
             <span class="icons__label">Hide 0</span>
         </div>
-        <div class="icons__item">
+        <!-- <div class="icons__item">
             <button type="button" class="icons__item  js-toggle icons__item--theme01" style="cursor: pointer;"
                 aria-expanded="true">
                 <div class="icons__icon"><svg class="icon icon--theme01 icon--menu"
@@ -265,7 +265,7 @@
                     </li>
                 </ul>
             </button>
-        </div>
+        </div> -->
     </div>
 </div>
 
@@ -1335,8 +1335,8 @@
 
                         </ng-container>
                     </div>
-                    <div class="icons icons--size03 IconSection">
-                        <div class="icons__item">
+                    <!-- <div class="icons icons--size03 IconSection"> 
+                     <div class="icons__item">
                             <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--filter"
                                     aria-labelledby="title-60376815efb25" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24" width="24" height="24">
@@ -1346,7 +1346,7 @@
                                 </svg></div>
                             <span class="icons__label">Filter</span>
                         </div>
-                        <div class="icons__item">
+                    <div class="icons__item">
                             <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--print"
                                     aria-labelledby="title-60376815f0352" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24" width="24" height="24">
@@ -1370,9 +1370,9 @@
                                     </path>
                                 </svg></div>
                             <span class="icons__label"> Delete "0"s </span>
-                        </div>
+                        </div> 
 
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="icons__item" style="padding-top: 12px;margin-right: 50px;" (click)="clearCart()">
@@ -2836,17 +2836,22 @@
                         <label class="form__label form_label" for="dynamic_item-name">Item Name<span
                                 class="form__required">*</span></label>
 
-                        <ng-autocomplete [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)'
-                            [isLoading]="isLoadingResult" (inputChanged)='getServerResponse($event)'
-                            [debounceTime]="600" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-                            disableCloseOnSelect="true" type="text" id="dynamic_item-name" name="item-name">
-                        </ng-autocomplete>
-                        <ng-template #itemTemplate let-item>
-                            <a [innerHTML]="item.partName"></a>
-                        </ng-template>
-                        <ng-template #notFoundTemplate let-notFound>
-                            <a [innerHTML]="notFound"></a>
-                        </ng-template>
+                        <div style="position: relative;">
+                            <ng-autocomplete [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)'
+                                [isLoading]="isLoadingResult" (inputCleared)="searchCleared()"
+                                (inputChanged)='onChangeSearch($event)' [debounceTime]="600" [minQueryLength]="2"
+                                [itemTemplate]="itemTemplateNew" [notFoundTemplate]="notFoundTemplateAddNew" type="text"
+                                id="dynamic_item-name" name="item-name">
+                            </ng-autocomplete>
+                            <ng-template #itemTemplateNew let-item>
+                                <a href="javascript:void(0)">
+                                    <span [innerHTML]="item.partName"></span><i></i>
+                                </a>
+                            </ng-template>
+                            <ng-template #notFoundTemplateAddNew let-notFound>
+                                <a [innerHTML]="'notFound'"></a>
+                            </ng-template>
+                        </div>
 
                         <button class="form__copy-value" type="button" title="copy value from ..."><svg
                                 class="icon-simple icon-simple--theme01 icon-simple--copy"

@@ -4,4 +4,5 @@ export interface Tenant {
     tenantColor: string;
     accountId: number;
     createdBy: string;
+
 }

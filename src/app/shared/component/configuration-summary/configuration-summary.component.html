@@ -172,7 +172,8 @@
                             </div>
                             <div>
                                 <label class="switch">
-                                    <input type="checkbox" (click)="selcted('restocking')">
+                                    <input type="checkbox" [(ngModel)]="Features.restocking"
+                                        (ngModelChange)="saveConfigration()">
                                     <span class="slider round"></span>
                                 </label>
                             </div>
@@ -186,7 +187,8 @@
                             <div>
 
                                 <label class="switch">
-                                    <input type="checkbox" (click)="selcted('cosTracking')">
+                                    <input type="checkbox" [(ngModel)]="Features.costTracking"
+                                        (ngModelChange)="saveConfigration()">
 
                                     <span class="slider round"></span>
                                 </label>
@@ -202,7 +204,8 @@
 
                             <div>
                                 <label class="switch">
-                                    <input type="checkbox" (click)="selcted('list')">
+                                    <input type="checkbox" [(ngModel)]="Features.componentList"
+                                        (ngModelChange)="saveConfigration()">
 
                                     <span class="slider round"></span>
                                 </label>
@@ -217,7 +220,8 @@
 
                             <div>
                                 <label class="switch">
-                                    <input type="checkbox" (click)="selcted('automatedItems')">
+                                    <input type="checkbox" [(ngModel)]="Features.automatedItems"
+                                        (ngModelChange)="saveConfigration()">
 
                                     <span class="slider round"></span>
                                 </label>
@@ -269,7 +273,8 @@
                             </div>
                             <div>
                                 <label class="switch">
-                                    <input type="checkbox" (click)="selcted('QuantityRechesZero')">
+                                    <input type="checkbox" [(ngModel)]="Features.QuantityRechesZero"
+                                        (ngModelChange)="saveConfigration()">
 
                                     <span class="slider round"></span>
                                 </label>
@@ -300,7 +305,8 @@
                             </div>
                             <div>
                                 <label class="switch">
-                                    <input type="checkbox" (click)="selcted('defaultQuantity1')">
+                                    <input type="checkbox" [(ngModel)]="Features.defaultQuantity"
+                                        (ngModelChange)="saveConfigration()">
 
                                     <span class="slider round"></span>
                                 </label>
@@ -314,7 +320,24 @@
                             </div>
                             <div>
                                 <label class="switch">
-                                    <input type="checkbox" (click)="selcted('LowQuantityThreshold')">
+                                    <input type="checkbox" [(ngModel)]="Features.LowQuantityThreshold"
+                                        (ngModelChange)="saveConfigration()">
+
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card2">
+                        <div class="form__col-wrap">
+                            <div class="form__col--two-third">
+                                <p>Allow moving, changing, converting, updating, or making of a component list to result
+                                    in negative quantities.</p>
+                            </div>
+                            <div>
+                                <label class="switch">
+                                    <input type="checkbox" [(ngModel)]="Features.negativeQuantity"
+                                        (ngModelChange)="saveConfigration()">
 
                                     <span class="slider round"></span>
                                 </label>

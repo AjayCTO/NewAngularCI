@@ -24,6 +24,7 @@ export class EditnewCustomReportComponent implements OnInit {
   @Input() tabledata: any;
   @Input() ReportData: any;
   @Input() EventList: any;
+  @Output() update = new EventEmitter();
   public selectedTenantId: number;
   public EditMode: boolean
   error: string;
@@ -388,7 +389,7 @@ export class EditnewCustomReportComponent implements OnInit {
       .subscribe(result => {
         if (result.code == 200) {
           this.toast.success("Successfully update");
-          window.location.reload();
+          this.update.emit();
         }
         else if (result.code == 403) {
           this.toast.success("Cant update");

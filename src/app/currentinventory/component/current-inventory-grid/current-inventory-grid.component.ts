@@ -647,7 +647,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       FilterArray: this.FilterArray,
       Ids: this.InventoryIds,
     }
-    this.currentinventoryService.GetCurrentInventory(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, this.pageSize, sortCol, sortDir, this.searchFilterText, this.showSelected, GlobelFilter)
+    this.currentinventoryService.GetCurrentInventory(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, 2000, sortCol, sortDir, this.searchFilterText, this.showSelected, GlobelFilter)
       .pipe(finalize(() => {
       })).subscribe(result => {
         debugger;
@@ -932,6 +932,9 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       this.tabulatorColumn.forEach((element, index) => {
         if (element.id == item.id) {
           element.isAdded = false;
+          var ColumnAdjusttolast = element;
+          this.tabulatorColumn.splice(index, 1);
+          this.tabulatorColumn.push(ColumnAdjusttolast);
           this.ColspanTable--;
         }
       });
@@ -1195,6 +1198,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     });
   }
   public ChangeOrder(oldIndex, newIndex, el, mode) {
+    debugger;
     let oldI = oldIndex - 2
     let newI = newIndex - 2
     this.tabulatorColumn = this.array_move(this.tabulatorColumn, oldI, newI)
@@ -1538,17 +1542,27 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       })
   }
 
-  getServerResponse(event) {
-    this.ItemAutocompleteChange();
-    this.CurrentInventoryObj.partName = event;
-    this.isLoadingResult = true;
-    this.commanService.GetItemWithTerm(event, this.selectedTenantId, this.authService.accessToken,)
-      .subscribe(response => {
-        this.data = response.entity;
-        this.isLoadingResult = false;
-      });
-
+  onChangeSearch(val: string) {
+    if (val == "" || val == undefined) {
+      this.data = [];
+      this.isLoadingResult = false;
+    } else {
+      this.CurrentInventoryObj.partName = val;
+      this.isLoadingResult = true;
+      this.commanService.GetItemWithTerm(val, this.selectedTenantId, this.authService.accessToken,)
+        .subscribe(response => {
+          this.data = response.entity;
+          console.log(this.data);
+          this.isLoadingResult = false
+          this.cdr.detectChanges();
+        });
+    }
   }
+  // getServerResponse(event) {
+  //   this.ItemAutocompleteChange();
+
+
+  // }
 
   getLocation(event) {
     this.isLoadingResult = true;
@@ -1597,7 +1611,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
 
   searchCleared() {
-    console.log('searchCleared');
+
     this.data = [];
   }
   addInventory() {
