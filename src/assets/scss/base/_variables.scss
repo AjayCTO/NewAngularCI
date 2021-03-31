@@ -13,24 +13,24 @@ $OpenSans: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 // -------------------------------------
 
 /* Primary */
-$clearly-blue:        #128ece;
-$clearly-blue-hover:  #41a5d8;
-$light-blue:          #2eb7e9;
-$light-blue-hover:    #58c5ed;
-$soft-green:          #2de29d;
-$soft-green-hover:    #57e8b1;
-$caution-red:         #ff554d;
+$clearly-blue:        #128ece;  // buttons color + Header Hover color
+$clearly-blue-hover:  #41a5d8;  // buttons hover
+$light-blue:          #2eb7e9;  // svg icion.items class color+
+$light-blue-hover:    #58c5ed;  
+$soft-green:          #2de29d;   // Buttons theme01 
+$soft-green-hover:    #57e8b1;  // Buttons theme01 hover
+$caution-red:         #ff554d;  // required * color
 $caution-red-hover:   #ff7771;
-$cold-gray:           #96a0aa;
+$cold-gray:           #96a0aa;  // pagination next previous icons + Modal close button color
 $cold-gray-hover:     #abb3bb;
-$dark:                #283237;
+$dark:                #283237; //Text Color + modal back ground color
 $dark-hover:          #535b5f;
 $bright-orange:       #ffa050;
 $bright-orange-hover: #ffb373;
-$text-gray:           #686f73;
+$text-gray:           #686f73; // svg icons outline body color+ pagination statements
 $text-gray-hover:     #868c8f;
-$table-header-gray:   #d2dbe2;
-$white:               #ffffff;
+$table-header-gray:   #d2dbe2; // table heading background color
+$white:               #ffffff; 
 
 /* Secondary Colors */
 $governor-bay:        #3031a9;

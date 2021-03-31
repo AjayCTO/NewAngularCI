@@ -226,6 +226,10 @@ export class EventReportComponent implements OnInit {
     this.GetReport();
     // this.ApplyJsFunction();
   }
+  DefaultView() {
+    this.selectedRepotTitle = "Default Event";
+    this.SelectedNewCustomReport();
+  }
   GetEvents() {
     debugger;
     this.eventService.GetEvents(this.selectedTenantId, this.authService.accessToken)

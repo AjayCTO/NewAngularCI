@@ -120,6 +120,7 @@ export class CustomFieldService extends BaseService {
   }
 
   AddCustomFields(data: any, TenantId: number, token: string) {
+    debugger;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -133,6 +134,7 @@ export class CustomFieldService extends BaseService {
     }) => {
       return response;
     }
+
     ));
   }
 

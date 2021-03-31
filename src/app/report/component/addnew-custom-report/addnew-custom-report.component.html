@@ -283,20 +283,14 @@
                                                 <li class="icons__submenu-item icons__submenu-item--contains-input"
                                                     *ngIf="itemHeader.ColumnOperator=='date-month'">
                                                     <div class="form__col">
-                                                        <label class="form__label"
-                                                            for="list-dropdown81{{itemHeader.field}}">Value</label>
-                                                        <select class="floating-select"
-                                                            (ngModelChange)='SelectedMonth($event)'
-                                                            [(ngModel)]="itemHeader.ColumnValue"
-                                                            id="list-dropdown81{{itemHeader.field}}"
-                                                            name="list-dropdown81{{itemHeader.field}}">
-                                                            <option value="">Choose
-                                                                Months
-                                                            </option>
-                                                            <option *ngFor="let opt of Month" [value]="opt.id">
-                                                                {{opt.month}}
-                                                            </option>
-                                                        </select>
+                                                        <input class="form__input" placeholder="Month"
+                                                            [owlDateTimeTrigger]="dt5"
+                                                            [(ngModel)]="dataColumnFilter.searchValue"
+                                                            [owlDateTime]="dt5">
+                                                        <owl-date-time [pickerType]="'calendar'" [startView]="'year'"
+                                                            (monthSelected)="chosenMonthHandler($event, dt5)"
+                                                            #dt5="owlDateTime">
+                                                        </owl-date-time>
                                                     </div>
 
                                                 </li>
@@ -935,8 +929,16 @@
                                     <span class="icons__value" *ngIf="itemHeader.ColumnOperator=='date-after'">On Or
                                         After</span>
                                     &nbsp;
-                                    <span class="icons__value"
-                                        style="margin-left: -10px;">{{itemHeader.ColumnValue}}</span>
+                                    <ng-container *ngIf="itemHeader.datatype!='Date/Time'">
+                                        <span class="icons__value"
+                                            style="margin-left: -10px;">{{itemHeader.ColumnValue}}</span>
+                                    </ng-container>
+                                    <ng-container *ngIf="itemHeader.datatype=='Date/Time'">
+                                        <span class=" icons__value"
+                                            style="margin-left: -10px;">{{itemHeader.datevalue}}</span>
+                                    </ng-container>
+                                    <!-- <span class="icons__value"
+                                        style="margin-left: -10px;">{{itemHeader.ColumnValue}}</span> -->
                                 </div>
                                 <div class="icons__icon" (click)="RemoveFilter(itemHeader)"><svg
                                         class="icon-simple icon-simple--theme01 icon-simple--remove"

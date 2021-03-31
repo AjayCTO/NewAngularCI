@@ -14,7 +14,16 @@ import { EventService } from '../../../dynamic-events/service/event.service';
 import { LibraryService } from '../../../library/service/library.service';
 import modal from '../../../../assets/js/lib/_modal';
 import toggle from '../../../../assets/js/lib/_toggle';
-
+import {
+  DateTimeAdapter,
+  OWL_DATE_TIME_FORMATS,
+  OWL_DATE_TIME_LOCALE,
+  OwlDateTimeComponent,
+  OwlDateTimeFormats
+} from 'ng-pick-datetime';
+import * as _moment from "moment";
+import { Moment } from "moment";
+const moment = (_moment as any).default ? (_moment as any).default : _moment;
 @Component({
   selector: 'app-addnew-custom-report',
   templateUrl: './addnew-custom-report.component.html',
@@ -39,6 +48,14 @@ export class AddnewCustomReportComponent implements OnInit {
     description: "",
     reportType: "Event Report",
     ColumnFilter: [],
+  }
+  public dataColumnFilter: any = {
+    columnName: "",
+    displayName: "",
+    filterOperator: "",
+    searchValue: "",
+    ColumnDataType: "",
+    type: ""
   }
   public OperatorFilterDateTime = [
     {
@@ -744,7 +761,25 @@ export class AddnewCustomReportComponent implements OnInit {
     }, 500);
     // this.ApplyJsFunction();
   }
+  chosenYearHandler(normalizedYear: Date, datepicker: OwlDateTimeComponent<Moment>) {
+    debugger;
+    this.dataColumnFilter.searchValue = normalizedYear;
+    this.dataColumnFilter.datevalue = normalizedYear.getFullYear();
+    datepicker.close();
+  }
 
+  chosenMonthHandler(
+    normalizedMonth: Date,
+    datepicker: OwlDateTimeComponent<Moment>
+  ) {
+    debugger;
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    this.dataColumnFilter.searchValue = normalizedMonth;
+    this.dataColumnFilter.datevalue = monthNames[normalizedMonth.getMonth()];
+    datepicker.close();
+  }
   save() {
 
     // this.columnFilter.ColumnLabel = this.selectedFields.title;

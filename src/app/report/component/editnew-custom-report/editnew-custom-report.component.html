@@ -153,11 +153,11 @@
                         </div> <br />
                         <ng-contaier *ngIf="itemHeader.Datatype!='button'" style="display: flex;margin-left: 12px;">
 
-                            <button (click)='toggleGlobalDropDown(itemHeader.ColumnLabel)' type="button"
-                                style="margin-left: 5px;margin-right: 5px; cursor: pointer;"
+                            <button type="button" style="margin-left: 5px;margin-right: 5px; cursor: pointer;"
                                 class="icons__item icons__item--theme07 icons__item--outline icons__item"
                                 id="filterButton2_{{itemHeader.ColumnLabel}}">
-                                <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
+                                <div class="icons__icon" (click)='toggleGlobalDropDown(itemHeader.ColumnLabel)'><svg
+                                        class="icon-simple icon-simple--theme01 icon-simple--add"
                                         aria-labelledby="title-6026203de0166" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24" width="24" height="24">
                                         <path fill="none" d="M0 0h24v24H0z"></path>
@@ -823,9 +823,8 @@
                             <div class="card icons icons--horziontal icons--size01"
                                 style="overflow: visible !important; padding: 0px; ">
 
-                                <button (click)='toggleGlobalDropDown1(itemHeader.ColumnLabel)' type="button"
-                                    style="cursor: pointer;" class="icons__item icons__item--outline">
-                                    <div class=" icons__icon">
+                                <button type="button" style="cursor: pointer;" class="icons__item icons__item--outline">
+                                    <div class=" icons__icon" (click)='toggleGlobalDropDown1(itemHeader.ColumnLabel)'>
                                         <svg class="icon-simple icon-simple--theme01 icon-simple--add"
                                             aria-labelledby="title-5f7cd7ce12c36" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 24 24" width="24" height="24">
@@ -978,7 +977,7 @@
                     class="button button--medium button--text-only " (click)="Cancel()">Cancel
                 </button>
                 <button type="button" (click)="DeleteConfirm()" class="button button--medium"
-                    style="background-color: red;">Delete This
+                    style="background-color: #ff554d;">Delete This
                     Report </button>
             </div>
         </div>
