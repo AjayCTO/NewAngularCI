@@ -929,16 +929,16 @@
                                     <span class="icons__value" *ngIf="itemHeader.ColumnOperator=='date-after'">On Or
                                         After</span>
                                     &nbsp;
-                                    <ng-container *ngIf="itemHeader.datatype!='Date/Time'">
+                                    <!-- <ng-container *ngIf="itemHeader.datatype!='Date/Time'">
                                         <span class="icons__value"
                                             style="margin-left: -10px;">{{itemHeader.ColumnValue}}</span>
                                     </ng-container>
                                     <ng-container *ngIf="itemHeader.datatype=='Date/Time'">
                                         <span class=" icons__value"
                                             style="margin-left: -10px;">{{itemHeader.datevalue}}</span>
-                                    </ng-container>
-                                    <!-- <span class="icons__value"
-                                        style="margin-left: -10px;">{{itemHeader.ColumnValue}}</span> -->
+                                    </ng-container> -->
+                                    <span class="icons__value"
+                                        style="margin-left: -10px;">{{itemHeader.ColumnValue}}</span>
                                 </div>
                                 <div class="icons__icon" (click)="RemoveFilter(itemHeader)"><svg
                                         class="icon-simple icon-simple--theme01 icon-simple--remove"

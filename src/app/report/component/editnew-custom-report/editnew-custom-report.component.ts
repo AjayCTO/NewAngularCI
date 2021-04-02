@@ -761,9 +761,10 @@ export class EditnewCustomReportComponent implements OnInit {
         // element.ColumnDataType = element.datatype;
         element.isAdded = true;
         element.opentoggleDropdown = !element.opentoggleDropdown;
-        let map = new Map<string, any>();
-        element.ColumnValue = new Date(element.ColumnValue).toISOString()
         if (element.datatype == "Date/Time") {
+          let map = new Map<string, any>();
+          element.ColumnValue = new Date(element.ColumnValue).toISOString()
+
           if (element.ColumnValue != "") {
 
             this.myDT = new Date(element.ColumnValue)

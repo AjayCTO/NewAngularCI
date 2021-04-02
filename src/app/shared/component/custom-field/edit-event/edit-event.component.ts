@@ -432,7 +432,7 @@ export class EditEventComponent implements OnInit {
             this.CustomFields = result.entity;
 
             this.CustomFields.forEach(element => {
-              if (element.dataType == "Text" && element.customFieldSpecialType == "OpenField") {
+              if ((element.dataType == "Text" && element.customFieldSpecialType == "") || (element.dataType == "Text" && element.customFieldSpecialType == "OpenField")) {
                 debugger;
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,
@@ -460,7 +460,7 @@ export class EditEventComponent implements OnInit {
                 };
 
               }
-              if (element.dataType == "Number" && element.customFieldSpecialType == "Number") {
+              if ((element.dataType == "Number" && element.customFieldSpecialType == "") || (element.dataType == "Number" && element.customFieldSpecialType == "Number")) {
                 debugger;
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,
@@ -521,7 +521,7 @@ export class EditEventComponent implements OnInit {
                 };
 
               }
-              if (element.dataType == "Date/Time" && element.customFieldSpecialType == "Date") {
+              if ((element.dataType == "Date/Time" && element.customFieldSpecialType == "") || (element.dataType == "Date/Time" && element.customFieldSpecialType == "Date")) {
                 debugger;
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,

@@ -55,7 +55,8 @@
                         fill="currentColor" class="icon__color--primary"></path>
                 </svg> Back To Inventory
             </a>
-            <button data-modal="#ProceedModel" class="button button--medium button--icon button--theme01 js-modal">
+            <button [disabled]="check==false" data-modal="#ProceedModel"
+                class="button button--medium button--icon button--theme01 js-modal">
                 Proceed
                 <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
@@ -304,7 +305,8 @@
                                         <label class="form__label form_label"
                                             for="Quantity_{{item.partId}}">Quantity</label>
                                         <input class="form__input" type="number" id="Quantity_{{item.partId}}"
-                                            [(ngModel)]="item.transactionQty" name="Quantity_{{item.partId}}" required>
+                                            (change)="CheckQuantity()" [(ngModel)]="item.transactionQty"
+                                            name="Quantity_{{item.partId}}" required>
                                         <span class="input-group-addon text Suffix">{{item.uomName}}</span>
                                     </div>
                                 </td>
@@ -322,7 +324,7 @@
                                     <div class="form__col">
                                         <label class="form__label form_label"
                                             for="Quantity1_{{item.partId}}">Quantity</label>
-                                        <input class="form__input" type="text" id="Quantity1_{{item.partId}}"
+                                        <input class="form__input" type="number" id="Quantity1_{{item.partId}}"
                                             [(ngModel)]="item.transactionQtyChange" name="Quantity1_{{item.partId}}"
                                             required>
                                     </div>
@@ -334,7 +336,8 @@
                                                 <div class="form__col">
                                                     <label class="form__label form_label" for="Uom"> Unit Of
                                                         Measure</label>
-                                                    <select class="floating-select" id="Uom" name="Uom">
+                                                    <select class="floating-select" [(ngModel)]="item.ToUomId" id="Uom"
+                                                        name="Uom">
                                                         <option></option>
                                                         <option *ngFor="let option of uomList" [value]="option.uomId">
                                                             {{option.uomName}}</option>
@@ -437,17 +440,13 @@
                                                         <ng-container
                                                             *ngIf="!field.customFieldSuffix&&!field.customFieldPrefix">
                                                             <input type="text" [required]="field.customFieldIsRequired"
-                                                                id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
-                                                                name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
-                                                                [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
+                                                                [(ngModel)]="item.customFieldsList[i].columnValue"
                                                                 class="form__input">
                                                         </ng-container>
                                                     </ng-container>
                                                     <ng-container *ngIf="field.customFieldSpecialType==''">
                                                         <input type="text" [required]="field.customFieldIsRequired"
-                                                            id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
-                                                            name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
-                                                            [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
+                                                            [(ngModel)]="item.customFieldsList[i].columnValue"
                                                             class="form__input">
                                                     </ng-container>
                                                 </ng-container>

@@ -32,6 +32,7 @@ export class MultipleTransactionComponent implements OnInit {
   public loadingRecords: boolean = false;
   public selectedId: number;
   public SelectedView: any;
+  public check: boolean;
   public locationsList: any[];
   public uomList: any[];
   public ClearConfirm: boolean;
@@ -103,6 +104,7 @@ export class MultipleTransactionComponent implements OnInit {
 
   ngOnInit(): void {
     debugger;
+    this.check = false
     this.ClearConfirm = false;
     this.CancleConfirm = false;
     this.store.pipe(select(selectSelectedTenant)).
@@ -135,6 +137,19 @@ export class MultipleTransactionComponent implements OnInit {
     }, 500)
   }
 
+  CheckQuantity() {
+    debugger;
+    this.check = false
+    if (this.EventConfiguration.eventQuantityAction == "Move") {
+      this.groupInventoryDetails.forEach(element => {
+
+        if (element.quantity > element.transactionQty) {
+          this.check = true;
+        }
+
+      })
+    }
+  }
   public GetCartInventory() {
     this.loadingRecords = true;
     debugger;
@@ -216,37 +231,7 @@ export class MultipleTransactionComponent implements OnInit {
   }
   Save() {
     debugger
-    // if (this.EventConfiguration.eventQuantityAction == "Move") {
 
-    //   if (this.TransactionTargetObj.ToLocation == "") {
-    //     this.toastr.warning("Location field is required");
-    //     return false;
-    //   }
-    //   if (this.InventoryTransactionObj.quantity < this.InventoryTransactionObj.transactionQty) {
-
-    //     this.toastr.warning("Change Quantity Greater Then Actual Quantity");
-    //     return false;
-
-    //   }
-    //   if (this.InventoryTransactionObj.locationName.toLowerCase() == this.TransactionTargetObj.ToLocation.toLowerCase()) {
-
-    //     this.toastr.warning("Please move these states to a different location.");
-    //     return false;
-    //   }
-
-    // }
-    // if (this.EventConfiguration.eventQuantityAction == "Convert") {
-    //   if (this.InventoryTransactionObj.quantity < this.InventoryTransactionObj.transactionQty) {
-
-    //     this.toastr.warning("Change Quantity Greater Then Actual Quantity");
-    //     return false;
-    //   }
-    //   if (this.InventoryTransactionObj.uomId == this.TransactionTargetObj.ToUomId) {
-    //     this.toastr.error("Please convert the states to a different unit of measure.", "UNITS OF MEASURE HAVE NOT CHANGED")
-    //     return false;
-    //   }
-
-    // }
     this.spinner.show();
 
     debugger;
@@ -277,15 +262,48 @@ export class MultipleTransactionComponent implements OnInit {
         customFields: element.customFieldsList,
         transactionDate: this.today,
         ToLocationId: 0,
-        ToConvertedQuantity: 0,
+        ToConvertedQuantity: element.transactionQtyChange,
         ToLocation: element.ToLocation,
         Cost: 0,
         ToStatus: "",
         ToStatusId: 0,
         ToUom: "",
-        ToUomId: 0,
+        ToUomId: element.ToUomId == null ? 0 : JSON.parse(element.ToUomId.toString()),
       }
-      this.InventoryTransactionObjList.push(this.InventoryTransactionObj);
+      if (this.EventConfiguration.eventQuantityAction == "Move") {
+        if (this.InventoryTransactionObj.quantity < this.InventoryTransactionObj.transactionQty) {
+
+          this.toastr.warning("Change Quantity Greater Then Actual Quantity");
+          return false;
+
+        }
+        if (this.InventoryTransactionObj.ToLocation == "") {
+          this.toastr.warning("Location field is required");
+          return false;
+        }
+
+        if (this.InventoryTransactionObj.locationName.toLowerCase() == this.InventoryTransactionObj.ToLocation.toLowerCase()) {
+
+          this.toastr.warning("Please move these states to a different location.");
+          return false;
+        }
+
+      }
+      if (this.EventConfiguration.eventQuantityAction == "Convert") {
+        if (this.InventoryTransactionObj.quantity < this.InventoryTransactionObj.transactionQty) {
+
+          this.toastr.warning("Change Quantity Greater Then Actual Quantity");
+          return false;
+        }
+        if (this.InventoryTransactionObj.uomId == this.TransactionTargetObj.ToUomId) {
+          this.toastr.error("Please convert the states to a different unit of measure.", "UNITS OF MEASURE HAVE NOT CHANGED")
+          return false;
+        }
+
+      }
+      if ((this.InventoryTransactionObj.ToLocation != "") || (this.InventoryTransactionObj.quantity >= this.InventoryTransactionObj.transactionQty) || (this.InventoryTransactionObj.locationName.toLowerCase() != this.InventoryTransactionObj.ToLocation.toLowerCase())) {
+        this.InventoryTransactionObjList.push(this.InventoryTransactionObj);
+      }
     });
 
     // this.InventoryTransactionObj.transactionQtyChange = this.InventoryTransactionObj.transactionQty;
@@ -297,23 +315,40 @@ export class MultipleTransactionComponent implements OnInit {
     // else {
     //   this.TransactionTargetObj.ToUomId = JSON.parse(this.TransactionTargetObj.ToUomId.toString())
     // }
+
     let data = {
       TransactionList: this.InventoryTransactionObjList,
       EventConfiguration: this.EventConfiguration,
     }
-    this.currentinventoryService.DynamicMultipleInventoryTransaction(this.selectedTenantId, this.authService.accessToken, data).subscribe(res => {
-      if (res.code = 200) {
-        this.toastr.success("your Transaction is done");
-        let el: HTMLElement = this.closeInventoryModal.nativeElement;
-        el.click();
-        this.router.navigateByUrl('/CurrentInventory')
+    if (data.TransactionList.length != 0) {
+      this.currentinventoryService.DynamicMultipleInventoryTransaction(this.selectedTenantId, this.authService.accessToken, data).subscribe(res => {
+        if (res.code = 200) {
+          this.toastr.success("your Transaction is done");
+          let el: HTMLElement = this.closeInventoryModal.nativeElement;
+          el.click();
+          let viewId = this.SelectedView != undefined ? this.SelectedView.id : 0;
+          let carts = [];
+          let currentCart = [];
 
-        // this.groupInventoryDetails = res.entity.items;
-        // this.loadingRecords = false;
-        // this.length = res.entity.totalItems;
-        // debugger;
-      }
-    })
+          this.store.dispatch(new SetSelectedCart(currentCart));
+          this.currentinventoryService.saveCart(this.selectedTenantId, this.authService.accessToken, viewId, carts).subscribe(res => {
+            if (res.code == 200) {
+
+            }
+          })
+          this.router.navigateByUrl('/CurrentInventory')
+
+          // this.groupInventoryDetails = res.entity.items;
+          // this.loadingRecords = false;
+          // this.length = res.entity.totalItems;
+          // debugger;
+        }
+      })
+    }
+    else {
+      let el: HTMLElement = this.closeInventoryModal.nativeElement;
+      el.click();
+    }
     //  if()
   }
 

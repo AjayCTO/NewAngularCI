@@ -521,6 +521,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     debugger
     this.lastPageIndex = this.length / this.pageSize;
     this.lastPageIndex = parseInt(this.lastPageIndex.toString())
+
     if (this.pageIndex != this.lastPageIndex) {
       this.pageIndex++;
       this.GetCurrentInventory();
@@ -823,13 +824,18 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   addButtonColumns() {
     debugger;
     var count = 1;
+    var IsAddedCounter = 0;
     this.tabulatorColumn.forEach(element => {
       if (element.datatype == "button") {
         count++;
       }
+      if (element.isAdded) {
+        IsAddedCounter++;
+      }
     });
 
-    this.tabulatorColumn.push({ title: "", field: "eventList_" + count, type: "", datatype: "button", width: "70", id: "008" + count, isAdded: true, eventList: { FirstEvent: '', SecondEvent: '', ThirdEvent: '' } });
+    //this.tabulatorColumn.push({ title: "", field: "eventList_" + count, type: "", datatype: "button", width: "70", id: "008" + count, isAdded: true, eventList: { FirstEvent: '', SecondEvent: '', ThirdEvent: '' } });
+    this.tabulatorColumn.splice(IsAddedCounter, 0, { title: "", field: "eventList_" + count, type: "", datatype: "button", width: "70", id: "008" + count, isAdded: true, eventList: { FirstEvent: '', SecondEvent: '', ThirdEvent: '' } });
     this.showQuickAddDropdown = !this.showQuickAddDropdown;
     this.ColspanTable++;
 
@@ -839,6 +845,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     }, 200);
 
   }
+
 
   onSubmit() {
     if ($.trim(this.CurrentInventoryObj.partName) == "") {
@@ -925,6 +932,9 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         this.ColspanTable++;
       }
     });
+    setTimeout(() => {
+      this.columnDragDrop();
+    }, 200);
   }
   deleteColumn(item) {
     debugger;
@@ -948,6 +958,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         }
       });
     }
+
   }
 
   // Inventory Column 
@@ -1175,6 +1186,9 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
       this.InventoryIds = res;
       this.store.dispatch(new SetSelectedCart(res));
+    }
+    else {
+      this.InventoryIds = [];
     }
 
   }
@@ -1891,8 +1905,9 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
         if (event.entity == true) {
           this.toastr.success("Files has been Uploaded", "SuccessFully");
-          let el: HTMLElement = this.uploadActivity.nativeElement;
-          el.click();
+          this.spinner.hide();
+          // let el: HTMLElement = this.uploadActivity.nativeElement;
+          // el.click();
           window.location.reload();
 
         }

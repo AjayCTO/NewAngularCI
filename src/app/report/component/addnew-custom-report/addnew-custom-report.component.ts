@@ -23,6 +23,7 @@ import {
 } from 'ng-pick-datetime';
 import * as _moment from "moment";
 import { Moment } from "moment";
+import { NgIf } from '@angular/common';
 const moment = (_moment as any).default ? (_moment as any).default : _moment;
 @Component({
   selector: 'app-addnew-custom-report',
@@ -536,9 +537,10 @@ export class AddnewCustomReportComponent implements OnInit {
       if (element.ColumnLabel == event) {
         element.isAdded = true;
         element.opentoggleDropdown = !element.opentoggleDropdown;
-        let map = new Map<string, any>();
-        element.ColumnValue = new Date(element.ColumnValue).toISOString()
         if (element.datatype == "Date/Time") {
+          let map = new Map<string, any>();
+          element.ColumnValue = new Date(element.ColumnValue).toISOString()
+
           if (element.ColumnValue != "") {
 
             this.myDT = new Date(element.ColumnValue)
@@ -547,7 +549,12 @@ export class AddnewCustomReportComponent implements OnInit {
               DateManual = this.myDT.toLocaleTimeString()
             }
             if (element.customFieldSpecialType == "Date & Time") {
+              // if (element.ColumnOperator == "date - month") {
+              //   DateManual = this.dataColumnFilter.datevalue
+              // }
+              // else {
               DateManual = this.myDT.toLocaleString();
+              // }
             }
             if (element.customFieldSpecialType == "Date") {
               DateManual = this.myDT.toLocaleDateString()
@@ -771,6 +778,7 @@ export class AddnewCustomReportComponent implements OnInit {
   chosenMonthHandler(
     normalizedMonth: Date,
     datepicker: OwlDateTimeComponent<Moment>
+
   ) {
     debugger;
     const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -778,10 +786,15 @@ export class AddnewCustomReportComponent implements OnInit {
     ];
     this.dataColumnFilter.searchValue = normalizedMonth;
     this.dataColumnFilter.datevalue = monthNames[normalizedMonth.getMonth()];
+    this.selectedFields.forEach(element => {
+      if (element.ColumnValue == "") {
+        element.ColumnValue = this.dataColumnFilter.datevalue;
+      }
+    });
     datepicker.close();
   }
   save() {
-
+    debugger;
     // this.columnFilter.ColumnLabel = this.selectedFields.title;
     this.customreport.ColumnFilter = this.selectedFields;
     debugger;

@@ -199,220 +199,209 @@ export class FalseComponent implements OnInit {
       this.newFormCopy = event.form;
       this.cd.detectChanges();
     }
-    this.newFormCopy.forEach(element => {
-      element.components.forEach(elements => {
-        elements.components.forEach(Element => {
-          if (Element.label != event.component.label) {
-
-            if (event.component != undefined) {
-              if (event.component.eventQuantityAction != undefined) {
-                if (event.component.components != undefined) {
-                  event.component.components.forEach(element => {
-                    if (element.key == "fieldsetToThisLocation" || element.key == "fieldsetToThisLocation1" || element.key == "fieldsetToThisLocation2") {
-                      this.libraryService.GetLocation(this.selectedTenantId, this.authService.accessToken)
-                        .pipe(finalize(() => {
-                          this.busy = false;
-                          this.spinner.hide();
-                        })).subscribe(result => {
-                          if (result.code == 403) {
-                          }
-                          else {
-                            if (result.entity != null) {
-                              element.data.values = [];
-                              result.entity.forEach(location => {
-                                element.data.values.push({ value: location.locationId, label: location.locationName });
-                              });
-                            }
-                          }
-                        });
-                    }
-                    if (element.key == "fieldsetwithUom" || element.key == "fieldsetwithUom1" || element.key == "fieldsetwithUom2") {
-                      this.libraryService.GetUOM(this.selectedTenantId, this.authService.accessToken)
-                        .pipe(finalize(() => {
-                          this.busy = false;
-                          this.spinner.hide();
-                        })).subscribe(result => {
-                          if (result.code == 403) {
-                          }
-                          else {
-                            if (result.entity != null) {
-                              element.data.values = [];
-                              result.entity.forEach(uom => {
-                                element.data.values.push({ value: uom.uomId, label: uom.uomName });
-                              });
-                            }
-                          }
-                        });
-                    }
 
 
-                  });
-                }
-                this.eventForm.eventQuantityAction = event.component.eventQuantityAction;
-                // this.Newform = event.form;
-              }
-
-              if (event.type == "addComponent") {
-                debugger;
-
-                if (event.component.isNew) {
-                  this.getDataType(event.component);
-                  this.customfieldservice.AddCustomFields(this.customField, this.selectedTenantId, this.authService.accessToken)
-                    .pipe(finalize(() => {
-                      this.spinner.hide();
-                    }))
-                    .subscribe(
-                      result => {
-
-                        if (result.code == 200) {
-                          this.getcustomFieldResult = result.entity;
-                          event.component.key = this.getcustomFieldResult.columnName;
-                          event.component.columnId = this.getcustomFieldResult.columnId;
-                          event.component.columnName = this.getcustomFieldResult.columnName;
-                          event.component.isNew = false;
-
-                          this.toastr.success("Your custom field is Successfully add.");
-                          this.customField = {
-                            columnId: 0,
-                            columnName: '',
-                            columnLabel: '',
-                            customFieldType: '',
-                            dataType: '',
-                            columnValue: '',
-                            comboBoxValue: '',
-                            customFieldIsRequired: false,
-                            customFieldInformation: '',
-                            customFieldPrefix: '',
-                            customFieldSuffix: '',
-                            customFieldIsIncremental: false,
-                            customFieldBaseValue: 0,
-                            customFieldIncrementBy: 0,
-                            customFieldTextMaxLength: 0,
-                            customFieldDefaultValue: '',
-                            customFieldNumberMin: 0,
-                            customFieldNumberMax: 0,
-                            customFieldNumberDecimalPlaces: 0,
-                            customFieldTrueLabel: '',
-                            customFieldFalseLabel: '',
-                            customFieldSpecialType: '',
-                            dateDefaultPlusMinus: '',
-                            dateDefaultNumber: null,
-                            dateDefaulInterval: '',
-                            timeDefaultPlusMinus: '',
-                            timeNumberOfHours: null,
-                            timeNumberOFMinutes: null,
-                            offsetDateFields: '',
-                            offsetTimeFields: '',
-                          }
-                          // this.router.navigate(['Dynamic/CreateEvent']);
-                          this.cd.detectChanges();
-                        }
-                        else {
-                          this.toastr.warning(result.message);
-                          this.cd.detectChanges();
-                        }
-                      },
-                      error => {
-                        //this.error = error;
-                        this.spinner.hide();
+    if (event.component != undefined) {
+      if (event.component.eventQuantityAction != undefined) {
+        if (event.component.components != undefined) {
+          event.component.components.forEach(element => {
+            if (element.key == "fieldsetToThisLocation" || element.key == "fieldsetToThisLocation1" || element.key == "fieldsetToThisLocation2") {
+              this.libraryService.GetLocation(this.selectedTenantId, this.authService.accessToken)
+                .pipe(finalize(() => {
+                  this.busy = false;
+                  this.spinner.hide();
+                })).subscribe(result => {
+                  if (result.code == 403) {
+                  }
+                  else {
+                    if (result.entity != null) {
+                      element.data.values = [];
+                      result.entity.forEach(location => {
+                        element.data.values.push({ value: location.locationId, label: location.locationName });
                       });
-
-                }
-
-                // else {
-
-                //   let isExist = false;
-                //   debugger;
-                //   if (this.newFormCopy != undefined) {
-                //     this.newFormCopy.components[0].components.forEach(element => {
-                //       if (element.eventQuantityAction != undefined) {
-                //         isExist = true;
-                //       }
-                //     });
-                //     if (isExist) {
-                //       this.toastr.warning("Action Qauntity Already Exist Please Delete and Create New");
-                //       this.form = this.newFormCopy
-                //     }
-                //     else {
-                //       this.newFormCopy = event.form;
-                //     }
-
-                //   }
-
-                // }
-
-              }
-              if (event.type == "saveComponent") {
-                debugger;
-                if (event.component.columnId != undefined) {
-                  this.getDataType(event.component);
-                  this.customfieldservice.AddCustomFields(this.customField, this.selectedTenantId, this.authService.accessToken)
-                    .pipe(finalize(() => {
-                      this.spinner.hide();
-                    }))
-                    .subscribe(
-                      result => {
-
-                        if (result.code == 200) {
-                          this.toastr.success("Your custom field is Successfully Update.");
-                          this.customField = {
-                            columnId: 0,
-                            columnName: '',
-                            columnLabel: '',
-                            customFieldType: '',
-                            dataType: '',
-                            columnValue: '',
-                            comboBoxValue: '',
-                            customFieldIsRequired: false,
-                            customFieldInformation: '',
-                            customFieldPrefix: '',
-                            customFieldSuffix: '',
-                            customFieldIsIncremental: false,
-                            customFieldBaseValue: 0,
-                            customFieldIncrementBy: 0,
-                            customFieldTextMaxLength: 0,
-                            customFieldDefaultValue: '',
-                            customFieldNumberMin: 0,
-                            customFieldNumberMax: 0,
-                            customFieldNumberDecimalPlaces: 0,
-                            customFieldTrueLabel: '',
-                            customFieldFalseLabel: '',
-                            customFieldSpecialType: '',
-                            dateDefaultPlusMinus: '',
-                            dateDefaultNumber: null,
-                            dateDefaulInterval: '',
-                            timeDefaultPlusMinus: '',
-                            timeNumberOfHours: null,
-                            timeNumberOFMinutes: null,
-                            offsetDateFields: '',
-                            offsetTimeFields: '',
-                          }
-                          // this.router.navigate(['Dynamic/CreateEvent']);
-                          this.cd.detectChanges();
-                        }
-                        else {
-                          this.toastr.warning(result.message);
-                          this.cd.detectChanges();
-                        }
-                      },
-                      error => {
-                        //this.error = error;
-                        this.spinner.hide();
+                    }
+                  }
+                });
+            }
+            if (element.key == "fieldsetwithUom" || element.key == "fieldsetwithUom1" || element.key == "fieldsetwithUom2") {
+              this.libraryService.GetUOM(this.selectedTenantId, this.authService.accessToken)
+                .pipe(finalize(() => {
+                  this.busy = false;
+                  this.spinner.hide();
+                })).subscribe(result => {
+                  if (result.code == 403) {
+                  }
+                  else {
+                    if (result.entity != null) {
+                      element.data.values = [];
+                      result.entity.forEach(uom => {
+                        element.data.values.push({ value: uom.uomId, label: uom.uomName });
                       });
+                    }
+                  }
+                });
+            }
 
+
+          });
+        }
+        this.eventForm.eventQuantityAction = event.component.eventQuantityAction;
+        // this.Newform = event.form;
+      }
+
+      if (event.type == "addComponent") {
+        debugger;
+
+        if (event.component.isNew) {
+          this.getDataType(event.component);
+          this.customfieldservice.AddCustomFields(this.customField, this.selectedTenantId, this.authService.accessToken)
+            .pipe(finalize(() => {
+              this.spinner.hide();
+            }))
+            .subscribe(
+              result => {
+
+                if (result.code == 200) {
+                  this.getcustomFieldResult = result.entity;
+                  event.component.key = this.getcustomFieldResult.columnName;
+                  event.component.columnId = this.getcustomFieldResult.columnId;
+                  event.component.columnName = this.getcustomFieldResult.columnName;
+                  event.component.isNew = false;
+
+                  this.toastr.success("Your custom field is Successfully add.");
+                  this.customField = {
+                    columnId: 0,
+                    columnName: '',
+                    columnLabel: '',
+                    customFieldType: '',
+                    dataType: '',
+                    columnValue: '',
+                    comboBoxValue: '',
+                    customFieldIsRequired: false,
+                    customFieldInformation: '',
+                    customFieldPrefix: '',
+                    customFieldSuffix: '',
+                    customFieldIsIncremental: false,
+                    customFieldBaseValue: 0,
+                    customFieldIncrementBy: 0,
+                    customFieldTextMaxLength: 0,
+                    customFieldDefaultValue: '',
+                    customFieldNumberMin: 0,
+                    customFieldNumberMax: 0,
+                    customFieldNumberDecimalPlaces: 0,
+                    customFieldTrueLabel: '',
+                    customFieldFalseLabel: '',
+                    customFieldSpecialType: '',
+                    dateDefaultPlusMinus: '',
+                    dateDefaultNumber: null,
+                    dateDefaulInterval: '',
+                    timeDefaultPlusMinus: '',
+                    timeNumberOfHours: null,
+                    timeNumberOFMinutes: null,
+                    offsetDateFields: '',
+                    offsetTimeFields: '',
+                  }
+                  // this.router.navigate(['Dynamic/CreateEvent']);
+                  this.cd.detectChanges();
                 }
+                else {
+                  this.toastr.warning(result.message);
+                  this.cd.detectChanges();
+                }
+              },
+              error => {
+                //this.error = error;
+                this.spinner.hide();
+              });
 
-              }
-            }
-          }
-          else {
-            if (Element.label == event.component.label) {
-              this.toastr.warning("Already Exist");
-            }
-          }
-        });
-      });
-    });
+        }
+
+        // else {
+
+        //   let isExist = false;
+        //   debugger;
+        //   if (this.newFormCopy != undefined) {
+        //     this.newFormCopy.components[0].components.forEach(element => {
+        //       if (element.eventQuantityAction != undefined) {
+        //         isExist = true;
+        //       }
+        //     });
+        //     if (isExist) {
+        //       this.toastr.warning("Action Qauntity Already Exist Please Delete and Create New");
+        //       this.form = this.newFormCopy
+        //     }
+        //     else {
+        //       this.newFormCopy = event.form;
+        //     }
+
+        //   }
+
+        // }
+
+      }
+      if (event.type == "saveComponent") {
+        debugger;
+        if (event.component.columnId != undefined) {
+          this.getDataType(event.component);
+          this.customfieldservice.AddCustomFields(this.customField, this.selectedTenantId, this.authService.accessToken)
+            .pipe(finalize(() => {
+              this.spinner.hide();
+            }))
+            .subscribe(
+              result => {
+
+                if (result.code == 200) {
+                  this.toastr.success("Your custom field is Successfully Update.");
+                  this.customField = {
+                    columnId: 0,
+                    columnName: '',
+                    columnLabel: '',
+                    customFieldType: '',
+                    dataType: '',
+                    columnValue: '',
+                    comboBoxValue: '',
+                    customFieldIsRequired: false,
+                    customFieldInformation: '',
+                    customFieldPrefix: '',
+                    customFieldSuffix: '',
+                    customFieldIsIncremental: false,
+                    customFieldBaseValue: 0,
+                    customFieldIncrementBy: 0,
+                    customFieldTextMaxLength: 0,
+                    customFieldDefaultValue: '',
+                    customFieldNumberMin: 0,
+                    customFieldNumberMax: 0,
+                    customFieldNumberDecimalPlaces: 0,
+                    customFieldTrueLabel: '',
+                    customFieldFalseLabel: '',
+                    customFieldSpecialType: '',
+                    dateDefaultPlusMinus: '',
+                    dateDefaultNumber: null,
+                    dateDefaulInterval: '',
+                    timeDefaultPlusMinus: '',
+                    timeNumberOfHours: null,
+                    timeNumberOFMinutes: null,
+                    offsetDateFields: '',
+                    offsetTimeFields: '',
+                  }
+                  // this.router.navigate(['Dynamic/CreateEvent']);
+                  this.cd.detectChanges();
+                }
+                else {
+                  this.toastr.warning(result.message);
+                  this.cd.detectChanges();
+                }
+              },
+              error => {
+                //this.error = error;
+                this.spinner.hide();
+              });
+
+        }
+
+      }
+    }
+
 
 
   }
@@ -438,7 +427,7 @@ export class FalseComponent implements OnInit {
             this.CustomFields = result.entity;
 
             this.CustomFields.forEach(element => {
-              if (element.dataType == "Text") {
+              if ((element.dataType == "Text" && element.customFieldSpecialType == "") || (element.dataType == "Text" && element.customFieldSpecialType == "OpenField")) {
                 debugger;
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,

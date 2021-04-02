@@ -227,8 +227,12 @@ export class EventReportComponent implements OnInit {
     // this.ApplyJsFunction();
   }
   DefaultView() {
-    this.selectedRepotTitle = "Default Event";
-    this.SelectedNewCustomReport();
+    this.selectedRepotTitle = "Default Event"
+    this.FilterArray = []
+    this.GetEvents();
+    this.getCustomreportList();
+    this.GetMyInventoryColumn();
+    // window.location.reload();
   }
   GetEvents() {
     debugger;
@@ -493,14 +497,14 @@ export class EventReportComponent implements OnInit {
   }
   gotoFirstPage() {
     this.pageIndex = 0;
-    // this.GetCurrentInventory();
+    this.GetReport();
     // this.ApplyJsFunction();
   }
   gotoLastPage() {
 
     this.pageIndex = this.length / this.pageSize;
     this.pageIndex = parseInt(this.pageIndex.toString())
-    // this.GetCurrentInventory();
+    this.GetReport();
     // this.ApplyJsFunction();
   }
   UpdateSelectedReport() {
@@ -527,15 +531,14 @@ export class EventReportComponent implements OnInit {
     this.lastPageIndex = parseInt(this.lastPageIndex.toString())
     if (this.pageIndex != this.lastPageIndex) {
       this.pageIndex++;
-      // this.GetCurrentInventory();
-      // this.ApplyJsFunction();
+      this.GetReport();
+
     }
   }
   gotoBack() {
     if (this.pageIndex > 0) {
       this.pageIndex = this.pageIndex - 1;
-      // this.GetCurrentInventory();
-      // this.ApplyJsFunction();
+      this.GetReport();
     }
   }
   onOptionsSelected(event) {
