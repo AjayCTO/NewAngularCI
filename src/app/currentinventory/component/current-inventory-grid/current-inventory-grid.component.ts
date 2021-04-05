@@ -710,7 +710,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     //   console.log(this.exportdata)
     // }),
 
-    error => console.log("Error downloading the file.")
+    error => console.log("Error Downloading The File.")
   }
 
 
@@ -790,7 +790,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
 
             if (result.entity == true) {
-              this.toastr.success("Your Attribute is Successfully Add.");
+              this.toastr.success("Your Attribute Is Successfully Add.");
 
               this.GetMyInventoryColumn();
               let el: HTMLElement = this.AddAttributeClose.nativeElement;
@@ -1055,7 +1055,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
               this.toastr.warning(result.message);
             }
             if (result.code == 200) {
-              this.toastr.success("Your tenant is Successfully add.");
+              this.toastr.success("Your Tenant Is Successfully Add.");
               document.getElementById("CloseBtnTenant").click();
 
 
@@ -1904,7 +1904,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       event => {
 
         if (event.entity == true) {
-          this.toastr.success("Files has been Uploaded", "SuccessFully");
+          this.toastr.success("Files Has Been Uploaded", "SuccessFully");
           this.spinner.hide();
           // let el: HTMLElement = this.uploadActivity.nativeElement;
           // el.click();
@@ -1912,7 +1912,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
         }
         else {
-          this.toastr.warning("Could not upload the files");
+          this.toastr.warning("Could Not Upload The Files");
         }
         this.spinner.hide();
         this.selectedFiles = [];
@@ -1920,7 +1920,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         this.ApplyJsFunction();
       },
       err => {
-        this.toastr.warning("Could not upload the files");
+        this.toastr.warning("Could Not Upload The Files");
       });
 
   }
@@ -1977,7 +1977,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
 
             if (result.code == 200) {
-              this.toastr.success("Your customField is Successfully Add.");
+              this.toastr.success("Your CustomField Is Successfully Add.");
               let el: HTMLElement = this.AddCustomFieldClose.nativeElement;
               el.click();
               // this.GetCustomFields();
@@ -2235,7 +2235,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   MakeInventoryViewDefaut() {
     this.currentinventoryService.MakeasDefault(this.selectedTenantId, this.authService.accessToken, this.SelectedView.id, this.SelectedView,).subscribe(res => {
       if (res.code == 200) {
-        this.toastr.success("SuccessFully Make as Defualt", this.SelectedView.viewName)
+        this.toastr.success("SuccessFully Make As Defualt", this.SelectedView.viewName)
         this.InventoryEditViewTogleButton = !this.InventoryEditViewTogleButton;
         this.GetInventoryView();
       }

@@ -203,7 +203,7 @@ export class EditCustomReportComponent implements OnInit {
           window.location.reload();
         }
         else if (result.code == 403) {
-          this.toast.success("Cant update");
+          this.toast.success("Cant Update");
         }
       },
         error => {

@@ -33,9 +33,11 @@ export class MultipleTransactionComponent implements OnInit {
   public selectedId: number;
   public SelectedView: any;
   public check: boolean;
+  public checkLocation: boolean;
   public locationsList: any[];
   public uomList: any[];
   public ClearConfirm: boolean;
+
   public length: number = 0
   public groupInventoryDetails: any[];
   public selectedUOm;
@@ -105,6 +107,7 @@ export class MultipleTransactionComponent implements OnInit {
   ngOnInit(): void {
     debugger;
     this.check = false
+    this.checkLocation = false
     this.ClearConfirm = false;
     this.CancleConfirm = false;
     this.store.pipe(select(selectSelectedTenant)).
@@ -126,6 +129,8 @@ export class MultipleTransactionComponent implements OnInit {
       });
     this.getLocationList();
     this.getUOMList();
+    // this.CheckQuantity(1)
+    // this.CheckLocation();
     this.ApplyJsFunction()
 
   }
@@ -137,16 +142,87 @@ export class MultipleTransactionComponent implements OnInit {
     }, 500)
   }
 
-  CheckQuantity() {
+  CheckQuantity(elements, e) {
     debugger;
-    this.check = false
+
     if (this.EventConfiguration.eventQuantityAction == "Move") {
       this.groupInventoryDetails.forEach(element => {
 
-        if (element.quantity > element.transactionQty) {
-          this.check = true;
+        if (element.partId == elements) {
+          element.transactionQty = e
+          if (element.quantity > element.transactionQty) {
+            element.CheckQuantity = true
+          }
+          else {
+            element.CheckQuantity = false;
+          }
         }
 
+      })
+    }
+    if (this.EventConfiguration.eventQuantityAction == "Convert") {
+      this.groupInventoryDetails.forEach(element => {
+
+        if (element.partId == elements) {
+
+          if (element.quantity > element.transactionQty) {
+            element.CheckQuantity = true
+          }
+          else {
+            element.CheckQuantity = false;
+          }
+        }
+
+      })
+    }
+
+    // this.checkTrueUsingArrayInclude()
+  }
+  // checkTrueUsingArrayInclude() {
+  //   debugger;
+  //   this.groupInventoryDetails.forEach(element => {
+  //     if (element.CheckQuantity.includes(false)) {
+  //       this.check = false
+  //     }
+  //     else {
+  //       this.check = true;
+  //     }
+
+  //   })
+
+  // }
+  CheckUom(elements) {
+    debugger
+    if (this.EventConfiguration.eventQuantityAction == "Convert") {
+      this.groupInventoryDetails.forEach(element => {
+        if (element.partId == elements) {
+          if (element.uomName == element.ToUomName) {
+            element.CheckUom = false
+          }
+          else {
+            if (element.uomName != element.ToUomName) {
+              element.CheckUom = true
+            }
+          }
+        }
+      })
+    }
+  }
+  CheckLocation(elements, e) {
+    debugger;
+    // this.checkLocation = false
+    if (this.EventConfiguration.eventQuantityAction == "Move") {
+      this.groupInventoryDetails.forEach(element => {
+        if (element.partId == elements) {
+          if (element.ToLocation == element.locationName) {
+            element.Checklocation = false
+          }
+          else {
+            if (element.ToLocation != element.locationName) {
+              element.Checklocation = true
+            }
+          }
+        }
       })
     }
   }
@@ -231,7 +307,8 @@ export class MultipleTransactionComponent implements OnInit {
   }
   Save() {
     debugger
-
+    let el: HTMLElement = this.closeInventoryModal.nativeElement;
+    el.click();
     this.spinner.show();
 
     debugger;
@@ -271,12 +348,17 @@ export class MultipleTransactionComponent implements OnInit {
         ToUomId: element.ToUomId == null ? 0 : JSON.parse(element.ToUomId.toString()),
       }
       if (this.EventConfiguration.eventQuantityAction == "Move") {
+        if (this.InventoryTransactionObj.transactionQty == "") {
+          this.toastr.warning("transactionQty field is required");
+          return false;
+        }
         if (this.InventoryTransactionObj.quantity < this.InventoryTransactionObj.transactionQty) {
 
           this.toastr.warning("Change Quantity Greater Then Actual Quantity");
           return false;
 
         }
+
         if (this.InventoryTransactionObj.ToLocation == "") {
           this.toastr.warning("Location field is required");
           return false;

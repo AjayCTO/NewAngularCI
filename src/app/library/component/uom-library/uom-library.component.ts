@@ -147,7 +147,7 @@ export class UOMLibraryComponent implements OnInit {
           result => {
             if (result) {
               if (result.entity == true) {
-                this.toast.success("Your Uom is Successfully Update.");
+                this.toast.success("Your Uom Is Successfully Update.");
                 this.GetUOM();
                 this.UOMs = { uomId: 0, uomName: '' };
               }

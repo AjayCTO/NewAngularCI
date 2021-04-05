@@ -12,7 +12,17 @@ import { selectSelectedTenantId, selectSelectedTenant } from '../../../store/sel
 import { ReportService } from '../../service/report.service';
 import { LibraryService } from '../../../library/service/library.service';
 import { EventService } from '../../../dynamic-events/service/event.service';
-
+import {
+  DateTimeAdapter,
+  OWL_DATE_TIME_FORMATS,
+  OWL_DATE_TIME_LOCALE,
+  OwlDateTimeComponent,
+  OwlDateTimeFormats
+} from 'ng-pick-datetime';
+import * as _moment from "moment";
+import { Moment } from "moment";
+import { NgIf } from '@angular/common';
+const moment = (_moment as any).default ? (_moment as any).default : _moment;
 @Component({
   selector: 'app-editnew-custom-report',
   templateUrl: './editnew-custom-report.component.html',
@@ -52,6 +62,14 @@ export class EditnewCustomReportComponent implements OnInit {
     description: "",
     reportType: "Event Report",
     ColumnFilter: [],
+  }
+  public dataColumnFilter: any = {
+    columnName: "",
+    displayName: "",
+    filterOperator: "",
+    searchValue: "",
+    ColumnDataType: "",
+    type: ""
   }
   public columnFilter: any = {
   }
@@ -353,6 +371,26 @@ export class EditnewCustomReportComponent implements OnInit {
       }
     });
   }
+  chosenMonthHandler(
+    normalizedMonth: Date,
+    datepicker: OwlDateTimeComponent<Moment>,
+    name
+  ) {
+    debugger;
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    this.dataColumnFilter.searchValue = normalizedMonth;
+    this.dataColumnFilter.datevalue = monthNames[normalizedMonth.getMonth()];
+    this.columnFilters.forEach(element => {
+      if (element.ColumnLabel == name) {
+
+        element.ColumnValue = this.dataColumnFilter.datevalue
+      }
+
+    });
+    datepicker.close();
+  }
   getUOMList() {
     this.libraryService.GetUOM(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
@@ -388,11 +426,11 @@ export class EditnewCustomReportComponent implements OnInit {
     this.reportService.UpdateCustomReport(this.selectedTenantId, this.authService.accessToken, this.Data.id, this.customreport)
       .subscribe(result => {
         if (result.code == 200) {
-          this.toast.success("Successfully update");
+          this.toast.success("Successfully Update");
           this.update.emit();
         }
         else if (result.code == 403) {
-          this.toast.success("Cant update");
+          this.toast.success("Can't Update");
         }
       },
         error => {
@@ -430,7 +468,7 @@ export class EditnewCustomReportComponent implements OnInit {
       this.columnFilters.push(a);
     }
     else {
-      this.toast.warning("this fields already have in Form ");
+      this.toast.warning("This Fields Already Have In Form");
     }
     this.cdr.detectChanges();
     // debugger;
@@ -465,7 +503,7 @@ export class EditnewCustomReportComponent implements OnInit {
       this.toggleFilter = true;
     }
     else {
-      this.toast.warning("this fields already have in Form ");
+      this.toast.warning("This Fields Already Have In Form");
     }
     this.cdr.detectChanges();
     debugger;

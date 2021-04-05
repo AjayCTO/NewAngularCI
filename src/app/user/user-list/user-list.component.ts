@@ -27,7 +27,7 @@ export class UserListComponent implements OnInit {
   success: boolean;
   error: string;
   busy: boolean;
-  public showPassword:boolean
+  public showPassword: boolean
   AllMemberUser: any;
   CurrentTenantUsers: any;
   loadingRecords = false;
@@ -108,14 +108,14 @@ export class UserListComponent implements OnInit {
   }
 
   GetMemberUser() {
-    this.loadingRecords=true;
+    this.loadingRecords = true;
     this.userService.GetMemberUser(this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
 
       })).subscribe(result => {
         if (result.entity != null) {
-          this.loadingRecords=false;
+          this.loadingRecords = false;
           this.AllMemberUser = result.entity;
 
         }
@@ -175,7 +175,7 @@ export class UserListComponent implements OnInit {
   }
 
   GetCurrentTenantUsers() {
-    this.loadingRecords=true;
+    this.loadingRecords = true;
     this.userService.GetCurrentTenantUsers(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
@@ -183,7 +183,7 @@ export class UserListComponent implements OnInit {
       })).subscribe(result => {
 
         if (result.entity != null) {
-          this.loadingRecords=false;
+          this.loadingRecords = false;
           this.CurrentTenantUsers = result.entity;
           this.CurrentTenantUsers.sort(function (a, b) { return a.id - b.id; });
           this.GetMemberUser();
@@ -291,7 +291,7 @@ export class UserListComponent implements OnInit {
             }
             else {
               document.getElementById("CloseExistUser").click();
-              this.toastr.success("Success!", "Member succcefully added");
+              this.toastr.success("Success!", "Member Succcefully Added");
               this.SelectedUser = {
                 userName: '', userId: '', firstName: '', lastName: '', company: '', phone: '', email: ''
               }
@@ -302,10 +302,9 @@ export class UserListComponent implements OnInit {
           }
         })
   }
-  showPasswords()
-{
-  this.showPassword=!this.showPassword;
-  this.ApplyJsFunction();
-}
+  showPasswords() {
+    this.showPassword = !this.showPassword;
+    this.ApplyJsFunction();
+  }
 
 }

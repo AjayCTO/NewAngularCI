@@ -124,7 +124,7 @@ export class TenantComponent implements OnInit {
               this.toast.warning(result.message);
             }
             if (result.code == 200) {
-              this.toast.success("Your tenant is Successfully add.");
+              this.toast.success("Your Tenant Is Successfully Add.");
               document.getElementById("CloseBtn").click();
               this.spinner.show();
               this.showForm = false;

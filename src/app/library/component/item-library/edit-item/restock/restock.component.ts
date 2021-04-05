@@ -49,7 +49,7 @@ export class RestockComponent implements OnInit {
           if (result) {
 
             if (result.entity == true) {
-              this.toastr.success("Your Restock is Successfully update.");
+              this.toastr.success("Your Restock Is Successfully Update.");
               // this.GetLocation();
 
             }

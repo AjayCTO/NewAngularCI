@@ -211,7 +211,7 @@ export class AttributeFieldsComponent implements OnInit {
           }
           else {
             if (result) {
-              this.toastr.success("Delete successfully");
+              this.toastr.success("Delete Successfully");
               this.GetAttributeFields();
             }
           }
@@ -278,7 +278,7 @@ export class AttributeFieldsComponent implements OnInit {
 
           if (result.entity == true) {
             if (this.EditMode)
-              this.toastr.success("Update  successfully");
+              this.toastr.success("Update  Successfully");
             else {
 
               this.toastr.success("Add Successfully");

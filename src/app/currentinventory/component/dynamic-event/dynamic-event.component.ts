@@ -118,7 +118,7 @@ export class DynamicEventComponent implements OnInit {
     if (this.selectedDynamicEvent.eventQuantityAction == "Move") {
 
       if (this.TransactionTargetObj.ToLocation == "") {
-        this.toastr.warning("Location field is required");
+        this.toastr.warning("Location Field Is Required");
         return false;
       }
       if (this.InventoryTransactionObj.quantity < this.InventoryTransactionObj.transactionQty) {
@@ -129,7 +129,7 @@ export class DynamicEventComponent implements OnInit {
       }
       if (this.InventoryTransactionObj.locationName.toLowerCase() == this.TransactionTargetObj.ToLocation.toLowerCase()) {
 
-        this.toastr.warning("Please move these states to a different location.");
+        this.toastr.warning("Please Move These States To A Different Location.");
         return false;
       }
 
@@ -141,7 +141,7 @@ export class DynamicEventComponent implements OnInit {
         return false;
       }
       if (this.InventoryTransactionObj.uomId == this.TransactionTargetObj.ToUomId) {
-        this.toastr.error("Please convert the states to a different unit of measure.", "UNITS OF MEASURE HAVE NOT CHANGED")
+        this.toastr.error("Please Convert The States To A Different Unit Of Measure.", "UNITS OF MEASURE HAVE NOT CHANGED")
         return false;
       }
 
@@ -170,7 +170,7 @@ export class DynamicEventComponent implements OnInit {
       .subscribe(
         result => {
           if (result.entity == true) {
-            this.toastr.success("Transaction is done");
+            this.toastr.success("Transaction Is Done");
             this.RefreshInventory.emit();
           }
         });

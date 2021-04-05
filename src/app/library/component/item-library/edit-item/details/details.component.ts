@@ -144,7 +144,7 @@ export class DetailsComponent implements OnInit {
         continue;
       } else {
         isImage = false;
-        this.toastr.warning('invalid format!');
+        this.toastr.warning('Invalid Format!');
         break;
       }
     }
@@ -159,16 +159,16 @@ export class DetailsComponent implements OnInit {
         debugger;
         if (event.entity == true) {
           document.getElementById("uploadModelClose").click();
-          this.toastr.success("Files has been Uploaded", "SuccessFully");
+          this.toastr.success("Files Has Been Uploaded", "SuccessFully");
         }
         else {
-          this.toastr.warning("Could not upload the files");
+          this.toastr.warning("Could Not Upload The Files");
         }
         this.spinner.hide();
         this.ApplyJsFunction();
       },
       err => {
-        this.toastr.warning("Could not upload the files");
+        this.toastr.warning("Could Not Upload The Files");
       });
 
   }
@@ -313,7 +313,7 @@ export class DetailsComponent implements OnInit {
           if (result) {
 
             if (result.entity == true) {
-              this.toastr.success("Your item is Successfully update.");
+              this.toastr.success("Your Item Is Successfully Update.");
               // this.GetLocation();
 
             }

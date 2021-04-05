@@ -52,7 +52,7 @@ export class AddLocationComponent implements OnInit {
             debugger;
 
             if (result.entity == true) {
-              this.toast.success("Your Location is Successfully add.");
+              this.toast.success("Your Location Is Successfully Add.");
               this.loadLocation.emit();
 
             }

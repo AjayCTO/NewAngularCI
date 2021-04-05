@@ -179,7 +179,7 @@ export class UploadComponent implements OnInit {
 
       }
       else {
-        this.toastr.warning("something wrong");
+        this.toastr.warning("Something Went Wrong");
       }
 
     });

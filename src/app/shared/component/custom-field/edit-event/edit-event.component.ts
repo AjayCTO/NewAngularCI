@@ -292,7 +292,7 @@ export class EditEventComponent implements OnInit {
                   if (event.form) {
                     this.newFormCopy = event.form;
                   }
-                  this.toastr.success("Your custom field is Successfully add.");
+                  this.toastr.success("Your Custom Field Is Successfully Add.");
                   this.customField = {
                     columnId: 0,
                     columnName: '',
@@ -354,7 +354,7 @@ export class EditEventComponent implements OnInit {
               result => {
 
                 if (result.code == 200) {
-                  this.toastr.success("Your custom field is Successfully Update.");
+                  this.toastr.success("Your Custom Field Is Successfully Update.");
                   this.customField = {
                     columnId: 0,
                     columnName: '',

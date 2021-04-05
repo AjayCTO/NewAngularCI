@@ -147,7 +147,7 @@ export class LocationLibraryComponent implements OnInit {
             if (result) {
 
               if (result.entity == true) {
-                this.toast.success("Your Location is Successfully update.");
+                this.toast.success("Your Location is Successfully Update.");
                 this.GetLocation();
                 this.locationsform = { locationId: 0, locationName: '', description: '', locationZone: '', isHidden: false };
               }

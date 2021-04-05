@@ -724,7 +724,7 @@ export class AddnewCustomReportComponent implements OnInit {
       this.selectedFields.push(a);
     }
     else {
-      this.toastr.warning("this fields already have in Form ");
+      this.toastr.warning("This Fields Already Have In Form");
     }
     this.cdr.detectChanges();
     // debugger;
@@ -756,7 +756,7 @@ export class AddnewCustomReportComponent implements OnInit {
       this.selectedFields.push(e.dragData);
     }
     else {
-      this.toastr.warning("this fields already have in Form ");
+      this.toastr.warning("This Fields Already Have In Form");
     }
     this.cdr.detectChanges();
     // debugger;
@@ -768,17 +768,24 @@ export class AddnewCustomReportComponent implements OnInit {
     }, 500);
     // this.ApplyJsFunction();
   }
-  chosenYearHandler(normalizedYear: Date, datepicker: OwlDateTimeComponent<Moment>) {
+  chosenYearHandler(normalizedYear: Date, datepicker: OwlDateTimeComponent<Moment>, name) {
     debugger;
     this.dataColumnFilter.searchValue = normalizedYear;
     this.dataColumnFilter.datevalue = normalizedYear.getFullYear();
+    this.selectedFields.forEach(element => {
+      if (element.ColumnLabel == name) {
+
+        element.ColumnValue = this.dataColumnFilter.datevalue
+      }
+
+    });
     datepicker.close();
   }
 
   chosenMonthHandler(
     normalizedMonth: Date,
-    datepicker: OwlDateTimeComponent<Moment>
-
+    datepicker: OwlDateTimeComponent<Moment>,
+    name
   ) {
     debugger;
     const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -787,9 +794,11 @@ export class AddnewCustomReportComponent implements OnInit {
     this.dataColumnFilter.searchValue = normalizedMonth;
     this.dataColumnFilter.datevalue = monthNames[normalizedMonth.getMonth()];
     this.selectedFields.forEach(element => {
-      if (element.ColumnValue == "") {
-        element.ColumnValue = this.dataColumnFilter.datevalue;
+      if (element.ColumnLabel == name) {
+
+        element.ColumnValue = this.dataColumnFilter.datevalue
       }
+
     });
     datepicker.close();
   }
@@ -801,7 +810,7 @@ export class AddnewCustomReportComponent implements OnInit {
     this.reportService.AddCustomReport(this.selectedTenantId, this.authService.accessToken, this.customreport).subscribe((result => {
 
       if (result.code == 200) {
-        this.toastr.success("your report is Added")
+        this.toastr.success("Your Report Is Added")
         this.router.navigateByUrl("/report/event-report");
         localStorage.setItem("ReportCustomTitle", this.customreport.reportTitle)
 

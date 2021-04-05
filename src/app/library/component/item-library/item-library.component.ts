@@ -502,7 +502,7 @@ export class ItemLibraryComponent implements OnInit {
 
     this.submitted = true;
     if (this.partformControl.invalid) {
-      this.toastr.warning("Required", "Please fill required column");
+      this.toastr.warning("Required", "Please Fill Required Column");
       return;
     }
     this.spinner.show();
@@ -544,7 +544,7 @@ export class ItemLibraryComponent implements OnInit {
           if (result) {
 
             if (result.entity == true) {
-              this.toastr.success("Your item is Successfully Added.");
+              this.toastr.success("Your Item Is Successfully Added.");
               document.getElementById("Closebtn").click();
               this.onReset();
               this.GetParts();
@@ -675,7 +675,7 @@ export class ItemLibraryComponent implements OnInit {
 
 
             if (result.entity == true) {
-              this.toastr.success("Your Uom is Successfully Add.");
+              this.toastr.success("Your Uom Is Successfully Add.");
               let el: HTMLElement = this.AddUOMClose.nativeElement;
               el.click();
               form.reset();
@@ -913,7 +913,7 @@ export class ItemLibraryComponent implements OnInit {
 
 
             if (result.entity == true) {
-              this.toastr.success("Your Attribute is Successfully Add.");
+              this.toastr.success("Your Attribute Is Successfully Add.");
               let el: HTMLElement = this.AddAttributeClose.nativeElement;
               el.click();
               form.reset();
@@ -969,7 +969,7 @@ export class ItemLibraryComponent implements OnInit {
 
 
             if (result.entity == true) {
-              this.toastr.success("Your Location is Successfully add.");
+              this.toastr.success("Your Location Is Successfully Add.");
               let el: HTMLElement = this.AddLocationClose.nativeElement;
               el.click();
               form.reset();

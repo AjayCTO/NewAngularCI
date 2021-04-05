@@ -239,7 +239,7 @@ export class ImageLibraryComponent implements OnInit {
           this.GetAllImage()
         }
         else {
-          this.toastr.warning("you cant Assign image");
+          this.toastr.warning("You Can't Assign Image");
         }
         debugger;
         this.imagesId = [];
@@ -276,17 +276,17 @@ export class ImageLibraryComponent implements OnInit {
         if (event.entity == true) {
 
           document.getElementById("uploadModelClose").click();
-          this.toastr.success("Files has been Uploaded", "SuccessFully");
+          this.toastr.success("Files Has Been Uploaded", "SuccessFully");
           this.GetAllImage()
         }
         else {
-          this.toastr.warning("Could not upload the files");
+          this.toastr.warning("Could Not Upload The files");
         }
         this.spinner.hide();
         this.ApplyJsFunction();
       },
       err => {
-        this.toastr.warning("Could not upload the files");
+        this.toastr.warning("Could Not Upload The Files");
       });
 
   }

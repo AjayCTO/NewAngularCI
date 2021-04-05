@@ -214,7 +214,7 @@ export class CustomFieldsComponent implements OnInit {
           }
           else {
             if (result) {
-              this.toastr.success("Delete successfully");
+              this.toastr.success("Delete Successfully");
               this.GetCustomFields();
             }
           }
@@ -280,10 +280,10 @@ export class CustomFieldsComponent implements OnInit {
           if (result) {
             if (result.code == 200) {
               if (this.EditMode)
-                this.toastr.success("Your custom field is Successfully update.");
+                this.toastr.success("Your Custom Field Is Successfully Update.");
               else {
 
-                this.toastr.success("Your custom field is Successfully add.");
+                this.toastr.success("Your Custom Field Is Successfully Add.");
               }
               document.getElementById("closeModal").click();
               this.showForm = false;

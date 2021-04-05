@@ -55,19 +55,21 @@
                         fill="currentColor" class="icon__color--primary"></path>
                 </svg> Back To Inventory
             </a>
-            <button [disabled]="check==false" data-modal="#ProceedModel"
-                class="button button--medium button--icon button--theme01 js-modal">
-                Proceed
-                <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
-                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
-                    <path fill="none" d="M0 0h48v48H0z"></path>
-                    <path d="M31.9 19a8 8 0 00-3-6.3h-.2L17.3 3.8l-4.9 6.3 5.2 4 12.6 9.7a7.6 7.6 0 001.7-4.8z"
-                        fill="currentColor" class="icon__color--secondary"></path>
-                    <path
-                        d="M35.3 30.4l-18 13.8-4.9-6.3 16.4-12.6a6.7 6.7 0 001.4-1.5 7.6 7.6 0 001.7-4.8 8 8 0 00-3-6.3l6.4 5a8 8 0 010 12.7z"
-                        fill="currentColor" class="icon__color--primary"></path>
-                </svg>
-            </button>
+            <div *ngFor="let item of groupInventoryDetails">
+                <button [disabled]="item.CheckQuantity==false||item.Checklocation==false" data-modal="#ProceedModel"
+                    class="button button--medium button--icon button--theme01 js-modal">
+                    Proceed
+                    <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
+                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+                        <path fill="none" d="M0 0h48v48H0z"></path>
+                        <path d="M31.9 19a8 8 0 00-3-6.3h-.2L17.3 3.8l-4.9 6.3 5.2 4 12.6 9.7a7.6 7.6 0 001.7-4.8z"
+                            fill="currentColor" class="icon__color--secondary"></path>
+                        <path
+                            d="M35.3 30.4l-18 13.8-4.9-6.3 16.4-12.6a6.7 6.7 0 001.4-1.5 7.6 7.6 0 001.7-4.8 8 8 0 00-3-6.3l6.4 5a8 8 0 010 12.7z"
+                            fill="currentColor" class="icon__color--primary"></path>
+                    </svg>
+                </button>
+            </div>
 
         </div>
     </div>
@@ -75,15 +77,12 @@
         <div class="card">
             <div class="card-header1">
                 <h2 style="color: black;"><b> Put these items in inventory.</b>
-
                 </h2>
             </div>
             <div class="table">
                 <table class="table__table" *ngIf="EventConfiguration!=undefined">
                     <thead class="table__section table__section--head">
                         <tr class="table__row table__row--head">
-
-
                             <th scope="col" class="table__heading">
                                 <div class="table__heading-title">
                                     <div class="form__col-wrap">
@@ -107,14 +106,12 @@
                                         <div class="form__col form__col-group">
                                             <div class="">
                                                 Quantity</div>
-
                                         </div>
                                     </div>
                                 </div>
                                 <div class="table__heading-options">
                                     <div class="icons icons--horziontal icons--size02">
                                         <div class="icons__icon"></div>
-
                                     </div>
                                 </div>
                             </th>
@@ -221,7 +218,6 @@
                                 <div class="table__heading-options">
                                     <div class="icons icons--horziontal icons--size02">
                                         <div class="icons__icon"></div>
-
                                     </div>
                                 </div>
                             </th>
@@ -242,14 +238,11 @@
                                         <div class="table__heading-options">
                                             <div class="icons icons--horziontal icons--size02">
                                                 <div class="icons__icon"></div>
-
                                             </div>
                                         </div>
-
                                     </th>
                                 </ng-container>
                             </ng-container>
-
                             <th scope="col" class="table__heading">
                                 <div class="table__heading-title">
                                     <div class="form__col-wrap">
@@ -263,21 +256,11 @@
                                 <div class="table__heading-options">
                                     <div class="icons icons--horziontal icons--size02">
                                         <div class="icons__icon"></div>
-
                                     </div>
                                 </div>
                             </th>
-
                         </tr>
                     </thead>
-
-
-
-
-
-
-
-
                     <tbody class="table__section table__section--body">
                         <ng-container *ngFor="let item of groupInventoryDetails;let x = index;">
 
@@ -305,18 +288,25 @@
                                         <label class="form__label form_label"
                                             for="Quantity_{{item.partId}}">Quantity</label>
                                         <input class="form__input" type="number" id="Quantity_{{item.partId}}"
-                                            (change)="CheckQuantity()" [(ngModel)]="item.transactionQty"
-                                            name="Quantity_{{item.partId}}" required>
+                                            (ngModelChange)="CheckQuantity(item.partId,$event)"
+                                            [(ngModel)]="item.transactionQty" name="Quantity_{{item.partId}}" required>
                                         <span class="input-group-addon text Suffix">{{item.uomName}}</span>
+                                        <span *ngIf="item.CheckQuantity==false"
+                                            style="color: #ff554d; font-size: 12px;">Quantity is Greater than orignal
+                                            Quantity</span>
                                     </div>
                                 </td>
                                 <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Convert'">
                                     <div class="form__col">
                                         <label class="form__label form_label" for="ConvertQuantity">Quantity</label>
-                                        <input class="form__input" type="number" [(ngModel)]="item.transactionQty"
-                                            id="ConvertQuantity" name="ConvertQuantity" required>
+                                        <input class="form__input" type="number"
+                                            (ngModelChange)="CheckQuantity(item.partId,$event)"
+                                            [(ngModel)]="item.transactionQty" id="ConvertQuantity"
+                                            name="ConvertQuantity" required>
                                         <span class="input-group-addon text Suffix">{{item.uomName}}</span>
-
+                                        <span *ngIf="item.CheckQuantity==false"
+                                            style="color: #ff554d; font-size: 12px;">Quantity is Greater than orignal
+                                            Quantity</span>
 
                                     </div>
                                 </td>
@@ -336,12 +326,18 @@
                                                 <div class="form__col">
                                                     <label class="form__label form_label" for="Uom"> Unit Of
                                                         Measure</label>
-                                                    <select class="floating-select" [(ngModel)]="item.ToUomId" id="Uom"
+                                                    <select (ngModelChange)="CheckUom(item.partId)"
+                                                        class="floating-select" [(ngModel)]="item.ToUomName" id="Uom"
                                                         name="Uom">
                                                         <option></option>
-                                                        <option *ngFor="let option of uomList" [value]="option.uomId">
+                                                        <option *ngFor="let option of uomList"
+                                                            [value]="option.uomName  ">
                                                             {{option.uomName}}</option>
                                                     </select>
+                                                    <span *ngIf="item.CheckQuantity==false"
+                                                        style="color: #ff554d; font-size: 12px;">Please convert the
+                                                        states to a different unit of measure.", "UNITS OF MEASURE HAVE
+                                                        NOT CHANGED</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -353,7 +349,12 @@
                                             for="Location_{{item.inventoryId}}">Location
                                         </label>
                                         <input class="form__input" type="text" [(ngModel)]="item.ToLocation"
+                                            (ngModelChange)="CheckLocation(item.partId,$event)"
                                             id="Location_{{item.inventoryId}}" name="Location_{{item.inventoryId}}">
+                                        <span *ngIf="item.Checklocation==false"
+                                            style="color: #ff554d; font-size: 12px;">Please move these states to a
+                                            different
+                                            location.</span>
                                     </div>
                                 </td>
                                 <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Add'">
@@ -560,6 +561,21 @@
                             </tr>
 
                         </ng-container>
+                        <!-- <button
+                            class="button button--medium button--icon button--theme01 js-modal"
+                            data-modal="#ProceedModel">
+                            Proceed
+                            <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="23" height="23">
+                                <path fill="none" d="M0 0h48v48H0z"></path>
+                                <path
+                                    d="M31.9 19a8 8 0 00-3-6.3h-.2L17.3 3.8l-4.9 6.3 5.2 4 12.6 9.7a7.6 7.6 0 001.7-4.8z"
+                                    fill="currentColor" class="icon__color--secondary"></path>
+                                <path
+                                    d="M35.3 30.4l-18 13.8-4.9-6.3 16.4-12.6a6.7 6.7 0 001.4-1.5 7.6 7.6 0 001.7-4.8 8 8 0 00-3-6.3l6.4 5a8 8 0 010 12.7z"
+                                    fill="currentColor" class="icon__color--primary"></path>
+                            </svg>
+                        </button> -->
                     </tbody>
                 </table>
 

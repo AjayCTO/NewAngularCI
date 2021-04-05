@@ -992,7 +992,23 @@ export class EventReportComponent implements OnInit {
     }
 
   }
-
+  Close() {
+    this.EditReport = false;
+    this.showDropDown = !this.showDropDown;
+    this.reportService.GetCustomReportList(this.selectedTenantId, this.authService.accessToken).subscribe((result => {
+      if (result.code == 200) {
+        debugger;
+        this.ReportList = result.entity;
+        this.ReportList.forEach(element => {
+          if (element.reportTitle == this.selectedRepotTitle) {
+            this.report = element
+            this.SelectedReport(this.report)
+          }
+        }
+        )
+      }
+    }))
+  }
   GetdateFilter(element) {
 
     this.myDT = new Date(this.dataColumnFilter.searchValue)

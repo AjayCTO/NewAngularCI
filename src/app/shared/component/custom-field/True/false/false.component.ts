@@ -268,7 +268,7 @@ export class FalseComponent implements OnInit {
                   event.component.columnName = this.getcustomFieldResult.columnName;
                   event.component.isNew = false;
 
-                  this.toastr.success("Your custom field is Successfully add.");
+                  this.toastr.success("Your Custom Field Is Successfully Add.");
                   this.customField = {
                     columnId: 0,
                     columnName: '',
@@ -351,7 +351,7 @@ export class FalseComponent implements OnInit {
               result => {
 
                 if (result.code == 200) {
-                  this.toastr.success("Your custom field is Successfully Update.");
+                  this.toastr.success("Your Custom Field Is Successfully Update.");
                   this.customField = {
                     columnId: 0,
                     columnName: '',
@@ -681,7 +681,7 @@ export class FalseComponent implements OnInit {
     this.eventForm.eventName = JsonData.components[0].title;
     if (this.eventForm.eventQuantityAction == "") {
 
-      this.toastr.warning("Please Add any Qauntity Action");
+      this.toastr.warning("Please Add Any Qauntity Action");
       return false;
     }
     if (this.eventForm.eventQuantityAction == 'Add') {
@@ -723,7 +723,7 @@ export class FalseComponent implements OnInit {
           if (result) {
 
             if (result.entity == true) {
-              this.toastr.success("Your event is Successfully Added.");
+              this.toastr.success("Your Event Is Successfully Updated.");
               this.router.navigate(['CurrentInventory']);
             }
             else {

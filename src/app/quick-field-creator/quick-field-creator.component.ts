@@ -280,8 +280,8 @@ export class QuickFieldCreatorComponent implements OnInit {
             if (result.code == 200) {
 
 
-              this.toastr.success("Your Item  is Successfully add.");
-              this.GetAllFields();
+              this.toastr.success("Your Item  Is Successfully Add.");
+              this.router.navigateByUrl("/CurrentInventory")
 
             }
             else {
