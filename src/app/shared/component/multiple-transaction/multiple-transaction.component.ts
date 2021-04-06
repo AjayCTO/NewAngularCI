@@ -45,6 +45,7 @@ export class MultipleTransactionComponent implements OnInit {
   public today: Date;
   public CancleConfirm: boolean;
   public CustomFields: any;
+  public ProceedBtnDisable: boolean = false;
   CurrentInventoryObj: CurrentInventory = {
     partId: 0,
     partName: "",
@@ -142,39 +143,54 @@ export class MultipleTransactionComponent implements OnInit {
     }, 500)
   }
 
-  CheckQuantity(elements, e) {
-    debugger;
+  checkProceedButton() {
+    this.ProceedBtnDisable = false;
+    if (this.groupInventoryDetails != undefined) {
+      this.groupInventoryDetails.forEach(element => {
+        if (element.CheckQuantity == true || element.transactionQty == null) {
+          this.ProceedBtnDisable = true;
+        }
+      });
+    }
+    return this.ProceedBtnDisable
+  }
 
+  CheckQuantitys(item, event) {
+    debugger;
+    this.ProceedBtnDisable = false;
     if (this.EventConfiguration.eventQuantityAction == "Move") {
       this.groupInventoryDetails.forEach(element => {
-
-        if (element.partId == elements) {
-          element.transactionQty = e
-          if (element.quantity > element.transactionQty) {
-            element.CheckQuantity = true
+        if (element.inventoryId == item.inventoryId) {
+          element.transactionQty = event;
+          if (element.quantity < element.transactionQty) {
+            element.CheckQuantity = true;
           }
           else {
             element.CheckQuantity = false;
           }
+
         }
 
       })
     }
-    if (this.EventConfiguration.eventQuantityAction == "Convert") {
-      this.groupInventoryDetails.forEach(element => {
 
-        if (element.partId == elements) {
 
-          if (element.quantity > element.transactionQty) {
-            element.CheckQuantity = true
-          }
-          else {
-            element.CheckQuantity = false;
-          }
-        }
 
-      })
-    }
+    // if (this.EventConfiguration.eventQuantityAction == "Convert") {
+    //   this.groupInventoryDetails.forEach(element => {
+
+    //     if (element.partId == elements) {
+
+    //       if (element.quantity > element.transactionQty) {
+    //         element.CheckQuantity = true
+    //       }
+    //       else {
+    //         element.CheckQuantity = false;
+    //       }
+    //     }
+
+    //   })
+    // }
 
     // this.checkTrueUsingArrayInclude()
   }
@@ -191,6 +207,17 @@ export class MultipleTransactionComponent implements OnInit {
   //   })
 
   // }
+
+  CustomFieldsChange(item, event) {
+    debugger;
+    item.columnValue = event;
+  }
+
+
+
+
+
+
   CheckUom(elements) {
     debugger
     if (this.EventConfiguration.eventQuantityAction == "Convert") {
@@ -210,7 +237,6 @@ export class MultipleTransactionComponent implements OnInit {
   }
   CheckLocation(elements, e) {
     debugger;
-    // this.checkLocation = false
     if (this.EventConfiguration.eventQuantityAction == "Move") {
       this.groupInventoryDetails.forEach(element => {
         if (element.partId == elements) {

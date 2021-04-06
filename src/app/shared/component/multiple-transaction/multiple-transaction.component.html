@@ -55,21 +55,20 @@
                         fill="currentColor" class="icon__color--primary"></path>
                 </svg> Back To Inventory
             </a>
-            <div *ngFor="let item of groupInventoryDetails">
-                <button [disabled]="item.CheckQuantity==false||item.Checklocation==false" data-modal="#ProceedModel"
-                    class="button button--medium button--icon button--theme01 js-modal">
-                    Proceed
-                    <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
-                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
-                        <path fill="none" d="M0 0h48v48H0z"></path>
-                        <path d="M31.9 19a8 8 0 00-3-6.3h-.2L17.3 3.8l-4.9 6.3 5.2 4 12.6 9.7a7.6 7.6 0 001.7-4.8z"
-                            fill="currentColor" class="icon__color--secondary"></path>
-                        <path
-                            d="M35.3 30.4l-18 13.8-4.9-6.3 16.4-12.6a6.7 6.7 0 001.4-1.5 7.6 7.6 0 001.7-4.8 8 8 0 00-3-6.3l6.4 5a8 8 0 010 12.7z"
-                            fill="currentColor" class="icon__color--primary"></path>
-                    </svg>
-                </button>
-            </div>
+
+            <button [disabled]="checkProceedButton()" data-modal="#ProceedModel"
+                class="button button--medium button--icon button--theme01 js-modal">
+                Proceed
+                <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+                    <path fill="none" d="M0 0h48v48H0z"></path>
+                    <path d="M31.9 19a8 8 0 00-3-6.3h-.2L17.3 3.8l-4.9 6.3 5.2 4 12.6 9.7a7.6 7.6 0 001.7-4.8z"
+                        fill="currentColor" class="icon__color--secondary"></path>
+                    <path
+                        d="M35.3 30.4l-18 13.8-4.9-6.3 16.4-12.6a6.7 6.7 0 001.4-1.5 7.6 7.6 0 001.7-4.8 8 8 0 00-3-6.3l6.4 5a8 8 0 010 12.7z"
+                        fill="currentColor" class="icon__color--primary"></path>
+                </svg>
+            </button>
 
         </div>
     </div>
@@ -79,489 +78,533 @@
                 <h2 style="color: black;"><b> Put these items in inventory.</b>
                 </h2>
             </div>
-            <div class="table">
-                <table class="table__table" *ngIf="EventConfiguration!=undefined">
-                    <thead class="table__section table__section--head">
-                        <tr class="table__row table__row--head">
-                            <th scope="col" class="table__heading">
-                                <div class="table__heading-title">
-                                    <div class="form__col-wrap">
-                                        <div class="form__col form__col-group">
-                                            <div class="">
-                                                Current Inventory statement </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="table__heading-options">
-                                    <div class="icons icons--horziontal icons--size02">
-                                        <div class="icons__icon"></div>
+            <form style="max-width: 100%;" class="form" #f="ngForm">
+                <div class="table">
 
-                                    </div>
-                                </div>
-                            </th>
-                            <th *ngIf="EventConfiguration.eventQuantityAction=='Add'||EventConfiguration.eventQuantityAction=='Remove'"
-                                scope="col" class="table__heading">
-                                <div class="table__heading-title">
-                                    <div class="form__col-wrap">
-                                        <div class="form__col form__col-group">
-                                            <div class="">
-                                                Quantity</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="table__heading-options">
-                                    <div class="icons icons--horziontal icons--size02">
-                                        <div class="icons__icon"></div>
-                                    </div>
-                                </div>
-                            </th>
-                            <th *ngIf="EventConfiguration.eventQuantityAction=='Move'" scope="col"
-                                class="table__heading">
-                                <div class="table__heading-title">
-                                    <div class="form__col-wrap">
-                                        <div class="form__col form__col-group">
-                                            <div class="">
-                                                Move a Quantity of...
+                    <table class="table__table" *ngIf="EventConfiguration!=undefined">
+                        <thead class="table__section table__section--head">
+                            <tr class="table__row table__row--head">
+                                <th scope="col" class="table__heading">
+                                    <div class="table__heading-title">
+                                        <div class="form__col-wrap">
+                                            <div class="form__col form__col-group">
+                                                <div class="">
+                                                    Current Inventory statement </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="table__heading-options">
-                                    <div class="icons icons--horziontal icons--size02">
-                                        <div class="icons__icon"></div>
+                                    <div class="table__heading-options">
+                                        <div class="icons icons--horziontal icons--size02">
+                                            <div class="icons__icon"></div>
 
+                                        </div>
                                     </div>
-                                </div>
-                            </th>
-                            <th *ngIf="EventConfiguration.eventQuantityAction=='Move'" scope="col"
-                                class="table__heading">
-                                <div class="table__heading-title">
-                                    <div class="form__col-wrap">
-                                        <div class="form__col form__col-group">
-                                            <div class="">
-                                                Move to Location ...
+                                </th>
+                                <th *ngIf="EventConfiguration.eventQuantityAction=='Add'||EventConfiguration.eventQuantityAction=='Remove'"
+                                    scope="col" class="table__heading">
+                                    <div class="table__heading-title">
+                                        <div class="form__col-wrap">
+                                            <div class="form__col form__col-group">
+                                                <div class="">
+                                                    Quantity</div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="table__heading-options">
-                                    <div class="icons icons--horziontal icons--size02">
-                                        <div class="icons__icon"></div>
-
-                                    </div>
-                                </div>
-                            </th>
-                            <th *ngIf="EventConfiguration.eventQuantityAction=='Convert'" scope="col"
-                                class="table__heading">
-                                <div class="table__heading-title">
-                                    <div class="form__col-wrap">
-                                        <div class="form__col form__col-group">
-                                            <div class="">
-                                                Convert this Quantity ...
-                                            </div>
+                                    <div class="table__heading-options">
+                                        <div class="icons icons--horziontal icons--size02">
+                                            <div class="icons__icon"></div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="table__heading-options">
-                                    <div class="icons icons--horziontal icons--size02">
-                                        <div class="icons__icon"></div>
-
-                                    </div>
-                                </div>
-                            </th>
-                            <th *ngIf="EventConfiguration.eventQuantityAction=='Convert'" scope="col"
-                                class="table__heading">
-                                <div class="table__heading-title">
-                                    <div class="form__col-wrap">
-                                        <div class="form__col form__col-group">
-                                            <div class="">
-                                                Into this Quantity...</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="table__heading-options">
-                                    <div class="icons icons--horziontal icons--size02">
-                                        <div class="icons__icon"></div>
-
-                                    </div>
-                                </div>
-                            </th>
-                            <th *ngIf="EventConfiguration.eventQuantityAction=='Convert'" scope="col"
-                                class="table__heading">
-                                <div class="table__heading-title">
-                                    <div class="form__col-wrap">
-                                        <div class="form__col form__col-group">
-                                            <div class="">
-                                                of this Unit of Measure....
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="table__heading-options">
-                                    <div class="icons icons--horziontal icons--size02">
-                                        <div class="icons__icon"></div>
-
-                                    </div>
-                                </div>
-                            </th>
-                            <th *ngIf="EventConfiguration.eventQuantityAction=='Add'" scope="col"
-                                class="table__heading">
-                                <div class="table__heading-title">
-                                    <div class="form__col-wrap">
-                                        <div class="form__col form__col-group">
-                                            <div class="">
-                                                Cost per Unit in ($)
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="table__heading-options">
-                                    <div class="icons icons--horziontal icons--size02">
-                                        <div class="icons__icon"></div>
-                                    </div>
-                                </div>
-                            </th>
-                            <ng-container *ngFor="let itemHeader of  CustomFields">
-                                <ng-container *ngIf="itemHeader.customFieldIncludeOnDynamicEvent">
-                                    <th scope="col" class="table__heading" [attr.columnId]="itemHeader.id"
-                                        [style.width.px]="itemHeader.width" [resizeColumn]="true">
-
-                                        <div class="table__heading-title">
-                                            <div class="form__col-wrap">
-                                                <div class="form__col form__col-group">
-                                                    <div class="">
-                                                        {{itemHeader.columnLabel}}
-                                                    </div>
+                                </th>
+                                <th *ngIf="EventConfiguration.eventQuantityAction=='Move'" scope="col"
+                                    class="table__heading">
+                                    <div class="table__heading-title">
+                                        <div class="form__col-wrap">
+                                            <div class="form__col form__col-group">
+                                                <div class="">
+                                                    Move a Quantity of...
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="table__heading-options">
-                                            <div class="icons icons--horziontal icons--size02">
-                                                <div class="icons__icon"></div>
-                                            </div>
-                                        </div>
-                                    </th>
-                                </ng-container>
-                            </ng-container>
-                            <th scope="col" class="table__heading">
-                                <div class="table__heading-title">
-                                    <div class="form__col-wrap">
-                                        <div class="form__col form__col-group">
-                                            <div>
-                                                Action
-                                            </div>
+                                    </div>
+                                    <div class="table__heading-options">
+                                        <div class="icons icons--horziontal icons--size02">
+                                            <div class="icons__icon"></div>
+
                                         </div>
                                     </div>
-                                </div>
-                                <div class="table__heading-options">
-                                    <div class="icons icons--horziontal icons--size02">
-                                        <div class="icons__icon"></div>
-                                    </div>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="table__section table__section--body">
-                        <ng-container *ngFor="let item of groupInventoryDetails;let x = index;">
-
-                            <tr class="table__row table__row--body">
-
-                                <td class="table__cell">{{item.quantity}} {{item.uomName}} of
-                                    <b>{{item.partName}}</b><br />
-                                    <span style="font-size: 14px;"> ({{item.partDescription}})</span>
-                                    <br /> Location:
-                                    <b>{{item.locationName}}</b>
-                                </td>
-                                <td class="table__cell"
-                                    *ngIf="EventConfiguration.eventQuantityAction=='Add'||EventConfiguration.eventQuantityAction=='Remove'">
-                                    <div class="form__col">
-                                        <label class="form__label form_label"
-                                            for="Quantity_{{item.partId}}">Quantity</label>
-                                        <input id="input" class="form__input" [(ngModel)]="item.transactionQty"
-                                            type="number" id="Quantity_{{item.partId}}" name="Quantity_{{item.partId}}"
-                                            required>
-
-                                    </div>
-                                </td>
-                                <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Move'">
-                                    <div class="form__col">
-                                        <label class="form__label form_label"
-                                            for="Quantity_{{item.partId}}">Quantity</label>
-                                        <input class="form__input" type="number" id="Quantity_{{item.partId}}"
-                                            (ngModelChange)="CheckQuantity(item.partId,$event)"
-                                            [(ngModel)]="item.transactionQty" name="Quantity_{{item.partId}}" required>
-                                        <span class="input-group-addon text Suffix">{{item.uomName}}</span>
-                                        <span *ngIf="item.CheckQuantity==false"
-                                            style="color: #ff554d; font-size: 12px;">Quantity is Greater than orignal
-                                            Quantity</span>
-                                    </div>
-                                </td>
-                                <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Convert'">
-                                    <div class="form__col">
-                                        <label class="form__label form_label" for="ConvertQuantity">Quantity</label>
-                                        <input class="form__input" type="number"
-                                            (ngModelChange)="CheckQuantity(item.partId,$event)"
-                                            [(ngModel)]="item.transactionQty" id="ConvertQuantity"
-                                            name="ConvertQuantity" required>
-                                        <span class="input-group-addon text Suffix">{{item.uomName}}</span>
-                                        <span *ngIf="item.CheckQuantity==false"
-                                            style="color: #ff554d; font-size: 12px;">Quantity is Greater than orignal
-                                            Quantity</span>
-
-                                    </div>
-                                </td>
-                                <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Convert'">
-                                    <div class="form__col">
-                                        <label class="form__label form_label"
-                                            for="Quantity1_{{item.partId}}">Quantity</label>
-                                        <input class="form__input" type="number" id="Quantity1_{{item.partId}}"
-                                            [(ngModel)]="item.transactionQtyChange" name="Quantity1_{{item.partId}}"
-                                            required>
-                                    </div>
-                                </td>
-                                <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Convert'">
-                                    <form class="form">
-                                        <div class="form__section">
-                                            <div class="form__col-wrap">
-                                                <div class="form__col">
-                                                    <label class="form__label form_label" for="Uom"> Unit Of
-                                                        Measure</label>
-                                                    <select (ngModelChange)="CheckUom(item.partId)"
-                                                        class="floating-select" [(ngModel)]="item.ToUomName" id="Uom"
-                                                        name="Uom">
-                                                        <option></option>
-                                                        <option *ngFor="let option of uomList"
-                                                            [value]="option.uomName  ">
-                                                            {{option.uomName}}</option>
-                                                    </select>
-                                                    <span *ngIf="item.CheckQuantity==false"
-                                                        style="color: #ff554d; font-size: 12px;">Please convert the
-                                                        states to a different unit of measure.", "UNITS OF MEASURE HAVE
-                                                        NOT CHANGED</span>
+                                </th>
+                                <th *ngIf="EventConfiguration.eventQuantityAction=='Move'" scope="col"
+                                    class="table__heading">
+                                    <div class="table__heading-title">
+                                        <div class="form__col-wrap">
+                                            <div class="form__col form__col-group">
+                                                <div class="">
+                                                    Move to Location ...
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
-                                </td>
-                                <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Move'">
-                                    <div class="form__col">
-                                        <label class="form__label form_label"
-                                            for="Location_{{item.inventoryId}}">Location
-                                        </label>
-                                        <input class="form__input" type="text" [(ngModel)]="item.ToLocation"
-                                            (ngModelChange)="CheckLocation(item.partId,$event)"
-                                            id="Location_{{item.inventoryId}}" name="Location_{{item.inventoryId}}">
-                                        <span *ngIf="item.Checklocation==false"
-                                            style="color: #ff554d; font-size: 12px;">Please move these states to a
-                                            different
-                                            location.</span>
                                     </div>
-                                </td>
-                                <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Add'">
-                                    <div class="form__col">
-                                        <label class="form__label form_label" for="Cost_{{item.inventoryId}}">Cost
-                                            per
-                                            Unit
-                                            in ($)</label>
-                                        <input class="form__input" type="text" id="Cost_{{item.inventoryId}}"
-                                            [(ngModel)]="item.costPerUnit" name="Cost_{{item.inventoryId}}">
+                                    <div class="table__heading-options">
+                                        <div class="icons icons--horziontal icons--size02">
+                                            <div class="icons__icon"></div>
+
+                                        </div>
                                     </div>
-                                </td>
-
-                                <ng-container *ngFor="let field of item.customFieldsList; let i = index;">
-                                    <ng-container *ngIf="field.customFieldIncludeOnDynamicEvent">
-                                        <td class="table__cell">
-                                            <div class="form__col"
-                                                [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''">
-
-                                                <label class="form__label" *ngIf="field.dataType!='True/False'"
-                                                    for="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
-                                                    [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>='4' ? 'prefixLabel3':'']">{{
-                                                    (field.columnLabel.length>5)? (field.columnLabel |
-                                                    slice:0:5)+'...':(field.columnLabel)}}<span
-                                                        *ngIf="field.customFieldIsRequired"
-                                                        class="form__required">*</span></label>
-                                                <span class="form__group-outer-label"
-                                                    *ngIf="field.dataType=='True/False'">{{
-                                                    (field.columnLabel.length>5)? (field.columnLabel |
-                                                    slice:0:5)+'...':(field.columnLabel)}}
-                                                    :</span>
-                                                <ng-container *ngIf="field.dataType=='Text'">
-
-                                                    <ng-container *ngIf="field.customFieldSpecialType=='Autocomplete'">
-                                                        <ng-autocomplete
-                                                            [data]="ComboValueDropdown(field.comboBoxValue)"
-                                                            [searchKeyword]="keyword" (selected)='selectEvent($event)'
-                                                            [debounceTime]="600" [itemTemplate]="itemTemplate"
-                                                            [notFoundTemplate]="notFoundTemplate">
-                                                        </ng-autocomplete>
-                                                        <ng-template #itemTemplate let-item>
-                                                            <a [innerHTML]="item"></a>
-                                                        </ng-template>
-                                                    </ng-container>
-
-                                                    <ng-container *ngIf="field.customFieldSpecialType=='Dropdown'">
-                                                        <select class="floating-select"
-                                                            id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
-                                                            name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
-                                                            [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
-                                                            required="required">
-                                                            <option value=""></option>
-                                                            <option *ngFor="let value of field.comboBoxArray"
-                                                                [value]="value.value">
-                                                                {{value.label}}
-
-                                                            </option>
-                                                        </select>
-                                                    </ng-container>
-                                                    <ng-container *ngIf="field.customFieldSpecialType=='OpenField'">
-                                                        <ng-container
-                                                            *ngIf="field.customFieldSuffix||field.customFieldPrefix"
-                                                            class="input-group">
-                                                            <span *ngIf="field.customFieldPrefix"
-                                                                class="input-group-addon text Prefix"
-                                                                [popper]="popper13Content" [popperTrigger]="'hover'"
-                                                                [popperPlacement]="'bottom'">{{(field.customFieldPrefix.length>3)?
-                                                                (field.customFieldPrefix |
-                                                                slice:0:3)+'...':(field.customFieldPrefix)}}</span>
-                                                            <popper-content #popper13Content>
-                                                                <p class="popperTitle">
-                                                                    <b>{{field.customFieldPrefix}}</b>
-                                                                </p>
-                                                            </popper-content>
-                                                            <input type="text" [required]="field.customFieldIsRequired"
-                                                                id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
-                                                                [ngClass]="[field.customFieldPrefix.length=='1' ? 'Addon':''||field.customFieldPrefix.length=='2'?'Addon1':''||field.customFieldPrefix.length=='3'?'Addon2':''||field.customFieldPrefix.length>='4'?'Addon3':'']"
-                                                                name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
-                                                                [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
-                                                                class="form__input">
-                                                            <span *ngIf="field.customFieldSuffix"
-                                                                class="input-group-addon text Suffix">{{field.customFieldSuffix}}</span>
-                                                        </ng-container>
-                                                        <ng-container
-                                                            *ngIf="!field.customFieldSuffix&&!field.customFieldPrefix">
-                                                            <input type="text" [required]="field.customFieldIsRequired"
-                                                                [(ngModel)]="item.customFieldsList[i].columnValue"
-                                                                class="form__input">
-                                                        </ng-container>
-                                                    </ng-container>
-                                                    <ng-container *ngIf="field.customFieldSpecialType==''">
-                                                        <input type="text" [required]="field.customFieldIsRequired"
-                                                            [(ngModel)]="item.customFieldsList[i].columnValue"
-                                                            class="form__input">
-                                                    </ng-container>
-                                                </ng-container>
-                                                <ng-container *ngIf="field.dataType=='Number'">
-                                                    <ng-container *ngIf="field.customFieldSpecialType=='Number'">
-                                                        <input type="{{field.dataType}}"
-                                                            [required]="field.customFieldIsRequired"
-                                                            id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
-                                                            name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
-                                                            [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
-                                                            class="form__input">
-                                                    </ng-container>
-                                                    <ng-container *ngIf="field.customFieldSpecialType=='Currency'"
-                                                        class="input-group">
-                                                        <span class="input-group-addon text">$</span>
-                                                        <input type="{{field.dataType}}"
-                                                            [required]="field.customFieldIsRequired"
-                                                            id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
-                                                            name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
-                                                            [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
-                                                            class="form__input">
-                                                    </ng-container>
-                                                    <ng-container *ngIf="field.customFieldSpecialType==''">
-                                                        <input type="{{field.dataType}}"
-                                                            [required]="field.customFieldIsRequired"
-                                                            id="Circustance_{{field.columnId}}"
-                                                            name="Circustance_{{field.columnId}}"
-                                                            [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
-                                                            class="form__input">
-                                                    </ng-container>
-                                                </ng-container>
-                                                <ng-container *ngIf="field.dataType=='Date/Time'">
-                                                    <ng-container
-                                                        *ngIf="field.customFieldSpecialType=='Date'||field.customFieldSpecialType==''">
-                                                        <input class="form__input" [owlDateTimeTrigger]="dt1"
-                                                            placeholder="Select Date"
-                                                            id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
-                                                            name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
-                                                            [required]="field.customFieldIsRequired"
-                                                            [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
-                                                            [owlDateTime]="dt1">
-                                                        <owl-date-time [pickerType]="'calendar'" #dt1>
-                                                        </owl-date-time>
-                                                    </ng-container>
-                                                    <ng-container *ngIf="field.customFieldSpecialType=='Date & Time'">
-                                                        <input class="form__input" [owlDateTimeTrigger]="dt1"
-                                                            [required]="field.customFieldIsRequired"
-                                                            id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
-                                                            name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
-                                                            [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
-                                                            [owlDateTime]="dt1">
-                                                        <owl-date-time #dt1>
-                                                        </owl-date-time>
-                                                    </ng-container>
-                                                    <ng-container *ngIf="field.customFieldSpecialType=='Time'">
-                                                        <input [owlDateTimeTrigger]="dt4" class="form__input"
-                                                            placeholder="select Date andTime"
-                                                            [required]="field.customFieldIsRequired"
-                                                            id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
-                                                            name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
-                                                            [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
-                                                            [owlDateTime]="dt4">
-                                                        <owl-date-time [pickerType]="'timer'" #dt4>
-                                                        </owl-date-time>
-                                                    </ng-container>
-                                                </ng-container>
-                                                <ng-container *ngIf="field.dataType=='True/False'">
-                                                    <div class="form__group form__group--radio">
-                                                        <input id="Circustance_{{field.columnId}}_1"
-                                                            [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
-                                                            class="form__radio" type="radio"
-                                                            value="{{field.customFieldFalseLabel}}"
-                                                            name="radio200_{{field.columnId}}">
-                                                        <label class="form__group-label"
-                                                            for="Circustance_{{field.columnId}}_1">{{field.customFieldFalseLabel}}</label>
-                                                    </div>
-                                                    <div class="form__group form__group--radio">
-                                                        <input
-                                                            [(ngModel)]="groupInventoryDetails[x].customFieldsList[i].columnValue"
-                                                            value="{{field.customFieldTrueLabel}}"
-                                                            id="Circustance_{{field.columnId}}_2" class="form__radio"
-                                                            type="radio" name="radio200_{{field.columnId}}">
-                                                        <label class="form__group-label"
-                                                            for="Circustance_{{field.columnId}}_2">{{field.customFieldTrueLabel}}</label>
-                                                    </div>
-                                                </ng-container>
+                                </th>
+                                <th *ngIf="EventConfiguration.eventQuantityAction=='Convert'" scope="col"
+                                    class="table__heading">
+                                    <div class="table__heading-title">
+                                        <div class="form__col-wrap">
+                                            <div class="form__col form__col-group">
+                                                <div class="">
+                                                    Convert this Quantity ...
+                                                </div>
                                             </div>
-                                        </td>
+                                        </div>
+                                    </div>
+                                    <div class="table__heading-options">
+                                        <div class="icons icons--horziontal icons--size02">
+                                            <div class="icons__icon"></div>
+
+                                        </div>
+                                    </div>
+                                </th>
+                                <th *ngIf="EventConfiguration.eventQuantityAction=='Convert'" scope="col"
+                                    class="table__heading">
+                                    <div class="table__heading-title">
+                                        <div class="form__col-wrap">
+                                            <div class="form__col form__col-group">
+                                                <div class="">
+                                                    Into this Quantity...</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table__heading-options">
+                                        <div class="icons icons--horziontal icons--size02">
+                                            <div class="icons__icon"></div>
+
+                                        </div>
+                                    </div>
+                                </th>
+                                <th *ngIf="EventConfiguration.eventQuantityAction=='Convert'" scope="col"
+                                    class="table__heading">
+                                    <div class="table__heading-title">
+                                        <div class="form__col-wrap">
+                                            <div class="form__col form__col-group">
+                                                <div class="">
+                                                    of this Unit of Measure....
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table__heading-options">
+                                        <div class="icons icons--horziontal icons--size02">
+                                            <div class="icons__icon"></div>
+
+                                        </div>
+                                    </div>
+                                </th>
+                                <th *ngIf="EventConfiguration.eventQuantityAction=='Add'" scope="col"
+                                    class="table__heading">
+                                    <div class="table__heading-title">
+                                        <div class="form__col-wrap">
+                                            <div class="form__col form__col-group">
+                                                <div class="">
+                                                    Cost per Unit in ($)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table__heading-options">
+                                        <div class="icons icons--horziontal icons--size02">
+                                            <div class="icons__icon"></div>
+                                        </div>
+                                    </div>
+                                </th>
+                                <ng-container *ngFor="let itemHeader of  CustomFields">
+                                    <ng-container *ngIf="itemHeader.customFieldIncludeOnDynamicEvent">
+                                        <th scope="col" class="table__heading" [attr.columnId]="itemHeader.id"
+                                            [style.width.px]="itemHeader.width" [resizeColumn]="true">
+
+                                            <div class="table__heading-title">
+                                                <div class="form__col-wrap">
+                                                    <div class="form__col form__col-group">
+                                                        <div class="">
+                                                            {{itemHeader.columnLabel}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table__heading-options">
+                                                <div class="icons icons--horziontal icons--size02">
+                                                    <div class="icons__icon"></div>
+                                                </div>
+                                            </div>
+                                        </th>
                                     </ng-container>
                                 </ng-container>
-
-                                <td><button (click)="DeleteItem(item.inventoryId)" style="cursor: pointer;"
-                                        class="icons__item icons__item--theme03">
-                                        <div class="icons__icon">
-                                            <svg class="icon icon--theme01 icon-simple--trash"
-                                                aria-labelledby="title-5f84133e656c0" xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 24 24" width="24" height="24">
-                                                <path fill="none" d="M0 0h24v24H0z"></path>
-                                                <path fill="currentColor"
-                                                    d="M18.3 18l-.4 3H6.1l-.4-3h12.6zM4.541 2.927l15.863 2.088-.391 2.975L4.15 5.9z"
-                                                    class="icon__color--primary">
-                                                </path>
-                                                <path fill="currentColor"
-                                                    d="M10.734 1.738l3.96.52-.26 1.98-3.96-.52zM16.3 10h3l-1 8-.4 3h-3l.4-3 1-8zM9.1 21h-3l-.4-3-1.1-8h3.1l1 8 .4 3z">
-                                                </path>
-                                            </svg>
+                                <th scope="col" class="table__heading">
+                                    <div class="table__heading-title">
+                                        <div class="form__col-wrap">
+                                            <div class="form__col form__col-group">
+                                                <div>
+                                                    Action
+                                                </div>
+                                            </div>
                                         </div>
-                                        <span class="icons__label">Remove</span>
-                                    </button></td>
-
+                                    </div>
+                                    <div class="table__heading-options">
+                                        <div class="icons icons--horziontal icons--size02">
+                                            <div class="icons__icon"></div>
+                                        </div>
+                                    </div>
+                                </th>
                             </tr>
+                        </thead>
+                        <tbody class="table__section table__section--body">
+                            <ng-container>
 
-                        </ng-container>
-                        <!-- <button
+                                <tr class="table__row table__row--body"
+                                    *ngFor="let item of groupInventoryDetails;let x = index;">
+
+                                    <td class="table__cell">{{item.quantity}} {{item.uomName}} of
+                                        <b>{{item.partName}}</b><br />
+                                        <span style="font-size: 14px;"> ({{item.partDescription}})</span>
+                                        <br /> Location:
+                                        <b>{{item.locationName}}</b>
+                                    </td>
+                                    <td class="table__cell"
+                                        *ngIf="EventConfiguration.eventQuantityAction=='Add'||EventConfiguration.eventQuantityAction=='Remove'">
+                                        <div class="form__col">
+                                            <label class="form__label form_label"
+                                                for="Quantity_{{item.partId}}">Quantity</label>
+                                            <input id="input" class="form__input" [(ngModel)]="item.transactionQty"
+                                                [ngModelOptions]="{standalone: true}" type="number"
+                                                id="Quantity_{{item.partId}}" name="Quantity_{{item.partId}}" required>
+
+                                        </div>
+                                    </td>
+                                    <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Move'">
+                                        <div class="form__col">
+                                            <label class="form__label form_label"
+                                                for="Quantity_{{item.partId}}">Quantity</label>
+                                            <input class="form__input" type="number" id="Quantity_{{item.partId}}"
+                                                (ngModelChange)="CheckQuantitys(item,$event)"
+                                                [ngModelOptions]="{standalone: true}"
+                                                [(ngModel)]="groupInventoryDetails[x].transactionQty"
+                                                name="Quantity_{{item.partId}}" required>
+                                            <span class="input-group-addon text Suffix">{{item.uomName}}</span>
+
+                                        </div>
+                                        <span *ngIf="item.CheckQuantity"
+                                            style="color: #ff554d; font-size: 12px;">Quantity
+                                            is Greater than
+                                            orignal
+                                            Quantity</span>
+                                    </td>
+                                    <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Convert'">
+                                        <div class="form__col">
+                                            <label class="form__label form_label" for="ConvertQuantity">Quantity</label>
+                                            <input class="form__input" type="number"
+                                                (ngModelChange)="CheckQuantitys(item,$event)"
+                                                [ngModelOptions]="{standalone: true}"
+                                                [(ngModel)]="groupInventoryDetails[x].transactionQty"
+                                                id="ConvertQuantity" name="ConvertQuantity" required>
+                                            <span class="input-group-addon text Suffix">{{item.uomName}}</span>
+                                            <span *ngIf="item.CheckQuantity"
+                                                style="color: #ff554d; font-size: 12px;">Quantity is Greater than
+                                                orignal
+                                                Quantity</span>
+
+                                        </div>
+                                    </td>
+                                    <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Convert'">
+                                        <div class="form__col">
+                                            <label class="form__label form_label"
+                                                for="Quantity1_{{item.partId}}">Quantity</label>
+                                            <input class="form__input" type="number" id="Quantity1_{{item.partId}}"
+                                                [ngModelOptions]="{standalone: true}"
+                                                [(ngModel)]="item.transactionQtyChange" name="Quantity1_{{item.partId}}"
+                                                required>
+                                        </div>
+                                    </td>
+                                    <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Convert'">
+                                        <form class="form">
+                                            <div class="form__section">
+                                                <div class="form__col-wrap">
+                                                    <div class="form__col">
+                                                        <label class="form__label form_label" for="Uom"> Unit Of
+                                                            Measure</label>
+                                                        <select (ngModelChange)="CheckUom(item.partId)"
+                                                            class="floating-select" [(ngModel)]="item.ToUomName"
+                                                            [ngModelOptions]="{standalone: true}" id="Uom" name="Uom">
+                                                            <option></option>
+                                                            <option *ngFor="let option of uomList"
+                                                                [value]="option.uomName  ">
+                                                                {{option.uomName}}</option>
+                                                        </select>
+                                                        <span *ngIf="item.CheckQuantity==false"
+                                                            style="color: #ff554d; font-size: 12px;">Please convert the
+                                                            states to a different unit of measure.", "UNITS OF MEASURE
+                                                            HAVE
+                                                            NOT CHANGED</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </td>
+                                    <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Move'">
+                                        <div class="form__col">
+                                            <label class="form__label form_label"
+                                                for="Location_{{item.inventoryId}}">Location
+                                            </label>
+                                            <input class="form__input" type="text" [(ngModel)]="item.ToLocation"
+                                                [ngModelOptions]="{standalone: true}"
+                                                (ngModelChange)="CheckLocation(item.partId,$event)"
+                                                id="Location_{{item.inventoryId}}" name="Location_{{item.inventoryId}}">
+                                            <span *ngIf="item.Checklocation==false"
+                                                style="color: #ff554d; font-size: 12px;">Please move these states to a
+                                                different
+                                                location.</span>
+                                        </div>
+                                    </td>
+                                    <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Add'">
+                                        <div class="form__col">
+                                            <label class="form__label form_label" for="Cost_{{item.inventoryId}}">Cost
+                                                per
+                                                Unit
+                                                in ($)</label>
+                                            <input class="form__input" type="text" id="Cost_{{item.inventoryId}}"
+                                                [ngModelOptions]="{standalone: true}" [(ngModel)]="item.costPerUnit"
+                                                name="Cost_{{item.inventoryId}}">
+                                        </div>
+                                    </td>
+
+                                    <ng-container *ngFor="let field of item.customFieldsList; let i = index;">
+                                        <ng-container *ngIf="field.customFieldIncludeOnDynamicEvent">
+                                            <td class="table__cell">
+                                                <div class="form__col"
+                                                    [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''">
+
+                                                    <label class="form__label" *ngIf="field.dataType!='True/False'"
+                                                        for="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                        [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>='4' ? 'prefixLabel3':'']">{{
+                                                        (field.columnLabel.length>5)? (field.columnLabel |
+                                                        slice:0:5)+'...':(field.columnLabel)}}<span
+                                                            *ngIf="field.customFieldIsRequired"
+                                                            class="form__required">*</span></label>
+                                                    <span class="form__group-outer-label"
+                                                        *ngIf="field.dataType=='True/False'">{{
+                                                        (field.columnLabel.length>5)? (field.columnLabel |
+                                                        slice:0:5)+'...':(field.columnLabel)}}
+                                                        :</span>
+                                                    <ng-container *ngIf="field.dataType=='Text'">
+
+                                                        <ng-container
+                                                            *ngIf="field.customFieldSpecialType=='Autocomplete'">
+                                                            <ng-autocomplete
+                                                                [data]="ComboValueDropdown(field.comboBoxValue)"
+                                                                [searchKeyword]="keyword"
+                                                                (selected)='selectEvent($event)' [debounceTime]="600"
+                                                                [itemTemplate]="itemTemplate"
+                                                                [notFoundTemplate]="notFoundTemplate">
+                                                            </ng-autocomplete>
+                                                            <ng-template #itemTemplate let-item>
+                                                                <a [innerHTML]="item"></a>
+                                                            </ng-template>
+                                                        </ng-container>
+
+                                                        <ng-container *ngIf="field.customFieldSpecialType=='Dropdown'">
+                                                            <select class="floating-select"
+                                                                id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                                name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                [(ngModel)]="groupInventoryDetails[x][i]"
+                                                                (ngModelChange)="CustomFieldsChange(field,$event)"
+                                                                required="required">
+                                                                <option value=""></option>
+                                                                <option *ngFor="let value of field.comboBoxArray"
+                                                                    [value]="value.value">
+                                                                    {{value.label}}
+
+                                                                </option>
+                                                            </select>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="field.customFieldSpecialType=='OpenField'">
+                                                            <ng-container
+                                                                *ngIf="field.customFieldSuffix||field.customFieldPrefix"
+                                                                class="input-group">
+                                                                <span *ngIf="field.customFieldPrefix"
+                                                                    class="input-group-addon text Prefix"
+                                                                    [popper]="popper13Content" [popperTrigger]="'hover'"
+                                                                    [popperPlacement]="'bottom'">{{(field.customFieldPrefix.length>3)?
+                                                                    (field.customFieldPrefix |
+                                                                    slice:0:3)+'...':(field.customFieldPrefix)}}</span>
+                                                                <popper-content #popper13Content>
+                                                                    <p class="popperTitle">
+                                                                        <b>{{field.customFieldPrefix}}</b>
+                                                                    </p>
+                                                                </popper-content>
+                                                                <input type="text"
+                                                                    [required]="field.customFieldIsRequired"
+                                                                    id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                                    [ngClass]="[field.customFieldPrefix.length=='1' ? 'Addon':''||field.customFieldPrefix.length=='2'?'Addon1':''||field.customFieldPrefix.length=='3'?'Addon2':''||field.customFieldPrefix.length>='4'?'Addon3':'']"
+                                                                    name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                                    [ngModelOptions]="{standalone: true}"
+                                                                    [(ngModel)]="groupInventoryDetails[x][i]"
+                                                                    (ngModelChange)="CustomFieldsChange(field,$event)"
+                                                                    class="form__input">
+                                                                <span *ngIf="field.customFieldSuffix"
+                                                                    class="input-group-addon text Suffix">{{field.customFieldSuffix}}</span>
+                                                            </ng-container>
+                                                            <ng-container
+                                                                *ngIf="!field.customFieldSuffix&&!field.customFieldPrefix">
+                                                                <input type="text"
+                                                                    [required]="field.customFieldIsRequired"
+                                                                    [ngModelOptions]="{standalone: true}"
+                                                                    [(ngModel)]="groupInventoryDetails[x][i]"
+                                                                    (ngModelChange)="CustomFieldsChange(field,$event)"
+                                                                    class="form__input">
+                                                            </ng-container>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="field.customFieldSpecialType==''">
+                                                            <input type="text" [required]="field.customFieldIsRequired"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                [(ngModel)]="groupInventoryDetails[x][i]"
+                                                                (ngModelChange)="CustomFieldsChange(field,$event)"
+                                                                class="form__input">
+                                                        </ng-container>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="field.dataType=='Number'">
+                                                        <ng-container *ngIf="field.customFieldSpecialType=='Number'">
+                                                            <input type="{{field.dataType}}"
+                                                                [required]="field.customFieldIsRequired"
+                                                                id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                                name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                [(ngModel)]="groupInventoryDetails[x][i]"
+                                                                (ngModelChange)="CustomFieldsChange(field,$event)"
+                                                                class="form__input">
+                                                        </ng-container>
+                                                        <ng-container *ngIf="field.customFieldSpecialType=='Currency'"
+                                                            class="input-group">
+                                                            <span class="input-group-addon text">$</span>
+                                                            <input type="{{field.dataType}}"
+                                                                [required]="field.customFieldIsRequired"
+                                                                id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                                name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                [(ngModel)]="groupInventoryDetails[x][i]"
+                                                                (ngModelChange)="CustomFieldsChange(field,$event)"
+                                                                class="form__input">
+                                                        </ng-container>
+                                                        <ng-container *ngIf="field.customFieldSpecialType==''">
+                                                            <input type="{{field.dataType}}"
+                                                                [required]="field.customFieldIsRequired"
+                                                                id="Circustance_{{field.columnId}}"
+                                                                name="Circustance_{{field.columnId}}"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                [(ngModel)]="groupInventoryDetails[x][i]"
+                                                                (ngModelChange)="CustomFieldsChange(field,$event)"
+                                                                class="form__input">
+                                                        </ng-container>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="field.dataType=='Date/Time'">
+                                                        <ng-container
+                                                            *ngIf="field.customFieldSpecialType=='Date'||field.customFieldSpecialType==''">
+                                                            <input class="form__input" [owlDateTimeTrigger]="dt1"
+                                                                placeholder="Select Date"
+                                                                id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                                name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                                [required]="field.customFieldIsRequired"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                [(ngModel)]="groupInventoryDetails[x][i]"
+                                                                (ngModelChange)="CustomFieldsChange(field,$event)"
+                                                                [owlDateTime]="dt1">
+                                                            <owl-date-time [pickerType]="'calendar'" #dt1>
+                                                            </owl-date-time>
+                                                        </ng-container>
+                                                        <ng-container
+                                                            *ngIf="field.customFieldSpecialType=='Date & Time'">
+                                                            <input class="form__input" [owlDateTimeTrigger]="dt1"
+                                                                [required]="field.customFieldIsRequired"
+                                                                id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                                name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                [(ngModel)]="groupInventoryDetails[x][i]"
+                                                                (ngModelChange)="CustomFieldsChange(field,$event)"
+                                                                [owlDateTime]="dt1">
+                                                            <owl-date-time #dt1>
+                                                            </owl-date-time>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="field.customFieldSpecialType=='Time'">
+                                                            <input [owlDateTimeTrigger]="dt4" class="form__input"
+                                                                placeholder="select Date andTime"
+                                                                [required]="field.customFieldIsRequired"
+                                                                id="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                                name="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                [(ngModel)]="groupInventoryDetails[x][i]"
+                                                                (ngModelChange)="CustomFieldsChange(field,$event)"
+                                                                [owlDateTime]="dt4">
+                                                            <owl-date-time [pickerType]="'timer'" #dt4>
+                                                            </owl-date-time>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="field.dataType=='True/False'">
+                                                        <div class="form__group form__group--radio">
+                                                            <input id="Circustance_{{field.columnId}}_1"
+                                                                [(ngModel)]="groupInventoryDetails[x][i]"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                (ngModelChange)="CustomFieldsChange(field,$event)"
+                                                                class="form__radio" type="radio"
+                                                                value="{{field.customFieldFalseLabel}}"
+                                                                name="radio200_{{field.columnId}}">
+                                                            <label class="form__group-label"
+                                                                for="Circustance_{{field.columnId}}_1">{{field.customFieldFalseLabel}}</label>
+                                                        </div>
+                                                        <div class="form__group form__group--radio">
+                                                            <input [(ngModel)]="groupInventoryDetails[x][i]"
+                                                                (ngModelChange)="CustomFieldsChange(field,$event)"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                value="{{field.customFieldTrueLabel}}"
+                                                                id="Circustance_{{field.columnId}}_2"
+                                                                class="form__radio" type="radio"
+                                                                name="radio200_{{field.columnId}}">
+                                                            <label class="form__group-label"
+                                                                for="Circustance_{{field.columnId}}_2">{{field.customFieldTrueLabel}}</label>
+                                                        </div>
+                                                    </ng-container>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+                                    </ng-container>
+
+                                    <td><button (click)="DeleteItem(item.inventoryId)" style="cursor: pointer;"
+                                            class="icons__item icons__item--theme03">
+                                            <div class="icons__icon">
+                                                <svg class="icon icon--theme01 icon-simple--trash"
+                                                    aria-labelledby="title-5f84133e656c0"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+                                                    height="24">
+                                                    <path fill="none" d="M0 0h24v24H0z"></path>
+                                                    <path fill="currentColor"
+                                                        d="M18.3 18l-.4 3H6.1l-.4-3h12.6zM4.541 2.927l15.863 2.088-.391 2.975L4.15 5.9z"
+                                                        class="icon__color--primary">
+                                                    </path>
+                                                    <path fill="currentColor"
+                                                        d="M10.734 1.738l3.96.52-.26 1.98-3.96-.52zM16.3 10h3l-1 8-.4 3h-3l.4-3 1-8zM9.1 21h-3l-.4-3-1.1-8h3.1l1 8 .4 3z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <span class="icons__label">Remove</span>
+                                        </button></td>
+
+                                </tr>
+
+                            </ng-container>
+                            <!-- <button
                             class="button button--medium button--icon button--theme01 js-modal"
                             data-modal="#ProceedModel">
                             Proceed
@@ -576,19 +619,20 @@
                                     fill="currentColor" class="icon__color--primary"></path>
                             </svg>
                         </button> -->
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
 
 
-            </div>
-
+                </div>
+            </form>
         </div>
     </section>
     <section class="main">
         <div>
             <div class="button-group" style="justify-content: start;">
 
-                <button class="button button--medium button--icon button--theme01 js-modal" data-modal="#ProceedModel">
+                <button [disabled]="checkProceedButton()"
+                    class="button button--medium button--icon button--theme01 js-modal" data-modal="#ProceedModel">
                     Proceed
                     <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="23" height="23">
