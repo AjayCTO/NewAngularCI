@@ -32,7 +32,7 @@ export class StatementHistoryComponent implements OnInit {
   constructor(private currentinventoryService: CurrentinventoryService, private authService: AuthService, private spinner: NgxSpinnerService,) { }
 
   ngOnInit(): void {
-    debugger;
+
     let id = this.StatementHistory;
     let CustomFields = this.CustomFields;
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
@@ -40,7 +40,7 @@ export class StatementHistoryComponent implements OnInit {
     this.ApplyJsFunction();
   }
   StatementServices() {
-    debugger;
+
     this.loadingRecords = true;
     this.currentinventoryService.GetStatementHistory(this.selectedTenantId, this.authService.accessToken, this.InventoryTransactionObj.inventoryId)
       .pipe(finalize(() => {
@@ -48,7 +48,7 @@ export class StatementHistoryComponent implements OnInit {
       }))
       .subscribe(
         result => {
-          debugger;
+
           this.loadingRecords = false;
           this.statementHistory = result.entity.transaction_History;
 
@@ -92,7 +92,7 @@ export class StatementHistoryComponent implements OnInit {
   UndoTransaction(transaction) {
     this.SelectedTransaction = transaction;
     this.comfirmBoxDelete = true;
-    debugger;
+
 
   }
 

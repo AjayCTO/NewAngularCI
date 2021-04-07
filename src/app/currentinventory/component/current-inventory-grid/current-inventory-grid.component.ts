@@ -586,7 +586,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
 
   onSubmitDymamicEvent() {
-    debugger;
+
     if ($.trim(this.CurrentInventoryObj.partName) == "") {
       this.toastr.warning("Item Name Required");
       return false;
@@ -641,7 +641,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         });
   }
   Download(type) {
-    debugger;
+
     let sortCol = "PartName";
     let sortDir = "asc";
     let GlobelFilter = {
@@ -651,7 +651,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.currentinventoryService.GetCurrentInventory(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, 2000, sortCol, sortDir, this.searchFilterText, this.showSelected, GlobelFilter)
       .pipe(finalize(() => {
       })).subscribe(result => {
-        debugger;
+
         this.ImportDataBind = [];
         this.allInventoryItems = [];
         this.allInventoryItems = result.entity.items;
@@ -822,7 +822,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.showQuickAddDropdown = !this.showQuickAddDropdown;
   }
   addButtonColumns() {
-    debugger;
+
     var count = 1;
     var IsAddedCounter = 0;
     this.tabulatorColumn.forEach(element => {
@@ -937,7 +937,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     }, 200);
   }
   deleteColumn(item) {
-    debugger;
+
     if (item.datatype != 'button') {
       this.tabulatorColumn.forEach((element, index) => {
         if (element.id == item.id) {
@@ -963,14 +963,14 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
   // Inventory Column 
   GetMyInventoryColumn() {
-    debugger;
+
     this.tabulatorColumn = [];
     this.commanService.GetMyInventoryColumns(this.selectedTenantId, this.authService.accessToken).pipe(finalize(() => {
       this.busy = false;
       this.spinner.hide();
     })).subscribe(result => {
       if (result.entity != null) {
-        debugger;
+
         this.myInventoryField = result.entity;
         this.myInventoryField.forEach((element, index) => {
           if (element.customeFieldType != "CustomField" && element.customeFieldType != "Report")
@@ -1010,14 +1010,14 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
 
   GroupDynamicEventAction(DynamicEvent) {
-    debugger;
+
     this.store.dispatch(new SetSelectedEvent(DynamicEvent));
     this.router.navigate(['/multipleTransaction', DynamicEvent.eventName]);
   }
 
 
   DynamicEventAction(item, dynamicEvent) {
-    debugger;
+
     this.selectedDynamicEvent = dynamicEvent;
     let obj = JSON.parse(dynamicEvent.circumstanceJsonString);
     this.InventoryTransactionObj = item;
@@ -1071,7 +1071,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   }
 
   showSelectedInv(action) {
-    debugger;
+
     this.spinner.show();
     this.showSelected = action;
     this.pageIndex = 0;
@@ -1080,7 +1080,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   }
 
   GetCurrentInventory() {
-    debugger;
+
     this.IsInventoryLoaded = false;
     this.loadingRecords = true;
     this.CheckboxShow = false;
@@ -1173,7 +1173,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
   applyGetCartDetails() {
     if (this.GetCartDetails != null) {
-      debugger;
+
 
       var res = this.GetCartDetails.inventoryIds.split(",").map(Number);
       res.forEach(element => {
@@ -1212,7 +1212,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     });
   }
   public ChangeOrder(oldIndex, newIndex, el, mode) {
-    debugger;
+
     let oldI = oldIndex - 2
     let newI = newIndex - 2
     this.tabulatorColumn = this.array_move(this.tabulatorColumn, oldI, newI)
@@ -1231,7 +1231,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
 
   FilterOperartorSelect(data) {
-    debugger;
+
     if (data == 'Equals') {
       this.dataColumnFilter.filterOperator = 'eq'
     }
@@ -1352,7 +1352,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   }
 
   RemoveFilter(data) {
-    debugger;
+
     this.FilterArray.forEach((element, index) => {
 
       if (element.columnName == data.columnName) {
@@ -1380,7 +1380,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
   onOptionsSelected(event) {
     // send selected value
-    debugger;
+
     this.tabulatorColumn.forEach(element => {
       if (element.field == event) {
         this.ColumnDataType = element.datatype;
@@ -1401,7 +1401,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
 
   onOptionsSelected2(event) {
-    debugger;
+
     this.tabulatorColumn.forEach(element => {
 
       if (element.field == event) {
@@ -1469,7 +1469,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       return false;
     }
 
-    debugger;
+
     this.tabulatorColumn.forEach(element => {
       if (element.field == this.dataColumnFilter.columnName) {
         this.dataColumnFilter.displayName = element.title;
@@ -1536,7 +1536,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   }
 
   GetCustomFields() {
-    debugger;
+
     this.customfieldservice.GetCustomFields(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
@@ -1685,14 +1685,14 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   }
   //Checkbox Group activity
   checkUncheckAll() {
-    debugger;
+
     for (var i = 0; i < this.InventoryDataBind.length; i++) {
       this.InventoryDataBind[i].isSelected = this.masterSelected;
     }
     this.getCheckedItemList();
   }
   isAllSelected() {
-    debugger;
+
     this.masterSelected = this.InventoryDataBind.every(function (item: any) {
       return item.isSelected == true;
     })
@@ -1700,7 +1700,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   }
 
   getCheckedItemList() {
-    debugger;
+
 
 
     for (var i = 0; i < this.InventoryDataBind.length; i++) {
@@ -1742,7 +1742,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   }
 
   clearCart() {
-    // debugger;
+    // 
     for (var i = 0; i < this.InventoryDataBind.length; i++) {
       this.InventoryDataBind[i].isSelected = false;
     }
@@ -2082,7 +2082,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
   DefaultView() {
 
-    debugger;
+
     this.store.pipe(select(selectMyInventoryColumn)).
       subscribe(myInventoryColumn => {
         if (myInventoryColumn) {
@@ -2117,7 +2117,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
 
   SelectView(view) {
-    debugger;
+
     this.InventoryIds = [];
     this.ColspanTable = 3;
     this.spinner.show();
@@ -2202,14 +2202,14 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
 
   SaveView() {
-    debugger;
+
     var SearchFieldsTable = $("#table thead>tr");
     let thisjs = this;
     var trows = SearchFieldsTable[0].children;
     $.each(trows, function (index, row) {
       var ColumnWidth = $(row).attr("columnIdWidth");
       if (ColumnWidth != undefined) {
-        debugger;
+
         thisjs.tabulatorColumn[index - 2].width = ColumnWidth;
       }
     })
@@ -2319,7 +2319,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
   // public dateTime = new FormControl(moment());
   chosenYearHandler(normalizedYear: Date, datepicker: OwlDateTimeComponent<Moment>) {
-    debugger;
+
     this.dataColumnFilter.searchValue = normalizedYear;
     this.dataColumnFilter.datevalue = normalizedYear.getFullYear();
     datepicker.close();
@@ -2329,7 +2329,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     normalizedMonth: Date,
     datepicker: OwlDateTimeComponent<Moment>
   ) {
-    debugger;
+
     const monthNames = ["January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
     ];

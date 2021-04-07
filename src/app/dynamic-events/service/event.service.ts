@@ -63,7 +63,7 @@ export class EventService extends BaseService {
   }
 
   EditEvent(TenantId: number, Id, data: any, token: string) {
-    debugger;
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

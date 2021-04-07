@@ -95,7 +95,7 @@ export class DetailsComponent implements OnInit {
   constructor(private libraryService: LibraryService, private toastr: ToastrService, private authService: AuthService, private customfieldservice: CustomFieldService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
-    debugger;
+
     this.selecteditem = this.item;
     this.attributefields.forEach(element => {
       if (element.dataType == "Date/Time") {
@@ -156,7 +156,7 @@ export class DetailsComponent implements OnInit {
     this.message = '';
     this.libraryService.upload(this.selectedFiles, this.item.partId, this.selectedTenantId, this.authService.accessToken).subscribe(
       event => {
-        debugger;
+
         if (event.entity == true) {
           document.getElementById("uploadModelClose").click();
           this.toastr.success("Files Has Been Uploaded", "SuccessFully");
@@ -208,7 +208,7 @@ export class DetailsComponent implements OnInit {
   }
 
   AssignImagefromGallery() {
-    debugger;
+
     this.AssignImageOpen = true;
     modal();
     this.GetAllImage();
@@ -217,13 +217,13 @@ export class DetailsComponent implements OnInit {
     this.AssignImageOpen = false;
   }
   RemoveSearchFilter() {
-    debugger;
+
 
     this.searchFilterText = ""
     this.GetAllImage();
   }
   splitthevalue(item) {
-    debugger;
+
     for (var i = 0; i < item.length; i++) {
       if (item[i].customFieldSpecialType === 'OpenField') {
         if (item[i].customFieldPrefix != null) {
@@ -236,7 +236,7 @@ export class DetailsComponent implements OnInit {
 
 
   deallocationImages() {
-    debugger;
+
     this.libraryService.AllocateDeallocateImages(this.selectedTenantId, this.item.partId, this.ImageIds, false, this.authService.accessToken).pipe(finalize(() => {
 
       this.spinner.hide();
@@ -250,7 +250,7 @@ export class DetailsComponent implements OnInit {
   }
 
   allocationImages() {
-    debugger;
+
     this.libraryService.AllocateDeallocateImages(this.selectedTenantId, this.item.partId, this.AssignImageIds, true, this.authService.accessToken).pipe(finalize(() => {
 
       this.spinner.hide();
@@ -265,7 +265,7 @@ export class DetailsComponent implements OnInit {
   }
 
   Attributevalue() {
-    debugger;
+
     this.attributefields.forEach(element => {
       element.columnValue = "";
     });
@@ -300,7 +300,7 @@ export class DetailsComponent implements OnInit {
     return items;
   }
   edit() {
-    debugger;
+
     this.selecteditem.attributeFields = this.attributefields;
     this.partId = this.item.partId
     this.libraryService.EditPart(this.selectedTenantId, this.item.partId, this.selecteditem, this.authService.accessToken)
@@ -324,7 +324,7 @@ export class DetailsComponent implements OnInit {
           }
         },
         error => {
-          debugger;
+
           this.error = error.error.message;
           this.spinner.hide();
         });
@@ -341,7 +341,7 @@ export class DetailsComponent implements OnInit {
 
   // get image
   GetAllImage() {
-    debugger;
+
     this.libraryService.GetTenantImages(this.selectedTenantId, this.pageSize, this.pageIndex, this.searchFilterText, this.authService.accessToken)
       .pipe(finalize(() => {
 
@@ -351,7 +351,7 @@ export class DetailsComponent implements OnInit {
           this.NotPermitted = true;
 
         }
-        debugger;
+
 
         this.allImages = [];
         console.log(result.entity);

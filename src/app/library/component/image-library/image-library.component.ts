@@ -74,7 +74,7 @@ export class ImageLibraryComponent implements OnInit {
 
 
   ngOnInit(): void {
-    debugger;
+
     // this.spinner.show();
     this.selecteditem = this.item;
     this.partid = 0;
@@ -132,7 +132,7 @@ export class ImageLibraryComponent implements OnInit {
     }, 500)
   }
   getServerResponse(event) {
-    debugger;
+
     this.ItemAutocompleteChange();
     this.partName = event;
     this.isLoadingResult = true;
@@ -148,7 +148,7 @@ export class ImageLibraryComponent implements OnInit {
     this.IsItemHave = false;
   }
   selectEvent(item) {
-    debugger;
+
     this.selectitem = true;
     let itemJsonobject: any[];
     itemJsonobject = JSON.parse(item.attributeFieldsJsonSettings);
@@ -165,7 +165,7 @@ export class ImageLibraryComponent implements OnInit {
 
   }
   AssignImagefromGallery() {
-    debugger;
+
     this.AssignImageOpen = true;
     this.GetAllImage();
   }
@@ -179,12 +179,12 @@ export class ImageLibraryComponent implements OnInit {
     el.click();
   }
   // selectid(id) {
-  //   debugger;
+  //   
   //   this.imagesId = id;
   // }
 
   CheckImageSelect(imageId) {
-    debugger;
+
     let Index = this.imagesId.indexOf(imageId);
     if (Index == -1) {
       this.imagesId.push(imageId)
@@ -195,13 +195,13 @@ export class ImageLibraryComponent implements OnInit {
 
   }
   RemoveSearchFilter() {
-    debugger;
+
 
     this.searchFilterText = ""
     this.GetAllImage();
   }
   GetAllImage() {
-    debugger;
+
 
     this.libraryService.GetTenantImages(this.selectedTenantId, this.pageSize, this.pageIndex, this.searchFilterText, this.authService.accessToken)
       .pipe(finalize(() => {
@@ -212,7 +212,7 @@ export class ImageLibraryComponent implements OnInit {
           this.NotPermitted = true;
 
         }
-        debugger;
+
         // this.spinner.hide();
         this.allImages = [];
         console.log(result.entity);
@@ -222,7 +222,7 @@ export class ImageLibraryComponent implements OnInit {
       })
   }
   AssignImages() {
-    debugger;
+
     this.spinner.show();
     this.libraryService.AllocateDeallocateImages(this.selectedTenantId, this.partid, this.imagesId, true, this.authService.accessToken)
       .pipe(finalize(() => {
@@ -241,7 +241,7 @@ export class ImageLibraryComponent implements OnInit {
         else {
           this.toastr.warning("You Can't Assign Image");
         }
-        debugger;
+
         this.imagesId = [];
         // this.toastr.success(result.message);
 
@@ -267,12 +267,12 @@ export class ImageLibraryComponent implements OnInit {
     this.GetAllImage();
   }
   uploadFiles() {
-    debugger;
+
     this.spinner.show();
     this.message = '';
     this.libraryService.upload(this.selectedFiles, this.partid, this.selectedTenantId, this.authService.accessToken).subscribe(
       event => {
-        debugger;
+
         if (event.entity == true) {
 
           document.getElementById("uploadModelClose").click();

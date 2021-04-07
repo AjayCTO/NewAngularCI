@@ -63,7 +63,7 @@ export class EventListComponent implements OnInit {
     this.store.pipe(select(selectSelectedTenantId)).
       subscribe(eventId => {
         if (eventId) {
-          debugger;
+
           this.selectedTenantId = eventId;
         }
       });
@@ -75,7 +75,7 @@ export class EventListComponent implements OnInit {
   }
 
   GetEvents() {
-    debugger;
+
     this.loadingRecords = true;
     this.eventService.GetEvents(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
@@ -89,7 +89,7 @@ export class EventListComponent implements OnInit {
         else {
 
           if (result.entity != null) {
-            debugger;
+
             this.loadingRecords = false;
             this.EventList = result.entity;
           }
@@ -97,7 +97,7 @@ export class EventListComponent implements OnInit {
       })
   }
   CustomFieldsExist(Json) {
-    debugger;
+
     let columnList = [];
     let obj = {}
     if (Json != null) {
@@ -154,7 +154,7 @@ export class EventListComponent implements OnInit {
           this.NotPermitted = true;
         }
         else {
-          debugger;
+
           if (result.entity != null) {
             this.CustomFields = result.entity;
             this.checklist = [];
@@ -173,7 +173,7 @@ export class EventListComponent implements OnInit {
       })
   }
   onSubmit() {
-    debugger;
+
     this.eventForm.eventIcon = this.SelectedIcon.toString();
     this.eventForm.customFieldsRequired = this.checklist;
     this.eventService.EditEvent(this.selectedTenantId, this.eventForm.id, this.eventForm, this.authService.accessToken)
@@ -215,13 +215,13 @@ export class EventListComponent implements OnInit {
 
   }
   checkUncheckAll() {
-    debugger;
+
     for (var i = 0; i < this.checklist.length; i++) {
       this.checklist[i].isSelected = this.masterSelected;
     }
   }
   isAllSelected() {
-    debugger;
+
     this.masterSelected = this.checklist.every(function (item: any) {
       return item.isSelected == true;
     })
@@ -236,7 +236,7 @@ export class EventListComponent implements OnInit {
     }
   }
   OpenMenu(item) {
-    debugger;
+
     this.EventList.forEach(element => {
       if (item.id != element.id)
         element.isActive = false;

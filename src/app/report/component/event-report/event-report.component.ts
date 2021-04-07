@@ -103,7 +103,7 @@ export class EventReportComponent implements OnInit {
     this.store.pipe(select(selectSelectedTenantId)).
       subscribe(eventId => {
         if (eventId) {
-          debugger;
+
           this.selectedTenantId = eventId;
         }
         this.cdr.detectChanges();
@@ -143,7 +143,7 @@ export class EventReportComponent implements OnInit {
 
 
   SelectedReport(report) {
-    debugger;
+
     this.selectedRepotTitle = report.reportTitle;
     let data = JSON.parse(report.columnFilterJsonSettings);
     if (data.length != 0) {
@@ -199,10 +199,10 @@ export class EventReportComponent implements OnInit {
 
   getCustomreportList() {
 
-    debugger;
+
     this.reportService.GetCustomReportList(this.selectedTenantId, this.authService.accessToken).subscribe((result => {
       if (result.code == 200) {
-        debugger;
+
         this.ReportList = result.entity;
 
       }
@@ -210,7 +210,7 @@ export class EventReportComponent implements OnInit {
     }))
   }
   SearchFilter() {
-    debugger;
+
 
     if (this.searchFilterText != undefined && this.searchFilterText != "") {
       this.isSearchFilterActive = true;
@@ -219,7 +219,7 @@ export class EventReportComponent implements OnInit {
     }
   }
   RemoveSearchFilter() {
-    debugger;
+
     // this.IsInventoryLoaded = false;
     this.isSearchFilterActive = false;
     this.searchFilterText = ""
@@ -235,14 +235,14 @@ export class EventReportComponent implements OnInit {
     // window.location.reload();
   }
   GetEvents() {
-    debugger;
+
     this.eventService.GetEvents(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
       })).subscribe(result => {
-        debugger;
+
         if (result.entity != null) {
-          debugger;
+
           this.EventList = result.entity;
         }
 
@@ -250,7 +250,7 @@ export class EventReportComponent implements OnInit {
   }
 
   GetMyInventoryColumn() {
-    debugger;
+
     this.tabulatorColumn = [];
     this.commanService.GetMyInventoryColumns(this.selectedTenantId, this.authService.accessToken).pipe(finalize(() => {
       this.busy = false;
@@ -264,7 +264,7 @@ export class EventReportComponent implements OnInit {
       // this.tabulatorColumn.push({ title: "UOM", field: "uomName", type: "", datatype: "stringUom", width: "170", id: "004", isAdded: true });
       // this.tabulatorColumn.push({ title: "Last Event", field: "lastAction", type: "", datatype: "string", width: "170", id: "005", isAdded: true });
       if (result.entity != null) {
-        debugger;
+
         this.myInventoryField = result.entity;
         this.myInventoryField.forEach((element) => {
           if (element.customeFieldType != "AttributeField" && element.customeFieldType != "Inventory")
@@ -285,14 +285,14 @@ export class EventReportComponent implements OnInit {
 
 
   GetCustomFields() {
-    debugger;
+
     this.customfieldservice.GetCustomFields(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
 
       })).subscribe(result => {
         this.CustomFields = [];
         if (result.code == 200) {
-          debugger;
+
           // this.CustomFields = result.entity;
           this.mainColumn = [];
           this.tabulatorColumn.push({ title: "Item Name", field: "partName", type: "", datatype: "string", width: "170" });
@@ -325,7 +325,7 @@ export class EventReportComponent implements OnInit {
       .pipe(finalize(() => {
       })).subscribe(result => {
 
-        debugger;
+
         this.ImportDataBind = [];
         this.allInventoryItems = [];
         this.allInventoryItems = result.entity.transactionHistory;
@@ -470,7 +470,7 @@ export class EventReportComponent implements OnInit {
   }
 
   toggleGlobalDropDown(event) {
-    debugger;
+
     this.tabulatorColumn.forEach(element => {
       if (element.field == event) {
         this.ColumnDataType = element.datatype;
@@ -508,12 +508,12 @@ export class EventReportComponent implements OnInit {
     // this.ApplyJsFunction();
   }
   UpdateSelectedReport() {
-    debugger;
+
     this.EditReport = false;
     this.showDropDown = !this.showDropDown;
     this.reportService.GetCustomReportList(this.selectedTenantId, this.authService.accessToken).subscribe((result => {
       if (result.code == 200) {
-        debugger;
+
         this.ReportList = result.entity;
         this.ReportList.forEach(element => {
           if (element.reportTitle == this.selectedRepotTitle) {
@@ -561,7 +561,7 @@ export class EventReportComponent implements OnInit {
 
   }
   onOptionsSelected2(event) {
-    debugger;
+
     this.tabulatorColumn.forEach(element => {
 
       if (element.field == event) {
@@ -579,7 +579,7 @@ export class EventReportComponent implements OnInit {
 
   EditCustomReport(ReportData) {
 
-    debugger;
+
     this.EditReport = true
 
     this.Reportdata = ReportData;
@@ -589,7 +589,7 @@ export class EventReportComponent implements OnInit {
 
   GetReport() {
 
-    debugger;
+
     let sortCol = "PartName";
     let sortDir = "asc";
 
@@ -597,7 +597,7 @@ export class EventReportComponent implements OnInit {
       .pipe(finalize(() => {
       })).subscribe(result => {
 
-        debugger;
+
         this.InventoryDataBind = [];
         this.allInventoryItems = [];
         this.allInventoryItems = result.entity.transactionHistory;
@@ -636,7 +636,7 @@ export class EventReportComponent implements OnInit {
               }
             }
             // for (let k = 0; k < this.allInventoryItems[i].transactionDate; k++) {
-            //   debugger;
+            //   
             //   this.myDT = new Date(this.allInventoryItems[i].transactionDate)
             //   let DateManual = this.myDT.toLocaleDateString();
             //   map.set(this.allInventoryItems[i].transactionDate, DateManual)
@@ -722,7 +722,7 @@ export class EventReportComponent implements OnInit {
   }
 
   ApplyFilter() {
-    debugger;
+
     if (this.dataColumnFilter.columnName == "" || this.dataColumnFilter.filterOperator == "" || this.dataColumnFilter.searchValue == "") {
       return false;
     }
@@ -802,7 +802,7 @@ export class EventReportComponent implements OnInit {
   }
 
   ApplyFilter2(columnName) {
-    debugger;
+
     this.dataColumnFilter.columnName = columnName;
     if (this.dataColumnFilter.columnName == "" || this.dataColumnFilter.filterOperator == "" || this.dataColumnFilter.searchValue == "") {
       return false;
@@ -855,7 +855,7 @@ export class EventReportComponent implements OnInit {
     // this.ApplyJsFunction();
   }
   FilterOperartorSelect(data) {
-    debugger;
+
     if (data == 'Equals') {
       this.dataColumnFilter.filterOperator = 'eq'
     }
@@ -941,7 +941,7 @@ export class EventReportComponent implements OnInit {
   SelectedNewCustomReport() {
     this.reportService.GetCustomReportList(this.selectedTenantId, this.authService.accessToken).subscribe((result => {
       if (result.code == 200) {
-        debugger;
+
         this.ReportList = result.entity;
         this.ReportList.forEach(element => {
           if (element.reportTitle == this.selectedRepotTitle) {
@@ -997,7 +997,7 @@ export class EventReportComponent implements OnInit {
     this.showDropDown = !this.showDropDown;
     this.reportService.GetCustomReportList(this.selectedTenantId, this.authService.accessToken).subscribe((result => {
       if (result.code == 200) {
-        debugger;
+
         this.ReportList = result.entity;
         this.ReportList.forEach(element => {
           if (element.reportTitle == this.selectedRepotTitle) {
@@ -1026,7 +1026,7 @@ export class EventReportComponent implements OnInit {
   }
 
   chosenYearHandler(normalizedYear: Date, datepicker: OwlDateTimeComponent<Moment>) {
-    debugger;
+
     this.dataColumnFilter.searchValue = normalizedYear;
     this.dataColumnFilter.datevalue = normalizedYear.getFullYear();
     datepicker.close();
@@ -1036,7 +1036,7 @@ export class EventReportComponent implements OnInit {
     normalizedMonth: Date,
     datepicker: OwlDateTimeComponent<Moment>
   ) {
-    debugger;
+
     const monthNames = ["January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
     ];

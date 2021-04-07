@@ -72,7 +72,7 @@ export class CreateReportComponent implements OnInit {
     type: ""
   }
   ngOnInit(): void {
-    debugger;
+
     this.dataarray.push(this.ReportTable)
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     // this.tabulatorColumn1 = JSON.parse(localStorage.getItem("tabelColumn"));
@@ -84,7 +84,7 @@ export class CreateReportComponent implements OnInit {
     this.hideClose.emit(false);
   }
   // selectField(item) {
-  //   // debugger;
+  //   // 
   //   this.isSelected = true
   //   var index = this.selectLabel.indexOf(item);
   //   if (index === -1) {
@@ -107,7 +107,7 @@ export class CreateReportComponent implements OnInit {
 
   // }
   selectColumn(item, label, filter) {
-    debugger;
+
     var index = this.SelectColumn.indexOf(item, label, filter);
     if (index === -1) {
 
@@ -130,7 +130,7 @@ export class CreateReportComponent implements OnInit {
   }
 
   GetCustomFields() {
-    debugger;
+
     this.customfieldservice.GetCustomFields(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
@@ -167,7 +167,7 @@ export class CreateReportComponent implements OnInit {
   }
 
   save() {
-    debugger;
+
     this.customreport
 
     // if (form__checkbox == checked) {

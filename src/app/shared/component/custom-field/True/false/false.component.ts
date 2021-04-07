@@ -109,7 +109,7 @@ export class FalseComponent implements OnInit {
 
 
   SelectedEvent(type) {
-    debugger;
+
     this.SelectedIcon = type;
   }
 
@@ -194,7 +194,7 @@ export class FalseComponent implements OnInit {
   }
 
   onChange(event) {
-    debugger;
+
     if (event.form) {
       this.newFormCopy = event.form;
       this.cd.detectChanges();
@@ -250,7 +250,7 @@ export class FalseComponent implements OnInit {
       }
 
       if (event.type == "addComponent") {
-        debugger;
+
 
         if (event.component.isNew) {
           this.getDataType(event.component);
@@ -319,7 +319,7 @@ export class FalseComponent implements OnInit {
         // else {
 
         //   let isExist = false;
-        //   debugger;
+        //   
         //   if (this.newFormCopy != undefined) {
         //     this.newFormCopy.components[0].components.forEach(element => {
         //       if (element.eventQuantityAction != undefined) {
@@ -340,7 +340,7 @@ export class FalseComponent implements OnInit {
 
       }
       if (event.type == "saveComponent") {
-        debugger;
+
         if (event.component.columnId != undefined) {
           this.getDataType(event.component);
           this.customfieldservice.AddCustomFields(this.customField, this.selectedTenantId, this.authService.accessToken)
@@ -415,7 +415,7 @@ export class FalseComponent implements OnInit {
         this.spinner.hide();
       })).subscribe(result => {
         this.CustomFields = [];
-        debugger;
+
         if (result.code == 403) {
           // this.NotPermitted = true;
         }
@@ -428,7 +428,7 @@ export class FalseComponent implements OnInit {
 
             this.CustomFields.forEach(element => {
               if ((element.dataType == "Text" && element.customFieldSpecialType == "") || (element.dataType == "Text" && element.customFieldSpecialType == "OpenField")) {
-                debugger;
+
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,
                   schema: {
@@ -456,7 +456,7 @@ export class FalseComponent implements OnInit {
 
               }
               if ((element.dataType == "Number" && element.customFieldSpecialType == "") || (element.dataType == "Number" && element.customFieldSpecialType == "Number")) {
-                debugger;
+
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,
                   schema: {
@@ -487,7 +487,7 @@ export class FalseComponent implements OnInit {
 
               }
               if (element.dataType == "Number" && element.customFieldSpecialType == "Currency") {
-                debugger;
+
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,
                   input: true,
@@ -517,7 +517,7 @@ export class FalseComponent implements OnInit {
 
               }
               if ((element.dataType == "Date/Time" && element.customFieldSpecialType == "") || (element.dataType == "Date/Time" && element.customFieldSpecialType == "Date")) {
-                debugger;
+
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,
                   input: true,
@@ -543,7 +543,7 @@ export class FalseComponent implements OnInit {
 
               }
               if (element.dataType == "Date/Time" && element.customFieldSpecialType == "Date & Time") {
-                debugger;
+
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,
                   input: true,
@@ -571,7 +571,7 @@ export class FalseComponent implements OnInit {
 
               }
               if (element.dataType == "Date/Time" && element.customFieldSpecialType == "Time") {
-                debugger;
+
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,
                   input: true,
@@ -626,7 +626,7 @@ export class FalseComponent implements OnInit {
 
               }
               if (element.dataType == "True/False" && element.customFieldSpecialType == "CheckBox") {
-                debugger;
+
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,
                   input: true,
@@ -668,7 +668,7 @@ export class FalseComponent implements OnInit {
       })
   }
   SaveEvent() {
-    debugger;
+
     this.cd.detectChanges();
     this.eventForm.eventQuantityAction == ""
     this.spinner.show();
@@ -712,7 +712,7 @@ export class FalseComponent implements OnInit {
       }
     });
 
-    debugger;
+
     this.eventForm.eventFormJsonSettings = Jsonstring;
     this.eventForm.customFieldsRequired = this.selectedFields;
     this.eventService.AddEvent(this.selectedTenantId, this.eventForm, this.authService.accessToken).pipe(finalize(() => {
@@ -739,7 +739,7 @@ export class FalseComponent implements OnInit {
   }
 
   onSubmit(event) {
-    debugger;
+
     alert('form submitted!')
   }
 

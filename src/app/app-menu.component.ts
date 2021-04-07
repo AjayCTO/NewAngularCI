@@ -34,7 +34,7 @@ export class AppMenuComponent {
     this.store.pipe(select(selectSelectedTenant)).
       subscribe(event => {
         if (event) {
-          debugger;
+
           this.selectedTenant = event;
 
         }

@@ -54,7 +54,7 @@ export class LibraryService extends BaseService {
 
 
   upload(files: File[], partId: number, TenantId: number, token: string) {
-    debugger;
+
     const
       formData: FormData = new FormData();
 
@@ -92,7 +92,7 @@ export class LibraryService extends BaseService {
   }
 
   // upload(file: File, TenantId: number, token: string): Observable<HttpEvent<any>> {
-  //   debugger;
+  //   
   //   const
   //     formData: FormData = new FormData();
 
@@ -218,7 +218,7 @@ export class LibraryService extends BaseService {
 
 
   getAllPartWithPaging(TenantId: number, token: string, pageSize: number, pageRowIndex: number, sortColumn: string, sortOrder: string, searchText: string, data: any) {
-    debugger;
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -309,7 +309,7 @@ export class LibraryService extends BaseService {
   }
   // Edit Part
   EditPart(TenantId: number, PartId, data: any, token: string) {
-    debugger;
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -365,7 +365,7 @@ export class LibraryService extends BaseService {
   // get image
 
   GetTenantImages(TenantId: number, pageSize: number, pageIndex: number, search: string, token: string) {
-    debugger;
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -379,7 +379,7 @@ export class LibraryService extends BaseService {
 
   //allocateanddeallocateimages
   AllocateDeallocateImages(TenantId: number, PartId: number, ImageIds: any, isAssign: boolean, token: string) {
-    debugger;
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

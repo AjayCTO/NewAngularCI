@@ -233,7 +233,7 @@ export class ItemLibraryComponent implements OnInit {
 
 
   FilterOperartorSelect(data) {
-    debugger;
+
     if (data == 'Equals') {
       this.dataColumnFilter.filterOperator = 'eq'
     }
@@ -498,7 +498,7 @@ export class ItemLibraryComponent implements OnInit {
   }
 
   onSubmit() {
-    debugger;
+
 
     this.submitted = true;
     if (this.partformControl.invalid) {
@@ -603,7 +603,7 @@ export class ItemLibraryComponent implements OnInit {
         this.busy = false;
         this.spinner.hide();
       })).subscribe(result => {
-        debugger;
+
         if (result.entity != null) {
           this.AttributeFields = result.entity;
           this.AttributeFields.forEach(element => {
@@ -700,7 +700,7 @@ export class ItemLibraryComponent implements OnInit {
 
       if (result.entity != null) {
         this.myInventoryField = result.entity;
-        debugger;
+
         // this.tabulatorColumn.push({ title: "Item Name", field: "partName", type: "", datatype: "string", width: "170" });
         // this.tabulatorColumn.push({ title: "Description", field: "partDescription", type: "", datatype: "string", width: "450" });
         // this.tabulatorColumn.push({ title: "Default Location", field: "locationName", type: "", datatype: "string", width: "170" });
@@ -1063,7 +1063,7 @@ export class ItemLibraryComponent implements OnInit {
     this.dataColumnFilter.datevalue = DateManual;
   }
   chosenYearHandler(normalizedYear: Date, datepicker: OwlDateTimeComponent<Moment>) {
-    debugger;
+
     this.dataColumnFilter.searchValue = normalizedYear;
     this.dataColumnFilter.datevalue = normalizedYear.getFullYear();
     datepicker.close();
@@ -1073,7 +1073,7 @@ export class ItemLibraryComponent implements OnInit {
     normalizedMonth: Date,
     datepicker: OwlDateTimeComponent<Moment>
   ) {
-    debugger;
+
     const monthNames = ["January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
     ];
@@ -1088,14 +1088,14 @@ export class ItemLibraryComponent implements OnInit {
 
     let sortCol = "PartName";
     let sortDir = "asc";
-    debugger;
+
     this.libraryService.getAllPartWithPaging(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, 2000, sortCol, sortDir, this.searchFilterText, this.FilterArray)
       .pipe(finalize(() => {
 
 
       })).subscribe(result => {
 
-        debugger;
+
         this.loadingRecords = false;
         this.ImportDataBind = [];
         this.allItems = [];

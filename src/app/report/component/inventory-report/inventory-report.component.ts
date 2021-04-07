@@ -73,7 +73,7 @@ export class InventoryReportComponent implements OnInit {
   }
   onItemDrop(e: any) {
     // Get the dropped data here
-    debugger;
+
 
     let IsExist = false;
     this.selectedFields.forEach(element => {
@@ -96,13 +96,13 @@ export class InventoryReportComponent implements OnInit {
 
 
   removeField(index) {
-    debugger;
+
     this.selectedFields.splice(index, 1);
 
   }
 
   onSubmit() {
-    debugger;
+
     this.submitted = true;
     // if (this.eventformControl.invalid) {
     //   this.toastr.warning("Required", "Please fill required column");
@@ -152,7 +152,7 @@ export class InventoryReportComponent implements OnInit {
         });
   }
   SelectedEvent(type) {
-    debugger;
+
     this.SelectedIcon = type;
   }
   /**
@@ -171,7 +171,7 @@ export class InventoryReportComponent implements OnInit {
         else {
           if (result.entity != null) {
             this.loadingRecords = false;
-            debugger;
+
             this.customFields = result.entity;
             this.customFields.forEach(element => {
               if (element.comboBoxValue != "") {

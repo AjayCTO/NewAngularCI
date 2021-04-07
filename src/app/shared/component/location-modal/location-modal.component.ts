@@ -29,7 +29,7 @@ export class LocationModalComponent implements OnInit {
   }
 
   AddNewLocation() {
-    debugger;
+
     if (this.locationForm.invalid) {
       return;
     }
@@ -42,7 +42,7 @@ export class LocationModalComponent implements OnInit {
       .subscribe(
         result => {
           if (result) {
-            debugger;
+
 
             if (result.entity == true) {
               this.toastr.success("Your Location is Successfully add.");

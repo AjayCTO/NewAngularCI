@@ -22,7 +22,7 @@ export class UomModalComponent implements OnInit {
   constructor(private authService: AuthService, protected store: Store<AppState>, private formBuilder: FormBuilder, private toastr: ToastrService, private libraryService: LibraryService, private spinner: NgxSpinnerService,) { }
   public uomForm: FormGroup;
   ngOnInit(): void {
-    debugger;
+
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     this.uomForm = this.formBuilder.group({
       uomName: ['', Validators.required],
@@ -42,7 +42,7 @@ export class UomModalComponent implements OnInit {
       .subscribe(
         result => {
           if (result) {
-            debugger;
+
 
             if (result.entity == true) {
               this.toastr.success("Your Uom is Successfully Add.");

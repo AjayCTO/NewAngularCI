@@ -40,7 +40,7 @@ export class UploadComponent implements OnInit {
   constructor(private authService: AuthService, private spinner: NgxSpinnerService, private toastr: ToastrService, private currentinventoryService: CurrentinventoryService, private eventService: EventService) { }
 
   ngOnInit(): void {
-    debugger;
+
     this.ExcelSheetName = ''
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     this.GetEvents();
@@ -50,14 +50,14 @@ export class UploadComponent implements OnInit {
     this.hideClose.emit(false);
   }
   GetEvents() {
-    debugger;
+
     this.eventService.GetEvents(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
         this.spinner.hide();
       })).subscribe(result => {
         if (result.entity != null) {
-          debugger;
+
           this.EventList = result.entity;
           modal();
 
@@ -100,7 +100,7 @@ export class UploadComponent implements OnInit {
     //   this.busy = false;
     //   this.spinner.hide();
     // })).subscribe(result => {
-    //   debugger;
+    //   
     //   this.tabulatorColumn = []
     //   this.tabulatorColumn.push({ ItemName: "" });
     //   this.tabulatorColumn.push({ Description: "" });
@@ -140,7 +140,7 @@ export class UploadComponent implements OnInit {
     var rABS = true;
     const jsonData = [];
     const reader: FileReader = new FileReader();
-    debugger;
+
     reader.onload = (e: any) => {
       const wb: XLSX.WorkBook = XLSX.read(e.target.result, { type: 'binary' });
 
@@ -161,7 +161,7 @@ export class UploadComponent implements OnInit {
   }
   btnUpload() {
     //this.spinner.show();
-    debugger;
+
     const formData: FormData = new FormData();
 
     formData.append('file', this.fileUploaded, this.fileUploaded.name);
@@ -185,7 +185,7 @@ export class UploadComponent implements OnInit {
     });
   }
   RemoveexcelName() {
-    debugger;
+
     this.ExcelSheetName = ''
   }
 

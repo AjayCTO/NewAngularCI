@@ -22,7 +22,7 @@ export class RestockComponent implements OnInit {
   constructor(private libraryService: LibraryService, private toastr: ToastrService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    debugger;
+
     this.location = this.locationsList;
     this.selectedItem = this.item;
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
@@ -35,7 +35,7 @@ export class RestockComponent implements OnInit {
 
   }
   edit() {
-    debugger;
+
 
     this.partId = this.item.partId
 
@@ -60,7 +60,7 @@ export class RestockComponent implements OnInit {
           }
         },
         error => {
-          debugger;
+
           this.error = error.error.message;
           // this.spinner.hide();
         });

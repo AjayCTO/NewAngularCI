@@ -132,7 +132,7 @@ export class AddEventComponent implements OnInit {
           this.NotPermitted = true;
         }
         else {
-          debugger;
+
           if (result.entity != null) {
             this.CustomFields = result.entity;
             this.checklist = [];
@@ -151,7 +151,7 @@ export class AddEventComponent implements OnInit {
       })
   }
   onSubmit() {
-    debugger;
+
     this.submitted = true;
     // if (this.eventformControl.invalid) {
     //   this.toastr.warning("Required", "Please fill required column");
@@ -188,13 +188,13 @@ export class AddEventComponent implements OnInit {
   }
 
   checkUncheckAll() {
-    debugger;
+
     for (var i = 0; i < this.checklist.length; i++) {
       this.checklist[i].isSelected = this.masterSelected;
     }
   }
   isAllSelected() {
-    debugger;
+
     this.masterSelected = this.checklist.every(function (item: any) {
       return item.isSelected == true;
     })
@@ -210,7 +210,7 @@ export class AddEventComponent implements OnInit {
   }
 
   SelectedEvent(type) {
-    debugger;
+
     this.SelectedIcon = type;
   }
   // Clear form 
@@ -221,7 +221,7 @@ export class AddEventComponent implements OnInit {
   // custom fields new add
   AddNewCustomfield() {
     this.spinner.show();
-    debugger;
+
     if (this.customField.customFieldSpecialType == "Autocomplete" || this.customField.customFieldSpecialType == "Dropdown") {
       this.CustomFields.comboBoxValue = this.cfdcomboValuesString;
     }
@@ -245,7 +245,7 @@ export class AddEventComponent implements OnInit {
       .subscribe(
         result => {
           if (result) {
-            debugger;
+
 
             if (result.entity == true) {
               this.toastr.success("Your customField is Successfully Add.");

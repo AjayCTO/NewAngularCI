@@ -104,7 +104,7 @@ export class EditEventComponent implements OnInit {
   }
   public Newform: Object = { components: [] };
   ngOnInit(): void {
-    debugger;
+
     // let data = this.object;
     this.Item = JSON.parse(localStorage.getItem('jsonobject'));
     this.display = JSON.parse(this.Item.eventFormJsonString);
@@ -122,7 +122,7 @@ export class EditEventComponent implements OnInit {
 
   }
   SelectedEvent(type) {
-    debugger;
+
     this.SelectedIcon = type;
   }
   displaying() {
@@ -211,7 +211,7 @@ export class EditEventComponent implements OnInit {
 
 
   onChange(event) {
-    debugger;
+
     if (event.form) {
       this.newFormCopy = event.form;
     }
@@ -343,7 +343,7 @@ export class EditEventComponent implements OnInit {
 
 
       if (event.type == "saveComponent") {
-        debugger;
+
         if (event.component.columnId != undefined) {
           this.getDataType(event.component);
           this.customfieldservice.AddCustomFields(this.customField, this.selectedTenantId, this.authService.accessToken)
@@ -433,7 +433,7 @@ export class EditEventComponent implements OnInit {
 
             this.CustomFields.forEach(element => {
               if ((element.dataType == "Text" && element.customFieldSpecialType == "") || (element.dataType == "Text" && element.customFieldSpecialType == "OpenField")) {
-                debugger;
+
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,
                   schema: {
@@ -461,7 +461,7 @@ export class EditEventComponent implements OnInit {
 
               }
               if ((element.dataType == "Number" && element.customFieldSpecialType == "") || (element.dataType == "Number" && element.customFieldSpecialType == "Number")) {
-                debugger;
+
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,
                   schema: {
@@ -492,7 +492,7 @@ export class EditEventComponent implements OnInit {
 
               }
               if (element.dataType == "Number" && element.customFieldSpecialType == "Currency") {
-                debugger;
+
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,
                   input: true,
@@ -522,7 +522,7 @@ export class EditEventComponent implements OnInit {
 
               }
               if ((element.dataType == "Date/Time" && element.customFieldSpecialType == "") || (element.dataType == "Date/Time" && element.customFieldSpecialType == "Date")) {
-                debugger;
+
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,
                   input: true,
@@ -548,7 +548,7 @@ export class EditEventComponent implements OnInit {
 
               }
               if (element.dataType == "Date/Time" && element.customFieldSpecialType == "Date & Time") {
-                debugger;
+
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,
                   input: true,
@@ -576,7 +576,7 @@ export class EditEventComponent implements OnInit {
 
               }
               if (element.dataType == "Date/Time" && element.customFieldSpecialType == "Time") {
-                debugger;
+
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,
                   input: true,
@@ -631,7 +631,7 @@ export class EditEventComponent implements OnInit {
 
               }
               if (element.dataType == "True/False" && element.customFieldSpecialType == "CheckBox") {
-                debugger;
+
                 this.options.builder.existingFields.components[element.columnLabel] = {
                   title: element.columnLabel,
                   input: true,
@@ -676,7 +676,7 @@ export class EditEventComponent implements OnInit {
 
 
   EditEvent() {
-    debugger;
+
     this.eventForm.eventQuantityAction == ""
     this.spinner.show();
     let Jsonstring = JSON.stringify(this.newFormCopy);

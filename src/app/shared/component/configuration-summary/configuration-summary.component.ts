@@ -112,12 +112,12 @@ export class ConfigurationSummaryComponent implements OnInit {
     private commanService: CommanSharedService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
-    debugger;
+
     this.Edit = false
     this.store.pipe(select(selectSelectedTenantId)).
       subscribe(TenantId => {
         if (TenantId) {
-          debugger;
+
           this.selectedTenantId = TenantId;
 
         }
@@ -156,7 +156,7 @@ export class ConfigurationSummaryComponent implements OnInit {
         }
         else {
           if (result.entity != null) {
-            debugger;
+
 
             this.CustomFields = result.entity;
             this.length = result.entity.length;
@@ -197,7 +197,7 @@ export class ConfigurationSummaryComponent implements OnInit {
       })).subscribe(result => {
 
         if (result.entity != null) {
-          debugger;
+
           this.MyInventoryFieldColumn = result.entity;
           this.MyInventoryFieldColumn.forEach(element => {
             element.isChanging = false;
@@ -207,7 +207,7 @@ export class ConfigurationSummaryComponent implements OnInit {
   }
   // Save inventory column 
   SaveMyInventoryColumn(currentColumn) {
-    debugger;
+
     currentColumn.isChanging = true;
 
     this.myInventoryColumnSettings = { MyInventoryColumnSettings: [] };
@@ -243,7 +243,7 @@ export class ConfigurationSummaryComponent implements OnInit {
 
 
   GetTenantConfiguration() {
-    debugger;
+
     this.commanService.GetTenantConfiguration(this.selectedTenantId, this.authService.accessToken,).pipe(finalize(() => {
 
     })).subscribe(

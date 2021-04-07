@@ -47,7 +47,7 @@ export class AddUomComponent implements OnInit {
       .subscribe(
         result => {
           if (result) {
-            debugger;
+
 
             if (result.entity == true) {
               this.toastr.success("Your Uom is Successfully Add.");

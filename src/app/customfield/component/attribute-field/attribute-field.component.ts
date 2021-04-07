@@ -234,7 +234,7 @@ export class AttributeFieldsComponent implements OnInit {
     }, '');
   }
   onChangeSearch(val: string) {
-    debugger;
+
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
   }
@@ -477,7 +477,7 @@ export class AttributeFieldsComponent implements OnInit {
   }
 
   DeleteConfirm(item) {
-    debugger;
+
     this.selectedId = item.columnId;
     this.deleteCustom = true;
   }
@@ -497,7 +497,7 @@ export class AttributeFieldsComponent implements OnInit {
     this.GetAttributeFields();
   }
   gotoNext() {
-    debugger;
+
     this.lastPageIndex = this.length / this.pageSize;
     this.lastPageIndex = parseInt(this.lastPageIndex.toString())
     if (this.pageIndex != this.lastPageIndex) {

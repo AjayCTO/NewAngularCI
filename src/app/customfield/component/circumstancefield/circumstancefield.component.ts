@@ -306,7 +306,7 @@ export class CircumstancefieldComponent implements OnInit {
 
   }
   checkUncheckAll() {
-    debugger;
+
     for (var i = 0; i < this.checklist.length; i++) {
       this.checklist[i].isSelected = this.masterSelected;
     }

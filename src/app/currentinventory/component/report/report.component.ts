@@ -20,7 +20,7 @@ export class ReportComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    debugger;
+
     // this.tabulatorColumn1 = JSON.parse(localStorage.getItem("tabelColumn"));
     // this.tabulatorValue = JSON.parse(localStorage.getItem("tabelValue"));
     inputFocus();
@@ -66,7 +66,7 @@ export class ReportComponent implements OnInit {
   }
 
   onOptionsSelected(event) {
-    debugger;
+
     this.tabulatorColumn1.forEach(element => {
 
       if (element.field == event) {

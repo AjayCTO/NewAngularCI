@@ -55,7 +55,7 @@ export class DynamicEventComponent implements OnInit {
   currentData: any;
   ngOnInit(): void {
 
-    debugger;
+
     let data = this.CustomFields;
     if (this.DynamicEvent.eventFormJsonString != null) {
       this.currentData = {
@@ -114,7 +114,7 @@ export class DynamicEventComponent implements OnInit {
 
 
   AddEventSubmit() {
-    debugger;
+
     if (this.selectedDynamicEvent.eventQuantityAction == "Move") {
 
       if (this.TransactionTargetObj.ToLocation == "") {
@@ -176,7 +176,7 @@ export class DynamicEventComponent implements OnInit {
         });
   }
   AddCustomModal() {
-    debugger;
+
     this.AddCustomForm = true;
   }
 

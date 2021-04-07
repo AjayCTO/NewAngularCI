@@ -131,7 +131,7 @@ export class QuickFieldCreatorComponent implements OnInit {
   }
 
   createField(data) {
-    debugger;
+
     if (data.isSelected == false) {
       data.isSelected = true;
       if (data.customFieldType == 'AttributeField') {
@@ -231,7 +231,7 @@ export class QuickFieldCreatorComponent implements OnInit {
   }
 
   GetAllFields() {
-    debugger;
+
     this.customfieldservice.GetAllFields(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
@@ -243,7 +243,7 @@ export class QuickFieldCreatorComponent implements OnInit {
         }
         else {
           if (result.entity != null) {
-            debugger;
+
 
             this.AllFieldList = result.entity;
             this.AllFieldList.forEach(elements => {

@@ -45,7 +45,7 @@ export class AccountService extends BaseService {
   }
 
   uploadprofile(file: File, token: string): Observable<HttpEvent<any>> {
-    debugger;
+
     const formData: FormData = new FormData();
     formData.append('file', file);
     const req = new HttpRequest('POST', `${this.configService.resourceApiURI}/api/UserManage/UploadProfile`, formData, {

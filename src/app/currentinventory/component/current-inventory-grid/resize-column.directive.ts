@@ -70,7 +70,7 @@ export class ResizeColumnDirective implements OnInit {
         if (this.pressed) {
             this.pressed = false;
             this.renderer.removeClass(this.table, "resizing");
-            debugger;
+
         }
     };
 }

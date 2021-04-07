@@ -28,7 +28,7 @@ export class SettingsComponent implements OnInit {
   constructor(private libraryService: LibraryService, private formBuilder: FormBuilder, private toastr: ToastrService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    debugger;
+
     this.locationsLists = this.locationsList;
     this.selectedItem = this.item;
     this.showtable = false;
@@ -49,12 +49,12 @@ export class SettingsComponent implements OnInit {
     // this.ApplyJsFunction();
   }
   showintable() {
-    debugger;
+
     this.showtable = true;
     this.table = this.tableinfo.value;
   }
   edit() {
-    debugger;
+
     this.partId = this.item.partId
     this.libraryService.EditPart(this.selectedTenantId, this.item.partId, this.selectedItem, this.authService.accessToken)
       .pipe(finalize(() => {
@@ -75,7 +75,7 @@ export class SettingsComponent implements OnInit {
           }
         },
         error => {
-          debugger;
+
           this.error = error.error.message;
 
         });

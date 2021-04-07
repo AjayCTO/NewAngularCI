@@ -22,7 +22,7 @@ export class CreateNewitemReportComponent implements OnInit {
   public busy: boolean;
   public myInventoryField: Observable<any>;
   public tabledata: any = [];
-  
+
   public tabulatorColumn: any;
   public selectedTenantId: number;
   public adddata: boolean = false;
@@ -47,13 +47,13 @@ export class CreateNewitemReportComponent implements OnInit {
 
 
   add() {
-    debugger;
+
     this.ReportTable = new ReportTable();
     this.dataarray.push(this.ReportTable);
     this.ApplyJsFunction();
   }
   removeForm(index) {
-    debugger;
+
     this.dataarray.splice(index, 1);
   }
   hide() {

@@ -61,7 +61,7 @@ export class IteminventoryComponent implements OnInit {
     }
   }
   onOptionsSelected(event) {
-    debugger;
+
     this.tabulatorColumn1.forEach(element => {
 
       if (element.field == event) {

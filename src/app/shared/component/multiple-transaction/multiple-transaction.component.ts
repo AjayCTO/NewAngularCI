@@ -106,7 +106,7 @@ export class MultipleTransactionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
+
     this.check = false
     this.checkLocation = false
     this.ClearConfirm = false;
@@ -142,13 +142,33 @@ export class MultipleTransactionComponent implements OnInit {
       inputFocus();
     }, 500)
   }
+  BackToInventory() {
+    this.toastr.success("Cart Item Has Been Removed Successfully")
+    let viewId = this.SelectedView != undefined ? this.SelectedView.id : 0;
+    let carts = [];
+    let currentCart = [];
 
+    this.store.dispatch(new SetSelectedCart(currentCart));
+    this.currentinventoryService.saveCart(this.selectedTenantId, this.authService.accessToken, viewId, carts).subscribe(res => {
+      if (res.code == 200) {
+
+      }
+    })
+    this.router.navigateByUrl('/CurrentInventory')
+  }
   checkProceedButton() {
     this.ProceedBtnDisable = false;
     if (this.groupInventoryDetails != undefined) {
       this.groupInventoryDetails.forEach(element => {
-        if (element.CheckQuantity == true || element.transactionQty == null) {
-          this.ProceedBtnDisable = true;
+        if (this.EventConfiguration.eventQuantityAction == "Move") {
+          if (element.CheckQuantity == true || element.transactionQty == null || element.Checklocation == true || element.ToLocation == null) {
+            this.ProceedBtnDisable = true;
+          }
+        }
+        else {
+          if (element.CheckQuantity == true || element.transactionQty == null) {
+            this.ProceedBtnDisable = true;
+          }
         }
       });
     }
@@ -156,7 +176,7 @@ export class MultipleTransactionComponent implements OnInit {
   }
 
   CheckQuantitys(item, event) {
-    debugger;
+
     this.ProceedBtnDisable = false;
     if (this.EventConfiguration.eventQuantityAction == "Move") {
       this.groupInventoryDetails.forEach(element => {
@@ -173,49 +193,13 @@ export class MultipleTransactionComponent implements OnInit {
 
       })
     }
-
-
-
-    // if (this.EventConfiguration.eventQuantityAction == "Convert") {
-    //   this.groupInventoryDetails.forEach(element => {
-
-    //     if (element.partId == elements) {
-
-    //       if (element.quantity > element.transactionQty) {
-    //         element.CheckQuantity = true
-    //       }
-    //       else {
-    //         element.CheckQuantity = false;
-    //       }
-    //     }
-
-    //   })
-    // }
-
-    // this.checkTrueUsingArrayInclude()
   }
-  // checkTrueUsingArrayInclude() {
-  //   debugger;
-  //   this.groupInventoryDetails.forEach(element => {
-  //     if (element.CheckQuantity.includes(false)) {
-  //       this.check = false
-  //     }
-  //     else {
-  //       this.check = true;
-  //     }
 
-  //   })
-
-  // }
 
   CustomFieldsChange(item, event) {
-    debugger;
+
     item.columnValue = event;
   }
-
-
-
-
 
 
   CheckUom(elements) {
@@ -227,26 +211,25 @@ export class MultipleTransactionComponent implements OnInit {
             element.CheckUom = false
           }
           else {
-            if (element.uomName != element.ToUomName) {
-              element.CheckUom = true
-            }
+            element.CheckUom = true
           }
         }
       })
     }
   }
-  CheckLocation(elements, e) {
-    debugger;
+
+
+  CheckLocations(elements, e) {
     if (this.EventConfiguration.eventQuantityAction == "Move") {
       this.groupInventoryDetails.forEach(element => {
-        if (element.partId == elements) {
-          if (element.ToLocation == element.locationName) {
-            element.Checklocation = false
+
+        if (element.inventoryId == elements.inventoryId) {
+          element.ToLocation = e;
+          if (element.ToLocation.toLowerCase().trim() == element.locationName.toLowerCase().trim()) {
+            element.Checklocation = true
           }
           else {
-            if (element.ToLocation != element.locationName) {
-              element.Checklocation = true
-            }
+            element.Checklocation = false
           }
         }
       })
@@ -254,10 +237,10 @@ export class MultipleTransactionComponent implements OnInit {
   }
   public GetCartInventory() {
     this.loadingRecords = true;
-    debugger;
+
     this.commanService.getcartinventoryDetails(this.selectedTenantId, this.authService.accessToken, this.cartDetails).subscribe(res => {
       if (res) {
-        debugger;
+
         this.groupInventoryDetails = [];
         this.groupInventoryDetails = res.entity.items;
         this.loadingRecords = false;
@@ -270,7 +253,7 @@ export class MultipleTransactionComponent implements OnInit {
     })
   }
   DeleteItem(id) {
-    debugger;
+
     this.groupInventoryDetails.forEach((element, index) => {
       if (element.inventoryId == id) {
         this.groupInventoryDetails.splice(index, 1)
@@ -282,7 +265,7 @@ export class MultipleTransactionComponent implements OnInit {
 
   }
   clearConfirm(item) {
-    debugger;
+
     this.selectedId = item.id;
     this.ClearConfirm = true;
   }
@@ -297,7 +280,7 @@ export class MultipleTransactionComponent implements OnInit {
     this.CancleConfirm = false;
   }
   clearCart() {
-    debugger;
+
 
     this.toastr.success("Cart Item Has Been Removed Successfully")
     let viewId = this.SelectedView != undefined ? this.SelectedView.id : 0;
@@ -337,7 +320,7 @@ export class MultipleTransactionComponent implements OnInit {
     el.click();
     this.spinner.show();
 
-    debugger;
+
     this.groupInventoryDetails.forEach(element => {
 
 
@@ -449,7 +432,7 @@ export class MultipleTransactionComponent implements OnInit {
           // this.groupInventoryDetails = res.entity.items;
           // this.loadingRecords = false;
           // this.length = res.entity.totalItems;
-          // debugger;
+          // 
         }
       })
     }
@@ -461,7 +444,7 @@ export class MultipleTransactionComponent implements OnInit {
   }
 
   GetCustomFields() {
-    debugger;
+
     this.customfieldservice.GetCustomFields(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
@@ -483,7 +466,7 @@ export class MultipleTransactionComponent implements OnInit {
   }
 
   trackByIndex(index: number, value: any) {
-    debugger;
+
     return index;
   }
 

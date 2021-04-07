@@ -129,7 +129,7 @@ export class CurrentinventoryService extends BaseService {
   //   }));
   // }
   Download(TenantId: number, token: string, pageToReturn: number, rowsPerPage: number, sortCol: string, sortDir: string, searchText: string, data: any) {
-    debugger;
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -222,7 +222,7 @@ export class CurrentinventoryService extends BaseService {
   }
 
   MakeasDefault(TenantId: number, token: string, viewId: number, data) {
-    debugger;
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -256,7 +256,7 @@ export class CurrentinventoryService extends BaseService {
   }
 
   UndoTransaction(TenantId: number, token: string, transactionId: number, inventoryId: number, parentId: number) {
-    debugger;
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': "Bearer " + token,
@@ -290,7 +290,7 @@ export class CurrentinventoryService extends BaseService {
     ));
   }
   getCartdetails(TenantId: number, token: string, viewId: number,) {
-    debugger;
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': "Bearer " + token,

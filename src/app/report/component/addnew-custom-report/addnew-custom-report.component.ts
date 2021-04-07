@@ -343,7 +343,7 @@ export class AddnewCustomReportComponent implements OnInit {
 
   }
   RemoveFilter(data) {
-    debugger;
+
 
     data.ColumnOperator = undefined;
     data.ColumnValue = '';
@@ -368,7 +368,7 @@ export class AddnewCustomReportComponent implements OnInit {
     });
   }
   FilterOperartorSelect(data, event) {
-    debugger;
+
     if (data == 'Equals') {
       this.selectedFields.forEach(element => {
         if (element.ColumnLabel == event) {
@@ -532,7 +532,7 @@ export class AddnewCustomReportComponent implements OnInit {
     }
   }
   ApplyFilter(event) {
-    debugger;
+
     this.selectedFields.forEach(element => {
       if (element.ColumnLabel == event) {
         element.isAdded = true;
@@ -592,14 +592,14 @@ export class AddnewCustomReportComponent implements OnInit {
     this.RemoveFilter(event);
   }
   removeField(index) {
-    debugger;
+
     this.selectedFields.splice(index, 1);
   }
   CloseFilter() {
     document.getElementById("filterButton").click();
   }
   onOptionsSelected1(obj, event) {
-    debugger;
+
     this.tabulatorColumn3.forEach(element => {
       if (element.field == event) {
         obj.SortType = element.datatype;
@@ -608,7 +608,7 @@ export class AddnewCustomReportComponent implements OnInit {
 
   }
   onOptionsSelected(obj, event) {
-    debugger;
+
     this.tabulatorColumn.forEach(element => {
       if (element.field == event) {
         obj.ColumnDataType = element.datatype;
@@ -625,26 +625,26 @@ export class AddnewCustomReportComponent implements OnInit {
     }, 500);
   }
   GetEvents() {
-    debugger;
+
     this.eventService.GetEvents(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
       })).subscribe(result => {
-        debugger;
+
         if (result.entity != null) {
-          debugger;
+
           this.EventList = result.entity;
         }
       })
   }
   GetAllFields() {
-    debugger;
+
     this.customfieldservice.GetCustomFields(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
       })).subscribe(result => {
         this.CustomFields = [];
         if (result.code == 200) {
-          debugger;
+
           this.tabulatorColumn.push({ columnDataType: "string", ColumnLabel: "Item Name", ColumnName: "partName", type: "", datatype: "string", width: "170" });
           this.tabulatorColumn.push({ columnDataType: "string", ColumnLabel: "Description", ColumnName: "partDescription", type: "", datatype: "string", width: "450" });
           this.tabulatorColumn.push({ columnDataType: "special", ColumnLabel: "Type of Event", ColumnName: "action", type: "", datatype: "special", width: "170" });
@@ -665,7 +665,7 @@ export class AddnewCustomReportComponent implements OnInit {
 
 
   Apply2() {
-    debugger;
+
     document.getElementById("SortClose").click();
   }
   CloseSort() {
@@ -673,7 +673,7 @@ export class AddnewCustomReportComponent implements OnInit {
   }
 
   groupBy(key) {
-    debugger;
+
     return function group(array) {
       return this.tabulatorColumn.reduce((acc, obj) => {
         const property = obj[key];
@@ -685,7 +685,7 @@ export class AddnewCustomReportComponent implements OnInit {
   }
 
   toggleGlobalDropDown(event) {
-    debugger;
+
     this.selectedFields.forEach(element => {
       if (element.ColumnLabel == event) {
         element.ColumnDataType = element.datatype;
@@ -697,7 +697,7 @@ export class AddnewCustomReportComponent implements OnInit {
     this.ApplyJsFunction();
   }
   toggleGlobalDropDown1(event) {
-    debugger;
+
     this.selectedFields.forEach(element => {
       if (element.ColumnLabel == event) {
         element.ColumnDataType = element.datatype;
@@ -709,7 +709,7 @@ export class AddnewCustomReportComponent implements OnInit {
     this.ApplyJsFunction();
   }
   addColumn(a: any) {
-    debugger;
+
 
     let IsExist = false;
     this.selectedFields.forEach(element => {
@@ -727,7 +727,7 @@ export class AddnewCustomReportComponent implements OnInit {
       this.toastr.warning("This Fields Already Have In Form");
     }
     this.cdr.detectChanges();
-    // debugger;
+    // 
     // this.onOptionsSelected(this.tabulatorColumn, e.dragData.ColumnName)
     setTimeout(function () {
       toggle();
@@ -739,7 +739,7 @@ export class AddnewCustomReportComponent implements OnInit {
   }
   onItemDrop(e: any) {
     // Get the dropped data here
-    debugger;
+
 
 
     let IsExist = false;
@@ -759,7 +759,7 @@ export class AddnewCustomReportComponent implements OnInit {
       this.toastr.warning("This Fields Already Have In Form");
     }
     this.cdr.detectChanges();
-    // debugger;
+    // 
     // this.onOptionsSelected(this.tabulatorColumn, e.dragData.ColumnName)
     setTimeout(function () {
       toggle();
@@ -769,7 +769,7 @@ export class AddnewCustomReportComponent implements OnInit {
     // this.ApplyJsFunction();
   }
   chosenYearHandler(normalizedYear: Date, datepicker: OwlDateTimeComponent<Moment>, name) {
-    debugger;
+
     this.dataColumnFilter.searchValue = normalizedYear;
     this.dataColumnFilter.datevalue = normalizedYear.getFullYear();
     this.selectedFields.forEach(element => {
@@ -787,7 +787,7 @@ export class AddnewCustomReportComponent implements OnInit {
     datepicker: OwlDateTimeComponent<Moment>,
     name
   ) {
-    debugger;
+
     const monthNames = ["January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
     ];
@@ -803,10 +803,10 @@ export class AddnewCustomReportComponent implements OnInit {
     datepicker.close();
   }
   save() {
-    debugger;
+
     // this.columnFilter.ColumnLabel = this.selectedFields.title;
     this.customreport.ColumnFilter = this.selectedFields;
-    debugger;
+
     this.reportService.AddCustomReport(this.selectedTenantId, this.authService.accessToken, this.customreport).subscribe((result => {
 
       if (result.code == 200) {

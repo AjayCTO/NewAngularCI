@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
 
 
-    debugger;
+
     if (this.isAuthenticated) {
       this.GetTenants();
     }

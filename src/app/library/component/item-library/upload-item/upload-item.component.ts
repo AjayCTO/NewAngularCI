@@ -47,7 +47,7 @@ export class UploadItemComponent implements OnInit {
   TotalCounter: any = [];
   TotalRecordsInExcel = 0;
   DownloadTemplate() {
-    debugger;
+
     this.allColumns = [];
     this.allColumns.push({ 'Item Name': '' });
     this.allColumns.push({ 'Description': '' });
@@ -109,7 +109,7 @@ export class UploadItemComponent implements OnInit {
     var rABS = true;
     const jsonData = [];
     const reader: FileReader = new FileReader();
-    debugger;
+
     reader.onload = (e: any) => {
       const wb: XLSX.WorkBook = XLSX.read(e.target.result, { type: 'binary' });
 
@@ -130,7 +130,7 @@ export class UploadItemComponent implements OnInit {
   }
   btnUpload() {
     //this.spinner.show();
-    debugger;
+
     const formData: FormData = new FormData();
 
     formData.append('file', this.fileUploaded, this.fileUploaded.name);
@@ -154,12 +154,12 @@ export class UploadItemComponent implements OnInit {
     });
   }
   RemoveexcelName() {
-    debugger;
+
     this.ExcelSheetName = ''
   }
 
   selectedconfig() {
-    debugger;
+
     // this.selectedEventConfig = event;
     let el: HTMLElement = this.NextButton1.nativeElement;
     el.click();

@@ -149,7 +149,7 @@ export class AddCustomReportComponent implements OnInit {
   }
   ngOnInit(): void {
 
-    debugger;
+
     this.dataarray.push(this.ReportTable)
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     // this.tabulatorColumn1 = JSON.parse(localStorage.getItem("tabelColumn"));
@@ -175,20 +175,20 @@ export class AddCustomReportComponent implements OnInit {
   }
 
   changeItemDropdown(obj, opt) {
-    debugger;
+
     let data = this.selectItemColumn;
 
   }
 
   GetEvents() {
-    debugger;
+
     this.eventService.GetEvents(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
       })).subscribe(result => {
-        debugger;
+
         if (result.entity != null) {
-          debugger;
+
           this.EventList = result.entity;
         }
 
@@ -198,7 +198,7 @@ export class AddCustomReportComponent implements OnInit {
 
 
   onOptionsSelected(obj, event) {
-    debugger;
+
     this.tabulatorColumn.forEach(element => {
 
       if (element.field == event) {
@@ -219,7 +219,7 @@ export class AddCustomReportComponent implements OnInit {
 
   }
   onOptionsSelected1(obj, event) {
-    debugger;
+
     this.tabulatorColumn3.forEach(element => {
 
       if (element.field == event) {
@@ -243,14 +243,14 @@ export class AddCustomReportComponent implements OnInit {
   }
 
   GetAllFields() {
-    debugger;
+
     this.customfieldservice.GetAllFields(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
 
       })).subscribe(result => {
         this.CustomFields = [];
         if (result.code == 200) {
-          debugger;
+
           this.tabulatorColumn.push({ title: "Item Name", field: "partName", type: "", datatype: "string", width: "170" });
           this.tabulatorColumn.push({ title: "Description", field: "partDescription", type: "", datatype: "string", width: "450" });
           this.tabulatorColumn.push({ title: "Type of Event", field: "action", type: "", datatype: "special", width: "170" });
@@ -276,7 +276,7 @@ export class AddCustomReportComponent implements OnInit {
 
 
   selectColumn(item, label, filter) {
-    debugger;
+
     var index = this.SelectColumn.indexOf(item, label, filter);
     if (index === -1) {
 
@@ -298,7 +298,7 @@ export class AddCustomReportComponent implements OnInit {
   }
 
   addRow() {
-    debugger;
+
     this.columnFilter = {
       // columnName: "string",
       // conlumnLabel: "",
@@ -311,7 +311,7 @@ export class AddCustomReportComponent implements OnInit {
     this.ApplyJsFunction();
   }
   GetCustomFields() {
-    debugger;
+
     this.customfieldservice.GetCustomFields(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
@@ -326,7 +326,7 @@ export class AddCustomReportComponent implements OnInit {
 
 
   removeForm(index) {
-    debugger;
+
     this.columnFilters.splice(index, 1);
   }
 
@@ -334,7 +334,7 @@ export class AddCustomReportComponent implements OnInit {
 
   save() {
     this.customreport.ColumnFilter = this.columnFilters;
-    debugger;
+
     this.reportService.AddCustomReport(this.selectedTenantId, this.authService.accessToken, this.customreport).subscribe((result => {
 
       if (result.code == 200) {

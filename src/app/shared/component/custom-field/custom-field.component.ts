@@ -103,7 +103,7 @@ export class CustomFieldComponent implements OnInit {
     this.AddJsFunction();
   }
   selectField(index) {
-    debugger;
+
     if (index == "text") {
       let IsExist = false;
       this.selectedFieldName.forEach(element => {
@@ -356,7 +356,7 @@ export class CustomFieldComponent implements OnInit {
   }
 
   onSubmit() {
-    debugger;
+
 
     if (this.customField.customFieldSpecialType == "Autocomplete" || this.customField.customFieldSpecialType == "Dropdown") {
       this.customField.comboBoxValue = this.cfdcomboValuesString;

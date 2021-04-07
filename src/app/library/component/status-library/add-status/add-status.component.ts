@@ -47,7 +47,7 @@ export class AddStatusComponent implements OnInit {
       .subscribe(
         result => {
           if (result) {
-            debugger;
+
 
             if (result.entity == true) {
               this.toastr.success("Your status is Successfully add.");

@@ -50,11 +50,11 @@ export class LocationLibraryComponent implements OnInit {
 
   ngOnInit(): void {
 
-    debugger;
+
     this.store.pipe(select(selectSelectedTenantId)).
       subscribe(eventId => {
         if (eventId) {
-          debugger;
+
           this.selectedTenantId = eventId;
         }
         this.cdr.detectChanges();
@@ -81,7 +81,7 @@ export class LocationLibraryComponent implements OnInit {
     this.locationForm.reset();
   }
   GetLocation() {
-    debugger;
+
     this.addLocation = false;
     this.istableloaded = false;
 
@@ -105,14 +105,14 @@ export class LocationLibraryComponent implements OnInit {
         this.locations.forEach(element => {
           element.isActive = false;
         })
-        debugger;
+
         this.istableloaded = true;
         this.cdr.markForCheck();
         modal();
       })
   }
   OpenMenu(item) {
-    debugger;
+
     this.locations.forEach(element => {
       if (item.locationId != element.locationId)
         element.isActive = false;
@@ -135,7 +135,7 @@ export class LocationLibraryComponent implements OnInit {
     item.isActive = false;
   }
   onSubmit() {
-    debugger;
+
     if (this.EditMode) {
       this.libraryService.EditLocation(this.selectedTenantId, this.locationsform.locationId, this.locationsform, this.authService.accessToken)
         .pipe(finalize(() => {
@@ -158,7 +158,7 @@ export class LocationLibraryComponent implements OnInit {
             }
           },
           error => {
-            debugger;
+
             this.error = error.error.message;
             this.spinner.hide();
           });
@@ -166,7 +166,7 @@ export class LocationLibraryComponent implements OnInit {
 
   }
   deleteField() {
-    debugger;
+
     this.spinner.show();
     this.libraryService.Deletelocation(this.selectedTenantId, this.selectedId, this.authService.accessToken)
       .pipe(finalize(() => {
@@ -174,7 +174,7 @@ export class LocationLibraryComponent implements OnInit {
       }))
       .subscribe(
         result => {
-          debugger;
+
           if (result.code == 403) {
             this.toast.warning(result.message);
           }
@@ -210,7 +210,7 @@ export class LocationLibraryComponent implements OnInit {
     this.addLocation = true;
   }
   DeleteConfirm(item) {
-    debugger;
+
     this.selectedId = item.locationId;
     this.deleteLocation = true;
   }
@@ -230,7 +230,7 @@ export class LocationLibraryComponent implements OnInit {
     this.GetLocation();
   }
   gotoNext() {
-    debugger;
+
     this.lastPageIndex = this.length / this.pageSize;
     this.lastPageIndex = parseInt(this.lastPageIndex.toString())
     if (this.pageIndex != this.lastPageIndex) {

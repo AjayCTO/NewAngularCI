@@ -40,7 +40,7 @@ export class SettingsComponent implements OnInit {
   }
 
   Settings(name) {
-    debugger;
+
     if (name == "Restock") {
       this.Config.Restock = !this.Config.Restock;
     }
@@ -67,13 +67,13 @@ export class SettingsComponent implements OnInit {
     }
   }
   saveSettings() {
-    debugger;
+
     this.Config;
 
   }
 
   savelinks() {
-    debugger;
+
     this.array.push(this.tableInfo);
 
     this.tableInfo = {
@@ -88,7 +88,7 @@ export class SettingsComponent implements OnInit {
     this.array.splice(Item, 1);
   }
   Edit(index) {
-    debugger;
+
     for (let i = 0; i < this.array.length; i++) {
       if (i == index) {
         this.EditItem = this.array[i]

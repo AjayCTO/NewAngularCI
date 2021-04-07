@@ -80,7 +80,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   get f() { return this.registerForm.controls; }
 
   login() {
-    debugger;
+
     this.authService.login();
 
   }
@@ -114,7 +114,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.userRegistration = this.registerForm.value;
     this.registerForm.markAllAsTouched();
     this.userRegistration.phone = this.selectedCountryCode.code + this.registerForm.value.phone;
-    debugger;
+
     this.account.register(this.registerForm.value)
       .pipe(finalize(() => {
         this.spinner.hide();

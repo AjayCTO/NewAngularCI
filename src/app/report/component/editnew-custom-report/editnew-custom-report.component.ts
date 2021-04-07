@@ -79,7 +79,7 @@ export class EditnewCustomReportComponent implements OnInit {
   constructor(private libraryService: LibraryService, protected store: Store<AppState>, private eventService: EventService, private toast: ToastrService, private cdr: ChangeDetectorRef, private reportService: ReportService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    debugger;
+
     this.columnFilters.forEach(element => {
 
       // element.ColumnDataType = element.datatype;
@@ -95,13 +95,13 @@ export class EditnewCustomReportComponent implements OnInit {
     this.customreport.description = this.Data.description;
     this.customreport.subTitle = this.Data.subTitle;
     let Data = JSON.parse(this.Data.columnFilterJsonSettings);
-    debugger;
+
     this.columnFilters = Data;
     this.tabulatorColumn = this.tabledata
     this.store.pipe(select(selectSelectedTenantId)).
       subscribe(eventId => {
         if (eventId) {
-          debugger;
+
           this.selectedTenantId = eventId;
         }
 
@@ -120,7 +120,7 @@ export class EditnewCustomReportComponent implements OnInit {
 
 
   addRow() {
-    debugger;
+
     this.columnFilter = {
 
     }
@@ -352,7 +352,7 @@ export class EditnewCustomReportComponent implements OnInit {
     },
   ]
   removeForm(index) {
-    debugger;
+
     this.columnFilters.splice(index, 1);
   }
   onOptionsSelected1(obj, event) {
@@ -376,7 +376,7 @@ export class EditnewCustomReportComponent implements OnInit {
     datepicker: OwlDateTimeComponent<Moment>,
     name
   ) {
-    debugger;
+
     const monthNames = ["January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
     ];
@@ -401,7 +401,7 @@ export class EditnewCustomReportComponent implements OnInit {
       })
   }
   onOptionsSelected(obj, event) {
-    debugger;
+
     this.tabulatorColumn.forEach(element => {
       if (element.field == event) {
 
@@ -420,9 +420,9 @@ export class EditnewCustomReportComponent implements OnInit {
     }, 500);
   }
   EditReport() {
-    debugger;
+
     this.customreport.ColumnFilter = this.columnFilters;
-    debugger;
+
     this.reportService.UpdateCustomReport(this.selectedTenantId, this.authService.accessToken, this.Data.id, this.customreport)
       .subscribe(result => {
         if (result.code == 200) {
@@ -443,14 +443,14 @@ export class EditnewCustomReportComponent implements OnInit {
   }
   toggleCountryCode: boolean = false;
   SelectFilter(item) {
-    debugger;
+
     this.selectedFilter.code = item.value;
     this.selectedFilter.country = item.name;
 
     this.toggleCountryCode = false;
   }
   addColumn(a: any) {
-    debugger;
+
 
     let IsExist = false;
     this.columnFilters.forEach(element => {
@@ -471,7 +471,7 @@ export class EditnewCustomReportComponent implements OnInit {
       this.toast.warning("This Fields Already Have In Form");
     }
     this.cdr.detectChanges();
-    // debugger;
+    // 
     // this.onOptionsSelected(this.tabulatorColumn, e.dragData.ColumnName)
     setTimeout(function () {
       toggle();
@@ -483,7 +483,7 @@ export class EditnewCustomReportComponent implements OnInit {
   }
   onItemDrop(e: any) {
     // Get the dropped data here
-    debugger;
+
 
     let IsExist = false;
     this.columnFilters.forEach(element => {
@@ -506,7 +506,7 @@ export class EditnewCustomReportComponent implements OnInit {
       this.toast.warning("This Fields Already Have In Form");
     }
     this.cdr.detectChanges();
-    debugger;
+
     this.onOptionsSelected(this.tabulatorColumn, e.dragData.ColumnName)
     setTimeout(function () {
       inputClear();
@@ -515,7 +515,7 @@ export class EditnewCustomReportComponent implements OnInit {
     // this.ApplyJsFunction();
   }
   DeleteConfirm() {
-    debugger;
+
     this.selectedId = this.Data.id;
     this.deleteReport = true;
   }
@@ -525,13 +525,13 @@ export class EditnewCustomReportComponent implements OnInit {
     this.deleteReport = false;
   }
   DeleteReport() {
-    debugger;
+
 
     this.reportService.DeleteCustomReport(this.selectedTenantId, this.Data.id, this.authService.accessToken)
 
       .subscribe(
         result => {
-          debugger;
+
           if (result.code == 403) {
             this.toast.warning(result.message);
           }
@@ -551,7 +551,7 @@ export class EditnewCustomReportComponent implements OnInit {
         });
   }
   FilterOperartorSelect(data, event) {
-    debugger;
+
     if (data == 'Equals') {
       this.columnFilters.forEach(element => {
         if (element.ColumnLabel == event) {
@@ -722,7 +722,7 @@ export class EditnewCustomReportComponent implements OnInit {
     }
   }
   RemoveFilter(data) {
-    debugger;
+
 
     data.ColumnOperator = undefined;
     data.ColumnValue = '';
@@ -747,7 +747,7 @@ export class EditnewCustomReportComponent implements OnInit {
     });
   }
   toggleGlobalDropDown(event) {
-    debugger;
+
     this.columnFilters.forEach(element => {
       if (element.ColumnLabel == event) {
         element.ColumnDataType = element.Datatype;
@@ -760,7 +760,7 @@ export class EditnewCustomReportComponent implements OnInit {
     this.ApplyJsFunction();
   }
   toggleGlobalDropDown1(event) {
-    debugger;
+
     this.columnFilters.forEach(element => {
       if (element.ColumnLabel == event) {
         element.ColumnDataType = element.Datatype;
@@ -782,7 +782,7 @@ export class EditnewCustomReportComponent implements OnInit {
   }
 
   closeGlobalDropDown1(event) {
-    debugger;
+
     this.columnFilters.forEach(element => {
       if (element.ColumnLabel == event) {
         // element.ColumnDataType = element.datatype;
@@ -793,7 +793,7 @@ export class EditnewCustomReportComponent implements OnInit {
   }
 
   ApplyFilter(event) {
-    debugger;
+
     this.columnFilters.forEach(element => {
       if (element.ColumnLabel == event) {
         // element.ColumnDataType = element.datatype;
@@ -840,7 +840,7 @@ export class EditnewCustomReportComponent implements OnInit {
   }
 
   Apply2() {
-    debugger;
+
     document.getElementById("AsscFilter").click();
   }
   Cancel() {
@@ -850,7 +850,7 @@ export class EditnewCustomReportComponent implements OnInit {
     this.EditMode = false;
   }
   removeField(index) {
-    debugger;
+
     this.columnFilters.splice(index, 1);
 
   }

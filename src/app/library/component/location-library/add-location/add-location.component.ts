@@ -49,7 +49,7 @@ export class AddLocationComponent implements OnInit {
       .subscribe(
         result => {
           if (result) {
-            debugger;
+
 
             if (result.entity == true) {
               this.toast.success("Your Location Is Successfully Add.");
@@ -66,7 +66,7 @@ export class AddLocationComponent implements OnInit {
 
         },
         error => {
-          debugger;
+
 
           this.spinner.hide();
         });

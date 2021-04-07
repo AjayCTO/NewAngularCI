@@ -96,7 +96,7 @@ export class CustomFieldModalComponent implements OnInit {
   // custom fields new add
   AddNewCustomfield() {
     this.spinner.show();
-    debugger;
+
     if (this.customField.customFieldSpecialType == "Autocomplete" || this.customField.customFieldSpecialType == "Dropdown") {
       this.attributeFields.comboBoxValue = this.cfdcomboValuesString;
     }
@@ -120,7 +120,7 @@ export class CustomFieldModalComponent implements OnInit {
       .subscribe(
         result => {
           if (result) {
-            debugger;
+
 
             if (result.entity == true) {
               this.toastr.success("Your customField is Successfully Add.");

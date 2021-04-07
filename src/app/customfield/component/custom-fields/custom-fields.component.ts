@@ -113,7 +113,7 @@ export class CustomFieldsComponent implements OnInit {
         }
         else {
           if (result.entity != null) {
-            debugger;
+
             this.loadingRecords = false;
             this.CustomFields = result.entity;
             this.length = result.entity.length;
@@ -124,7 +124,7 @@ export class CustomFieldsComponent implements OnInit {
 
 
   openmenu(item) {
-    debugger;
+
     this.PreviewtypesDropDown = [];
     this.CustomFields.forEach(element => {
       if (item.columnId != element.columnId)
@@ -227,7 +227,7 @@ export class CustomFieldsComponent implements OnInit {
 
 
   ComboBoxChangeDropDown(value) {
-    debugger;
+
     this.cfdcomboValuesString = "";
 
     // this.PreviewtypesDropDown = value.split("\n");
@@ -240,7 +240,7 @@ export class CustomFieldsComponent implements OnInit {
     }, '');
   }
   onChangeSearch(val: string) {
-    debugger;
+
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
   }
@@ -264,7 +264,7 @@ export class CustomFieldsComponent implements OnInit {
 
 
   onSubmit() {
-    debugger;
+
 
     if (this.customField.customFieldSpecialType == "Autocomplete" || this.customField.customFieldSpecialType == "Dropdown") {
       this.customField.comboBoxValue = this.cfdcomboValuesString;
@@ -479,7 +479,7 @@ export class CustomFieldsComponent implements OnInit {
     this.SelectedEditColumnId = null;
   }
   DeleteConfirm(item) {
-    debugger;
+
     this.selectedId = item.columnId;
     this.deleteCustom = true;
   }
@@ -499,7 +499,7 @@ export class CustomFieldsComponent implements OnInit {
     this.GetCustomFields();
   }
   gotoNext() {
-    debugger;
+
     this.lastPageIndex = this.length / this.pageSize;
     this.lastPageIndex = parseInt(this.lastPageIndex.toString())
     if (this.pageIndex != this.lastPageIndex) {

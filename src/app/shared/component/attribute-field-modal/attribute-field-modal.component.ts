@@ -67,7 +67,7 @@ export class AttributeFieldModalComponent implements OnInit {
   //New Attribute Fields 
   AddNewAttribute(form) {
     this.spinner.show();
-    debugger;
+
     if (this.attributeFields.customFieldSpecialType == "Autocomplete" || this.attributeFields.customFieldSpecialType == "Dropdown") {
       this.attributeFields.comboBoxValue = this.cfdcomboValuesString;
     }
@@ -91,7 +91,7 @@ export class AttributeFieldModalComponent implements OnInit {
       .subscribe(
         result => {
           if (result) {
-            debugger;
+
 
             if (result.entity == true) {
               this.toastr.success("Your Attribute is Successfully Add.");

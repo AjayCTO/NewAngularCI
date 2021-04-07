@@ -54,7 +54,7 @@ export class TenantComponent implements OnInit {
   }
 
   AddNewTenant() {
-    debugger;
+
     setTimeout(() => {
       let el: HTMLElement = this.AddTenantModel.nativeElement;
       el.click();

@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit {
 
 
   ngOnInit(): void {
-    debugger;
+
     this.authService.getUserClaims();
     this.authService.setTenantIdNotHave();
     this.profileForm = this.formBuilder.group({
@@ -192,7 +192,7 @@ export class ProfileComponent implements OnInit {
   }
 
   selectFiles(event) {
-    debugger;
+
     this.spinner.show();
     const files = event.target.files;
     let isImage = true;
@@ -217,7 +217,7 @@ export class ProfileComponent implements OnInit {
 
     this.accountService.uploadprofile(file, this.authService.accessToken).subscribe(
       event => {
-        debugger;
+
         if (event.type === HttpEventType.UploadProgress) {
           this.progressInfos[idx].percentage = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {

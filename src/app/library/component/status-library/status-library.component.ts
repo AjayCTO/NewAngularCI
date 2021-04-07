@@ -43,7 +43,7 @@ export class StatusLibraryComponent implements OnInit {
     private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
-    debugger;
+
     this.spinner.show();
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
 
@@ -62,7 +62,7 @@ export class StatusLibraryComponent implements OnInit {
     this.statusForm.reset();
   }
   GetStatus() {
-    debugger;
+
     this.addStatus = false;
     this.istableloaded = false;
     this.loadingRecords = true;
@@ -85,7 +85,7 @@ export class StatusLibraryComponent implements OnInit {
         this.Statuslist.forEach(element => {
           element.isActive = false;
         })
-        debugger;
+
         this.istableloaded = true;
         this.cdr.markForCheck();
         modal();
@@ -145,7 +145,7 @@ export class StatusLibraryComponent implements OnInit {
       }))
       .subscribe(
         result => {
-          debugger;
+
           if (result.code == 403) {
             this.toastr.warning(result.message);
           }
@@ -185,7 +185,7 @@ export class StatusLibraryComponent implements OnInit {
   }
 
   DeleteConfirm(item) {
-    debugger;
+
     this.selectedId = item.statusId;
     this.deleteStatus2 = true;
   }
@@ -205,7 +205,7 @@ export class StatusLibraryComponent implements OnInit {
     this.GetStatus();
   }
   gotoNext() {
-    debugger;
+
     this.lastPageIndex = this.length / this.pageSize;
     this.lastPageIndex = parseInt(this.lastPageIndex.toString())
     if (this.pageIndex != this.lastPageIndex) {

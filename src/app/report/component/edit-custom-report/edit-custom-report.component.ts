@@ -44,7 +44,7 @@ export class EditCustomReportComponent implements OnInit {
   constructor(protected store: Store<AppState>, private eventService: EventService, private toast: ToastrService, private reportService: ReportService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    debugger;
+
 
 
     this.EditMode = true;
@@ -53,13 +53,13 @@ export class EditCustomReportComponent implements OnInit {
     this.customreport.description = this.Data.description;
     this.customreport.subTitle = this.Data.subTitle;
     let Data = JSON.parse(this.Data.columnFilterJsonSettings);
-    debugger;
+
     this.columnFilters = Data;
     this.tabulatorColumn = this.tabledata
     this.store.pipe(select(selectSelectedTenantId)).
       subscribe(eventId => {
         if (eventId) {
-          debugger;
+
           this.selectedTenantId = eventId;
         }
 
@@ -78,7 +78,7 @@ export class EditCustomReportComponent implements OnInit {
 
 
   addRow() {
-    debugger;
+
     this.columnFilter = {
 
     }
@@ -154,7 +154,7 @@ export class EditCustomReportComponent implements OnInit {
     },
   ]
   removeForm(index) {
-    debugger;
+
     this.columnFilters.splice(index, 1);
   }
   onOptionsSelected1(obj, event) {
@@ -174,7 +174,7 @@ export class EditCustomReportComponent implements OnInit {
     });
   }
   onOptionsSelected(obj, event) {
-    debugger;
+
     this.tabulatorColumn.forEach(element => {
       if (element.field == event) {
 
@@ -193,9 +193,9 @@ export class EditCustomReportComponent implements OnInit {
     }, 500);
   }
   EditReport() {
-    debugger;
+
     this.customreport.ColumnFilter = this.columnFilters;
-    debugger;
+
     this.reportService.UpdateCustomReport(this.selectedTenantId, this.authService.accessToken, this.Data.id, this.customreport)
       .subscribe(result => {
         if (result.code == 200) {
@@ -212,7 +212,7 @@ export class EditCustomReportComponent implements OnInit {
         });
   }
   DeleteConfirm() {
-    debugger;
+
     this.selectedId = this.Data.id;
     this.deleteReport = true;
   }
@@ -222,13 +222,13 @@ export class EditCustomReportComponent implements OnInit {
     this.deleteReport = false;
   }
   DeleteReport() {
-    debugger;
+
 
     this.reportService.DeleteCustomReport(this.selectedTenantId, this.Data.id, this.authService.accessToken)
 
       .subscribe(
         result => {
-          debugger;
+
           if (result.code == 403) {
             this.toast.warning(result.message);
           }
