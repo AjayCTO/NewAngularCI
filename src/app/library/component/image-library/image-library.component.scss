@@ -19,15 +19,15 @@
     min-height: 300px;
 }
     .card-header {
-        padding: 10px;
+        padding: 15px;
         text-align: center;
     }
     .card-body {
-        padding: 30px;
+        // padding: 30px;
         text-align: -webkit-center;
-        img {
-            height: 300px !important;
-        }
+        // img {
+        //     height: 362px !important;
+        // }
     }
     .card-footer {
         padding: 14px 30px;
@@ -57,4 +57,35 @@
 }
 .button--medium.button--icon {
     cursor: pointer;
+}
+.form__col--Six
+{
+    width: calc((100% / 3) - .625rem);
+}
+.form__col--five
+{
+    width: calc((100% / 4) - .625rem);
+}
+.cardbodyaction
+{
+    display: flex;
+    justify-content: end;
+    /* padding: 1rem 3rem; */
+    float: right;
+    padding-bottom: 10px;
+    padding-top: 1px;
+    padding-right: 6px;
+}
+
+.SelectImageCard {
+    // height: 200px;
+    box-shadow: 0 0 7px #d6d6d6;
+    // min-height: 300px;
+}
+.image
+{
+    // display: block;
+    // height: auto;
+    // max-width: 100%;
+    height: 122px !important;
 }

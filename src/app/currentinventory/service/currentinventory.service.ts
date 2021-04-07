@@ -17,7 +17,7 @@ export class CurrentinventoryService extends BaseService {
   }
 
 
-  GetCurrentInventory(TenantId: number, token: string, pageToReturn: number, rowsPerPage: number, sortCol: string, sortDir: string, searchText: string, showSelected: boolean, data: any) {
+  GetCurrentInventory(TenantId: number, token: string, pageToReturn: number, rowsPerPage: number, sortCol: string, sortDir: string, searchText: string, showSelected: boolean, data: any, hideZero: boolean) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ export class CurrentinventoryService extends BaseService {
       })
     };
 
-    return this.http.post<IApiResponse>(this.configService.resourceApiURI + '/api/CurrentInventory/GetAllInventories?TenantId=' + TenantId + '&pageToReturn=' + pageToReturn + '&rowsPerPage=' + rowsPerPage + '&sortCol=' + sortCol + '&sortDir=' + sortDir + '&searchText=' + searchText + '&showSelected=' + showSelected, data, httpOptions).pipe(catchError(this.handleError));
+    return this.http.post<IApiResponse>(this.configService.resourceApiURI + '/api/CurrentInventory/GetAllInventories?TenantId=' + TenantId + '&pageToReturn=' + pageToReturn + '&rowsPerPage=' + rowsPerPage + '&sortCol=' + sortCol + '&sortDir=' + sortDir + '&searchText=' + searchText + '&showSelected=' + showSelected + '&hideZero=' + hideZero, data, httpOptions).pipe(catchError(this.handleError));
 
   }
   AddItemInventory(TenantId: number, token: string, Data: any) {

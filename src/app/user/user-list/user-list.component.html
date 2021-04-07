@@ -404,8 +404,8 @@
                         [ngClass]="{ 'form__col--error': submitted && f.company.errors}">
                         <label class="form__label" for="company">Company Name <span
                                 class="form__required">*</span></label>
-                        <input class="form__input" type="text" pattern="^[a-zA-Z0-9&]*${1,}" id="company"
-                            name="companyFormcontrol" maxlength="50" formControlName="company">
+                        <input class="form__input" type="text" id="company" name="companyFormcontrol" maxlength="50"
+                            formControlName="company">
                         <ng-container *ngIf="submitted && f.company.errors"> <span *ngIf="f.company.errors.required"
                                 class="form__error-message">This field is
                                 required</span></ng-container>
@@ -415,7 +415,7 @@
                         <label class="form__label" for="firstName">First Name <span
                                 class="form__required">*</span></label>
                         <input class="form__input" type="text" id="firstName" name="firstNameFormcontrol"
-                            formControlName="firstName" pattern="[a-zA-Z]{1,}" maxlength="30" required>
+                            formControlName="firstName" required>
                         <ng-container *ngIf="submitted && f.firstName.errors"> <span *ngIf="f.firstName.errors.required"
                                 class="form__error-message">This field is
                                 required</span></ng-container>
@@ -424,13 +424,11 @@
                         [ngClass]="{ 'form__col--error': submitted && f.lastName.errors}">
                         <label class="form__label" for="lastName">Last Name <span
                                 class="form__required">*</span></label>
-                        <input class="form__input" type="text" id="lastName" name="lastNameFormcontrol"
-                            pattern="[a-zA-Z]{1,}" maxlength="30" formControlName="lastName">
+                        <input class="form__input" type="text" id="lastName" name="lastName" formControlName="lastName">
                         <ng-container *ngIf="submitted && f.lastName.errors.required"> <span
                                 *ngIf="f.lastName.errors.required" class="form__error-message">This field is
                                 required</span>
-                            <span *ngIf="f.lastName.errors.pattern" class="form__error-message">match the
-                                required</span>
+
                         </ng-container>
 
                     </div>
@@ -454,11 +452,9 @@
                         [ngClass]="{ 'form__col--error': submitted && f.password.errors}">
                         <label class="form__label" for="password">Password <span class="form__required">*</span></label>
                         <input *ngIf="!showPassword" class="form__input" type="password" id="password"
-                            name="passwordFormcontrol" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                            formControlName="password">
+                            name="passwordFormcontrol" formControlName="password">
                         <input *ngIf="showPassword" class="form__input" type="text" id="password"
-                            name="passwordFormcontrol" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                            formControlName="password">
+                            name="passwordFormcontrol" formControlName="password">
                         <i *ngIf="!showPassword" id="togglePassword" (click)="showPasswords()"><svg
                                 class="icon-simple icon-simple--theme01 icon-simple--show"
                                 aria-labelledby="title-5fd0b5a288597" xmlns="http://www.w3.org/2000/svg"
@@ -481,14 +477,16 @@
                             </svg></i>
                         <ng-container *ngIf="submitted && f.password.errors"> <span *ngIf="f.password.errors.required"
                                 class="form__error-message">This field is
-                                required</span></ng-container>
+                                required</span>
+
+                        </ng-container>
                     </div>
                     <div class="form__col form__col--two"
                         [ngClass]="{ 'form__col--error': submitted && f.phone.errors}">
                         <label class="form__label" for="phone">Phone Number <span
                                 class="form__required">*</span></label>
                         <input class="form__input" type="text" id="phone" name="phoneFormcontrol"
-                            formControlName="phone" pattern="^\+(?:[0-9]●?){6,14}[0-9]" maxlength="15">
+                            formControlName="phone" maxlength="15">
                         <ng-container *ngIf="submitted && f.phone.errors"> <span *ngIf="f.phone.errors.required"
                                 class="form__error-message">This field is
                                 required</span></ng-container>

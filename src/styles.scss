@@ -1433,6 +1433,9 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+.hidezeroActive{
+  background-color: #155515;
+}
 
 ////////@at-root
  

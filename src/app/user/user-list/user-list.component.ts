@@ -12,8 +12,12 @@ import { AuthService } from '../../core/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../service/user.service';
 import { ThrowStmt } from '@angular/compiler';
-const emailPattern = '[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,63}';
 
+const emailPattern = '[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,63}';
+// const FirstName = '[a-zA-Z]{1,}';
+// const LastName = '[a-zA-Z]{1,}';
+const PhoneNumber = '^\+(?:[0-9]●?){6,14}[0-9]'
+const Password = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$';
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -53,12 +57,12 @@ export class UserListComponent implements OnInit {
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     modal();
     this.registerMemberForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: [null, Validators.compose([Validators.required,])],
+      lastName: ['', Validators.compose([Validators.required])],
       email: [null, Validators.compose([Validators.required, Validators.email, Validators.pattern(emailPattern)])],
-      company: ['', Validators.required],
-      phone: [null, Validators.required],
-      password: [null, Validators.required],
+      company: ['', Validators.compose([Validators.required])],
+      password: [null, Validators.compose([Validators.required, Validators.min(8)])],
+      phone: [null, Validators.compose([Validators.required,])],
     });
     this.GetCurrentTenantUsers();
     this.GetAllClaims();

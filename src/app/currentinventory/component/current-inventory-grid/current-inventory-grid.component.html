@@ -217,7 +217,8 @@
             <span class="icons__label">Upload</span>
         </div>
         <div class="icons__item">
-            <div class="icons__icon" style="cursor: pointer;"><svg class="icon icon--theme01 icon--zero"
+            <div class="icons__icon" [ngClass]="HideZero? 'hidezeroActive' : ''" (click)="hideZero()"
+                style="cursor: pointer;"><svg class="icon icon--theme01 icon--zero"
                     aria-labelledby="title-5f7dca6d630da" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
                     width="48" height="48">
                     <path

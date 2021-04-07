@@ -77,7 +77,7 @@
                     <a [innerHTML]="notFound"></a>
                 </ng-template>
             </div>
-            <div class="actions" *ngIf="selectitem" style="margin-top: -20px;">
+            <div class="Actions" *ngIf="selectitem" style="margin-top: -20px;">
                 <p>You Have Selected <a style="font-weight: bold;">{{partNames}}</a> Now You Can Choose Images To Assign
                     To
                     <a style="font-weight: bold;"> {{partNames}} </a>
@@ -138,7 +138,7 @@
         <div class="AssignImgPage">
 
 
-            <button type="button" [ngClass]="imagesId.length==0?'hidden':''" (click)="AssignImages()"
+            <button type="button" *ngIf="selectitem" [ngClass]="imagesId.length==0?'hidden':''" (click)="AssignImages()"
                 class="button button--medium" id="image2">Assign
                 Image</button>
 
@@ -157,11 +157,17 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <img
+                            <img style=" height: 362px !important; object-fit: contain;"
                                 src="https://clearly2020storage.blob.core.windows.net:443/images/{{item.imageFriendlyName}}">
                         </div>
                         <div class="card-footer">
-                            <p>{{item.imageOrginalName}}</p>
+
+                            <p [popper]="popper12Content" [popperTrigger]="'hover'" [popperPlacement]="'bottom'">
+                                {{(item.imageOrginalName.length>5)? (item.imageOrginalName |
+                                slice:0:20)+'...':(item.imageOrginalName)}}</p>
+                            <popper-content #popper12Content>
+                                <h3 class="popperTitle"><b>{{item.imageOrginalName}}</b></h3>
+                            </popper-content>
                         </div>
                     </div>
                 </div>
@@ -178,22 +184,51 @@
 
     </div>
     <div class="invModal__body">
-        <h3>Please select an Image from your computer.</h3>
+        <h1>Please select an Image from your computer.</h1>
         <div class="form__section">
             <div class="form__col-wrap">
                 <div class="card icons icons--horziontal icons--size01">
-                    <button type="button" *ngFor="let item of listOfFiles;let index = index"
+                    <div class="form__col form__col--Six" *ngFor="let item of listOfFiles;let index = index"
+                        style="width: 120px; margin-left: 20px;">
+                        <div class="SelectImageCard">
+                            <div class="cardbodyaction">
+                                <div (click)="RemoveImageName(index)">
+                                    <svg class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                        aria-labelledby="title-5f7cbab264ccf" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24" width="18" height="18">
+                                        <path fill="none" d="M0 0h24v24H0z"></path>
+                                        <path fill="currentColor" d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z">
+                                        </path>
+                                        <path fill="currentColor"
+                                            d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <img class="image" [src]="item">
+                            </div>
+                            <!-- <div class="card-footer">
+                                <p>{{item.imageOrginalName}}</p>
+                            </div> -->
+                        </div>
+                    </div>
+
+
+
+
+                    <!-- <button type="button" *ngFor="let item of listOfFiles;let index = index"
                         class="icons__item icons__item--contains-text icons__item--theme07"
                         style="height: 45px;border-radius: 100px;">
                         <div class="icons__text" style="display: flex;align-items: center;">
                             <strong class="icons__name"> <img style="width: 30px !important;" [src]="item">
                             </strong>
-                            &nbsp;&nbsp;
-                            <!-- <strong class="icons__name" *ngFor="let selectFile of selectedFiles"
+                            &nbsp;&nbsp; -->
+                    <!-- <strong class="icons__name" *ngFor="let selectFile of selectedFiles"
                                                     style="font-size: 16px;">
                                                     {{selectFile.name}}
                                                 </strong> -->
-                            &nbsp;&nbsp;
+                    <!-- &nbsp;&nbsp;
                             <div class="" (click)="RemoveImageName(index)">
                                 <svg class="icon-simple icon-simple--theme01 icon-simple--remove"
                                     aria-labelledby="title-5f7cbab264ccf" xmlns="http://www.w3.org/2000/svg"
@@ -205,8 +240,8 @@
                                     </path>
                                 </svg>
                             </div>
-                        </div>
-                    </button>&nbsp;&nbsp;&nbsp;
+                        </div> -->
+                    <!-- </button>&nbsp;&nbsp;&nbsp; -->
                 </div>
                 <div class="fileinput fileinput-new" data-provides="fileinput">
                     <span class="fileinput-filename"></span>
@@ -230,7 +265,7 @@
     <div class="invModal__footer">
 
         <div class="button-group">
-            <button [ngClass]="listOfFiles.length==0?'hidden':''" type="button" (click)="uploadFiles()"
+            <button *ngIf="listOfFiles.length>0" type="button" (click)="uploadFiles()"
                 class="button button--medium button--theme02">Upload</button>
             <button [ngClass]="listOfFiles.length==0?'hidden':''" type="button" (click)="cancel()" id="uploadModelClose"
                 class="button button--medium button--text-only" data-close="#UploadActivity">Cancel

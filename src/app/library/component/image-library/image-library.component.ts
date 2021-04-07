@@ -132,8 +132,10 @@ export class ImageLibraryComponent implements OnInit {
     }, 500)
   }
   getServerResponse(event) {
-
+    debugger;
+    this.selectitem = false;
     this.ItemAutocompleteChange();
+
     this.partName = event;
     this.isLoadingResult = true;
     this.commanService.GetItemWithTerm(event, this.selectedTenantId, this.authService.accessToken,)
@@ -178,11 +180,6 @@ export class ImageLibraryComponent implements OnInit {
     let el: HTMLElement = this.UploadImage.nativeElement;
     el.click();
   }
-  // selectid(id) {
-  //   
-  //   this.imagesId = id;
-  // }
-
   CheckImageSelect(imageId) {
 
     let Index = this.imagesId.indexOf(imageId);
@@ -218,7 +215,6 @@ export class ImageLibraryComponent implements OnInit {
         console.log(result.entity);
         this.length = result.entity.images.length;
         this.allImages = result.entity.images;
-
       })
   }
   AssignImages() {
@@ -231,7 +227,6 @@ export class ImageLibraryComponent implements OnInit {
       })).subscribe(result => {
         if (result.code == 403) {
           this.NotPermitted = true;
-
         }
         if (result.code == 200) {
           this.toastr.success(result.message);
@@ -244,12 +239,10 @@ export class ImageLibraryComponent implements OnInit {
 
         this.imagesId = [];
         // this.toastr.success(result.message);
-
         // this.allImages = [];
         // console.log(result.entity);
         // this.length = result.entity.images.length;
         // this.allImages = result.entity.images;
-
       })
   }
 

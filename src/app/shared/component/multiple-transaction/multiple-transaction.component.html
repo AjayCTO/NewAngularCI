@@ -56,7 +56,7 @@
                 </svg> Back To Inventory
             </a>
 
-            <button [disabled]="checkProceedButton()&&!g.form.valid" data-modal="#ProceedModel"
+            <button [disabled]="checkProceedButton()" data-modal="#ProceedModel"
                 class="button button--medium button--icon button--theme01 js-modal">
                 Proceed
                 <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
@@ -78,8 +78,6 @@
                 <h2 style="color: black;"><b> Put these items in inventory.</b>
                 </h2>
             </div>
-            {{g.form.valid}}
-
             <div class="table">
                 <form style="max-width: 100%;" class="form" #g="ngForm">
                     <div class="form__section">
@@ -649,7 +647,7 @@
         <div>
             <div class="button-group" style="justify-content: start;">
 
-                <button [disabled]="checkProceedButton()&&!g.form.valid"
+                <button [disabled]="checkProceedButton()"
                     class="button button--medium button--icon button--theme01 js-modal" data-modal="#ProceedModel">
                     Proceed
                     <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"

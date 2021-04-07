@@ -156,6 +156,9 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   public InventoryDataBind: any = [];
   public selectedTenant: Tenant;
 
+  //Hide Zero
+  public HideZero = false;
+
   //CUSTOM FIELD OBJECT 
   public CustomFields: any;
   public AttributeFields: any;
@@ -648,7 +651,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       FilterArray: this.FilterArray,
       Ids: this.InventoryIds,
     }
-    this.currentinventoryService.GetCurrentInventory(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, 2000, sortCol, sortDir, this.searchFilterText, this.showSelected, GlobelFilter)
+    this.currentinventoryService.GetCurrentInventory(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, 2000, sortCol, sortDir, this.searchFilterText, this.showSelected, GlobelFilter, this.HideZero)
       .pipe(finalize(() => {
       })).subscribe(result => {
 
@@ -1090,7 +1093,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       FilterArray: this.FilterArray,
       Ids: this.InventoryIds,
     }
-    this.currentinventoryService.GetCurrentInventory(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, this.pageSize, sortCol, sortDir, this.searchFilterText, this.showSelected, GlobelFilter)
+    this.currentinventoryService.GetCurrentInventory(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, this.pageSize, sortCol, sortDir, this.searchFilterText, this.showSelected, GlobelFilter, this.HideZero)
       .pipe(finalize(() => {
       })).subscribe(result => {
         this.InventoryDataBind = [];
@@ -2341,4 +2344,12 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   MainFilterToggle() {
     this.mainToggleDropdown = !this.mainToggleDropdown;
   }
+
+
+  hideZero() {
+    this.HideZero = !this.HideZero;
+    this.GetCurrentInventory();
+    this.ApplyJsFunction();
+  }
+
 }
