@@ -102,7 +102,11 @@ export class DataColumnFilter1 {
     public type: string;
 }
 
-
+export class ColumnSorting {
+    public columnName: string;
+    public displayName: string;
+    public Order: string;
+}
 
 
 export class Field {

@@ -1,8 +1,8 @@
 import { Component, OnInit, OnChanges, ViewEncapsulation, SimpleChanges, TemplateRef, Input, ViewContainerRef, ViewChild, ElementRef, ContentChild, ChangeDetectorRef } from '@angular/core';
 import { from, Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { elementAt, finalize } from 'rxjs/operators';
 import { AuthService } from '../../../core/auth.service';
-import { CurrentInventory, InventoryTransactionViewModel, TransactionTarget, ChangeStateFields, Tenant, DataColumnFilter } from '../../models/admin.models';
+import { CurrentInventory, InventoryTransactionViewModel, TransactionTarget, ChangeStateFields, Tenant, DataColumnFilter, ColumnSorting } from '../../models/admin.models';
 import { CustomFieldService } from '../../../customfield/service/custom-field.service'
 import { LibraryService } from '../../../library/service/library.service';
 import { CurrentinventoryService } from '../../service/currentinventory.service'
@@ -119,7 +119,14 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   });
 
 
-
+  // sorting Array
+  public SortingArray: any[] = [];
+  lengths = 2;
+  public Sorting: any = {
+    columnName: "",
+    displayName: "",
+    Order: ""
+  }
   imgURL: any;
   // UOM MEASURE , LOCATION & STATUS OBJECT
   public selectedLocation;
@@ -1083,7 +1090,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   }
 
   GetCurrentInventory() {
-
+    debugger;
     this.IsInventoryLoaded = false;
     this.loadingRecords = true;
     this.CheckboxShow = false;
@@ -1092,6 +1099,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     let GlobelFilter = {
       FilterArray: this.FilterArray,
       Ids: this.InventoryIds,
+      SortArray: this.SortingArray,
     }
     this.currentinventoryService.GetCurrentInventory(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, this.pageSize, sortCol, sortDir, this.searchFilterText, this.showSelected, GlobelFilter, this.HideZero)
       .pipe(finalize(() => {
@@ -1327,7 +1335,44 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         this.uomList = result.entity;
       })
   }
+  RemoveSorting(data) {
+    this.SortingArray.forEach((element, index) => {
 
+      if (element.columnName == data.columnName) {
+        this.SortingArray.splice(index, 1);
+      }
+    })
+    this.tabulatorColumn.forEach(element => {
+
+      if (element.field == data.columnName) {
+        element.inSort = false;
+      }
+    });
+  }
+  ApplySort() {
+    debugger;
+    if (this.Sorting.columnName == "" || this.Sorting.Order == "") {
+      return false;
+    }
+
+    this.tabulatorColumn.forEach(element => {
+      if (element.field == this.Sorting.columnName) {
+        this.Sorting.displayName = element.title;
+        element.inSort = true;
+      }
+    });
+    if (this.SortingArray.length <= this.lengths) {
+      this.SortingArray.push(this.Sorting)
+      this.Sorting = {
+        columnName: "",
+        displayName: "",
+        Order: ""
+      }
+    }
+    else {
+      this.toastr.warning("You can not add more than 3 Column For Sorting");
+    }
+  }
   getStatus() {
     this.libraryService.GetStatus(this.selectedTenantId, this.authService.accessToken).pipe(finalize(() => {
       this.busy = false;
@@ -1523,6 +1568,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
   //Attribute FIELDS
   GetAttributeFields() {
+
 
     this.customfieldservice.GetAttributeFields(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {

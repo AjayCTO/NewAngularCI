@@ -341,7 +341,7 @@
                                                         <div class="form__col">
                                                             <label class="form__label form_label" for="Uom"> Unit Of
                                                                 Measure</label>
-                                                            <select (ngModelChange)="CheckUom(item.partId)"
+                                                            <select (ngModelChange)="CheckUom(item.inventoryId,$event)"
                                                                 class="floating-select" [(ngModel)]="item.ToUomName"
                                                                 [ngModelOptions]="{standalone: true}" id="Uom"
                                                                 name="Uom">
@@ -350,13 +350,10 @@
                                                                     [value]="option.uomName  ">
                                                                     {{option.uomName}}</option>
                                                             </select>
-                                                            <span *ngIf="item.CheckQuantity==false"
+                                                            <span *ngIf="item.CheckUom"
                                                                 style="color: #ff554d; font-size: 12px;">Please convert
                                                                 the
-                                                                states to a different unit of measure.", "UNITS OF
-                                                                MEASURE
-                                                                HAVE
-                                                                NOT CHANGED</span>
+                                                                states to a different UOM.</span>
                                                         </div>
                                                     </div>
                                                 </div>

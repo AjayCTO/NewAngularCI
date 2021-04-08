@@ -170,6 +170,15 @@ export class MultipleTransactionComponent implements OnInit {
             this.ProceedBtnDisable = true;
           }
         }
+
+        if (this.EventConfiguration.eventQuantityAction == "Convert") {
+          if (element.CheckQuantity == true || element.CheckUom == true || element.transactionQty == null || element.CheckUom == null) {
+            this.ProceedBtnDisable = true;
+          }
+
+        }
+
+
       });
     }
     return this.ProceedBtnDisable
@@ -178,7 +187,7 @@ export class MultipleTransactionComponent implements OnInit {
   CheckQuantitys(item, event) {
 
     this.ProceedBtnDisable = false;
-    if (this.EventConfiguration.eventQuantityAction == "Move") {
+    if (this.EventConfiguration.eventQuantityAction == "Move" || this.EventConfiguration.eventQuantityAction == "Convert") {
       this.groupInventoryDetails.forEach(element => {
         if (element.inventoryId == item.inventoryId) {
           element.transactionQty = event;
@@ -202,16 +211,16 @@ export class MultipleTransactionComponent implements OnInit {
   }
 
 
-  CheckUom(elements) {
+  CheckUom(elements, Uom) {
     debugger
     if (this.EventConfiguration.eventQuantityAction == "Convert") {
       this.groupInventoryDetails.forEach(element => {
-        if (element.partId == elements) {
-          if (element.uomName == element.ToUomName) {
-            element.CheckUom = false
+        if (element.inventoryId == elements) {
+          if (element.uomName == Uom) {
+            element.CheckUom = true
           }
           else {
-            element.CheckUom = true
+            element.CheckUom = false
           }
         }
       })
