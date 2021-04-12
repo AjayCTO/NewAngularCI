@@ -1,6 +1,6 @@
 <app-clear-confirmation *ngIf="ClearConfirm" (ClearConfirm)="clearCart()" (hideClose)="deleteValue($event)">
 </app-clear-confirmation>
-<app-cancel-confirmation *ngIf="CancleConfirm" (cancle)="cancel()" (ClearCart)="clearCart()"
+<app-cancel-confirmation *ngIf="CancleConfirm" (cancle)="cancel()" (keepCart)="keepcart()" (ClearCart)="clearCart()"
     (hideClose)="cancelValue($event)">
 
 </app-cancel-confirmation>
@@ -23,6 +23,7 @@
 
 
     </div>
+
     <div class="taskbar">
         <div class="taskbar__col">
             <a (click)="clearConfirm(EventConfiguration)" class="button button--medium button--icon button--theme02"
@@ -43,7 +44,7 @@
                     </path>
                 </svg> Clear All Items
             </a>
-            <a (click)="BackToInventory()" class="button button--medium button--icon button--theme02"
+            <a (click)="cancleConfirm()" class="button button--medium button--icon button--theme02"
                 style="background-color: #ccc">
                 <svg class="icon icon--theme01 icon--previous" aria-labelledby="title-605828ac2ccc9"
                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
@@ -59,6 +60,32 @@
             <button [disabled]="checkProceedButton()" data-modal="#ProceedModel"
                 class="button button--medium button--icon button--theme01 js-modal">
                 Proceed
+                <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+                    <path fill="none" d="M0 0h48v48H0z"></path>
+                    <path d="M31.9 19a8 8 0 00-3-6.3h-.2L17.3 3.8l-4.9 6.3 5.2 4 12.6 9.7a7.6 7.6 0 001.7-4.8z"
+                        fill="currentColor" class="icon__color--secondary"></path>
+                    <path
+                        d="M35.3 30.4l-18 13.8-4.9-6.3 16.4-12.6a6.7 6.7 0 001.4-1.5 7.6 7.6 0 001.7-4.8 8 8 0 00-3-6.3l6.4 5a8 8 0 010 12.7z"
+                        fill="currentColor" class="icon__color--primary"></path>
+                </svg>
+            </button>
+            <button *ngIf="EventConfiguration.eventName=='Move'" data-modal="#AddLocationinnerModal"
+                class="button button--medium button--icon button--theme01 js-modal">
+                Add New Location
+                <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+                    <path fill="none" d="M0 0h48v48H0z"></path>
+                    <path d="M31.9 19a8 8 0 00-3-6.3h-.2L17.3 3.8l-4.9 6.3 5.2 4 12.6 9.7a7.6 7.6 0 001.7-4.8z"
+                        fill="currentColor" class="icon__color--secondary"></path>
+                    <path
+                        d="M35.3 30.4l-18 13.8-4.9-6.3 16.4-12.6a6.7 6.7 0 001.4-1.5 7.6 7.6 0 001.7-4.8 8 8 0 00-3-6.3l6.4 5a8 8 0 010 12.7z"
+                        fill="currentColor" class="icon__color--primary"></path>
+                </svg>
+            </button>
+            <button *ngIf="EventConfiguration.eventName=='Convert'" data-modal="#AddUOMinnerModal"
+                class="button button--medium button--icon button--theme01 js-modal">
+                Add New UOM
                 <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
                     <path fill="none" d="M0 0h48v48H0z"></path>
@@ -316,7 +343,7 @@
                                                     name="ConvertQuantity" required>
                                                 <span class="input-group-addon text Suffix">{{item.uomName}}</span>
                                                 <span *ngIf="item.CheckQuantity"
-                                                    style="color: #ff554d; font-size: 12px;">Quantity is Greater than
+                                                    style="color: #ff554d; font-size: 7px;">Quantity is Greater than
                                                     orignal
                                                     Quantity</span>
 
@@ -351,7 +378,7 @@
                                                                     {{option.uomName}}</option>
                                                             </select>
                                                             <span *ngIf="item.CheckUom"
-                                                                style="color: #ff554d; font-size: 12px;">Please convert
+                                                                style="color: #ff554d; font-size: 7px;">Please convert
                                                                 the
                                                                 states to a different UOM.</span>
                                                         </div>
@@ -359,7 +386,7 @@
                                                 </div>
                                             </form>
                                         </td>
-                                        <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Move'">
+                                        <!-- <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Move'">
                                             <div class="form__col">
                                                 <label class="form__label form_label"
                                                     for="Location_{{item.inventoryId}}">Location
@@ -370,6 +397,33 @@
                                                     name="Location_{{item.inventoryId}}">
                                                 <span *ngIf="item.Checklocation"
                                                     style="color: #ff554d; font-size: 12px;">Please move these states to
+                                                    a
+                                                    different
+                                                    location.</span>
+                                            </div>
+                                        </td> -->
+                                        <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Move'">
+                                            <div class="form__col">
+                                                <!-- <label class="form__label form_label"
+                                                    for="Location_{{item.inventoryId}}">Location
+                                                </label> -->
+                                                <label class="form__label form_label" for="Location_">Location
+                                                </label>
+                                                <select (ngModelChange)="CheckLocations(item.inventoryId,$event)"
+                                                    class="floating-select" [(ngModel)]="item.ToLocation"
+                                                    [ngModelOptions]="{standalone: true}" id="Location_"
+                                                    name="Location_">
+                                                    <option></option>
+                                                    <option *ngFor="let option of locationsList"
+                                                        [value]="option.locationName  ">
+                                                        {{option.locationName}}</option>
+                                                </select>
+                                                <!-- <input class="form__input" type="text" [(ngModel)]="item.ToLocation"
+                                                    (ngModelChange)="CheckLocations(item,$event)"
+                                                    id="Location_{{item.inventoryId}}"
+                                                    name="Location_{{item.inventoryId}}"> -->
+                                                <span *ngIf="item.Checklocation"
+                                                    style="color: #ff554d; font-size: 7px;">Please move these states to
                                                     a
                                                     different
                                                     location.</span>
@@ -397,14 +451,11 @@
                                                         <label class="form__label" *ngIf="field.dataType!='True/False'"
                                                             for="Circustance_{{i}}_{{field.columnId}}_{{item.inventoryId}}"
                                                             [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>='4' ? 'prefixLabel3':'']">{{
-                                                            (field.columnLabel.length>5)? (field.columnLabel |
-                                                            slice:0:5)+'...':(field.columnLabel)}}<span
-                                                                *ngIf="field.customFieldIsRequired"
+                                                            field.columnLabel}}<span *ngIf="field.customFieldIsRequired"
                                                                 class="form__required">*</span></label>
                                                         <span class="form__group-outer-label"
                                                             *ngIf="field.dataType=='True/False'">{{
-                                                            (field.columnLabel.length>5)? (field.columnLabel |
-                                                            slice:0:5)+'...':(field.columnLabel)}}
+                                                            field.columnLabel}}
                                                             :</span>
                                                         <ng-container *ngIf="field.dataType=='Text'">
 
@@ -697,5 +748,118 @@
                 id="closeInventoryModal" data-close="#ProceedModel">Cancel
             </button>
         </div>
+    </div>
+</div>
+<div id="AddLocationinnerModal" role="dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"
+    tabindex="-1" hidden="">
+    <div class="invModal__head">
+        <h2 class="invModal__title">Add New Location</h2>
+        <span class="invModal__control">
+            <div class="tooltip" title="Example text here"><svg
+                    class="icon-simple icon-simple--theme01 icon-simple--info" aria-labelledby="title-5f8fce8eb7064"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12">
+                    <g data-name="Group 748" fill="currentColor">
+                        <path data-name="Path 435"
+                            d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                        </path>
+                        <path data-name="Path 436"
+                            d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                        </path>
+                    </g>
+                </svg></div>
+        </span>
+    </div>
+    <div class="invModal__body">
+        <form class="form" #form="ngForm" [formGroup]="locationForm">
+            <div class="form__section">
+                <div class="form__col-wrap">
+                    <div class="form__col">
+
+                        <label class="form__label" for="locationValueFormcontrol">Location Name<span
+                                class="form__required">*</span></label>
+                        <input class="form__input" type="text" id="locationValueFormcontrol"
+                            formControlName="locationName" name="locationValueFormcontrol" required>
+
+                        <!-- <div class="tooltip" title="Example text here"><svg
+                                class="icon-simple icon-simple--theme01 icon-simple--info"
+                                aria-labelledby="title-5f8fce8eb7070" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 12 12" width="12" height="12">
+                                <g data-name="Group 748" fill="currentColor">
+                                    <path data-name="Path 435"
+                                        d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                    </path>
+                                    <path data-name="Path 436"
+                                        d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                    </path>
+                                </g>
+                            </svg></div> -->
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" (click)="AddNewLocation()" class="button button--medium">Save</button>
+                <button type="button" #AddLocationClose (click)="closeaddlocation(form)"
+                    class="button button--medium button--text-only" data-close="#AddLocationinnerModal">Cancel
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+<div id="AddUOMinnerModal" role="dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"
+    tabindex="-1" hidden="">
+    <div class="invModal__head">
+        <h2 class="invModal__title">Add New UOM</h2>
+        <span class="invModal__control">
+            <div class="tooltip" title="Example text here"><svg
+                    class="icon-simple icon-simple--theme01 icon-simple--info" aria-labelledby="title-5f8fce8eb7064"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12">
+                    <g data-name="Group 748" fill="currentColor">
+                        <path data-name="Path 435"
+                            d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                        </path>
+                        <path data-name="Path 436"
+                            d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                        </path>
+                    </g>
+                </svg></div>
+        </span>
+    </div>
+    <div class="invModal__body">
+        <form class="form" #form="ngForm" [formGroup]="uomForm">
+            <div class="form__section">
+                <div class="form__col-wrap">
+                    <div class="form__col">
+                        <label class="form__label" for="UOM-filled-name">UOM Name<span
+                                class="form__required">*</span></label>
+                        <input class="form__input" type="text" id="UOM-filled-name" name="UOM-filled-name"
+                            formControlName="uomName" required>
+                        <!-- <div class="tooltip" title="Example text here"><svg
+                                class="icon-simple icon-simple--theme01 icon-simple--info"
+                                aria-labelledby="title-5f8fce8eb7070" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 12 12" width="12" height="12">
+                                <g data-name="Group 748" fill="currentColor">
+                                    <path data-name="Path 435"
+                                        d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
+                                    </path>
+                                    <path data-name="Path 436"
+                                        d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
+                                    </path>
+                                </g>
+                            </svg></div> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" (click)="AddNewUOM()" class="button button--medium">Save</button>
+                <button type="button" #AddUOMClose (click)="closeUom(form)"
+                    class="button button--medium button--text-only" data-close="#AddUOMinnerModal">Cancel
+                </button>
+            </div>
+        </form>
     </div>
 </div>

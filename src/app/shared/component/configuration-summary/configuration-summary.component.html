@@ -406,7 +406,7 @@
 
             <div class="form__col-wrap">
                 <ng-container *ngFor="let column of MyInventoryFieldColumn;let i=index">
-                    <ng-container *ngIf="column.customeFieldType==''">
+                    <ng-container *ngIf="column.customeFieldType==''||column.customeFieldType=='Inventory'">
 
                         <div class="form__col form__col--third">
                             <label class="form__label" for="ID_{{column.columnId}}">
@@ -420,7 +420,7 @@
                                     <some-element *ngSwitchCase="'locationName'">Location</some-element>
                                 </container-element>
                             </label>
-                            <input class="form__input" (ngModelChange)="SaveMyInventoryColumn(column)"
+                            <input class="form__input" (ngModelChange)="SaveMyInventoryColumn(column,$event)"
                                 [(ngModel)]="column.columnLabel" type="text" id="ID_{{column.columnId}}"
                                 name="ID_{{column.columnId}}" required>
                             <div class="icon-container" *ngIf="column.isChanging">

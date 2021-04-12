@@ -189,7 +189,7 @@ export class ConfigurationSummaryComponent implements OnInit {
 
   // My inventory column Cusotmized Name
   GetMyInventoryColumns() {
-
+    debugger;
     this.commanService.GetMyInventoryColumns(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
@@ -206,9 +206,14 @@ export class ConfigurationSummaryComponent implements OnInit {
       })
   }
   // Save inventory column 
-  SaveMyInventoryColumn(currentColumn) {
-
+  SaveMyInventoryColumn(currentColumn, event) {
+    debugger;
     currentColumn.isChanging = true;
+    this.MyInventoryFieldColumn.forEach(element => {
+      if (element.columnLabel == currentColumn.columnLabel) {
+        element.columnLabel = event
+      }
+    })
 
     this.myInventoryColumnSettings = { MyInventoryColumnSettings: [] };
     this.myInventoryColumnSettings.MyInventoryColumnSettings = this.MyInventoryFieldColumn

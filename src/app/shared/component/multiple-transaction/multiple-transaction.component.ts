@@ -11,7 +11,7 @@ import modal from '../../../../assets/js/lib/_modal';
 import { LibraryService } from '../../../library/service/library.service';
 import { ToastrService } from 'ngx-toastr';
 import { CurrentinventoryService } from '../../../currentinventory/service/currentinventory.service'
-
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CurrentInventory, InventoryTransactionViewModel, TransactionTargets, ChangeStateFields, Tenant, DataColumnFilter, Item } from '../../../currentinventory/models/admin.models'
 import { Router } from '@angular/router';
 import { SetSelectedTenant, SetSelectedTenantId, SetDefaultInventoryColumn, SetSelectedEvent, SetSelectedCart } from '../../../store/actions/tenant.action';
@@ -24,11 +24,14 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class MultipleTransactionComponent implements OnInit {
   @ViewChild('closeInventoryModal', { static: true }) closeInventoryModal: ElementRef<HTMLElement>;
+  @ViewChild('AddUOMClose', { static: true }) AddUOMClose: ElementRef<HTMLElement>;
+  @ViewChild('AddLocationClose', { static: true }) AddLocationClose: ElementRef<HTMLElement>;
   @Output() ClearConfirms = new EventEmitter();
   public EventConfiguration: any
   public cartDetails: any;
   public selectedTenantId;
   public busy: boolean;
+  public locationForm: FormGroup;
   public loadingRecords: boolean = false;
   public selectedId: number;
   public SelectedView: any;
@@ -37,7 +40,7 @@ export class MultipleTransactionComponent implements OnInit {
   public locationsList: any[];
   public uomList: any[];
   public ClearConfirm: boolean;
-
+  public uomForm: FormGroup;
   public length: number = 0
   public groupInventoryDetails: any[];
   public selectedUOm;
@@ -101,12 +104,19 @@ export class MultipleTransactionComponent implements OnInit {
     ToUomId: null,
   }
 
-  constructor(protected store: Store<AppState>, private spinner: NgxSpinnerService, private customfieldservice: CustomFieldService, private commanService: CommanSharedService, private libraryService: LibraryService, private cdr: ChangeDetectorRef, private toastr: ToastrService, private authService: AuthService, private router: Router, private currentinventoryService: CurrentinventoryService,) {
+  constructor(private formBuilder: FormBuilder, protected store: Store<AppState>, private spinner: NgxSpinnerService, private customfieldservice: CustomFieldService, private commanService: CommanSharedService, private libraryService: LibraryService, private cdr: ChangeDetectorRef, private toastr: ToastrService, private authService: AuthService, private router: Router, private currentinventoryService: CurrentinventoryService,) {
     this.today = new Date();
   }
 
   ngOnInit(): void {
+    // this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+    this.locationForm = this.formBuilder.group({
+      locationName: ['', Validators.required],
 
+    })
+    this.uomForm = this.formBuilder.group({
+      uomName: ['', Validators.required],
+    });
     this.check = false
     this.checkLocation = false
     this.ClearConfirm = false;
@@ -130,8 +140,6 @@ export class MultipleTransactionComponent implements OnInit {
       });
     this.getLocationList();
     this.getUOMList();
-    // this.CheckQuantity(1)
-    // this.CheckLocation();
     this.ApplyJsFunction()
 
   }
@@ -226,13 +234,28 @@ export class MultipleTransactionComponent implements OnInit {
       })
     }
   }
+  // CheckLocations(elements, Uom) {
+  //   debugger
+  //   if (this.EventConfiguration.eventQuantityAction == "Convert") {
+  //     this.groupInventoryDetails.forEach(element => {
+  //       if (element.inventoryId == elements) {
+  //         if (element.uomName == Uom) {
+  //           element.CheckUom = true
+  //         }
+  //         else {
+  //           element.CheckUom = false
+  //         }
+  //       }
+  //     })
+  //   }
+  // }
 
 
   CheckLocations(elements, e) {
     if (this.EventConfiguration.eventQuantityAction == "Move") {
       this.groupInventoryDetails.forEach(element => {
 
-        if (element.inventoryId == elements.inventoryId) {
+        if (element.inventoryId == elements) {
           element.ToLocation = e;
           if (element.ToLocation.toLowerCase().trim() == element.locationName.toLowerCase().trim()) {
             element.Checklocation = true
@@ -287,6 +310,9 @@ export class MultipleTransactionComponent implements OnInit {
     const html = document.querySelector('html');
     html.classList.remove('js-modal-page');
     this.CancleConfirm = false;
+  }
+  keepcart() {
+    this.router.navigateByUrl('/CurrentInventory')
   }
   clearCart() {
 
@@ -478,5 +504,66 @@ export class MultipleTransactionComponent implements OnInit {
 
     return index;
   }
+  AddNewLocation() {
 
+    if (this.locationForm.invalid) {
+      return;
+    }
+    this.spinner.show();
+    this.locationForm.value;
+    this.libraryService.AddLocation(this.selectedTenantId, this.locationForm.value, this.authService.accessToken)
+      .pipe(finalize(() => {
+        this.spinner.hide();
+      }))
+      .subscribe(
+        result => {
+          if (result) {
+
+
+            if (result.entity == true) {
+              this.toastr.success("Your Location is Successfully add.");
+              this.locationForm.reset();
+              let el: HTMLElement = this.AddLocationClose.nativeElement;
+              el.click();
+              this.getLocationList()
+            }
+            else {
+              this.toastr.warning(result.message);
+            }
+          }
+        });
+  }
+  closeaddlocation(form) {
+    form.reset();
+  }
+  AddNewUOM() {
+    if (this.uomForm.invalid) {
+      return;
+    }
+    this.spinner.show();
+    this.uomForm.value;
+    this.libraryService.AddUom(this.selectedTenantId, this.uomForm.value, this.authService.accessToken)
+      .pipe(finalize(() => {
+        this.spinner.hide();
+      }))
+      .subscribe(
+        result => {
+          if (result) {
+
+
+            if (result.entity == true) {
+              this.toastr.success("Your Uom is Successfully Add.");
+              let el: HTMLElement = this.AddUOMClose.nativeElement;
+              el.click();
+              this.getUOMList();
+            }
+            else {
+              this.toastr.warning(result.message);
+            }
+          }
+        });
+  }
+  closeUom(form) {
+    form.reset();
+  }
 }

@@ -5,9 +5,10 @@
                 <h2 class="form__section-title">General Information</h2>
                 <div class="form__col-wrap">
                     <div class="form__col form__col--third">
-                        <label class="form__label form_label" for="one">Item Name</label>
+                        <label class="form__label form_label" for="one">Item Name <span
+                                class="form__required">*</span></label>
                         <input class="form__input" type="text" id="one" [(ngModel)]="selecteditem.partName" name="one"
-                            value="{{selecteditem.partName}}">
+                            value="{{selecteditem.partName}}" required>
                     </div>
                     <div class="form__col form__col--two-third">
                         <label class="form__label form_label" for="two">Item Description</label>
@@ -394,7 +395,8 @@
                 </div>
             </div>
             <div class="button-group">
-                <button type="submit" (click)="edit()" class="button button--medium" href="#">
+                <button type="submit" (click)="edit()" [disabled]="selecteditem.partName==''"
+                    class="button button--medium" href="#">
                     Save
                 </button>
                 <button type="submit" (click)="closeEditItem()" class="button button--medium button--text-only"

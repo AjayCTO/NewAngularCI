@@ -657,6 +657,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     let GlobelFilter = {
       FilterArray: this.FilterArray,
       Ids: this.InventoryIds,
+      SortArray: this.SortingArray,
     }
     this.currentinventoryService.GetCurrentInventory(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, 2000, sortCol, sortDir, this.searchFilterText, this.showSelected, GlobelFilter, this.HideZero)
       .pipe(finalize(() => {
@@ -1372,6 +1373,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     else {
       this.toastr.warning("You can not add more than 3 Column For Sorting");
     }
+    this.mainsortToggleDropdown = false;
   }
   getStatus() {
     this.libraryService.GetStatus(this.selectedTenantId, this.authService.accessToken).pipe(finalize(() => {
@@ -1422,52 +1424,50 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   ClearAllFilter() {
     this.FilterArray = [];
     this.searchFilterText = "";
+    this.tabulatorColumn.forEach(element => {
+      element.inFilter = false;
+    });
     this.GetCurrentInventory();
     this.ApplyJsFunction();
   }
-
+  ClearAllSorts() {
+    this.SortingArray = [];
+    this.tabulatorColumn.forEach(element => {
+      element.inSort = false;
+    });
+    // this.searchFilterText = "";
+    this.GetCurrentInventory();
+    this.ApplyJsFunction();
+  }
   onOptionsSelected(event) {
     // send selected value
-
     this.tabulatorColumn.forEach(element => {
       if (element.field == event) {
         this.ColumnDataType = element.datatype;
         this.ColumnDataTypeSpecial = element.customFieldSpecialType
       }
     });
-
     this.ApplyJsFunction();
-
   }
   closeButton() {
     this.addButtonColumn = false;
     document.getElementById("addbuttonClose").click();
     this.ApplyJsFunction();
   }
-
-
-
-
   onOptionsSelected2(event) {
-
     this.tabulatorColumn.forEach(element => {
-
       if (element.field == event) {
-
         this.ColumnDataType = element.datatype;
         element.opentoggleDropdown = true;
       }
     });
-
     this.ApplyJsFunction();
-
   }
 
   ApplyFilter() {
     if (this.dataColumnFilter.columnName == "" || this.dataColumnFilter.filterOperator == "" || this.dataColumnFilter.searchValue == "") {
       return false;
     }
-
     this.tabulatorColumn.forEach(element => {
       if (element.field == this.dataColumnFilter.columnName) {
         this.dataColumnFilter.displayName = element.title;
@@ -1479,16 +1479,12 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         }
       }
     });
-
     this.FilterArray.forEach((element, index) => {
-
       let attribute = this.dataColumnFilter.type == "" ? '' : "$.";
       if (element.columnName == attribute + this.dataColumnFilter.columnName) {
         this.FilterArray.splice(index, 1);
       }
-
     });
-
     this.FilterArray.push(this.dataColumnFilter);
     if (this.dataColumnFilter.type == "AttributeField" || this.dataColumnFilter.type == "StateField") {
       this.dataColumnFilter.columnName = "$." + this.dataColumnFilter.columnName;
@@ -1504,20 +1500,14 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.GetCurrentInventory();
     this.ApplyJsFunction();
   }
-
-
   CloseFilter() {
     this.mainToggleDropdown = false;
   }
-
   ApplyFilter2(columnName) {
-
     this.dataColumnFilter.columnName = columnName;
     if (this.dataColumnFilter.columnName == "" || this.dataColumnFilter.filterOperator == "" || this.dataColumnFilter.searchValue == "") {
       return false;
     }
-
-
     this.tabulatorColumn.forEach(element => {
       if (element.field == this.dataColumnFilter.columnName) {
         this.dataColumnFilter.displayName = element.title;
@@ -1530,17 +1520,12 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         }
       }
     });
-
-
     this.FilterArray.forEach((element, index) => {
-
       let attribute = this.dataColumnFilter.type == "" ? '' : "$.";
       if (element.columnName == attribute + this.dataColumnFilter.columnName) {
         this.FilterArray.splice(index, 1);
       }
-
     });
-
     this.FilterArray.push(this.dataColumnFilter);
     if (this.dataColumnFilter.type == "AttributeField" || this.dataColumnFilter.type == "StateField") {
       this.dataColumnFilter.columnName = "$." + this.dataColumnFilter.columnName;
@@ -1556,26 +1541,17 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.GetCurrentInventory();
     this.ApplyJsFunction();
   }
-
   CloseFilter2(Id) {
     document.getElementById("filterButton2_" + Id).click();
     this.ApplyJsFunction();
   }
-
-
-
-
-
   //Attribute FIELDS
   GetAttributeFields() {
-
-
     this.customfieldservice.GetAttributeFields(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
         this.spinner.hide();
       })).subscribe(result => {
-
         this.AttributeFields = [];
         if (result.code == 200) {
           this.AttributeFields = result.entity;
@@ -1583,9 +1559,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         }
       })
   }
-
   GetCustomFields() {
-
     this.customfieldservice.GetCustomFields(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
         this.busy = false;
@@ -1593,7 +1567,6 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       })).subscribe(result => {
         this.CustomFields = [];
         if (result.code == 200) {
-
           this.CustomFields = result.entity;
           this.CustomFields.forEach(element => {
             if (element.comboBoxValue != "") {
@@ -1604,7 +1577,6 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         }
       })
   }
-
   onChangeSearch(val: string) {
     if (val == "" || val == undefined) {
       this.data = [];
@@ -1626,7 +1598,6 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
 
   // }
-
   getLocation(event) {
     this.isLoadingResult = true;
     this.TransactionTargetObj.ToLocation = event;
@@ -1637,7 +1608,6 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       });
     this.ApplyJsFunction();
   }
-
   GetFieldsBytype(allList, cfdFieldType) {
     let items = [];
     allList.forEach(element => {
@@ -1647,18 +1617,13 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     });
     return items;
   }
-
   CustomComboValueDropdown(Value) {
-
     this.DropdownValue = [];
     if (Value != null) {
       this.DropdownValue = JSON.parse(Value);
     }
-
     return this.DropdownValue;
   }
-
-
   ComboValueDropdown(Value) {
     let items = [];
     if (Value != null) {
@@ -1666,26 +1631,20 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     }
     return items;
   }
-
   ItemAutocompleteChange() {
     this.CurrentInventoryObj.partId = 0;
     this.IsItemHave = false;
   }
-
-
   searchCleared() {
-
     this.data = [];
   }
   addInventory() {
     this.showForms = true;
   }
-
   selectLocationEvent(item) {
     this.TransactionTargetObj.ToLocationId = item.locationId;
     this.TransactionTargetObj.ToLocation = item.locationName;
   }
-
   selectEvent(item) {
     let itemJsonobject: any[];
     itemJsonobject = JSON.parse(item.attributeFieldsJsonSettings);
@@ -1697,17 +1656,13 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.selectedUOm = item.uomId;
     this.selectedLocation = item.locationId;
     this.selectedStatus = item.statusValue;
-
     this.AttributeFields.forEach(item => {
       for (let i = 0; i < this.keys.length; i++) {
         if (this.keys[i] == item.columnName) {
-
           item.columnValue = this.Value[i];
-
         }
       }
     });
-
     setTimeout(function () {
       toggle();
       inputClear();
@@ -1715,16 +1670,11 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       datePicker();
     }, 200)
     this.IsItemHave = true;
-
   }
-
-
   RefreshCurrentInventory() {
     this.GetCurrentInventory();
     this.ApplyJsFunction();
   }
-
-
   ApplyJsFunction() {
     setTimeout(function () {
       inputClear();
@@ -1734,24 +1684,18 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   }
   //Checkbox Group activity
   checkUncheckAll() {
-
     for (var i = 0; i < this.InventoryDataBind.length; i++) {
       this.InventoryDataBind[i].isSelected = this.masterSelected;
     }
     this.getCheckedItemList();
   }
   isAllSelected() {
-
     this.masterSelected = this.InventoryDataBind.every(function (item: any) {
       return item.isSelected == true;
     })
     this.getCheckedItemList();
   }
-
   getCheckedItemList() {
-
-
-
     for (var i = 0; i < this.InventoryDataBind.length; i++) {
       if (this.InventoryDataBind[i].isSelected) {
         let AddIndex = this.InventoryIds.indexOf(this.InventoryDataBind[i].inventoryId)
@@ -1768,12 +1712,8 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         }
       }
     }
-
     this.SaveCart();
-
   }
-
-
   SaveCart() {
     let viewId = this.SelectedView != undefined ? this.SelectedView.id : 0;
     let carts = [];
@@ -1789,9 +1729,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       }
     })
   }
-
   clearCart() {
-    // 
     for (var i = 0; i < this.InventoryDataBind.length; i++) {
       this.InventoryDataBind[i].isSelected = false;
     }
@@ -1800,27 +1738,21 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.masterSelected = false;
     this.SaveCart();
   }
-
   GetCartDetail() {
     let viewId = this.SelectedView != undefined ? this.SelectedView.id : 0;
     this.currentinventoryService.getCartdetails(this.selectedTenantId, this.authService.accessToken, viewId).subscribe(res => {
       if (res.code == 200) {
-
         this.GetCartDetails = res.entity;
         this.applyGetCartDetails();
       }
       else {
-
       }
     })
   }
-
   closeaddlocation(form) {
     form.reset();
   }
-
   closeinvmodal(form) {
-    // form.reset();
     this.CurrentInventoryObj = {
       partId: 0,
       partName: "",
@@ -1842,7 +1774,6 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     }
   }
   StatementHistory(item) {
-
     this.InventoryTransactionObj = item;
     this.CustomFields.forEach(element => {
       element.columnValue = "";
@@ -1851,43 +1782,31 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.selectedItem = item;
   }
   ShowUploadActivity() {
-
     this.UploadActivityOpen = true;
   }
   getValue(value: boolean) {
     this.UploadActivityOpen = false;
   }
-
   showDropDown = false;
-
-
   toggleQuickDropdown(type) {
-
     if (type == "add")
       this.showQuickAddDropdown = !this.showQuickAddDropdown;
     else
       this.showQuickRemoveDropdown = !this.showQuickRemoveDropdown;
   }
-
-
   toggleGlobalDropDown(event) {
-
     this.FirstEvent = ""; this.SecondEvent = ""; this.ThirdEvent = "";
     this.tabulatorColumn.forEach(element => {
       if (element.field == event) {
         this.ColumnDataType = element.datatype;
         element.opentoggleDropdown = !element.opentoggleDropdown;
-
         if (element.eventList != undefined) {
           this.FirstEvent = element.eventList.FirstEvent; this.SecondEvent = element.eventList.SecondEvent; this.ThirdEvent = element.eventList.ThirdEvent;
         }
       }
     });
-
-
     this.ApplyJsFunction200();
   }
-
   closeGlobalDropDown(event) {
     this.tabulatorColumn.forEach(element => {
       if (element.field == event) {
@@ -1896,9 +1815,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       }
     });
   }
-
   AddQuickColumn(item) {
-
     item.eventList = {
       FirstEvent: this.FirstEvent,
       SecondEvent: this.SecondEvent,
@@ -1906,8 +1823,6 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     }
     this.closeGlobalDropDown(item.field);
   }
-
-
   toggleDropDown() {
     this.showDropDown = !this.showDropDown;
     console.log('clicked');
@@ -1916,13 +1831,10 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.showDropDown = false;
     console.log('clicked outside');
   }
-
-
   selectFiles(event) {
     this.progressInfos = [];
     const files = event.target.files;
     let isImage = true;
-
     for (let i = 0; i < files.length; i++) {
       if (files.item(i).type.match('image/jpg') || files.item(i).type.match('image/jpeg') || files.item(i).type.match('image/png')) {
         var selectedFile = event.target.files[i];
@@ -1935,7 +1847,6 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
           });
         }
         reader.readAsDataURL(event.target.files[i]);
-
         continue;
       } else {
         isImage = false;
@@ -1943,7 +1854,6 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         break;
       }
     }
-
   }
   uploadFiles() {
     debugger
@@ -1951,14 +1861,12 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.message = '';
     this.libraryService.upload(this.selectedFiles, this.previewItem.partId, this.selectedTenantId, this.authService.accessToken).subscribe(
       event => {
-
         if (event.entity == true) {
           this.toastr.success("Files Has Been Uploaded", "SuccessFully");
           this.spinner.hide();
           // let el: HTMLElement = this.uploadActivity.nativeElement;
           // el.click();
           window.location.reload();
-
         }
         else {
           this.toastr.warning("Could Not Upload The Files");
@@ -1971,20 +1879,16 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       err => {
         this.toastr.warning("Could Not Upload The Files");
       });
-
   }
   triggerFalseClick() {
     let el: HTMLElement = this.UploadImage.nativeElement;
     el.click();
   }
   RemoveImageName(index) {
-
     this.listOfFiles.splice(index, 1);
     this.selectedFiles.splice(index, 1);
     this.images.splice(index, 1);
-
   }
-
   // preview image
   previewImage(currentItemToShow) {
 
@@ -2009,22 +1913,15 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.listOfFiles = [];
     this.previewItem = [];
     this.imageObject = [];
-
   }
-
   // ======== Add new custom function=====
   AddNewCustomfield() {
-
-
     this.customfieldservice.AddCustomFields(this.customField, this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
-
       }))
       .subscribe(
         result => {
           if (result) {
-
-
             if (result.code == 200) {
               this.toastr.success("Your CustomField Is Successfully Add.");
               let el: HTMLElement = this.AddCustomFieldClose.nativeElement;
@@ -2033,7 +1930,6 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
               // this.RefreshCustomField.emit();
               // form.reset();
               // this.GetAttributeFields();
-
               // setTimeout(function () {
               //   inputClear();
               //   inputFocus();
@@ -2046,25 +1942,18 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
           }
         });
   }
-
   // ============ Save View Function ========
   save() {
-
     // this.customreport.ColumnFilter = this.columnFilters;
-
     this.reportService.AddCustomReport(this.selectedTenantId, this.authService.accessToken, 1).subscribe((result => {
-
       if (result.code == 200) {
         this.router.navigate(['/report/event-report']);
       }
     }))
     this.EditView = false
   }
-
   //====================== Convert String to Date and Time ================
-
   ConvertStringToDate(stringDate, Type) {
-
     this.myDT = new Date(stringDate);
     let DateManual = this.myDT.toLocaleDateString();
     if (Type == "Time") {
@@ -2079,24 +1968,14 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     }
     return DateManual;
   }
-
-
-
-
-
-
   //////////////////////////////////////
-
   CreateInventoryView() {
     let Data = {
-
       MakeAsDefault: this.MakeasDefaultView,
       ViewName: this.ViewName,
       ColumnJsonSettings: JSON.stringify(this.tabulatorColumn),
       ColumnFilterSettings: JSON.stringify(this.FilterArray)
-
     }
-
     this.currentinventoryService.CreateInventoryView(this.selectedTenantId, this.authService.accessToken, Data).subscribe(res => {
       if (res.code == 200) {
         this.toastr.success("Created View Successfully", "View");
@@ -2109,29 +1988,22 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         this.toastr.error(res.message);
       }
     })
-
   }
 
   GetInventoryView() {
     this.currentinventoryService.GetInventoryView(this.selectedTenantId, this.authService.accessToken).subscribe(res => {
-
       if (res.code == 200) {
         this.inventoryViewList = res.entity;
         this.inventoryViewList.forEach(element => {
           if (element.makeAsDefault) {
             this.InventoryViewToggleButton = true;
             return this.SelectView(element);
-
           }
         });
       }
-
     });
   }
-
   DefaultView() {
-
-
     this.store.pipe(select(selectMyInventoryColumn)).
       subscribe(myInventoryColumn => {
         if (myInventoryColumn) {
@@ -2146,15 +2018,12 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         }
         this.cdr.detectChanges();
       });
-
   }
-
   createViewToggle() {
     this.InventoryViewToggleButton = !this.InventoryViewToggleButton;
     setTimeout(() => {
       modal();
     }, 200);
-
   }
   InventoryEditViewTogleButton = false;
   EditViewToggle() {
@@ -2163,15 +2032,11 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       modal();
     }, 200);
   }
-
-
   SelectView(view) {
-
     this.InventoryIds = [];
     this.ColspanTable = 3;
     this.spinner.show();
     this.SelectedView = view;
-
     let NewColumn = [];
     let selectedViewColumn = JSON.parse(view.columnJsonSettings);
     selectedViewColumn.forEach(element => {
@@ -2192,7 +2057,6 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.tabulatorColumn = NewColumn;
     this.FilterArray = JSON.parse(view.columnFilterSettings);
     this.InventoryViewToggleButton = !this.InventoryViewToggleButton;
-
     this.tabulatorColumn.forEach(element => {
       if (element.isAdded)
         this.ColspanTable++;
@@ -2202,11 +2066,8 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     }, 200);
     this.GetCurrentInventory();
   }
-
   DeleteInventoryView() {
-
     this.isDeleteView = true;
-
   }
   ConfirmDeleteView() {
     this.currentinventoryService.DeleteInventoryView(this.selectedTenantId, this.authService.accessToken, this.SelectedView.id).subscribe(res => {
@@ -2217,14 +2078,12 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         this.SelectedView = null;
         this.GetMyInventoryColumn();
         this.GetInventoryView();
-
       }
       else {
         this.toastr.error(res.message);
       }
     })
   }
-
   EditInventoryView() {
     this.currentinventoryService.EditInventoryView(this.selectedTenantId, this.authService.accessToken, this.SelectedView, this.SelectedView.id).subscribe(res => {
       if (res.code == 200) {
@@ -2239,7 +2098,6 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       }
     })
   }
-
   RenameView() {
     this.ViewName = this.SelectedView.viewName;
     this.MakeasDefaultView = this.SelectedView.makeAsDefault;
@@ -2248,26 +2106,20 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     el.click();
     this.ApplyJsFunction200()
   }
-
-
   SaveView() {
-
     var SearchFieldsTable = $("#table thead>tr");
     let thisjs = this;
     var trows = SearchFieldsTable[0].children;
     $.each(trows, function (index, row) {
       var ColumnWidth = $(row).attr("columnIdWidth");
       if (ColumnWidth != undefined) {
-
         thisjs.tabulatorColumn[index - 2].width = ColumnWidth;
       }
     })
-
     this.SelectedView.columnJsonSettings = JSON.stringify(this.tabulatorColumn);
     this.SelectedView.columnFilterSettings = JSON.stringify(this.FilterArray);
     this.EditInventoryView();
   }
-
   SaveAsViewModal() {
     this.ViewName = "";
     this.MakeasDefaultView = false;
@@ -2276,11 +2128,9 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     el.click();
     this.ApplyJsFunction200()
   }
-
   SaveAsView() {
     this.CreateInventoryView();
   }
-
   MakeInventoryViewDefaut() {
     this.currentinventoryService.MakeasDefault(this.selectedTenantId, this.authService.accessToken, this.SelectedView.id, this.SelectedView,).subscribe(res => {
       if (res.code == 200) {
@@ -2293,15 +2143,12 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       }
     })
   }
-
   OnlyRenameView() {
     this.SelectedView.makeAsDefault = this.MakeasDefaultView,
       this.SelectedView.viewName = this.ViewName,
       this.EditInventoryView();
   }
-
   GetDate(element) {
-
     if (this.dataColumnFilter.filterOperator == 'date-eq') {
       this.GetdateFilter(element)
     }
@@ -2313,7 +2160,6 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       let date2 = new Date(this.dataColumnFilter.searchValue[1]).toLocaleDateString();
       this.dataColumnFilter.datevalue = date1 + " to " + date2;
       this.dataColumnFilter.searchValue = new Date(this.dataColumnFilter.searchValue[0]).toISOString() + " ~ " + new Date(this.dataColumnFilter.searchValue[1]).toISOString();
-
     }
     if (this.dataColumnFilter.filterOperator == 'date-minute') {
       this.dataColumnFilter.datevalue = this.dataColumnFilter.searchValue;
@@ -2339,11 +2185,8 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     if (this.dataColumnFilter.filterOperator == 'time-after') {
       this.GetdateFilter(element)
     }
-
   }
-
   GetdateFilter(element) {
-
     this.myDT = new Date(this.dataColumnFilter.searchValue)
     let DateManual = this.myDT.toLocaleDateString();
     if (element.customFieldSpecialType == "Time") {
@@ -2357,7 +2200,6 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     }
     this.dataColumnFilter.datevalue = DateManual;
   }
-
   ApplyJsFunction200() {
     setTimeout(function () {
       inputClear();
@@ -2365,20 +2207,16 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       datePicker();
     }, 200)
   }
-
   // public dateTime = new FormControl(moment());
   chosenYearHandler(normalizedYear: Date, datepicker: OwlDateTimeComponent<Moment>) {
-
     this.dataColumnFilter.searchValue = normalizedYear;
     this.dataColumnFilter.datevalue = normalizedYear.getFullYear();
     datepicker.close();
   }
-
   chosenMonthHandler(
     normalizedMonth: Date,
     datepicker: OwlDateTimeComponent<Moment>
   ) {
-
     const monthNames = ["January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
     ];
@@ -2390,12 +2228,13 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   MainFilterToggle() {
     this.mainToggleDropdown = !this.mainToggleDropdown;
   }
-
-
+  mainsortToggleDropdown = false;
+  MainSortToggle() {
+    this.mainsortToggleDropdown = !this.mainsortToggleDropdown;
+  }
   hideZero() {
     this.HideZero = !this.HideZero;
     this.GetCurrentInventory();
     this.ApplyJsFunction();
   }
-
 }

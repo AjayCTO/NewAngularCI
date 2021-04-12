@@ -314,6 +314,7 @@ export class DetailsComponent implements OnInit {
 
             if (result.entity == true) {
               this.toastr.success("Your Item Is Successfully Update.");
+              window.location.reload();
               // this.GetLocation();
 
             }

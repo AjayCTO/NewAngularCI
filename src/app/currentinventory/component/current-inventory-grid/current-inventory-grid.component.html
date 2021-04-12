@@ -1115,8 +1115,21 @@
                                 </g>
                             </g>
                         </svg></div>
+
                     <span class="icons__label">ACTIVE SORTS</span>
-                    <a class="command__isolated">Clear All</a>
+
+                    <svg aria-labelledby="title-5f7dd3f9c4a21" xmlns="http://www.w3.org/2000/svg" width="8.081"
+                        height="11.544" viewBox="0 0 8.081 11.544">
+                        <g data-name="Group 3641">
+                            <path data-name="Path 1713"
+                                d="M6.926 4.617V2.886a2.886 2.886 0 10-5.771 0v1.731A1.242 1.242 0 00.001 5.772v4.617a1.241 1.241 0 001.154 1.155h5.771a1.241 1.241 0 001.155-1.155V5.772a1.242 1.242 0 00-1.155-1.155zm-1.153 0H2.309V2.886a1.732 1.732 0 113.464 0z"
+                                fill="#abb3bb"></path>
+                        </g>
+                    </svg>
+
+                </div>
+                <div class="icons__icon">
+                    <a style="cursor: pointer;" (click)="ClearAllSorts()" class="command__isolated"> Clear All </a>
                 </div>
             </div>
             <div class="card icons icons--horziontal icons--size01">
@@ -1139,25 +1152,26 @@
                             </svg></div>
                     </button>
                 </div>
-                <button type="button" class="icons__item icons__item--outline js-toggle">
-                    <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
-                            aria-labelledby="title-5f7cd7ce12c36" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                            width="24" height="24">
-                            <path fill="none" d="M0 0h24v24H0z"></path>
-                            <path fill="currentColor" d="M0 10h24v4H0z"></path>
-                            <path fill="currentColor" d="M14 0v24h-4V0z"></path>
-                        </svg></div>
-                    <span class="icons__label">Add Sort</span>
-
-                    <div class="icons__submenu icons__submenu--from-left">
-                        <ul class="icons__submenu-list">
+                <button type="button" class="icons__item icons__item--outline " style="cursor: pointer;">
+                    <div class="icons__item icons__item--outline" (click)="MainSortToggle()">
+                        <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
+                                aria-labelledby="title-5f7cd7ce12c36" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                                <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                            </svg></div>
+                        <span class="icons__label">Add Sort</span>
+                    </div>
+                    <div *ngIf="mainsortToggleDropdown" class="toggleDropDown" style="min-width: 235px;">
+                        <ul class="icons__submenu-list" style="padding-top: 15px">
                             <li class="icons__submenu-item icons__submenu-item--contains-input">
                                 <div class="form__col">
                                     <select class="floating-select" id="list-dropdown" [(ngModel)]="Sorting.columnName"
                                         name="list-dropdown" value="">
                                         <option value="">Choose Column</option>
                                         <ng-container *ngFor="let opt of tabulatorColumn">
-                                            <ng-container *ngIf="opt.datatype!='button'">
+                                            <ng-container *ngIf="opt.datatype!='button'&&opt.datatype!='image'">
                                                 <option [disabled]="opt.inSort" [value]="opt.field">
                                                     {{opt.title}}
                                                 </option>
