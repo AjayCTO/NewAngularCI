@@ -169,6 +169,7 @@ export class ItemLibraryComponent implements OnInit {
 
 
   ngOnInit() {
+    debugger;
     this.UploadActivityOpen = false;
     this.spinner.show();
     this.uomForm = this.formBuilder.group({
@@ -194,7 +195,7 @@ export class ItemLibraryComponent implements OnInit {
     this.store.pipe(select(getTenantConfiguration)).subscribe(config => {
       if (config) {
         debugger
-        this.tenantConfiguration = config;
+        this.tenantConfiguration = config.entity;
       }
     });
 

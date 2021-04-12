@@ -11,14 +11,38 @@ import inputFocus from '../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../assets/js/lib/_inputClear';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, Routes } from '@angular/router';
-
+import { CommanSharedService } from "../../../shared/service/comman-shared.service"
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../../../shared/appState';
+import { selectSelectedTenantId, selectSelectedTenant, getTenantConfiguration } from '../../../store/selectors/tenant.selectors';
+import { TenantConfig } from 'src/app/store/models/tenant.model';
 @Component({
   selector: 'app-uom-library',
   templateUrl: './uom-library.component.html',
   styleUrls: ['./uom-library.component.scss']
 })
 export class UOMLibraryComponent implements OnInit {
-
+  public Features: any = {
+    restocking: false,
+    costTracking: false,
+    componentList: false,
+    automatedItems: false,
+    TimeZone: "",
+    defaultQuantity: false,
+    LowQuantityThreshold: false,
+    QuantityRechesZero: false,
+    negativeQuantity: false,
+    theme: "",
+    isLockItemLibrary: false,
+    isLockLocationLibrary: false,
+    isLockUOMLibrary: false,
+    locationTermCustomized: "",
+    uomTermCustomized: "",
+    ItemTermCustomized: "",
+    QuantityTermCustomized: ""
+  }
+  public tenantConfiguration: TenantConfig;
+  public lockUom: boolean;
   public selectedTenantId: number;
   public istableloaded = false;
   public EditUOMMode: boolean;
@@ -41,7 +65,7 @@ export class UOMLibraryComponent implements OnInit {
   pageIndex = 0;
   lastPageIndex = 0;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private spinner: NgxSpinnerService,
+  constructor(private commanService: CommanSharedService, private formBuilder: FormBuilder, protected store: Store<AppState>, private router: Router, private spinner: NgxSpinnerService,
     private toast: ToastrService, private libraryService: LibraryService,
     private authService: AuthService, private cdr: ChangeDetectorRef) { }
 
@@ -49,7 +73,12 @@ export class UOMLibraryComponent implements OnInit {
 
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     // this.showForm = false;
-
+    this.store.pipe(select(getTenantConfiguration)).subscribe(config => {
+      if (config) {
+        debugger
+        this.tenantConfiguration = config.entity;
+      }
+    });
 
     this.GetUOM();
 
@@ -228,5 +257,26 @@ export class UOMLibraryComponent implements OnInit {
     });
     this.libraryService.exportAsExcelFile(UomList, "uom.xlsx");
   }
+  LockConfirm() {
+    this.lockUom = true
+  }
 
+  Unlock() {
+    let value = false
+    this.saveConfigration(value)
+  }
+  saveConfigration(value: boolean) {
+    debugger
+    this.Features.isLockLocationLibrary = value
+    this.commanService.UpdateTenantConfiguration(this.selectedTenantId, this.authService.accessToken, 3, this.Features).pipe(finalize(() => {
+
+    })).subscribe(
+      result => {
+        if (result.code == 200) {
+          // this.toastr.success("Your Setting is Updated");
+          // alert("j")
+        }
+      }
+    )
+  }
 }

@@ -419,7 +419,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.store.pipe(select(getTenantConfiguration)).subscribe(config => {
       if (config) {
         debugger
-        this.tenantConfiguration = config;
+        this.tenantConfiguration = config.entity;
       }
     });
 

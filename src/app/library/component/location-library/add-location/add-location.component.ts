@@ -7,14 +7,17 @@ import { ToastrService } from 'ngx-toastr';
 import inputFocus from '../../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../../assets/js/lib/_inputClear';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../../../../shared/appState';
+import { TenantConfig } from 'src/app/store/models/tenant.model';
+import { selectSelectedTenantId, selectSelectedTenant, getTenantConfiguration } from '../../../../store/selectors/tenant.selectors';
 @Component({
   selector: 'app-add-location',
   templateUrl: './add-location.component.html',
   styleUrls: ['./add-location.component.scss']
 })
 export class AddLocationComponent implements OnInit {
-
+  public tenantConfiguration: TenantConfig;
   locationForm: FormGroup;
   public selectedTenantId: number;
   @Output() hideClose = new EventEmitter();
@@ -22,7 +25,7 @@ export class AddLocationComponent implements OnInit {
 
 
 
-  constructor(private formBuilder: FormBuilder, private libraryService: LibraryService, private toast: ToastrService, private cdr: ChangeDetectorRef, private spinner: NgxSpinnerService, private authService: AuthService) { }
+  constructor(private formBuilder: FormBuilder, private libraryService: LibraryService, private toast: ToastrService, protected store: Store<AppState>, private cdr: ChangeDetectorRef, private spinner: NgxSpinnerService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
@@ -30,6 +33,12 @@ export class AddLocationComponent implements OnInit {
       locationName: ['', Validators.required],
       description: ['', null],
       locationZone: ['', null],
+    });
+    this.store.pipe(select(getTenantConfiguration)).subscribe(config => {
+      if (config) {
+        debugger
+        this.tenantConfiguration = config.entity;
+      }
     });
     inputClear();
     inputFocus();

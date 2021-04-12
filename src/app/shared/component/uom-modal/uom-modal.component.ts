@@ -9,7 +9,8 @@ import { ToastrService } from 'ngx-toastr';
 import { EventService } from '../../../dynamic-events/service/event.service';
 import { LibraryService } from '../../../library/service/library.service';
 import { SetSelectedTenant, SetSelectedTenantId } from '../../../store/actions/tenant.action';
-
+import { selectSelectedTenantId, selectSelectedTenant, getTenantConfiguration } from '../../../store/selectors/tenant.selectors';
+import { TenantConfig } from 'src/app/store/models/tenant.model';
 @Component({
   selector: 'app-uom-modal',
   templateUrl: './uom-modal.component.html',
@@ -18,6 +19,7 @@ import { SetSelectedTenant, SetSelectedTenantId } from '../../../store/actions/t
 export class UomModalComponent implements OnInit {
   @ViewChild('AddUOMClose', { static: true }) AddUOMClose: ElementRef<HTMLElement>;
   @Output() RefreshUom = new EventEmitter();
+  public tenantConfiguration: TenantConfig;
   public selectedTenantId: number;
   constructor(private authService: AuthService, protected store: Store<AppState>, private formBuilder: FormBuilder, private toastr: ToastrService, private libraryService: LibraryService, private spinner: NgxSpinnerService,) { }
   public uomForm: FormGroup;
@@ -26,6 +28,12 @@ export class UomModalComponent implements OnInit {
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     this.uomForm = this.formBuilder.group({
       uomName: ['', Validators.required],
+    });
+    this.store.pipe(select(getTenantConfiguration)).subscribe(config => {
+      if (config) {
+        debugger
+        this.tenantConfiguration = config.entity;
+      }
     });
   }
 

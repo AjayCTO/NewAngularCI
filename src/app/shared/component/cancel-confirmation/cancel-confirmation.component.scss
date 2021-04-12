@@ -8,6 +8,7 @@
     line-height: 32px;
     box-sizing: content-box;
     margin:10px;
+    margin-bottom: 25px;
     // border-bottom: 1px solid #ccc;
 
 }
@@ -24,8 +25,8 @@
 }
 .Modal__body {
     background: rgba(242, 222, 222, 0.52) !important;
-    height: 23vh;
-    padding: 2rem 3.75rem;
+    height: 26vh;
+    padding: 2rem 2rem;
 }
 .form__col-wrap {
     display: flex;
@@ -33,5 +34,12 @@
      justify-content: start;
 }
 .form__col--two-third {
-    width: calc(((100% / 5) * 2) - .625rem);
+    width: calc(((100% / 3) * 2) - 5.991rem);
+
+}
+.card-detail{
+     font-size: 21px; 
+    // background-color: #d9edf7; 
+        border-color: #d9edf7;
+        color: #283237;
 }

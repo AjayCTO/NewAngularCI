@@ -2,7 +2,7 @@
     <div class="modal">
         <div id="DeleteConfirm">
             <div class="Modal__head">
-                <h1 class="invModal__title">What do you want to do about your cart?</h1>
+                <h1 class="invModal__title" style="font-size: 23px;">What do you want to do about your cart?</h1>
             </div>
             <div class="Modal__body">
                 <div class="form__col-wrap">
@@ -10,11 +10,11 @@
                         <div class="card2">
                             <div class="form__col-wrap">
                                 <div class="form__col--two-third">
-                                    <p>Keep it so I can complete it later.</p>
+                                    <p class="card-detail">Keep it so I can complete it later.</p>
                                 </div>
                                 <div>
                                     <button style="cursor: pointer; background-color: green;" type="button"
-                                        (click)="KeepCart()" class="button button--medium button">Keep Cart
+                                        (click)="KeepCart()" class="button button--medium button">Keep The Cart
                                     </button>
                                 </div>
 
@@ -23,11 +23,11 @@
                         <div class="card2">
                             <div class="form__col-wrap">
                                 <div class="form__col--two-third">
-                                    <p>Clear the cart of all items; I don't need it.</p>
+                                    <p class="card-detail">Clear the cart of all items; I don't need it.</p>
                                 </div>
                                 <div>
                                     <button style="cursor: pointer; background-color: red;" type="button"
-                                        (click)="clearCart() " class="button button--medium button">Clear Cart
+                                        (click)="clearCart() " class="button button--medium button">Clear The Cart
                                     </button>
                                 </div>
                             </div>
@@ -35,11 +35,11 @@
                         <div class="card2">
                             <div class="form__col-wrap">
                                 <div class="form__col--two-third">
-                                    <p>Return to Cart so I can complete it now.</p>
+                                    <p class="card-detail">Return to Cart so I can complete it now.</p>
                                 </div>
                                 <div>
                                     <button style="cursor: pointer;" type="button" (click)="close()"
-                                        class="button button--medium button">Return to cart
+                                        class="button button--medium button">Return To Cart
                                     </button>
                                 </div>
                             </div>

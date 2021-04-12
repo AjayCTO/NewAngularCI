@@ -8,6 +8,10 @@ import { AppState } from '../../../shared/appState';
 import { LibraryService } from '../../../library/service/library.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { selectSelectedTenantId, selectSelectedTenant, getTenantConfiguration } from '../../../store/selectors/tenant.selectors';
+import { TenantConfig } from 'src/app/store/models/tenant.model';
+
+
 import modal from '../../../../assets/js/lib/_modal';
 @Component({
   selector: 'app-location-modal',
@@ -17,6 +21,7 @@ import modal from '../../../../assets/js/lib/_modal';
 export class LocationModalComponent implements OnInit {
   @ViewChild('AddLocationClose', { static: true }) AddLocationClose: ElementRef<HTMLElement>;
   @Output() RefreshLocation = new EventEmitter();
+  public tenantConfiguration: TenantConfig;
   public selectedTenantId: number;
   constructor(private authService: AuthService, protected store: Store<AppState>, private toastr: ToastrService, private formBuilder: FormBuilder, private libraryService: LibraryService, private spinner: NgxSpinnerService,) { }
   public locationForm: FormGroup;
@@ -26,6 +31,12 @@ export class LocationModalComponent implements OnInit {
       locationName: ['', Validators.required],
 
     })
+    this.store.pipe(select(getTenantConfiguration)).subscribe(config => {
+      if (config) {
+        debugger
+        this.tenantConfiguration = config.entity;
+      }
+    });
   }
 
   AddNewLocation() {

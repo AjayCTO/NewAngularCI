@@ -1,7 +1,7 @@
 <ng-container *ngIf="!NotPermitted">
     <div class="actions">
         <div class="actions__title">
-            <h1><b>Unit of Measure Library</b> </h1>
+            <h1><b>{{tenantConfiguration.uomTermCustomized}} Library</b> </h1>
         </div>
         <div class="actions__wrap">
             <div (click)="exportAsXLSX()" class="icons__item">
@@ -128,7 +128,7 @@
 
 
                         <th scope="col" class="table__heading">
-                            <div class="table__heading-title">Unit OF Measure Name</div>
+                            <div class="table__heading-title">{{tenantConfiguration.uomTermCustomized}} Name</div>
                             <div class="table__heading-options">
                                 <div class="icons icons--horziontal icons--size02">
                                     <button class="icons__item" type="button">

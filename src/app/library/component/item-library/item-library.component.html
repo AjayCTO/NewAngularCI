@@ -2,7 +2,7 @@
 
     <div class="actions">
         <div class="actions__title">
-            <h1><b> {{tenantConfiguration.ItemTermCustomized}} </b> </h1>
+            <h1><b> {{tenantConfiguration.itemTermCustomized}} Library </b> </h1>
 
         </div>
         <div class="actions__wrap">
@@ -65,7 +65,7 @@
                     <path fill="none" d="M0 0h24v24H0z"></path>
                     <path fill="currentColor" d="M0 10h24v4H0z"></path>
                     <path fill="currentColor" d="M14 0v24h-4V0z"></path>
-                </svg> &nbsp; Add New Item
+                </svg> &nbsp; Add New {{tenantConfiguration.itemTermCustomized}}
             </button>
             <form class="form form--search">
                 <div class="form__section">
@@ -1715,19 +1715,19 @@
 <div id="AddItemtestModal" class="invModal" role="dialog" aria-labelledby="dialog-title"
     aria-describedby="dialog-description" tabindex="-1" hidden="">
     <div class="invModal__head">
-        <h1 class="invModal__title">Create New Item</h1>
+        <h1 class="invModal__title">Create New {{tenantConfiguration.itemTermCustomized}}</h1>
     </div>
     <div class="invModal__body">
         <form class="form" #b="ngForm" [formGroup]="partformControl" (ngSubmit)="onSubmit()">
             <div class="form__section">
                 <h2 class="form__section-title">
-                    Add New Item
+                    Add New {{tenantConfiguration.itemTermCustomized}}
                 </h2>
                 <div class="form__col-wrap">
                     <div class="form__col form__col--third form__col--has-copy"
                         [ngClass]="{ 'form__col--error': submitted && f.partName.errors}">
-                        <label class="form__label" for="partNameFormControl">Item Name<span
-                                class="form__required">*</span></label>
+                        <label class="form__label" for="partNameFormControl">{{tenantConfiguration.itemTermCustomized}}
+                            Name<span class="form__required">*</span></label>
                         <input class="form__input" type="text" id="partNameFormControl" name="partNameFormControl"
                             formControlName="partName">
                         <ng-container *ngIf="submitted && f.partName.errors"> <span *ngIf="f.partName.errors.required"
@@ -1735,14 +1735,16 @@
                                 required</span></ng-container>
                     </div>
                     <div class="form__col form__col--two-third">
-                        <label class="form__label" for="partDescriptionFormControl">Item Description</label>
+                        <label class="form__label"
+                            for="partDescriptionFormControl">{{tenantConfiguration.itemTermCustomized}}
+                            Description</label>
                         <input class="form__input" type="text" id="partDescriptionFormControl"
                             name="partDescriptionFormControl" formControlName="partDescription">
                     </div>
                 </div>
             </div>
             <div class="form__section">
-                <h2 class="form__section-title">Item Settings
+                <h2 class="form__section-title">{{tenantConfiguration.itemTermCustomized}} Settings
                 </h2>
                 <div class="form__col-wrap">
                     <div class="form__col form__col--half"
@@ -1750,7 +1752,7 @@
                         <button type="button" data-modal="#AddUOMinnerModal"
                             class="invModal__control addLibrary js-modal">Add
                             New
-                            UOM</button>
+                            {{tenantConfiguration.uomTermCustomized}} </button>
 
                         <!-- <label class="form__label" for="UomFormControl">Default UOM<span
                                 class="form__required">*</span></label>
@@ -1766,7 +1768,8 @@
                             <option *ngFor="let value of uomList" value="{{value.uomId}}">{{value.uomName}}</option>
                         </select>
                         <span class="highlight"></span>
-                        <label class="form__label form_label">Default UOM</label>
+                        <label class="form__label form_label">Default {{tenantConfiguration.uomTermCustomized}}
+                        </label>
 
                         <ng-container *ngIf="submitted && f.uomId.errors"> <span *ngIf="f.uomId.errors.required"
                                 class="form__error-message">This field is
@@ -1776,7 +1779,7 @@
                         [ngClass]="{ 'form__col--error': submitted && f.locationId.errors}">
                         <button type="button" data-modal="#AddLocationinnerModal"
                             class="invModal__control addLibrary js-modal">Add New
-                            Location</button>
+                            {{tenantConfiguration.locationTermCustomized}} </button>
                         <!-- <label class="form__label" for="locationFormControl">Default Location<span
                                 class="form__required">*</span></label>
                         <select class="form__input  form__select" id="locationFormControl" formControlName="locationId"
@@ -1793,7 +1796,8 @@
                                 {{option.locationName}}</option>
                         </select>
                         <span class="highlight"></span>
-                        <label class="form__label form_label">Default Location</label>
+                        <label class="form__label form_label">Default {{tenantConfiguration.locationTermCustomized}}
+                        </label>
 
                         <ng-container *ngIf="submitted && f.locationId.errors"> <span
                                 *ngIf="f.locationId.errors.required" class="form__error-message">This field is

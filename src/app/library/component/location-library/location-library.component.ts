@@ -14,7 +14,8 @@ import { select, Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs/operators';
 import { AppState } from '../../../shared/appState';
 import { Router, Routes } from '@angular/router';
-import { selectSelectedTenantId, selectSelectedTenant } from '../../../store/selectors/tenant.selectors';
+import { selectSelectedTenantId, selectSelectedTenant, getTenantConfiguration } from '../../../store/selectors/tenant.selectors';
+import { TenantConfig } from 'src/app/store/models/tenant.model';
 @Component({
   selector: 'app-location-library',
   templateUrl: './location-library.component.html',
@@ -26,6 +27,7 @@ export class LocationLibraryComponent implements OnInit {
   showForm: boolean
   busy: boolean;
   error: string;
+  public tenantConfiguration: TenantConfig;
   public Features: any = {
     restocking: false,
     costTracking: false,
@@ -78,6 +80,12 @@ export class LocationLibraryComponent implements OnInit {
         }
         this.cdr.detectChanges();
       });
+    this.store.pipe(select(getTenantConfiguration)).subscribe(config => {
+      if (config) {
+        debugger
+        this.tenantConfiguration = config.entity;
+      }
+    });
 
     this.locationForm = this.formBuilder.group({
       locationName: ['', Validators.required],
@@ -279,16 +287,20 @@ export class LocationLibraryComponent implements OnInit {
     this.lockLocation = true
   }
 
+  Unlock() {
+    let value = false
+    this.saveConfigration(value)
+  }
   saveConfigration(value: boolean) {
     debugger
     this.Features.isLockLocationLibrary = value
-    this.commanService.UpdateTenantConfiguration(this.selectedTenantId, this.authService.accessToken, 1, this.Features).pipe(finalize(() => {
+    this.commanService.UpdateTenantConfiguration(this.selectedTenantId, this.authService.accessToken, 3, this.Features).pipe(finalize(() => {
 
     })).subscribe(
       result => {
         if (result.code == 200) {
           // this.toastr.success("Your Setting is Updated");
-          alert("j")
+          // alert("j")
         }
       }
     )
