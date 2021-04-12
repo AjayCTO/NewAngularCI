@@ -28,8 +28,8 @@
     </div>
 
     <div class="taskbar">
-        <div class="taskbar__col">
-            <button type="button" data-modal="#AddLocationinnerModal"
+        <div class="taskbar__col" style="margin-right: 10px;">
+            <button [disabled]="isLockLocationLibrary" type="button" data-modal="#AddLocationinnerModal"
                 class="button button--medium button--icon button--theme02 js-modal">
                 <svg class="icon-simple icon-simple--theme01 icon-simple--add" aria-labelledby="title-5f86742813ab3"
                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
@@ -40,10 +40,22 @@
             </button>
         </div>
         <app-location-modal (RefreshLocation)="GetLocation()"></app-location-modal>
-
-
-
+        <div class="taskbar__col">
+            <button type="button" (click)="LockConfirm()"
+                class="button button--medium button--icon button--theme02 js-modal">
+                <svg aria-labelledby="title-6073f50bc4e35" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 8.081 11.544">
+                    <g data-name="Group 3641">
+                        <path data-name="Path 1713"
+                            d="M6.926 4.617V2.886a2.886 2.886 0 10-5.771 0v1.731A1.242 1.242 0 00.001 5.772v4.617a1.241 1.241 0 001.154 1.155h5.771a1.241 1.241 0 001.155-1.155V5.772a1.242 1.242 0 00-1.155-1.155zm-1.153 0H2.309V2.886a1.732 1.732 0 113.464 0z"
+                            fill="#abb3bb"></path>
+                    </g>
+                </svg> &nbsp; Lock the Library
+            </button>
+        </div>
     </div>
+
+
     <section class="main">
 
         <div class="pagination">
@@ -200,8 +212,8 @@
                             </td>
                             <td class="table__cell" data-title="Column Title">
                                 <div class="icons icons--size02">
-                                    <button style="cursor: pointer;" class="icons__item icons__item--theme07"
-                                        (click)="OpenMenu(item)" type="button">
+                                    <button [disabled]="isLockLocationLibrary==true" style="cursor: pointer;"
+                                        class="icons__item icons__item--theme07" (click)="OpenMenu(item)" type="button">
                                         <div class="icons__icon"><svg class="icon icon--theme01 icon--adjust"
                                                 aria-labelledby="title-5f83f4826a17f" xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 48 48" width="48" height="48">
@@ -222,8 +234,8 @@
                                             </svg></div>
                                         <span class="icons__label">Edit</span>
                                     </button>
-                                    <button style="cursor: pointer;" class="icons__item icons__item--theme03"
-                                        (click)="DeleteConfirm(item)">
+                                    <button [disabled]="isLockLocationLibrary==true" style="cursor: pointer;"
+                                        class="icons__item icons__item--theme03" (click)="DeleteConfirm(item)">
                                         <div class="icons__icon">
                                             <svg class="icon icon--theme01 icon-simple--trash"
                                                 aria-labelledby="title-5f84133e656c0" xmlns="http://www.w3.org/2000/svg"
@@ -393,4 +405,6 @@
 
 <app-delete-confirmation *ngIf="deleteLocation" (deleteLocation)="deleteField()" (hideClose)="deleteValue($event)">
 </app-delete-confirmation>
+<app-lock-confirmation *ngIf="lockLocation" (lockLocation)="saveConfigration($event)" (hideClose)="CancleLock($event)">
+</app-lock-confirmation>
 <ngx-spinner></ngx-spinner>

@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import modal from '../../../../assets/js/lib/_modal';
 import inputFocus from '../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../assets/js/lib/_inputClear';
+import { CommanSharedService } from "../../../shared/service/comman-shared.service"
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs/operators';
@@ -25,7 +26,25 @@ export class LocationLibraryComponent implements OnInit {
   showForm: boolean
   busy: boolean;
   error: string;
+  public Features: any = {
+    restocking: false,
+    costTracking: false,
+    componentList: false,
+    automatedItems: false,
+    TimeZone: "",
+    defaultQuantity: false,
+    LowQuantityThreshold: false,
+    QuantityRechesZero: false,
+    negativeQuantity: false,
 
+    theme: "",
+    isLockItemLibrary: false,
+    isLockLocationLibrary: false,
+    isLockUOMLibrary: false,
+    locationTermCustomized: "",
+    uomTermCustomized: ""
+  }
+  public lockLocation: boolean;
   public locations: any[] = [];
   public istableloaded = false;
   public selectedTenantId: number;
@@ -39,7 +58,7 @@ export class LocationLibraryComponent implements OnInit {
   submitted = false;
   addLocation = false;
   deleteLocation = false;
-  constructor(private router: Router, protected store: Store<AppState>, private formBuilder: FormBuilder, private libraryService: LibraryService, private toast: ToastrService, private cdr: ChangeDetectorRef, private spinner: NgxSpinnerService, private authService: AuthService) {
+  constructor(private commanService: CommanSharedService, private router: Router, protected store: Store<AppState>, private formBuilder: FormBuilder, private libraryService: LibraryService, private toast: ToastrService, private cdr: ChangeDetectorRef, private spinner: NgxSpinnerService, private authService: AuthService) {
 
   }
   length = 100;
@@ -219,6 +238,11 @@ export class LocationLibraryComponent implements OnInit {
     html.classList.remove('js-modal-page');
     this.deleteLocation = false;
   }
+  CancleLock(value: boolean) {
+    const html = document.querySelector('html');
+    html.classList.remove('js-modal-page');
+    this.lockLocation = false;
+  }
   gotoFirstPage() {
     this.pageIndex = 0;
     this.GetLocation();
@@ -250,5 +274,23 @@ export class LocationLibraryComponent implements OnInit {
       locationsList.push({ "Location": element.locationName, "Description": element.description, "Location Group": element.locationZone });
     });
     this.libraryService.exportAsExcelFile(locationsList, "Location.xlsx",);
+  }
+  LockConfirm() {
+    this.lockLocation = true
+  }
+
+  saveConfigration(value: boolean) {
+    debugger
+    this.Features.isLockLocationLibrary = value
+    this.commanService.UpdateTenantConfiguration(this.selectedTenantId, this.authService.accessToken, 1, this.Features).pipe(finalize(() => {
+
+    })).subscribe(
+      result => {
+        if (result.code == 200) {
+          // this.toastr.success("Your Setting is Updated");
+          alert("j")
+        }
+      }
+    )
   }
 }
