@@ -12,7 +12,9 @@ import inputClear from '../../../../assets/js/lib/_inputClear';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../../shared/appState';
-import { SetSelectedTenant, SetSelectedTenantId } from '../../../store/actions/tenant.action';
+import { SetSelectedTenant, SetSelectedTenantId, SetTenantConfigurantion } from '../../../store/actions/tenant.action';
+import { CommanSharedService } from 'src/app/shared/service/comman-shared.service';
+
 @Component({
   selector: 'app-tenant',
   templateUrl: './tenant.component.html',
@@ -29,7 +31,7 @@ export class TenantComponent implements OnInit {
   submitted = false;
   TenantObject: any = { tenantId: 0, name: "", tenantColor: "", accountId: 0, createdBy: "Self" }
   constructor(protected store: Store<AppState>, private homeService: HomeService, private toast: ToastrService,
-    private router: Router, private authService: AuthService, private spinner: NgxSpinnerService,
+    private router: Router, private authService: AuthService, private spinner: NgxSpinnerService, private commanService: CommanSharedService,
     private formBuilder: FormBuilder) {
   }
 
@@ -86,7 +88,13 @@ export class TenantComponent implements OnInit {
     this.store.dispatch(new SetSelectedTenant(value));
     localStorage.setItem('TenantId', JSON.stringify(value.tenantId));
     localStorage.setItem('Tenant', JSON.stringify(value));
-    this.router.navigate(['CurrentInventory']);
+    this.commanService.GetTenantConfiguration(value.tenantId, this.authService.accessToken).subscribe(res => {
+      if (res != null) {
+        this.store.dispatch(new SetTenantConfigurantion(res));
+      }
+      this.router.navigate(['CurrentInventory']);
+    });
+
 
   }
 
