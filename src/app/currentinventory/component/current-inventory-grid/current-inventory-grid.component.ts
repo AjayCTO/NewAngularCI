@@ -27,7 +27,7 @@ import { ReportService } from '../../../report/service/report.service'
 import { IconsComponent } from 'src/app/shared/component/icons/icons.component';
 import { JsonHubProtocol } from '@aspnet/signalr';
 import { takeUntil } from 'rxjs/operators';
-import { selectSelectedTenantId, selectSelectedTenant, selectMyInventoryColumn } from '../../../store/selectors/tenant.selectors';
+import { selectSelectedTenantId, selectSelectedTenant, selectMyInventoryColumn, getTenantConfiguration } from '../../../store/selectors/tenant.selectors';
 import { ThrowStmt } from '@angular/compiler';
 import tableDragger from 'table-dragger';
 import jsPDF from 'jspdf';
@@ -42,6 +42,7 @@ import {
 } from 'ng-pick-datetime';
 import * as _moment from "moment";
 import { Moment } from "moment";
+import { TenantConfig } from 'src/app/store/models/tenant.model';
 
 const moment = (_moment as any).default ? (_moment as any).default : _moment;
 
@@ -296,6 +297,8 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   public SelectedView: any;
   public ColspanTable: number;
 
+  //TenantConfiguration
+  public tenantConfiguration: TenantConfig;
 
 
   //Cart
@@ -413,6 +416,12 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         }
         this.cdr.detectChanges();
       });
+    this.store.pipe(select(getTenantConfiguration)).subscribe(config => {
+      if (config) {
+        debugger
+        this.tenantConfiguration = config;
+      }
+    });
 
 
     this.addButtonColumn = false;

@@ -89,8 +89,8 @@ export class TenantComponent implements OnInit {
     localStorage.setItem('TenantId', JSON.stringify(value.tenantId));
     localStorage.setItem('Tenant', JSON.stringify(value));
     this.commanService.GetTenantConfiguration(value.tenantId, this.authService.accessToken).subscribe(res => {
-      if (res != null) {
-        this.store.dispatch(new SetTenantConfigurantion(res));
+      if (res.entity != null) {
+        this.store.dispatch(new SetTenantConfigurantion(res.entity));
       }
       this.router.navigate(['CurrentInventory']);
     });
