@@ -3307,7 +3307,8 @@
                 </h2>
                 <div class="form__col-wrap">
                     <div class="form__col form__col--third">
-                        <label class="form__label" for="dynamic_quantity">Quantity</label>
+                        <label class="form__label"
+                            for="dynamic_quantity">{{tenantConfiguration.quantityTermCustomized}}</label>
                         <input class="form__input" [(ngModel)]="CurrentInventoryObj.quantity" type="number"
                             id="dynamic_quantity" name="dynamic_quantity">
                         <div class="infopanel" [popper]="popper4Content" [popperTrigger]="'hover'"
@@ -3325,15 +3326,16 @@
                             </svg>
                         </div>
                         <popper-content #popper4Content>
-                            <h3 class="popperTitle"><b>Quantity</b></h3>
-                            <span>This is the Quantity of number of items stored in your inventory</span>
+                            <h3 class="popperTitle"><b>{{tenantConfiguration.quantityTermCustomized}}</b></h3>
+                            <span>This is the {{tenantConfiguration.quantityTermCustomized}} of number of items stored
+                                in your inventory</span>
                         </popper-content>
                     </div>
                     <div class="form__col form__col--third">
                         <button type="button" data-modal="#AddUOMinnerModal"
                             class="invModal__control addLibrary js-modal">Add
                             New
-                            Unit of Measure</button>
+                            {{tenantConfiguration.uomTermCustomized}}</button>
 
 
                         <select class="floating-select" id="dynamic_unit-of-measure" [(ngModel)]="selectedUOm"
@@ -3343,7 +3345,8 @@
                             </option>
                         </select>
                         <span class="highlight"></span>
-                        <label class="form_label">Unit of Measure<span class="form__required">*</span></label>
+                        <label class="form_label">{{tenantConfiguration.uomTermCustomized}}<span
+                                class="form__required">*</span></label>
 
                         <div class="infopanel" [popper]="popper5Content" [popperTrigger]="'hover'"
                             [popperPlacement]="'bottom'"><svg class="icon-simple icon-simple--theme01 icon-simple--info"
@@ -3360,8 +3363,9 @@
                             </svg>
                         </div>
                         <popper-content #popper5Content>
-                            <h3 class="popperTitle"><b>Unit of Measure</b></h3>
-                            <span>Select the Unit of Measure that you will use for calculating restocks, purchasing,
+                            <h3 class="popperTitle"><b>{{tenantConfiguration.uomTermCustomized}}</b></h3>
+                            <span>Select the {{tenantConfiguration.uomTermCustomized}} that you will use for calculating
+                                restocks, purchasing,
                                 and
                                 selling stock. You can change this later if you like.</span>
                         </popper-content>
@@ -3371,7 +3375,7 @@
                     <div class="form__col form__col--third">
                         <button type="button" data-modal="#AddLocationinnerModal"
                             class="invModal__control addLibrary js-modal">Add New
-                            Location</button>
+                            {{tenantConfiguration.locationTermCustomized}}</button>
                         <select class="floating-select" [(ngModel)]="selectedLocation" id="dynamic_location"
                             name="dynamic_location" required="required">
                             <option value=""></option>
@@ -3380,7 +3384,8 @@
                             </option>
                         </select>
                         <span class="highlight"></span>
-                        <label class="form_label">Location<span class="form__required">*</span></label>
+                        <label class="form_label">{{tenantConfiguration.locationTermCustomized}}<span
+                                class="form__required">*</span></label>
 
                         <div class="infopanel" [popper]="popper7Content" [popperTrigger]="'hover'"
                             [popperPlacement]="'bottom'"><svg class="icon-simple icon-simple--theme01 icon-simple--info"
@@ -3397,11 +3402,13 @@
                             </svg>
                         </div>
                         <popper-content #popper7Content>
-                            <h3 class="popperTitle"><b>Location</b></h3>
-                            <span>This is the Location where the item will be stored most often. It will be used
+                            <h3 class="popperTitle"><b>{{tenantConfiguration.locationTermCustomized}}</b></h3>
+                            <span>This is the {{tenantConfiguration.locationTermCustomized}} where the item will be
+                                stored most often. It will be used
                                 when
                                 performing transactions. You can change it later, and it does not prevent you from
-                                storing the item in different locations later.</span>
+                                storing the item in different {{tenantConfiguration.locationTermCustomized}}
+                                later.</span>
                         </popper-content>
                     </div>
                 </div>

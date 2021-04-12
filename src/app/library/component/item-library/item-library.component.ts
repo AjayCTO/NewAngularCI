@@ -8,8 +8,11 @@ import { from, Observable } from 'rxjs';
 import { CustomFieldService } from '../../../customfield/service/custom-field.service';
 import { Part, CurrentInventory, StateFields, CircumstanceFields, DataColumnFilter } from '../../models/library-model'
 import tables from '../../../../assets/js/lib/_tables';
+import { select, Store } from '@ngrx/store';
+import { selectSelectedTenantId, selectSelectedTenant, selectMyInventoryColumn, getTenantConfiguration } from '../../../store/selectors/tenant.selectors';
 import toggle from '../../../../assets/js/lib/_toggle';
 import inputFocus from '../../../../assets/js/lib/_inputFocus';
+import { AppState } from '../../../shared/appState';
 import inputClear from '../../../../assets/js/lib/_inputClear';
 import modal from '../../../../assets/js/lib/_modal';
 import datePicker from '../../../../assets/js/lib/_datePicker';
@@ -33,6 +36,7 @@ import {
 } from 'ng-pick-datetime';
 import * as _moment from "moment";
 import { Moment } from "moment";
+import { TenantConfig } from 'src/app/store/models/tenant.model';
 @Component({
   selector: 'app-item-library',
   templateUrl: './item-library.component.html',
@@ -149,6 +153,7 @@ export class ItemLibraryComponent implements OnInit {
     offsetDateFields: '',
     offsetTimeFields: '',
   }
+  public tenantConfiguration: TenantConfig;
   public datatype: any = ['OpenField', 'Dropdown', 'Autocomplete', 'Number', 'Currency', 'Date', 'Date & Time', 'Time', 'True/False']
   public selectedDatatype: string;
   public cfdcomboValuesString: string;
@@ -158,7 +163,7 @@ export class ItemLibraryComponent implements OnInit {
   PreviewtypesDropDown: any = [];
   PreviewtypesAutocomplete: any = [];
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private toastr: ToastrService, private cdr: ChangeDetectorRef, private libraryService: LibraryService, private authService: AuthService,
+  constructor(protected store: Store<AppState>, private router: Router, private formBuilder: FormBuilder, private toastr: ToastrService, private cdr: ChangeDetectorRef, private libraryService: LibraryService, private authService: AuthService,
     private spinner: NgxSpinnerService, private commanService: CommanSharedService,
     private customfieldservice: CustomFieldService) { }
 
@@ -186,6 +191,13 @@ export class ItemLibraryComponent implements OnInit {
 
     });
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+    this.store.pipe(select(getTenantConfiguration)).subscribe(config => {
+      if (config) {
+        debugger
+        this.tenantConfiguration = config;
+      }
+    });
+
     this.getUOMList();
     this.getLocationList();
     this.GetAttributeFields();

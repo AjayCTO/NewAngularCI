@@ -23,7 +23,7 @@ export interface TenantConfig {
     isLockLocationLibrary: boolean;
     isLockUOMLibrary: boolean;
     locationTermCustomized: string;
-    uOMTermCustomized: string;
+    uomTermCustomized: string;
     itemTermCustomized: string;
     quantityTermCustomized: string;
 }
