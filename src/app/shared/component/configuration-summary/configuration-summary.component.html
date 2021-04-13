@@ -3,166 +3,12 @@
         <h1><b>Configuration Summary</b> </h1>
     </div>
 </div>
-
-<!-- <div class="actions__title" style="margin-left: 11%;">
-
-    <h2 style="color: #0b0c0c;"> <b> Configuration Summary </b> </h2>
-
-
-</div> -->
-<!-- <section class="main" style="margin-left: 10%;">
-    <div class="container" style="width: 1500px;">
-        <div class="form__col-wrap">
-            <div class="form__col form__col--second">
-                <div class="card1 icons icons--horziontal icons--size01" role="listitem">
-                    <div class="card-header1" id="header">
-                        <h2>Manage Settings</h2>
-
-                    </div>
-                    <div class="card-body">
-
-                        <div class="form__col-wrap">
-                            <div class="form__col--two-third">
-                                <p>Time Zone</p>
-                            </div>
-                            <div class="form__col--third">
-                                Eastern Time (US & Canada), Bogota, Lima, Quito
-                            </div>
-                        </div>
-                        <div class="form__col-wrap">
-                            <div class="form__col--two-third">
-                                <p>Automatically remove statements when the quantity reaches zero</p>
-                            </div>
-                            <div class="form__col--third">
-                                Eastern Time (US & Canada), Bogota, Lima, Quito
-                            </div>
-                        </div>
-                        <div class="form__col-wrap">
-                            <div class="form__col--two-third">
-                                <p>Time Zone</p>
-                            </div>
-                            <div class="form__col--third">
-                                Eastern Time (US & Canada), Bogota, Lima, Quito
-                            </div>
-                        </div>
-                        <div class="form__col-wrap">
-                            <div class="form__col--two-third">
-                                <p>Time Zone</p>
-                            </div>
-                            <div class="form__col--third">
-                                Eastern Time (US & Canada), Bogota, Lima, Quito
-                            </div>
-                        </div>
-
-
-                        <div class="row" style="display: flex;">
-                            <div class="form__col-wrap">
-                                <p></p>
-                            </div>
-                            <div style="float:right">
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header1">
-                <h2> <a href="#">Manage CustomField</a> </h2>
-            </div>
-            <div>
-                <table>
-                    <tr>
-                        <th>Custom Name</th>
-                        <th>Data Type</th>
-                        <th>Used On</th>
-                    </tr>
-                    <tr *ngFor="let item of CustomFields">
-                        <td>{{item.columnLabel}}</td>
-                        <td>{{item.dataType}},{{item.customFieldSpecialType}}</td>
-                        <td>$100</td>
-                    </tr>
-                </table>
-                <div>
-                    Showing 1 to {{length}} of {{length}} entries
-                </div>
-            </div>
-        </div>
-
-        <div class="card" style="margin-top: 38px;">
-            <div class="card-header1">
-                <h2> <a href="#">Manage Attributes</a> </h2>
-            </div>
-            <div>
-                <table>
-                    <tr>
-                        <th>Attribute Name</th>
-                        <th>Data Type</th>
-
-                    </tr>
-                    <tr *ngFor="let item of AttributeFields">
-                        <td>{{item.columnLabel}}</td>
-                        <td>{{item.dataType}},{{item.customFieldSpecialType}}</td>
-
-                    </tr>
-
-                </table>
-                <div>
-                    Showing 1 to {{length1}} of {{length1}} entries
-                </div>
-            </div>
-        </div>
-        <div class="card" style="margin-top: 38px;">
-            <div class="card-header1">
-                <h2> <a href="#">System Term Customization</a> </h2>
-            </div>
-            <div>
-                <table>
-                    <tr>
-                        <th>System Term</th>
-                        <th>Custom Term</th>
-                        <th>Action</th>
-
-                    </tr>
-                    <tr>
-                        <td>Peter</td>
-                        <td>Griffin</td>
-
-                    </tr>
-                    <tr>
-                        <td>Lois</td>
-                        <td>Griffin</td>
-
-                    </tr>
-                    <tr>
-                        <td>Joe</td>
-                        <td>Swanson</td>
-
-                    </tr>
-                    <tr>
-                        <td>Cleveland</td>
-                        <td>Brown</td>
-
-                    </tr>
-                </table>
-                <div>
-                    Showing 1 to 4 of 4 entries
-                </div>
-            </div>
-        </div>
-    </div>
-</section> -->
 <section class="main">
-
-
     <div class="form__col-wrap">
         <div class="form__col form__col--third">
             <div class="card1 icons icons--horziontal icons--size01" role="listitem">
                 <div class="card-header1" id="header">
                     <h2><strong>Manage Features</strong></h2>
-
                 </div>
                 <div class="card-body">
                     <div class="card7 icons icons--horziontal icons--size01" role="listitem">
@@ -185,15 +31,12 @@
                                 <p>Cost Tracking</p>
                             </div>
                             <div>
-
                                 <label class="switch">
                                     <input type="checkbox" [(ngModel)]="Features.costTracking"
                                         (ngModelChange)="saveConfigration()">
-
                                     <span class="slider round"></span>
                                 </label>
                             </div>
-
                         </div>
                     </div>
                     <div class="card7 icons icons--horziontal icons--size01" role="listitem">
@@ -201,12 +44,10 @@
                             <div class="form__col--two-third" style="width: 180px;">
                                 <p>Component List/Kitting</p>
                             </div>
-
                             <div>
                                 <label class="switch">
                                     <input type="checkbox" [(ngModel)]="Features.componentList"
                                         (ngModelChange)="saveConfigration()">
-
                                     <span class="slider round"></span>
                                 </label>
                             </div>
@@ -217,38 +58,27 @@
                             <div style="width: 180px;" class="form__col--two-third">
                                 <p>Automated Items</p>
                             </div>
-
                             <div>
                                 <label class="switch">
                                     <input type="checkbox" [(ngModel)]="Features.automatedItems"
                                         (ngModelChange)="saveConfigration()">
-
                                     <span class="slider round"></span>
                                 </label>
                             </div>
-
                         </div>
                     </div>
-
-
-
-
                 </div>
-
             </div>
         </div>
         <div class="form__col form__col--two-third">
             <div class="card1 icons icons--horziontal icons--size01" role="listitem">
                 <div class="card-header1" id="header" style="margin-left: -160px;">
                     <h2><strong>Manage Settings</strong></h2>
-
                 </div>
                 <hr>
                 <div class="card-body" style="margin-left: -160px;">
                     <div class="card2 icons icons--horziontal icons--size01" role="listitem">
                         <div class="form__col-wrap">
-
-
                             <div class="form__col--two-third" style="width: 414px;">
                                 <p>Your TimeZone</p>
                             </div>
@@ -262,8 +92,6 @@
                                 <button type="button" (click)="showTimeZone()"
                                     class="button button--medium">Edit</button>
                             </div>
-
-
                         </div>
                     </div>
                     <div class="card2">
@@ -370,7 +198,7 @@
                 </tr>
             </table>
             <div>
-                Showing 1 to {{length}} of {{length}} entries
+                Showing 0 to {{length}} of {{length}} entries
             </div>
         </div>
     </div>
@@ -393,7 +221,7 @@
 
             </table>
             <div>
-                Showing 1 to {{length1}} of {{length1}} entries
+                Showing 0 to {{length1}} of {{length1}} entries
             </div>
         </div>
     </div>
@@ -426,9 +254,12 @@
                             </div>
                         </div>
 
+
                     </ng-container>
 
                 </ng-container>
+                <div class="form__col form__col--third"></div>
+
                 <div class="form__col form__col--second">
                 </div>
 

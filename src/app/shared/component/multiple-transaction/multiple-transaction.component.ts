@@ -24,8 +24,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class MultipleTransactionComponent implements OnInit {
   @ViewChild('closeInventoryModal', { static: true }) closeInventoryModal: ElementRef<HTMLElement>;
-  @ViewChild('AddUOMClose', { static: true }) AddUOMClose: ElementRef<HTMLElement>;
-  @ViewChild('AddLocationClose', { static: true }) AddLocationClose: ElementRef<HTMLElement>;
+
   @Output() ClearConfirms = new EventEmitter();
   public EventConfiguration: any
   public cartDetails: any;
@@ -504,66 +503,5 @@ export class MultipleTransactionComponent implements OnInit {
 
     return index;
   }
-  AddNewLocation() {
 
-    if (this.locationForm.invalid) {
-      return;
-    }
-    this.spinner.show();
-    this.locationForm.value;
-    this.libraryService.AddLocation(this.selectedTenantId, this.locationForm.value, this.authService.accessToken)
-      .pipe(finalize(() => {
-        this.spinner.hide();
-      }))
-      .subscribe(
-        result => {
-          if (result) {
-
-
-            if (result.entity == true) {
-              this.toastr.success("Your Location is Successfully add.");
-              this.locationForm.reset();
-              let el: HTMLElement = this.AddLocationClose.nativeElement;
-              el.click();
-              this.getLocationList()
-            }
-            else {
-              this.toastr.warning(result.message);
-            }
-          }
-        });
-  }
-  closeaddlocation(form) {
-    form.reset();
-  }
-  AddNewUOM() {
-    if (this.uomForm.invalid) {
-      return;
-    }
-    this.spinner.show();
-    this.uomForm.value;
-    this.libraryService.AddUom(this.selectedTenantId, this.uomForm.value, this.authService.accessToken)
-      .pipe(finalize(() => {
-        this.spinner.hide();
-      }))
-      .subscribe(
-        result => {
-          if (result) {
-
-
-            if (result.entity == true) {
-              this.toastr.success("Your Uom is Successfully Add.");
-              let el: HTMLElement = this.AddUOMClose.nativeElement;
-              el.click();
-              this.getUOMList();
-            }
-            else {
-              this.toastr.warning(result.message);
-            }
-          }
-        });
-  }
-  closeUom(form) {
-    form.reset();
-  }
 }
