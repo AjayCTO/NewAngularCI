@@ -406,17 +406,15 @@
 
             <div class="form__col-wrap">
                 <ng-container *ngFor="let column of MyInventoryFieldColumn;let i=index">
-                    <ng-container *ngIf="column.customeFieldType==''||column.customeFieldType=='Inventory'">
+                    <ng-container *ngIf="column.customeFieldType==''||column.columnName=='quantity'">
 
                         <div class="form__col form__col--third">
                             <label class="form__label" for="ID_{{column.columnId}}">
                                 <container-element [ngSwitch]="column.columnName">
                                     <some-element *ngSwitchCase="'partName'">Item Name</some-element>
                                     <some-element *ngSwitchCase="'partDescription'">Description</some-element>
-                                    <some-element *ngSwitchCase="'image'">Image</some-element>
                                     <some-element *ngSwitchCase="'uomName'">Unit of Measure</some-element>
                                     <some-element *ngSwitchCase="'quantity'">Quantity</some-element>
-                                    <some-element *ngSwitchCase="'lastAction'">Last Action</some-element>
                                     <some-element *ngSwitchCase="'locationName'">Location</some-element>
                                 </container-element>
                             </label>

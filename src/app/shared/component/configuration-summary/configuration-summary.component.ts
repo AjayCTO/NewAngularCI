@@ -195,7 +195,7 @@ export class ConfigurationSummaryComponent implements OnInit {
         this.busy = false;
         this.spinner.hide();
       })).subscribe(result => {
-
+        debugger
         if (result.entity != null) {
 
           this.MyInventoryFieldColumn = result.entity;

@@ -76,13 +76,13 @@ export class UOMLibraryComponent implements OnInit {
     this.store.pipe(select(getTenantConfiguration)).subscribe(config => {
       if (config) {
         debugger
-        this.tenantConfiguration = config.entity;
+        this.tenantConfiguration = config;
       }
     });
 
     this.GetUOM();
 
-
+    this.GetTenantConfiguration()
     this.spinner.show();
 
     modal();
@@ -193,6 +193,7 @@ export class UOMLibraryComponent implements OnInit {
     }
 
   }
+
   AddJsFunction() {
     setTimeout(function () {
       inputClear();
@@ -260,23 +261,39 @@ export class UOMLibraryComponent implements OnInit {
   LockConfirm() {
     this.lockUom = true
   }
-
+  CancleLock(value: boolean) {
+    const html = document.querySelector('html');
+    html.classList.remove('js-modal-page');
+    this.lockUom = false;
+  }
   Unlock() {
     let value = false
     this.saveConfigration(value)
   }
   saveConfigration(value: boolean) {
     debugger
-    this.Features.isLockLocationLibrary = value
-    this.commanService.UpdateTenantConfiguration(this.selectedTenantId, this.authService.accessToken, 3, this.Features).pipe(finalize(() => {
+    this.Features.isLockUOMLibrary = value
+    this.commanService.UpdateTenantConfiguration(this.selectedTenantId, this.authService.accessToken, this.tenantConfiguration.id, this.Features).pipe(finalize(() => {
 
     })).subscribe(
       result => {
         if (result.code == 200) {
-          // this.toastr.success("Your Setting is Updated");
-          // alert("j")
+
         }
       }
     )
+  }
+  GetTenantConfiguration() {
+
+    this.commanService.GetTenantConfiguration(this.selectedTenantId, this.authService.accessToken,).pipe(finalize(() => {
+
+    })).subscribe(
+      result => {
+        if (result.code == 200) {
+          this.Features = result.entity
+        }
+      }
+    )
+
   }
 }

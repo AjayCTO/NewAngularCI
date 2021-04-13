@@ -1,10 +1,20 @@
 <ng-container *ngIf="!NotPermitted">
     <div class="actions">
-        <div class="actions__title">
-            <h1><b>{{tenantConfiguration.uomTermCustomized}} Library</b> </h1>
+        <div class="actions__title" style="display: flow-root;color: red;">
+            <h1><b>{{tenantConfiguration.uomTermCustomized}} Library</b><span
+                    *ngIf="Features.isLockUOMLibrary==true"><svg aria-labelledby="title-6073f50bc4e35"
+                        xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 8.081 11.544">
+                        <g data-name="Group 3641">
+                            <path data-name="Path 1713"
+                                d="M6.926 4.617V2.886a2.886 2.886 0 10-5.771 0v1.731A1.242 1.242 0 00.001 5.772v4.617a1.241 1.241 0 001.154 1.155h5.771a1.241 1.241 0 001.155-1.155V5.772a1.242 1.242 0 00-1.155-1.155zm-1.153 0H2.309V2.886a1.732 1.732 0 113.464 0z"
+                                fill="black"></path>
+                        </g>
+                    </svg></span></h1>
+            <p *ngIf="Features.isLockUOMLibrary==true" style="font-size: small;">This Library is Locked Please Unlock to
+                Access the Library</p>
         </div>
         <div class="actions__wrap">
-            <div (click)="exportAsXLSX()" class="icons__item">
+            <button (click)="exportAsXLSX()" class="icons__item">
                 <div class="icons__icon"><svg class="icon icon--theme01 icon--download"
                         aria-labelledby="title-5f7c9ac573e4a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
                         width="48" height="48">
@@ -19,26 +29,62 @@
                             fill="currentColor" class="icon__color--primary"></path>
                     </svg></div>
                 <span class="icons__label">Download</span>
-            </div>
+            </button>
 
 
 
         </div>
     </div>
+    <!-- <div class="taskbar" *ngIf="Features.isLockUOMLibrary==true">
+        <div class="card2">
+            <div class="form__col-wrap">
+                <div class="form__col--two-third">
+                    <p>This library is locked.</p>
+                </div>
+                <div>
 
+                </div>
+            </div>
+        </div>
+    </div> -->
     <div class="taskbar">
-        <div class="taskbar__col">
-            <button type="button" data-modal="#AddUOMinnerModal"
+        <div class="taskbar__col" style="margin-right: 10px;">
+            <button [disabled]="Features.isLockUOMLibrary==true" type="button" data-modal="#AddUOMinnerModal"
                 class="button button--medium button--icon button--theme02 js-modal">
                 <svg class="icon-simple icon-simple--theme01 icon-simple--add" aria-labelledby="title-5f86742813ab3"
                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                     <path fill="none" d="M0 0h24v24H0z"></path>
                     <path fill="currentColor" d="M0 10h24v4H0z"></path>
                     <path fill="currentColor" d="M14 0v24h-4V0z"></path>
-                </svg> &nbsp; Add New UOM
+                </svg> &nbsp; Add New {{tenantConfiguration.uomTermCustomized}}
             </button>
         </div>
+
         <app-uom-modal (RefreshUom)="GetUOM()"></app-uom-modal>
+        <div class="taskbar__col">
+            <button *ngIf="Features.isLockUOMLibrary==false" type="button" (click)="LockConfirm()"
+                class="button button--medium  button--icon button--theme01 js-modal">
+                <svg aria-labelledby="title-6073f50bc4e35" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 8.081 11.544">
+                    <g data-name="Group 3641">
+                        <path data-name="Path 1713"
+                            d="M6.926 4.617V2.886a2.886 2.886 0 10-5.771 0v1.731A1.242 1.242 0 00.001 5.772v4.617a1.241 1.241 0 001.154 1.155h5.771a1.241 1.241 0 001.155-1.155V5.772a1.242 1.242 0 00-1.155-1.155zm-1.153 0H2.309V2.886a1.732 1.732 0 113.464 0z"
+                            fill="#abb3bb"></path>
+                    </g>
+                </svg> &nbsp; Lock the Library
+            </button>
+            <button *ngIf="Features.isLockUOMLibrary==true" type="button" (click)="Unlock()"
+                class="button button--medium button--icon button--theme01 ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <g data-name="Group 3641">
+                        <path
+                            d="M12 10v-4c0-3.313-2.687-6-6-6s-6 2.687-6 6v3h2v-3c0-2.206 1.794-4 4-4s4 1.794 4 4v4h-4v14h18v-14h-12z"
+                            fill="#abb3bb">
+                        </path>
+                    </g>
+                </svg> &nbsp; Unlock the Library
+            </button>
+        </div>
         <!-- <app-add-uom *ngIf="addUom" (loadUOM)="GetUOM()" (hideClose)="getValue($event)"></app-add-uom> -->
 
         <!-- <div id="innerModal" class="smallModal" role="dialog" aria-labelledby="dialog-title"
@@ -175,8 +221,9 @@
                             </td>
                             <td class="table__cell" data-title="Column Title">
                                 <div class="icons icons--size02">
-                                    <button style="cursor: pointer;" class="icons__item icons__item--theme07"
-                                        (click)="OpenMenu(item)" type="button" data-action="" data-parent=".table__row"
+                                    <button [disabled]="Features.isLockUOMLibrary==true" style="cursor: pointer;"
+                                        class="icons__item icons__item--theme07" (click)="OpenMenu(item)" type="button"
+                                        data-action="" data-parent=".table__row"
                                         data-parent-class="table__row--is-active"
                                         data-html-class="event-menu-is-active">
                                         <div class="icons__icon"><svg class="icon icon--theme01 icon--adjust"
@@ -199,8 +246,8 @@
                                             </svg></div>
                                         <span class="icons__label">Edit</span>
                                     </button>
-                                    <button style="cursor: pointer;" class="icons__item icons__item--theme03"
-                                        (click)="DeleteConfirm(item)">
+                                    <button [disabled]="Features.isLockUOMLibrary==true" style="cursor: pointer;"
+                                        class="icons__item icons__item--theme03" (click)="DeleteConfirm(item)">
                                         <div class="icons__icon">
                                             <svg class="icon icon--theme01 icon-simple--trash"
                                                 aria-labelledby="title-5f84133e656c0" xmlns="http://www.w3.org/2000/svg"
@@ -322,7 +369,8 @@
 
 <app-delete-confirmation *ngIf="deleteUom" (deleteUOM)="deleteUOM()" (hideClose)="deleteValue($event)">
 </app-delete-confirmation>
-
+<app-lock-confirmation *ngIf="lockUom" (lockUOM)="saveConfigration($event)" (hideClose)="CancleLock($event)">
+</app-lock-confirmation>
 
 
 <ngx-spinner></ngx-spinner>

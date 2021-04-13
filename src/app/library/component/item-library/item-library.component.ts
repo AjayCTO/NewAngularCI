@@ -10,6 +10,7 @@ import { Part, CurrentInventory, StateFields, CircumstanceFields, DataColumnFilt
 import tables from '../../../../assets/js/lib/_tables';
 import { select, Store } from '@ngrx/store';
 import { selectSelectedTenantId, selectSelectedTenant, selectMyInventoryColumn, getTenantConfiguration } from '../../../store/selectors/tenant.selectors';
+import { SetSelectedTenant, SetSelectedTenantId, SetTenantConfigurantion } from '../../../store/actions/tenant.action';
 import toggle from '../../../../assets/js/lib/_toggle';
 import inputFocus from '../../../../assets/js/lib/_inputFocus';
 import { AppState } from '../../../shared/appState';
@@ -105,6 +106,26 @@ export class ItemLibraryComponent implements OnInit {
   public options = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
   public FilterArray: DataColumnFilter[] = [];
   public edititem: boolean;
+  public lockItemLibrary: boolean;
+  public Features: any = {
+    restocking: false,
+    costTracking: false,
+    componentList: false,
+    automatedItems: false,
+    TimeZone: "",
+    defaultQuantity: false,
+    LowQuantityThreshold: false,
+    QuantityRechesZero: false,
+    negativeQuantity: false,
+    theme: "",
+    isLockItemLibrary: false,
+    isLockLocationLibrary: false,
+    isLockUOMLibrary: false,
+    locationTermCustomized: "",
+    uomTermCustomized: "",
+    ItemTermCustomized: "",
+    QuantityTermCustomized: ""
+  }
   public dataColumnFilter: any = {
     columnName: "",
     displayName: "",
@@ -195,7 +216,8 @@ export class ItemLibraryComponent implements OnInit {
     this.store.pipe(select(getTenantConfiguration)).subscribe(config => {
       if (config) {
         debugger
-        this.tenantConfiguration = config.entity;
+        this.tenantConfiguration = config;
+
       }
     });
 
@@ -203,7 +225,7 @@ export class ItemLibraryComponent implements OnInit {
     this.getLocationList();
     this.GetAttributeFields();
     this.GetMyInventoryColumn();
-
+    this.GetTenantConfiguration();
     this.ApplyJsFunction();
 
   }
@@ -1217,6 +1239,44 @@ export class ItemLibraryComponent implements OnInit {
 
     // Download PDF document  
     doc.save('table.pdf');
+  }
+  LockConfirm() {
+    this.lockItemLibrary = true
+  }
+  CancleLock(value: boolean) {
+    const html = document.querySelector('html');
+    html.classList.remove('js-modal-page');
+    this.lockItemLibrary = false;
+  }
+  Unlock() {
+    let value = false
+    this.saveConfigration(value)
+  }
+  saveConfigration(value: boolean) {
+    debugger
+    this.Features.isLockItemLibrary = value
+    this.commanService.UpdateTenantConfiguration(this.selectedTenantId, this.authService.accessToken, this.tenantConfiguration.id, this.Features).pipe(finalize(() => {
+
+    })).subscribe(
+      result => {
+        if (result) {
+          // this.store.dispatch(new SetTenantConfigurantion(result.entity));
+        }
+      }
+    )
+  }
+  GetTenantConfiguration() {
+
+    this.commanService.GetTenantConfiguration(this.selectedTenantId, this.authService.accessToken,).pipe(finalize(() => {
+
+    })).subscribe(
+      result => {
+        if (result.code == 200) {
+          this.Features = result.entity
+        }
+      }
+    )
+
   }
 }
 

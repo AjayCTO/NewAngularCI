@@ -3332,10 +3332,20 @@
                         </popper-content>
                     </div>
                     <div class="form__col form__col--third">
-                        <button type="button" data-modal="#AddUOMinnerModal"
-                            class="invModal__control addLibrary js-modal">Add
+                        <button [disabled]="Features.isLockUOMLibrary==true" type="button"
+                            data-modal="#AddUOMinnerModal" class="invModal__control addLibrary js-modal">Add
                             New
-                            {{tenantConfiguration.uomTermCustomized}}</button>
+                            {{tenantConfiguration.uomTermCustomized}} <span
+                                title=" {{tenantConfiguration.uomTermCustomized}} Library is Locked"
+                                *ngIf="Features.isLockUOMLibrary==true"><svg aria-labelledby="title-6073f50bc4e35"
+                                    xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                    viewBox="0 0 8.081 11.544">
+                                    <g data-name="Group 3641">
+                                        <path data-name="Path 1713"
+                                            d="M6.926 4.617V2.886a2.886 2.886 0 10-5.771 0v1.731A1.242 1.242 0 00.001 5.772v4.617a1.241 1.241 0 001.154 1.155h5.771a1.241 1.241 0 001.155-1.155V5.772a1.242 1.242 0 00-1.155-1.155zm-1.153 0H2.309V2.886a1.732 1.732 0 113.464 0z"
+                                            fill="black"></path>
+                                    </g>
+                                </svg></span></button>
 
 
                         <select class="floating-select" id="dynamic_unit-of-measure" [(ngModel)]="selectedUOm"
@@ -3373,9 +3383,19 @@
                     </div>
 
                     <div class="form__col form__col--third">
-                        <button type="button" data-modal="#AddLocationinnerModal"
-                            class="invModal__control addLibrary js-modal">Add New
-                            {{tenantConfiguration.locationTermCustomized}}</button>
+                        <button [disabled]="Features.isLockLocationLibrary==true" type="button"
+                            data-modal="#AddLocationinnerModal" class="invModal__control addLibrary js-modal">Add New
+                            {{tenantConfiguration.locationTermCustomized}}<span
+                                title=" {{tenantConfiguration.locationTermCustomized}} Library is Locked"
+                                *ngIf="Features.isLockLocationLibrary==true"><svg aria-labelledby="title-6073f50bc4e35"
+                                    xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                    viewBox="0 0 8.081 11.544">
+                                    <g data-name="Group 3641">
+                                        <path data-name="Path 1713"
+                                            d="M6.926 4.617V2.886a2.886 2.886 0 10-5.771 0v1.731A1.242 1.242 0 00.001 5.772v4.617a1.241 1.241 0 001.154 1.155h5.771a1.241 1.241 0 001.155-1.155V5.772a1.242 1.242 0 00-1.155-1.155zm-1.153 0H2.309V2.886a1.732 1.732 0 113.464 0z"
+                                            fill="black"></path>
+                                    </g>
+                                </svg></span></button>
                         <select class="floating-select" [(ngModel)]="selectedLocation" id="dynamic_location"
                             name="dynamic_location" required="required">
                             <option value=""></option>

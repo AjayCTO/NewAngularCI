@@ -147,7 +147,25 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     columnName: "",
     columnValue: "",
   };
-
+  public Features: any = {
+    restocking: false,
+    costTracking: false,
+    componentList: false,
+    automatedItems: false,
+    TimeZone: "",
+    defaultQuantity: false,
+    LowQuantityThreshold: false,
+    QuantityRechesZero: false,
+    negativeQuantity: false,
+    theme: "",
+    isLockItemLibrary: false,
+    isLockLocationLibrary: false,
+    isLockUOMLibrary: false,
+    locationTermCustomized: "",
+    uomTermCustomized: "",
+    ItemTermCustomized: "",
+    QuantityTermCustomized: ""
+  }
   public FilterArray: any[] = [];
   public dataColumnFilter: any = {
     columnName: "",
@@ -419,7 +437,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.store.pipe(select(getTenantConfiguration)).subscribe(config => {
       if (config) {
         debugger
-        this.tenantConfiguration = config.entity;
+        this.tenantConfiguration = config;
       }
     });
 
@@ -446,7 +464,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.getStatus();
     this.GetEvents();
     this.GetMyInventoryColumn();
-
+    this.GetTenantConfiguration();
     modal();
     this.ApplyJsFunction();
 
@@ -2245,5 +2263,18 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.HideZero = !this.HideZero;
     this.GetCurrentInventory();
     this.ApplyJsFunction();
+  }
+  GetTenantConfiguration() {
+
+    this.commanService.GetTenantConfiguration(this.selectedTenantId, this.authService.accessToken,).pipe(finalize(() => {
+
+    })).subscribe(
+      result => {
+        if (result.code == 200) {
+          this.Features = result.entity
+        }
+      }
+    )
+
   }
 }

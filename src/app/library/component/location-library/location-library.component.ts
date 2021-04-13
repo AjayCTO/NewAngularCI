@@ -83,7 +83,7 @@ export class LocationLibraryComponent implements OnInit {
     this.store.pipe(select(getTenantConfiguration)).subscribe(config => {
       if (config) {
         debugger
-        this.tenantConfiguration = config.entity;
+        this.tenantConfiguration = config;
       }
     });
 
@@ -97,6 +97,7 @@ export class LocationLibraryComponent implements OnInit {
 
     // this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     this.GetLocation();
+    this.GetTenantConfiguration()
     this.EditMode = false;
     modal();
     this.AddJsFunction();
@@ -294,7 +295,7 @@ export class LocationLibraryComponent implements OnInit {
   saveConfigration(value: boolean) {
     debugger
     this.Features.isLockLocationLibrary = value
-    this.commanService.UpdateTenantConfiguration(this.selectedTenantId, this.authService.accessToken, 3, this.Features).pipe(finalize(() => {
+    this.commanService.UpdateTenantConfiguration(this.selectedTenantId, this.authService.accessToken, this.tenantConfiguration.id, this.Features).pipe(finalize(() => {
 
     })).subscribe(
       result => {
@@ -304,5 +305,18 @@ export class LocationLibraryComponent implements OnInit {
         }
       }
     )
+  }
+  GetTenantConfiguration() {
+
+    this.commanService.GetTenantConfiguration(this.selectedTenantId, this.authService.accessToken,).pipe(finalize(() => {
+
+    })).subscribe(
+      result => {
+        if (result.code == 200) {
+          this.Features = result.entity
+        }
+      }
+    )
+
   }
 }

@@ -1,0 +1,20 @@
+.card2
+{
+    
+    width: 912px;
+
+    text-align: justify;
+    text-decoration: none;
+    line-height: 32px;
+    box-sizing: content-box;
+    margin:10px;
+    color: white;
+    background: rgb(241, 7, 7);
+
+}
+.card2:hover{
+    background: #fff;
+    -webkit-box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+-moz-box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+}

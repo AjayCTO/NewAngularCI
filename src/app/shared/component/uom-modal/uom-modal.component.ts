@@ -32,7 +32,7 @@ export class UomModalComponent implements OnInit {
     this.store.pipe(select(getTenantConfiguration)).subscribe(config => {
       if (config) {
         debugger
-        this.tenantConfiguration = config.entity;
+        this.tenantConfiguration = config;
       }
     });
   }
