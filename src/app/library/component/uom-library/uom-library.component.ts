@@ -254,10 +254,12 @@ export class UOMLibraryComponent implements OnInit {
 
   exportAsXLSX(): void {
     let UomList = [];
+    let uoms = this.tenantConfiguration.uomTermCustomized
     this.UOMlist.forEach(element => {
-      UomList.push({ "Unit of Measure Name": element.uomName });
+      UomList.push({ "Unit Of Measure": element.uomName });
     });
-    this.libraryService.exportAsExcelFile(UomList, "uom.xlsx");
+    let uom = this.tenantConfiguration.uomTermCustomized + ".xlsx"
+    this.libraryService.exportAsExcelFile(UomList, uom);
   }
   LockConfirm() {
     this.lockUom = true

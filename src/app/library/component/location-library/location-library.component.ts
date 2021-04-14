@@ -283,7 +283,8 @@ export class LocationLibraryComponent implements OnInit {
     this.locations.forEach(element => {
       locationsList.push({ "Location": element.locationName, "Description": element.description, "Location Group": element.locationZone });
     });
-    this.libraryService.exportAsExcelFile(locationsList, "Location.xlsx",);
+    let Location = this.tenantConfiguration.locationTermCustomized + ".xlsx"
+    this.libraryService.exportAsExcelFile(locationsList, Location);
   }
   LockConfirm() {
     this.lockLocation = true

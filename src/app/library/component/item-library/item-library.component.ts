@@ -55,7 +55,7 @@ export class ItemLibraryComponent implements OnInit {
   public error: string;
   public selecteditem: any = [];
   public busy: boolean;
-  fileName = 'ExcelSheet.xlsx';
+
   public allInventoryItems
   public DeleteConfirmPopup: boolean;
   public myInventoryField: Observable<any>;
@@ -192,6 +192,7 @@ export class ItemLibraryComponent implements OnInit {
 
   ngOnInit() {
     debugger;
+
     this.UploadActivityOpen = false;
     this.spinner.show();
     this.uomForm = this.formBuilder.group({
@@ -498,6 +499,7 @@ export class ItemLibraryComponent implements OnInit {
     this.GetParts();
 
   }
+
   toggleGlobalDropDown(event) {
 
     this.tabulatorColumn.forEach(element => {
@@ -1207,9 +1209,9 @@ export class ItemLibraryComponent implements OnInit {
     /* generate workbook and add the worksheet */
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
+    let fileName = this.tenantConfiguration.itemTermCustomized + ".xlsx";
     /* save to file */
-    XLSX.writeFile(wb, this.fileName);
+    XLSX.writeFile(wb, fileName);
   }
   public openPDF(Data) {
 
@@ -1238,8 +1240,9 @@ export class ItemLibraryComponent implements OnInit {
     // Open PDF document in new tab
     doc.output('dataurlnewwindow')
 
-    // Download PDF document  
-    doc.save('table.pdf');
+    // Download PDF document 
+    let fileName = this.tenantConfiguration.itemTermCustomized + ".pdf";
+    doc.save(fileName);
   }
   LockConfirm() {
     this.lockItemLibrary = true
