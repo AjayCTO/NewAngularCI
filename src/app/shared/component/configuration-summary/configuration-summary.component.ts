@@ -7,11 +7,13 @@ import { CommanSharedService } from '../../service/comman-shared.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { select, Store } from '@ngrx/store';
-import { selectSelectedTenantId, selectMyInventoryColumn } from 'src/app/store/selectors/tenant.selectors';
+import { selectSelectedTenantId, selectMyInventoryColumn, getTenantConfiguration } from 'src/app/store/selectors/tenant.selectors';
+import { SetSelectedTenant, SetSelectedTenantId, SetTenantConfigurantion } from '../../../store/actions/tenant.action';
 import { AppState } from 'src/app/store/models/app-state.model';
 import inputFocus from '../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../assets/js/lib/_inputClear';
 import { ToastrService } from 'ngx-toastr';
+import { TenantConfig } from 'src/app/store/models/tenant.model';
 @Component({
   selector: 'app-configuration-summary',
   templateUrl: './configuration-summary.component.html',
@@ -24,6 +26,7 @@ export class ConfigurationSummaryComponent implements OnInit {
   AttributeFields: any;
   length: number = 0;
   length1: number = 0;
+  public tenantConfiguration: TenantConfig;
   public NotPermitted: boolean = false;
   public Edit: boolean
   customField: CustomFields = {
@@ -105,9 +108,16 @@ export class ConfigurationSummaryComponent implements OnInit {
     defaultQuantity: false,
     LowQuantityThreshold: false,
     QuantityRechesZero: false,
-    negativeQuantity: false
+    negativeQuantity: false,
+    theme: "",
+    isLockItemLibrary: false,
+    isLockLocationLibrary: false,
+    isLockUOMLibrary: false,
+    locationTermCustomized: "",
+    uomTermCustomized: "",
+    ItemTermCustomized: "",
+    QuantityTermCustomized: ""
   }
-
   constructor(protected store: Store<AppState>, private customfieldservice: CustomFieldService, private cdr: ChangeDetectorRef, private authService: AuthService, private spinner: NgxSpinnerService,
     private commanService: CommanSharedService, private toastr: ToastrService, private router: Router) { }
 
@@ -123,6 +133,13 @@ export class ConfigurationSummaryComponent implements OnInit {
         }
         this.cdr.detectChanges();
       });
+    this.store.pipe(select(getTenantConfiguration)).subscribe(config => {
+      if (config) {
+        debugger
+        this.tenantConfiguration = config;
+
+      }
+    });
 
     this.store.pipe(select(selectMyInventoryColumn)).
       subscribe(myInventoryColumn => {
@@ -226,7 +243,7 @@ export class ConfigurationSummaryComponent implements OnInit {
           if (result) {
 
             currentColumn.isChanging = false;
-
+            this.saveConfigration()
           }
         })
 
@@ -235,12 +252,24 @@ export class ConfigurationSummaryComponent implements OnInit {
   // Save Configration Summary Settings Function
   saveConfigration() {
     debugger
-    this.commanService.UpdateTenantConfiguration(this.selectedTenantId, this.authService.accessToken, 2, this.Features).pipe(finalize(() => {
+    this.MyInventoryFieldColumn.forEach(element => {
+      if (element.columnName == 'partName') {
+        this.Features.ItemTermCustomized = element.columnLabel
+      }
+      if (element.columnName == 'uomName') {
+        this.Features.uomTermCustomized = element.columnLabel
+      }
+      if (element.columnName == 'locationName') {
+        this.Features.locationTermCustomized = element.columnLabel
+      }
+    })
+    this.commanService.UpdateTenantConfiguration(this.selectedTenantId, this.authService.accessToken, this.tenantConfiguration.id, this.Features).pipe(finalize(() => {
 
     })).subscribe(
       result => {
         if (result.code == 200) {
           // this.toastr.success("Your Setting is Updated");
+          this.store.dispatch(new SetTenantConfigurantion(result.entity));
         }
       }
     )

@@ -427,6 +427,7 @@
 
 <app-delete-confirmation *ngIf="deleteLocation" (deleteLocation)="deleteField()" (hideClose)="deleteValue($event)">
 </app-delete-confirmation>
-<app-lock-confirmation *ngIf="lockLocation" (lockLocation)="saveConfigration($event)" (hideClose)="CancleLock($event)">
+<app-lock-confirmation *ngIf="lockLocation" [Data]="data" (lockLocation)="saveConfigration($event)"
+    (hideClose)="CancleLock($event)">
 </app-lock-confirmation>
 <ngx-spinner></ngx-spinner>

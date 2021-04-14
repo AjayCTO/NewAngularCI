@@ -27,6 +27,7 @@ export class LocationLibraryComponent implements OnInit {
   showForm: boolean
   busy: boolean;
   error: string;
+  public data: any;
   public tenantConfiguration: TenantConfig;
   public Features: any = {
     restocking: false,
@@ -282,10 +283,12 @@ export class LocationLibraryComponent implements OnInit {
     this.locations.forEach(element => {
       locationsList.push({ "Location": element.locationName, "Description": element.description, "Location Group": element.locationZone });
     });
-    this.libraryService.exportAsExcelFile(locationsList, "Location.xlsx",);
+    let Location = this.tenantConfiguration.locationTermCustomized + ".xlsx"
+    this.libraryService.exportAsExcelFile(locationsList, Location);
   }
   LockConfirm() {
     this.lockLocation = true
+    this.data = this.tenantConfiguration.locationTermCustomized
   }
 
   Unlock() {

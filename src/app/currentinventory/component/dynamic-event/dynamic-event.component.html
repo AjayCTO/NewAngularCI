@@ -159,15 +159,20 @@
                             [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''"
                             *ngIf="field.customFieldIncludeOnDynamicEvent">
 
-                            <label class="form__label" *ngIf="field.dataType!='True/False'"
+                            <label class="form__label" *ngIf="field.dataType!='True/False'" [popper]="popper12Content"
+                                [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
                                 for="Circustance_{{field.columnId}}"
                                 [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>='4' ? 'prefixLabel3':'']">{{
-                                (field.columnLabel.length>5)? (field.columnLabel |
-                                slice:0:9)+'...':(field.columnLabel)}}<span *ngIf="field.customFieldIsRequired"
-                                    class="form__required">*</span></label>
+                                (field.columnLabel.length>15)? (field.columnLabel |
+                                slice:0:15)+'...':(field.columnLabel)}}<span *ngIf="field.customFieldIsRequired"
+                                    class="form__required">*</span>
+                                <popper-content #popper12Content>
+                                    <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+                                </popper-content>
+                            </label>
                             <span class="form__group-outer-label" *ngIf="field.dataType=='True/False'">{{
-                                (field.columnLabel.length>5)? (field.columnLabel |
-                                slice:0:5)+'...':(field.columnLabel)}}
+                                (field.columnLabel.length>15)? (field.columnLabel |
+                                slice:0:15)+'...':(field.columnLabel)}}
                                 :</span>
 
                             <ng-container *ngIf="field.dataType=='Text'">

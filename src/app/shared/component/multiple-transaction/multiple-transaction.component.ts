@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter, ViewChild, ElementRef, } from '@angular/core';
-import { getSeletectEvent, selectSelectedTenant, getSelectedCart } from 'src/app/store/selectors/tenant.selectors';
+import { getSeletectEvent, selectSelectedTenant, getSelectedCart, getTenantConfiguration } from 'src/app/store/selectors/tenant.selectors';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../../shared/appState';
 import { finalize } from 'rxjs/operators';
@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 import { SetSelectedTenant, SetSelectedTenantId, SetDefaultInventoryColumn, SetSelectedEvent, SetSelectedCart } from '../../../store/actions/tenant.action';
 import { CustomFieldService } from 'src/app/customfield/service/custom-field.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { TenantConfig } from 'src/app/store/models/tenant.model';
 @Component({
   selector: 'app-multiple-transaction',
   templateUrl: './multiple-transaction.component.html',
@@ -29,6 +30,7 @@ export class MultipleTransactionComponent implements OnInit {
   public EventConfiguration: any
   public cartDetails: any;
   public selectedTenantId;
+  public tenantConfiguration: TenantConfig;
   public busy: boolean;
   public locationForm: FormGroup;
   public loadingRecords: boolean = false;
@@ -102,7 +104,25 @@ export class MultipleTransactionComponent implements OnInit {
     ToUom: "",
     ToUomId: null,
   }
-
+  public Features: any = {
+    restocking: false,
+    costTracking: false,
+    componentList: false,
+    automatedItems: false,
+    TimeZone: "",
+    defaultQuantity: false,
+    LowQuantityThreshold: false,
+    QuantityRechesZero: false,
+    negativeQuantity: false,
+    theme: "",
+    isLockItemLibrary: false,
+    isLockLocationLibrary: false,
+    isLockUOMLibrary: false,
+    locationTermCustomized: "",
+    uomTermCustomized: "",
+    ItemTermCustomized: "",
+    QuantityTermCustomized: ""
+  }
   constructor(private formBuilder: FormBuilder, protected store: Store<AppState>, private spinner: NgxSpinnerService, private customfieldservice: CustomFieldService, private commanService: CommanSharedService, private libraryService: LibraryService, private cdr: ChangeDetectorRef, private toastr: ToastrService, private authService: AuthService, private router: Router, private currentinventoryService: CurrentinventoryService,) {
     this.today = new Date();
   }
@@ -137,8 +157,15 @@ export class MultipleTransactionComponent implements OnInit {
         this.cartDetails = getSelectedCart;
         this.GetCartInventory();
       });
+    this.store.pipe(select(getTenantConfiguration)).subscribe(config => {
+      if (config) {
+        debugger
+        this.tenantConfiguration = config;
+      }
+    });
     this.getLocationList();
     this.getUOMList();
+    this.GetTenantConfiguration();
     this.ApplyJsFunction()
 
   }
@@ -504,5 +531,17 @@ export class MultipleTransactionComponent implements OnInit {
 
     return index;
   }
+  GetTenantConfiguration() {
 
+    this.commanService.GetTenantConfiguration(this.selectedTenantId, this.authService.accessToken,).pipe(finalize(() => {
+
+    })).subscribe(
+      result => {
+        if (result.code == 200) {
+          this.Features = result.entity
+        }
+      }
+    )
+
+  }
 }

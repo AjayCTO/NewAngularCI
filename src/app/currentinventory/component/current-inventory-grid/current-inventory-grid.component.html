@@ -3302,7 +3302,7 @@
                 </div>
             </div>
             <div class="form__section">
-                <h2 class="form__section-title">
+                <h2 class="form__section-title" style="margin-bottom: 20px;">
                     {{tenantConfiguration.quantityTermCustomized}} &amp; {{tenantConfiguration.locationTermCustomized}}
                 </h2>
                 <div class="form__col-wrap">
@@ -3458,11 +3458,17 @@
                         <div class="form__col form__col--third"
                             [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''"
                             *ngIf="field.customFieldIncludeOnDynamicEvent">
-                            <label class="form__label" for="dynamic_CustomField_{{field.columnId}}"
+                            <label [popper]="popper8Content" [popperTrigger]="'hover'" [popperPlacement]="'bottom'"
+                                class="form__label" for="dynamic_CustomField_{{field.columnId}}"
                                 *ngIf="field.dataType!='True/False'&&field.customFieldSpecialType!='Dropdown'"
-                                [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>='4' ? 'prefixLabel3':'']">{{(field.columnLabel.length>13)?
-                                (field.columnLabel|slice:0:13)+'...':(field.columnLabel)}}<span
-                                    *ngIf="field.customFieldIsRequired" class="form__required">*</span></label>
+                                [ngClass]="[field.customFieldPrefix.length=='1' ? 'prefixLabel':''||field.customFieldPrefix.length=='2' ? 'prefixLabel1':''||field.customFieldPrefix.length=='3' ? 'prefixLabel2':''||field.customFieldPrefix.length>='4' ? 'prefixLabel3':'']">{{(field.columnLabel.length>15)?
+                                (field.columnLabel|slice:0:15)+'...':(field.columnLabel)}}<span
+                                    *ngIf="field.customFieldIsRequired" class="form__required">*</span>
+                                <popper-content #popper8Content>
+                                    <h3 class="popperTitle"><b>{{field.columnLabel}}</b></h3>
+
+                                </popper-content>
+                            </label>
 
                             <span class="form__group-outer-label" *ngIf="field.dataType=='True/False'"
                                 [popper]="popper12Content" [popperTrigger]="'hover'"
