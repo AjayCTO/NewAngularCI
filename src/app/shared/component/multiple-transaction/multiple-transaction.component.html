@@ -371,12 +371,12 @@
                                                             <label class="form__label form_label" for="Uom"> Unit Of
                                                                 Measure</label>
                                                             <select (ngModelChange)="CheckUom(item.inventoryId,$event)"
-                                                                class="floating-select" [(ngModel)]="item.ToUomName"
+                                                                class="floating-select" [(ngModel)]="item.ToUomId"
                                                                 [ngModelOptions]="{standalone: true}" id="Uom"
                                                                 name="Uom">
                                                                 <option></option>
                                                                 <option *ngFor="let option of uomList"
-                                                                    [value]="option.uomName  ">
+                                                                    [value]="option.uomId">
                                                                     {{option.uomName}}</option>
                                                             </select>
                                                             <span *ngIf="item.CheckUom"

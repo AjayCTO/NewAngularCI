@@ -218,12 +218,13 @@ export class MultipleTransactionComponent implements OnInit {
   }
 
 
-  CheckUom(elements, Uom) {
+  CheckUom(elements, UomId) {
     debugger
     if (this.EventConfiguration.eventQuantityAction == "Convert") {
       this.groupInventoryDetails.forEach(element => {
         if (element.inventoryId == elements) {
-          if (element.uomName == Uom) {
+          element.ToUomId = UomId;
+          if (element.uomId == element.ToUomId) {
             element.CheckUom = true
           }
           else {
