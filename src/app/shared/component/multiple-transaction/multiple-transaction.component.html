@@ -70,32 +70,54 @@
                         fill="currentColor" class="icon__color--primary"></path>
                 </svg>
             </button>
-            <button *ngIf="EventConfiguration.eventName=='Move'" data-modal="#AddLocationinnerModal"
-                class="button button--medium button--icon button--theme01 js-modal">
-                Add New Location
-                <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
-                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
-                    <path fill="none" d="M0 0h48v48H0z"></path>
-                    <path d="M31.9 19a8 8 0 00-3-6.3h-.2L17.3 3.8l-4.9 6.3 5.2 4 12.6 9.7a7.6 7.6 0 001.7-4.8z"
-                        fill="currentColor" class="icon__color--secondary"></path>
-                    <path
-                        d="M35.3 30.4l-18 13.8-4.9-6.3 16.4-12.6a6.7 6.7 0 001.4-1.5 7.6 7.6 0 001.7-4.8 8 8 0 00-3-6.3l6.4 5a8 8 0 010 12.7z"
-                        fill="currentColor" class="icon__color--primary"></path>
-                </svg>
+            <button [disabled]="Features.isLockLocationLibrary==true" *ngIf="EventConfiguration.eventName=='Move'"
+                data-modal="#AddLocationinnerModal" class="button button--medium button--icon button--theme01 js-modal">
+                Add New {{tenantConfiguration.locationTermCustomized}}
+                <span style="margin-left: 5px;" *ngIf="Features.isLockLocationLibrary==false">
+                    <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
+                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+                        <path fill="none" d="M0 0h48v48H0z"></path>
+                        <path d="M31.9 19a8 8 0 00-3-6.3h-.2L17.3 3.8l-4.9 6.3 5.2 4 12.6 9.7a7.6 7.6 0 001.7-4.8z"
+                            fill="currentColor" class="icon__color--secondary"></path>
+                        <path
+                            d="M35.3 30.4l-18 13.8-4.9-6.3 16.4-12.6a6.7 6.7 0 001.4-1.5 7.6 7.6 0 001.7-4.8 8 8 0 00-3-6.3l6.4 5a8 8 0 010 12.7z"
+                            fill="currentColor" class="icon__color--primary"></path>
+                    </svg>
+                </span>
+                <span style="margin-left: 5px;" *ngIf="Features.isLockLocationLibrary==true"><svg
+                        aria-labelledby="title-6073f50bc4e35" xmlns="http://www.w3.org/2000/svg" width="26" height="26"
+                        viewBox="0 0 8.081 11.544">
+                        <g data-name="Group 3641">
+                            <path data-name="Path 1713"
+                                d="M6.926 4.617V2.886a2.886 2.886 0 10-5.771 0v1.731A1.242 1.242 0 00.001 5.772v4.617a1.241 1.241 0 001.154 1.155h5.771a1.241 1.241 0 001.155-1.155V5.772a1.242 1.242 0 00-1.155-1.155zm-1.153 0H2.309V2.886a1.732 1.732 0 113.464 0z"
+                                fill="black"></path>
+                        </g>
+                    </svg></span>
             </button>
             <app-location-modal (RefreshLocation)="getLocationList()"></app-location-modal>
-            <button *ngIf="EventConfiguration.eventName=='Convert'" data-modal="#AddUOMinnerModal"
-                class="button button--medium button--icon button--theme01 js-modal">
-                Add New UOM
-                <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
-                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
-                    <path fill="none" d="M0 0h48v48H0z"></path>
-                    <path d="M31.9 19a8 8 0 00-3-6.3h-.2L17.3 3.8l-4.9 6.3 5.2 4 12.6 9.7a7.6 7.6 0 001.7-4.8z"
-                        fill="currentColor" class="icon__color--secondary"></path>
-                    <path
-                        d="M35.3 30.4l-18 13.8-4.9-6.3 16.4-12.6a6.7 6.7 0 001.4-1.5 7.6 7.6 0 001.7-4.8 8 8 0 00-3-6.3l6.4 5a8 8 0 010 12.7z"
-                        fill="currentColor" class="icon__color--primary"></path>
-                </svg>
+            <button [disabled]="Features.isLockUOMLibrary==true" *ngIf="EventConfiguration.eventName=='Convert'"
+                data-modal="#AddUOMinnerModal" class="button button--medium button--icon button--theme01 js-modal">
+                Add New {{tenantConfiguration.uomTermCustomized}}
+                <span style="margin-left: 5px;" *ngIf="Features.isLockUOMLibrary==false">
+                    <svg class="icon icon--theme01 icon--next" aria-labelledby="title-605828ac2ccd5"
+                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+                        <path fill="none" d="M0 0h48v48H0z"></path>
+                        <path d="M31.9 19a8 8 0 00-3-6.3h-.2L17.3 3.8l-4.9 6.3 5.2 4 12.6 9.7a7.6 7.6 0 001.7-4.8z"
+                            fill="currentColor" class="icon__color--secondary"></path>
+                        <path
+                            d="M35.3 30.4l-18 13.8-4.9-6.3 16.4-12.6a6.7 6.7 0 001.4-1.5 7.6 7.6 0 001.7-4.8 8 8 0 00-3-6.3l6.4 5a8 8 0 010 12.7z"
+                            fill="currentColor" class="icon__color--primary"></path>
+                    </svg>
+                </span>
+                <span style="margin-left: 5px;" *ngIf="Features.isLockUOMLibrary==true"><svg
+                        aria-labelledby="title-6073f50bc4e35" xmlns="http://www.w3.org/2000/svg" width="26" height="26"
+                        viewBox="0 0 8.081 11.544">
+                        <g data-name="Group 3641">
+                            <path data-name="Path 1713"
+                                d="M6.926 4.617V2.886a2.886 2.886 0 10-5.771 0v1.731A1.242 1.242 0 00.001 5.772v4.617a1.241 1.241 0 001.154 1.155h5.771a1.241 1.241 0 001.155-1.155V5.772a1.242 1.242 0 00-1.155-1.155zm-1.153 0H2.309V2.886a1.732 1.732 0 113.464 0z"
+                                fill="black"></path>
+                        </g>
+                    </svg></span>
             </button>
             <app-uom-modal (RefreshUom)="getUOMList()"></app-uom-modal>
 
@@ -135,7 +157,7 @@
                                             <div class="form__col-wrap">
                                                 <div class="form__col form__col-group">
                                                     <div class="">
-                                                        Quantity</div>
+                                                        {{tenantConfiguration.quantityTermCustomized}}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -151,7 +173,7 @@
                                             <div class="form__col-wrap">
                                                 <div class="form__col form__col-group">
                                                     <div class="">
-                                                        Move a Quantity of...
+                                                        Move a {{tenantConfiguration.quantityTermCustomized}} of...
                                                     </div>
                                                 </div>
                                             </div>
@@ -169,7 +191,7 @@
                                             <div class="form__col-wrap">
                                                 <div class="form__col form__col-group">
                                                     <div class="">
-                                                        Move to Location ...
+                                                        Move to {{tenantConfiguration.locationTermCustomized}} ...
                                                     </div>
                                                 </div>
                                             </div>
@@ -187,7 +209,7 @@
                                             <div class="form__col-wrap">
                                                 <div class="form__col form__col-group">
                                                     <div class="">
-                                                        Convert this Quantity ...
+                                                        Convert this {{tenantConfiguration.quantityTermCustomized}} ...
                                                     </div>
                                                 </div>
                                             </div>
@@ -205,7 +227,8 @@
                                             <div class="form__col-wrap">
                                                 <div class="form__col form__col-group">
                                                     <div class="">
-                                                        Into this Quantity...</div>
+                                                        Into this {{tenantConfiguration.quantityTermCustomized}}...
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -222,7 +245,7 @@
                                             <div class="form__col-wrap">
                                                 <div class="form__col form__col-group">
                                                     <div class="">
-                                                        of this Unit of Measure....
+                                                        of this {{tenantConfiguration.uomTermCustomized}}....
                                                     </div>
                                                 </div>
                                             </div>
@@ -300,14 +323,14 @@
                                         <td class="table__cell">{{item.quantity}} {{item.uomName}} of
                                             <b>{{item.partName}}</b><br />
                                             <span style="font-size: 14px;"> ({{item.partDescription}})</span>
-                                            <br /> Location:
+                                            <br /> {{tenantConfiguration.locationTermCustomized}}:
                                             <b>{{item.locationName}}</b>
                                         </td>
                                         <td class="table__cell"
                                             *ngIf="EventConfiguration.eventQuantityAction=='Add'||EventConfiguration.eventQuantityAction=='Remove'">
                                             <div class="form__col">
                                                 <label class="form__label form_label"
-                                                    for="Quantity_{{item.partId}}">Quantity</label>
+                                                    for="Quantity_{{item.partId}}">{{tenantConfiguration.quantityTermCustomized}}</label>
                                                 <input id="input" class="form__input" [(ngModel)]="item.transactionQty"
                                                     [ngModelOptions]="{standalone: true}" type="number"
                                                     id="Quantity_{{item.partId}}" name="Quantity_{{item.partId}}"
@@ -318,7 +341,7 @@
                                         <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Move'">
                                             <div class="form__col">
                                                 <label class="form__label form_label"
-                                                    for="Quantity_{{item.partId}}">Quantity</label>
+                                                    for="Quantity_{{item.partId}}">{{tenantConfiguration.quantityTermCustomized}}</label>
                                                 <input class="form__input" type="number" id="Quantity_{{item.partId}}"
                                                     (ngModelChange)="CheckQuantitys(item,$event)"
                                                     [ngModelOptions]="{standalone: true}"
@@ -328,16 +351,16 @@
 
                                             </div>
                                             <span *ngIf="item.CheckQuantity"
-                                                style="color: #ff554d; font-size: 12px;">Quantity
+                                                style="color: #ff554d; font-size: 12px;">{{tenantConfiguration.quantityTermCustomized}}
                                                 is Greater than
                                                 orignal
-                                                Quantity</span>
+                                                {{tenantConfiguration.quantityTermCustomized}}</span>
                                         </td>
                                         <td class="table__cell"
                                             *ngIf="EventConfiguration.eventQuantityAction=='Convert'">
                                             <div class="form__col">
                                                 <label class="form__label form_label"
-                                                    for="ConvertQuantity">Quantity</label>
+                                                    for="ConvertQuantity">{{tenantConfiguration.quantityTermCustomized}}</label>
                                                 <input class="form__input" type="number"
                                                     (ngModelChange)="CheckQuantitys(item,$event)"
                                                     [ngModelOptions]="{standalone: true}"
@@ -345,9 +368,10 @@
                                                     name="ConvertQuantity" required>
                                                 <span class="input-group-addon text Suffix">{{item.uomName}}</span>
                                                 <span *ngIf="item.CheckQuantity"
-                                                    style="color: #ff554d; font-size: 7px;">Quantity is Greater than
+                                                    style="color: #ff554d; font-size: 7px;">{{tenantConfiguration.quantityTermCustomized}}
+                                                    is Greater than
                                                     orignal
-                                                    Quantity</span>
+                                                    {{tenantConfiguration.quantityTermCustomized}}</span>
 
                                             </div>
                                         </td>
@@ -355,7 +379,7 @@
                                             *ngIf="EventConfiguration.eventQuantityAction=='Convert'">
                                             <div class="form__col">
                                                 <label class="form__label form_label"
-                                                    for="Quantity1_{{item.partId}}">Quantity</label>
+                                                    for="Quantity1_{{item.partId}}">{{tenantConfiguration.quantityTermCustomized}}</label>
                                                 <input class="form__input" type="number" id="Quantity1_{{item.partId}}"
                                                     [ngModelOptions]="{standalone: true}"
                                                     [(ngModel)]="item.transactionQtyChange"
@@ -368,8 +392,9 @@
                                                 <div class="form__section">
                                                     <div class="form__col-wrap">
                                                         <div class="form__col">
-                                                            <label class="form__label form_label" for="Uom"> Unit Of
-                                                                Measure</label>
+                                                            <label class="form__label form_label" for="Uom">
+                                                                {{tenantConfiguration.uomTermCustomized}}
+                                                            </label>
                                                             <select (ngModelChange)="CheckUom(item.inventoryId,$event)"
                                                                 class="floating-select" [(ngModel)]="item.ToUomName"
                                                                 [ngModelOptions]="{standalone: true}" id="Uom"
@@ -382,7 +407,8 @@
                                                             <span *ngIf="item.CheckUom"
                                                                 style="color: #ff554d; font-size: 7px;">Please convert
                                                                 the
-                                                                states to a different UOM.</span>
+                                                                states to a different
+                                                                {{tenantConfiguration.uomTermCustomized}}.</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -409,7 +435,8 @@
                                                 <!-- <label class="form__label form_label"
                                                     for="Location_{{item.inventoryId}}">Location
                                                 </label> -->
-                                                <label class="form__label form_label" for="Location_">Location
+                                                <label class="form__label form_label"
+                                                    for="Location_">{{tenantConfiguration.locationTermCustomized}}
                                                 </label>
                                                 <select (ngModelChange)="CheckLocations(item.inventoryId,$event)"
                                                     class="floating-select" [(ngModel)]="item.ToLocation"
@@ -428,7 +455,7 @@
                                                     style="color: #ff554d; font-size: 7px;">Please move these states to
                                                     a
                                                     different
-                                                    location.</span>
+                                                    {{tenantConfiguration.locationTermCustomized}}.</span>
                                             </div>
                                         </td>
                                         <td class="table__cell" *ngIf="EventConfiguration.eventQuantityAction=='Add'">
@@ -710,8 +737,11 @@
                             fill="currentColor" class="icon__color--primary"></path>
                     </svg>
                 </button>
-                <button (click)="cancleConfirm()" type="button" class="button button--medium button--text-only">Cancel
+                <button type="button" style="background: transparent;" (click)="cancleConfirm()"
+                    class="button button--medium button--text-only">Cancel
                 </button>
+                <!-- <button (click)="cancleConfirm()" type="button" class="button button--medium button--text-only">Cancel
+                </button> -->
             </div>
 
         </div>
