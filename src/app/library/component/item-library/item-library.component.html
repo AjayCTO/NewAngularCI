@@ -2441,7 +2441,7 @@
 
 
 <app-upload-item *ngIf="UploadActivityOpen" (hideClose)="getValue($event)"></app-upload-item>
-<app-lock-confirmation *ngIf="lockItemLibrary" (lockItemLibrary)="saveConfigration($event)"
+<app-lock-confirmation *ngIf="lockItemLibrary" [Data]="datas" (lockItemLibrary)="saveConfigration($event)"
     (hideClose)="CancleLock($event)">
 </app-lock-confirmation>
 <ngx-spinner></ngx-spinner>

@@ -183,6 +183,7 @@ export class ItemLibraryComponent implements OnInit {
   public CfdcomboValuesDropDown: string;
   PreviewtypesDropDown: any = [];
   PreviewtypesAutocomplete: any = [];
+  datas: string;
 
   constructor(protected store: Store<AppState>, private router: Router, private formBuilder: FormBuilder, private toastr: ToastrService, private cdr: ChangeDetectorRef, private libraryService: LibraryService, private authService: AuthService,
     private spinner: NgxSpinnerService, private commanService: CommanSharedService,
@@ -1242,6 +1243,7 @@ export class ItemLibraryComponent implements OnInit {
   }
   LockConfirm() {
     this.lockItemLibrary = true
+    this.datas = this.tenantConfiguration.itemTermCustomized
   }
   CancleLock(value: boolean) {
     const html = document.querySelector('html');

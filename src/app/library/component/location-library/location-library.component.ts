@@ -27,6 +27,7 @@ export class LocationLibraryComponent implements OnInit {
   showForm: boolean
   busy: boolean;
   error: string;
+  public data: any;
   public tenantConfiguration: TenantConfig;
   public Features: any = {
     restocking: false,
@@ -286,6 +287,7 @@ export class LocationLibraryComponent implements OnInit {
   }
   LockConfirm() {
     this.lockLocation = true
+    this.data = this.tenantConfiguration.locationTermCustomized
   }
 
   Unlock() {

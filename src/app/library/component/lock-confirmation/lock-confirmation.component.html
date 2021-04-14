@@ -4,10 +4,23 @@
             <div class="Modal__head">
                 <h1 class="invModal__title">Lock Library ?</h1>
             </div>
+
             <div class="Modal__body">
-                <p class="invModal__title">Locking a library prevents all users from creating new Location or changing
-                    data about Location. Do you want to do this?</p>
+                <p *ngIf="data==tenantConfiguration.locationTermCustomized" class="invModal__title">Locking a
+                    library prevents all users from creating new
+                    {{tenantConfiguration.locationTermCustomized}} or changing
+                    data about {{tenantConfiguration.locationTermCustomized}}. Do you want to do this?</p>
+                <p *ngIf="data==tenantConfiguration.itemTermCustomized" class="invModal__title">Locking a library
+                    prevents all users from creating
+                    {{tenantConfiguration.itemTermCustomized}} or changing data about
+                    {{tenantConfiguration.itemTermCustomized}}. Do you want to do this?</p>
+                <p *ngIf="data==tenantConfiguration.uomTermCustomized" class="invModal__title">Locking a library
+                    prevents all users from creating new
+                    {{tenantConfiguration.uomTermCustomized}} or changing data about
+                    {{tenantConfiguration.uomTermCustomized}}. Do you want to do this?</p>
             </div>
+
+
             <div class="Modal__footer">
                 <div class="button-group">
                     <button type="submit" class="button button--medium" (click)="Confirm()" id="confirmBtn">Yes</button>

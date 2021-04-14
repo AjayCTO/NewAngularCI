@@ -64,6 +64,7 @@ export class UOMLibraryComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageIndex = 0;
   lastPageIndex = 0;
+  data: string;
 
   constructor(private commanService: CommanSharedService, private formBuilder: FormBuilder, protected store: Store<AppState>, private router: Router, private spinner: NgxSpinnerService,
     private toast: ToastrService, private libraryService: LibraryService,
@@ -260,6 +261,7 @@ export class UOMLibraryComponent implements OnInit {
   }
   LockConfirm() {
     this.lockUom = true
+    this.data = this.tenantConfiguration.uomTermCustomized
   }
   CancleLock(value: boolean) {
     const html = document.querySelector('html');

@@ -369,7 +369,8 @@
 
 <app-delete-confirmation *ngIf="deleteUom" (deleteUOM)="deleteUOM()" (hideClose)="deleteValue($event)">
 </app-delete-confirmation>
-<app-lock-confirmation *ngIf="lockUom" (lockUOM)="saveConfigration($event)" (hideClose)="CancleLock($event)">
+<app-lock-confirmation *ngIf="lockUom" [Data]="data" (lockUOM)="saveConfigration($event)"
+    (hideClose)="CancleLock($event)">
 </app-lock-confirmation>
 
 
