@@ -38,6 +38,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
 import { SettingsComponent } from './settings/settings.component'
 import { AuthGuard } from './core/auth-guard.service';
 import { QuickFieldCreatorComponent } from './quick-field-creator/quick-field-creator.component';
+import { BarCodeLabelConfigrationComponent } from './bar-code-label-configration/bar-code-label-configration.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +49,7 @@ import { QuickFieldCreatorComponent } from './quick-field-creator/quick-field-cr
     FooterComponent,
     TruncatePipe,
     QuickFieldCreatorComponent,
+    BarCodeLabelConfigrationComponent,
     // AddCustomFieldComponent,
   ],
   imports: [

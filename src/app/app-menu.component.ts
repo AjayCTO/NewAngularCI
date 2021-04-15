@@ -4,9 +4,11 @@ import { AuthService } from './core/auth.service';
 import { Tenant } from './currentinventory/models/admin.models';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../app/shared/appState';
-import { SetSelectedTenant, SetSelectedTenantId } from '../app/store/actions/tenant.action';
+import { SetSelectedTenant, SetSelectedTenantId, SetTenantConfigurantion } from '../app/store/actions/tenant.action';
 import { Router } from '@angular/router';
 import { selectSelectedTenantId, selectSelectedTenant } from '../app/store/selectors/tenant.selectors';
+import { CommanSharedService } from 'src/app/shared/service/comman-shared.service';
+
 @Component({
   selector: 'app-menu',
   templateUrl: `./app-menu.component.html`,
@@ -23,7 +25,7 @@ export class AppMenuComponent {
   showInventoryDD: boolean = false;
   selectedTenant: Tenant;
   showDropDown = false;
-  constructor(private authService: AuthService, protected store: Store<AppState>, private router: Router,) {
+  constructor(private authService: AuthService, protected store: Store<AppState>, private router: Router, private commanService: CommanSharedService) {
 
     this.isAuthenticated = authService.isAuthenticated$;
     this._haveTenantId$ = authService.haveTenantId;
@@ -57,8 +59,14 @@ export class AppMenuComponent {
     this.store.dispatch(new SetSelectedTenant(value));
     localStorage.setItem('TenantId', JSON.stringify(value.tenantId));
     localStorage.setItem('Tenant', JSON.stringify(value));
-    this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['CurrentInventory']);
+    this.commanService.GetTenantConfiguration(value.tenantId, this.authService.accessToken).subscribe(res => {
+      if (res.entity != null) {
+        this.store.dispatch(new SetTenantConfigurantion(res.entity));
+      }
+      // this.router.navigate(['CurrentInventory']);
+      this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['CurrentInventory']);
+      });
     });
   }
 
