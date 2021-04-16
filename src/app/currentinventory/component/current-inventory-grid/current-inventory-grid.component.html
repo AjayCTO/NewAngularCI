@@ -2858,15 +2858,16 @@
                 </h2>
                 <div class="form__col-wrap">
                     <div class="form__col form__col--third form__col--has-copy">
-                        <label class="form__label form_label" for="dynamic_item-name">Item Name<span
-                                class="form__required">*</span></label>
+                        <label class="form__label form_label" for="dynamic_item-name">Item
+                            Name<span class="form__required">*</span></label>
 
                         <div style="position: relative;">
                             <ng-autocomplete [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)'
                                 [isLoading]="isLoadingResult" (inputCleared)="searchCleared()"
                                 (inputChanged)='onChangeSearch($event)' [debounceTime]="600" [minQueryLength]="2"
                                 [itemTemplate]="itemTemplateNew" [notFoundTemplate]="notFoundTemplateAddNew" type="text"
-                                id="dynamic_item-name" name="item-name">
+                                id="dynamic_item-name" [disabled]="tenantConfiguration?.automatedItems"
+                                name="item-name">
                             </ng-autocomplete>
                             <ng-template #itemTemplateNew let-item>
                                 <a href="javascript:void(0)">
