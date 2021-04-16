@@ -6,15 +6,14 @@
 </div>
 <div class="taskbar">
     <div class="taskbar__col">
-        <button type="button" data-modal="#AddItemtestModal"
-            class="button button--medium button--icon button--theme02 js-modal">
+        <a type="button" href="/Barcode/Label/Detail" class="button button--medium button--icon button--theme02 ">
             <svg class="icon-simple icon-simple--theme01 icon-simple--add" aria-labelledby="title-5f86742813ab3"
                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                 <path fill="none" d="M0 0h24v24H0z"></path>
                 <path fill="currentColor" d="M0 10h24v4H0z"></path>
                 <path fill="currentColor" d="M14 0v24h-4V0z"></path>
             </svg> &nbsp; Add New Label Configurations
-        </button>
+        </a>
     </div>
 </div>
 <section class="main">
@@ -153,7 +152,33 @@
                             qrcode
                         </td>
                         <td>
-                            qrcode
+                            <form class="form">
+                                <div class="form__section">
+                                    <div class="form__col-wrap">
+                                        <div class="form__col form__col--group">
+                                            <div class="form__group form__group--checkbox">
+                                                <input class="form__checkbox" type="checkbox"
+                                                    id="customFieldIsRequired1" name="customFieldIsRequired" checked>
+                                                <label class="form__group-label" for="customFieldIsRequired1"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                        <td>
+                            <div class="icons__item">
+                                <div class="icons__icon" style="cursor: pointer;"><svg
+                                        class="icon-simple icon-simple--theme01 icon-simple--print"
+                                        aria-labelledby="title-60790e71ecae7" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24" width="24" height="24">
+                                        <path fill="currentColor" d="M10 14h6v2h-6zm0-3h6v2h-6z"></path>
+                                        <path d="M16 6V2l-1-1H5v20h16V7l-1-1zm2 12H8V4h5v5h5z" fill="currentColor">
+                                        </path>
+                                        <path fill="none" d="M0 0h24v24H0z"></path>
+                                    </svg></div>
+                                <span class="icons__label">Sample</span>
+                            </div>
                         </td>
                     </tr>
                 </ng-container>

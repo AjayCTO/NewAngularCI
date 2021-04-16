@@ -36,7 +36,7 @@ box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
 .card2
 {
     
-    width: 912px;
+    width: 92%;
     padding: 10px;
     text-align: justify;
     text-decoration: none;
@@ -184,5 +184,18 @@ tr:hover {background-color:#f5f5f5;}
   background: transparent;
 }
 .form__col--two-third {
-    width: calc(((100% / 3) * 2) - -12.375rem);
+    width: calc(((100% / 3) * 2) - -6.375rem);
+}
+.actions{
+  display: inline-grid;
+  -webkit-box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+  -moz-box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+  box-shadow: 10px 10px 31px 0px rgba(197,223,237,1);
+  border-bottom: 0px;
+  margin: 30px;
+    width: 145%;
+}
+label {
+  color: #283237;
+  font-size: 28px;
 }

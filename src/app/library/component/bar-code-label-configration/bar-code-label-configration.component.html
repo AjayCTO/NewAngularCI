@@ -9,34 +9,80 @@
         <div class="form__col form__col--half">
             <div class="card1 icons icons--horziontal icons--size01" role="listitem">
                 <div class="card-header1" id="header">
-                    <button type="button" data-modal="#AddItemtestModal"
-                        class="button button--medium button--icon button--theme02 js-modal">
-                        <svg class="icon-simple icon-simple--theme01 icon-simple--add"
-                            aria-labelledby="title-5f86742813ab3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                            width="24" height="24">
-                            <path fill="none" d="M0 0h24v24H0z"></path>
-                            <path fill="currentColor" d="M0 10h24v4H0z"></path>
-                            <path fill="currentColor" d="M14 0v24h-4V0z"></path>
-                        </svg> &nbsp;Configurations List
-                    </button>
+                    <a href="barcode/label" type="button" class="button button--medium button--icon button--theme02 ">
+                        <svg class="icon icon--theme01 icon--previous" aria-labelledby="title-6078282d86aa9"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+                            <path fill="none" d="M0 0h48v48H0z"></path>
+                            <path
+                                d="M17.8 23.8l12.6-9.7 5.2-4-4.9-6.3-11.4 8.9h-.2a8 8 0 00-3 6.3 7.62 7.62 0 001.7 4.8z"
+                                fill="currentColor" class="icon__color--secondary"></path>
+                            <path
+                                d="M11.22 28.92A8 8 0 0112.7 17.7l6.4-5a8 8 0 00-3 6.3 7.62 7.62 0 001.7 4.8 6.88 6.88 0 001.4 1.5l16.4 12.6-4.9 6.3-18-13.8a8 8 0 01-1.48-1.48z"
+                                fill="currentColor" class="icon__color--primary"></path>
+                        </svg>&nbsp;Configurations List
+                    </a>
                 </div>
                 <div class="card-body">
-                    <div role="listitem">
+                    <div class="actions">
                         <div class="form__col-wrap">
-                            <div class="form__col--two-third" style="width: 180px;">
-                                <p>Restocking</p>
+                            <div>
+                                <label>Paper Type</label>
+                                <br>
+                                <label>
+                                    <input type="radio" name="PaperTypeID" value="1">
+                                    Sheet (8.5 x 11")
+                                </label>
+                                <br>
+                                <label>
+                                    <input type="radio" name="PaperTypeID" value="2" checked="'checked'">
+                                    Roll
+                                </label>
                             </div>
 
                         </div>
-                    </div>
-                    <div role="listitem">
-                        <div class="form__col-wrap">
-                            <div class="form__col--two-third" style="width: 180px;">
-                                <p>Cost Tracking</p>
-                            </div>
 
+                        <div class="form__col-wrap">
+                            <div class="form-group">
+                                <label>
+                                    Label Size
+                                </label>
+                                <form class="form">
+                                    <div class="form__section">
+                                        <div class="form__col-wrap">
+                                            <div class="form__col">
+                                                <!-- <label class="form__label form_label" for="Datatype"> Data Type <span
+                                                        class="form__required">*</span></label> -->
+                                                <select class="floating-select" id="Datatype" name="Datatype">
+                                                    <!-- <option value=""> - Select -</option> -->
+                                                    <option value="Avery5160">2.625 x 1" (Avery 5160)</option>
+                                                    <option value="Avery5161" selected="'selected'">4 x 1" (Avery 5161)
+                                                    </option>
+                                                    <option value="Avery5162">4 x 1.33" (Avery 5162)</option>
+                                                    <option value="Avery5163">4 x 2" (Avery 5163)</option>
+                                                    <option value="Shipping4x6">4 x 6" (Shipping)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                        <div class="form__col-wrap">
+                            <div class="form-group">
+                                <label>Barcode Type</label>
+                                <br>
+                                <label><input type="radio" name="BarcodeType" value="qrcode" checked="'checked'"> QR
+                                    Code (2D)</label><br>
+                                <label><input type="radio" name="BarcodeType" value="datamatrix"> Data Matrix
+                                    (2D)</label><br>
+                                <label><input type="radio" name="BarcodeType" value="code39"> Code 39 (1D)</label><br>
+                                <label><input type="radio" name="BarcodeType" value="code128"> Code 128 (1D)</label><br>
+                                <br>
+                            </div>
                         </div>
                     </div>
+
 
                 </div>
             </div>
@@ -44,8 +90,8 @@
         <div class="form__col form__col--half">
             <div class="card1 icons icons--horziontal icons--size01" role="listitem">
                 <div class="card-header1" id="header">
-                    <button type="button" data-modal="#AddItemtestModal"
-                        class="button button--medium button--icon button--theme02 js-modal">
+                    <a href="https://en.wikipedia.org/wiki/Barcode" type="button"
+                        class="button button--medium button--icon button--theme02 ">
                         <svg class="icon-simple icon-simple--theme01 icon-simple--add"
                             aria-labelledby="title-5f86742813ab3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                             width="24" height="24">
@@ -53,7 +99,7 @@
                             <path fill="currentColor" d="M0 10h24v4H0z"></path>
                             <path fill="currentColor" d="M14 0v24h-4V0z"></path>
                         </svg> &nbsp;Barcode Types
-                    </button>
+                    </a>
                 </div>
                 <hr>
                 <div class="card-body">
@@ -71,10 +117,12 @@
                                     height="80" style="float:left; padding-right: 10px;">
                             </div>
                             <div class="form__col--two-third">
-                                QR Code (2D) - more info <br>
-                                A QR Barcode is a two dimensional Barcode that consists of a grid of dark and light dots
+                                QR Code (2D) - <a href="https://en.wikipedia.org/wiki/Barcode">more info</a> <br>
+                                A QR Barcode is a two dimensional Barcode that consists of a grid of dark and light
+                                dots
                                 or blocks that form a square. The data encoded in the Barcode can be numeric,
-                                alphanumeric, or Shift Japanese Industrial Standards (JIS8) characters. (which is pretty
+                                alphanumeric, or Shift Japanese Industrial Standards (JIS8) characters. (which is
+                                pretty
                                 much everything).
 
                             </div>
@@ -89,7 +137,8 @@
                                     height="80" style="float:left; padding-right: 10px;">
                             </div>
                             <div class="form__col--two-third">
-                                Data Matrix (2D) - more info <br>
+                                Data Matrix (2D) - <a href="https://en.wikipedia.org/wiki/Barcode">more info</a>
+                                <br>
                                 DataMatrix Barcode is a two dimensional Barcode that consists of a grid of dark and
                                 light dots or blocks forming square. The data encoded in the Barcode can either be
                                 numbers or alphanumeric
@@ -104,12 +153,15 @@
                                     height="40">
                             </div>
                             <div class="form__col--two-third">
-                                Code 39 (1D) - more info <br>
-                                The Code 39 character set includes the digits 0-9, the letters A-Z (upper case only),
+                                Code 39 (1D) - <a href="https://en.wikipedia.org/wiki/Barcode">more info</a> <br>
+                                The Code 39 character set includes the digits 0-9, the letters A-Z (upper case
+                                only),
                                 and the following symbols: space, minus (-), plus (+), period (.), dollar sign ($),
-                                slash (/), and percent (%). A special start / stop character is placed at the beginning
+                                slash (/), and percent (%). A special start / stop character is placed at the
+                                beginning
                                 and ending of each Barcode. The Barcode can be of any length; even more than 25
-                                characters begin to push the bounds. Code 39 is the only type of Barcode that does not
+                                characters begin to push the bounds. Code 39 is the only type of Barcode that does
+                                not
                                 require a checksum for common use.
 
                             </div>
@@ -123,10 +175,13 @@
                                     height="40">
                             </div>
                             <div class="form__col--two-third">
-                                Code 128 (1D) - more info <br>
-                                Code 128 is a variable length, high density, alphanumeric, linear bar code symbology,
-                                capable of encoding the full 128-character ASCII character set and extended character
-                                sets. This symbology includes a checksum digit for verification and the barcode can also
+                                Code 128 (1D) - <a href="https://en.wikipedia.org/wiki/Barcode">more info</a><br>
+                                Code 128 is a variable length, high density, alphanumeric, linear bar code
+                                symbology,
+                                capable of encoding the full 128-character ASCII character set and extended
+                                character
+                                sets. This symbology includes a checksum digit for verification and the barcode can
+                                also
                                 be verified character-by-character by verifying the parity of each data byte.
                             </div>
 
