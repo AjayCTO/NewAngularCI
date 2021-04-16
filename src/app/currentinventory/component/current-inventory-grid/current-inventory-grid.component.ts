@@ -621,14 +621,23 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.showInventoryModel = false;
   }
 
-
+  getAutomatedItem(length, chars) {
+    debugger;
+    var result = 'XXX';
+    for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+    return result;
+  }
   onSubmitDymamicEvent() {
 
-    if ($.trim(this.CurrentInventoryObj.partName) == "") {
+    if ($.trim(this.CurrentInventoryObj.partName) == "" && !this.tenantConfiguration.automatedItems) {
       this.toastr.warning("Item Name Required");
       return false;
     }
+
     this.spinner.show();
+    if (this.tenantConfiguration.automatedItems) {
+      this.CurrentInventoryObj.partName = this.getAutomatedItem(4, '0123456789');
+    }
     this.CurrentInventoryObj.attributeFields = this.AttributeFields;
     this.CurrentInventoryObj.customFields = this.CustomFields;
     this.CurrentInventoryObj.locationId = parseInt(this.selectedLocation);
