@@ -136,5 +136,66 @@ export class CommanSharedService extends BaseService {
     return this.http.get<IApiResponse>(this.configService.resourceApiURI + '/api/Tenant/GetTenantConfiguration?TenantId=' + TenantId, httpOptions).pipe(catchError(this.handleError));
   }
 
+  //Hello menu
+  getHelloMenu(TenantId: number, token: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + token
+      })
+    };
+    return this.http.get<IApiResponse>(this.configService.resourceApiURI + '/api/Tenant/HelloMenu/get?TenantId=' + TenantId, httpOptions).pipe(catchError(this.handleError));
+
+  }
+  addHelloMenu(TenantId: number, token: string, data: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + token
+      })
+    };
+    return this.http.post(this.configService.resourceApiURI + '/api/Tenant/HelloMenu/Add?TenantId=' + TenantId, data, httpOptions).pipe(map((response: {
+      message: string;
+      code: number;
+      entity: boolean;
+    }) => {
+      return response;
+    }
+    ));
+  }
+  editHelloMenu(TenantId: number, token: string, Id: number, data: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + token
+      })
+    };
+    return this.http.put(this.configService.resourceApiURI + '/api/Tenant/HelloMenu/Edit?TenantId=' + TenantId + '&Id=' + Id, data, httpOptions).pipe(map((response: {
+      message: string;
+      code: number;
+      entity: boolean;
+    }) => {
+      return response;
+    }
+    ));
+  }
+
+  deleteHelloMenu(TenantId: number, token: string, selectedMenuId: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "bearer " + token
+      })
+    };
+    return this.http.delete(this.configService.resourceApiURI + '/api/Tenant/HelloMenu/Delete?TenantId=' + TenantId + '&Id=' + selectedMenuId, httpOptions).pipe(map((response: {
+      message: string;
+      code: number;
+      entity: boolean;
+    }) => {
+      return response;
+    }
+    ));
+  }
+
 
 }

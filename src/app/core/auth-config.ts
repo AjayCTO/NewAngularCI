@@ -7,7 +7,7 @@ export const authConfig: AuthConfig = {
   redirectUri: 'http://localhost:4200/auth-callback',
   postLogoutRedirectUri: 'http://localhost:4200/',
   silentRefreshRedirectUri: 'http://localhost:4200/silent-refresh.html',
-  scope: 'openid profile api1', // Ask offline_access to support refresh token refreshes
+  scope: 'openid profile api1 api3', // Ask offline_access to support refresh token refreshes
   useSilentRefresh: true, // Needed for Code Flow to suggest using iframe-based refreshes
   silentRefreshTimeout: 5000, // For faster testing
   // timeoutFactor: 0.25, // For faster testing

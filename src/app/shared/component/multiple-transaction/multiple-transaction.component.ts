@@ -342,8 +342,6 @@ export class MultipleTransactionComponent implements OnInit {
     this.router.navigateByUrl('/CurrentInventory')
   }
   clearCart() {
-
-
     this.toastr.success("Cart Item Has Been Removed Successfully")
     let viewId = this.SelectedView != undefined ? this.SelectedView.id : 0;
     let carts = [];

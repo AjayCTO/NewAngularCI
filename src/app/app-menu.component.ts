@@ -8,23 +8,25 @@ import { SetSelectedTenant, SetSelectedTenantId, SetTenantConfigurantion } from 
 import { Router } from '@angular/router';
 import { selectSelectedTenantId, selectSelectedTenant } from '../app/store/selectors/tenant.selectors';
 import { CommanSharedService } from 'src/app/shared/service/comman-shared.service';
-
+import { finalize } from 'rxjs/operators';
 @Component({
   selector: 'app-menu',
   templateUrl: `./app-menu.component.html`,
   styleUrls: ['./app-menu.component.scss']
 })
 export class AppMenuComponent {
+  public busy: boolean;
   @Input() tenantList
-  isAuthenticated: Observable<boolean>;
-  currentTenantId$: Observable<number>;
-  currentTenantName$: Observable<string>;
-  _haveTenantId$: Observable<boolean>;
-  _isTenantOwner$: Observable<boolean>;
-  showProfileDD: boolean = false;
-  showInventoryDD: boolean = false;
-  selectedTenant: Tenant;
-  showDropDown = false;
+  public isAuthenticated: Observable<boolean>;
+  public currentTenantId$: Observable<number>;
+  public currentTenantName$: Observable<string>;
+  public _haveTenantId$: Observable<boolean>;
+  public _isTenantOwner$: Observable<boolean>;
+  public showProfileDD: boolean = false;
+  public showInventoryDD: boolean = false;
+  public selectedTenant: Tenant;
+  public showDropDown = false;
+  public HelloMenuList: any[];
   constructor(private authService: AuthService, protected store: Store<AppState>, private router: Router, private commanService: CommanSharedService) {
 
     this.isAuthenticated = authService.isAuthenticated$;
@@ -63,16 +65,27 @@ export class AppMenuComponent {
       if (res.entity != null) {
         this.store.dispatch(new SetTenantConfigurantion(res.entity));
       }
-      // this.router.navigate(['CurrentInventory']);
+      // this.router.navigate(['CurrentInventory']);   
       this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
         this.router.navigate(['CurrentInventory']);
       });
     });
   }
+  gethelloMenu() {
+    this.commanService.getHelloMenu(this.selectedTenant.tenantId, this.authService.accessToken).pipe(finalize(() => {
+      this.busy = false;
+    })).subscribe(result => {
 
+      if (result.code == 200) {
+
+        this.HelloMenuList = result.entity;
+      }
+    })
+  }
 
   ProfileDropDown() {
     this.showProfileDD = !this.showProfileDD
+    this.gethelloMenu();
   }
   toggleDropDown() {
     debugger

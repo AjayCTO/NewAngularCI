@@ -14,6 +14,7 @@ import inputFocus from '../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../assets/js/lib/_inputClear';
 import { ToastrService } from 'ngx-toastr';
 import { TenantConfig } from 'src/app/store/models/tenant.model';
+import modal from '../../../../assets/js/lib/_modal';
 @Component({
   selector: 'app-configuration-summary',
   templateUrl: './configuration-summary.component.html',
@@ -28,7 +29,10 @@ export class ConfigurationSummaryComponent implements OnInit {
   length1: number = 0;
   public tenantConfiguration: TenantConfig;
   public NotPermitted: boolean = false;
-  public Edit: boolean
+  public Edit: boolean;
+  public Label: string;
+  public Url: string;
+  public IsNewTab: boolean;
   customField: CustomFields = {
     columnId: 0,
     columnName: '',
@@ -118,6 +122,13 @@ export class ConfigurationSummaryComponent implements OnInit {
     ItemTermCustomized: "",
     QuantityTermCustomized: ""
   }
+
+  // Hello Menu
+
+  public HelloMenuList: any[];
+  public selectedMenulinkId: number;
+  public isEditMenu: boolean = false;
+  public deleteMenuLink = false;
   constructor(protected store: Store<AppState>, private customfieldservice: CustomFieldService, private cdr: ChangeDetectorRef, private authService: AuthService, private spinner: NgxSpinnerService,
     private commanService: CommanSharedService, private toastr: ToastrService, private router: Router) { }
 
@@ -150,15 +161,36 @@ export class ConfigurationSummaryComponent implements OnInit {
         }
         this.cdr.detectChanges();
       });
+    this.gethelloMenu();
     this.GetCustomFields();
     this.GetAttributeFields();
     this.GetMyInventoryColumns();
     this.GetTenantConfiguration()
+    modal();
     setTimeout(() => {
       inputClear();
       inputFocus();
     }, 300);
   }
+
+
+  // get hello menu
+  gethelloMenu() {
+    this.commanService.getHelloMenu(this.selectedTenantId, this.authService.accessToken).pipe(finalize(() => {
+      this.busy = false;
+    })).subscribe(result => {
+
+      if (result.code == 200) {
+
+        this.HelloMenuList = result.entity;
+      }
+
+
+
+
+    })
+  }
+
 
   // Get customField 
   GetCustomFields() {
@@ -278,7 +310,7 @@ export class ConfigurationSummaryComponent implements OnInit {
 
   GetTenantConfiguration() {
 
-    this.commanService.GetTenantConfiguration(this.selectedTenantId, this.authService.accessToken,).pipe(finalize(() => {
+    this.commanService.GetTenantConfiguration(this.selectedTenantId, this.authService.accessToken).pipe(finalize(() => {
 
     })).subscribe(
       result => {
@@ -290,5 +322,87 @@ export class ConfigurationSummaryComponent implements OnInit {
 
   }
 
+  CreateMenuLink() {
+    let data = {
+      "Url": this.Url,
+      "Label": this.Label,
+      "IsNewTab": this.IsNewTab,
+    }
+    this.commanService.addHelloMenu(this.selectedTenantId, this.authService.accessToken, data).pipe(finalize(() => {
 
+    })).subscribe(
+      result => {
+        if (result.code == 200) {
+          this.toastr.success("Successfully Added Menu Link", "Success");
+          this.Url = "";
+          this.Label = "";
+          this.IsNewTab = false;
+          document.getElementById("closeModel").click();
+          this.gethelloMenu();
+        }
+      }
+    )
+
+  }
+  addMenuLink() {
+    this.isEditMenu = false;
+    this.Url = "";
+    this.Label = "";
+    this.selectedMenulinkId = 0;
+    this.IsNewTab = false;
+    document.getElementById("addLinkModal").click();
+  }
+
+  editMenuLink(item) {
+    debugger;
+    this.Url = item.url;
+    this.Label = item.label;
+    this.selectedMenulinkId = item.id;
+    this.IsNewTab = item.isNewTab;
+    this.isEditMenu = true;
+    document.getElementById("addLinkModal").click();
+    setTimeout(() => {
+      inputClear();
+      inputFocus();
+    }, 300);
+  }
+
+  EditMenuLink() {
+    let data = {
+      "Url": this.Url,
+      "Label": this.Label,
+      "IsNewTab": this.IsNewTab,
+    }
+    this.commanService.editHelloMenu(this.selectedTenantId, this.authService.accessToken, this.selectedMenulinkId, data).pipe(finalize(() => {
+
+    })).subscribe(
+      result => {
+        if (result.code == 200) {
+          this.toastr.success("Successfully Updated Menu Link", "Success");
+          document.getElementById("closeModel").click();
+          this.gethelloMenu();
+        }
+      }
+    )
+  }
+
+  DeleteMenuLink() {
+    this.deleteMenuLink = false;
+    this.commanService.deleteHelloMenu(this.selectedTenantId, this.authService.accessToken, this.selectedMenulinkId).pipe(finalize(() => {
+    })).subscribe(
+      result => {
+        if (result.code == 200) {
+          this.toastr.success("Successfully Deleted Menu Link", "Success");
+          this.gethelloMenu();
+        }
+      }
+    )
+  }
+  DeleteConfirm(item) {
+    this.selectedMenulinkId = item.id;
+    this.deleteMenuLink = true;
+  }
+  close() {
+    this.deleteMenuLink = false;
+  }
 }

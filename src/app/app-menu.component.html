@@ -191,6 +191,14 @@
                                 Tenants</a>
                         </li>
 
+                        <ng-container *ngFor="let itemdata of HelloMenuList">
+                            <li class="icons__submenu-item"><a [href]="itemdata.url"
+                                    [target]="itemdata.isNewTab?'_blank':''" class="icons__submenu-link">
+                                    {{itemdata.label}}
+                                </a>
+                            </li>
+                        </ng-container>
+
                         <hr />
                         <li class="icons__submenu-item"><a class="icons__submenu-link" (click)="logout()">Log
                                 Out</a></li>

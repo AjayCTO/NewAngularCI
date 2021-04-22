@@ -322,7 +322,8 @@
 
                                         <td class="table__cell">{{item.quantity}} {{item.uomName}} of
                                             <b>{{item.partName}}</b><br />
-                                            <span style="font-size: 14px;"> ({{item.partDescription}})</span>
+                                            <span style="font-size: 14px;" *ngIf="item.partDescription!=''">
+                                                ({{item.partDescription}})</span>
                                             <br /> {{tenantConfiguration.locationTermCustomized}}:
                                             <b>{{item.locationName}}</b>
                                         </td>
