@@ -2505,7 +2505,7 @@
                                         <ng-container *ngIf="itemHeader.field=='image'&&itemHeader.isAdded">
                                             <td class="table__cell  icons" data-title="Column Title"
                                                 (click)="previewImage(item)">
-                                                <ng-container *ngIf="item.images.length==0">
+                                                <ng-container *ngIf="item.image==undefined">
                                                     <div class="mycard" style="text-align:center;">
                                                         <button style="height:40px ;width:40px;margin-top:15px"
                                                             type="button"
@@ -2533,7 +2533,7 @@
                                                     </div>
                                                 </ng-container>
 
-                                                <ng-container *ngFor="let image of item.images; first as isFirst">
+                                                <ng-container *ngFor="let image of item.image; first as isFirst">
                                                     <div *ngIf="isFirst" class="mycard">
                                                         <img class="gridImage"
                                                             src="https://clearly2020storage.blob.core.windows.net:443/images/{{image.imageFriendlyName}}">
@@ -3304,12 +3304,13 @@
             </div>
             <div class="form__section">
                 <h2 class="form__section-title" style="margin-bottom: 20px;">
-                    {{tenantConfiguration.quantityTermCustomized}} &amp; {{tenantConfiguration.locationTermCustomized}}
+                    {{tenantConfiguration?.quantityTermCustomized}} &amp;
+                    {{tenantConfiguration?.locationTermCustomized}}
                 </h2>
                 <div class="form__col-wrap">
                     <div class="form__col form__col--third">
                         <label class="form__label"
-                            for="dynamic_quantity">{{tenantConfiguration.quantityTermCustomized}}</label>
+                            for="dynamic_quantity">{{tenantConfiguration?.quantityTermCustomized}}</label>
                         <input class="form__input" [(ngModel)]="CurrentInventoryObj.quantity" type="number"
                             id="dynamic_quantity" name="dynamic_quantity">
                         <div class="infopanel" [popper]="popper4Content" [popperTrigger]="'hover'"
@@ -3327,8 +3328,8 @@
                             </svg>
                         </div>
                         <popper-content #popper4Content>
-                            <h3 class="popperTitle"><b>{{tenantConfiguration.quantityTermCustomized}}</b></h3>
-                            <span>This is the {{tenantConfiguration.quantityTermCustomized}} of number of items stored
+                            <h3 class="popperTitle"><b>{{tenantConfiguration?.quantityTermCustomized}}</b></h3>
+                            <span>This is the {{tenantConfiguration?.quantityTermCustomized}} of number of items stored
                                 in your inventory</span>
                         </popper-content>
                     </div>
@@ -3336,8 +3337,8 @@
                         <button [disabled]="Features.isLockUOMLibrary==true" type="button"
                             data-modal="#AddUOMinnerModal" class="invModal__control addLibrary js-modal">Add
                             New
-                            {{tenantConfiguration.uomTermCustomized}} <span style="margin-left: 5px;"
-                                title=" {{tenantConfiguration.uomTermCustomized}} Library is Locked"
+                            {{tenantConfiguration?.uomTermCustomized}} <span style="margin-left: 5px;"
+                                title=" {{tenantConfiguration?.uomTermCustomized}} Library is Locked"
                                 *ngIf="Features.isLockUOMLibrary==true"><svg aria-labelledby="title-6073f50bc4e35"
                                     xmlns="http://www.w3.org/2000/svg" width="12" height="12"
                                     viewBox="0 0 8.081 11.544">
@@ -3356,7 +3357,7 @@
                             </option>
                         </select>
                         <span class="highlight"></span>
-                        <label class="form_label">{{tenantConfiguration.uomTermCustomized}}<span
+                        <label class="form_label">{{tenantConfiguration?.uomTermCustomized}}<span
                                 class="form__required">*</span></label>
 
                         <div class="infopanel" [popper]="popper5Content" [popperTrigger]="'hover'"
@@ -3374,8 +3375,9 @@
                             </svg>
                         </div>
                         <popper-content #popper5Content>
-                            <h3 class="popperTitle"><b>{{tenantConfiguration.uomTermCustomized}}</b></h3>
-                            <span>Select the {{tenantConfiguration.uomTermCustomized}} that you will use for calculating
+                            <h3 class="popperTitle"><b>{{tenantConfiguration?.uomTermCustomized}}</b></h3>
+                            <span>Select the {{tenantConfiguration?.uomTermCustomized}} that you will use for
+                                calculating
                                 restocks, purchasing,
                                 and
                                 selling stock. You can change this later if you like.</span>
@@ -3386,8 +3388,8 @@
                     <div class="form__col form__col--third">
                         <button [disabled]="Features.isLockLocationLibrary==true" type="button"
                             data-modal="#AddLocationinnerModal" class="invModal__control addLibrary js-modal">Add New
-                            {{tenantConfiguration.locationTermCustomized}}<span style="margin-left: 5px;"
-                                title=" {{tenantConfiguration.locationTermCustomized}} Library is Locked"
+                            {{tenantConfiguration?.locationTermCustomized}}<span style="margin-left: 5px;"
+                                title=" {{tenantConfiguration?.locationTermCustomized}} Library is Locked"
                                 *ngIf="Features.isLockLocationLibrary==true"><svg aria-labelledby="title-6073f50bc4e35"
                                     xmlns="http://www.w3.org/2000/svg" width="12" height="12"
                                     viewBox="0 0 8.081 11.544">
@@ -3405,7 +3407,7 @@
                             </option>
                         </select>
                         <span class="highlight"></span>
-                        <label class="form_label">{{tenantConfiguration.locationTermCustomized}}<span
+                        <label class="form_label">{{tenantConfiguration?.locationTermCustomized}}<span
                                 class="form__required">*</span></label>
 
                         <div class="infopanel" [popper]="popper7Content" [popperTrigger]="'hover'"
@@ -3423,12 +3425,12 @@
                             </svg>
                         </div>
                         <popper-content #popper7Content>
-                            <h3 class="popperTitle"><b>{{tenantConfiguration.locationTermCustomized}}</b></h3>
-                            <span>This is the {{tenantConfiguration.locationTermCustomized}} where the item will be
+                            <h3 class="popperTitle"><b>{{tenantConfiguration?.locationTermCustomized}}</b></h3>
+                            <span>This is the {{tenantConfiguration?.locationTermCustomized}} where the item will be
                                 stored most often. It will be used
                                 when
                                 performing transactions. You can change it later, and it does not prevent you from
-                                storing the item in different {{tenantConfiguration.locationTermCustomized}}
+                                storing the item in different {{tenantConfiguration?.locationTermCustomized}}
                                 later.</span>
                         </popper-content>
                     </div>

@@ -1905,23 +1905,24 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   }
   // preview image
   previewImage(currentItemToShow) {
-
+    debugger
     this.previewItem = currentItemToShow;
     this.name = currentItemToShow.partName
     this.imageObject = [];
-    this.previewItem.images.forEach(element => {
-      this.imageObject.push({
-        image: 'https://clearly2020storage.blob.core.windows.net:443/images/' + element.imageFriendlyName,
-        thumbImage: 'https://clearly2020storage.blob.core.windows.net:443/images/' + element.imageFriendlyName,
-        alt: 'alt of image',
-        title: element.imageFriendlyName
-      });
-    });
+    // this.previewItem.image.forEach(element => {
+    //   this.imageObject.push({
+    //     image: 'https://clearly2020storage.blob.core.windows.net:443/images/' + element.imageFriendlyName,
+    //     thumbImage: 'https://clearly2020storage.blob.core.windows.net:443/images/' + element.imageFriendlyName,
+    //     alt: 'alt of image',
+    //     title: element.imageFriendlyName
+    //   });
+    // });
     let el: HTMLElement = this.ImageModal.nativeElement;
     el.click();
     this.ApplyJsFunction200()
     this.cdr.detectChanges();
   }
+
   cancel() {
     this.selectedFiles = [];
     this.listOfFiles = [];
@@ -2216,6 +2217,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   }
   ApplyJsFunction200() {
     setTimeout(function () {
+
       inputClear();
       inputFocus();
       datePicker();
