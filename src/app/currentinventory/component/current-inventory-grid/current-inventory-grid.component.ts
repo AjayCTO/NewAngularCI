@@ -466,7 +466,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.GetEvents();
     this.GetMyInventoryColumn();
     this.GetTenantConfiguration();
-    this.CurrentoryInventoryCore();
+
 
     modal();
 
@@ -978,7 +978,8 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         this.ColspanTable = this.tabulatorColumn.length + 3;
         this.store.dispatch(new SetDefaultInventoryColumn(this.myInventoryField));
         this.GetInventoryView();
-        this.GetCurrentInventory();
+        // this.GetCurrentInventory();
+        this.CurrentoryInventoryCore();
       }
       else {
       }
@@ -1384,6 +1385,8 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       this.toastr.warning("You can not add more than 3 Column For Sorting");
     }
     this.mainsortToggleDropdown = false;
+    this.CurrentoryInventoryCore();
+    this.ApplyJsFunction();
   }
   getStatus() {
     this.libraryService.GetStatus(this.selectedTenantId, this.authService.accessToken).pipe(finalize(() => {
@@ -2384,6 +2387,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.inventorcoreSevice.getCurrentInventory(this.selectedTenantId, this.authService.accessToken, data).subscribe(
       result => {
         if (result != null) {
+          this.InventoryDataBind = [];
           this.CurrentInventoryItem = [];
           this.CurrentInventoryItem = result;
           for (let i = 0; i < this.CurrentInventoryItem.length; i++) {
@@ -2398,7 +2402,38 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
                 else {
                   map.set(keys[key], this.CurrentInventoryItem[i][keys[key]])
                 }
+
+
               }
+
+
+              if (this.tabulatorColumn[j].datatype == "Date/Time") {
+                if (this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field] != "") {
+                  this.myDT = new Date(this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field])
+                  let DateManual = this.myDT.toLocaleDateString();
+                  if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
+                    DateManual = this.myDT.toLocaleTimeString()
+                  }
+                  if (this.tabulatorColumn[j].customFieldSpecialType == "Date & Time") {
+                    DateManual = this.myDT.toLocaleString();
+                  }
+                  if (this.tabulatorColumn[j].customFieldSpecialType == "Date") {
+                    DateManual = this.myDT.toLocaleDateString()
+                  }
+                  map.set(this.tabulatorColumn[j].field, DateManual)
+                }
+                else {
+                  map.set(this.tabulatorColumn[j].field, this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field])
+                }
+              }
+              else {
+                map.set(this.tabulatorColumn[j].field, this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field])
+              }
+
+
+              map.set("isSelected", false);
+              map.set("_children", []);
+
 
               // map.set(this.tabulatorColumn[j].field, this.CurrentInventoryItem[i].state[this.tabulatorColumn[j].field])
 
@@ -2429,8 +2464,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
               //     }
               //   }
               // }
-              map.set("isSelected", false);
-              map.set("_children", []);
+
 
             }
             let jsonObject = {};
@@ -2440,6 +2474,19 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
             this.InventoryDataBind.push(jsonObject);
           }
         }
+        this.loadingRecords = false;
+        this.IsInventoryLoaded = true;
+        this.CheckboxShow = true;
+
+
+        this.GetCartDetail();
+
+
+        this.ApplyJsFunction();
+
+        setTimeout(() => {
+          this.columnDragDrop();
+        }, 200);
         debugger;
       }
     )
