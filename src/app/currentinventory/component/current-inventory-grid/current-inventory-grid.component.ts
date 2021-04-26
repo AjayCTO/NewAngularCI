@@ -1502,13 +1502,13 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
           this.dataColumnFilter.value = this.dataColumnFilter.searchValue
         }
         if (this.dataColumnFilter.filterOperator == "eq") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "ne") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "neq"
         }
         if (this.dataColumnFilter.filterOperator == "cn") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "cn"
         }
         if (this.dataColumnFilter.filterOperator == "nc") {
           this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
@@ -1517,58 +1517,58 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
           this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
         }
         if (this.dataColumnFilter.filterOperator == "bw") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "sw"
         }
         if (this.dataColumnFilter.filterOperator == "num-eq") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "num-ne") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "neq"
         }
         if (this.dataColumnFilter.filterOperator == "num-lte") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "lte"
         }
         if (this.dataColumnFilter.filterOperator == "num-gte") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "gt"
         }
         if (this.dataColumnFilter.filterOperator == "date-eq") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "time-eq") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "date-bw") {
           this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
         }
         if (this.dataColumnFilter.filterOperator == "date-minute") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "date-hour") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "date-second") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "date-month") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "date-day") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "date-year") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "date-after") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "gt"
         }
         if (this.dataColumnFilter.filterOperator == "date-before") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "lt"
         }
         if (this.dataColumnFilter.filterOperator == "time-after") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "gt"
         }
         if (this.dataColumnFilter.filterOperator == "time-before") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "lt"
         }
 
       }
