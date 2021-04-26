@@ -1012,7 +1012,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     setTimeout(() => {
       let el: HTMLElement = this.DynamicEventModalOpen.nativeElement;
       el.click();
-    });
+    }, 200);
   }
 
   GroupDynamicEventAction(DynamicEvent) {
@@ -1481,6 +1481,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     if (this.dataColumnFilter.columnName == "" || this.dataColumnFilter.filterOperator == "" || this.dataColumnFilter.searchValue == "") {
       return false;
     }
+
     this.tabulatorColumn.forEach(element => {
       if (element.field == this.dataColumnFilter.columnName) {
         this.dataColumnFilter.displayName = element.title;
@@ -1490,6 +1491,84 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         if (element.datatype == "Date/Time") {
           this.GetDate(element);
         }
+        if (element.type == "AttributeField") {
+          this.dataColumnFilter.field = "states." + this.dataColumnFilter.columnName;
+          this.dataColumnFilter.value = this.dataColumnFilter.searchValue
+        }
+        else {
+          this.dataColumnFilter.field = this.dataColumnFilter.columnName;
+          this.dataColumnFilter.value = this.dataColumnFilter.searchValue
+        }
+        if (this.dataColumnFilter.filterOperator == "eq") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "ne") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "cn") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "nc") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "Empty") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "bw") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "num-eq") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "num-ne") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "num-lte") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "num-gte") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "date-eq") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "time-eq") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "date-bw") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "date-minute") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "date-hour") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "date-second") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "date-month") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "date-day") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "date-year") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "date-after") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "date-before") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "time-after") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "time-before") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+
       }
     });
     this.FilterArray.forEach((element, index) => {
@@ -1507,10 +1586,15 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       displayName: "",
       filterOperator: "",
       searchValue: "",
-      type: ""
+      type: "",
+      // inventory Core
+      field: "",
+      operator: "",
+      value: ""
     }
     this.mainToggleDropdown = false;
     this.GetCurrentInventory();
+    this.CurrentoryInventoryCore();
     this.ApplyJsFunction();
   }
   CloseFilter() {
@@ -1531,6 +1615,83 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         if (element.datatype == "Date/Time") {
           this.GetDate(element);
         }
+        if (element.type == "AttributeField") {
+          this.dataColumnFilter.field = "states." + this.dataColumnFilter.columnName;
+          this.dataColumnFilter.value = this.dataColumnFilter.searchValue
+        }
+        else {
+          this.dataColumnFilter.field = this.dataColumnFilter.columnName;
+          this.dataColumnFilter.value = this.dataColumnFilter.searchValue
+        }
+        if (this.dataColumnFilter.filterOperator == "eq") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "ne") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "cn") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "nc") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "Empty") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "bw") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "num-eq") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "num-ne") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "num-lte") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "num-gte") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "date-eq") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "time-eq") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "date-bw") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "date-minute") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "date-hour") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "date-second") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "date-month") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "date-day") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "date-year") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "date-after") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "date-before") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "time-after") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
+        if (this.dataColumnFilter.filterOperator == "time-before") {
+          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+        }
       }
     });
     this.FilterArray.forEach((element, index) => {
@@ -1548,10 +1709,15 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       displayName: "",
       filterOperator: "",
       searchValue: "",
-      type: ""
+      type: "",
+      // inventory Core
+      field: "",
+      operator: "",
+      value: ""
     }
     document.getElementById("filterButton2_" + columnName).click();
     this.GetCurrentInventory();
+    this.CurrentoryInventoryCore();
     this.ApplyJsFunction();
   }
   CloseFilter2(Id) {
@@ -2278,7 +2444,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     };
     return obj;
   };
-  //create-unit-and-increment
+  // create-unit-and-increment
   onSubmitDymamicEvent() {
     debugger;
     if ($.trim(this.CurrentInventoryObj.partName) == "") {
@@ -2381,7 +2547,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   CurrentoryInventoryCore() {
     debugger;
     let data = {
-      "filters": [],
+      "filters": this.FilterArray,
       "sortBy": this.SortingArray,
       "offset": 0,
       "limit": 50
