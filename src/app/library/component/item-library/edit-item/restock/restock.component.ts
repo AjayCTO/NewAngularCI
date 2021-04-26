@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import inputFocus from '../../../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../../../assets/js/lib/_inputClear';
 import dropdown from '../../../../../../assets/js/lib/_dropdown';
@@ -6,6 +6,10 @@ import { LibraryService } from '../../../../service/library.service';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from '../../../../../core/auth.service';
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../../../../../shared/appState';
+import { selectSelectedTenantId, selectSelectedTenant, selectMyInventoryColumn, getTenantConfiguration } from '../../../../../store/selectors/tenant.selectors';
+
 @Component({
   selector: 'app-restock',
   templateUrl: './restock.component.html',
@@ -19,13 +23,22 @@ export class RestockComponent implements OnInit {
   public partId: number;
   error: string;
   public selectedTenantId: number;
-  constructor(private libraryService: LibraryService, private toastr: ToastrService, private authService: AuthService) { }
+  constructor(private libraryService: LibraryService, private toastr: ToastrService, private authService: AuthService, protected store: Store<AppState>, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
 
     this.location = this.locationsList;
     this.selectedItem = this.item;
-    this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+    this.store.pipe(select(selectSelectedTenant)).
+      subscribe(event => {
+        if (event) {
+
+          // this.selectedTenant = event;
+          this.selectedTenantId = event.tenantId;
+        }
+        this.cdr.detectChanges();
+      });
+    // this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     // this.ApplyJsFunction();
     setTimeout(function () {
       inputClear();

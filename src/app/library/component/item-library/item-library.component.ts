@@ -214,7 +214,16 @@ export class ItemLibraryComponent implements OnInit {
       highQtyThreshold: null,
 
     });
-    this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+    this.store.pipe(select(selectSelectedTenant)).
+      subscribe(event => {
+        if (event) {
+
+          // this.selectedTenant = event;
+          this.selectedTenantId = event.tenantId;
+        }
+        this.cdr.detectChanges();
+      });
+    // this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     this.store.pipe(select(getTenantConfiguration)).subscribe(config => {
       if (config) {
         debugger

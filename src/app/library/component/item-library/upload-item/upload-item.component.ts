@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { selectSelectedTenantId, selectSelectedTenant } from '../../../../store/selectors/tenant.selectors';
 import { EventService } from '../../../../dynamic-events/service/event.service';
 import { finalize } from 'rxjs/operators';
@@ -8,6 +8,10 @@ import { ToastrService } from 'ngx-toastr';
 import { CurrentinventoryService } from '../../../../currentinventory/service/currentinventory.service'
 import { NgxSpinnerService } from 'ngx-spinner';
 import modal from '../../../../../assets/js/lib/_modal';
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../../../../shared/appState';
+// import { selectSelectedTenantId, selectSelectedTenant, selectMyInventoryColumn, getTenantConfiguration } from '../../../store/selectors/tenant.selectors';
+
 @Component({
   selector: 'app-upload-item',
   templateUrl: './upload-item.component.html',
@@ -37,11 +41,20 @@ export class UploadItemComponent implements OnInit {
   fileName = 'ExcelSheet.xlsx';
   public busy: boolean;
 
-  constructor(private authService: AuthService, private spinner: NgxSpinnerService, private currentinventoryService: CurrentinventoryService, private toastr: ToastrService, private eventService: EventService) { }
+  constructor(private authService: AuthService, private spinner: NgxSpinnerService, private currentinventoryService: CurrentinventoryService, private toastr: ToastrService, private eventService: EventService, protected store: Store<AppState>, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.ExcelSheetName = ''
-    this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+    this.store.pipe(select(selectSelectedTenant)).
+      subscribe(event => {
+        if (event) {
+
+          // this.selectedTenant = event;
+          this.selectedTenantId = event.tenantId;
+        }
+        this.cdr.detectChanges();
+      });
+    // this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     modal();
   }
   TotalCounter: any = [];

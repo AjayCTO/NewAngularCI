@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AttributeFields, CustomFields } from '../customfield/models/customfieldmodel'
 import { CustomFieldService } from '../customfield/service/custom-field.service'
 import { AuthService } from '../core/auth.service';
@@ -6,6 +6,10 @@ import { finalize } from 'rxjs/operators';
 import { Router, Routes } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../shared/appState'
+import { selectSelectedTenantId, selectSelectedTenant, selectMyInventoryColumn, getTenantConfiguration } from '../store/selectors/tenant.selectors';
+
 
 @Component({
   selector: 'app-quick-field-creator',
@@ -122,10 +126,19 @@ export class QuickFieldCreatorComponent implements OnInit {
     offsetTimeFields: '',
   }
 
-  constructor(private toastr: ToastrService, private router: Router, private authService: AuthService, private customfieldservice: CustomFieldService) { }
+  constructor(private toastr: ToastrService, private router: Router, private authService: AuthService, private customfieldservice: CustomFieldService, protected store: Store<AppState>, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+    this.store.pipe(select(selectSelectedTenant)).
+      subscribe(event => {
+        if (event) {
+
+          // this.selectedTenant = event;
+          this.selectedTenantId = event.tenantId;
+        }
+        this.cdr.detectChanges();
+      });
+    // this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     this.GetAllFields();
 
   }

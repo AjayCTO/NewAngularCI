@@ -33,6 +33,7 @@ import tableDragger from 'table-dragger';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { hasLifecycleHook } from '@angular/compiler/src/lifecycle_reflector';
+import { InventoryCoreService } from '../../../shared/service/inventory-core.service';
 import {
   DateTimeAdapter,
   OWL_DATE_TIME_FORMATS,
@@ -324,7 +325,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   public showSelected: boolean = false;
   public GetCartDetails: any;
   public InventoryIds = [];
-  constructor(private authService: AuthService, private reportService: ReportService, protected store: Store<AppState>, private formBuilder: FormBuilder, private eventService: EventService, private router: Router, private homeService: HomeService, private cdr: ChangeDetectorRef, private commanService: CommanSharedService, private customfieldservice: CustomFieldService, private toastr: ToastrService, private libraryService: LibraryService, private currentinventoryService: CurrentinventoryService, private spinner: NgxSpinnerService,) {
+  constructor(private authService: AuthService, private reportService: ReportService, protected store: Store<AppState>, private formBuilder: FormBuilder, private eventService: EventService, private router: Router, private homeService: HomeService, private cdr: ChangeDetectorRef, private commanService: CommanSharedService, private customfieldservice: CustomFieldService, private toastr: ToastrService, private libraryService: LibraryService, private currentinventoryService: CurrentinventoryService, private spinner: NgxSpinnerService, private inventorcoreSevice: InventoryCoreService) {
 
     this.today = new Date();
     this.AdjustQuantity = 1;
@@ -465,7 +466,10 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.GetEvents();
     this.GetMyInventoryColumn();
     this.GetTenantConfiguration();
+    this.CurrentoryInventoryCore();
+
     modal();
+
     this.ApplyJsFunction();
 
 
@@ -627,65 +631,65 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
     return result;
   }
-  onSubmitDymamicEvent() {
+  // onSubmitDymamicEvent() {
 
-    if ($.trim(this.CurrentInventoryObj.partName) == "" && !this.tenantConfiguration.automatedItems) {
-      this.toastr.warning("Item Name Required");
-      return false;
-    }
+  //   if ($.trim(this.CurrentInventoryObj.partName) == "" && !this.tenantConfiguration.automatedItems) {
+  //     this.toastr.warning("Item Name Required");
+  //     return false;
+  //   }
 
-    this.spinner.show();
-    if (this.tenantConfiguration.automatedItems) {
-      this.CurrentInventoryObj.partName = this.getAutomatedItem(4, '0123456789');
-    }
-    this.CurrentInventoryObj.attributeFields = this.AttributeFields;
-    this.CurrentInventoryObj.customFields = this.CustomFields;
-    this.CurrentInventoryObj.locationId = parseInt(this.selectedLocation);
-    this.CurrentInventoryObj.uomId = parseInt(this.selectedUOm);
-    this.CurrentInventoryObj.statusValue = this.selectedStatus;
-    this.CurrentInventoryObj.eventConfiguartion = this.selectedDynamicEvent;
-    this.CurrentInventoryObj.transactionDate = this.today;
-    this.currentinventoryService.AddDynamicEventInventory(this.selectedTenantId, this.authService.accessToken, this.CurrentInventoryObj)
-      .pipe(finalize(() => {
-        this.spinner.hide();
-      }))
-      .subscribe(
-        result => {
-          if (result) {
+  //   this.spinner.show();
+  //   if (this.tenantConfiguration.automatedItems) {
+  //     this.CurrentInventoryObj.partName = this.getAutomatedItem(4, '0123456789');
+  //   }
+  //   this.CurrentInventoryObj.attributeFields = this.AttributeFields;
+  //   this.CurrentInventoryObj.customFields = this.CustomFields;
+  //   this.CurrentInventoryObj.locationId = parseInt(this.selectedLocation);
+  //   this.CurrentInventoryObj.uomId = parseInt(this.selectedUOm);
+  //   this.CurrentInventoryObj.statusValue = this.selectedStatus;
+  //   this.CurrentInventoryObj.eventConfiguartion = this.selectedDynamicEvent;
+  //   this.CurrentInventoryObj.transactionDate = this.today;
+  //   this.currentinventoryService.AddDynamicEventInventory(this.selectedTenantId, this.authService.accessToken, this.CurrentInventoryObj)
+  //     .pipe(finalize(() => {
+  //       this.spinner.hide();
+  //     }))
+  //     .subscribe(
+  //       result => {
+  //         if (result) {
 
-            this.toastr.success("Successfull Added Item", "Succes");
-            this.CurrentInventoryObj = {
-              partId: 0,
-              partName: "",
-              partDescription: "",
-              quantity: 0,
-              costPerUnit: 0,
-              uomId: 0,
-              uomName: "",
-              inventoryId: 0,
-              locationId: 0,
-              locationName: "",
-              transactionDate: new Date(),
-              statusValue: "",
-              attributeFields: [],
-              circumstanceFields: [],
-              stateFields: [],
-              customFields: [],
-              eventConfiguartion: null
-            }
-            document.getElementById("closeInventoryModal").click();
+  //           this.toastr.success("Successfull Added Item", "Succes");
+  //           this.CurrentInventoryObj = {
+  //             partId: 0,
+  //             partName: "",
+  //             partDescription: "",
+  //             quantity: 0,
+  //             costPerUnit: 0,
+  //             uomId: 0,
+  //             uomName: "",
+  //             inventoryId: 0,
+  //             locationId: 0,
+  //             locationName: "",
+  //             transactionDate: new Date(),
+  //             statusValue: "",
+  //             attributeFields: [],
+  //             circumstanceFields: [],
+  //             stateFields: [],
+  //             customFields: [],
+  //             eventConfiguartion: null
+  //           }
+  //           document.getElementById("closeInventoryModal").click();
 
 
 
-            this.GetCurrentInventory();
+  //           this.GetCurrentInventory();
 
-          }
-        },
-        error => {
-          this.error = error;
-          this.spinner.hide();
-        });
-  }
+  //         }
+  //       },
+  //       error => {
+  //         this.error = error;
+  //         this.spinner.hide();
+  //       });
+  // }
   Download(type) {
 
     let sortCol = "PartName";
@@ -894,58 +898,6 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   }
 
 
-  onSubmit() {
-    if ($.trim(this.CurrentInventoryObj.partName) == "") {
-      this.toastr.warning("Item Name Required");
-      return false;
-    }
-    this.spinner.show();
-    this.CurrentInventoryObj.attributeFields = this.AttributeFields;
-    this.CurrentInventoryObj.locationId = parseInt(this.selectedLocation);
-    this.CurrentInventoryObj.uomId = parseInt(this.selectedUOm);
-    this.CurrentInventoryObj.statusValue = this.selectedStatus;
-    this.currentinventoryService.AddItemInventory(this.selectedTenantId, this.authService.accessToken, this.CurrentInventoryObj)
-      .pipe(finalize(() => {
-        this.spinner.hide();
-      }))
-      .subscribe(
-        result => {
-          if (result) {
-
-            this.toastr.success("Successfull Added Item", "Succes");
-            this.CurrentInventoryObj = {
-              partId: 0,
-              partName: "",
-              partDescription: "",
-              quantity: 0,
-              costPerUnit: 0,
-              uomId: 0,
-              uomName: "",
-              inventoryId: 0,
-              locationId: 0,
-              transactionDate: new Date(),
-              locationName: "",
-              statusValue: "",
-              attributeFields: [],
-              circumstanceFields: [],
-              stateFields: [],
-              customFields: [],
-              eventConfiguartion: null
-            }
-            //alert("Added");
-            document.getElementById("closeInventoryModal").click();
-
-
-
-            this.GetCurrentInventory();
-            this.ApplyJsFunction();
-          }
-        },
-        error => {
-          this.error = error;
-          this.spinner.hide();
-        });
-  }
 
 
   function() {
@@ -1047,14 +999,20 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     for (let j = 0; j < this.CustomFields.length; j++) {
       this.CustomFields[j].customFieldIncludeOnDynamicEvent = obj[this.CustomFields[j].columnName];
     }
+    this.openModel();
+    // setTimeout(() => {
 
+    //   modal();
+    // });
+
+    this.ApplyJsFunction();
+  }
+  openModel() {
     setTimeout(() => {
       let el: HTMLElement = this.DynamicEventModalOpen.nativeElement;
       el.click();
-    }, 100);
-    this.ApplyJsFunction();
+    });
   }
-
 
   GroupDynamicEventAction(DynamicEvent) {
 
@@ -1064,7 +1022,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
 
   DynamicEventAction(item, dynamicEvent) {
-
+    debugger;
     this.selectedDynamicEvent = dynamicEvent;
     let obj = JSON.parse(dynamicEvent.circumstanceJsonString);
     this.InventoryTransactionObj = item;
@@ -1713,10 +1671,11 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   }
   ApplyJsFunction() {
     setTimeout(function () {
+      // modal();
       inputClear();
       inputFocus();
       datePicker();
-    }, 1000)
+    }, 500)
   }
   //Checkbox Group activity
   checkUncheckAll() {
@@ -2286,4 +2245,200 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     )
 
   }
+
+
+  //Inventory Core API
+
+  buildObject = (arr) => {
+    const obj = {};
+    for (let i = 0; i < arr.length; i++) {
+      const { columnName, columnValue } = arr[i];
+      obj[columnName] = columnValue;
+    };
+    return obj;
+  };
+  //create-unit-and-increment
+  onSubmitDymamicEvent() {
+    debugger;
+    if ($.trim(this.CurrentInventoryObj.partName) == "") {
+      this.toastr.warning("Item Name Required");
+      return false;
+    }
+
+    let states = this.buildObject(this.AttributeFields);
+    let details = this.buildObject(this.CustomFields);
+    if ($.trim(this.CurrentInventoryObj.partName) == "") {
+      this.toastr.warning("Item Name Required");
+      return false;
+    }
+    this.spinner.show();
+
+    let data =
+    {
+      "quantity": this.CurrentInventoryObj.quantity,
+      "date": this.CurrentInventoryObj.transactionDate,
+      "reference": this.CurrentInventoryObj.partDescription,
+      "kind": this.selectedDynamicEvent.eventName,
+      "details": details,
+      "itemCode": this.CurrentInventoryObj.partName,
+      "states": states
+    }
+
+    this.inventorcoreSevice.createUnitandIncreament(this.selectedTenantId, this.authService.accessToken, data).subscribe(
+      result => {
+        this.spinner.hide();
+        debugger;
+
+      }
+
+    )
+
+
+
+    // if ($.trim(this.CurrentInventoryObj.partName) == "") {
+    //   this.toastr.warning("Item Name Required");
+    //   return false;
+    // }
+    // this.spinner.show();
+    // this.CurrentInventoryObj.attributeFields = this.AttributeFields;
+    // this.CurrentInventoryObj.locationId = parseInt(this.selectedLocation);
+    // this.CurrentInventoryObj.uomId = parseInt(this.selectedUOm);
+    // this.CurrentInventoryObj.statusValue = this.selectedStatus;
+    // this.currentinventoryService.AddItemInventory(this.selectedTenantId, this.authService.accessToken, this.CurrentInventoryObj)
+    //   .pipe(finalize(() => {
+    //     this.spinner.hide();
+    //   }))
+    //   .subscribe(
+    //     result => {
+    //       if (result) {
+
+    //         this.toastr.success("Successfull Added Item", "Succes");
+    //         this.CurrentInventoryObj = {
+    //           partId: 0,
+    //           partName: "",
+    //           partDescription: "",
+    //           quantity: 0,
+    //           costPerUnit: 0,
+    //           uomId: 0,
+    //           uomName: "",
+    //           inventoryId: 0,
+    //           locationId: 0,
+    //           transactionDate: new Date(),
+    //           locationName: "",
+    //           statusValue: "",
+    //           attributeFields: [],
+    //           circumstanceFields: [],
+    //           stateFields: [],
+    //           customFields: [],
+    //           eventConfiguartion: null
+    //         }
+    //         //alert("Added");
+    //         document.getElementById("closeInventoryModal").click();
+
+
+
+    //         this.GetCurrentInventory();
+    //         this.ApplyJsFunction();
+    //       }
+    //     },
+    //     error => {
+    //       this.error = error;
+    //       this.spinner.hide();
+    //     });
+  }
+
+
+
+
+
+
+
+  // Get Current Inventory
+  public InventoryItems = [];
+  public CurrentInventoryItem: any;
+
+  CurrentoryInventoryCore() {
+    debugger;
+    let data = {
+      "filters": [this.FilterArray],
+      "sortBy": [
+
+      ],
+      "offset": 0,
+      "limit": 50
+    }
+    this.inventorcoreSevice.getCurrentInventory(this.selectedTenantId, this.authService.accessToken, data).subscribe(
+      result => {
+        if (result != null) {
+          this.CurrentInventoryItem = [];
+          this.CurrentInventoryItem = result;
+          for (let i = 0; i < this.CurrentInventoryItem.length; i++) {
+            let map = new Map<string, any>();
+            for (let j = 0; j < this.tabulatorColumn.length; j++) {
+              let keys = Object.keys(this.CurrentInventoryItem[i])
+              for (let key = 0; key < keys.length; key++) {
+                if (keys[key] == this.tabulatorColumn[j].field) {
+                  map.set(this.tabulatorColumn[j].field, this.CurrentInventoryItem[i][keys[key]])
+                }
+
+                else {
+                  map.set(keys[key], this.CurrentInventoryItem[i][keys[key]])
+                }
+              }
+
+              // map.set(this.tabulatorColumn[j].field, this.CurrentInventoryItem[i].state[this.tabulatorColumn[j].field])
+
+              // for (let k = 0; k < this.allInventoryItems[i].attributeFields.length; k++) {
+              //   if (this.allInventoryItems[i].attributeFields[k].columnName == this.tabulatorColumn[j].field) {
+
+              //     if (this.tabulatorColumn[j].datatype == "Date/Time") {
+              //       if (this.allInventoryItems[i].attributeFields[k].columnValue != "") {
+              //         this.myDT = new Date(this.allInventoryItems[i].attributeFields[k].columnValue)
+              //         let DateManual = this.myDT.toLocaleDateString();
+              //         if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
+              //           DateManual = this.myDT.toLocaleTimeString()
+              //         }
+              //         if (this.tabulatorColumn[j].customFieldSpecialType == "Date & Time") {
+              //           DateManual = this.myDT.toLocaleString();
+              //         }
+              //         if (this.tabulatorColumn[j].customFieldSpecialType == "Date") {
+              //           DateManual = this.myDT.toLocaleDateString()
+              //         }
+              //         map.set(this.tabulatorColumn[j].field, DateManual)
+              //       }
+              //       else {
+              //         map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].attributeFields[k].columnValue)
+              //       }
+              //     }
+              //     else {
+              //       map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].attributeFields[k].columnValue)
+              //     }
+              //   }
+              // }
+              map.set("isSelected", false);
+              map.set("_children", []);
+
+            }
+            let jsonObject = {};
+            map.forEach((value, key) => {
+              jsonObject[key] = value
+            });
+            this.InventoryDataBind.push(jsonObject);
+          }
+        }
+        debugger;
+      }
+    )
+
+  }
+
+
+
+
+
+
+
+
+
+
 }

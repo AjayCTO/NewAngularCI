@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import modal from '../../../assets/js/lib/_modal';
 import inputFocus from '../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../assets/js/lib/_inputClear';
@@ -12,6 +12,9 @@ import { AuthService } from '../../core/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../service/user.service';
 import { ThrowStmt } from '@angular/compiler';
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../../shared/appState';
+import { selectSelectedTenantId, selectSelectedTenant, selectMyInventoryColumn, getTenantConfiguration } from '../../store/selectors/tenant.selectors';
 
 const emailPattern = '[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,63}';
 // const FirstName = '[a-zA-Z]{1,}';
@@ -48,13 +51,22 @@ export class UserListComponent implements OnInit {
     userName: '', userId: '', firstName: '', lastName: '', company: '', phone: '', email: ''
   }
   constructor(private authService: AuthService, private spinner: NgxSpinnerService,
-    private formBuilder: FormBuilder, private toastr: ToastrService, private userService: UserService) {
+    private formBuilder: FormBuilder, private toastr: ToastrService, private userService: UserService, protected store: Store<AppState>, private cdr: ChangeDetectorRef) {
 
     this.Permissions = [];
   }
 
   ngOnInit(): void {
-    this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+    this.store.pipe(select(selectSelectedTenant)).
+      subscribe(event => {
+        if (event) {
+
+          // this.selectedTenant = event;
+          this.selectedTenantId = event.tenantId;
+        }
+        this.cdr.detectChanges();
+      });
+    // this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     modal();
     this.registerMemberForm = this.formBuilder.group({
       firstName: [null, Validators.compose([Validators.required,])],

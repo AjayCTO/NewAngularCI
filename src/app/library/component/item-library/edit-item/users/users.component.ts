@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { UserService } from '../../../../../user/service/user.service';
 import { AuthService } from '../../../../../core/auth.service'
 import { finalize } from 'rxjs/operators'
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../../../../../shared/appState';
+import { selectSelectedTenantId, selectSelectedTenant, selectMyInventoryColumn, getTenantConfiguration } from '../../../../../store/selectors/tenant.selectors';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -13,10 +16,19 @@ export class UsersComponent implements OnInit {
   loadingRecords = false;
   AllMemberUser: any;
   busy: boolean;
-  constructor(private authService: AuthService, private userService: UserService) { }
+  constructor(private authService: AuthService, private userService: UserService, protected store: Store<AppState>, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+    this.store.pipe(select(selectSelectedTenant)).
+      subscribe(event => {
+        if (event) {
+
+          // this.selectedTenant = event;
+          this.selectedTenantId = event.tenantId;
+        }
+        this.cdr.detectChanges();
+      });
+    // this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     this.GetCurrentTenantUsers();
   }
   GetCurrentTenantUsers() {

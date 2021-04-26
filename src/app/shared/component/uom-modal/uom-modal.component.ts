@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from '../../../core/auth.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -21,11 +21,19 @@ export class UomModalComponent implements OnInit {
   @Output() RefreshUom = new EventEmitter();
   public tenantConfiguration: TenantConfig;
   public selectedTenantId: number;
-  constructor(private authService: AuthService, protected store: Store<AppState>, private formBuilder: FormBuilder, private toastr: ToastrService, private libraryService: LibraryService, private spinner: NgxSpinnerService,) { }
+  constructor(private authService: AuthService, protected store: Store<AppState>, private formBuilder: FormBuilder, private toastr: ToastrService, private libraryService: LibraryService, private spinner: NgxSpinnerService, private cdr: ChangeDetectorRef) { }
   public uomForm: FormGroup;
   ngOnInit(): void {
+    this.store.pipe(select(selectSelectedTenant)).
+      subscribe(event => {
+        if (event) {
 
-    this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+          // this.selectedTenant = event;
+          this.selectedTenantId = event.tenantId;
+        }
+        this.cdr.detectChanges();
+      });
+    // this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     this.uomForm = this.formBuilder.group({
       uomName: ['', Validators.required],
     });

@@ -184,10 +184,6 @@ export class ConfigurationSummaryComponent implements OnInit {
 
         this.HelloMenuList = result.entity;
       }
-
-
-
-
     })
   }
 

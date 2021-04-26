@@ -15,4 +15,8 @@ export class ConfigService {
         // return 'https://clearlyapi.azurewebsites.net';
         return 'http://localhost:52351';
     }
+
+    get resourceInventoryCoreApiURI() {
+        return 'https://localhost:44371'
+    }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { from, Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from '../../../core/auth.service';
@@ -23,10 +23,19 @@ export class LocationModalComponent implements OnInit {
   @Output() RefreshLocation = new EventEmitter();
   public tenantConfiguration: TenantConfig;
   public selectedTenantId: number;
-  constructor(private authService: AuthService, protected store: Store<AppState>, private toastr: ToastrService, private formBuilder: FormBuilder, private libraryService: LibraryService, private spinner: NgxSpinnerService,) { }
+  constructor(private authService: AuthService, protected store: Store<AppState>, private cdr: ChangeDetectorRef, private toastr: ToastrService, private formBuilder: FormBuilder, private libraryService: LibraryService, private spinner: NgxSpinnerService,) { }
   public locationForm: FormGroup;
   ngOnInit(): void {
-    this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+    this.store.pipe(select(selectSelectedTenant)).
+      subscribe(event => {
+        if (event) {
+
+          // this.selectedTenant = event;
+          this.selectedTenantId = event.tenantId;
+        }
+        this.cdr.detectChanges();
+      });
+    // this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     this.locationForm = this.formBuilder.group({
       locationName: ['', Validators.required],
 

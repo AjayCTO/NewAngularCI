@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../../../core/auth.service';
 import { finalize } from 'rxjs/operators'
 import { CommanSharedService } from '../../../shared/service/comman-shared.service'
 import { from } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../../../shared/appState';
+import { selectSelectedTenantId, selectSelectedTenant, selectMyInventoryColumn, getTenantConfiguration } from '../../../store/selectors/tenant.selectors';
 
 @Component({
   selector: 'app-arrange-column',
@@ -23,10 +25,19 @@ export class ArrangeColumnComponent implements OnInit {
   selectedTenantId: number;
 
   constructor(private authService: AuthService, private spinner: NgxSpinnerService,
-    private commanService: CommanSharedService, private router: Router) { }
+    private commanService: CommanSharedService, private router: Router, protected store: Store<AppState>, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+    this.store.pipe(select(selectSelectedTenant)).
+      subscribe(event => {
+        if (event) {
+
+          // this.selectedTenant = event;
+          this.selectedTenantId = event.tenantId;
+        }
+        this.cdr.detectChanges();
+      });
+    // this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     this.spinner.show();
     this.GetMyInventoryColumns();
   }

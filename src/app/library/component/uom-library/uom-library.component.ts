@@ -71,8 +71,16 @@ export class UOMLibraryComponent implements OnInit {
     private authService: AuthService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    this.store.pipe(select(selectSelectedTenant)).
+      subscribe(event => {
+        if (event) {
 
-    this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+          // this.selectedTenant = event;
+          this.selectedTenantId = event.tenantId;
+        }
+        this.cdr.detectChanges();
+      });
+    // this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     // this.showForm = false;
     this.store.pipe(select(getTenantConfiguration)).subscribe(config => {
       if (config) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { selectSelectedTenantId, selectSelectedTenant } from '../../../store/selectors/tenant.selectors';
 import { EventService } from '../../../dynamic-events/service/event.service';
 import { finalize } from 'rxjs/operators';
@@ -8,6 +8,10 @@ import { ToastrService } from 'ngx-toastr';
 import { CurrentinventoryService } from '../../service/currentinventory.service'
 import { NgxSpinnerService } from 'ngx-spinner';
 import modal from '../../../../assets/js/lib/_modal';
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../../../shared/appState';
+
+
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
@@ -37,12 +41,21 @@ export class UploadComponent implements OnInit {
   fileName = 'ExcelSheet.xlsx';
   public busy: boolean;
 
-  constructor(private authService: AuthService, private spinner: NgxSpinnerService, private toastr: ToastrService, private currentinventoryService: CurrentinventoryService, private eventService: EventService) { }
+  constructor(private authService: AuthService, private spinner: NgxSpinnerService, private toastr: ToastrService, private currentinventoryService: CurrentinventoryService, private eventService: EventService, private cdr: ChangeDetectorRef, protected store: Store<AppState>) { }
 
   ngOnInit(): void {
 
     this.ExcelSheetName = ''
-    this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+    this.store.pipe(select(selectSelectedTenant)).
+      subscribe(event => {
+        if (event) {
+
+          // this.selectedTenant = event;
+          this.selectedTenantId = event.tenantId;
+        }
+        this.cdr.detectChanges();
+      });
+    // this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     this.GetEvents();
 
   }

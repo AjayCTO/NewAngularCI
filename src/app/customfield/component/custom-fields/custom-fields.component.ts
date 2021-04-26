@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { AttributeFields, CustomFields } from '../../models/customfieldmodel';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../../../core/auth.service';
@@ -11,6 +11,9 @@ import inputClear from '../../../../assets/js/lib/_inputClear';
 import tables from '../../../../assets/js/lib/_tables'
 import { Router, Routes } from '@angular/router';
 import { debug } from 'console';
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../../../shared/appState';
+import { selectSelectedTenantId, selectSelectedTenant, selectMyInventoryColumn, getTenantConfiguration } from '../../../store/selectors/tenant.selectors';
 
 @Component({
   selector: 'app-custom-fields',
@@ -86,11 +89,20 @@ export class CustomFieldsComponent implements OnInit {
   pageIndex = 0;
   lastPageIndex = 0;
 
-  constructor(private router: Router, private authService: AuthService, private toastr: ToastrService, private spinner: NgxSpinnerService, private customfieldservice: CustomFieldService,) { }
+  constructor(private router: Router, private authService: AuthService, private toastr: ToastrService, private spinner: NgxSpinnerService, private customfieldservice: CustomFieldService, protected store: Store<AppState>, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.spinner.show();
-    this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+    this.store.pipe(select(selectSelectedTenant)).
+      subscribe(event => {
+        if (event) {
+
+          // this.selectedTenant = event;
+          this.selectedTenantId = event.tenantId;
+        }
+        this.cdr.detectChanges();
+      });
+    // this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     this.showForm = false;
     this.EditMode = false;
     this.GetCustomFields();

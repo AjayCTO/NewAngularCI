@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LibraryService } from '../../../../service/library.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
@@ -15,7 +15,9 @@ import inputClear from '../../../../../../assets/js/lib/_inputClear';
 import datePicker from '../../../../../../assets/js/lib/_datePicker';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Item } from 'src/app/currentinventory/models/admin.models';
-
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../../../../../shared/appState';
+import { selectSelectedTenantId, selectSelectedTenant, selectMyInventoryColumn, getTenantConfiguration } from '../../../../../store/selectors/tenant.selectors';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
@@ -92,7 +94,7 @@ export class DetailsComponent implements OnInit {
   //   offsetDateFields: '',
   //   offsetTimeFields: '',
   // }
-  constructor(private libraryService: LibraryService, private toastr: ToastrService, private authService: AuthService, private customfieldservice: CustomFieldService, private spinner: NgxSpinnerService) { }
+  constructor(private libraryService: LibraryService, private toastr: ToastrService, private authService: AuthService, private customfieldservice: CustomFieldService, private spinner: NgxSpinnerService, protected store: Store<AppState>, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
 
@@ -105,7 +107,16 @@ export class DetailsComponent implements OnInit {
         element.columnValue = this.selecteditem[element.columnName];
       }
     });
-    this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+    this.store.pipe(select(selectSelectedTenant)).
+      subscribe(event => {
+        if (event) {
+
+          // this.selectedTenant = event;
+          this.selectedTenantId = event.tenantId;
+        }
+        this.cdr.detectChanges();
+      });
+    // this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
 
     modal();
 

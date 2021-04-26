@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import inputFocus from '../../../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../../../assets/js/lib/_inputClear';
 import dropdown from '../../../../../../assets/js/lib/_dropdown';
@@ -7,6 +7,9 @@ import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../../../core/auth.service';
 import { finalize } from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../../../../../shared/appState';
+import { selectSelectedTenantId, selectSelectedTenant, selectMyInventoryColumn, getTenantConfiguration } from '../../../../../store/selectors/tenant.selectors';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -25,14 +28,23 @@ export class SettingsComponent implements OnInit {
   error: string;
   showtable: boolean;
   public table: any = [];
-  constructor(private libraryService: LibraryService, private formBuilder: FormBuilder, private toastr: ToastrService, private authService: AuthService) { }
+  constructor(private libraryService: LibraryService, private formBuilder: FormBuilder, private toastr: ToastrService, private authService: AuthService, protected store: Store<AppState>, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
 
     this.locationsLists = this.locationsList;
     this.selectedItem = this.item;
     this.showtable = false;
-    this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+    this.store.pipe(select(selectSelectedTenant)).
+      subscribe(event => {
+        if (event) {
+
+          // this.selectedTenant = event;
+          this.selectedTenantId = event.tenantId;
+        }
+        this.cdr.detectChanges();
+      });
+    // this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     this.uomLists = this.uomList;
     this.tableinfo = this.formBuilder.group({
       HowManyQuantity: ['', null],

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from '../../../core/auth.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -8,6 +8,7 @@ import { CustomFieldService } from '../../../customfield/service/custom-field.se
 import { CircumstanceFields, StateFields, AttributeFields, CustomFields } from '../../../customfield/models/customfieldmodel';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../../shared/appState';
+import { selectSelectedTenantId, selectSelectedTenant, selectMyInventoryColumn, getTenantConfiguration } from '../../../store/selectors/tenant.selectors';
 @Component({
   selector: 'app-custom-field-modal',
   templateUrl: './custom-field-modal.component.html',
@@ -87,10 +88,19 @@ export class CustomFieldModalComponent implements OnInit {
 
   public datatype: any = ['OpenField', 'Dropdown', 'Autocomplete', 'Number', 'Currency', 'Date', 'Date & Time', 'Time', 'True/False']
   public selectedDatatype: string;
-  constructor(private toastr: ToastrService, protected store: Store<AppState>, private authService: AuthService, private spinner: NgxSpinnerService, private customfieldservice: CustomFieldService) { }
+  constructor(private toastr: ToastrService, protected store: Store<AppState>, private authService: AuthService, private spinner: NgxSpinnerService, private customfieldservice: CustomFieldService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+    this.store.pipe(select(selectSelectedTenant)).
+      subscribe(event => {
+        if (event) {
+
+          // this.selectedTenant = event;
+          this.selectedTenantId = event.tenantId;
+        }
+        this.cdr.detectChanges();
+      });
+    // this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     modal();
   }
   // custom fields new add

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { LibraryService } from '../../service/library.service';
 import { AuthService } from '../../../core/auth.service';
 import { finalize } from 'rxjs/operators';
@@ -11,6 +11,10 @@ import inputClear from '../../../../assets/js/lib/_inputClear';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import modal from '../../../../assets/js/lib/_modal'
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../../../shared/appState';
+import { selectSelectedTenantId, selectSelectedTenant, selectMyInventoryColumn, getTenantConfiguration } from '../../../store/selectors/tenant.selectors';
+
 @Component({
   selector: 'app-image-library',
   templateUrl: './image-library.component.html',
@@ -70,7 +74,7 @@ export class ImageLibraryComponent implements OnInit {
   public partName: any;
   public partNames: any;
   public isLoadingResult: boolean = false;
-  constructor(private libraryService: LibraryService, private authService: AuthService, private toastr: ToastrService, private commanService: CommanSharedService, private spinner: NgxSpinnerService) { }
+  constructor(private libraryService: LibraryService, private authService: AuthService, private toastr: ToastrService, private commanService: CommanSharedService, private spinner: NgxSpinnerService, protected store: Store<AppState>, private cdr: ChangeDetectorRef) { }
 
 
   ngOnInit(): void {
@@ -78,7 +82,16 @@ export class ImageLibraryComponent implements OnInit {
     // this.spinner.show();
     this.selecteditem = this.item;
     this.partid = 0;
-    this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+    this.store.pipe(select(selectSelectedTenant)).
+      subscribe(event => {
+        if (event) {
+
+          // this.selectedTenant = event;
+          this.selectedTenantId = event.tenantId;
+        }
+        this.cdr.detectChanges();
+      });
+    // this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     this.spinner.show();
     modal();
     this.GetAllImage();

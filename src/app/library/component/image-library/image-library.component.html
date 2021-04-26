@@ -267,7 +267,7 @@
         <div class="button-group">
             <button *ngIf="listOfFiles.length>0" type="button" (click)="uploadFiles()"
                 class="button button--medium button--theme02">Upload</button>
-            <button [ngClass]="listOfFiles.length==0?'hidden':''" type="button" (click)="cancel()" id="uploadModelClose"
+            <button *ngIf="listOfFiles.length>0" type="button" (click)="cancel()" id="uploadModelClose"
                 class="button button--medium button--text-only" data-close="#UploadActivity">Cancel
             </button>
         </div>
