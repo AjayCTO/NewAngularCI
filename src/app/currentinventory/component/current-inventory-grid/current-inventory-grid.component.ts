@@ -2566,15 +2566,10 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
                 if (keys[key] == this.tabulatorColumn[j].field) {
                   map.set(this.tabulatorColumn[j].field, this.CurrentInventoryItem[i][keys[key]])
                 }
-
                 else {
                   map.set(keys[key], this.CurrentInventoryItem[i][keys[key]])
                 }
-
-
               }
-
-
               if (this.tabulatorColumn[j].datatype == "Date/Time") {
                 if (this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field] != "") {
                   this.myDT = new Date(this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field])
@@ -2597,43 +2592,8 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
               else {
                 map.set(this.tabulatorColumn[j].field, this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field])
               }
-
-
               map.set("isSelected", false);
               map.set("_children", []);
-
-
-              // map.set(this.tabulatorColumn[j].field, this.CurrentInventoryItem[i].state[this.tabulatorColumn[j].field])
-
-              // for (let k = 0; k < this.allInventoryItems[i].attributeFields.length; k++) {
-              //   if (this.allInventoryItems[i].attributeFields[k].columnName == this.tabulatorColumn[j].field) {
-
-              //     if (this.tabulatorColumn[j].datatype == "Date/Time") {
-              //       if (this.allInventoryItems[i].attributeFields[k].columnValue != "") {
-              //         this.myDT = new Date(this.allInventoryItems[i].attributeFields[k].columnValue)
-              //         let DateManual = this.myDT.toLocaleDateString();
-              //         if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
-              //           DateManual = this.myDT.toLocaleTimeString()
-              //         }
-              //         if (this.tabulatorColumn[j].customFieldSpecialType == "Date & Time") {
-              //           DateManual = this.myDT.toLocaleString();
-              //         }
-              //         if (this.tabulatorColumn[j].customFieldSpecialType == "Date") {
-              //           DateManual = this.myDT.toLocaleDateString()
-              //         }
-              //         map.set(this.tabulatorColumn[j].field, DateManual)
-              //       }
-              //       else {
-              //         map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].attributeFields[k].columnValue)
-              //       }
-              //     }
-              //     else {
-              //       map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].attributeFields[k].columnValue)
-              //     }
-              //   }
-              // }
-
-
             }
             let jsonObject = {};
             map.forEach((value, key) => {
