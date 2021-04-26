@@ -978,8 +978,8 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         this.ColspanTable = this.tabulatorColumn.length + 3;
         this.store.dispatch(new SetDefaultInventoryColumn(this.myInventoryField));
         this.GetInventoryView();
-        // this.GetCurrentInventory();
-        this.CurrentoryInventoryCore();
+        this.GetCurrentInventory();
+
       }
       else {
       }
@@ -1085,97 +1085,97 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.spinner.hide();
   }
 
-  GetCurrentInventory() {
-    debugger;
-    this.IsInventoryLoaded = false;
-    this.loadingRecords = true;
-    this.CheckboxShow = false;
-    let sortCol = "PartName";
-    let sortDir = "asc";
-    let GlobelFilter = {
-      FilterArray: this.FilterArray,
-      Ids: this.InventoryIds,
-      SortArray: this.SortingArray,
-    }
-    this.currentinventoryService.GetCurrentInventory(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, this.pageSize, sortCol, sortDir, this.searchFilterText, this.showSelected, GlobelFilter, this.HideZero)
-      .pipe(finalize(() => {
-      })).subscribe(result => {
-        this.InventoryDataBind = [];
-        this.allInventoryItems = [];
-        this.allInventoryItems = result.entity.items;
-        this.length = result.entity.totalItems;
-        for (let i = 0; i < this.allInventoryItems.length; i++) {
-          let map = new Map<string, any>();
-          for (let j = 0; j < this.tabulatorColumn.length; j++) {
-            let keys = Object.keys(this.allInventoryItems[i])
-            for (let key = 0; key < keys.length; key++) {
-              if (keys[key] == this.tabulatorColumn[j].field) {
-                map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i][keys[key]])
-              }
+  // GetCurrentInventory() {
+  //   debugger;
+  //   this.IsInventoryLoaded = false;
+  //   this.loadingRecords = true;
+  //   this.CheckboxShow = false;
+  //   let sortCol = "PartName";
+  //   let sortDir = "asc";
+  //   let GlobelFilter = {
+  //     FilterArray: this.FilterArray,
+  //     Ids: this.InventoryIds,
+  //     SortArray: this.SortingArray,
+  //   }
+  //   this.currentinventoryService.GetCurrentInventory(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, this.pageSize, sortCol, sortDir, this.searchFilterText, this.showSelected, GlobelFilter, this.HideZero)
+  //     .pipe(finalize(() => {
+  //     })).subscribe(result => {
+  //       this.InventoryDataBind = [];
+  //       this.allInventoryItems = [];
+  //       this.allInventoryItems = result.entity.items;
+  //       this.length = result.entity.totalItems;
+  //       for (let i = 0; i < this.allInventoryItems.length; i++) {
+  //         let map = new Map<string, any>();
+  //         for (let j = 0; j < this.tabulatorColumn.length; j++) {
+  //           let keys = Object.keys(this.allInventoryItems[i])
+  //           for (let key = 0; key < keys.length; key++) {
+  //             if (keys[key] == this.tabulatorColumn[j].field) {
+  //               map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i][keys[key]])
+  //             }
 
-              else {
-                map.set(keys[key], this.allInventoryItems[i][keys[key]])
-              }
-            }
-            for (let k = 0; k < this.allInventoryItems[i].allFields.length; k++) {
-              if (this.allInventoryItems[i].allFields[k].columnName == this.tabulatorColumn[j].field) {
-                map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].allFields[k].columnValue)
-              }
-            }
-            for (let k = 0; k < this.allInventoryItems[i].attributeFields.length; k++) {
-              if (this.allInventoryItems[i].attributeFields[k].columnName == this.tabulatorColumn[j].field) {
+  //             else {
+  //               map.set(keys[key], this.allInventoryItems[i][keys[key]])
+  //             }
+  //           }
+  //           for (let k = 0; k < this.allInventoryItems[i].allFields.length; k++) {
+  //             if (this.allInventoryItems[i].allFields[k].columnName == this.tabulatorColumn[j].field) {
+  //               map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].allFields[k].columnValue)
+  //             }
+  //           }
+  //           for (let k = 0; k < this.allInventoryItems[i].attributeFields.length; k++) {
+  //             if (this.allInventoryItems[i].attributeFields[k].columnName == this.tabulatorColumn[j].field) {
 
-                if (this.tabulatorColumn[j].datatype == "Date/Time") {
-                  if (this.allInventoryItems[i].attributeFields[k].columnValue != "") {
-                    this.myDT = new Date(this.allInventoryItems[i].attributeFields[k].columnValue)
-                    let DateManual = this.myDT.toLocaleDateString();
-                    if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
-                      DateManual = this.myDT.toLocaleTimeString()
-                    }
-                    if (this.tabulatorColumn[j].customFieldSpecialType == "Date & Time") {
-                      DateManual = this.myDT.toLocaleString();
-                    }
-                    if (this.tabulatorColumn[j].customFieldSpecialType == "Date") {
-                      DateManual = this.myDT.toLocaleDateString()
-                    }
-                    map.set(this.tabulatorColumn[j].field, DateManual)
-                  }
-                  else {
-                    map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].attributeFields[k].columnValue)
-                  }
-                }
-                else {
-                  map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].attributeFields[k].columnValue)
-                }
-              }
-            }
-            map.set("isSelected", false);
-            map.set("_children", []);
+  //               if (this.tabulatorColumn[j].datatype == "Date/Time") {
+  //                 if (this.allInventoryItems[i].attributeFields[k].columnValue != "") {
+  //                   this.myDT = new Date(this.allInventoryItems[i].attributeFields[k].columnValue)
+  //                   let DateManual = this.myDT.toLocaleDateString();
+  //                   if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
+  //                     DateManual = this.myDT.toLocaleTimeString()
+  //                   }
+  //                   if (this.tabulatorColumn[j].customFieldSpecialType == "Date & Time") {
+  //                     DateManual = this.myDT.toLocaleString();
+  //                   }
+  //                   if (this.tabulatorColumn[j].customFieldSpecialType == "Date") {
+  //                     DateManual = this.myDT.toLocaleDateString()
+  //                   }
+  //                   map.set(this.tabulatorColumn[j].field, DateManual)
+  //                 }
+  //                 else {
+  //                   map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].attributeFields[k].columnValue)
+  //                 }
+  //               }
+  //               else {
+  //                 map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].attributeFields[k].columnValue)
+  //               }
+  //             }
+  //           }
+  //           map.set("isSelected", false);
+  //           map.set("_children", []);
 
-          }
-          let jsonObject = {};
-          map.forEach((value, key) => {
-            jsonObject[key] = value
-          });
-          this.InventoryDataBind.push(jsonObject);
-        }
+  //         }
+  //         let jsonObject = {};
+  //         map.forEach((value, key) => {
+  //           jsonObject[key] = value
+  //         });
+  //         this.InventoryDataBind.push(jsonObject);
+  //       }
 
-        this.loadingRecords = false;
-        this.IsInventoryLoaded = true;
-        this.CheckboxShow = true;
-
-
-        this.GetCartDetail();
+  //       this.loadingRecords = false;
+  //       this.IsInventoryLoaded = true;
+  //       this.CheckboxShow = true;
 
 
-        this.ApplyJsFunction();
+  //       this.GetCartDetail();
 
-        setTimeout(() => {
-          this.columnDragDrop();
-        }, 200);
 
-      });
-  }
+  //       this.ApplyJsFunction();
+
+  //       setTimeout(() => {
+  //         this.columnDragDrop();
+  //       }, 200);
+
+  //     });
+  // }
 
 
   applyGetCartDetails() {
@@ -1344,6 +1344,8 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         element.inSort = false;
       }
     });
+    this.GetCurrentInventory();
+    this.ApplyJsFunction();
   }
   ApplySort() {
     debugger;
@@ -1385,7 +1387,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       this.toastr.warning("You can not add more than 3 Column For Sorting");
     }
     this.mainsortToggleDropdown = false;
-    this.CurrentoryInventoryCore();
+    this.GetCurrentInventory();
     this.ApplyJsFunction();
   }
   getStatus() {
@@ -1594,7 +1596,6 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     }
     this.mainToggleDropdown = false;
     this.GetCurrentInventory();
-    this.CurrentoryInventoryCore();
     this.ApplyJsFunction();
   }
   CloseFilter() {
@@ -1717,7 +1718,6 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     }
     document.getElementById("filterButton2_" + columnName).click();
     this.GetCurrentInventory();
-    this.CurrentoryInventoryCore();
     this.ApplyJsFunction();
   }
   CloseFilter2(Id) {
@@ -2544,7 +2544,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   public InventoryItems = [];
   public CurrentInventoryItem: any;
 
-  CurrentoryInventoryCore() {
+  GetCurrentInventory() {
     debugger;
     let data = {
       "filters": this.FilterArray,
