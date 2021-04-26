@@ -1350,18 +1350,34 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       return false;
     }
 
+    //Inventory Core 
+    this.Sorting.direction = this.Sorting.Order == "Asceding" ? "ASC" : "DESC"
+    //
     this.tabulatorColumn.forEach(element => {
       if (element.field == this.Sorting.columnName) {
         this.Sorting.displayName = element.title;
         element.inSort = true;
+        if (element.type == "AttributeField") {
+          this.Sorting.field = "states." + this.Sorting.columnName;
+        }
+        else {
+          this.Sorting.field = this.Sorting.columnName;
+        }
       }
+      //Inventory Core 
+
+      //
     });
     if (this.SortingArray.length <= this.lengths) {
       this.SortingArray.push(this.Sorting)
       this.Sorting = {
         columnName: "",
         displayName: "",
-        Order: ""
+        Order: "",
+        //Inventory core
+        field: "",
+        direction: ""
+        //
       }
     }
     else {
@@ -2360,10 +2376,8 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   CurrentoryInventoryCore() {
     debugger;
     let data = {
-      "filters": [this.FilterArray],
-      "sortBy": [
-
-      ],
+      "filters": [],
+      "sortBy": this.SortingArray,
       "offset": 0,
       "limit": 50
     }
