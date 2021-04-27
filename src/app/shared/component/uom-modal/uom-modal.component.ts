@@ -24,16 +24,16 @@ export class UomModalComponent implements OnInit {
   constructor(private authService: AuthService, protected store: Store<AppState>, private formBuilder: FormBuilder, private toastr: ToastrService, private libraryService: LibraryService, private spinner: NgxSpinnerService, private cdr: ChangeDetectorRef) { }
   public uomForm: FormGroup;
   ngOnInit(): void {
-    this.store.pipe(select(selectSelectedTenant)).
-      subscribe(event => {
-        if (event) {
+    // this.store.pipe(select(selectSelectedTenant)).
+    //   subscribe(event => {
+    //     if (event) {
 
-          // this.selectedTenant = event;
-          this.selectedTenantId = event.tenantId;
-        }
-        this.cdr.detectChanges();
-      });
-    // this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+    //       // this.selectedTenant = event;
+    //       this.selectedTenantId = event.tenantId;
+    //     }
+    //     this.cdr.detectChanges();
+    //   });
+    this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     this.uomForm = this.formBuilder.group({
       uomName: ['', Validators.required],
     });

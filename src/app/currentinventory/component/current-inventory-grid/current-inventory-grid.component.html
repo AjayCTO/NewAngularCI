@@ -2755,7 +2755,8 @@
                                     </div>
 
                                     <app-dynamic-event [IsDynamicEventOpen]="item.isDynamicEventOpen"
-                                        [CustomFields]="CustomFields" *ngIf="item.isDynamicEventOpen"
+                                        [AttributeFields]="AttributeFields" [CustomFields]="CustomFields"
+                                        *ngIf="item.isDynamicEventOpen"
                                         [InventoryTransactionObj]="InventoryTransactionObj"
                                         (RefreshInventory)="RefreshCurrentInventory()"
                                         [selectedDynamicEvent]="selectedDynamicEvent"

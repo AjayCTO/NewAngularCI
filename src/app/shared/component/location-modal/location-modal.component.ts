@@ -26,16 +26,16 @@ export class LocationModalComponent implements OnInit {
   constructor(private authService: AuthService, protected store: Store<AppState>, private cdr: ChangeDetectorRef, private toastr: ToastrService, private formBuilder: FormBuilder, private libraryService: LibraryService, private spinner: NgxSpinnerService,) { }
   public locationForm: FormGroup;
   ngOnInit(): void {
-    this.store.pipe(select(selectSelectedTenant)).
-      subscribe(event => {
-        if (event) {
+    // this.store.pipe(select(selectSelectedTenant)).
+    //   subscribe(event => {
+    //     if (event) {
 
-          // this.selectedTenant = event;
-          this.selectedTenantId = event.tenantId;
-        }
-        this.cdr.detectChanges();
-      });
-    // this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
+    //       // this.selectedTenant = event;
+    //       this.selectedTenantId = event.tenantId;
+    //     }
+    //     this.cdr.detectChanges();
+    //   });
+    this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
     this.locationForm = this.formBuilder.group({
       locationName: ['', Validators.required],
 

@@ -1031,16 +1031,16 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     //   element.columnValue = "";
     // });
 
-    for (let i = 0; i < item.customFields.length; i++) {
-      for (let j = 0; j < this.CustomFields.length; j++) {
-        // if (item.customFields[i].columnName == this.CustomFields[j].columnName) {
-        //   if (obj[this.CustomFields[j].columnName]) {
-        //     this.CustomFields[j].columnValue = item.customFields[i].columnValue;
-        //   }
-        // }
-        this.CustomFields[j].customFieldIncludeOnDynamicEvent = obj[this.CustomFields[j].columnName];
-      }
+
+    for (let j = 0; j < this.CustomFields.length; j++) {
+      // if (item.customFields[i].columnName == this.CustomFields[j].columnName) {
+      //   if (obj[this.CustomFields[j].columnName]) {
+      //     this.CustomFields[j].columnValue = item.customFields[i].columnValue;
+      //   }
+      // }
+      this.CustomFields[j].customFieldIncludeOnDynamicEvent = obj[this.CustomFields[j].columnName];
     }
+
     this.selectedItem = item;
     item.isDynamicEventOpen = !item.isDynamicEventOpen;
 
@@ -1494,11 +1494,11 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
           this.GetDate(element);
         }
         if (element.type == "AttributeField") {
-          this.dataColumnFilter.field = "states." + this.dataColumnFilter.columnName;
+          this.dataColumnFilter.field = "states." + this.dataColumnFilter.columnName == 'partName' ? 'itemCode' : this.dataColumnFilter.columnName;
           this.dataColumnFilter.value = this.dataColumnFilter.searchValue
         }
         else {
-          this.dataColumnFilter.field = this.dataColumnFilter.columnName;
+          this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'partName' ? 'itemCode' : this.dataColumnFilter.columnName;
           this.dataColumnFilter.value = this.dataColumnFilter.searchValue
         }
         if (this.dataColumnFilter.filterOperator == "eq") {
@@ -1617,21 +1617,21 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
           this.GetDate(element);
         }
         if (element.type == "AttributeField") {
-          this.dataColumnFilter.field = "states." + this.dataColumnFilter.columnName;
+          this.dataColumnFilter.field = "states." + this.dataColumnFilter.columnName == 'partName' ? 'itemCode' : this.dataColumnFilter.columnName;
           this.dataColumnFilter.value = this.dataColumnFilter.searchValue
         }
         else {
-          this.dataColumnFilter.field = this.dataColumnFilter.columnName;
+          this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'partName' ? 'itemCode' : this.dataColumnFilter.columnName;
           this.dataColumnFilter.value = this.dataColumnFilter.searchValue
         }
         if (this.dataColumnFilter.filterOperator == "eq") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "ne") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "neq"
         }
         if (this.dataColumnFilter.filterOperator == "cn") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "cn"
         }
         if (this.dataColumnFilter.filterOperator == "nc") {
           this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
@@ -1640,59 +1640,60 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
           this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
         }
         if (this.dataColumnFilter.filterOperator == "bw") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "sw"
         }
         if (this.dataColumnFilter.filterOperator == "num-eq") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "num-ne") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "neq"
         }
         if (this.dataColumnFilter.filterOperator == "num-lte") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "lte"
         }
         if (this.dataColumnFilter.filterOperator == "num-gte") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "gt"
         }
         if (this.dataColumnFilter.filterOperator == "date-eq") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "time-eq") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "date-bw") {
           this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
         }
         if (this.dataColumnFilter.filterOperator == "date-minute") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "date-hour") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "date-second") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "date-month") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "date-day") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "date-year") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "date-after") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "gt"
         }
         if (this.dataColumnFilter.filterOperator == "date-before") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "lt"
         }
         if (this.dataColumnFilter.filterOperator == "time-after") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "gt"
         }
         if (this.dataColumnFilter.filterOperator == "time-before") {
-          this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+          this.dataColumnFilter.operator = "$" + "lt"
         }
+
       }
     });
     this.FilterArray.forEach((element, index) => {
@@ -2569,6 +2570,11 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
                 else {
                   map.set(keys[key], this.CurrentInventoryItem[i][keys[key]])
                 }
+                if (keys[key] == 'itemCode')
+                  map.set('partName', this.CurrentInventoryItem[i][keys[key]])
+
+                if (keys[key] == 'unitId')
+                  map.set('inventoryId', this.CurrentInventoryItem[i][keys[key]])
               }
               if (this.tabulatorColumn[j].datatype == "Date/Time") {
                 if (this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field] != "") {

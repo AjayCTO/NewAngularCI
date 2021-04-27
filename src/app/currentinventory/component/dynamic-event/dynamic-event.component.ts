@@ -30,6 +30,7 @@ export class DynamicEventComponent implements OnInit {
   @Input() DynamicEvent: any;
   @Input() CircumstanceFields: any;
   @Input() CustomFields: any;
+  @Input() AttributeFields: any;
   @Input() InventoryTransactionObj: any
   @Input() StateFields: any;
   @Output() newItemEvent = new EventEmitter<any>();
@@ -46,6 +47,12 @@ export class DynamicEventComponent implements OnInit {
   constructor(private authService: AuthService, private cdr: ChangeDetectorRef, private commanService: CommanSharedService, private toastr: ToastrService, private currentinventoryService: CurrentinventoryService, private spinner: NgxSpinnerService, private inventorcoreSevice: InventoryCoreService, protected store: Store<AppState>) {
     this.today = new Date();
 
+  }
+  public FilterArray: any[] = [];
+  public dataColumnFilter: any = {
+    field: "",
+    operator: "$eq",
+    value: ""
   }
 
   TransactionTargetObj: TransactionTarget = {
@@ -242,7 +249,10 @@ export class DynamicEventComponent implements OnInit {
         result => {
           this.spinner.hide();
           debugger;
-
+          if (result) {
+            this.toastr.success("Transaction Is Done");
+            this.RefreshInventory.emit();
+          }
         }
 
       )
@@ -279,52 +289,50 @@ export class DynamicEventComponent implements OnInit {
         result => {
           this.spinner.hide();
           debugger;
-
+          if (result) {
+            this.toastr.success("Transaction Is Done");
+            this.RefreshInventory.emit();
+          }
         }
 
       )
     }
 
-    if (this.selectedDynamicEvent.eventQuantityAction == "Move") {
+    if (this.selectedDynamicEvent.eventQuantityAction == "Move" || this.selectedDynamicEvent.eventQuantityAction == "Convert") {
 
-      if (this.TransactionTargetObj.ToLocation == "") {
-        this.toastr.warning("Location Field Is Required");
-        return false;
-      }
-      if (this.InventoryTransactionObj.quantity < this.InventoryTransactionObj.transactionQty) {
+      debugger;
+      // this.FilterArray.push(this.dataColumnFilter = {
+      //   field: "itemCode",
+      //   operator: "$eq",
+      //   value: this.InventoryTransactionObj.itemCode
+      // })
 
-        this.toastr.warning("Change Quantity Greater Then Actual Quantity");
-        return false;
+      // this.AttributeFields.forEach(element => {
+      //   this.FilterArray.push(
+      //     this.dataColumnFilter = {
+      //       field: "states." + element.columnName,
+      //       operator: "$eq"
+      //       value: element.columnValue,     
+      //     }
+      //   )
+      // });
 
-      }
-      if (this.InventoryTransactionObj.locationName.toLowerCase() == this.TransactionTargetObj.ToLocation.toLowerCase()) {
-
-        this.toastr.warning("Please Move These States To A Different Location.");
-        return false;
-      }
-
-      this.InventoryTransactionObj.transactionQtyChange = this.InventoryTransactionObj.transactionQty;
-      this.InventoryTransactionObj.circumstanceFields = this.CircumstanceFields;
       let details = this.buildObject(this.CustomFields);
+      let states = this.buildObject(this.AttributeFields);
       // this.InventoryTransactionObj.customFields = this.CustomFields;
       this.InventoryTransactionObj.tenantId = this.selectedTenantId;
       this.InventoryTransactionObj.transactionDate = this.today;
-      if (this.TransactionTargetObj.ToUomId == null) {
-        this.TransactionTargetObj.ToUomId = 0;
-      }
-      else {
-        this.TransactionTargetObj.ToUomId = JSON.parse(this.TransactionTargetObj.ToUomId.toString())
-      }
+
       let data = {
-        quantity: this.InventoryTransactionObj.transactionQtyChange,
+        quantity: this.InventoryTransactionObj.transactionQty,
         date: this.InventoryTransactionObj.transactionDate,
         reference: '',
         kind: this.selectedDynamicEvent.eventName,
         details: details,
-        fromUnitId: this.InventoryTransactionObj.locationId,
-        toUnitId: this.TransactionTargetObj.ToLocationId
+        fromUnitId: this.InventoryTransactionObj.unitId,
+        toStates: states
       }
-      this.inventorcoreSevice.Assign(this.selectedTenantId, this.authService.accessToken, data).subscribe(
+      this.inventorcoreSevice.CreateUnitandAssign(this.selectedTenantId, this.authService.accessToken, data).subscribe(
         result => {
           this.spinner.hide();
           debugger;
@@ -332,35 +340,7 @@ export class DynamicEventComponent implements OnInit {
         }
       )
     }
-    // if (this.selectedDynamicEvent.eventQuantityAction == "Convert") {
-    //   if (this.InventoryTransactionObj.quantity < this.InventoryTransactionObj.transactionQty) {
 
-    //     this.toastr.warning("Change Quantity Greater Then Actual Quantity");
-    //     return false;
-    //   }
-    //   if (this.InventoryTransactionObj.uomId == this.TransactionTargetObj.ToUomId) {
-    //     this.toastr.error("Please Convert The States To A Different Unit Of Measure.", "UNITS OF MEASURE HAVE NOT CHANGED")
-    //     return false;
-    //   }
-
-    //   this.InventoryTransactionObj.transactionQtyChange = this.InventoryTransactionObj.transactionQty;
-    //   this.InventoryTransactionObj.circumstanceFields = this.CircumstanceFields;
-    //   this.InventoryTransactionObj.customFields = this.CustomFields;
-    //   this.InventoryTransactionObj.tenantId = this.selectedTenantId;
-    //   this.InventoryTransactionObj.transactionDate = this.today;
-    //   if (this.TransactionTargetObj.ToUomId == null) {
-    //     this.TransactionTargetObj.ToUomId = 0;
-    //   }
-    //   else {
-    //     this.TransactionTargetObj.ToUomId = JSON.parse(this.TransactionTargetObj.ToUomId.toString())
-    //   }
-    //   let data = {
-    //     InventoryId: this.InventoryTransactionObj.inventoryId,
-    //     Transaction: this.InventoryTransactionObj,
-    //     Targets: this.TransactionTargetObj,
-    //     eventConfiguartion: this.selectedDynamicEvent,
-    //   }
-    // }
 
 
 

@@ -8,7 +8,7 @@ import { finalize } from 'rxjs/operators';
 import inputFocus from '../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../assets/js/lib/_inputClear';
 import datePicker from '../../../../assets/js/lib/_datePicker';
-
+import { InventoryCoreService } from '../../../shared/service/inventory-core.service';
 @Component({
   selector: 'app-statement-history',
   templateUrl: './statement-history.component.html',
@@ -28,15 +28,28 @@ export class StatementHistoryComponent implements OnInit {
   public myDT: Date;
   public statementHistory: any;
   public transaction_History: any;
+
+  public FilterArray: any[] = [];
+  public dataColumnFilter: any = {
+    field: "",
+    operator: "$eq",
+    value: ""
+  }
   loadingRecords = false;
-  constructor(private currentinventoryService: CurrentinventoryService, private authService: AuthService, private spinner: NgxSpinnerService,) { }
+  constructor(private currentinventoryService: CurrentinventoryService, private authService: AuthService, private spinner: NgxSpinnerService, private inventorcoreSevice: InventoryCoreService) { }
 
   ngOnInit(): void {
 
     let id = this.StatementHistory;
     let CustomFields = this.CustomFields;
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
-    this.StatementServices();
+    this.FilterArray.push(this.dataColumnFilter = {
+      field: 'unitId',
+      operator: "$eq",
+      value: this.InventoryTransactionObj.unitId
+    })
+    //this.StatementServices();
+    this.getHistoryStatements();
     this.ApplyJsFunction();
   }
   StatementServices() {
@@ -114,5 +127,23 @@ export class StatementHistoryComponent implements OnInit {
       inputFocus();
       datePicker();
     }, 2000)
+  }
+  getHistoryStatements() {
+    debugger;
+    this.loadingRecords = true;
+    let data = {
+      "filters": this.FilterArray,
+      "sortBy": [],
+      "offset": 0,
+      "limit": 50
+    }
+    this.inventorcoreSevice.QueryTransactionsHistoryAsync(this.selectedTenantId, this.authService.accessToken, data).pipe(finalize(() => {
+      this.spinner.hide();
+    })).subscribe(
+      result => {
+        debugger;
+        this.loadingRecords = false;
+
+      })
   }
 }

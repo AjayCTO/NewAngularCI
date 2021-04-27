@@ -65,14 +65,14 @@ export class InventoryCoreService extends BaseService {
     };
     return this.http.get<IApiResponse>(this.configService.resourceApiURI + `/api/transactions/${TransactionId}`, httpOptions).pipe(catchError(this.handleError));
   }
-  Assign(TransactionId: number, token: string, data) {
+  Assign(TenantId: number, token: string, data) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': "Bearer " + token
       })
     };
-    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/assign/${TransactionId}`, data, httpOptions).pipe(catchError(this.handleError));
+    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/assign/${TenantId}`, data, httpOptions).pipe(catchError(this.handleError));
 
   }
   Query(token: string, data) {
@@ -85,14 +85,24 @@ export class InventoryCoreService extends BaseService {
     return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/query`, data, httpOptions).pipe(catchError(this.handleError));
 
   }
-  CreateUnitandAssign(token: string, data) {
+  CreateUnitandAssign(TenantId: number, token: string, data) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': "Bearer " + token
       })
     };
-    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/create-unit-and-assign`, data, httpOptions).pipe(catchError(this.handleError));
+    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/create-unit-and-assign/${TenantId}`, data, httpOptions).pipe(catchError(this.handleError));
+
+  }
+  QueryTransactionsHistoryAsync(TenantId: number, token: string, data) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + token
+      })
+    };
+    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/query/${TenantId}`, data, httpOptions).pipe(catchError(this.handleError));
 
   }
 
