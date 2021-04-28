@@ -28,7 +28,12 @@ export class StatementHistoryComponent implements OnInit {
   public myDT: Date;
   public statementHistory: any;
   public transaction_History: any;
-
+  public SortingArray: any[] = [];
+  lengths = 2;
+  public Sorting: any = {
+    field: "transactionId",
+    direction: "DESC",
+  }
   public FilterArray: any[] = [];
   public dataColumnFilter: any = {
     field: "",
@@ -39,7 +44,7 @@ export class StatementHistoryComponent implements OnInit {
   constructor(private currentinventoryService: CurrentinventoryService, private authService: AuthService, private spinner: NgxSpinnerService, private inventorcoreSevice: InventoryCoreService) { }
 
   ngOnInit(): void {
-
+    debugger;
     let id = this.StatementHistory;
     let CustomFields = this.CustomFields;
     this.selectedTenantId = parseInt(localStorage.getItem('TenantId'));
@@ -47,8 +52,11 @@ export class StatementHistoryComponent implements OnInit {
       field: 'unitId',
       operator: "$eq",
       value: this.InventoryTransactionObj.unitId
-    })
+    });
+
+    this.SortingArray.push(this.Sorting);
     //this.StatementServices();
+    this.InventoryTransactionObj
     this.getHistoryStatements();
     this.ApplyJsFunction();
   }
@@ -133,7 +141,7 @@ export class StatementHistoryComponent implements OnInit {
     this.loadingRecords = true;
     let data = {
       "filters": this.FilterArray,
-      "sortBy": [],
+      "sortBy": this.SortingArray,
       "offset": 0,
       "limit": 50
     }
@@ -143,7 +151,43 @@ export class StatementHistoryComponent implements OnInit {
       result => {
         debugger;
         this.loadingRecords = false;
+        this.statementHistory = result;
+        this.statementHistory.forEach(MainArray => {
+          MainArray.detailitem = [];
+          this.CustomFields.forEach(elementcustom => {
+            if (elementcustom.dataType == "Date/Time") {
+              this.myDT = new Date(MainArray.details[elementcustom.columnName])
+              let DateManual = this.myDT.toLocaleDateString();
+              if (elementcustom.customFieldSpecialType == "Time") {
+                DateManual = this.myDT.toLocaleTimeString()
+              }
+              if (elementcustom.customFieldSpecialType == "Date & Time") {
+                DateManual = this.myDT.toLocaleString();
+              }
+              if (elementcustom.customFieldSpecialType == "Date") {
+                DateManual = this.myDT.toLocaleDateString()
+              }
+              MainArray.detailitem.push({ "columnLabel": elementcustom.columnLabel, "columnValue": DateManual })
 
+            }
+            else {
+              MainArray.detailitem.push({ "columnLabel": elementcustom.columnLabel, "columnValue": MainArray.details[elementcustom.columnName] })
+            }
+
+
+
+          });
+
+          this.EventList.forEach(element => {
+            if (element.eventName.trim() == MainArray.kind.trim()) {
+              MainArray.actionIcon = element.eventIcon
+            }
+          });
+        });
+      },
+      error => {
+        this.error = error;
+        this.spinner.hide();
       })
   }
 }

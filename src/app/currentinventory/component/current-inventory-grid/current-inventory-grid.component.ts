@@ -838,11 +838,8 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       .subscribe(
         result => {
           if (result) {
-
-
             if (result.entity == true) {
               this.toastr.success("Your Attribute Is Successfully Add.");
-
               this.GetMyInventoryColumn();
               let el: HTMLElement = this.AddAttributeClose.nativeElement;
               el.click();
@@ -936,17 +933,17 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     }, 200);
   }
   deleteColumn(item) {
-
     if (item.datatype != 'button') {
+      var ColumnAdjusttolast
       this.tabulatorColumn.forEach((element, index) => {
         if (element.id == item.id) {
           element.isAdded = false;
-          var ColumnAdjusttolast = element;
+          ColumnAdjusttolast = element;
           this.tabulatorColumn.splice(index, 1);
-          this.tabulatorColumn.push(ColumnAdjusttolast);
           this.ColspanTable--;
         }
       });
+      this.tabulatorColumn.push(ColumnAdjusttolast);
     }
     else {
       this.tabulatorColumn.forEach((element, index) => {

@@ -105,5 +105,14 @@ export class InventoryCoreService extends BaseService {
     return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/query/${TenantId}`, data, httpOptions).pipe(catchError(this.handleError));
 
   }
+  unitexactmatch(TenantId: number, token: string, filters) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + token
+      })
+    };
+    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/units/exact-match/${TenantId}`, filters, httpOptions).pipe(catchError(this.handleError));
+  }
 
 }

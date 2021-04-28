@@ -35,13 +35,8 @@
                         <div class="">
                             <div class="icons__item--theme11">
                                 <ng-container *ngIf="item.actionIcon==1">
-
-
                                     <ng-container *ngTemplateOutlet="addIcon">
                                     </ng-container>
-
-
-
                                 </ng-container>
                                 <ng-container *ngIf="item.actionIcon==2">
                                     <ng-container *ngTemplateOutlet="removeIcon">
@@ -89,25 +84,23 @@
                         </div>
                     </div>
                     <div class="form__col form__col--nine">
-                        <h3 [style.color]="item.actionColor"><b>{{item.action}}</b> <span
-                                *ngIf="item.qty_IN_or_OUT!=null"> -
-                                {{item.qty_IN_or_OUT}}</span>
+                        <h3 [style.color]="item.actionColor"><b>{{item.kind}}</b> <span *ngIf="item.actionType!=null"> -
+                                {{item.actionType}} </span>
                             &nbsp;
-                            <ng-container *ngIf="fst">
+                            <!-- <ng-container *ngIf="fst">
                                 <a style="margin-left: 5px;" (click)="UndoTransaction(item)"
                                     class="button button--small">Undo</a>
-                            </ng-container>
+                            </ng-container> -->
                         </h3>
 
                         <div style="display: flex;">
-                            <h5>{{item.transactionDate|date}}</h5>
-                            <h5>Updated Quantity: {{item.transactionQtyChange}}</h5>
-                            <h5>Running Quantity: {{item.transactionQuantity}}</h5>
+                            <h5>{{item.dateUtc|date}}</h5>
+                            <h5>Updated Quantity: {{item.quantityChange}}</h5>
                         </div>
                         <div style="display: flex;">
-                            <ng-container *ngFor="let itemcustomfield of item.customFields">
+                            <ng-container *ngFor="let itemcustomfield of item.detailitem">
                                 <h6
-                                    *ngIf="itemcustomfield.columnValue!=''&& itemcustomfield.columnValue!='Invalid Date'">
+                                    *ngIf="itemcustomfield.columnValue!=undefined&&itemcustomfield.columnValue!=''&& itemcustomfield.columnValue!='Invalid Date'">
                                     <strong><b>{{itemcustomfield.columnLabel}}</b>
                                     </strong> : {{itemcustomfield.columnValue}}
                                 </h6>

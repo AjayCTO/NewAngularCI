@@ -216,6 +216,58 @@ export class DynamicEventComponent implements OnInit {
     };
     return obj;
   };
+
+  CheckUnitIdExist() {
+    this.FilterArray = [];
+    this.FilterArray.push(this.dataColumnFilter = {
+      field: "itemCode",
+      operator: "$eq",
+      value: this.InventoryTransactionObj.itemCode
+    })
+
+    this.AttributeFields.forEach(element => {
+      this.FilterArray.push(
+        this.dataColumnFilter = {
+          field: "states." + element.columnName,
+          operator: "$eq",
+          value: element.columnValue,
+        }
+      )
+    });
+    this.inventorcoreSevice.unitexactmatch(this.selectedTenantId, this.authService.accessToken, this.FilterArray).subscribe(
+      result => {
+        this.spinner.hide();
+        debugger;
+        let toUnitId = result;
+        debugger;
+        // let details = this.buildObject(this.CustomFields);
+        // let states = this.buildObject(this.AttributeFields);
+        // // this.InventoryTransactionObj.customFields = this.CustomFields;
+        // this.InventoryTransactionObj.tenantId = this.selectedTenantId;
+        // this.InventoryTransactionObj.transactionDate = this.today;
+
+        // let data = {
+        //   quantity: this.InventoryTransactionObj.transactionQty,
+        //   date: this.InventoryTransactionObj.transactionDate,
+        //   reference: '',
+        //   kind: this.selectedDynamicEvent.eventName,
+        //   details: details,
+        //   fromUnitId: this.InventoryTransactionObj.unitId,
+        //   toStates: states
+        // }
+        // this.inventorcoreSevice.CreateUnitandAssign(this.selectedTenantId, this.authService.accessToken, data).subscribe(
+        //   result => {
+        //     this.spinner.hide();
+        //     debugger;
+
+        //   })
+
+
+
+      });
+
+  }
+
   AddEventSubmit() {
     if (this.selectedDynamicEvent.eventQuantityAction == "Add") {
       debugger;
@@ -301,48 +353,10 @@ export class DynamicEventComponent implements OnInit {
     if (this.selectedDynamicEvent.eventQuantityAction == "Move" || this.selectedDynamicEvent.eventQuantityAction == "Convert") {
 
       debugger;
-      // this.FilterArray.push(this.dataColumnFilter = {
-      //   field: "itemCode",
-      //   operator: "$eq",
-      //   value: this.InventoryTransactionObj.itemCode
-      // })
 
-      // this.AttributeFields.forEach(element => {
-      //   this.FilterArray.push(
-      //     this.dataColumnFilter = {
-      //       field: "states." + element.columnName,
-      //       operator: "$eq"
-      //       value: element.columnValue,     
-      //     }
-      //   )
-      // });
+      let IsExistUnitId = this.CheckUnitIdExist();
 
-      let details = this.buildObject(this.CustomFields);
-      let states = this.buildObject(this.AttributeFields);
-      // this.InventoryTransactionObj.customFields = this.CustomFields;
-      this.InventoryTransactionObj.tenantId = this.selectedTenantId;
-      this.InventoryTransactionObj.transactionDate = this.today;
-
-      let data = {
-        quantity: this.InventoryTransactionObj.transactionQty,
-        date: this.InventoryTransactionObj.transactionDate,
-        reference: '',
-        kind: this.selectedDynamicEvent.eventName,
-        details: details,
-        fromUnitId: this.InventoryTransactionObj.unitId,
-        toStates: states
-      }
-      this.inventorcoreSevice.CreateUnitandAssign(this.selectedTenantId, this.authService.accessToken, data).subscribe(
-        result => {
-          this.spinner.hide();
-          debugger;
-
-        }
-      )
     }
-
-
-
 
 
   }
