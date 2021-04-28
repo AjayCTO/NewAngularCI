@@ -20,6 +20,7 @@ import { threadId } from 'worker_threads';
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import { InventoryCoreService } from '../../../shared/service/inventory-core.service';
 import {
   DateTimeAdapter,
   OWL_DATE_TIME_FORMATS,
@@ -58,6 +59,7 @@ export class EventReportComponent implements OnInit {
   public isSearchFilterActive: boolean = false;
   public mainColumn: [];
   public FilterArray: any[] = [];
+  public FilterArrays: any[] = [];
   public Month = [{ 'id': '1', 'month': 'Janurary' }, { 'id': '2', 'month': 'February' }, { 'id': '3', 'month': 'March' }, { 'id': '4', 'month': 'April' }, { 'id': '5', 'month': 'May' }, { 'id': '6', 'month': 'June' }, { 'id': '7', 'month': 'July' }, { 'id': '8', 'month': 'August' }, { 'id': '9', 'month': 'September' }, { 'id': '10', 'month': 'October' }, { 'id': '11', 'month': 'November' }, { 'id': '12', 'month': 'December' },]
   public hour = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
   public minutes = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59']
@@ -91,7 +93,7 @@ export class EventReportComponent implements OnInit {
   public ColumnDataType: string;
   public CustomFields: any;
 
-  constructor(private libraryService: LibraryService, private spinner: NgxSpinnerService, private commanService: CommanSharedService, protected store: Store<AppState>, private eventService: EventService, private authService: AuthService, private toastr: ToastrService, private reportService: ReportService, private customfieldservice: CustomFieldService, private cdr: ChangeDetectorRef, private commanShardService: CommanSharedService) { }
+  constructor(private libraryService: LibraryService, private spinner: NgxSpinnerService, private commanService: CommanSharedService, protected store: Store<AppState>, private eventService: EventService, private authService: AuthService, private toastr: ToastrService, private reportService: ReportService, private customfieldservice: CustomFieldService, private cdr: ChangeDetectorRef, private commanShardService: CommanSharedService, private inventorcoreSevice: InventoryCoreService) { }
 
   ngOnInit(): void {
     this.searchFilterText = "";
@@ -115,6 +117,7 @@ export class EventReportComponent implements OnInit {
     this.getCustomreportList();
     this.GetMyInventoryColumn();
     this.SelectedNewCustomReport();
+    // this.getTransactionReport();
     // this.GetCustomFields();
     this.getUOMList();
     setTimeout(function () {
@@ -128,6 +131,7 @@ export class EventReportComponent implements OnInit {
 
 
   }
+
   getUOMList() {
     this.libraryService.GetUOM(this.selectedTenantId, this.authService.accessToken)
       .pipe(finalize(() => {
@@ -295,7 +299,7 @@ export class EventReportComponent implements OnInit {
 
           // this.CustomFields = result.entity;
           this.mainColumn = [];
-          this.tabulatorColumn.push({ title: "Item Name", field: "partName", type: "", datatype: "string", width: "170" });
+          this.tabulatorColumn.push({ title: "Item Name", field: "itemCode", type: "", datatype: "string", width: "170" });
           this.tabulatorColumn.push({ title: "Description", field: "partDescription", type: "", datatype: "string", width: "450" });
           this.tabulatorColumn.push({ title: "Type of Event", field: "action", type: "", datatype: "special", width: "170" });
           this.tabulatorColumn.push({ title: "Date of Event", field: "transactionDate", type: "", customFieldSpecialType: "Date", datatype: "Date/Time", width: "170" });
@@ -459,7 +463,6 @@ export class EventReportComponent implements OnInit {
 
   showDropDown = false;
   toggleDropDown() {
-    debugger
     this.showDropDown = !this.showDropDown;
 
   }
@@ -486,7 +489,7 @@ export class EventReportComponent implements OnInit {
 
 
   closeDropDown() {
-    debugger
+
     this.showDropDown = false;
   }
 
@@ -526,7 +529,7 @@ export class EventReportComponent implements OnInit {
     }))
   }
   gotoNext() {
-    debugger
+
     this.lastPageIndex = this.length / this.pageSize;
     this.lastPageIndex = parseInt(this.lastPageIndex.toString())
     if (this.pageIndex != this.lastPageIndex) {
@@ -587,110 +590,110 @@ export class EventReportComponent implements OnInit {
 
   }
 
-  GetReport() {
+  // GetReport() {
 
 
-    let sortCol = "PartName";
-    let sortDir = "asc";
+  //   let sortCol = "PartName";
+  //   let sortDir = "asc";
 
-    this.commanShardService.GetEventReport(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, this.pageSize, sortCol, sortDir, this.startDate, this.endDate, this.searchFilterText, this.FilterArray)
-      .pipe(finalize(() => {
-      })).subscribe(result => {
-
-
-        this.InventoryDataBind = [];
-        this.allInventoryItems = [];
-        this.allInventoryItems = result.entity.transactionHistory;
-        this.length = result.entity.totalItems;
-        for (let i = 0; i < this.allInventoryItems.length; i++) {
-          let map = new Map<string, any>();
-          for (let j = 0; j < this.tabulatorColumn.length; j++) {
-            let keys = Object.keys(this.allInventoryItems[i])
-            for (let key = 0; key < keys.length; key++) {
-              if (keys[key] == this.tabulatorColumn[j].field) {
-                if (keys[key] == "transactionDate") {
-                  this.myDT = new Date(this.allInventoryItems[i][keys[key]])
-                  let DateManual = this.myDT.toLocaleDateString();
-                  map.set(this.tabulatorColumn[j].field, DateManual)
-                }
-                else {
-                  map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i][keys[key]])
-                }
-              }
-              else {
-                if (keys[key] == "transactionDate") {
-                  this.myDT = new Date(this.allInventoryItems[i][keys[key]])
-                  let DateManual = this.myDT.toLocaleDateString();
-                  map.set(keys[key], DateManual)
-                }
-                else {
-                  map.set(keys[key], this.allInventoryItems[i][keys[key]])
-                }
-
-              }
-            }
-            for (let k = 0; k < this.allInventoryItems[i].customFields.length; k++) {
-
-              if (this.allInventoryItems[i].customFields[k].columnName == this.tabulatorColumn[j].field) {
-                map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].customFields[k].columnValue)
-              }
-            }
-            // for (let k = 0; k < this.allInventoryItems[i].transactionDate; k++) {
-            //   
-            //   this.myDT = new Date(this.allInventoryItems[i].transactionDate)
-            //   let DateManual = this.myDT.toLocaleDateString();
-            //   map.set(this.allInventoryItems[i].transactionDate, DateManual)
-            // }
-            for (let k = 0; k < this.allInventoryItems[i].customFields.length; k++) {
-
-              if (this.allInventoryItems[i].customFields[k].columnName == this.tabulatorColumn[j].field) {
-
-                if (this.tabulatorColumn[j].datatype == "Date/Time") {
-                  if (this.allInventoryItems[i].customFields[k].columnValue != "") {
-                    this.myDT = new Date(this.allInventoryItems[i].customFields[k].columnValue)
-                    let DateManual = this.myDT.toLocaleDateString();
-                    if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
-                      DateManual = this.myDT.toLocaleTimeString()
-                    }
-                    if (this.tabulatorColumn[j].customFieldSpecialType == "Date & Time") {
-                      DateManual = this.myDT.toLocaleString();
-                    }
-                    if (this.tabulatorColumn[j].customFieldSpecialType == "Date") {
-                      DateManual = this.myDT.toLocaleDateString()
-                    }
-                    map.set(this.tabulatorColumn[j].field, DateManual)
-                  }
-                  else {
-                    map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].customFields[k].columnValue);
-                  }
-                }
-                else {
-                  map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].customFields[k].columnValue)
-                }
-              }
-            }
+  //   this.commanShardService.GetEventReport(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, this.pageSize, sortCol, sortDir, this.startDate, this.endDate, this.searchFilterText, this.FilterArray)
+  //     .pipe(finalize(() => {
+  //     })).subscribe(result => {
 
 
-            map.set("isSelected", false);
-          }
-          let jsonObject = {};
-          map.forEach((value, key) => {
-            jsonObject[key] = value
-          });
-          this.InventoryDataBind.push(jsonObject);
-        }
+  //       this.InventoryDataBind = [];
+  //       this.allInventoryItems = [];
+  //       this.allInventoryItems = result.entity.transactionHistory;
+  //       this.length = result.entity.totalItems;
+  //       for (let i = 0; i < this.allInventoryItems.length; i++) {
+  //         let map = new Map<string, any>();
+  //         for (let j = 0; j < this.tabulatorColumn.length; j++) {
+  //           let keys = Object.keys(this.allInventoryItems[i])
+  //           for (let key = 0; key < keys.length; key++) {
+  //             if (keys[key] == this.tabulatorColumn[j].field) {
+  //               if (keys[key] == "transactionDate") {
+  //                 this.myDT = new Date(this.allInventoryItems[i][keys[key]])
+  //                 let DateManual = this.myDT.toLocaleDateString();
+  //                 map.set(this.tabulatorColumn[j].field, DateManual)
+  //               }
+  //               else {
+  //                 map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i][keys[key]])
+  //               }
+  //             }
+  //             else {
+  //               if (keys[key] == "transactionDate") {
+  //                 this.myDT = new Date(this.allInventoryItems[i][keys[key]])
+  //                 let DateManual = this.myDT.toLocaleDateString();
+  //                 map.set(keys[key], DateManual)
+  //               }
+  //               else {
+  //                 map.set(keys[key], this.allInventoryItems[i][keys[key]])
+  //               }
 
-        // this.loadingRecords = false;
-        // this.IsInventoryLoaded = true;
-        // this.CheckboxShow = true;
-        setTimeout(function () {
-          toggle();
-          inputClear();
-          inputFocus();
-        }, 1500);
+  //             }
+  //           }
+  //           for (let k = 0; k < this.allInventoryItems[i].customFields.length; k++) {
 
-      });
-  }
+  //             if (this.allInventoryItems[i].customFields[k].columnName == this.tabulatorColumn[j].field) {
+  //               map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].customFields[k].columnValue)
+  //             }
+  //           }
+  //           // for (let k = 0; k < this.allInventoryItems[i].transactionDate; k++) {
+  //           //   
+  //           //   this.myDT = new Date(this.allInventoryItems[i].transactionDate)
+  //           //   let DateManual = this.myDT.toLocaleDateString();
+  //           //   map.set(this.allInventoryItems[i].transactionDate, DateManual)
+  //           // }
+  //           for (let k = 0; k < this.allInventoryItems[i].customFields.length; k++) {
+
+  //             if (this.allInventoryItems[i].customFields[k].columnName == this.tabulatorColumn[j].field) {
+
+  //               if (this.tabulatorColumn[j].datatype == "Date/Time") {
+  //                 if (this.allInventoryItems[i].customFields[k].columnValue != "") {
+  //                   this.myDT = new Date(this.allInventoryItems[i].customFields[k].columnValue)
+  //                   let DateManual = this.myDT.toLocaleDateString();
+  //                   if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
+  //                     DateManual = this.myDT.toLocaleTimeString()
+  //                   }
+  //                   if (this.tabulatorColumn[j].customFieldSpecialType == "Date & Time") {
+  //                     DateManual = this.myDT.toLocaleString();
+  //                   }
+  //                   if (this.tabulatorColumn[j].customFieldSpecialType == "Date") {
+  //                     DateManual = this.myDT.toLocaleDateString()
+  //                   }
+  //                   map.set(this.tabulatorColumn[j].field, DateManual)
+  //                 }
+  //                 else {
+  //                   map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].customFields[k].columnValue);
+  //                 }
+  //               }
+  //               else {
+  //                 map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].customFields[k].columnValue)
+  //               }
+  //             }
+  //           }
+
+
+  //           map.set("isSelected", false);
+  //         }
+  //         let jsonObject = {};
+  //         map.forEach((value, key) => {
+  //           jsonObject[key] = value
+  //         });
+  //         this.InventoryDataBind.push(jsonObject);
+  //       }
+
+  //       // this.loadingRecords = false;
+  //       // this.IsInventoryLoaded = true;
+  //       // this.CheckboxShow = true;
+  //       setTimeout(function () {
+  //         toggle();
+  //         inputClear();
+  //         inputFocus();
+  //       }, 1500);
+
+  //     });
+  // }
   ClearAllFilter() {
     this.FilterArray = [];
     this.tabulatorColumn.forEach(element => {
@@ -721,6 +724,125 @@ export class EventReportComponent implements OnInit {
     return DateManual;
   }
 
+  // ApplyFilter() {
+  //   if (this.dataColumnFilter.columnName == "" || this.dataColumnFilter.filterOperator == "" || this.dataColumnFilter.searchValue == "") {
+  //     return false;
+  //   }
+
+  //   this.tabulatorColumn.forEach(element => {
+  //     if (element.field == this.dataColumnFilter.columnName) {
+  //       this.dataColumnFilter.displayName = element.title;
+  //       this.dataColumnFilter.type = element.type;
+  //       this.dataColumnFilter.datatype = element.datatype;
+  //       element.inFilter = true;
+  //       if (element.datatype == "Date/Time") {
+  //         this.GetDate(element);
+  //       }
+  //       if (element.type == "AttributeField") {
+  //         this.dataColumnFilter.field = "states." + this.dataColumnFilter.columnName == 'partName' ? 'itemCode' : this.dataColumnFilter.columnName;
+  //         this.dataColumnFilter.value = this.dataColumnFilter.searchValue
+  //       }
+  //       else {
+  //         this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'partName' ? 'itemCode' : this.dataColumnFilter.columnName;
+  //         this.dataColumnFilter.value = this.dataColumnFilter.searchValue
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "eq") {
+  //         this.dataColumnFilter.operator = "$" + "eq"
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "ne") {
+  //         this.dataColumnFilter.operator = "$" + "neq"
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "cn") {
+  //         this.dataColumnFilter.operator = "$" + "cn"
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "nc") {
+  //         this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "Empty") {
+  //         this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "bw") {
+  //         this.dataColumnFilter.operator = "$" + "sw"
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "num-eq") {
+  //         this.dataColumnFilter.operator = "$" + "eq"
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "num-ne") {
+  //         this.dataColumnFilter.operator = "$" + "neq"
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "num-lte") {
+  //         this.dataColumnFilter.operator = "$" + "lte"
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "num-gte") {
+  //         this.dataColumnFilter.operator = "$" + "gt"
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "date-eq") {
+  //         this.dataColumnFilter.operator = "$" + "eq"
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "time-eq") {
+  //         this.dataColumnFilter.operator = "$" + "eq"
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "date-bw") {
+  //         this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "date-minute") {
+  //         this.dataColumnFilter.operator = "$" + "eq"
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "date-hour") {
+  //         this.dataColumnFilter.operator = "$" + "eq"
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "date-second") {
+  //         this.dataColumnFilter.operator = "$" + "eq"
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "date-month") {
+  //         this.dataColumnFilter.operator = "$" + "eq"
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "date-day") {
+  //         this.dataColumnFilter.operator = "$" + "eq"
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "date-year") {
+  //         this.dataColumnFilter.operator = "$" + "eq"
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "date-after") {
+  //         this.dataColumnFilter.operator = "$" + "gt"
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "date-before") {
+  //         this.dataColumnFilter.operator = "$" + "lt"
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "time-after") {
+  //         this.dataColumnFilter.operator = "$" + "gt"
+  //       }
+  //       if (this.dataColumnFilter.filterOperator == "time-before") {
+  //         this.dataColumnFilter.operator = "$" + "lt"
+  //       }
+
+  //     }
+  //   });
+  //   this.FilterArray.forEach((element, index) => {
+  //     let attribute = this.dataColumnFilter.type == "" ? '' : "$.";
+  //     if (element.columnName == attribute + this.dataColumnFilter.columnName) {
+  //       this.FilterArray.splice(index, 1);
+  //     }
+  //   });
+  //   this.FilterArray.push(this.dataColumnFilter);
+  //   if (this.dataColumnFilter.type == "AttributeField" || this.dataColumnFilter.type == "StateField") {
+  //     this.dataColumnFilter.columnName = "$." + this.dataColumnFilter.columnName;
+  //   }
+  //   this.dataColumnFilter = {
+  //     columnName: "",
+  //     displayName: "",
+  //     filterOperator: "",
+  //     searchValue: "",
+  //     type: "",
+  //     // inventory Core
+  //     field: "",
+  //     operator: "",
+  //     value: ""
+  //   }
+  //   this.mainToggleDropdown = false;
+  //   this.GetReport();
+  //   // this.ApplyJsFunction();
+  // }
   ApplyFilter() {
 
     if (this.dataColumnFilter.columnName == "" || this.dataColumnFilter.filterOperator == "" || this.dataColumnFilter.searchValue == "") {
@@ -750,14 +872,92 @@ export class EventReportComponent implements OnInit {
 
     this.FilterArray.push(this.dataColumnFilter);
     if (this.dataColumnFilter.type == "CustomField") {
-      this.dataColumnFilter.columnName = "$." + this.dataColumnFilter.columnName;
+      this.dataColumnFilter.columnName = "Details." + this.dataColumnFilter.columnName;
     }
+    else {
+      this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'partName' ? 'itemCode' : this.dataColumnFilter.columnName;
+      this.dataColumnFilter.value = this.dataColumnFilter.searchValue
+    }
+    if (this.dataColumnFilter.filterOperator == "eq") {
+      this.dataColumnFilter.operator = "$" + "eq"
+    }
+    if (this.dataColumnFilter.filterOperator == "ne") {
+      this.dataColumnFilter.operator = "$" + "neq"
+    }
+    if (this.dataColumnFilter.filterOperator == "cn") {
+      this.dataColumnFilter.operator = "$" + "cn"
+    }
+    if (this.dataColumnFilter.filterOperator == "nc") {
+      this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+    }
+    if (this.dataColumnFilter.filterOperator == "Empty") {
+      this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+    }
+    if (this.dataColumnFilter.filterOperator == "bw") {
+      this.dataColumnFilter.operator = "$" + "sw"
+    }
+    if (this.dataColumnFilter.filterOperator == "num-eq") {
+      this.dataColumnFilter.operator = "$" + "eq"
+    }
+    if (this.dataColumnFilter.filterOperator == "num-ne") {
+      this.dataColumnFilter.operator = "$" + "neq"
+    }
+    if (this.dataColumnFilter.filterOperator == "num-lte") {
+      this.dataColumnFilter.operator = "$" + "lte"
+    }
+    if (this.dataColumnFilter.filterOperator == "num-gte") {
+      this.dataColumnFilter.operator = "$" + "gt"
+    }
+    if (this.dataColumnFilter.filterOperator == "date-eq") {
+      this.dataColumnFilter.operator = "$" + "eq"
+    }
+    if (this.dataColumnFilter.filterOperator == "time-eq") {
+      this.dataColumnFilter.operator = "$" + "eq"
+    }
+    if (this.dataColumnFilter.filterOperator == "date-bw") {
+      this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+    }
+    if (this.dataColumnFilter.filterOperator == "date-minute") {
+      this.dataColumnFilter.operator = "$" + "eq"
+    }
+    if (this.dataColumnFilter.filterOperator == "date-hour") {
+      this.dataColumnFilter.operator = "$" + "eq"
+    }
+    if (this.dataColumnFilter.filterOperator == "date-second") {
+      this.dataColumnFilter.operator = "$" + "eq"
+    }
+    if (this.dataColumnFilter.filterOperator == "date-month") {
+      this.dataColumnFilter.operator = "$" + "eq"
+    }
+    if (this.dataColumnFilter.filterOperator == "date-day") {
+      this.dataColumnFilter.operator = "$" + "eq"
+    }
+    if (this.dataColumnFilter.filterOperator == "date-year") {
+      this.dataColumnFilter.operator = "$" + "eq"
+    }
+    if (this.dataColumnFilter.filterOperator == "date-after") {
+      this.dataColumnFilter.operator = "$" + "gt"
+    }
+    if (this.dataColumnFilter.filterOperator == "date-before") {
+      this.dataColumnFilter.operator = "$" + "lt"
+    }
+    if (this.dataColumnFilter.filterOperator == "time-after") {
+      this.dataColumnFilter.operator = "$" + "gt"
+    }
+    if (this.dataColumnFilter.filterOperator == "time-before") {
+      this.dataColumnFilter.operator = "$" + "lt"
+    }
+
     this.dataColumnFilter = {
       columnName: "",
       displayName: "",
       filterOperator: "",
       searchValue: "",
-      type: ""
+      type: "",
+      // inventory Core
+      field: "",
+      operator: "",
+      value: ""
     }
 
 
@@ -1043,5 +1243,96 @@ export class EventReportComponent implements OnInit {
     this.dataColumnFilter.searchValue = normalizedMonth;
     this.dataColumnFilter.datevalue = monthNames[normalizedMonth.getMonth()];
     datepicker.close();
+  }
+
+
+  // histrory to 
+  GetReport() {
+    debugger;
+    // this.loadingRecords = true;
+
+    let data = {
+      "filters": this.FilterArrays,
+      "sortBy": [],
+      "offset": 0,
+      "limit": 50
+    }
+    this.inventorcoreSevice.QueryTransactionsHistoryAsync(this.selectedTenantId, this.authService.accessToken, data).pipe(finalize(() => {
+      this.spinner.hide();
+    })).subscribe(
+      result => {
+        debugger;
+        if (result != null) {
+          this.InventoryDataBind = [];
+          this.allInventoryItems = [];
+          this.allInventoryItems = result;
+          for (let i = 0; i < this.allInventoryItems.length; i++) {
+            let map = new Map<string, any>();
+            for (let j = 0; j < this.tabulatorColumn.length; j++) {
+              let keys = Object.keys(this.allInventoryItems[i])
+              for (let key = 0; key < keys.length; key++) {
+                if (keys[key] == this.tabulatorColumn[j].field) {
+                  map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i][keys[key]])
+                }
+                else {
+                  map.set(keys[key], this.allInventoryItems[i][keys[key]])
+                }
+                if (keys[key] == 'itemCode')
+                  map.set('partName', this.allInventoryItems[i][keys[key]])
+                if (keys[key] == 'kind')
+                  map.set('action', this.allInventoryItems[i][keys[key]])
+                if (keys[key] == 'quantityChange')
+                  map.set('transactionQtyChange', this.allInventoryItems[i][keys[key]])
+                if (keys[key] == "dateUtc") {
+                  this.myDT = new Date(this.allInventoryItems[i][keys[key]])
+                  let DateManual = this.myDT.toLocaleDateString();
+                  map.set('transactionDate', DateManual)
+
+                }
+                if (keys[key] == 'unitId')
+                  map.set('inventoryId', this.allInventoryItems[i][keys[key]])
+              }
+              if (this.tabulatorColumn[j].datatype == "Date/Time") {
+                if (this.allInventoryItems[i].details[this.tabulatorColumn[j].field] != "") {
+                  this.myDT = new Date(this.allInventoryItems[i].details[this.tabulatorColumn[j].field])
+                  let DateManual = this.myDT.toLocaleDateString();
+                  if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
+                    DateManual = this.myDT.toLocaleTimeString()
+                  }
+                  if (this.tabulatorColumn[j].customFieldSpecialType == "Date & Time") {
+                    DateManual = this.myDT.toLocaleString();
+                  }
+                  if (this.tabulatorColumn[j].customFieldSpecialType == "Date") {
+                    DateManual = this.myDT.toLocaleDateString()
+                  }
+                  map.set(this.tabulatorColumn[j].field, DateManual)
+                }
+                else {
+                  map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].details[this.tabulatorColumn[j].field])
+                }
+              }
+              else {
+                map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].details[this.tabulatorColumn[j].field])
+              }
+              map.set("isSelected", false);
+              map.set("_children", []);
+            }
+            let jsonObject = {};
+            map.forEach((value, key) => {
+              jsonObject[key] = value
+            });
+            this.InventoryDataBind.push(jsonObject);
+          }
+        }
+        // this.loadingRecords = false;
+        // this.IsInventoryLoaded = true;
+        // this.CheckboxShow = true;
+        setTimeout(function () {
+          toggle();
+          inputClear();
+          inputFocus();
+        }, 1500);
+
+      });
   }
 }
