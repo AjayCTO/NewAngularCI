@@ -328,6 +328,9 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   constructor(private authService: AuthService, private reportService: ReportService, protected store: Store<AppState>, private formBuilder: FormBuilder, private eventService: EventService, private router: Router, private homeService: HomeService, private cdr: ChangeDetectorRef, private commanService: CommanSharedService, private customfieldservice: CustomFieldService, private toastr: ToastrService, private libraryService: LibraryService, private currentinventoryService: CurrentinventoryService, private spinner: NgxSpinnerService, private inventorcoreSevice: InventoryCoreService) {
 
     this.today = new Date();
+    this.today.setSeconds(0);
+    this.today.setMinutes(0);
+    this.today.setHours(0);
     this.AdjustQuantity = 1;
     this.InventoryTransactionObj = {
       partId: 0,
@@ -1491,11 +1494,12 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
           this.GetDate(element);
         }
         if (element.type == "AttributeField") {
-          this.dataColumnFilter.field = "states." + this.dataColumnFilter.columnName == 'partName' ? 'itemCode' : this.dataColumnFilter.columnName;
+          this.dataColumnFilter.field = "states." + this.dataColumnFilter.columnName
           this.dataColumnFilter.value = this.dataColumnFilter.searchValue
         }
         else {
-          this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'partName' ? 'itemCode' : this.dataColumnFilter.columnName;
+          if (this.dataColumnFilter.columnName == 'partName')
+            this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'partName' ? 'itemCode' : this.dataColumnFilter.columnName;
           this.dataColumnFilter.value = this.dataColumnFilter.searchValue
         }
         if (this.dataColumnFilter.filterOperator == "eq") {
@@ -1614,7 +1618,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
           this.GetDate(element);
         }
         if (element.type == "AttributeField") {
-          this.dataColumnFilter.field = "states." + this.dataColumnFilter.columnName == 'partName' ? 'itemCode' : this.dataColumnFilter.columnName;
+          this.dataColumnFilter.field = "states." + this.dataColumnFilter.columnName
           this.dataColumnFilter.value = this.dataColumnFilter.searchValue
         }
         else {
@@ -1941,7 +1945,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       uomName: "",
       inventoryId: 0,
       locationId: 0,
-      transactionDate: new Date(),
+      transactionDate: this.today,
       locationName: "",
       statusValue: "",
       attributeFields: [],
@@ -2377,6 +2381,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     if (element.customFieldSpecialType == "Date" || element.customFieldSpecialType == "") {
       DateManual = this.myDT.toLocaleDateString()
     }
+    this.dataColumnFilter.searchValue = this.dataColumnFilter.searchValue.toISOString();
     this.dataColumnFilter.datevalue = DateManual;
   }
   ApplyJsFunction200() {
@@ -2438,7 +2443,13 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     const obj = {};
     for (let i = 0; i < arr.length; i++) {
       const { columnName, columnValue } = arr[i];
-      obj[columnName] = columnValue;
+      if (columnValue != "") {
+        if (arr[i].dataType == "Date/Time")
+          obj[columnName] = columnValue.toISOString();
+        else
+          obj[columnName] = columnValue;
+      }
+
     };
     return obj;
   };
@@ -2461,7 +2472,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     let data =
     {
       "quantity": this.CurrentInventoryObj.quantity,
-      "date": this.CurrentInventoryObj.transactionDate,
+      "date": this.today.toISOString(),
       "reference": this.CurrentInventoryObj.partDescription,
       "kind": this.selectedDynamicEvent.eventName,
       "details": details,
@@ -2472,6 +2483,11 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.inventorcoreSevice.createUnitandIncreament(this.selectedTenantId, this.authService.accessToken, data).subscribe(
       result => {
         this.spinner.hide();
+        if (result) {
+          this.toastr.success("Successfully Proceed", "Success");
+          document.getElementById("closeInventoryModal").click();
+          this.GetCurrentInventory();
+        }
         debugger;
 
       }

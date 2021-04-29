@@ -46,7 +46,9 @@ export class DynamicEventComponent implements OnInit {
   AddCustomForm = false;
   constructor(private authService: AuthService, private cdr: ChangeDetectorRef, private commanService: CommanSharedService, private toastr: ToastrService, private currentinventoryService: CurrentinventoryService, private spinner: NgxSpinnerService, private inventorcoreSevice: InventoryCoreService, protected store: Store<AppState>) {
     this.today = new Date();
-
+    this.today.setSeconds(0);
+    this.today.setMinutes(0);
+    this.today.setHours(0);
   }
   public FilterArray: any[] = [];
   public dataColumnFilter: any = {
@@ -67,7 +69,6 @@ export class DynamicEventComponent implements OnInit {
   isDataLoaded = false;
   currentData: any;
   ngOnInit(): void {
-
 
     let data = this.CustomFields;
     if (this.DynamicEvent.eventFormJsonString != null) {
@@ -212,15 +213,25 @@ export class DynamicEventComponent implements OnInit {
     const obj = {};
     for (let i = 0; i < arr.length; i++) {
       const { columnName, columnValue } = arr[i];
-      if (arr[i].dataType != "Date/Time")
-        obj[columnName] = columnValue;
-      else
-        obj[columnName] = columnValue.toISOString();
+      if (columnValue != "") {
+        if (arr[i].dataType == "Date/Time")
+          obj[columnName] = columnValue.toISOString();
+        else
+          obj[columnName] = columnValue;
+      }
     };
     return obj;
   };
 
   CheckUnitIdExist() {
+    debugger;
+    let states = this.buildObject(this.AttributeFields);
+    if (JSON.stringify(this.InventoryTransactionObj.states) === JSON.stringify(states)) {
+
+      this.toastr.warning("You are trying to CHANGE these state with their current values, which is not allowed. Please change these state with a different value.", "NO CHANGE HAVE CHANGED");
+      return false
+    };
+    let details = this.buildObject(this.CustomFields);
     this.FilterArray = [];
     this.FilterArray.push(this.dataColumnFilter = {
       field: "itemCode",
@@ -233,7 +244,7 @@ export class DynamicEventComponent implements OnInit {
         this.dataColumnFilter = {
           field: "states." + element.columnName,
           operator: "$eq",
-          value: element.columnValue,
+          value: element.columnValue != '' ? element.dataType == "Date/Time" ? element.columnValue.toISOString() : element.columnValue : element.columnValue,
         }
       )
     });
@@ -242,30 +253,49 @@ export class DynamicEventComponent implements OnInit {
         this.spinner.hide();
         debugger;
         let toUnitId = result;
-        debugger;
-        // let details = this.buildObject(this.CustomFields);
-        // let states = this.buildObject(this.AttributeFields);
-        // // this.InventoryTransactionObj.customFields = this.CustomFields;
-        // this.InventoryTransactionObj.tenantId = this.selectedTenantId;
-        // this.InventoryTransactionObj.transactionDate = this.today;
 
-        // let data = {
-        //   quantity: this.InventoryTransactionObj.transactionQty,
-        //   date: this.InventoryTransactionObj.transactionDate,
-        //   reference: '',
-        //   kind: this.selectedDynamicEvent.eventName,
-        //   details: details,
-        //   fromUnitId: this.InventoryTransactionObj.unitId,
-        //   toStates: states
-        // }
-        // this.inventorcoreSevice.CreateUnitandAssign(this.selectedTenantId, this.authService.accessToken, data).subscribe(
-        //   result => {
-        //     this.spinner.hide();
-        //     debugger;
+        if (toUnitId != null && toUnitId != 0) {
+          let data = {
+            quantity: this.InventoryTransactionObj.transactionQty,
+            date: this.today.toISOString(),
+            reference: '',
+            kind: this.selectedDynamicEvent.eventName,
+            details: details,
+            fromUnitId: this.InventoryTransactionObj.unitId,
+            toUnitId: toUnitId
+          }
+          this.inventorcoreSevice.Assign(this.selectedTenantId, this.authService.accessToken, data).subscribe(
+            result => {
+              this.spinner.hide();
+              debugger;
+              if (result) {
+                this.toastr.success("Transaction is succeed");
+                this.RefreshInventory.emit();
 
-        //   })
+              }
+            })
+        }
+        else {
+          let data = {
+            quantity: this.InventoryTransactionObj.transactionQty,
+            date: this.today.toISOString(),
+            reference: '',
+            kind: this.selectedDynamicEvent.eventName,
+            details: details,
+            fromUnitId: this.InventoryTransactionObj.unitId,
+            toStates: states
+          }
+          this.inventorcoreSevice.CreateUnitandAssign(this.selectedTenantId, this.authService.accessToken, data).subscribe(
+            result => {
+              this.spinner.hide();
+              debugger;
+              if (result) {
+                this.toastr.success("Transaction is succeed");
+                this.RefreshInventory.emit();
 
-
+              }
+            })
+        }
 
       });
 
@@ -278,14 +308,11 @@ export class DynamicEventComponent implements OnInit {
         this.toastr.warning("Quantity  Field Is Required");
         return false;
       }
-      this.array
-
       this.InventoryTransactionObj.transactionQtyChange = this.InventoryTransactionObj.transactionQty;
       this.InventoryTransactionObj.circumstanceFields = this.CircumstanceFields;
       let details = this.buildObject(this.CustomFields);
       // this.InventoryTransactionObj.customFields = this.CustomFields;
       this.InventoryTransactionObj.tenantId = this.selectedTenantId;
-      this.InventoryTransactionObj.transactionDate = this.today;
       // if (this.TransactionTargetObj.ToUomId == null) {
       //   this.TransactionTargetObj.ToUomId = 0;
       // }
@@ -294,7 +321,7 @@ export class DynamicEventComponent implements OnInit {
       // }
       let data = {
         quantity: this.InventoryTransactionObj.transactionQtyChange,
-        date: this.InventoryTransactionObj.transactionDate,
+        date: this.today.toISOString(),
         reference: '',
         kind: this.selectedDynamicEvent.eventName,
         details: details,
@@ -325,7 +352,6 @@ export class DynamicEventComponent implements OnInit {
       let details = this.buildObject(this.CustomFields);
       // this.InventoryTransactionObj.customFields = this.CustomFields;
       this.InventoryTransactionObj.tenantId = this.selectedTenantId;
-      this.InventoryTransactionObj.transactionDate = this.today;
       // if (this.TransactionTargetObj.ToUomId == null) {
       //   this.TransactionTargetObj.ToUomId = 0;
       // }
@@ -334,7 +360,7 @@ export class DynamicEventComponent implements OnInit {
       // }
       let data = {
         quantity: this.InventoryTransactionObj.transactionQtyChange,
-        date: this.InventoryTransactionObj.transactionDate,
+        date: this.today.toISOString(),
         reference: '',
         kind: this.selectedDynamicEvent.eventName,
         details: details,
@@ -357,37 +383,8 @@ export class DynamicEventComponent implements OnInit {
 
       debugger;
 
-      // let IsExistUnitId = this.CheckUnitIdExist();
-      let details = this.buildObject(this.CustomFields);
-      let states = this.buildObject(this.AttributeFields);
+      this.CheckUnitIdExist();
 
-      if (this.InventoryTransactionObj.states === states) {
-        debugger;
-      };
-
-      // this.InventoryTransactionObj.customFields = this.CustomFields;
-      this.InventoryTransactionObj.tenantId = this.selectedTenantId;
-      this.InventoryTransactionObj.transactionDate = this.today;
-
-      let data = {
-        quantity: this.InventoryTransactionObj.transactionQty,
-        date: this.InventoryTransactionObj.transactionDate,
-        reference: '',
-        kind: this.selectedDynamicEvent.eventName,
-        details: details,
-        fromUnitId: this.InventoryTransactionObj.unitId,
-        toStates: states
-      }
-      // this.inventorcoreSevice.CreateUnitandAssign(this.selectedTenantId, this.authService.accessToken, data).subscribe(
-      //   result => {
-      //     this.spinner.hide();
-      //     debugger;
-      //     if (result) {
-      //       this.toastr.success("Transaction Is Done");
-      //       this.RefreshInventory.emit();
-
-      //     }
-      //   })
     }
 
 

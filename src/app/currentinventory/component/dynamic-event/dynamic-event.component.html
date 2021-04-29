@@ -79,7 +79,8 @@
                 </div>
             </div>
             <div class="form__section">
-                <h2 class="form__section-title">To these State Field
+                <h2 class="form__section-title" *ngIf="DynamicEvent.islocationRequired || DynamicEvent.isUOMRequired">To
+                    these State Field
                     <!-- <button type="button" class="invModal__control" (click)="AddCustomModal()">Add New Custom
                                     Field</button> -->
                 </h2>

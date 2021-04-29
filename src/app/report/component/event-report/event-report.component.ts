@@ -879,12 +879,18 @@ export class EventReportComponent implements OnInit {
 
     this.FilterArray.push(this.dataColumnFilter);
     if (this.dataColumnFilter.type == "CustomField") {
-      this.dataColumnFilter.columnName = "Details." + this.dataColumnFilter.columnName;
+      this.dataColumnFilter.field = "Details." + this.dataColumnFilter.columnName;
+      this.dataColumnFilter.value = this.dataColumnFilter.searchValue
     }
     else {
-      this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'partName' ? 'itemCode' : this.dataColumnFilter.columnName;
-      this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'action' ? 'kind' : this.dataColumnFilter.columnName;
-      this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'transactionQtyChange' ? 'quantityChange' : this.dataColumnFilter.columnName;
+      if (this.dataColumnFilter.columnName == 'partName')
+        this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'partName' ? 'itemCode' : this.dataColumnFilter.columnName;
+      if (this.dataColumnFilter.columnName == 'action')
+        this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'action' ? 'kind' : this.dataColumnFilter.columnName;
+      if (this.dataColumnFilter.columnName == 'transactionQtyChange')
+        this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'transactionQtyChange' ? 'quantityChange' : this.dataColumnFilter.columnName;
+      if (this.dataColumnFilter.columnName == 'transactionDate')
+        this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'transactionDate' ? 'dateUtc' : this.dataColumnFilter.columnName;
 
       this.dataColumnFilter.value = this.dataColumnFilter.searchValue
     }
@@ -1044,11 +1050,17 @@ export class EventReportComponent implements OnInit {
     this.FilterArray.push(this.dataColumnFilter);
     if (this.dataColumnFilter.type == "CustomField") {
       this.dataColumnFilter.columnName = "$." + this.dataColumnFilter.columnName;
-      this.dataColumnFilter.columnName = "Details." + this.dataColumnFilter.columnName;
+      this.dataColumnFilter.field = "Details." + this.dataColumnFilter.columnName;
+      this.dataColumnFilter.value = this.dataColumnFilter.searchValue
     } else {
-      this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'partName' ? 'itemCode' : this.dataColumnFilter.columnName;
-      this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'action' ? 'kind' : this.dataColumnFilter.columnName;
-      this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'transactionQtyChange' ? 'quantityChange' : this.dataColumnFilter.columnName;
+      if (this.dataColumnFilter.columnName == 'partName')
+        this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'partName' ? 'itemCode' : this.dataColumnFilter.columnName;
+      if (this.dataColumnFilter.columnName == 'action')
+        this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'action' ? 'kind' : this.dataColumnFilter.columnName;
+      if (this.dataColumnFilter.columnName == 'transactionQtyChange')
+        this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'transactionQtyChange' ? 'quantityChange' : this.dataColumnFilter.columnName;
+      if (this.dataColumnFilter.columnName == 'transactionDate')
+        this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'transactionDate' ? 'dateUtc' : this.dataColumnFilter.columnName;
       this.dataColumnFilter.value = this.dataColumnFilter.searchValue
     }
     if (this.dataColumnFilter.filterOperator == "eq") {
