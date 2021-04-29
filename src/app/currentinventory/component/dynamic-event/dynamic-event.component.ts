@@ -212,7 +212,10 @@ export class DynamicEventComponent implements OnInit {
     const obj = {};
     for (let i = 0; i < arr.length; i++) {
       const { columnName, columnValue } = arr[i];
-      obj[columnName] = columnValue;
+      if (arr[i].dataType != "Date/Time")
+        obj[columnName] = columnValue;
+      else
+        obj[columnName] = columnValue.toISOString();
     };
     return obj;
   };
@@ -354,8 +357,37 @@ export class DynamicEventComponent implements OnInit {
 
       debugger;
 
-      let IsExistUnitId = this.CheckUnitIdExist();
+      // let IsExistUnitId = this.CheckUnitIdExist();
+      let details = this.buildObject(this.CustomFields);
+      let states = this.buildObject(this.AttributeFields);
 
+      if (this.InventoryTransactionObj.states === states) {
+        debugger;
+      };
+
+      // this.InventoryTransactionObj.customFields = this.CustomFields;
+      this.InventoryTransactionObj.tenantId = this.selectedTenantId;
+      this.InventoryTransactionObj.transactionDate = this.today;
+
+      let data = {
+        quantity: this.InventoryTransactionObj.transactionQty,
+        date: this.InventoryTransactionObj.transactionDate,
+        reference: '',
+        kind: this.selectedDynamicEvent.eventName,
+        details: details,
+        fromUnitId: this.InventoryTransactionObj.unitId,
+        toStates: states
+      }
+      // this.inventorcoreSevice.CreateUnitandAssign(this.selectedTenantId, this.authService.accessToken, data).subscribe(
+      //   result => {
+      //     this.spinner.hide();
+      //     debugger;
+      //     if (result) {
+      //       this.toastr.success("Transaction Is Done");
+      //       this.RefreshInventory.emit();
+
+      //     }
+      //   })
     }
 
 

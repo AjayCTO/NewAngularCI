@@ -59,7 +59,6 @@ export class EventReportComponent implements OnInit {
   public isSearchFilterActive: boolean = false;
   public mainColumn: [];
   public FilterArray: any[] = [];
-  public FilterArrays: any[] = [];
   public Month = [{ 'id': '1', 'month': 'Janurary' }, { 'id': '2', 'month': 'February' }, { 'id': '3', 'month': 'March' }, { 'id': '4', 'month': 'April' }, { 'id': '5', 'month': 'May' }, { 'id': '6', 'month': 'June' }, { 'id': '7', 'month': 'July' }, { 'id': '8', 'month': 'August' }, { 'id': '9', 'month': 'September' }, { 'id': '10', 'month': 'October' }, { 'id': '11', 'month': 'November' }, { 'id': '12', 'month': 'December' },]
   public hour = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
   public minutes = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59']
@@ -92,10 +91,15 @@ export class EventReportComponent implements OnInit {
   public tabulatorValue: any;
   public ColumnDataType: string;
   public CustomFields: any;
-
+  public SortingArray: any[] = [];
+  public Sorting: any = {
+    field: "transactionId",
+    direction: "DESC",
+  }
   constructor(private libraryService: LibraryService, private spinner: NgxSpinnerService, private commanService: CommanSharedService, protected store: Store<AppState>, private eventService: EventService, private authService: AuthService, private toastr: ToastrService, private reportService: ReportService, private customfieldservice: CustomFieldService, private cdr: ChangeDetectorRef, private commanShardService: CommanSharedService, private inventorcoreSevice: InventoryCoreService) { }
 
   ngOnInit(): void {
+    this.SortingArray.push(this.Sorting)
     this.searchFilterText = "";
     this.selectedRepotTitle = "Default Event";
     if (localStorage.getItem("ReportCustomTitle") != undefined) {
@@ -694,6 +698,7 @@ export class EventReportComponent implements OnInit {
 
   //     });
   // }
+
   ClearAllFilter() {
     this.FilterArray = [];
     this.tabulatorColumn.forEach(element => {
@@ -723,6 +728,8 @@ export class EventReportComponent implements OnInit {
     }
     return DateManual;
   }
+
+
 
   // ApplyFilter() {
   //   if (this.dataColumnFilter.columnName == "" || this.dataColumnFilter.filterOperator == "" || this.dataColumnFilter.searchValue == "") {
@@ -876,6 +883,9 @@ export class EventReportComponent implements OnInit {
     }
     else {
       this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'partName' ? 'itemCode' : this.dataColumnFilter.columnName;
+      this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'action' ? 'kind' : this.dataColumnFilter.columnName;
+      this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'transactionQtyChange' ? 'quantityChange' : this.dataColumnFilter.columnName;
+
       this.dataColumnFilter.value = this.dataColumnFilter.searchValue
     }
     if (this.dataColumnFilter.filterOperator == "eq") {
@@ -1034,13 +1044,92 @@ export class EventReportComponent implements OnInit {
     this.FilterArray.push(this.dataColumnFilter);
     if (this.dataColumnFilter.type == "CustomField") {
       this.dataColumnFilter.columnName = "$." + this.dataColumnFilter.columnName;
+      this.dataColumnFilter.columnName = "Details." + this.dataColumnFilter.columnName;
+    } else {
+      this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'partName' ? 'itemCode' : this.dataColumnFilter.columnName;
+      this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'action' ? 'kind' : this.dataColumnFilter.columnName;
+      this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'transactionQtyChange' ? 'quantityChange' : this.dataColumnFilter.columnName;
+      this.dataColumnFilter.value = this.dataColumnFilter.searchValue
+    }
+    if (this.dataColumnFilter.filterOperator == "eq") {
+      this.dataColumnFilter.operator = "$" + "eq"
+    }
+    if (this.dataColumnFilter.filterOperator == "ne") {
+      this.dataColumnFilter.operator = "$" + "neq"
+    }
+    if (this.dataColumnFilter.filterOperator == "cn") {
+      this.dataColumnFilter.operator = "$" + "cn"
+    }
+    if (this.dataColumnFilter.filterOperator == "nc") {
+      this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+    }
+    if (this.dataColumnFilter.filterOperator == "Empty") {
+      this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+    }
+    if (this.dataColumnFilter.filterOperator == "bw") {
+      this.dataColumnFilter.operator = "$" + "sw"
+    }
+    if (this.dataColumnFilter.filterOperator == "num-eq") {
+      this.dataColumnFilter.operator = "$" + "eq"
+    }
+    if (this.dataColumnFilter.filterOperator == "num-ne") {
+      this.dataColumnFilter.operator = "$" + "neq"
+    }
+    if (this.dataColumnFilter.filterOperator == "num-lte") {
+      this.dataColumnFilter.operator = "$" + "lte"
+    }
+    if (this.dataColumnFilter.filterOperator == "num-gte") {
+      this.dataColumnFilter.operator = "$" + "gt"
+    }
+    if (this.dataColumnFilter.filterOperator == "date-eq") {
+      this.dataColumnFilter.operator = "$" + "eq"
+    }
+    if (this.dataColumnFilter.filterOperator == "time-eq") {
+      this.dataColumnFilter.operator = "$" + "eq"
+    }
+    if (this.dataColumnFilter.filterOperator == "date-bw") {
+      this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+    }
+    if (this.dataColumnFilter.filterOperator == "date-minute") {
+      this.dataColumnFilter.operator = "$" + "eq"
+    }
+    if (this.dataColumnFilter.filterOperator == "date-hour") {
+      this.dataColumnFilter.operator = "$" + "eq"
+    }
+    if (this.dataColumnFilter.filterOperator == "date-second") {
+      this.dataColumnFilter.operator = "$" + "eq"
+    }
+    if (this.dataColumnFilter.filterOperator == "date-month") {
+      this.dataColumnFilter.operator = "$" + "eq"
+    }
+    if (this.dataColumnFilter.filterOperator == "date-day") {
+      this.dataColumnFilter.operator = "$" + "eq"
+    }
+    if (this.dataColumnFilter.filterOperator == "date-year") {
+      this.dataColumnFilter.operator = "$" + "eq"
+    }
+    if (this.dataColumnFilter.filterOperator == "date-after") {
+      this.dataColumnFilter.operator = "$" + "gt"
+    }
+    if (this.dataColumnFilter.filterOperator == "date-before") {
+      this.dataColumnFilter.operator = "$" + "lt"
+    }
+    if (this.dataColumnFilter.filterOperator == "time-after") {
+      this.dataColumnFilter.operator = "$" + "gt"
+    }
+    if (this.dataColumnFilter.filterOperator == "time-before") {
+      this.dataColumnFilter.operator = "$" + "lt"
     }
     this.dataColumnFilter = {
       columnName: "",
       displayName: "",
       filterOperator: "",
       searchValue: "",
-      type: ""
+      type: "",
+      // inventory Core
+      field: "",
+      operator: "",
+      value: ""
     }
 
     document.getElementById("filterButton2_" + columnName).click();
@@ -1252,8 +1341,8 @@ export class EventReportComponent implements OnInit {
     // this.loadingRecords = true;
 
     let data = {
-      "filters": this.FilterArrays,
-      "sortBy": [],
+      "filters": this.FilterArray,
+      "sortBy": this.SortingArray,
       "offset": 0,
       "limit": 50
     }
