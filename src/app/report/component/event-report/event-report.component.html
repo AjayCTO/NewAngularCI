@@ -912,7 +912,125 @@
                 </div>
             </div>
         </div>
+        <div class="taskbar__sort">
+            <div class="icons icons--horziontal">
+                <div class="icons__item">
+                    <div class="icons__icon"><svg class="icon icon--theme01 icon--active-sorts"
+                            aria-labelledby="title-5f7de0fd9d2ad" xmlns="http://www.w3.org/2000/svg" width="30"
+                            height="30" viewBox="0 0 30 30">
+                            <g data-name="Group 3671">
+                                <g data-name="Group 3668">
+                                    <path data-name="Path 1727"
+                                        d="M20.825 24.278l3.887-3.887a2.916 2.916 0 01-4.692-.807 2.842 2.842 0 01-.282-1.253V4.892h-3.887v17.326a2.914 2.914 0 004.974 2.06z"
+                                        fill="currentColor" class="icon__color--primary"></path>
+                                    <path data-name="Path 1728"
+                                        d="M24.712 20.391l1.992-1.992-2.75-2.75-3.935 3.935a2.916 2.916 0 004.692.807z"
+                                        fill="currentColor" class="icon__color--secondary"></path>
+                                </g>
+                                <g data-name="Group 3669">
+                                    <path data-name="Path 1729"
+                                        d="M8.046 5.737L4.159 9.624a2.917 2.917 0 014.694.807 2.869 2.869 0 01.281 1.253v13.439h3.887V7.797a2.915 2.915 0 00-4.975-2.06z"
+                                        fill="currentColor" class="icon__color--primary"></path>
+                                    <path data-name="Path 1730"
+                                        d="M4.159 9.624l-1.992 1.992 2.751 2.75 3.936-3.935a2.917 2.917 0 00-4.694-.807z"
+                                        fill="currentColor" class="icon__color--secondary"></path>
+                                </g>
+                                <g data-name="Group 3670">
+                                    <path data-name="Path 1731" d="M0 30h30V0H0z" fill="none"></path>
+                                </g>
+                            </g>
+                        </svg></div>
 
+                    <span class="icons__label">ACTIVE SORTS</span>
+
+                    <svg aria-labelledby="title-5f7dd3f9c4a21" xmlns="http://www.w3.org/2000/svg" width="8.081"
+                        height="11.544" viewBox="0 0 8.081 11.544">
+                        <g data-name="Group 3641">
+                            <path data-name="Path 1713"
+                                d="M6.926 4.617V2.886a2.886 2.886 0 10-5.771 0v1.731A1.242 1.242 0 00.001 5.772v4.617a1.241 1.241 0 001.154 1.155h5.771a1.241 1.241 0 001.155-1.155V5.772a1.242 1.242 0 00-1.155-1.155zm-1.153 0H2.309V2.886a1.732 1.732 0 113.464 0z"
+                                fill="#abb3bb"></path>
+                        </g>
+                    </svg>
+
+                </div>
+                <div class="icons__icon">
+                    <a style="cursor: pointer;" (click)="ClearAllSorts()" class="command__isolated"> Clear All </a>
+                </div>
+            </div>
+            <div class="card icons icons--horziontal icons--size01">
+                <div *ngFor="let item of SortingArray ;let index = index" style="margin-right:5px;">
+                    <div class="taskbar__order" style="float: left;margin-top: 6px;">
+                        <em>{{index+1}}</em>
+                    </div>
+                    <button type="button" class="icons__item icons__item--contains-text">
+
+                        <div class="icons__text"><strong class="icons__name">{{item.displayName}}:</strong> <span
+                                class="icons__value">{{item.Order}}</span></div>
+                        <div class="icons__icon" (click)="RemoveSorting(item)"><svg
+                                class="icon-simple icon-simple--theme01 icon-simple--remove"
+                                aria-labelledby="title-5f7cbab264ccf" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                <path fill="currentColor" d="M4.929 2.071l16.97 16.97-2.828 2.83L2.101 4.898z"></path>
+                                <path fill="currentColor" d="M21.929 4.929l-16.97 16.97-2.83-2.828 16.972-16.97z">
+                                </path>
+                            </svg></div>
+                    </button>
+                </div>
+                <button type="button" class="icons__item icons__item--outline " style="cursor: pointer;">
+                    <div class="icons__item icons__item--outline" (click)="MainSortToggle()">
+                        <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--add"
+                                aria-labelledby="title-5f7cd7ce12c36" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                <path fill="currentColor" d="M0 10h24v4H0z"></path>
+                                <path fill="currentColor" d="M14 0v24h-4V0z"></path>
+                            </svg></div>
+                        <span class="icons__label">Add Sort</span>
+                    </div>
+                    <div *ngIf="mainsortToggleDropdown" class="toggleDropDown" style="min-width: 235px;">
+                        <ul class="icons__submenu-list" style="padding-top: 15px">
+                            <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                <div class="form__col">
+                                    <select class="floating-select" id="list-dropdown" [(ngModel)]="Sorting.columnName"
+                                        name="list-dropdown" value="">
+                                        <option value="">Choose Column</option>
+                                        <ng-container *ngFor="let opt of tabulatorColumn">
+                                            <ng-container *ngIf="opt.datatype!='button'&&opt.datatype!='image'">
+                                                <option [disabled]="opt.inSort" [value]="opt.field">
+                                                    {{opt.title}}
+                                                </option>
+                                            </ng-container>
+                                        </ng-container>
+                                    </select>
+                                    <span class="highlight"></span>
+                                    <label class="form__label form_label form__label--hidden">Dropdown</label>
+                                </div>
+                            </li>
+                            <li class="icons__submenu-item icons__submenu-item--contains-input">
+                                <div class="form__col">
+                                    <select [(ngModel)]="Sorting.Order" class="floating-select" id="list-dropdown"
+                                        name="list-dropdown">
+                                        <option value="">Choose Filter</option>
+                                        <option value="Asceding">Asceding</option>
+                                        <option value="Descending">Descending</option>
+                                    </select>
+                                    <span class="highlight"></span>
+                                    <label class="form__label form_label form__label--hidden">Dropdown</label>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="button-group">
+                            <a class="button button--small button--text-only" href="#">Cancel</a>
+                            <a class="button button--small" (click)="ApplySort()">Apply</a>
+                        </div>
+                    </div>
+                </button>
+            </div>
+            <!-- <div class="taskbar__note">
+                <em>Position 1 (drag sorts to change priority)</em>
+            </div> -->
+        </div>
     </div>
 </div>
 

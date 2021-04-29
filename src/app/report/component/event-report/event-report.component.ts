@@ -91,10 +91,13 @@ export class EventReportComponent implements OnInit {
   public tabulatorValue: any;
   public ColumnDataType: string;
   public CustomFields: any;
+  // sorting Array
   public SortingArray: any[] = [];
+  lengths = 2;
   public Sorting: any = {
-    field: "transactionId",
-    direction: "DESC",
+    columnName: "",
+    displayName: "",
+    Order: ""
   }
   constructor(private libraryService: LibraryService, private spinner: NgxSpinnerService, private commanService: CommanSharedService, protected store: Store<AppState>, private eventService: EventService, private authService: AuthService, private toastr: ToastrService, private reportService: ReportService, private customfieldservice: CustomFieldService, private cdr: ChangeDetectorRef, private commanShardService: CommanSharedService, private inventorcoreSevice: InventoryCoreService) { }
 
@@ -709,6 +712,93 @@ export class EventReportComponent implements OnInit {
     this.ngOnInit();
     // this.searchFilterText = "";
     // this.GetCurrentInventory();
+    // this.ApplyJsFunction();
+  }
+  ClearAllSorts() {
+    this.SortingArray = [];
+    this.tabulatorColumn.forEach(element => {
+      element.inSort = false;
+    });
+    // this.searchFilterText = "";
+    this.GetReport();
+    // this.ApplyJsFunction();
+  }
+  mainsortToggleDropdown = false;
+  MainSortToggle() {
+    this.mainsortToggleDropdown = !this.mainsortToggleDropdown;
+  }
+  ApplySort() {
+    debugger;
+    if (this.Sorting.columnName == "" || this.Sorting.Order == "") {
+      return false;
+    }
+
+    //Inventory Core 
+    this.Sorting.direction = this.Sorting.Order == "Asceding" ? "ASC" : "DESC"
+    //
+    this.tabulatorColumn.forEach(element => {
+      if (element.field == this.Sorting.columnName) {
+        this.Sorting.displayName = element.title;
+        element.inSort = true;
+        if (element.type == "CustomField") {
+
+          this.Sorting.field = "Details." + this.Sorting.columnName
+
+
+        }
+        else {
+          if (this.Sorting.columnName == 'partName') {
+            this.Sorting.field = this.Sorting.columnName == 'partName' ? 'itemCode' : this.Sorting.columnName;
+          }
+          if (this.Sorting.columnName == 'action') {
+            this.Sorting.field = this.Sorting.columnName == 'action' ? 'kind' : this.Sorting.columnName;
+          }
+          if (this.Sorting.columnName == 'transactionQtyChange') {
+            this.Sorting.field = this.Sorting.columnName == 'transactionQtyChange' ? 'quantityChange' : this.Sorting.columnName;
+          }
+          if (this.Sorting.columnName == 'transactionDate') {
+            this.Sorting.field = this.Sorting.columnName == 'transactionDate' ? 'dateUtc' : this.Sorting.columnName;
+          }
+          // this.Sorting.field = this.Sorting.columnName;
+        }
+      }
+      //Inventory Core 
+
+      //
+    });
+    if (this.SortingArray.length <= this.lengths) {
+      this.SortingArray.push(this.Sorting)
+      this.Sorting = {
+        columnName: "",
+        displayName: "",
+        Order: "",
+        //Inventory core
+        field: "",
+        direction: ""
+        //
+      }
+    }
+    else {
+      this.toastr.warning("You can not add more than 3 Column For Sorting");
+    }
+    this.mainsortToggleDropdown = false;
+    this.GetReport();
+    // this.ApplyJsFunction();
+  }
+  RemoveSorting(data) {
+    this.SortingArray.forEach((element, index) => {
+
+      if (element.columnName == data.columnName) {
+        this.SortingArray.splice(index, 1);
+      }
+    })
+    this.tabulatorColumn.forEach(element => {
+
+      if (element.field == data.columnName) {
+        element.inSort = false;
+      }
+    });
+    this.GetReport();
     // this.ApplyJsFunction();
   }
   ConvertStringToDate(stringDate, Type) {
