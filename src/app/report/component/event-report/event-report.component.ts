@@ -95,9 +95,8 @@ export class EventReportComponent implements OnInit {
   public SortingArray: any[] = [];
   lengths = 2;
   public Sorting: any = {
-    columnName: "",
-    displayName: "",
-    Order: ""
+    field: "",
+    direction: ""
   }
   constructor(private libraryService: LibraryService, private spinner: NgxSpinnerService, private commanService: CommanSharedService, protected store: Store<AppState>, private eventService: EventService, private authService: AuthService, private toastr: ToastrService, private reportService: ReportService, private customfieldservice: CustomFieldService, private cdr: ChangeDetectorRef, private commanShardService: CommanSharedService, private inventorcoreSevice: InventoryCoreService) { }
 

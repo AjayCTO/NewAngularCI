@@ -331,6 +331,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.today.setSeconds(0);
     this.today.setMinutes(0);
     this.today.setHours(0);
+    this.today.setMilliseconds(0);
     this.AdjustQuantity = 1;
     this.InventoryTransactionObj = {
       partId: 0,

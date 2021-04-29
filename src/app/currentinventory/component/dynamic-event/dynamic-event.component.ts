@@ -49,6 +49,7 @@ export class DynamicEventComponent implements OnInit {
     this.today.setSeconds(0);
     this.today.setMinutes(0);
     this.today.setHours(0);
+    this.today.setMilliseconds(0);
   }
   public FilterArray: any[] = [];
   public dataColumnFilter: any = {
