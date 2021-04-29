@@ -102,7 +102,7 @@ export class EventReportComponent implements OnInit {
   constructor(private libraryService: LibraryService, private spinner: NgxSpinnerService, private commanService: CommanSharedService, protected store: Store<AppState>, private eventService: EventService, private authService: AuthService, private toastr: ToastrService, private reportService: ReportService, private customfieldservice: CustomFieldService, private cdr: ChangeDetectorRef, private commanShardService: CommanSharedService, private inventorcoreSevice: InventoryCoreService) { }
 
   ngOnInit(): void {
-    this.SortingArray.push(this.Sorting)
+    // this.SortingArray.push(this.Sorting)
     this.searchFilterText = "";
     this.selectedRepotTitle = "Default Event";
     if (localStorage.getItem("ReportCustomTitle") != undefined) {
@@ -567,7 +567,7 @@ export class EventReportComponent implements OnInit {
       toggle();
       inputClear();
       inputFocus();
-    }, 1500);
+    }, 500);
 
   }
   onOptionsSelected2(event) {
@@ -941,7 +941,7 @@ export class EventReportComponent implements OnInit {
   //   // this.ApplyJsFunction();
   // }
   ApplyFilter() {
-
+    debugger;
     if (this.dataColumnFilter.columnName == "" || this.dataColumnFilter.filterOperator == "" || this.dataColumnFilter.searchValue == "") {
       return false;
     }
@@ -973,19 +973,31 @@ export class EventReportComponent implements OnInit {
       this.dataColumnFilter.value = this.dataColumnFilter.searchValue
     }
     else {
-      if (this.dataColumnFilter.columnName == 'partName')
+      if (this.dataColumnFilter.columnName == 'partName') {
         this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'partName' ? 'itemCode' : this.dataColumnFilter.columnName;
-      if (this.dataColumnFilter.columnName == 'action')
+      }
+      if (this.dataColumnFilter.columnName == 'action') {
         this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'action' ? 'kind' : this.dataColumnFilter.columnName;
-      if (this.dataColumnFilter.columnName == 'transactionQtyChange')
+      }
+      if (this.dataColumnFilter.columnName == 'transactionQtyChange') {
         this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'transactionQtyChange' ? 'quantityChange' : this.dataColumnFilter.columnName;
-      if (this.dataColumnFilter.columnName == 'transactionDate')
+      }
+      if (this.dataColumnFilter.columnName == 'transactionDate') {
         this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'transactionDate' ? 'dateUtc' : this.dataColumnFilter.columnName;
+      }
+      // this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'partName' ? 'itemCode' : this.dataColumnFilter.columnName;
+      // this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'action' ? 'kind' : this.dataColumnFilter.columnName;
+      // this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'transactionQtyChange' ? 'quantityChange' : this.dataColumnFilter.columnName;
+      // this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'transactionDate' ? 'dateUtc' : this.dataColumnFilter.columnName;
 
       this.dataColumnFilter.value = this.dataColumnFilter.searchValue
     }
     if (this.dataColumnFilter.filterOperator == "eq") {
       this.dataColumnFilter.operator = "$" + "eq"
+    }
+
+    if (this.dataColumnFilter.filterOperator == "date-neq") {
+      this.dataColumnFilter.operator = "$" + "neq"
     }
     if (this.dataColumnFilter.filterOperator == "ne") {
       this.dataColumnFilter.operator = "$" + "neq"
@@ -1139,18 +1151,22 @@ export class EventReportComponent implements OnInit {
 
     this.FilterArray.push(this.dataColumnFilter);
     if (this.dataColumnFilter.type == "CustomField") {
-      this.dataColumnFilter.columnName = "$." + this.dataColumnFilter.columnName;
+      // this.dataColumnFilter.columnName = "$." + this.dataColumnFilter.columnName;
       this.dataColumnFilter.field = "Details." + this.dataColumnFilter.columnName;
       this.dataColumnFilter.value = this.dataColumnFilter.searchValue
     } else {
-      if (this.dataColumnFilter.columnName == 'partName')
+      if (this.dataColumnFilter.columnName == 'partName') {
         this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'partName' ? 'itemCode' : this.dataColumnFilter.columnName;
-      if (this.dataColumnFilter.columnName == 'action')
+      }
+      if (this.dataColumnFilter.columnName == 'action') {
         this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'action' ? 'kind' : this.dataColumnFilter.columnName;
-      if (this.dataColumnFilter.columnName == 'transactionQtyChange')
+      }
+      if (this.dataColumnFilter.columnName == 'transactionQtyChange') {
         this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'transactionQtyChange' ? 'quantityChange' : this.dataColumnFilter.columnName;
-      if (this.dataColumnFilter.columnName == 'transactionDate')
+      }
+      if (this.dataColumnFilter.columnName == 'transactionDate') {
         this.dataColumnFilter.field = this.dataColumnFilter.columnName == 'transactionDate' ? 'dateUtc' : this.dataColumnFilter.columnName;
+      }
       this.dataColumnFilter.value = this.dataColumnFilter.searchValue
     }
     if (this.dataColumnFilter.filterOperator == "eq") {
@@ -1162,12 +1178,12 @@ export class EventReportComponent implements OnInit {
     if (this.dataColumnFilter.filterOperator == "cn") {
       this.dataColumnFilter.operator = "$" + "cn"
     }
-    if (this.dataColumnFilter.filterOperator == "nc") {
-      this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
-    }
-    if (this.dataColumnFilter.filterOperator == "Empty") {
-      this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
-    }
+    // if (this.dataColumnFilter.filterOperator == "nc") {
+    //   this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+    // }
+    // if (this.dataColumnFilter.filterOperator == "Empty") {
+    //   this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+    // }
     if (this.dataColumnFilter.filterOperator == "bw") {
       this.dataColumnFilter.operator = "$" + "sw"
     }
@@ -1189,27 +1205,27 @@ export class EventReportComponent implements OnInit {
     if (this.dataColumnFilter.filterOperator == "time-eq") {
       this.dataColumnFilter.operator = "$" + "eq"
     }
-    if (this.dataColumnFilter.filterOperator == "date-bw") {
-      this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
-    }
-    if (this.dataColumnFilter.filterOperator == "date-minute") {
-      this.dataColumnFilter.operator = "$" + "eq"
-    }
-    if (this.dataColumnFilter.filterOperator == "date-hour") {
-      this.dataColumnFilter.operator = "$" + "eq"
-    }
-    if (this.dataColumnFilter.filterOperator == "date-second") {
-      this.dataColumnFilter.operator = "$" + "eq"
-    }
-    if (this.dataColumnFilter.filterOperator == "date-month") {
-      this.dataColumnFilter.operator = "$" + "eq"
-    }
-    if (this.dataColumnFilter.filterOperator == "date-day") {
-      this.dataColumnFilter.operator = "$" + "eq"
-    }
-    if (this.dataColumnFilter.filterOperator == "date-year") {
-      this.dataColumnFilter.operator = "$" + "eq"
-    }
+    // if (this.dataColumnFilter.filterOperator == "date-bw") {
+    //   this.dataColumnFilter.operator = "$" + this.dataColumnFilter.filterOperator
+    // }
+    // if (this.dataColumnFilter.filterOperator == "date-minute") {
+    //   this.dataColumnFilter.operator = "$" + "eq"
+    // }
+    // if (this.dataColumnFilter.filterOperator == "date-hour") {
+    //   this.dataColumnFilter.operator = "$" + "eq"
+    // }
+    // if (this.dataColumnFilter.filterOperator == "date-second") {
+    //   this.dataColumnFilter.operator = "$" + "eq"
+    // }
+    // if (this.dataColumnFilter.filterOperator == "date-month") {
+    //   this.dataColumnFilter.operator = "$" + "eq"
+    // }
+    // if (this.dataColumnFilter.filterOperator == "date-day") {
+    //   this.dataColumnFilter.operator = "$" + "eq"
+    // }
+    // if (this.dataColumnFilter.filterOperator == "date-year") {
+    //   this.dataColumnFilter.operator = "$" + "eq"
+    // }
     if (this.dataColumnFilter.filterOperator == "date-after") {
       this.dataColumnFilter.operator = "$" + "gt"
     }
@@ -1252,6 +1268,9 @@ export class EventReportComponent implements OnInit {
     }
     if (data == 'Does Not Equal') {
       this.dataColumnFilter.filterOperator = 'ne'
+    }
+    if (data == 'DateNotEquals') {
+      this.dataColumnFilter.filterOperator = 'date-neq'
     }
     if (data == 'Contains') {
       this.dataColumnFilter.filterOperator = 'cn'
@@ -1351,6 +1370,9 @@ export class EventReportComponent implements OnInit {
   GetDate(element) {
 
     if (this.dataColumnFilter.filterOperator == 'date-eq') {
+      this.GetdateFilter(element)
+    }
+    if (this.dataColumnFilter.filterOperator == 'date-neq') {
       this.GetdateFilter(element)
     }
     if (this.dataColumnFilter.filterOperator == 'time-eq') {
