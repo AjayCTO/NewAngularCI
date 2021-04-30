@@ -31,8 +31,8 @@ export class StatementHistoryComponent implements OnInit {
   public SortingArray: any[] = [];
   lengths = 2;
   public Sorting: any = {
-    field: "transactionId",
-    direction: "DESC",
+    field: "",
+    direction: "",
   }
   public FilterArray: any[] = [];
   public dataColumnFilter: any = {
@@ -53,8 +53,6 @@ export class StatementHistoryComponent implements OnInit {
       operator: "$eq",
       value: this.InventoryTransactionObj.unitId
     });
-
-    this.SortingArray.push(this.Sorting);
     //this.StatementServices();
     this.InventoryTransactionObj
     this.getHistoryStatements();
