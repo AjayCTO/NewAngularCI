@@ -533,6 +533,14 @@
                             To</span>
                         <span class="icons__value" *ngIf="filter.filterOperator=='num-lte'">Less Than Or Equal To
                         </span>
+                        <span class="icons__value" *ngIf="filter.filterOperator=='num-gt'">Greater Than
+                        </span>
+                        <span class="icons__value" *ngIf="filter.filterOperator=='num-lt'">Less Than
+                        </span>
+                        <span class="icons__value" *ngIf="filter.filterOperator=='gt'">Greater Than
+                        </span>
+                        <span class="icons__value" *ngIf="filter.filterOperator=='lt'">Less Than
+                        </span>
                         <!-- <span class="icons__value" *ngIf="filter.filterOperator=='date-bw'">Date Between</span> -->
                         <span class="icons__value" *ngIf="filter.filterOperator=='date-before'">On Or Before</span>
 
@@ -638,6 +646,35 @@
                                         </div>
 
                                     </li>
+                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                        *ngIf="dataColumnFilter.filterOperator=='lt'">
+                                        <div class="form__col"
+                                            *ngIf="ColumnDataTypeSpecial=='Date'||ColumnDataTypeSpecial==''">
+                                            <input class="form__input" [owlDateTimeTrigger]="dt1"
+                                                placeholder="Select Date" [(ngModel)]="dataColumnFilter.searchValue"
+                                                [owlDateTime]="dt1">
+                                            <owl-date-time [pickerType]="'calendar'" #dt1>
+                                            </owl-date-time>
+                                        </div>
+                                        <div class="form__col" *ngIf="ColumnDataTypeSpecial=='Date & Time'">
+
+                                            <input class="form__input" [owlDateTimeTrigger]="dt1"
+                                                [(ngModel)]="dataColumnFilter.searchValue" [owlDateTime]="dt1">
+                                            <owl-date-time #dt1>
+                                            </owl-date-time>
+                                        </div>
+
+                                    </li>
+                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                        *ngIf="dataColumnFilter.filterOperator=='gt'">
+                                        <div class="form__col"
+                                            *ngIf="ColumnDataTypeSpecial=='Date'||ColumnDataTypeSpecial==''">
+                                            <input class="form__input" [owlDateTimeTrigger]="dt1"
+                                                placeholder="Select Date" [(ngModel)]="dataColumnFilter.searchValue"
+                                                [owlDateTime]="dt1">
+                                            <owl-date-time [pickerType]="'calendar'" #dt1>
+                                            </owl-date-time>
+                                        </div>
                                     <li class="icons__submenu-item icons__submenu-item--contains-input"
                                         *ngIf="dataColumnFilter.filterOperator=='date-neq'">
                                         <div class="form__col"
@@ -864,17 +901,17 @@
                                             style="display: flex;">Begins
                                             With</a>
                                     </li>
-                                    <li class="icons__submenu-item"
+                                    <!-- <li class="icons__submenu-item"
                                         [ngClass]="dataColumnFilter.filterOperator=='nc'?'active':''"><a
                                             class="icons__submenu-link"
                                             (click)="FilterOperartorSelect('Does NOT Contain')"
                                             style="display: flex;">Does NOT
-                                            Contain </a></li>
-                                    <li class="icons__submenu-item"
+                                            Contain </a></li> -->
+                                    <!-- <li class="icons__submenu-item"
                                         [ngClass]="dataColumnFilter.filterOperator=='Empty'?'active':''"><a
                                             class="icons__submenu-link" (click)="FilterOperartorSelect('Is Empty')"
                                             style="display: flex;">Is
-                                            Empty</a></li>
+                                            Empty</a></li> -->
                                 </ul>
 
                                 <ul *ngIf="ColumnDataType=='number'||ColumnDataType=='Number'"
@@ -891,6 +928,19 @@
                                             Equal</a>
                                     </li>
                                     <li class="icons__submenu-item"
+                                        [ngClass]="dataColumnFilter.filterOperator=='num-lt'?'active':''">
+                                        <a (click)="FilterOperartorSelect('Number Less Than')"
+                                            class="icons__submenu-link" style="display: flex;">Less Than
+                                        </a>
+                                    </li>
+                                    <li class="icons__submenu-item"
+                                        [ngClass]="dataColumnFilter.filterOperator=='num-gt'?'active':''">
+                                        <a (click)="FilterOperartorSelect('Number Greater Than')"
+                                            class="icons__submenu-link" style="display: flex;">Greater
+                                            Than
+                                        </a>
+                                    </li>
+                                    <li class="icons__submenu-item"
                                         [ngClass]="dataColumnFilter.filterOperator=='num-gte'?'active':''"><a
                                             (click)="FilterOperartorSelect('Greater Than or Equals')"
                                             class="icons__submenu-link" style="display: flex;">Greater Than or
@@ -900,10 +950,10 @@
                                             (click)="FilterOperartorSelect('Less Than or Equals')"
                                             class="icons__submenu-link" style="display: flex;">Less Than or
                                             Equals</a></li>
-                                    <li class="icons__submenu-item"
+                                    <!-- <li class="icons__submenu-item"
                                         [ngClass]="dataColumnFilter.filterOperator=='Empty'?'active':''"><a
                                             (click)="FilterOperartorSelect('Is Empty')" class="icons__submenu-link"
-                                            style="display: flex;">Is Empty </a></li>
+                                            style="display: flex;">Is Empty </a></li> -->
                                 </ul>
                                 <ul *ngIf="ColumnDataType=='stringUom'" style="list-style: none;  padding-left: 0px;">
                                     <li class="icons__submenu-item"
@@ -931,6 +981,16 @@
                                                 (click)="FilterOperartorSelect('DateNotEquals')"
                                                 class="icons__submenu-link" style="display: flex;">Does Not
                                                 Equal</a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='lt'?'active':''">
+                                            <a (click)="FilterOperartorSelect('Less Than')" class="icons__submenu-link"
+                                                style="display: flex;">Less Than</a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='gt'?'active':''">
+                                            <a (click)="FilterOperartorSelect('Greater Than')"
+                                                class="icons__submenu-link" style="display: flex;">Greater Than</a>
                                         </li>
                                         <!-- <li class="icons__submenu-item"
                                             [ngClass]="dataColumnFilter.filterOperator=='date-bw'?'active':''"><a
@@ -1001,6 +1061,16 @@
                                                 (click)="FilterOperartorSelect('DateNotEquals')"
                                                 class="icons__submenu-link" style="display: flex;">Does Not
                                                 Equal</a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='lt'?'active':''">
+                                            <a (click)="FilterOperartorSelect('Less Than')" class="icons__submenu-link"
+                                                style="display: flex;">Less Than</a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='gt'?'active':''">
+                                            <a (click)="FilterOperartorSelect('Greater Than')"
+                                                class="icons__submenu-link" style="display: flex;">Greater Than</a>
                                         </li>
                                         <!-- <li class="icons__submenu-item"
                                             [ngClass]="dataColumnFilter.filterOperator=='date-bw'?'active':''"><a
@@ -1076,6 +1146,16 @@
                                                 (click)="FilterOperartorSelect('DateNotEquals')"
                                                 class="icons__submenu-link" style="display: flex;">Does Not
                                                 Equal</a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='lt'?'active':''">
+                                            <a (click)="FilterOperartorSelect('Less Than')" class="icons__submenu-link"
+                                                style="display: flex;">Less Than</a>
+                                        </li>
+                                        <li class="icons__submenu-item"
+                                            [ngClass]="dataColumnFilter.filterOperator=='gt'?'active':''">
+                                            <a (click)="FilterOperartorSelect('Greater Than')"
+                                                class="icons__submenu-link" style="display: flex;">Greater Than</a>
                                         </li>
                                         <!-- <li class="icons__submenu-item"
                                             [ngClass]="dataColumnFilter.filterOperator=='date-second'?'active':''">
@@ -1594,6 +1674,56 @@
 
                                                                     </li>
                                                                     <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                                                        *ngIf="dataColumnFilter.filterOperator=='lt'">
+                                                                        <div class="form__col"
+                                                                            *ngIf="itemHeader.customFieldSpecialType=='Date'||itemHeader.customFieldSpecialType==''">
+
+                                                                            <input class="form__input"
+                                                                                [owlDateTimeTrigger]="dt1"
+                                                                                [(ngModel)]="dataColumnFilter.searchValue"
+                                                                                [owlDateTime]="dt1">
+                                                                            <owl-date-time [pickerType]="'calendar'"
+                                                                                #dt1>
+                                                                            </owl-date-time>
+                                                                        </div>
+                                                                        <div class="form__col"
+                                                                            *ngIf="itemHeader.customFieldSpecialType=='Date & Time'">
+
+                                                                            <input class="form__input"
+                                                                                [owlDateTimeTrigger]="dt1"
+                                                                                [(ngModel)]="dataColumnFilter.searchValue"
+                                                                                [owlDateTime]="dt1">
+                                                                            <owl-date-time #dt1>
+                                                                            </owl-date-time>
+                                                                        </div>
+
+                                                                    </li>
+                                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
+                                                                        *ngIf="dataColumnFilter.filterOperator=='gt'">
+                                                                        <div class="form__col"
+                                                                            *ngIf="itemHeader.customFieldSpecialType=='Date'||itemHeader.customFieldSpecialType==''">
+
+                                                                            <input class="form__input"
+                                                                                [owlDateTimeTrigger]="dt1"
+                                                                                [(ngModel)]="dataColumnFilter.searchValue"
+                                                                                [owlDateTime]="dt1">
+                                                                            <owl-date-time [pickerType]="'calendar'"
+                                                                                #dt1>
+                                                                            </owl-date-time>
+                                                                        </div>
+                                                                        <div class="form__col"
+                                                                            *ngIf="itemHeader.customFieldSpecialType=='Date & Time'">
+
+                                                                            <input class="form__input"
+                                                                                [owlDateTimeTrigger]="dt1"
+                                                                                [(ngModel)]="dataColumnFilter.searchValue"
+                                                                                [owlDateTime]="dt1">
+                                                                            <owl-date-time #dt1>
+                                                                            </owl-date-time>
+                                                                        </div>
+
+                                                                    </li>
+                                                                    <li class="icons__submenu-item icons__submenu-item--contains-input"
                                                                         *ngIf="dataColumnFilter.filterOperator=='date-neq'">
                                                                         <div class="form__col"
                                                                             *ngIf="itemHeader.customFieldSpecialType=='Date'||itemHeader.customFieldSpecialType==''">
@@ -1875,20 +2005,20 @@
                                                                                 style="display: flex;">Begins
                                                                                 With</a>
                                                                         </li>
-                                                                        <li class="icons__submenu-item"
+                                                                        <!-- <li class="icons__submenu-item"
                                                                             [ngClass]="dataColumnFilter.filterOperator=='nc'?'active':''">
                                                                             <a class="icons__submenu-link"
                                                                                 (click)="FilterOperartorSelect('Does NOT Contain')"
                                                                                 style="display: flex;">Does NOT
                                                                                 Contain </a>
-                                                                        </li>
-                                                                        <li class="icons__submenu-item"
+                                                                        </li> -->
+                                                                        <!-- <li class="icons__submenu-item"
                                                                             [ngClass]="dataColumnFilter.filterOperator=='Empty'?'active':''">
                                                                             <a class="icons__submenu-link"
                                                                                 (click)="FilterOperartorSelect('Is Empty')"
                                                                                 style="display: flex;">Is
                                                                                 Empty </a>
-                                                                        </li>
+                                                                        </li> -->
                                                                     </ul>
 
                                                                 </ng-container>
@@ -1911,6 +2041,18 @@
                                                                                 class="icons__submenu-link"
                                                                                 style="display: flex;">Does Not
                                                                                 Equal</a>
+                                                                        </li>
+                                                                        <li class="icons__submenu-item"
+                                                                            [ngClass]="dataColumnFilter.filterOperator=='lt'?'active':''">
+                                                                            <a (click)="FilterOperartorSelect('Less Than')"
+                                                                                class="icons__submenu-link"
+                                                                                style="display: flex;">Less Than</a>
+                                                                        </li>
+                                                                        <li class="icons__submenu-item"
+                                                                            [ngClass]="dataColumnFilter.filterOperator=='gt'?'active':''">
+                                                                            <a (click)="FilterOperartorSelect('Greater Than')"
+                                                                                class="icons__submenu-link"
+                                                                                style="display: flex;">Greater Than</a>
                                                                         </li>
                                                                         <!-- <li class="icons__submenu-item"
                                                                             [ngClass]="dataColumnFilter.filterOperator=='date-bw'?'active':''">
@@ -1986,6 +2128,18 @@
                                                                                 class="icons__submenu-link"
                                                                                 style="display: flex;">Does Not
                                                                                 Equal</a>
+                                                                        </li>
+                                                                        <li class="icons__submenu-item"
+                                                                            [ngClass]="dataColumnFilter.filterOperator=='lt'?'active':''">
+                                                                            <a (click)="FilterOperartorSelect('Less Than')"
+                                                                                class="icons__submenu-link"
+                                                                                style="display: flex;">Less Than</a>
+                                                                        </li>
+                                                                        <li class="icons__submenu-item"
+                                                                            [ngClass]="dataColumnFilter.filterOperator=='gt'?'active':''">
+                                                                            <a (click)="FilterOperartorSelect('Greater Than')"
+                                                                                class="icons__submenu-link"
+                                                                                style="display: flex;">Greater Than</a>
                                                                         </li>
                                                                         <!-- <li class="icons__submenu-item"
                                                                             [ngClass]="dataColumnFilter.filterOperator=='date-bw'?'active':''">
@@ -2078,7 +2232,18 @@
                                                                                 style="display: flex;">Equals
                                                                             </a>
                                                                         </li>
-
+                                                                        <li class="icons__submenu-item"
+                                                                            [ngClass]="dataColumnFilter.filterOperator=='lt'?'active':''">
+                                                                            <a (click)="FilterOperartorSelect('Less Than')"
+                                                                                class="icons__submenu-link"
+                                                                                style="display: flex;">Less Than</a>
+                                                                        </li>
+                                                                        <li class="icons__submenu-item"
+                                                                            [ngClass]="dataColumnFilter.filterOperator=='gt'?'active':''">
+                                                                            <a (click)="FilterOperartorSelect('Greater Than')"
+                                                                                class="icons__submenu-link"
+                                                                                style="display: flex;">Greater Than</a>
+                                                                        </li>
                                                                         <!-- <li class="icons__submenu-item"
                                                                             [ngClass]="dataColumnFilter.filterOperator=='date-second'?'active':''">
                                                                             <a (click)="FilterOperartorSelect('Second Equals')"
@@ -2162,6 +2327,21 @@
                                                                                 style="display: flex;">Equals</a>
                                                                         </li>
                                                                         <li class="icons__submenu-item"
+                                                                            [ngClass]="dataColumnFilter.filterOperator=='num-lt'?'active':''">
+                                                                            <a (click)="FilterOperartorSelect('Number Less Than')"
+                                                                                class="icons__submenu-link"
+                                                                                style="display: flex;">Less Than
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="icons__submenu-item"
+                                                                            [ngClass]="dataColumnFilter.filterOperator=='num-gt'?'active':''">
+                                                                            <a (click)="FilterOperartorSelect('Number Greater Than')"
+                                                                                class="icons__submenu-link"
+                                                                                style="display: flex;">Greater
+                                                                                Than
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="icons__submenu-item"
                                                                             [ngClass]="dataColumnFilter.filterOperator=='num-ne'?'active':''">
                                                                             <a (click)="FilterOperartorSelect('Number Not Equal')"
                                                                                 class="icons__submenu-link"
@@ -2184,13 +2364,13 @@
                                                                                 Than or
                                                                                 Equals</a>
                                                                         </li>
-                                                                        <li class="icons__submenu-item"
+                                                                        <!-- <li class="icons__submenu-item"
                                                                             [ngClass]="dataColumnFilter.filterOperator=='Empty'?'active':''">
                                                                             <a (click)="FilterOperartorSelect('Is Empty')"
                                                                                 class="icons__submenu-link"
                                                                                 style="display: flex;">Is
                                                                                 Empty</a>
-                                                                        </li>
+                                                                        </li> -->
                                                                     </ul>
 
                                                                 </ng-container>

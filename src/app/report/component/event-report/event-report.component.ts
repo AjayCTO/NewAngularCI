@@ -329,93 +329,84 @@ export class EventReportComponent implements OnInit {
   }
 
   Download(type) {
-    let sortCol = "PartName";
-    let sortDir = "asc";
-    this.commanShardService.GetEventReport(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, 2000, sortCol, sortDir, this.startDate, this.endDate, this.searchFilterText, this.FilterArray)
-      .pipe(finalize(() => {
-      })).subscribe(result => {
-
-
-        this.ImportDataBind = [];
-        this.allInventoryItems = [];
-        this.allInventoryItems = result.entity.transactionHistory;
-        this.length = result.entity.totalItems;
-        for (let i = 0; i < this.allInventoryItems.length; i++) {
-          let map = new Map<string, any>();
-          for (let j = 0; j < this.tabulatorColumn.length; j++) {
-            let keys = Object.keys(this.allInventoryItems[i])
-            for (let key = 0; key < keys.length; key++) {
-              if (keys[key] == this.tabulatorColumn[j].field) {
-                if (keys[key] == "transactionDate") {
-                  this.myDT = new Date(this.allInventoryItems[i][keys[key]])
-                  let DateManual = this.myDT.toLocaleDateString();
-                  map.set(this.tabulatorColumn[j].title, DateManual)
+    let data = {
+      "filters": this.FilterArray,
+      "sortBy": this.SortingArray,
+      "offset": 0,
+      "limit": 50
+    }
+    this.inventorcoreSevice.QueryTransactionsHistoryAsync(this.selectedTenantId, this.authService.accessToken, data).pipe(finalize(() => {
+      this.spinner.hide();
+    })).subscribe(
+      result => {
+        debugger;
+        if (result != null) {
+          this.InventoryDataBind = [];
+          this.allInventoryItems = [];
+          this.allInventoryItems = result;
+          for (let i = 0; i < this.allInventoryItems.length; i++) {
+            let map = new Map<string, any>();
+            for (let j = 0; j < this.tabulatorColumn.length; j++) {
+              let keys = Object.keys(this.allInventoryItems[i])
+              for (let key = 0; key < keys.length; key++) {
+                if (keys[key] == this.tabulatorColumn[j].field) {
+                  map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i][keys[key]])
                 }
                 else {
-                  map.set(this.tabulatorColumn[j].title, this.allInventoryItems[i][keys[key]])
+                  map.set(keys[key], this.allInventoryItems[i][keys[key]])
+                }
+                if (keys[key] == 'itemCode')
+                  map.set('partName', this.allInventoryItems[i][keys[key]])
+                if (keys[key] == 'kind')
+                  map.set('action', this.allInventoryItems[i][keys[key]])
+                if (keys[key] == 'quantityChange')
+                  map.set('transactionQtyChange', this.allInventoryItems[i][keys[key]])
+                if (keys[key] == "dateUtc") {
+                  this.myDT = new Date(this.allInventoryItems[i][keys[key]])
+                  let DateManual = this.myDT.toLocaleDateString();
+                  map.set('transactionDate', DateManual)
+
+                }
+                if (keys[key] == 'unitId')
+                  map.set('inventoryId', this.allInventoryItems[i][keys[key]])
+              }
+              if (this.tabulatorColumn[j].datatype == "Date/Time") {
+                if (this.allInventoryItems[i].details[this.tabulatorColumn[j].field] != "") {
+                  this.myDT = new Date(this.allInventoryItems[i].details[this.tabulatorColumn[j].field])
+                  let DateManual = this.myDT.toLocaleDateString();
+                  if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
+                    DateManual = this.myDT.toLocaleTimeString()
+                  }
+                  if (this.tabulatorColumn[j].customFieldSpecialType == "Date & Time") {
+                    DateManual = this.myDT.toLocaleString();
+                  }
+                  if (this.tabulatorColumn[j].customFieldSpecialType == "Date") {
+                    DateManual = this.myDT.toLocaleDateString()
+                  }
+                  map.set(this.tabulatorColumn[j].field, DateManual)
+                }
+                else {
+                  map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].details[this.tabulatorColumn[j].field])
                 }
               }
               else {
-                if (keys[key] == "transactionDate") {
-                  this.myDT = new Date(this.allInventoryItems[i][keys[key]])
-                  let DateManual = this.myDT.toLocaleDateString();
-                  map.set("Date of Event", DateManual)
-                }
-                // else {
-                //   map.set(keys[key], this.allInventoryItems[i][keys[key]])
-                // }
-
+                map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].details[this.tabulatorColumn[j].field])
               }
+              map.set("isSelected", false);
+              map.set("_children", []);
             }
-            for (let k = 0; k < this.allInventoryItems[i].customFields.length; k++) {
-
-              if (this.allInventoryItems[i].customFields[k].columnName == this.tabulatorColumn[j].field) {
-                map.set(this.tabulatorColumn[j].title, this.allInventoryItems[i].customFields[k].columnValue)
-              }
-            }
-            for (let k = 0; k < this.allInventoryItems[i].customFields.length; k++) {
-
-              if (this.allInventoryItems[i].customFields[k].columnName == this.tabulatorColumn[j].field) {
-
-                if (this.tabulatorColumn[j].datatype == "Date/Time") {
-                  if (this.allInventoryItems[i].customFields[k].columnValue != "") {
-                    this.myDT = new Date(this.allInventoryItems[i].customFields[k].columnValue)
-                    let DateManual = this.myDT.toLocaleDateString();
-                    if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
-                      DateManual = this.myDT.toLocaleTimeString()
-                    }
-                    if (this.tabulatorColumn[j].customFieldSpecialType == "Date & Time") {
-                      DateManual = this.myDT.toLocaleString();
-                    }
-                    if (this.tabulatorColumn[j].customFieldSpecialType == "Date") {
-                      DateManual = this.myDT.toLocaleDateString()
-                    }
-                    map.set(this.tabulatorColumn[j].title, DateManual)
-                  }
-                  else {
-                    map.set(this.tabulatorColumn[j].title, this.allInventoryItems[i].customFields[k].columnValue);
-                  }
-                }
-                else {
-                  map.set(this.tabulatorColumn[j].title, this.allInventoryItems[i].customFields[k].columnValue)
-                }
-              }
-            }
-
-
-            // map.set("isSelected", false);
+            let jsonObject = {};
+            map.forEach((value, key) => {
+              jsonObject[key] = value
+            });
+            this.InventoryDataBind.push(jsonObject);
           }
-          let jsonObject = {};
-          map.forEach((value, key) => {
-            jsonObject[key] = value
-          });
-          this.ImportDataBind.push(jsonObject);
         }
 
         if (type == "Excel")
-          this.downloadFile(this.ImportDataBind);
+          this.downloadFile(this.InventoryDataBind);
         else
-          this.openPDF(this.ImportDataBind);
+          this.openPDF(this.InventoryDataBind);
       });
 
     //   console.log(this.exportdata)
@@ -998,6 +989,16 @@ export class EventReportComponent implements OnInit {
     if (this.dataColumnFilter.filterOperator == "date-neq") {
       this.dataColumnFilter.operator = "$" + "neq"
     }
+    if (this.dataColumnFilter.filterOperator == "gt") {
+      this.dataColumnFilter.operator = "$" + "gt"
+    } if (this.dataColumnFilter.filterOperator == "lt") {
+      this.dataColumnFilter.operator = "$" + "lt"
+    }
+    if (this.dataColumnFilter.filterOperator == "num-gt") {
+      this.dataColumnFilter.operator = "$" + "gt"
+    } if (this.dataColumnFilter.filterOperator == "num-lt") {
+      this.dataColumnFilter.operator = "$" + "lt"
+    }
     if (this.dataColumnFilter.filterOperator == "ne") {
       this.dataColumnFilter.operator = "$" + "neq"
     }
@@ -1053,16 +1054,16 @@ export class EventReportComponent implements OnInit {
       this.dataColumnFilter.operator = "$" + "eq"
     }
     if (this.dataColumnFilter.filterOperator == "date-after") {
-      this.dataColumnFilter.operator = "$" + "gt"
+      this.dataColumnFilter.operator = "$" + "gte"
     }
     if (this.dataColumnFilter.filterOperator == "date-before") {
-      this.dataColumnFilter.operator = "$" + "lt"
+      this.dataColumnFilter.operator = "$" + "lte"
     }
     if (this.dataColumnFilter.filterOperator == "time-after") {
-      this.dataColumnFilter.operator = "$" + "gt"
+      this.dataColumnFilter.operator = "$" + "gte"
     }
     if (this.dataColumnFilter.filterOperator == "time-before") {
-      this.dataColumnFilter.operator = "$" + "lt"
+      this.dataColumnFilter.operator = "$" + "lte"
     }
 
     this.dataColumnFilter = {
@@ -1177,6 +1178,17 @@ export class EventReportComponent implements OnInit {
     if (this.dataColumnFilter.filterOperator == "date-neq") {
       this.dataColumnFilter.operator = "$" + "neq"
     }
+    if (this.dataColumnFilter.filterOperator == "gt") {
+      this.dataColumnFilter.operator = "$" + "gt"
+    }
+    if (this.dataColumnFilter.filterOperator == "lt") {
+      this.dataColumnFilter.operator = "$" + "lt"
+    }
+    if (this.dataColumnFilter.filterOperator == "num-gt") {
+      this.dataColumnFilter.operator = "$" + "gt"
+    } if (this.dataColumnFilter.filterOperator == "num-lt") {
+      this.dataColumnFilter.operator = "$" + "lt"
+    }
     if (this.dataColumnFilter.filterOperator == "cn") {
       this.dataColumnFilter.operator = "$" + "cn"
     }
@@ -1199,7 +1211,7 @@ export class EventReportComponent implements OnInit {
       this.dataColumnFilter.operator = "$" + "lte"
     }
     if (this.dataColumnFilter.filterOperator == "num-gte") {
-      this.dataColumnFilter.operator = "$" + "gt"
+      this.dataColumnFilter.operator = "$" + "gte"
     }
     if (this.dataColumnFilter.filterOperator == "date-eq") {
       this.dataColumnFilter.operator = "$" + "eq"
@@ -1229,16 +1241,16 @@ export class EventReportComponent implements OnInit {
     //   this.dataColumnFilter.operator = "$" + "eq"
     // }
     if (this.dataColumnFilter.filterOperator == "date-after") {
-      this.dataColumnFilter.operator = "$" + "gt"
+      this.dataColumnFilter.operator = "$" + "gte"
     }
     if (this.dataColumnFilter.filterOperator == "date-before") {
-      this.dataColumnFilter.operator = "$" + "lt"
+      this.dataColumnFilter.operator = "$" + "lte"
     }
     if (this.dataColumnFilter.filterOperator == "time-after") {
-      this.dataColumnFilter.operator = "$" + "gt"
+      this.dataColumnFilter.operator = "$" + "gte"
     }
     if (this.dataColumnFilter.filterOperator == "time-before") {
-      this.dataColumnFilter.operator = "$" + "lt"
+      this.dataColumnFilter.operator = "$" + "lte"
     }
 
     this.dataColumnFilter = {
@@ -1283,6 +1295,18 @@ export class EventReportComponent implements OnInit {
     }
     if (data == 'Is Empty') {
       this.dataColumnFilter.filterOperator = 'Empty'
+    }
+    if (data == 'Greater Than') {
+      this.dataColumnFilter.filterOperator = 'gt'
+    }
+    if (data == 'Less Than') {
+      this.dataColumnFilter.filterOperator = 'lt'
+    }
+    if (data == 'Number Greater Than') {
+      this.dataColumnFilter.filterOperator = 'num-gt'
+    }
+    if (data == 'Number Less Than') {
+      this.dataColumnFilter.filterOperator = 'num-lt'
     }
     if (data == 'Begins With') {
       this.dataColumnFilter.filterOperator = 'bw'
@@ -1376,6 +1400,11 @@ export class EventReportComponent implements OnInit {
       this.GetdateFilter(element)
     }
     if (this.dataColumnFilter.filterOperator == 'date-neq') {
+      this.GetdateFilter(element)
+    }
+    if (this.dataColumnFilter.filterOperator == "gt") {
+      this.GetdateFilter(element)
+    } if (this.dataColumnFilter.filterOperator == "lt") {
       this.GetdateFilter(element)
     }
     if (this.dataColumnFilter.filterOperator == 'time-eq') {
