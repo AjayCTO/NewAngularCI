@@ -1350,7 +1350,7 @@
                                                     *ngIf="dataColumnFilter.filterOperator=='date-after'||dataColumnFilter.filterOperator=='time-after'">
 
                                                     <div class="form__col"
-                                                        *ngIf="itemHeader.customFieldSpecialType=='Date'">
+                                                        *ngIf="itemHeader.customFieldSpecialType=='Date'||itemHeader.customFieldSpecialType==''">
 
                                                         <input class="form__input" [owlDateTimeTrigger]="dt1"
                                                             [(ngModel)]="dataColumnFilter.searchValue"
@@ -1398,7 +1398,7 @@
                                                     *ngIf="dataColumnFilter.filterOperator=='date-before'||dataColumnFilter.filterOperator=='time-before'">
 
                                                     <div class="form__col"
-                                                        *ngIf="itemHeader.customFieldSpecialType=='Date'">
+                                                        *ngIf="itemHeader.customFieldSpecialType=='Date'||itemHeader.customFieldSpecialType==''">
 
                                                         <input class="form__input" [owlDateTimeTrigger]="dt1"
                                                             [(ngModel)]="dataColumnFilter.searchValue"

@@ -1239,12 +1239,15 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
 
   FilterOperartorSelect(data) {
-
+    debugger;
     if (data == 'Equals') {
       this.dataColumnFilter.filterOperator = 'eq'
     }
     if (data == 'Does Not Equal') {
       this.dataColumnFilter.filterOperator = 'ne'
+    }
+    if (data == 'DateNotEquals') {
+      this.dataColumnFilter.filterOperator = 'date-neq'
     }
     if (data == 'Contains') {
       this.dataColumnFilter.filterOperator = 'cn'
@@ -1509,6 +1512,9 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         if (this.dataColumnFilter.filterOperator == "ne") {
           this.dataColumnFilter.operator = "$" + "neq"
         }
+        if (this.dataColumnFilter.filterOperator == "date-neq") {
+          this.dataColumnFilter.operator = "$" + "neq"
+        }
         if (this.dataColumnFilter.filterOperator == "cn") {
           this.dataColumnFilter.operator = "$" + "cn"
         }
@@ -1630,6 +1636,9 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
           this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "ne") {
+          this.dataColumnFilter.operator = "$" + "neq"
+        }
+        if (this.dataColumnFilter.filterOperator == "date-neq") {
           this.dataColumnFilter.operator = "$" + "neq"
         }
         if (this.dataColumnFilter.filterOperator == "cn") {
@@ -2334,6 +2343,9 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   }
   GetDate(element) {
     if (this.dataColumnFilter.filterOperator == 'date-eq') {
+      this.GetdateFilter(element)
+    }
+    if (this.dataColumnFilter.filterOperator == 'date-neq') {
       this.GetdateFilter(element)
     }
     if (this.dataColumnFilter.filterOperator == 'time-eq') {

@@ -968,7 +968,7 @@ export class EventReportComponent implements OnInit {
 
     this.FilterArray.push(this.dataColumnFilter);
     if (this.dataColumnFilter.type == "CustomField") {
-      this.dataColumnFilter.field = "Details." + this.dataColumnFilter.columnName;
+      this.dataColumnFilter.field = "details." + this.dataColumnFilter.columnName;
       this.dataColumnFilter.value = this.dataColumnFilter.searchValue
     }
     else {
@@ -1119,7 +1119,7 @@ export class EventReportComponent implements OnInit {
   }
 
   ApplyFilter2(columnName) {
-
+    debugger;
     this.dataColumnFilter.columnName = columnName;
     if (this.dataColumnFilter.columnName == "" || this.dataColumnFilter.filterOperator == "" || this.dataColumnFilter.searchValue == "") {
       return false;
@@ -1151,7 +1151,7 @@ export class EventReportComponent implements OnInit {
     this.FilterArray.push(this.dataColumnFilter);
     if (this.dataColumnFilter.type == "CustomField") {
       // this.dataColumnFilter.columnName = "$." + this.dataColumnFilter.columnName;
-      this.dataColumnFilter.field = "Details." + this.dataColumnFilter.columnName;
+      this.dataColumnFilter.field = "details." + this.dataColumnFilter.columnName;
       this.dataColumnFilter.value = this.dataColumnFilter.searchValue
     } else {
       if (this.dataColumnFilter.columnName == 'partName') {
@@ -1172,6 +1172,9 @@ export class EventReportComponent implements OnInit {
       this.dataColumnFilter.operator = "$" + "eq"
     }
     if (this.dataColumnFilter.filterOperator == "ne") {
+      this.dataColumnFilter.operator = "$" + "neq"
+    }
+    if (this.dataColumnFilter.filterOperator == "date-neq") {
       this.dataColumnFilter.operator = "$" + "neq"
     }
     if (this.dataColumnFilter.filterOperator == "cn") {
@@ -1237,6 +1240,7 @@ export class EventReportComponent implements OnInit {
     if (this.dataColumnFilter.filterOperator == "time-before") {
       this.dataColumnFilter.operator = "$" + "lt"
     }
+
     this.dataColumnFilter = {
       columnName: "",
       displayName: "",
