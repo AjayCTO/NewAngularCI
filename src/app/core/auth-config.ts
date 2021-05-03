@@ -22,7 +22,7 @@ export const authConfig: AuthConfig = {
   // redirectUri: 'https://clearlyinventory4.azurewebsites.net/auth-callback',
   // postLogoutRedirectUri: 'https://clearlyinventory4.azurewebsites.net/',
   // silentRefreshRedirectUri: 'https://clearlyinventory4.azurewebsites.net/silent-refresh.html',
-  // scope: 'openid profile api1', // Ask offline_access to support refresh token refreshes
+  // scope: 'openid profile api1 api3', // Ask offline_access to support refresh token refreshes
   // useSilentRefresh: true, // Needed for Code Flow to suggest using iframe-based refreshes
   // silentRefreshTimeout: 5000, // For faster testing
   // // //timeoutFactor: 0.25, // For faster testing

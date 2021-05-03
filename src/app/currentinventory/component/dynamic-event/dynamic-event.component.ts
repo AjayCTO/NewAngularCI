@@ -233,23 +233,13 @@ export class DynamicEventComponent implements OnInit {
       return false
     };
     let details = this.buildObject(this.CustomFields);
-    this.FilterArray = [];
-    this.FilterArray.push(this.dataColumnFilter = {
-      field: "itemCode",
-      operator: "$eq",
-      value: this.InventoryTransactionObj.itemCode
-    })
 
-    this.AttributeFields.forEach(element => {
-      this.FilterArray.push(
-        this.dataColumnFilter = {
-          field: "states." + element.columnName,
-          operator: "$eq",
-          value: element.columnValue != '' ? element.dataType == "Date/Time" ? element.columnValue.toISOString() : element.columnValue : element.columnValue,
-        }
-      )
-    });
-    this.inventorcoreSevice.unitexactmatch(this.selectedTenantId, this.authService.accessToken, this.FilterArray).subscribe(
+    let request = {
+      "ItemCode": this.InventoryTransactionObj.itemCode,
+      "States": states,
+    }
+
+    this.inventorcoreSevice.FindOrCreateUnit(this.selectedTenantId, this.authService.accessToken, request).subscribe(
       result => {
         this.spinner.hide();
         debugger;

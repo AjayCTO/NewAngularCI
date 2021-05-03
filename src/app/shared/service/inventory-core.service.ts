@@ -116,6 +116,14 @@ export class InventoryCoreService extends BaseService {
   }
 
 
-
+  FindOrCreateUnit(TenantId: number, token: string, request) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + token
+      })
+    };
+    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/units/find-or-create/${TenantId}`, request, httpOptions).pipe(catchError(this.handleError));
+  }
 
 }

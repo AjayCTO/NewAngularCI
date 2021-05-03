@@ -12,11 +12,12 @@ export class ConfigService {
 
     get resourceApiURI() {
 
-        // return 'https://clearlyapi.azurewebsites.net';
+        //return 'https://clearlyapi.azurewebsites.net';
         return 'http://localhost:52351';
     }
 
     get resourceInventoryCoreApiURI() {
         return 'https://localhost:44371'
+        //return 'https://inventorycore.azurewebsites.net';
     }
 }
