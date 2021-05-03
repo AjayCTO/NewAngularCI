@@ -696,41 +696,41 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   // }
   Download(type) {
 
-    let sortCol = "PartName";
-    let sortDir = "asc";
-    let GlobelFilter = {
-      FilterArray: this.FilterArray,
-      Ids: this.InventoryIds,
-      SortArray: this.SortingArray,
+    let data = {
+      "filters": this.FilterArray,
+      "sortBy": this.SortingArray,
+      "offset": 0,
+      "limit": 50
     }
-    this.currentinventoryService.GetCurrentInventory(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, 2000, sortCol, sortDir, this.searchFilterText, this.showSelected, GlobelFilter, this.HideZero)
-      .pipe(finalize(() => {
-      })).subscribe(result => {
+    this.inventorcoreSevice.getCurrentInventory(this.selectedTenantId, this.authService.accessToken, data).subscribe(
+      result => {
+        if (result != null) {
+          this.InventoryDataBind = [];
+          this.CurrentInventoryItem = [];
+          this.CurrentInventoryItem = result;
+          for (let i = 0; i < this.CurrentInventoryItem.length; i++) {
+            let map = new Map<string, any>();
+            for (let j = 0; j < this.tabulatorColumn.length; j++) {
+              let keys = Object.keys(this.CurrentInventoryItem[i])
+              for (let key = 0; key < keys.length; key++) {
+                if (keys[key] == this.tabulatorColumn[j].field) {
+                  map.set(this.tabulatorColumn[j].field, this.CurrentInventoryItem[i][keys[key]])
+                }
+                else {
+                  map.set(keys[key], this.CurrentInventoryItem[i][keys[key]])
+                }
+                if (keys[key] == 'itemCode')
+                  map.set('partName', this.CurrentInventoryItem[i][keys[key]])
 
-        this.ImportDataBind = [];
-        this.allInventoryItems = [];
-        this.allInventoryItems = result.entity.items;
-
-        this.length = result.entity.totalItems;
-        for (let i = 0; i < this.allInventoryItems.length; i++) {
-          let map = new Map<string, any>();
-          for (let j = 0; j < this.tabulatorColumn.length; j++) {
-            let keys = Object.keys(this.allInventoryItems[i])
-            for (let key = 0; key < keys.length; key++) {
-              if (keys[key] == this.tabulatorColumn[j].field) {
-                map.set(this.tabulatorColumn[j].title, this.allInventoryItems[i][keys[key]])
+                if (keys[key] == 'unitId')
+                  map.set('inventoryId', this.CurrentInventoryItem[i][keys[key]])
               }
-            }
-            for (let k = 0; k < this.allInventoryItems[i].allFields.length; k++) {
-              if (this.allInventoryItems[i].allFields[k].columnName == this.tabulatorColumn[j].field) {
-                map.set(this.tabulatorColumn[j].title, this.allInventoryItems[i].allFields[k].columnValue)
-              }
-            }
-            for (let k = 0; k < this.allInventoryItems[i].attributeFields.length; k++) {
-              if (this.allInventoryItems[i].attributeFields[k].columnName == this.tabulatorColumn[j].field) {
-
-                if (this.tabulatorColumn[j].datatype == "Date/Time") {
-                  this.myDT = new Date(this.allInventoryItems[i].attributeFields[k].columnValue)
+              // if (this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field].columnName == this.tabulatorColumn[j].field) {
+              //   map.set(this.tabulatorColumn[j].field, this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field].columnValue)
+              // }
+              if (this.tabulatorColumn[j].datatype == "Date/Time") {
+                if (this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field] != "") {
+                  this.myDT = new Date(this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field])
                   let DateManual = this.myDT.toLocaleDateString();
                   if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
                     DateManual = this.myDT.toLocaleTimeString()
@@ -741,25 +741,30 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
                   if (this.tabulatorColumn[j].customFieldSpecialType == "Date") {
                     DateManual = this.myDT.toLocaleDateString()
                   }
-                  map.set(this.tabulatorColumn[j].title, DateManual)
+                  map.set(this.tabulatorColumn[j].field, DateManual)
                 }
                 else {
-                  map.set(this.tabulatorColumn[j].title, this.allInventoryItems[i].attributeFields[k].columnValue)
+                  map.set(this.tabulatorColumn[j].field, this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field])
                 }
               }
+              else {
+                map.set(this.tabulatorColumn[j].field, this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field])
+              }
+              map.set("isSelected", false);
+              map.set("_children", []);
             }
 
+            let jsonObject = {};
+            map.forEach((value, key) => {
+              jsonObject[key] = value
+            });
+            this.InventoryDataBind.push(jsonObject);
           }
-          let jsonObject = {};
-          map.forEach((value, key) => {
-            jsonObject[key] = value
-          });
-          this.ImportDataBind.push(jsonObject);
         }
         if (type == "Excel")
-          this.downloadFile(this.ImportDataBind);
+          this.downloadFile(this.InventoryDataBind);
         else
-          this.openPDF(this.ImportDataBind);
+          this.openPDF(this.InventoryDataBind);
       });
 
     //   console.log(this.exportdata)
@@ -1252,6 +1257,18 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     if (data == 'Contains') {
       this.dataColumnFilter.filterOperator = 'cn'
     }
+    if (data == 'Greater Than') {
+      this.dataColumnFilter.filterOperator = 'gt'
+    }
+    if (data == 'Less Than') {
+      this.dataColumnFilter.filterOperator = 'lt'
+    }
+    if (data == 'Number Greater Than') {
+      this.dataColumnFilter.filterOperator = 'num-gt'
+    }
+    if (data == 'Number Less Than') {
+      this.dataColumnFilter.filterOperator = 'num-lt'
+    }
     if (data == 'Does NOT Contain') {
       this.dataColumnFilter.filterOperator = 'nc'
     }
@@ -1515,6 +1532,16 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         if (this.dataColumnFilter.filterOperator == "date-neq") {
           this.dataColumnFilter.operator = "$" + "neq"
         }
+        if (this.dataColumnFilter.filterOperator == "gt") {
+          this.dataColumnFilter.operator = "$" + "gt"
+        } if (this.dataColumnFilter.filterOperator == "lt") {
+          this.dataColumnFilter.operator = "$" + "lt"
+        }
+        if (this.dataColumnFilter.filterOperator == "num-gt") {
+          this.dataColumnFilter.operator = "$" + "gt"
+        } if (this.dataColumnFilter.filterOperator == "num-lt") {
+          this.dataColumnFilter.operator = "$" + "lt"
+        }
         if (this.dataColumnFilter.filterOperator == "cn") {
           this.dataColumnFilter.operator = "$" + "cn"
         }
@@ -1537,7 +1564,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
           this.dataColumnFilter.operator = "$" + "lte"
         }
         if (this.dataColumnFilter.filterOperator == "num-gte") {
-          this.dataColumnFilter.operator = "$" + "gt"
+          this.dataColumnFilter.operator = "$" + "gte"
         }
         if (this.dataColumnFilter.filterOperator == "date-eq") {
           this.dataColumnFilter.operator = "$" + "eq"
@@ -1567,16 +1594,16 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
           this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "date-after") {
-          this.dataColumnFilter.operator = "$" + "gt"
+          this.dataColumnFilter.operator = "$" + "gte"
         }
         if (this.dataColumnFilter.filterOperator == "date-before") {
-          this.dataColumnFilter.operator = "$" + "lt"
+          this.dataColumnFilter.operator = "$" + "lte"
         }
         if (this.dataColumnFilter.filterOperator == "time-after") {
-          this.dataColumnFilter.operator = "$" + "gt"
+          this.dataColumnFilter.operator = "$" + "gte"
         }
         if (this.dataColumnFilter.filterOperator == "time-before") {
-          this.dataColumnFilter.operator = "$" + "lt"
+          this.dataColumnFilter.operator = "$" + "lte"
         }
 
       }
@@ -1641,6 +1668,16 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         if (this.dataColumnFilter.filterOperator == "date-neq") {
           this.dataColumnFilter.operator = "$" + "neq"
         }
+        if (this.dataColumnFilter.filterOperator == "num-gt") {
+          this.dataColumnFilter.operator = "$" + "gt"
+        } if (this.dataColumnFilter.filterOperator == "num-lt") {
+          this.dataColumnFilter.operator = "$" + "lt"
+        }
+        if (this.dataColumnFilter.filterOperator == "gt") {
+          this.dataColumnFilter.operator = "$" + "gt"
+        } if (this.dataColumnFilter.filterOperator == "lt") {
+          this.dataColumnFilter.operator = "$" + "lt"
+        }
         if (this.dataColumnFilter.filterOperator == "cn") {
           this.dataColumnFilter.operator = "$" + "cn"
         }
@@ -1663,7 +1700,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
           this.dataColumnFilter.operator = "$" + "lte"
         }
         if (this.dataColumnFilter.filterOperator == "num-gte") {
-          this.dataColumnFilter.operator = "$" + "gt"
+          this.dataColumnFilter.operator = "$" + "gte"
         }
         if (this.dataColumnFilter.filterOperator == "date-eq") {
           this.dataColumnFilter.operator = "$" + "eq"
@@ -1693,16 +1730,16 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
           this.dataColumnFilter.operator = "$" + "eq"
         }
         if (this.dataColumnFilter.filterOperator == "date-after") {
-          this.dataColumnFilter.operator = "$" + "gt"
+          this.dataColumnFilter.operator = "$" + "gte"
         }
         if (this.dataColumnFilter.filterOperator == "date-before") {
-          this.dataColumnFilter.operator = "$" + "lt"
+          this.dataColumnFilter.operator = "$" + "lte"
         }
         if (this.dataColumnFilter.filterOperator == "time-after") {
-          this.dataColumnFilter.operator = "$" + "gt"
+          this.dataColumnFilter.operator = "$" + "gte"
         }
         if (this.dataColumnFilter.filterOperator == "time-before") {
-          this.dataColumnFilter.operator = "$" + "lt"
+          this.dataColumnFilter.operator = "$" + "lte"
         }
 
       }
@@ -2345,6 +2382,11 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     if (this.dataColumnFilter.filterOperator == 'date-eq') {
       this.GetdateFilter(element)
     }
+    if (this.dataColumnFilter.filterOperator == "gt") {
+      this.GetdateFilter(element)
+    } if (this.dataColumnFilter.filterOperator == "lt") {
+      this.GetdateFilter(element)
+    }
     if (this.dataColumnFilter.filterOperator == 'date-neq') {
       this.GetdateFilter(element)
     }
@@ -2602,6 +2644,9 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
                 if (keys[key] == 'unitId')
                   map.set('inventoryId', this.CurrentInventoryItem[i][keys[key]])
               }
+              // if (this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field].columnName == this.tabulatorColumn[j].field) {
+              //   map.set(this.tabulatorColumn[j].field, this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field].columnValue)
+              // }
               if (this.tabulatorColumn[j].datatype == "Date/Time") {
                 if (this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field] != "") {
                   this.myDT = new Date(this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field])
@@ -2627,6 +2672,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
               map.set("isSelected", false);
               map.set("_children", []);
             }
+
             let jsonObject = {};
             map.forEach((value, key) => {
               jsonObject[key] = value
