@@ -1,46 +1,61 @@
-import { Component, OnInit, OnChanges, ViewEncapsulation, SimpleChanges, TemplateRef, Input, ViewContainerRef, ViewChild, ElementRef, ContentChild, ChangeDetectorRef } from '@angular/core';
-import { from, Observable } from 'rxjs';
+import { Component, OnInit, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { elementAt, finalize } from 'rxjs/operators';
+
+
+
+
+//Auth Service
 import { AuthService } from '../../../core/auth.service';
-import { CurrentInventory, InventoryTransactionViewModel, TransactionTarget, ChangeStateFields, Tenant, DataColumnFilter, ColumnSorting } from '../../models/admin.models';
-import { CustomFieldService } from '../../../customfield/service/custom-field.service'
-import { LibraryService } from '../../../library/service/library.service';
-import { CurrentinventoryService } from '../../service/currentinventory.service'
+
+//System Services
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+
+//Custom Services 
+import { CustomFieldService } from '../../../customfield/service/custom-field.service'
+import { LibraryService } from '../../../library/service/library.service';
 import { CommanSharedService } from '../../../shared/service/comman-shared.service';
 import { HomeService } from '../../../home/service/home.service';
+import { CurrentinventoryService } from '../../service/currentinventory.service'
+import { EventService } from '../../../dynamic-events/service/event.service';
+import { ReportService } from '../../../report/service/report.service'
+
+//UI-Js 
 import toggle from '../../../../assets/js/lib/_toggle';
 import inputFocus from '../../../../assets/js/lib/_inputFocus';
 import inputClear from '../../../../assets/js/lib/_inputClear';
 import modal from '../../../../assets/js/lib/_modal';
 import datePicker from '../../../../assets/js/lib/_datePicker';
-import { Router } from '@angular/router';
-import * as XLSX from 'xlsx';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { EventService } from '../../../dynamic-events/service/event.service';
-import { CircumstanceFields, StateFields, AttributeFields, CustomFields } from '../../../customfield/models/customfieldmodel';
-import { SetSelectedTenant, SetSelectedTenantId, SetDefaultInventoryColumn, SetSelectedEvent, SetSelectedCart } from '../../../store/actions/tenant.action';
+
+
+//Store
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../../shared/appState';
-import { ReportService } from '../../../report/service/report.service'
+import { SetSelectedTenant, SetSelectedTenantId, SetDefaultInventoryColumn, SetSelectedEvent, SetSelectedCart } from '../../../store/actions/tenant.action';
+import { Router } from '@angular/router';
+
+
+//Models
+import { CurrentInventory, InventoryTransactionViewModel, TransactionTarget, ChangeStateFields, Tenant } from '../../models/admin.models';
+import { AttributeFields, CustomFields } from '../../../customfield/models/customfieldmodel';
+import * as XLSX from 'xlsx';
+
+
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
+
+
+
+
 import { IconsComponent } from 'src/app/shared/component/icons/icons.component';
-import { JsonHubProtocol } from '@aspnet/signalr';
 import { takeUntil } from 'rxjs/operators';
 import { selectSelectedTenantId, selectSelectedTenant, selectMyInventoryColumn, getTenantConfiguration } from '../../../store/selectors/tenant.selectors';
 import { ThrowStmt } from '@angular/compiler';
 import tableDragger from 'table-dragger';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import { hasLifecycleHook } from '@angular/compiler/src/lifecycle_reflector';
 import { InventoryCoreService } from '../../../shared/service/inventory-core.service';
-import {
-  DateTimeAdapter,
-  OWL_DATE_TIME_FORMATS,
-  OWL_DATE_TIME_LOCALE,
-  OwlDateTimeComponent,
-  OwlDateTimeFormats
-} from 'ng-pick-datetime';
+import { OwlDateTimeComponent } from 'ng-pick-datetime';
 import * as _moment from "moment";
 import { Moment } from "moment";
 import { TenantConfig } from 'src/app/store/models/tenant.model';
@@ -486,11 +501,15 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.ApplyJsFunction();
   }
 
-  length: number = 0;
-  pageSize = 5;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
-  pageIndex = 0;
 
+  //Pagination
+  //public totalRecord
+
+  public length;
+  public pageSize = 2;
+  public pageSizeOptions: number[] = [5, 10, 25, 100];
+  public pageIndex = 0;
+  public offset = 0;
   // MatPaginator Output
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -552,32 +571,59 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
   gotoFirstPage() {
     this.pageIndex = 0;
+    this.offset = 0;
     this.GetCurrentInventory();
     this.ApplyJsFunction();
+
   }
   gotoLastPage() {
+    debugger;
+    if (this.length > this.pageSize) {
+      let dupPageIndex
+      dupPageIndex = Math.round((this.length - this.pageSize) / this.pageSize);
+      dupPageIndex = parseInt(dupPageIndex.toString())
 
-    this.pageIndex = this.length / this.pageSize;
-    this.pageIndex = parseInt(this.pageIndex.toString())
-    this.GetCurrentInventory();
-    this.ApplyJsFunction();
+      if (this.length != (this.pageSize * dupPageIndex)) {
+
+        this.offset = dupPageIndex == 0 ? this.pageSize : dupPageIndex * this.pageSize
+        this.pageIndex = dupPageIndex == 0 ? (this.length - this.pageSize) : dupPageIndex;
+        this.GetCurrentInventory();
+        this.ApplyJsFunction();
+      }
+    }
   }
   gotoNext() {
     debugger
+
     this.lastPageIndex = this.length / this.pageSize;
     this.lastPageIndex = parseInt(this.lastPageIndex.toString())
 
     if (this.pageIndex != this.lastPageIndex) {
-      this.pageIndex++;
-      this.GetCurrentInventory();
-      this.ApplyJsFunction();
+      let dupPageIndex = this.pageIndex;
+      dupPageIndex++
+      this.offset = dupPageIndex * this.pageSize;
+
+      if (this.offset != this.length) {
+        this.pageIndex++;
+        this.GetCurrentInventory();
+        this.ApplyJsFunction();
+      }
     }
   }
   gotoBack() {
+
     if (this.pageIndex > 0) {
-      this.pageIndex = this.pageIndex - 1;
-      this.GetCurrentInventory();
-      this.ApplyJsFunction();
+
+      let dupPageIndex = this.pageIndex;
+      dupPageIndex = dupPageIndex - 1
+
+      this.offset = dupPageIndex * this.pageSize;
+
+      if (this.offset != this.length) {
+        this.pageIndex = this.pageIndex - 1;
+        this.GetCurrentInventory();
+        this.ApplyJsFunction();
+      }
     }
   }
 
@@ -695,7 +741,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
   //       });
   // }
   Download(type) {
-
+    debugger;
     let data = {
       "filters": this.FilterArray,
       "sortBy": this.SortingArray,
@@ -705,66 +751,62 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.inventorcoreSevice.getCurrentInventory(this.selectedTenantId, this.authService.accessToken, data).subscribe(
       result => {
         if (result != null) {
-          this.InventoryDataBind = [];
+          this.ImportDataBind = [];
           this.CurrentInventoryItem = [];
           this.CurrentInventoryItem = result;
           for (let i = 0; i < this.CurrentInventoryItem.length; i++) {
             let map = new Map<string, any>();
             for (let j = 0; j < this.tabulatorColumn.length; j++) {
-              let keys = Object.keys(this.CurrentInventoryItem[i])
-              for (let key = 0; key < keys.length; key++) {
-                if (keys[key] == this.tabulatorColumn[j].field) {
-                  map.set(this.tabulatorColumn[j].field, this.CurrentInventoryItem[i][keys[key]])
-                }
-                else {
-                  map.set(keys[key], this.CurrentInventoryItem[i][keys[key]])
-                }
-                if (keys[key] == 'itemCode')
-                  map.set('partName', this.CurrentInventoryItem[i][keys[key]])
+              if (this.tabulatorColumn[j].isAdded && this.tabulatorColumn[j].datatype != "button") {
+                let keys = Object.keys(this.CurrentInventoryItem[i])
+                for (let key = 0; key < keys.length; key++) {
 
-                if (keys[key] == 'unitId')
-                  map.set('inventoryId', this.CurrentInventoryItem[i][keys[key]])
-              }
-              // if (this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field].columnName == this.tabulatorColumn[j].field) {
-              //   map.set(this.tabulatorColumn[j].field, this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field].columnValue)
-              // }
-              if (this.tabulatorColumn[j].datatype == "Date/Time") {
-                if (this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field] != "") {
-                  this.myDT = new Date(this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field])
-                  let DateManual = this.myDT.toLocaleDateString();
-                  if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
-                    DateManual = this.myDT.toLocaleTimeString()
+                  // if (keys[key] == this.tabulatorColumn[j].field) {
+                  //   map.set(this.tabulatorColumn[j].title, this.CurrentInventoryItem[i][keys[key]])
+                  // }
+                  if (keys[key] == 'itemCode')
+                    map.set('Item Code', this.CurrentInventoryItem[i][keys[key]])
+
+                  if (keys[key] == 'quantity')
+                    map.set('Quantity', this.CurrentInventoryItem[i][keys[key]])
+
+                }
+
+                if (this.tabulatorColumn[j].datatype == "Date/Time") {
+                  if (this.CurrentInventoryItem[i].details[this.tabulatorColumn[j].field] != undefined && this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field] != "") {
+                    this.myDT = new Date(this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field])
+                    let DateManual = this.myDT.toLocaleDateString();
+                    if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
+                      DateManual = this.myDT.toLocaleTimeString()
+                    }
+                    if (this.tabulatorColumn[j].customFieldSpecialType == "Date & Time") {
+                      DateManual = this.myDT.toLocaleString();
+                    }
+                    if (this.tabulatorColumn[j].customFieldSpecialType == "Date") {
+                      DateManual = this.myDT.toLocaleDateString()
+                    }
+                    map.set(this.tabulatorColumn[j].title, DateManual)
                   }
-                  if (this.tabulatorColumn[j].customFieldSpecialType == "Date & Time") {
-                    DateManual = this.myDT.toLocaleString();
+                  else {
+                    map.set(this.tabulatorColumn[j].title, this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field])
                   }
-                  if (this.tabulatorColumn[j].customFieldSpecialType == "Date") {
-                    DateManual = this.myDT.toLocaleDateString()
-                  }
-                  map.set(this.tabulatorColumn[j].field, DateManual)
                 }
                 else {
-                  map.set(this.tabulatorColumn[j].field, this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field])
+                  map.set(this.tabulatorColumn[j].title, this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field])
                 }
               }
-              else {
-                map.set(this.tabulatorColumn[j].field, this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field])
-              }
-              map.set("isSelected", false);
-              map.set("_children", []);
             }
-
             let jsonObject = {};
             map.forEach((value, key) => {
               jsonObject[key] = value
             });
-            this.InventoryDataBind.push(jsonObject);
+            this.ImportDataBind.push(jsonObject);
           }
         }
         if (type == "Excel")
-          this.downloadFile(this.InventoryDataBind);
+          this.downloadFile(this.ImportDataBind);
         else
-          this.openPDF(this.InventoryDataBind);
+          this.openPDF(this.ImportDataBind);
       });
 
     //   console.log(this.exportdata)
@@ -1087,6 +1129,8 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.spinner.show();
     this.showSelected = action;
     this.pageIndex = 0;
+    this.offset = 0;
+    // MatPaginator Outpu
     this.GetCurrentInventory();
     this.spinner.hide();
   }
@@ -1385,7 +1429,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
           this.Sorting.field = "states." + this.Sorting.columnName;
         }
         else {
-          this.Sorting.field = this.Sorting.columnName;
+          this.Sorting.field = this.Sorting.columnName == 'partName' ? 'itemCode' : this.Sorting.columnName;
         }
       }
       //Inventory Core 
@@ -1630,6 +1674,8 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       value: ""
     }
     this.mainToggleDropdown = false;
+    this.offset = 0;
+    this.pageIndex = 0;
     this.GetCurrentInventory();
     this.ApplyJsFunction();
   }
@@ -1766,6 +1812,8 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       value: ""
     }
     document.getElementById("filterButton2_" + columnName).click();
+    this.offset = 0;
+    this.pageIndex = 0;
     this.GetCurrentInventory();
     this.ApplyJsFunction();
   }
@@ -2615,11 +2663,13 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
   GetCurrentInventory() {
     debugger;
+    this.IsInventoryLoaded = false;
+    this.loadingRecords = true;
     let data = {
       "filters": this.FilterArray,
       "sortBy": this.SortingArray,
-      "offset": 0,
-      "limit": 50
+      "offset": this.offset,
+      "limit": this.pageSize,
     }
     this.inventorcoreSevice.getCurrentInventory(this.selectedTenantId, this.authService.accessToken, data).subscribe(
       result => {
@@ -2648,7 +2698,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
               //   map.set(this.tabulatorColumn[j].field, this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field].columnValue)
               // }
               if (this.tabulatorColumn[j].datatype == "Date/Time") {
-                if (this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field] != "") {
+                if (this.CurrentInventoryItem[i].details[this.tabulatorColumn[j].field] != undefined && this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field] != "") {
                   this.myDT = new Date(this.CurrentInventoryItem[i].states[this.tabulatorColumn[j].field])
                   let DateManual = this.myDT.toLocaleDateString();
                   if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
@@ -2682,11 +2732,11 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
         }
         this.loadingRecords = false;
         this.IsInventoryLoaded = true;
-        this.CheckboxShow = true;
+        // this.CheckboxShow = true;
 
 
         this.GetCartDetail();
-
+        this.GetInventoryCount();
 
         this.ApplyJsFunction();
 
@@ -2697,6 +2747,15 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       }
     )
 
+  }
+
+  GetInventoryCount() {
+
+    this.inventorcoreSevice.getInventoryCount(this.selectedTenantId, this.authService.accessToken, this.FilterArray).subscribe(res => {
+      if (res != null) {
+        this.length = res;
+      }
+    })
   }
 
 

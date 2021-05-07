@@ -2,7 +2,7 @@
 
     <div class="actions">
         <div class="actions__title" style="display: flow-root;color: red;">
-            <h1><b> {{tenantConfiguration.itemTermCustomized}} Library </b><span style="margin-left: 5px;"
+            <h1><b> {{tenantConfiguration?.itemTermCustomized}} Library </b><span style="margin-left: 5px;"
                     *ngIf="Features.isLockItemLibrary==true"><svg aria-labelledby="title-6073f50bc4e35"
                         xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 8.081 11.544">
                         <g data-name="Group 3641">
@@ -75,7 +75,7 @@
                     <path fill="none" d="M0 0h24v24H0z"></path>
                     <path fill="currentColor" d="M0 10h24v4H0z"></path>
                     <path fill="currentColor" d="M14 0v24h-4V0z"></path>
-                </svg> &nbsp; Add New {{tenantConfiguration.itemTermCustomized}}
+                </svg> &nbsp; Add New {{tenantConfiguration?.itemTermCustomized}}
             </button>
 
             <button *ngIf="Features.isLockItemLibrary==false" type="button" (click)="LockConfirm()"
@@ -1665,18 +1665,18 @@
 <div id="AddItemtestModal" class="invModal" role="dialog" aria-labelledby="dialog-title"
     aria-describedby="dialog-description" tabindex="-1" hidden="">
     <div class="invModal__head">
-        <h1 class="invModal__title">Create New {{tenantConfiguration.itemTermCustomized}}</h1>
+        <h1 class="invModal__title">Create New {{tenantConfiguration?.itemTermCustomized}}</h1>
     </div>
     <div class="invModal__body">
         <form class="form" #b="ngForm" [formGroup]="partformControl" (ngSubmit)="onSubmit()">
             <div class="form__section">
                 <h2 class="form__section-title">
-                    Add New {{tenantConfiguration.itemTermCustomized}}
+                    Add New {{tenantConfiguration?.itemTermCustomized}}
                 </h2>
                 <div class="form__col-wrap">
                     <div class="form__col form__col--third form__col--has-copy"
                         [ngClass]="{ 'form__col--error': submitted && f.partName.errors}">
-                        <label class="form__label" for="partNameFormControl">{{tenantConfiguration.itemTermCustomized}}
+                        <label class="form__label" for="partNameFormControl">{{tenantConfiguration?.itemTermCustomized}}
                             Name<span class="form__required">*</span></label>
                         <input class="form__input" type="text" id="partNameFormControl" name="partNameFormControl"
                             formControlName="partName">
@@ -1686,7 +1686,7 @@
                     </div>
                     <div class="form__col form__col--two-third">
                         <label class="form__label"
-                            for="partDescriptionFormControl">{{tenantConfiguration.itemTermCustomized}}
+                            for="partDescriptionFormControl">{{tenantConfiguration?.itemTermCustomized}}
                             Description</label>
                         <input class="form__input" type="text" id="partDescriptionFormControl"
                             name="partDescriptionFormControl" formControlName="partDescription">
@@ -1694,7 +1694,7 @@
                 </div>
             </div>
             <div class="form__section">
-                <h2 class="form__section-title" style="margin-bottom: 32px;">{{tenantConfiguration.itemTermCustomized}}
+                <h2 class="form__section-title" style="margin-bottom: 32px;">{{tenantConfiguration?.itemTermCustomized}}
                     Settings
                 </h2>
                 <div class="form__col-wrap">
@@ -1703,8 +1703,8 @@
                         <button [disabled]="Features.isLockUOMLibrary==true" type="button"
                             data-modal="#AddUOMinnerModal" class="invModal__control addLibrary js-modal">Add
                             New
-                            {{tenantConfiguration.uomTermCustomized}} <span style="margin-left: 5px;"
-                                title=" {{tenantConfiguration.uomTermCustomized}} Library is Locked"
+                            {{tenantConfiguration?.uomTermCustomized}} <span style="margin-left: 5px;"
+                                title=" {{tenantConfiguration?.uomTermCustomized}} Library is Locked"
                                 *ngIf="Features.isLockUOMLibrary==true"><svg aria-labelledby="title-6073f50bc4e35"
                                     xmlns="http://www.w3.org/2000/svg" width="12" height="12"
                                     viewBox="0 0 8.081 11.544">
@@ -1729,7 +1729,7 @@
                             <option *ngFor="let value of uomList" value="{{value.uomId}}">{{value.uomName}}</option>
                         </select>
                         <span class="highlight"></span>
-                        <label class="form__label form_label">Default {{tenantConfiguration.uomTermCustomized}}
+                        <label class="form__label form_label">Default {{tenantConfiguration?.uomTermCustomized}}
                         </label>
 
                         <ng-container *ngIf="submitted && f.uomId.errors"> <span *ngIf="f.uomId.errors.required"
@@ -1740,8 +1740,8 @@
                         [ngClass]="{ 'form__col--error': submitted && f.locationId.errors}">
                         <button [disabled]="Features.isLockLocationLibrary==true" type="button"
                             data-modal="#AddLocationinnerModal" class="invModal__control addLibrary js-modal">Add New
-                            {{tenantConfiguration.locationTermCustomized}} <span style="margin-left: 5px;"
-                                title=" {{tenantConfiguration.locationTermCustomized}} Library is Locked"
+                            {{tenantConfiguration?.locationTermCustomized}} <span style="margin-left: 5px;"
+                                title=" {{tenantConfiguration?.locationTermCustomized}} Library is Locked"
                                 *ngIf="Features.isLockLocationLibrary==true"><svg aria-labelledby="title-6073f50bc4e35"
                                     xmlns="http://www.w3.org/2000/svg" width="12" height="12"
                                     viewBox="0 0 8.081 11.544">
@@ -1767,7 +1767,7 @@
                                 {{option.locationName}}</option>
                         </select>
                         <span class="highlight"></span>
-                        <label class="form__label form_label">Default {{tenantConfiguration.locationTermCustomized}}
+                        <label class="form__label form_label">Default {{tenantConfiguration?.locationTermCustomized}}
                         </label>
 
                         <ng-container *ngIf="submitted && f.locationId.errors"> <span
@@ -2319,7 +2319,7 @@
 <div id="AddUOMinnerModal" role="dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"
     tabindex="-1" hidden="">
     <div class="invModal__head">
-        <h2 class="invModal__title" style="font-size: 19px;">Add New {{tenantConfiguration.uomTermCustomized}}</h2>
+        <h2 class="invModal__title" style="font-size: 19px;">Add New {{tenantConfiguration?.uomTermCustomized}}</h2>
         <span class="invModal__control">
             <div class="tooltip" title="Example text here"><svg
                     class="icon-simple icon-simple--theme01 icon-simple--info" aria-labelledby="title-5f8fce8eb7064"
@@ -2340,7 +2340,7 @@
             <div class="form__section">
                 <div class="form__col-wrap">
                     <div class="form__col">
-                        <label class="form__label" for="UOM-filled-name">{{tenantConfiguration.uomTermCustomized}}
+                        <label class="form__label" for="UOM-filled-name">{{tenantConfiguration?.uomTermCustomized}}
                             Name<span class="form__required">*</span></label>
                         <input class="form__input" type="text" id="UOM-filled-name" name="UOM-filled-name"
                             formControlName="uomName">
@@ -2376,7 +2376,8 @@
 <div id="AddLocationinnerModal" role="dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"
     tabindex="-1" hidden="">
     <div class="invModal__head">
-        <h2 class="invModal__title" style="font-size: 19px;">Add New {{tenantConfiguration.locationTermCustomized}}</h2>
+        <h2 class="invModal__title" style="font-size: 19px;">Add New {{tenantConfiguration?.locationTermCustomized}}
+        </h2>
         <span class="invModal__control">
             <div class="tooltip" title="Example text here"><svg
                     class="icon-simple icon-simple--theme01 icon-simple--info" aria-labelledby="title-5f8fce8eb7064"
@@ -2398,7 +2399,7 @@
                 <div class="form__col-wrap">
                     <div class="form__col form__col--two">
                         <label class="form__label"
-                            for="locationNameFormcontrol">{{tenantConfiguration.locationTermCustomized}} Name<span
+                            for="locationNameFormcontrol">{{tenantConfiguration?.locationTermCustomized}} Name<span
                                 class="form__required">*</span></label>
                         <input class="form__input" formControlName="locationName" type="text"
                             id="locationNameFormcontrol" name="locationNameFormcontrol">
@@ -2414,7 +2415,7 @@
                 <div class="form__col-wrap">
                     <div class="form__col form__col--two">
                         <label class="form__label"
-                            for="locationZoneFormcontrol">{{tenantConfiguration.locationTermCustomized}} Group</label>
+                            for="locationZoneFormcontrol">{{tenantConfiguration?.locationTermCustomized}} Group</label>
                         <input class="form__input" type="text" id="locationZoneFormcontrol"
                             name="locationZoneFormcontrol" formControlName="locationZone">
                     </div>

@@ -4,6 +4,7 @@ import { IApiResponse } from '../../core/models/api-response';
 import { ConfigService } from '../../shared/config.service';
 import { BaseService } from '../../shared/base.service';
 import { catchError, map } from 'rxjs/operators';
+import { NumberValueAccessor } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -19,40 +20,44 @@ export class InventoryCoreService extends BaseService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': "Bearer " + token
+        'Authorization': "Bearer " + token,
+        'X-TENANTID': TenantId.toString()
       })
     };
-    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/inventory/query/${TenantId}`, data, httpOptions).pipe(catchError(this.handleError));
+    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/inventory/query`, data, httpOptions).pipe(catchError(this.handleError));
 
   }
   createUnitandIncreament(TenantId: number, token: string, data) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': "Bearer " + token
+        'Authorization': "Bearer " + token,
+        'X-TENANTID': TenantId.toString()
       })
     };
-    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/create-unit-and-increment/${TenantId}`, data, httpOptions).pipe(catchError(this.handleError));
+    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/create-unit-and-increment`, data, httpOptions).pipe(catchError(this.handleError));
 
   }
   Increment(TenantId: number, token: string, data) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': "Bearer " + token
+        'Authorization': "Bearer " + token,
+        'X-TENANTID': TenantId.toString()
       })
     };
-    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/increment/${TenantId}`, data, httpOptions).pipe(catchError(this.handleError));
+    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/increment`, data, httpOptions).pipe(catchError(this.handleError));
 
   }
   Decrement(TenantId: number, token: string, data) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': "Bearer " + token
+        'Authorization': "Bearer " + token,
+        'X-TENANTID': TenantId.toString()
       })
     };
-    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/decrement/${TenantId}`, data, httpOptions).pipe(catchError(this.handleError));
+    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/decrement`, data, httpOptions).pipe(catchError(this.handleError));
 
   }
   GetUnitID(TransactionId: number, token: string,) {
@@ -60,7 +65,7 @@ export class InventoryCoreService extends BaseService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': "bearer " + token
+        'Authorization': "bearer " + token,
       })
     };
     return this.http.get<IApiResponse>(this.configService.resourceApiURI + `/api/transactions/${TransactionId}`, httpOptions).pipe(catchError(this.handleError));
@@ -69,50 +74,45 @@ export class InventoryCoreService extends BaseService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': "Bearer " + token
+        'Authorization': "Bearer " + token,
+        'X-TENANTID': TenantId.toString()
       })
     };
-    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/assign/${TenantId}`, data, httpOptions).pipe(catchError(this.handleError));
+    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/assign`, data, httpOptions).pipe(catchError(this.handleError));
 
   }
-  Query(token: string, data) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer " + token
-      })
-    };
-    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/query`, data, httpOptions).pipe(catchError(this.handleError));
 
-  }
   CreateUnitandAssign(TenantId: number, token: string, data) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': "Bearer " + token
+        'Authorization': "Bearer " + token,
+        'X-TENANTID': TenantId.toString()
       })
     };
-    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/create-unit-and-assign/${TenantId}`, data, httpOptions).pipe(catchError(this.handleError));
+    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/create-unit-and-assign`, data, httpOptions).pipe(catchError(this.handleError));
 
   }
   QueryTransactionsHistoryAsync(TenantId: number, token: string, data) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': "Bearer " + token
+        'Authorization': "Bearer " + token,
+        'X-TENANTID': TenantId.toString()
       })
     };
-    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/query/${TenantId}`, data, httpOptions).pipe(catchError(this.handleError));
+    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/query`, data, httpOptions).pipe(catchError(this.handleError));
 
   }
   unitexactmatch(TenantId: number, token: string, filters) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': "Bearer " + token
+        'Authorization': "Bearer " + token,
+        'X-TENANTID': TenantId.toString()
       })
     };
-    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/units/exact-match/${TenantId}`, filters, httpOptions).pipe(catchError(this.handleError));
+    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/units/exact-match`, filters, httpOptions).pipe(catchError(this.handleError));
   }
 
 
@@ -120,10 +120,34 @@ export class InventoryCoreService extends BaseService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': "Bearer " + token
+        'Authorization': "Bearer " + token,
+        'X-TENANTID': TenantId.toString()
       })
     };
-    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/units/find-or-create/${TenantId}`, request, httpOptions).pipe(catchError(this.handleError));
+    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/units/find-or-create`, request, httpOptions).pipe(catchError(this.handleError));
   }
 
+  getInventoryCount(TenantId: number, token: string, filters) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + token,
+        'X-TENANTID': TenantId.toString()
+      })
+    };
+    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/inventory/count`, filters, httpOptions).pipe(catchError(this.handleError));
+
+  }
+
+  getTransactionCount(TenantId: number, token: string, filters) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + token,
+        'X-TENANTID': TenantId.toString()
+      })
+    };
+    return this.http.post(this.configService.resourceInventoryCoreApiURI + `/api/transactions/count`, filters, httpOptions).pipe(catchError(this.handleError));
+
+  }
 }

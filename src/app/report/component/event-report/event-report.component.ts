@@ -82,11 +82,12 @@ export class EventReportComponent implements OnInit {
   { 'ItemName': 'T-Shirt', 'ItemDescription': 'this is Tshirt' }];
   fileName = 'EventReport.xlsx';
   public ReportList = []
-  pageIndex = 0;
-  lastPageIndex = 0;
-  pageSize = 10;
+  public pageIndex = 0;
+  public lastPageIndex = 0;
+  public pageSize = 10;
+  public offset = 0;
   image = "https://assets.ajio.com/medias/sys_master/root/hff/h1b/16003868000286/rosso_fem_white_striped_regular_fit_shirt.jpg"
-  length = 100;
+  public length: any;
   // public tabulatorColumn1: any = [{ 'title': 'Quantity', 'datatype': 'number' }, { 'title': 'UOM', 'datatype': 'stringUom' }, { 'title': 'Item Name', 'datatype': 'string' }, { 'title': 'Item Description', 'datatype': 'string' }, { 'title': 'Location', 'datatype': 'string' }, { 'title': 'Status', 'datatype': 'stringStatus' },];
   public tabulatorValue: any;
   public ColumnDataType: string;
@@ -371,7 +372,7 @@ export class EventReportComponent implements OnInit {
                   map.set('inventoryId', this.allInventoryItems[i][keys[key]])
               }
               if (this.tabulatorColumn[j].datatype == "Date/Time") {
-                if (this.allInventoryItems[i].details[this.tabulatorColumn[j].field] != "") {
+                if (this.allInventoryItems[i].details[this.tabulatorColumn[j].field] != undefined && this.allInventoryItems[i].details[this.tabulatorColumn[j].field] != "") {
                   this.myDT = new Date(this.allInventoryItems[i].details[this.tabulatorColumn[j].field])
                   let DateManual = this.myDT.toLocaleDateString();
                   if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
@@ -495,18 +496,66 @@ export class EventReportComponent implements OnInit {
     html.classList.remove('js-modal-page');
     this.creatReportOpen = false;
   }
+
   gotoFirstPage() {
     this.pageIndex = 0;
+    this.offset = 0;
     this.GetReport();
-    // this.ApplyJsFunction();
+
   }
   gotoLastPage() {
+    debugger;
+    if (this.length > this.pageSize) {
+      let dupPageIndex
+      dupPageIndex = Math.round((this.length - this.pageSize) / this.pageSize);
+      dupPageIndex = parseInt(dupPageIndex.toString())
 
-    this.pageIndex = this.length / this.pageSize;
-    this.pageIndex = parseInt(this.pageIndex.toString())
-    this.GetReport();
-    // this.ApplyJsFunction();
+      if (this.length != (this.pageSize * dupPageIndex)) {
+
+        this.offset = dupPageIndex == 0 ? this.pageSize : dupPageIndex * this.pageSize
+        this.pageIndex = dupPageIndex == 0 ? (this.length - this.pageSize) : dupPageIndex;
+        this.GetReport();
+
+      }
+    }
   }
+  gotoNext() {
+    debugger
+
+    this.lastPageIndex = this.length / this.pageSize;
+    this.lastPageIndex = parseInt(this.lastPageIndex.toString())
+
+    if (this.pageIndex != this.lastPageIndex) {
+      let dupPageIndex = this.pageIndex;
+      dupPageIndex++
+      this.offset = dupPageIndex * this.pageSize;
+
+      if (this.offset != this.length) {
+        this.pageIndex++;
+        this.GetReport();
+
+      }
+    }
+  }
+  gotoBack() {
+
+    if (this.pageIndex > 0) {
+
+      let dupPageIndex = this.pageIndex;
+      dupPageIndex = dupPageIndex - 1
+
+      this.offset = dupPageIndex * this.pageSize;
+
+      if (this.offset != this.length) {
+        this.pageIndex = this.pageIndex - 1;
+        this.GetReport();
+
+      }
+    }
+  }
+
+
+
   UpdateSelectedReport() {
 
     this.EditReport = false;
@@ -525,22 +574,7 @@ export class EventReportComponent implements OnInit {
       }
     }))
   }
-  gotoNext() {
 
-    this.lastPageIndex = this.length / this.pageSize;
-    this.lastPageIndex = parseInt(this.lastPageIndex.toString())
-    if (this.pageIndex != this.lastPageIndex) {
-      this.pageIndex++;
-      this.GetReport();
-
-    }
-  }
-  gotoBack() {
-    if (this.pageIndex > 0) {
-      this.pageIndex = this.pageIndex - 1;
-      this.GetReport();
-    }
-  }
   onOptionsSelected(event) {
     // send selected value
     this.tabulatorColumn.forEach(element => {
@@ -1110,6 +1144,8 @@ export class EventReportComponent implements OnInit {
     // }
 
     // document.getElementById("filterButton").click();
+    this.offset = 0;
+    this.pageIndex = 0;
     this.mainToggleDropdown = false;
     this.GetReport();
     setTimeout(function () {
@@ -1266,6 +1302,8 @@ export class EventReportComponent implements OnInit {
     }
 
     document.getElementById("filterButton2_" + columnName).click();
+    this.offset = 0;
+    this.pageIndex = 0;
     this.GetReport();
     setTimeout(function () {
       toggle();
@@ -1371,7 +1409,8 @@ export class EventReportComponent implements OnInit {
 
       }
     })
-
+    this.offset = 0;
+    this.pageIndex = 0;
     // this.mainToggleDropdown = false;
     // document.getElementById("filterButton2_" + Id).click();
   }
@@ -1392,6 +1431,8 @@ export class EventReportComponent implements OnInit {
   }
   CloseFilter1() {
     this.mainToggleDropdown = false;
+    this.offset = 0;
+    this.pageIndex = 0;
   }
 
   GetDate(element) {
@@ -1499,8 +1540,8 @@ export class EventReportComponent implements OnInit {
     let data = {
       "filters": this.FilterArray,
       "sortBy": this.SortingArray,
-      "offset": 0,
-      "limit": 50
+      "offset": this.offset,
+      "limit": this.pageSize
     }
     this.inventorcoreSevice.QueryTransactionsHistoryAsync(this.selectedTenantId, this.authService.accessToken, data).pipe(finalize(() => {
       this.spinner.hide();
@@ -1538,7 +1579,7 @@ export class EventReportComponent implements OnInit {
                   map.set('inventoryId', this.allInventoryItems[i][keys[key]])
               }
               if (this.tabulatorColumn[j].datatype == "Date/Time") {
-                if (this.allInventoryItems[i].details[this.tabulatorColumn[j].field] != "") {
+                if (this.allInventoryItems[i].details[this.tabulatorColumn[j].field] != undefined && this.allInventoryItems[i].details[this.tabulatorColumn[j].field] != "") {
                   this.myDT = new Date(this.allInventoryItems[i].details[this.tabulatorColumn[j].field])
                   let DateManual = this.myDT.toLocaleDateString();
                   if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
@@ -1572,6 +1613,7 @@ export class EventReportComponent implements OnInit {
         // this.loadingRecords = false;
         // this.IsInventoryLoaded = true;
         // this.CheckboxShow = true;
+        this.GetTransactionCount()
         setTimeout(function () {
           toggle();
           inputClear();
@@ -1579,5 +1621,14 @@ export class EventReportComponent implements OnInit {
         }, 1500);
 
       });
+  }
+
+  GetTransactionCount() {
+
+    this.inventorcoreSevice.getTransactionCount(this.selectedTenantId, this.authService.accessToken, this.FilterArray).subscribe(res => {
+      if (res != null) {
+        this.length = res;
+      }
+    })
   }
 }

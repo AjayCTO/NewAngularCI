@@ -228,7 +228,6 @@ export class DynamicEventComponent implements OnInit {
     debugger;
     let states = this.buildObject(this.AttributeFields);
     if (JSON.stringify(this.InventoryTransactionObj.states) === JSON.stringify(states)) {
-
       this.toastr.warning("You are trying to CHANGE these state with their current values, which is not allowed. Please change these state with a different value.", "NO CHANGE HAVE CHANGED");
       return false
     };

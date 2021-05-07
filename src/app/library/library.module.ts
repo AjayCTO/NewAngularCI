@@ -29,7 +29,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { UploadItemComponent } from './component/item-library/upload-item/upload-item.component';
 import { LockConfirmationComponent } from './component/lock-confirmation/lock-confirmation.component'
 import { BarCodeLabelComponent } from './component/bar-code-label/bar-code-label.component'
-import { BarCodeLabelConfigrationComponent } from './component/bar-code-label-configration/bar-code-label-configration.component'
+import { BarCodeLabelConfigrationComponent } from './component/bar-code-label-configration/bar-code-label-configration.component';
+import { UnitComponent } from './component/unit/unit.component';
 @NgModule({
   declarations: [LocationLibraryComponent, UOMLibraryComponent, StatusLibraryComponent,
     UploadItemComponent, ItemLibraryComponent, AddLocationComponent, AddStatusComponent, AddUomComponent, DeleteConfirmationComponent, EditItemComponent, DetailsComponent, RestockComponent, UsersComponent, ValuesComponent, SettingsComponent, ImageLibraryComponent, LockConfirmationComponent],
@@ -47,7 +48,8 @@ import { BarCodeLabelConfigrationComponent } from './component/bar-code-label-co
       { path: 'EditItem', component: EditItemComponent, canActivate: [AuthGuard] },
       { path: 'ImageLibrary', component: ImageLibraryComponent, canActivate: [AuthGuard] },
       { path: 'barcode/label', component: BarCodeLabelComponent, canActivate: [AuthGuard] },
-      { path: 'Barcode/Label/Detail', component: BarCodeLabelConfigrationComponent, canActivate: [AuthGuard] }
+      { path: 'Barcode/Label/Detail', component: BarCodeLabelConfigrationComponent, canActivate: [AuthGuard] },
+      { path: 'Unit', component: UnitComponent, canActivate: [AuthGuard] }
     ]),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -1181,7 +1181,7 @@
             </a>
         </div>
         <span class="footer__statements">Statements
-            {{pageIndex*pageSize}}-{{(pageIndex+1)*(pageSize>length?length:pageSize)}}</span>
+            {{pageIndex*pageSize}}-{{(pageIndex+1)*(pageSize)>length?length:(pageIndex+1)*(pageSize)}}</span>
         <div class="icons icons--size02 icons--horziontal">
             <a class="icons__item icons__item--theme09" (click)="gotoNext()">
                 <div class="icons__icon"><svg class="icon-simple icon-simple--theme01 icon-simple--next"
