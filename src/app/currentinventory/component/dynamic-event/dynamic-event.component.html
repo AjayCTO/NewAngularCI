@@ -58,13 +58,6 @@
         </button>
 
 
-        <!-- <div *ngIf="isDataLoaded">
-            <formio [form]="currentData" (submit)="onSubmit($event)">
-            </formio>
-        </div> -->
-
-
-
         <form class="action__wrap form" #f="ngForm">
             <div class="form__section">
                 <h2 class="form__section-title">{{DynamicEvent.eventName}} this QTY...</h2>
@@ -78,14 +71,12 @@
 
                 </div>
             </div>
-            <div class="form__section">
-                <h2 class="form__section-title" *ngIf="DynamicEvent.islocationRequired || DynamicEvent.isUOMRequired">To
+            <div class="form__section" *ngIf="DynamicEvent.eventQuantityAction==''">
+                <h2 class="form__section-title">To
                     these State Field
-                    <!-- <button type="button" class="invModal__control" (click)="AddCustomModal()">Add New Custom
-                                    Field</button> -->
                 </h2>
                 <div class="form__col-wrap">
-                    <ng-container *ngIf="DynamicEvent.islocationRequired || DynamicEvent.isUOMRequired">
+                    <ng-container>
                         <ng-container *ngFor="let field of AttributeFields">
                             <div class="form__col form__col--third"
                                 [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''">
@@ -441,69 +432,18 @@
                                 </ng-container>
                             </div>
                         </ng-container>
+                        <div class="form__col form__col--third"></div>
+                        <div class="form__col form__col--third"></div>
 
-                        <!-- <div class="form__section">
-                    <h2 class="form__section-title">To this Location ...</h2>
-                    <div class="form__col-wrap">
-                        <div class="form__col form__col--third">
-                            <label class="" for="location_move">Location<span class="form__required">*</span></label>
-                            <ng-autocomplete [data]="data" [searchKeyword]="Locationkeyword"
-                                (selected)='selectLocationEvent($event)' id="location_move" name="location_move"
-                                (inputChanged)='getLocation($event)' [debounceTime]="300" [itemTemplate]="itemTemplate"
-                                [notFoundTemplate]="notFoundTemplate" disableCloseOnSelect="true"
-                                [isLoading]="isLoadingResult" (inputCleared)="searchCleared()">
-                            </ng-autocomplete>
-
-                            <ng-template #itemTemplate let-item>
-                                <a [innerHTML]="item.locationName"></a>
-
-                            </ng-template>
-
-                            <ng-template #notFoundTemplate let-notFound>
-                                <a [innerHTML]="notFound"></a>
-                            </ng-template>
-                        </div>
-
-                    </div>
-                </div> -->
                     </ng-container>
                 </div>
             </div>
-            <ng-container *ngIf="DynamicEvent.isUOMRequired">
-                <!-- <div class="form__section">
-                    <h2 class="form__section-title">Into this QTY of this UOM...</h2>
-                    <div class="form__col-wrap">
-                        <div class="form__col form__col--third">
-                            <label class="form__label" for="location_convert">New Qty<span
-                                    class="form__required">*</span></label>
-                            <input class="form__input" type="number" id="location_convert"
-                                [(ngModel)]="TransactionTargetObj.ToConvertedQuantity" name="location_convert" required>
-                        </div>
-                        <div class="form__col form__col--third">         
-                            <label class="form__label" for="Uom_convert">New UOM <span
-                                    class="form__required">*</span></label>
-                            <select class="form__input form__select" id="Uom_convert" name="Uom_convert"
-                                [(ngModel)]="TransactionTargetObj.ToUomId" required>
-                                <option value=""></option>
-                                <option *ngFor="let option of UomList" [value]="option.uomId">{{option.uomName}}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="form__col form__col--third">
 
-                        </div>
-                    </div>
-                </div> -->
-            </ng-container>
 
             <div class="form__section">
                 <h2 class="form__section-title">Under these Custom Field
-                    <!-- <button type="button" class="invModal__control" (click)="AddCustomModal()">Add New Custom
-                        Field</button> -->
+
                 </h2>
-
-
-
                 <div class="form__col-wrap">
                     <div class="form__col form__col--third">
                         <label class="form__label" for="event-date_add_{{item.inventoryId}}">Event
@@ -514,8 +454,6 @@
                         <owl-date-time [pickerType]="'calendar'" #dt1>
                         </owl-date-time>
                     </div>
-
-
                     <ng-container *ngFor="let field of CustomFields">
                         <div class="form__col form__col--third"
                             [ngClass]="field.customFieldSpecialType=='Currency'?'currencyfield':''||field.dataType=='True/False'?'form__col--group':''"

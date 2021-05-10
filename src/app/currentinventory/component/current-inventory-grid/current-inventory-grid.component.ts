@@ -183,6 +183,8 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     QuantityTermCustomized: ""
   }
   public FilterArray: any[] = [];
+
+
   public dataColumnFilter: any = {
     columnName: "",
     displayName: "",
@@ -479,8 +481,8 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
     this.GetAttributeFields();
     this.GetCustomFields();
-    this.getLocationList();
-    this.getUOMList();
+    // this.getLocationList();
+    // this.getUOMList();
     this.getStatus();
     this.GetEvents();
     this.GetMyInventoryColumn();
@@ -496,15 +498,11 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
   eidtView() {
     this.EditView = true;
-    // let el: HTMLElement = this.closeToggle.nativeElement;
-    // el.click();
     this.ApplyJsFunction();
   }
 
 
   //Pagination
-  //public totalRecord
-
   public length;
   public pageSize = 2;
   public pageSizeOptions: number[] = [5, 10, 25, 100];
@@ -1075,17 +1073,8 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.selectedDynamicEvent = dynamicEvent;
     let obj = JSON.parse(dynamicEvent.circumstanceJsonString);
     this.InventoryTransactionObj = item;
-    // this.CustomFields.forEach(element => {
-    //   element.columnValue = "";
-    // });
-
 
     for (let j = 0; j < this.CustomFields.length; j++) {
-      // if (item.customFields[i].columnName == this.CustomFields[j].columnName) {
-      //   if (obj[this.CustomFields[j].columnName]) {
-      //     this.CustomFields[j].columnValue = item.customFields[i].columnValue;
-      //   }
-      // }
       this.CustomFields[j].customFieldIncludeOnDynamicEvent = obj[this.CustomFields[j].columnName];
     }
 
@@ -1135,119 +1124,24 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     this.spinner.hide();
   }
 
-  // GetCurrentInventory() {
-  //   debugger;
-  //   this.IsInventoryLoaded = false;
-  //   this.loadingRecords = true;
-  //   this.CheckboxShow = false;
-  //   let sortCol = "PartName";
-  //   let sortDir = "asc";
-  //   let GlobelFilter = {
-  //     FilterArray: this.FilterArray,
-  //     Ids: this.InventoryIds,
-  //     SortArray: this.SortingArray,
-  //   }
-  //   this.currentinventoryService.GetCurrentInventory(this.selectedTenantId, this.authService.accessToken, this.pageIndex + 1, this.pageSize, sortCol, sortDir, this.searchFilterText, this.showSelected, GlobelFilter, this.HideZero)
-  //     .pipe(finalize(() => {
-  //     })).subscribe(result => {
-  //       this.InventoryDataBind = [];
-  //       this.allInventoryItems = [];
-  //       this.allInventoryItems = result.entity.items;
-  //       this.length = result.entity.totalItems;
-  //       for (let i = 0; i < this.allInventoryItems.length; i++) {
-  //         let map = new Map<string, any>();
-  //         for (let j = 0; j < this.tabulatorColumn.length; j++) {
-  //           let keys = Object.keys(this.allInventoryItems[i])
-  //           for (let key = 0; key < keys.length; key++) {
-  //             if (keys[key] == this.tabulatorColumn[j].field) {
-  //               map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i][keys[key]])
-  //             }
 
-  //             else {
-  //               map.set(keys[key], this.allInventoryItems[i][keys[key]])
-  //             }
-  //           }
-  //           for (let k = 0; k < this.allInventoryItems[i].allFields.length; k++) {
-  //             if (this.allInventoryItems[i].allFields[k].columnName == this.tabulatorColumn[j].field) {
-  //               map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].allFields[k].columnValue)
-  //             }
-  //           }
-  //           for (let k = 0; k < this.allInventoryItems[i].attributeFields.length; k++) {
-  //             if (this.allInventoryItems[i].attributeFields[k].columnName == this.tabulatorColumn[j].field) {
-
-  //               if (this.tabulatorColumn[j].datatype == "Date/Time") {
-  //                 if (this.allInventoryItems[i].attributeFields[k].columnValue != "") {
-  //                   this.myDT = new Date(this.allInventoryItems[i].attributeFields[k].columnValue)
-  //                   let DateManual = this.myDT.toLocaleDateString();
-  //                   if (this.tabulatorColumn[j].customFieldSpecialType == "Time") {
-  //                     DateManual = this.myDT.toLocaleTimeString()
-  //                   }
-  //                   if (this.tabulatorColumn[j].customFieldSpecialType == "Date & Time") {
-  //                     DateManual = this.myDT.toLocaleString();
-  //                   }
-  //                   if (this.tabulatorColumn[j].customFieldSpecialType == "Date") {
-  //                     DateManual = this.myDT.toLocaleDateString()
-  //                   }
-  //                   map.set(this.tabulatorColumn[j].field, DateManual)
-  //                 }
-  //                 else {
-  //                   map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].attributeFields[k].columnValue)
-  //                 }
-  //               }
-  //               else {
-  //                 map.set(this.tabulatorColumn[j].field, this.allInventoryItems[i].attributeFields[k].columnValue)
-  //               }
-  //             }
-  //           }
-  //           map.set("isSelected", false);
-  //           map.set("_children", []);
-
-  //         }
-  //         let jsonObject = {};
-  //         map.forEach((value, key) => {
-  //           jsonObject[key] = value
-  //         });
-  //         this.InventoryDataBind.push(jsonObject);
-  //       }
-
-  //       this.loadingRecords = false;
-  //       this.IsInventoryLoaded = true;
-  //       this.CheckboxShow = true;
-
-
-  //       this.GetCartDetail();
-
-
-  //       this.ApplyJsFunction();
-
-  //       setTimeout(() => {
-  //         this.columnDragDrop();
-  //       }, 200);
-
-  //     });
-  // }
 
 
   applyGetCartDetails() {
     if (this.GetCartDetails != null) {
-
-
       var res = this.GetCartDetails.inventoryIds.split(",").map(Number);
       res.forEach(element => {
         for (var i = 0; i < this.InventoryDataBind.length; i++) {
           if (this.InventoryDataBind[i].inventoryId == element)
             this.InventoryDataBind[i].isSelected = true;
         }
-
       });
-
       this.InventoryIds = res;
       this.store.dispatch(new SetSelectedCart(res));
     }
     else {
       this.InventoryIds = [];
     }
-
   }
 
   //Column Drag and Drop
@@ -1269,7 +1163,6 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
     });
   }
   public ChangeOrder(oldIndex, newIndex, el, mode) {
-
     let oldI = oldIndex - 2
     let newI = newIndex - 2
     this.tabulatorColumn = this.array_move(this.tabulatorColumn, oldI, newI)
@@ -1283,7 +1176,7 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
       }
     }
     arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
-    return arr; // for testing
+    return arr;
   };
 
 
@@ -1378,24 +1271,24 @@ export class CurrentInventoryGridComponent implements IconsComponent, OnInit {
 
 
 
-  getLocationList() {
-    this.libraryService.GetLocation(this.selectedTenantId, this.authService.accessToken)
-      .pipe(finalize(() => {
-        this.busy = false;
-        this.spinner.hide();
-      })).subscribe(result => {
-        this.locationsList = result.entity;
-      })
-  }
-  getUOMList() {
-    this.libraryService.GetUOM(this.selectedTenantId, this.authService.accessToken)
-      .pipe(finalize(() => {
-        this.busy = false;
-        this.spinner.hide();
-      })).subscribe(result => {
-        this.uomList = result.entity;
-      })
-  }
+  // getLocationList() {
+  //   this.libraryService.GetLocation(this.selectedTenantId, this.authService.accessToken)
+  //     .pipe(finalize(() => {
+  //       this.busy = false;
+  //       this.spinner.hide();
+  //     })).subscribe(result => {
+  //       this.locationsList = result.entity;
+  //     })
+  // }
+  // getUOMList() {
+  //   this.libraryService.GetUOM(this.selectedTenantId, this.authService.accessToken)
+  //     .pipe(finalize(() => {
+  //       this.busy = false;
+  //       this.spinner.hide();
+  //     })).subscribe(result => {
+  //       this.uomList = result.entity;
+  //     })
+  // }
   RemoveSorting(data) {
     this.SortingArray.forEach((element, index) => {
 

@@ -41,11 +41,7 @@
         </ng-container>
 
         <ng-container *ngIf="!isDeleteView">
-
-
             <div class="icons icons--size02 icons--horziontal action-view-border">
-
-
                 <ng-container *ngIf="SelectedView&&SelectedView!=null">
                     <h2 style="margin-right: 10px;color: black;font-weight: 300;">{{SelectedView.viewName}}</h2>
                 </ng-container>
@@ -66,11 +62,6 @@
                         </svg></div>
                     <ng-container *ngIf="InventoryViewToggleButton">
                         <div class="toggleDropDown icons__submenu--from-left">
-                            <!-- <ul class="icons__submenu-list">
-                                <li class="icons__submenu-item">
-                                    Default View
-                                </li>
-                            </ul> -->
                             <h3 class="icon__submenu-title" style="padding-top: 15px">EXISTING SAVED VIEWS</h3>
                             <ul class="icons__submenu-list">
                                 <ng-container *ngFor="let view of inventoryViewList">
@@ -294,19 +285,6 @@
                     </path>
                 </svg>
             </button>
-            <!-- <div class="infopanel" [popper]="EventCreateContent" [popperTrigger]="'hover'" [popperPlacement]="'bottom'">
-                <svg class="icon-simple icon-simple--theme01 icon-simple--info" aria-labelledby="title-5f8fce8eb6f78"
-                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12">
-                    <g data-name="Group 748" fill="currentColor">
-                        <path data-name="Path 435"
-                            d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
-                        </path>
-                        <path data-name="Path 436"
-                            d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
-                        </path>
-                    </g>
-                </svg>
-            </div> -->
             <popper-content #EventCreateContent>
                 <h3 class="popperTitle"><b>Event</b></h3>
                 <span>Add New Event</span>
@@ -512,18 +490,8 @@
                         <span class="icons__value" *ngIf="filter.filterOperator=='nc'">Not Contains</span>
                         <span class="icons__value"
                             *ngIf="filter.filterOperator=='eq'||filter.filterOperator=='num-eq'">Equals</span>
-                        <!--<span class="icons__value" *ngIf="filter.filterOperator=='date-month'">Month Equals</span>
-                        <span class="icons__value" *ngIf="filter.filterOperator=='date-day'">Day Equals</span>
-                        <span class="icons__value" *ngIf="filter.filterOperator=='date-year'">Year Equals</span>
-                        <span class="icons__value" *ngIf="filter.filterOperator=='time-eq'">Time Equals</span> -->
                         <span class="icons__value" *ngIf="filter.filterOperator=='date-eq'">Date Equals</span>
                         <span class="icons__value" *ngIf="filter.filterOperator=='date-neq'">Date Not Equals</span>
-                        <!-- <span class="icons__value" *ngIf="filter.filterOperator=='date-hour'">Hour Equals</span>
-                        <span class="icons__value" *ngIf="filter.filterOperator=='date-second'">Second Equals</span>
-                        <span class="icons__value" *ngIf="filter.filterOperator=='date-minute'">Minute Equals</span>
-                        <span class="icons__value" *ngIf="filter.filterOperator=='date-hour'">Hour Equals</span>
-                        <span class="icons__value" *ngIf="filter.filterOperator=='date-second'">Second Equals</span>
-                        <span class="icons__value" *ngIf="filter.filterOperator=='date-minute'">Minute Equals</span> -->
                         <span class="icons__value"
                             *ngIf="filter.filterOperator=='ne'||filter.filterOperator=='num-ne'">Not
                             Equals</span>
@@ -539,12 +507,9 @@
                         </span>
                         <span class="icons__value" *ngIf="filter.filterOperator=='lt'">Less Than
                         </span>
-                        <!-- <span class="icons__value" *ngIf="filter.filterOperator=='date-bw'">Date Between</span> -->
                         <span class="icons__value" *ngIf="filter.filterOperator=='date-before'">On Or Before</span>
-
                         <span class="icons__value" *ngIf="filter.filterOperator=='Empty'">Empty</span>
-                        <!-- <span class="icons__value" *ngIf="filter.filterOperator=='time-after'">On Or Time After</span>
-                        <span class="icons__value" *ngIf="filter.filterOperator=='time-before'">On Or Time Before</span> -->
+
                         <span class="icons__value" *ngIf="filter.filterOperator=='date-after'">On Or After</span>
                         &nbsp;
                         <ng-container *ngIf="filter.datatype!='Date/Time'">
@@ -2513,10 +2478,7 @@
                                         <div *ngIf="showQuickAddDropdown" class="toggleDropDown QuickColumn"
                                             style="min-width: 180px;">
                                             <ul class="icons__submenu-list" style="padding-top: 15px">
-                                                <!-- <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                style="color: black; margin-bottom: 0;"> -->
                                                 <h3 class="icon__submenu-title"> ADD NEW COLUMN </h3>
-                                                <!-- </li> -->
                                                 <ng-container *ngFor="let item of tabulatorColumn">
                                                     <li class="icons__submenu-item"
                                                         style="color: black; margin-bottom: 0;"
@@ -2563,15 +2525,6 @@
                                             <ul class="icons__submenu-list" style="padding-top: 15px">
                                                 <h3 class="icon__submenu-title"> REMOVE EXISTING COLUMN
                                                 </h3>
-                                                <!-- <li class="icons__submenu-item icons__submenu-item--contains-input"
-                                                style="color: black; margin-bottom: 0;">
-                                                ADD NEW COLUMN
-                                            </li> -->
-                                                <!-- <li class="icons__submenu-item" style="color: black; margin-bottom: 0;"
-                                                *ngFor="let item of tabulatorColumn">
-                                                {{item.title}}
-                                            </li> -->
-
                                                 <ng-container *ngFor="let item of tabulatorColumn">
                                                     <ng-container *ngIf="item.datatype!='button'">
                                                         <li class="icons__submenu-item"
@@ -2670,22 +2623,6 @@
                                                     </ng-container>
 
                                                 </ng-container>
-                                                <!-- <li class="icons__submenu-item" style="color: black; margin-bottom: 0;">
-                                                Page #
-                                            </li>
-                                            <li class="icons__submenu-item" style="color: black; margin-bottom: 0;">
-                                                Published</li>
-                                            <li class="icons__submenu-item" style="color: black;  margin-bottom: 0;">
-                                                Last Event Date</li>
-                                            <li class="icons__submenu-item" style="color: black;  margin-bottom: 0;">
-                                                Location Group</li>
-                                            <li>
-                                                Default Location</li>
-                                            <li class="icons__submenu-item" style="color: black;  margin-bottom: 0;">
-                                                Last Quantity Change</li>
-                                            <li class="icons__submenu-item" style="color: black; margin-bottom: 0;">
-                                                Current Avg. CPU
-                                            </li> -->
 
                                             </ul>
                                         </div>
@@ -3078,36 +3015,7 @@
     <ng-container *ngIf="selectedDynamicEvent!=undefined">
         <div class="invModal__head">
             <h1 class="invModal__title">{{selectedDynamicEvent.eventName}}</h1>
-            <a class="invModal__control">
-                Repeat Values
-                <div class="tooltip" title="Example text here"><svg
-                        class="icon-simple icon-simple--theme01 icon-simple--info" aria-labelledby="title-5f8fce8eb6f3a"
-                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12">
-                        <g data-name="Group 748" fill="currentColor">
-                            <path data-name="Path 435"
-                                d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
-                            </path>
-                            <path data-name="Path 436"
-                                d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
-                            </path>
-                        </g>
-                    </svg></div>
-            </a>
-            <a class="invModal__control">
-                Copy From Item
-                <div class="tooltip" title="Example text here"><svg
-                        class="icon-simple icon-simple--theme01 icon-simple--info" aria-labelledby="title-5f8fce8eb6f5a"
-                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="12" height="12">
-                        <g data-name="Group 748" fill="currentColor">
-                            <path data-name="Path 435"
-                                d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
-                            </path>
-                            <path data-name="Path 436"
-                                d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
-                            </path>
-                        </g>
-                    </svg></div>
-            </a>
+
         </div>
     </ng-container>
     <div class="invModal__body">
@@ -3451,11 +3359,6 @@
                                         [(ngModel)]="field.columnValue" [required]="field.customFieldIsRequired"
                                         [owlDateTime]="dt3">
                                     <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
-                                    <!-- <input type="text" [required]="field.customFieldIsRequired"
-                                        id="dynamic_Attribute_{{field.columnId}}"
-                                        name="dynamic_Attribute_{{field.columnId}}" [(ngModel)]="field.columnValue"
-                                        data-flatpickr-mode="single" class="form__input flatpickr"
-                                        [disabled]="IsItemHave"> -->
                                     <div class="infopanel" [popper]="popper11Content" [popperTrigger]="'hover'"
                                         [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''">
                                         <svg class="icon-simple icon-simple--theme01 icon-simple--info"
@@ -3482,11 +3385,6 @@
                                         name="dynamic_Attribute_{{field.columnId}}" autocomplete="off"
                                         [(ngModel)]="field.columnValue" [required]="field.customFieldIsRequired">
                                     <owl-date-time #dt1></owl-date-time>
-                                    <!-- <input type="text" [required]="field.customFieldIsRequired"
-                                        id="dynamic_Attribute_{{field.columnId}}"
-                                        name="dynamic_Attribute_{{field.columnId}}" [(ngModel)]="field.columnValue"
-                                        data-flatpickr-mode="single" class="form__input flatpickr"
-                                        [disabled]="IsItemHave"> -->
                                     <div class="infopanel" [popper]="popper11Content" [popperTrigger]="'hover'"
                                         [popperPlacement]="'bottom'" [hidden]="field.customFieldInformation==''">
                                         <svg class="icon-simple icon-simple--theme01 icon-simple--info"
@@ -3567,8 +3465,7 @@
             </div>
             <div class="form__section">
                 <h2 class="form__section-title" style="margin-bottom: 20px;">
-                    {{tenantConfiguration?.quantityTermCustomized}} &amp;
-                    {{tenantConfiguration?.locationTermCustomized}}
+                    {{tenantConfiguration?.quantityTermCustomized}}
                 </h2>
                 <div class="form__col-wrap">
                     <div class="form__col form__col--third">
@@ -3596,107 +3493,8 @@
                                 in your inventory</span>
                         </popper-content>
                     </div>
-                    <div class="form__col form__col--third">
-                        <button [disabled]="Features.isLockUOMLibrary==true" type="button"
-                            data-modal="#AddUOMinnerModal" class="invModal__control addLibrary js-modal">Add
-                            New
-                            {{tenantConfiguration?.uomTermCustomized}} <span style="margin-left: 5px;"
-                                title=" {{tenantConfiguration?.uomTermCustomized}} Library is Locked"
-                                *ngIf="Features.isLockUOMLibrary==true"><svg aria-labelledby="title-6073f50bc4e35"
-                                    xmlns="http://www.w3.org/2000/svg" width="12" height="12"
-                                    viewBox="0 0 8.081 11.544">
-                                    <g data-name="Group 3641">
-                                        <path data-name="Path 1713"
-                                            d="M6.926 4.617V2.886a2.886 2.886 0 10-5.771 0v1.731A1.242 1.242 0 00.001 5.772v4.617a1.241 1.241 0 001.154 1.155h5.771a1.241 1.241 0 001.155-1.155V5.772a1.242 1.242 0 00-1.155-1.155zm-1.153 0H2.309V2.886a1.732 1.732 0 113.464 0z"
-                                            fill="black"></path>
-                                    </g>
-                                </svg></span></button>
 
 
-                        <select class="floating-select" id="dynamic_unit-of-measure" [(ngModel)]="selectedUOm"
-                            name="dynamic_unit-of-measure" required="required">
-                            <option value=""></option>
-                            <option *ngFor="let value of uomList" [value]="value.uomId">{{value.uomName}}
-                            </option>
-                        </select>
-                        <span class="highlight"></span>
-                        <label class="form_label">{{tenantConfiguration?.uomTermCustomized}}<span
-                                class="form__required">*</span></label>
-
-                        <div class="infopanel" [popper]="popper5Content" [popperTrigger]="'hover'"
-                            [popperPlacement]="'bottom'"><svg class="icon-simple icon-simple--theme01 icon-simple--info"
-                                aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 12 12" width="12" height="12">
-                                <g data-name="Group 748" fill="currentColor">
-                                    <path data-name="Path 435"
-                                        d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
-                                    </path>
-                                    <path data-name="Path 436"
-                                        d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
-                                    </path>
-                                </g>
-                            </svg>
-                        </div>
-                        <popper-content #popper5Content>
-                            <h3 class="popperTitle"><b>{{tenantConfiguration?.uomTermCustomized}}</b></h3>
-                            <span>Select the {{tenantConfiguration?.uomTermCustomized}} that you will use for
-                                calculating
-                                restocks, purchasing,
-                                and
-                                selling stock. You can change this later if you like.</span>
-                        </popper-content>
-
-                    </div>
-
-                    <div class="form__col form__col--third">
-                        <button [disabled]="Features.isLockLocationLibrary==true" type="button"
-                            data-modal="#AddLocationinnerModal" class="invModal__control addLibrary js-modal">Add New
-                            {{tenantConfiguration?.locationTermCustomized}}<span style="margin-left: 5px;"
-                                title=" {{tenantConfiguration?.locationTermCustomized}} Library is Locked"
-                                *ngIf="Features.isLockLocationLibrary==true"><svg aria-labelledby="title-6073f50bc4e35"
-                                    xmlns="http://www.w3.org/2000/svg" width="12" height="12"
-                                    viewBox="0 0 8.081 11.544">
-                                    <g data-name="Group 3641">
-                                        <path data-name="Path 1713"
-                                            d="M6.926 4.617V2.886a2.886 2.886 0 10-5.771 0v1.731A1.242 1.242 0 00.001 5.772v4.617a1.241 1.241 0 001.154 1.155h5.771a1.241 1.241 0 001.155-1.155V5.772a1.242 1.242 0 00-1.155-1.155zm-1.153 0H2.309V2.886a1.732 1.732 0 113.464 0z"
-                                            fill="black"></path>
-                                    </g>
-                                </svg></span></button>
-                        <select class="floating-select" [(ngModel)]="selectedLocation" id="dynamic_location"
-                            name="dynamic_location" required="required">
-                            <option value=""></option>
-                            <option *ngFor="let opt of locationsList" [value]="opt.locationId">
-                                {{opt.locationName}}
-                            </option>
-                        </select>
-                        <span class="highlight"></span>
-                        <label class="form_label">{{tenantConfiguration?.locationTermCustomized}}<span
-                                class="form__required">*</span></label>
-
-                        <div class="infopanel" [popper]="popper7Content" [popperTrigger]="'hover'"
-                            [popperPlacement]="'bottom'"><svg class="icon-simple icon-simple--theme01 icon-simple--info"
-                                aria-labelledby="title-5f8fce8eb6f78" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 12 12" width="12" height="12">
-                                <g data-name="Group 748" fill="currentColor">
-                                    <path data-name="Path 435"
-                                        d="M6 11.998a6 6 0 116-6 6.007 6.007 0 01-6 6zM6 .683a5.316 5.316 0 105.317 5.315A5.322 5.322 0 006 .684z">
-                                    </path>
-                                    <path data-name="Path 436"
-                                        d="M5.4 3.375a.573.573 0 01.15-.423.593.593 0 01.43-.147.58.58 0 01.421.147.568.568 0 01.15.423.556.556 0 01-.15.412.57.57 0 01-.421.151.583.583 0 01-.43-.151.56.56 0 01-.15-.412zm1.086 6.1H5.461V4.654h1.025z">
-                                    </path>
-                                </g>
-                            </svg>
-                        </div>
-                        <popper-content #popper7Content>
-                            <h3 class="popperTitle"><b>{{tenantConfiguration?.locationTermCustomized}}</b></h3>
-                            <span>This is the {{tenantConfiguration?.locationTermCustomized}} where the item will be
-                                stored most often. It will be used
-                                when
-                                performing transactions. You can change it later, and it does not prevent you from
-                                storing the item in different {{tenantConfiguration?.locationTermCustomized}}
-                                later.</span>
-                        </popper-content>
-                    </div>
                 </div>
             </div>
 
@@ -4341,9 +4139,6 @@
 
 <app-attribute-field-modal (RefreshAttributeField)="GetAttributeFields()"></app-attribute-field-modal>
 <app-custom-field-modal (RefreshCustomField)="GetCustomFields()"></app-custom-field-modal>
-<app-location-modal (RefreshLocation)="getLocationList()"></app-location-modal>
-<app-status-modal (RefreshStatus)="getStatus()"></app-status-modal>
-<app-uom-modal (RefreshUom)="getUOMList()"></app-uom-modal>
 <app-upload *ngIf="UploadActivityOpen" (hideClose)="getValue($event)"></app-upload>
 
 <button type="button" #ImageModal data-modal="#UploadActivity" style="display: none;"
@@ -4374,10 +4169,6 @@
                             <strong class="icons__name"> <img style="width: 30px !important;" [src]="item">
                             </strong>
                             &nbsp;&nbsp;
-                            <!-- <strong class="icons__name" *ngFor="let selectFile of selectedFiles"
-                                                                    style="font-size: 16px;">
-                                                                    {{selectFile.name}}
-                                                                </strong> -->
                             &nbsp;&nbsp;
                             <div class="" (click)="RemoveImageName(index)">
                                 <svg class="icon-simple icon-simple--theme01 icon-simple--remove"

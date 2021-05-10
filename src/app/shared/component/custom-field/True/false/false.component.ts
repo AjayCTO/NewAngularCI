@@ -679,11 +679,7 @@ export class FalseComponent implements OnInit {
     this.eventForm.eventIcon = this.SelectedIcon.toString();
     this.eventForm.eventColor = JsonData.components[0].theme;
     this.eventForm.eventName = JsonData.components[0].title;
-    if (this.eventForm.eventQuantityAction == "") {
 
-      this.toastr.warning("Please Add Any Qauntity Action");
-      return false;
-    }
     if (this.eventForm.eventQuantityAction == 'Add') {
       this.eventForm.withNewRecord = true;
     }

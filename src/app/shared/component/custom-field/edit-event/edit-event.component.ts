@@ -684,21 +684,11 @@ export class EditEventComponent implements OnInit {
     this.eventForm.eventIcon = this.SelectedIcon.toString();
     this.eventForm.eventColor = JsonData.components[0].theme;
     this.eventForm.eventName = JsonData.components[0].title;
-    if (this.eventForm.eventQuantityAction == "") {
 
-      this.toastr.warning("Please Add any Qauntity Action");
-      return false;
-    }
     if (this.eventForm.eventQuantityAction == 'Add') {
       this.eventForm.withNewRecord = true;
     }
-    if (this.eventForm.eventQuantityAction == 'Move') {
-      this.eventForm.islocationRequired = true;
 
-    }
-    if (this.eventForm.eventQuantityAction == 'Convert') {
-      this.eventForm.isUOMRequired = true;
-    }
 
     let selectedComponent = JsonData.components[0].components;
     this.selectedFields = [];
